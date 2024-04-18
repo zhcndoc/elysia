@@ -45,7 +45,7 @@
   },
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "build": "NODE_OPTIONS='--max_old_space_size=4096' vitepress build docs",
     "serve": "vitepress serve docs"
   }
 }
