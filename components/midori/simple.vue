@@ -21,7 +21,7 @@
                 </h2>
             </header>
             <p class="text-xl text-gray-400 w-full max-w-lg mb-8">
-                如果您发现自己在为框架编写代码，那就说明框架出了问题。
+                如果你发现自己在为框架编写代码，那就说明框架出了问题。
             </p>
             <div class="flex flex-col md:flex-row gap-6 md:gap-8">
                 <p class="text-xl text-gray-400 w-full max-w-lg">

@@ -47,10 +47,10 @@ const isDark = useDark()
                 </h2>
             </header>
             <p class="text-xl text-gray-400 w-full max-w-lg mb-4">
-                作为 Bun Web 框架最受欢迎的选择之一，很可能有一个满足您需求的插件。
+                作为 Bun Web 框架最受欢迎的选择之一，很可能有一个满足你需求的插件。
             </p>
             <p class="text-xl text-gray-400 w-full max-w-lg">
-                如果您需要的插件不存在，可以轻松创建一个插件并与社区共享。
+                如果你需要的插件不存在，可以轻松创建一个插件并与社区共享。
             </p>
             <div class="mt-8">
                 <a

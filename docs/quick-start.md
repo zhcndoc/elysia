@@ -1,59 +1,65 @@
 ---
-title: Quick Start - ElysiaJS
+title: 快速开始 - ElysiaJS 中文文档
 head:
   - - meta
     - property: 'og:title'
-      content: Quick Start - ElysiaJS
+      content: 快速开始 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Elysia is a library built for Bun and the only prerequisite. To start, bootstrap a new project with "bun create elysia hi-elysia" and start the development server with "bun dev". This is all it needs to do a quick start or get started with ElysiaJS.
+      content: Elysia 是为 Bun 构建的库，也是唯一的先决条件。要开始使用，请使用 "bun create elysia hi-elysia" 启动一个新项目，并使用 "bun dev" 启动开发服务器。这就是快速启动或开始使用 ElysiaJS 所需的一切。
 
   - - meta
     - property: 'og:description'
-      content: Elysia is a library built for Bun and the only prerequisite. To start, bootstrap a new project with "bun create elysia hi-elysia" and start the development server with "bun dev". This is all it needs to do a quick start or get started with ElysiaJS.
+      content: Elysia 是为 Bun 构建的库，也是唯一的先决条件。要开始使用，请使用 "bun create elysia hi-elysia" 启动一个新项目，并使用 "bun dev" 启动开发服务器。这就是快速启动或开始使用 ElysiaJS 所需的一切。
 ---
 
-# Quick Start
-Elysia is optimized for Bun which is a JavaScript runtime that aims to be a drop-in replacement for Node.js.
+# 快速开始
 
-You can install Bun with the command below:
+Elysia 针对 Bun 进行了优化，Bun 是一个 JavaScript 运行时，旨在成为 Node.js 的直接替代品。
+
+你可以使用下面的命令安装 Bun：
+
 ```bash
 curl https://bun.sh/install | bash
 ```
 
-## Automatic Installation
-We recommend starting a new Elysia server using `bun create elysia`, which sets up everything automatically.
+## 自动安装
+
+我们建议使用 `bun create elysia` 启动新的 Elysia 服务器，它会自动设置一切。
 
 ```bash
 bun create elysia app
 ```
 
-Once done, you should see the folder name `app` in your directory.
+完成后，你应该能在你的目录中看到名为 `app` 的文件夹。
 
 ```bash
 cd app
 ```
 
-Start a development server by:
+通过以下方式启动开发服务器：
+
 ```bash
 bun dev
 ```
 
-Navigate to [localhost:3000](http://localhost:3000) should greet you with "Hello Elysia".
+导航到 [localhost:3000](http://localhost:3000) 应该会用 "Hello Elysia" 向你打招呼。
 
 ::: tip
-Elysia ships you with `dev` command to automatically reload your server on file change.
+Elysia 使用 `dev` 命令为你自动重新加载服务器文件更改。
 :::
 
-## Manual Installation
-To manually create a new Elysia app, install Elysia as a package:
+## 手动安装
+
+要手动创建新的 Elysia 应用程序，请将 Elysia 作为软件包安装：
 
 ```typescript
 bun add elysia
 ```
 
-Open your `package.json` file and add the following scripts:
+打开你的 `package.json` 文件并添加以下脚本：
+
 ```json
 {
   "scripts": {
@@ -65,13 +71,14 @@ Open your `package.json` file and add the following scripts:
 }
 ```
 
-These scripts refer to the different stages of developing an application:
+这些脚本涉及开发应用程序的不同阶段：
 
-- **dev** - Start Elysia in development mode with auto-reload on code change.
-- **build** - Build the application for production usage.
-- **start** - Start an Elysia production server.
+- **dev** - 以开发模式启动 Elysia 并在代码更改时自动重新加载。
+- **build** - 构建用于生产的应用程序。
+- **start** - 启动 Elysia 生产服务器。
 
-If you are using TypeScript, make sure to create, and update `tsconfig.json` to include `compilerOptions.strict` to `true`:
+如果使用的是 TypeScript，请确保创建并更新 `tsconfig.json` 以将 `compilerOptions.strict` 设为 `true`：
+
 ```json
 {
   "compilerOptions": {
@@ -80,13 +87,15 @@ If you are using TypeScript, make sure to create, and update `tsconfig.json` to 
 }
 ```
 
-## Structure
-Here's the recommended file structure for Elysia if you don't strictly prefer a specific convention:
-- **src** - Any file that associate with development of Elysia server.
-    - **index.ts** - Entry point for your Elysia server, ideal place for setting global plugin
-    - **setup.ts** - Composed of various plugins to be used as a Service Locator
-    - **controllers** - Instances which encapsulate multiple endpoints 
-    - **libs** - Utility functions
-    - **models** - Data Type Objects (DTOs) for Elysia instance
-    - **types** - Shared TypeScript type if needed
-- **test** - Test file for Elysia server
+## 文件结构
+
+如果你没有严格遵守特定的惯例，下面是推荐的 Elysia 文件结构：
+
+- **src** - 任何与开发 Elysia 服务器相关的文件
+    - **index.ts** - Elysia 服务器的入口点，设置全局插件的理想位置
+    - **setup.ts** - 由各种插件组成，可用作服务定位器
+    - **controllers** - 封装多个端点的实例
+    - **libs** - 功能函数
+    - **models** - Elysia 实例的数据类型对象（DTO）
+    - **types** - 共享 TypeScript 类型（可选）
+- **test** - Elysia 服务器的测试文件

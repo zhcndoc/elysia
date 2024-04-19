@@ -7,7 +7,7 @@ const description =
 
 export default defineConfig({
     lang: 'zh-CN',
-    title: 'ElysiaJS',
+    title: 'ElysiaJS 中文文档',
     // description,
     ignoreDeadLinks: true,
     lastUpdated: true,
@@ -131,7 +131,7 @@ export default defineConfig({
                 text: '👋 入门',
                 items: [
                     {
-                        text: '概览',
+                        text: '简介',
                         link: '/at-glance'
                     },
                     {
@@ -145,7 +145,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '✨ 基本内容',
+                text: '✨ 基础',
                 collapsed: true,
                 items: [
                     {
@@ -183,7 +183,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🔎 类型校验',
+                text: '🔎 校验',
                 collapsed: true,
                 items: [
                     {
@@ -263,7 +263,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: '组',
+                        text: '分组路由',
                         link: '/patterns/group'
                     },
                     {

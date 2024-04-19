@@ -10,7 +10,7 @@
         <h3
             class="text-xl md:text-2xl leading-relaxed text-gray-400 text-center w-full max-w-3xl"
         >
-            搭建您的项目，并立即运行服务器
+            搭建你的项目，并立即运行服务器
         </h3>
         <section class="flex flex-col justify-center items-center gap-6 my-6">
             <code
