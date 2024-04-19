@@ -27,21 +27,19 @@ const graphs = [
                 <h2
                     class="text-3xl leading-tight font-medium text-gray-400 mb-4"
                 >
+                    比 Express 快
                     <span
                         class="leading-tight text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-lime-300 to-cyan-300"
                     >
-                        21x
+                        21 倍
                     </span>
-                    faster than Express
                 </h2>
             </header>
             <p class="text-xl text-gray-400 w-full max-w-lg mb-4">
-                Supercharged by Bun runtime, Static Code Analysis, and Dynamic
-                Code Injection
+                通过 Bun 运行时、静态代码分析和动态代码注入增强。
             </p>
             <p class="text-xl text-gray-400 w-full max-w-lg">
-                Being one of the top-performing TypeScript frameworks.
-                Comparable to Go and Rust.
+                成为性能最佳的 TypeScript 框架之一。可与 Go 和 Rust 相媲美。
             </p>
         </section>
         <section class="flex flex-col w-full max-w-xl">
@@ -99,15 +97,15 @@ const graphs = [
             </ol>
             <br />
             <span class="text-sm text-gray-400 dark:text-gray-500">
-                Measure in requests/second. Result from official
+                以每秒请求次数进行测量。数据来源于官方
                 <a
                     href="https://www.techempower.com/benchmarks/#hw=ph&test=plaintext&section=data-r22"
                     target="_blank"
                     class="text-green-500 underline font-semibold"
                 >
-                    TechEmpower Benchmark
+                    TechEmpower 基准测试
                 </a>
-                Round 22 (2023-10-17) in PlainText.
+                第 22 轮（2023-10-17）的 PlainText 结果。
             </span>
         </section>
     </article>

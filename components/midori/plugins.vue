@@ -43,23 +43,21 @@ const isDark = useDark()
                 <h2
                     class="text-5xl md:text-6xl leading-tight font-bold bg-clip-text text-transparent bg-gradient-to-tr from-sky-400 to-fuchsia-400 mb-4"
                 >
-                    It works with that
+                    它适用于此
                 </h2>
             </header>
             <p class="text-xl text-gray-400 w-full max-w-lg mb-4">
-                Being one of the most popular choices for a Bun web framework,
-                likely there is a plugin for what you want.
+                作为 Bun Web 框架最受欢迎的选择之一，很可能有一个满足您需求的插件。
             </p>
             <p class="text-xl text-gray-400 w-full max-w-lg">
-                If the plugin you need is not there, it's easy to create one and
-                share it with the community.
+                如果您需要的插件不存在，可以轻松创建一个插件并与社区共享。
             </p>
             <div class="mt-8">
                 <a
                     href="/plugins/overview"
                     class="text-xl font-medium bg-blue-200/25 dark:bg-blue-500/25 text-blue-500 px-6 py-3 rounded-xl"
                 >
-                    Explore plugins
+                    探索插件
                 </a>
             </div>
         </section>

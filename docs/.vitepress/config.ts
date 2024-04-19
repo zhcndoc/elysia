@@ -3,10 +3,10 @@ import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 const description =
-    'Ergonomic Framework for Humans. TypeScript framework supercharged by Bun with End - to - End Type Safety, unified type system and outstanding developer experience'
+    '适合人体工程学的框架，由 Bun 提供支持的 TypeScript 框架，具有端到端类型安全、统一的类型系统和出色的开发人员体验。'
 
 export default defineConfig({
-    lang: 'en-US',
+    lang: 'zh-CN',
     title: 'ElysiaJS',
     // description,
     ignoreDeadLinks: true,
@@ -114,110 +114,110 @@ export default defineConfig({
         logo: '/assets/elysia.svg',
         nav: [
             {
-                text: 'Quick Start',
+                text: '快速入门',
                 link: '/quick-start'
             },
             {
-                text: 'Plugins',
+                text: '插件',
                 link: '/plugins/overview'
             },
             {
-                text: 'Blog',
+                text: '博客',
                 link: '/blog'
             }
         ],
         sidebar: [
             {
-                text: '👋 Getting Started',
+                text: '👋 入门',
                 items: [
                     {
-                        text: 'At Glance',
+                        text: '概览',
                         link: '/at-glance'
                     },
                     {
-                        text: 'Quick Start',
+                        text: '快速开始',
                         link: '/quick-start'
                     },
                     {
-                        text: 'Table of Content',
+                        text: '内容纲要',
                         link: '/table-of-content'
                     }
                 ]
             },
             {
-                text: '✨ Essential',
+                text: '✨ 基本内容',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Route',
+                        text: '路由',
                         link: '/essential/route'
                     },
                     {
-                        text: 'Path',
+                        text: '路径',
                         link: '/essential/path'
                     },
                     {
-                        text: 'Handler',
+                        text: '处理程序',
                         link: '/essential/handler'
                     },
                     {
-                        text: 'Context',
+                        text: '上下文',
                         link: '/essential/context'
                     },
                     {
-                        text: 'Life Cycle',
+                        text: '生命周期',
                         link: '/essential/life-cycle'
                     },
                     {
-                        text: 'Schema',
+                        text: '模式',
                         link: '/essential/schema'
                     },
                     {
-                        text: 'Plugin',
+                        text: '插件',
                         link: '/essential/plugin'
                     },
                     {
-                        text: 'Scope',
+                        text: '范围',
                         link: '/essential/scope'
                     }
                 ]
             },
             {
-                text: '🔎 Validation',
+                text: '🔎 类型校验',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概述',
                         link: '/validation/overview'
                     },
                     {
-                        text: 'Schema Type',
+                        text: '模式类型',
                         link: '/validation/schema-type'
                     },
                     {
-                        text: 'Primitive Type',
+                        text: '原始类型',
                         link: '/validation/primitive-type'
                     },
                     {
-                        text: 'Elysia Type',
+                        text: 'Elysia 类型',
                         link: '/validation/elysia-type'
                     },
                     {
-                        text: 'Error Provider',
+                        text: '错误提供程序',
                         link: '/validation/error-provider'
                     },
                     {
-                        text: 'Reference Model',
+                        text: '参考模型',
                         link: '/validation/reference-model'
                     }
                 ]
             },
             {
-                text: '⏳ Life Cycle',
+                text: '⏳ 生命周期',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概览',
                         link: '/life-cycle/overview'
                     },
                     {
@@ -259,11 +259,11 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🧭 Patterns',
+                text: '🧭 模式',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Group',
+                        text: '组',
                         link: '/patterns/group'
                     },
                     {
@@ -271,7 +271,7 @@ export default defineConfig({
                         link: '/patterns/cookie'
                     },
                     {
-                        text: 'Cookie Signature',
+                        text: 'Cookie 签名',
                         link: '/patterns/cookie-signature'
                     },
                     {
@@ -279,27 +279,27 @@ export default defineConfig({
                         link: '/patterns/websocket'
                     },
                     {
-                        text: 'Documentation',
+                        text: '文档',
                         link: '/patterns/documentation'
                     },
                     {
-                        text: 'Unit Test',
+                        text: '单元测试',
                         link: '/patterns/unit-test'
                     },
                     {
-                        text: 'Mount',
+                        text: '挂载',
                         link: '/patterns/mount'
                     },
                     {
-                        text: 'Lazy Loading Module',
+                        text: '延迟加载模块',
                         link: '/patterns/lazy-loading-module'
                     },
                     {
-                        text: 'Macro',
+                        text: '宏',
                         link: '/patterns/macro'
                     },
                     {
-                        text: 'MVC model',
+                        text: 'MVC 模式',
                         link: '/patterns/mvc'
                     }
                 ]
@@ -309,11 +309,11 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概述',
                         link: '/eden/overview.md'
                     },
                     {
-                        text: 'Installation',
+                        text: '安装',
                         link: '/eden/installation.md'
                     },
                     {
@@ -321,15 +321,15 @@ export default defineConfig({
                         collapsed: false,
                         items: [
                             {
-                                text: 'Overview',
+                                text: '概述',
                                 link: '/eden/treaty/overview'
                             },
                             {
-                                text: 'Parameters',
+                                text: '参数',
                                 link: '/eden/treaty/parameters'
                             },
                             {
-                                text: 'Response',
+                                text: '响应',
                                 link: '/eden/treaty/response'
                             },
                             {
@@ -337,11 +337,11 @@ export default defineConfig({
                                 link: '/eden/treaty/websocket'
                             },
                             {
-                                text: 'Config',
+                                text: '配置',
                                 link: '/eden/treaty/config'
                             },
                             {
-                                text: 'Unit Test',
+                                text: '单元测试',
                                 link: '/eden/treaty/unit-test'
                             },
                             {
@@ -357,10 +357,10 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🔌 Plugins',
+                text: '🔌 插件',
                 items: [
                     {
-                        text: 'Official Plugins',
+                        text: '官方插件',
                         link: '/plugins/overview',
                         collapsed: true,
                         items: [
@@ -417,7 +417,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'Integration',
+                text: '📦 集成',
                 collapsed: true,
                 items: [
                     {
@@ -457,9 +457,9 @@ export default defineConfig({
             { icon: 'discord', link: 'https://discord.gg/eaFJ2KDJck' }
         ],
         editLink: {
-            text: 'Edit this page on GitHub',
+            text: '在 GitHub 上编辑此页面',
             pattern:
-                'https://github.com/elysiajs/documentation/edit/main/docs/:path'
+                'https://github.com/ikxin/elysia-docs-cn/edit/main/docs/:path'
         }
     }
 })

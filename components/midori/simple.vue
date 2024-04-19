@@ -7,12 +7,12 @@
                 <h2
                     class="text-5xl md:text-6xl md:leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-lime-300 to-cyan-300"
                 >
-                    Made for Humans
+                    为人类而生
                 </h2>
                 <h2
                     class="text-3xl leading-tight font-medium text-gray-400 mb-8"
                 >
-                    Focus on productivity
+                    专注于提高生产力
                     <span
                         class="text-4xl text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-cyan-400"
                     >
@@ -21,19 +21,14 @@
                 </h2>
             </header>
             <p class="text-xl text-gray-400 w-full max-w-lg mb-8">
-                If you found yourself writing code for the framework, then
-                there's something wrong with the framework.
+                如果您发现自己在为框架编写代码，那就说明框架出了问题。
             </p>
             <div class="flex flex-col md:flex-row gap-6 md:gap-8">
                 <p class="text-xl text-gray-400 w-full max-w-lg">
-                    That's why Elysia invests time to experiment with design
-                    decisions to craft the most ergonomic way possible for
-                    everyone
+                    因此，Elysia 投入了大量时间对设计决策进行实验，以尽可能为每个人设计出最符合人体工程学的方式。
                 </p>
                 <p class="text-xl text-gray-400 w-full max-w-lg">
-                    From built-in strict-type validation to a unified type
-                    system, and documentation generation, making an ideal
-                    framework for building servers with TypeScript.
+                    从内置的严格类型验证到统一的类型系统和文档生成，成为使用 TypeScript 构建服务器的理想框架。
                 </p>
             </div>
         </section>
