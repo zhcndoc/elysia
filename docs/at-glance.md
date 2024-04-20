@@ -1,9 +1,9 @@
 ---
-title: 简介 - ElysiaJS 中文文档
+title: 简介 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 简介 - ElysiaJS 中文文档
+        content: 简介 - ElysiaJS
 
     - - meta
       - name: 'description'

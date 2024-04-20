@@ -1,9 +1,9 @@
 ---
-title: 快速开始 - ElysiaJS 中文文档
+title: 快速开始 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: 快速开始 - ElysiaJS 中文文档
+      content: 快速开始 - ElysiaJS
 
   - - meta
     - name: 'description'
