@@ -29,7 +29,7 @@ const graphs = [
                 >
                     比 Express 快
                     <span
-                        class="leading-tight text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-lime-300 to-cyan-300"
+                        class="leading-tight text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-lime-300 to-cyan-300"
                     >
                         21 倍
                     </span>

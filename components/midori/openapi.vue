@@ -5,7 +5,7 @@
         </section>
         <header class="flex flex-col gap-3 w-full">
             <h3
-                class="text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-300 to-blue-300">
+                class="text-3xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-300 to-blue-300">
                 OpenAPI / Swagger
             </h3>
             <p class="text-xl leading-normal text-gray-400 w-full max-w-lg mb-4">
