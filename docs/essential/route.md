@@ -108,7 +108,7 @@ Elysia HTTP 方法接受以下参数：
 -   **function**: 响应客户端的函数
 -   **hook**: 附加元数据
 
-您可以在 [HTTP 请求方法](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)上阅读有关 HTTP 方法的更多信息。
+你可以在 [HTTP 请求方法](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)上阅读有关 HTTP 方法的更多信息。
 
 ## 方法链
 
@@ -181,7 +181,7 @@ const app = new Elysia()
 -   **function**: 响应客户端的函数
 -   **hook**: 附加元数据
 
-导航到每个方法时，您应该看到如下结果：
+导航到每个方法时，你应该看到如下结果：
 
 | Path | Method | Result |
 | - | --- | --- |

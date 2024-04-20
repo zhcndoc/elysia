@@ -1,17 +1,17 @@
 ---
-title: Handler - ElysiaJS
+title: Context - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Handler - ElysiaJS
+        content: Context - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Context is information about each request from the client, unique to each request with a global mutable store. Context can be customized using state, decorate and derive.
+        content: Context 是关于客户端每次请求的信息，对每个请求都是唯一的，具有全局可变存储。上下文可通过状态、装饰和派生进行定制。
 
     - - meta
       - property: 'og:description'
-        content: Context is information about each request from the client, unique to each request with a global mutable store. Context can be customized using state, decorate and derive.
+        content: Context 是关于客户端每次请求的信息，对每个请求都是唯一的，具有全局可变存储。上下文可通过状态、装饰和派生进行定制。
 ---
 
 
@@ -82,54 +82,55 @@ const demo7 = new Elysia()
 
 # Context
 
-Context is a request information passed to a [route handler](/handler).
+Context 是传递给[路由处理程序](/handler)的请求信息。
 
-Context is unique for each request, and is not shared except for `store` which is a global mutable state.
+每个请求的上下文都是唯一的，除了存储是全局可变的 `store` 之外，上下文是不可共享的。
 
-Elysia context consists of:
+Elysia 上下文包括：
 
--   **path** - Pathname of the request
--   **body** - [HTTP message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages), form or file upload.
--   **query** - [Query String](https://en.wikipedia.org/wiki/Query_string), include additional parameters for search query as JavaScript Object. (Query is extracted from a value after pathname starting from '?' question mark sign)
--   **params** - Elysia's path parameters parsed as JavaScript object
--   **headers** - [HTTP Header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers), additional information about the request like User-Agent, Content-Type, Cache Hint.
--   **request** - [Web Standard Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)
--   **store** - A global mutable store for Elysia instance
--   **cookie** - A global mutable signal store for interacting with Cookie (including get/set)
--   **set** - Property to apply to Response:
-    -   **status** - [HTTP status](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status), defaults to 200 if not set.
-    -   **headers** - Response headers
-    -   **redirect** - Response as a path to redirect to
--   **error** - A function to return custom status code
+-   **path** - 请求的路径名
+-   **body** - [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)、表单或文件上传。
+-   **query** - [查询字符串](https://en.wikipedia.org/wiki/Query_string)，包括作为 JavaScript 对象的搜索查询附加参数。（查询字符串是从 `?` 开始的路径名后的值中提取的）
+-   **params** - Elysia 的路径参数解析为 JavaScript 对象
+-   **headers** - [HTTP 标头](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)，有关请求的附加信息，如用户代理、内容类型、缓存提示。
+-   **request** - [Web 标准请求](https://developer.mozilla.org/en-US/docs/Web/API/Request)
+-   **store** - Elysia 实例的全局可变存储
+-   **cookie** - 用于与 Cookie 交互的全局可变信号存储（包括 get/set）
+-   **set** - 应用于响应的属性：
+    -   **status** - [HTTP 状态](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)，如果未设置，则默认为 200。
+    -   **headers** - 响应标头
+    -   **redirect** - 响应作为重定向到的路径
+-   **error** - 返回自定义状态代码的函数
 
-## Extending context
+## 扩展 Context
 
-As Elysia only provides essential information, we can customize Context for our specific need for instance:
-- extracting user ID as variable
-- inject a common pattern repository
-- add a database connection
+由于 Elysia 只提供必要的信息，我们可以根据我们的特定需求定制 Context，例如：
+
+- 提取用户 ID 作为变量
+- 注入通用模式存储库
+- 添加数据库连接
 
 ---
 
-We can extend Elysia's context by using the following APIs to customize the Context:
+我们可以通过使用以下 API 来自定义 Context 来扩展 Elysia 的上下文：
 
--   **state** - Create a global mutable state into **Context.store**
--   **decorate** - Add additional function or property assigned to **Context**
--   **derive** / **resolve** - Additional property based on existing property, uniquely assigned to each request.
+-   **state** - 在 **Context.store** 中创建一个全局可变状态
+-   **decorate** - 添加分配给 **Context** 的附加功能或属性
+-   **derive** / **resolve** - 基于现有属性的附加属性，唯一分配给每个请求。
 
 ::: tip
-It's recommended to assign properties related to request and response, or frequently used functions to Context for separation of concerns.
+建议将与请求和响应相关的属性或常用功能分配给 Context，以实现关注点分离。
 :::
 
 ## Store
 
-**State** is a global mutable object or state shared across the Elysia app.
+**State** 是在 Elysia 应用程序中共享的全局可变对象或状态。
 
-If we are familiar with frontend libraries like React, Vue, or Svelte, there's a concept of Global State Management, which is also partially implemented in Elysia via state and store.
+如果我们熟悉 React、Vue 或 Svelte 等前端库，就会有一个全局状态管理的概念，它也在 Elysia 中通过状态和存储部分实现。
 
-- **store** is a representation of a single-source-of-truth global mutable object for the entire Elysia app.
+- **store** 是整个 Elysia 应用程序的单一真实来源全局可变对象的表示。
 
-- **state** is a function to assign an initial value to **store**, which could be mutated later.
+- **state** 是一个为 **store** 分配初始值的函数，该值稍后可能会发生变化。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -145,7 +146,7 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-Once **state** is called, value will be added to **store** property, and can be used in handler.
+一旦 **state** 被调用，值将被添加到 **store** 属性中，并且可以在 Handler 中使用。
 
 ```typescript twoslash
 // @errors: 2339
@@ -163,18 +164,18 @@ new Elysia()
 <Playground :elysia="demo2" />
 
 ::: tip
-Beware that we cannot use state value before assign.
+请注意，我们不能在分配之前使用状态值。
 
-Elysia registers state values into the store automatically without explicit type or additional TypeScript generic needed.
+Elysia 会自动将状态值注册到存储中，无需显式类型或额外的 TypeScript 泛型。
 :::
 
 ## Decorate
 
-**decorate** assigns an additional property to **Context** directly without prefix.
+**decorate** 直接为 **Context** 分配一个附加属性，不带前缀。
 
-The difference is that the value should be read-only and not reassigned later.
+不同之处在于该值应该是只读的并且以后不能重新分配。
 
-This is an ideal way to assign additional functions, singleton, or immutable property to all handlers.
+这是向所有处理程序分配附加函数、单例或不可变属性的理想方法。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -197,11 +198,11 @@ new Elysia()
 
 ## Derive
 
-Like `decorate`, we can assign an additional property to **Context** directly.
+与 `decorate` 一样，我们可以直接为 **Context** 分配额外的属性。
 
-Instead of assign before server started, **derive** assigns when request happens.
+与在服务器启动前赋值不同，**derive** 会在请求发生时赋值。
 
-Allowing us to "derive" (create a new property based on existing property).
+这样我们就可以“派生”（根据现有属性创建新属性）。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -219,29 +220,29 @@ new Elysia()
 
 <Playground :elysia="demo3" />
 
-Because **derive** is assigned once a new request starts, **derive** can access Request properties like **headers**, **query**, **body** where **store**, and **decorate** can't.
+由于 **derive** 是在新请求开始后分配的，因此 **derive** 可以访问请求属性，如 **headers**、**query** 和 **body**，而 **store** 和 **decorate** 则不能。
 
-Unlike **state**, and **decorate**. Properties that are assigned by **derive** are unique and not shared with another request.
+不同于 **state** 和 **decorate**。由 **derive** 分配的属性是唯一的，不会与其他请求共享。
 
 ::: tip
-Derive is similar to resolve but store in a different queue.
+derive 与 resolve 类似，但存储在不同的队列中。
 
-**derive** is stored in [transform](/life-cycle/transform) queue while **resolve** stored in [beforeHandle](/life-cycle/before-handle) queue.
+**derive** 存储在 [transform](/life-cycle/transform) 队列中，**resolve** 存储在 [beforeHandle](/life-cycle/before-handle) 队列中。
 :::
 
 ## Pattern
 
-**state**, **decorate** offers a similar APIs pattern for assigning property to Context as the following:
+**state**、**decorate** 提供了类似的 API 模式，用于将属性分配给 Context，如下所示：
 
 -   key-value
 -   object
 -   remap
 
-Where **derive** can be only used with **remap** because it depends on existing value.
+其中，**derive** 只能与 **remap** 一起使用，因为它取决于现有值。
 
 ### key-value
 
-We can use **state**, and **decorate** to assign a value using a key-value pattern.
+我们可以使用 **state** 和 **decorate** 使用键值模式来分配值。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -257,11 +258,11 @@ new Elysia()
     .decorate('logger', new Logger())
 ```
 
-This pattern is great for readability for setting a single property.
+此模式非常适合设置单个属性的可读性。
 
 ### Object
 
-Assigning multiple properties is better contained in an object for a single assignment.
+分配多个属性最好包含在单个分配的对象中。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -274,15 +275,15 @@ new Elysia()
     })
 ```
 
-The object offers a less repetitive API for setting multiple values.
+该对象提供了一个较少重复的 API 用于设置多个值。
 
 ### Remap
 
-Remap is a function reassignment.
+Remap 是函数的重新映射。
 
-Allowing us to create a new value from existing value like renaming or removing a property.
+允许我们从现有值创建新值，例如重命名或删除属性。
 
-By providing a function, and returning an entirely new object to reassign the value.
+通过提供一个函数，并返回一个全新的对象来重新分配值。
 
 ```typescript twoslash
 // @errors: 2339
@@ -303,19 +304,19 @@ new Elysia()
 
 <Playground :elysia="demo4" />
 
-It's a good idea to use state remap to create a new initial value from the existing value.
+最好使用状态重映射从现有值创建新的初始值。
 
-However, it's important to note that Elysia doesn't offer reactivity from this approach, as remap only assigns an initial value.
+然而，值得注意的是，Elysia 不提供这种方法的反应性，因为重新映射仅分配一个初始值。
 
 ::: tip
-Using remap, Elysia will treat a returned object as a new property, removing any property that is missing from the object.
+使用 Remap，Elysia 会将返回的对象视为新属性，删除对象中缺少的任何属性。
 :::
 
 ## Affix
 
-To provide a smoother experience, some plugins might have a lot of property value which can be overwhelming to remap one-by-one.
+为了提供更流畅的体验，某些插件可能具有大量属性值，这对于逐一重新映射可能会造成巨大的负担。
 
-The **Affix** function which consists of **prefix** and **suffix**, allowing us to remap all property of an instance.
+**Affix** 函数由 **prefix** 和 **suffix** 组成，允许我们重新映射实例的所有属性。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -337,11 +338,11 @@ const app = new Elysia()
 
 <Playground :elysia="demo5" />
 
-Allowing us to bulk remap a property of the plugin effortlessly, preventing the name collision of the plugin.
+允许我们轻松地批量重新映射插件的属性，防止插件的名称冲突。
 
-By default, **affix** will handle both runtime, type-level code automatically, remapping the property to camelCase as naming convention.
+默认情况下，**affix** 将自动处理运行时、类型级代码，将属性重新映射为驼峰式命名约定。
 
-In some condition, we can also remap `all` property of the plugin:
+在某些情况下，我们还可以重新映射 `all` 插件的属性：
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -358,13 +359,13 @@ const app = new Elysia()
     .get('/', ({ setupCarbon, ...rest }) => setupCarbon)
 ```
 
-## Reference and value
+## 引用值
 
-To mutate the state, it's recommended to use **reference** to mutate rather than using an actual value.
+要改变状态，建议使用**引用**来改变，而不是使用实际值。
 
-When accessing the property from JavaScript, if we define a primitive value from an object property as a new value, the reference is lost, the value is treated as new separate value instead.
+当从 JavaScript 访问属性时，如果我们将对象属性的原始值定义为新值，则引用将丢失，该值将被视为新的单独值。
 
-For example:
+例如：
 
 ```typescript twoslash
 const store = {
@@ -375,9 +376,9 @@ store.counter++
 console.log(store.counter) // ✅ 1
 ```
 
-We can use **store.counter** to access and mutate the property.
+我们可以使用 **store.counter** 来访问和改变该属性。
 
-However, if we define a counter as a new value
+但是，如果我们将计数器定义为新值
 
 ```typescript twoslash
 const store = {
@@ -391,9 +392,9 @@ console.log(store.counter) // ❌ 0
 console.log(counter) // ✅ 1
 ```
 
-Once a primitive value is redefined as a new variable, the reference **"link"** will be missing, causing unexpected behavior.
+一旦原始值被重新定义为新变量，引用 **“链接”** 就会丢失，从而导致意外行为。
 
-This can apply to `store`, as it's a global mutable object instead.
+这可以应用于 `store`，因为它是一个全局可变对象。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'

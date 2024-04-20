@@ -1,17 +1,17 @@
 ---
-title: Path - ElysiaJS
+title: 路径 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Path - ElysiaJS
+        content: 路径 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Path or pathname is an identifier to locate resources from a server. Elysia uses the path and method to look up the correct resource. Path in Elysia can be categorized into 3 types. Static, Dynamic and Wildcard.
+        content: 路径或路径名是用于定位服务器资源的标识符。Elysia 使用路径和方法来查找正确的资源。Elysia 中的路径可分为 3 种类型。静态、动态和通配符。
 
     - - meta
       - property: 'og:description'
-        content: Path or pathname is an identifier to locate resources from a server. Elysia uses the path and method to look up the correct resource. Path in Elysia can be categorized into 3 types. Static, Dynamic and Wildcard.
+        content: 路径或路径名是用于定位服务器资源的标识符。Elysia 使用路径和方法来查找正确的资源。Elysia 中的路径可分为 3 种类型。静态、动态和通配符。
 ---
 
 <script setup>
@@ -46,23 +46,23 @@ const demo4 = new Elysia()
     .get('/id/*', () => 'wildcard path')
 </script>
 
-# Path
+# 路径
 
-Path or pathname is an identifier to locate resources from a server.
+路径或路径名是从服务器查找资源的标识符。
 
 ```bash
 http://localhost:/path/page
 ```
 
-Elysia uses the path and method to look up the correct resource.
+Elysia 使用路径和方法来查找正确的资源。
 
 <div class="bg-white rounded-lg">
     <img src="/essential/url-object.svg" alt="URL Representation" />
 </div>
 
-A path starts after the origin. Prefix with **/** and ends before search query **(?)**
+路径从原点后开始，前缀为 `/`，在 `serach` 查询 **（?）**
 
-We can categorize the URL and path as follows:
+我们可以将 URL 和路径分类如下：
 
 | URL                             | Path         |
 | ------------------------------- | ------------ |
@@ -73,18 +73,18 @@ We can categorize the URL and path as follows:
 | http://site.com/hello#title     | /hello       |
 
 ::: tip
-If the path is not specified, the browser and web server will treat the path as '/' as a default value.
+如果未指定路径，浏览器和网络服务器将把路径默认为 "/"。
 :::
 
-Elysia will lookup each request for [route](/essential/route) and response using [handler](/essential/handler) function.
+Elysia 将使用[处理](/essential/handler)函数查找每个请求的[路由](/essential/route)和响应。
 
-## Dynamic path
+## 动态路径
 
-URLs can be both static and dynamic.
+URL 可以是静态的也可以是动态的。
 
-Static path means a hardcoded string can be used to locate resources from the server while dynamic path matches some part and captures the value to extract extra information.
+静态路径意味着可以使用硬编码字符串从服务器定位资源，而动态路径则匹配某些部分并捕获该值以提取额外信息。
 
-For instance, we can extract the user ID from the pathname, we can do something like:
+例如，我们可以从路径名中提取用户 ID，我们可以执行以下操作：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -95,7 +95,7 @@ new Elysia()
     .listen(3000)
 ```
 
-We create a dynamic path with `/id/:id` which tells Elysia to match any path up until `/id` and after it could be any value, which is then stored as **params** object.
+我们用 `/id/:id` 创建了一个动态路径，它告诉 Elysia 匹配 `/id` 之前的任何路径，而 `/id`之 后的路径可以是任何值，然后将其存储为 **params** 对象。
 
 <Playground
   :elysia="demo1"
@@ -109,7 +109,7 @@ We create a dynamic path with `/id/:id` which tells Elysia to match any path up 
   }" 
 />
 
-When requested, the server should return the response as follows:
+当请求时，服务器应返回如下响应：
 
 | Path                   | Response  |
 | ---------------------- | --------- |
@@ -120,23 +120,25 @@ When requested, the server should return the response as follows:
 | /id                    | Not Found |
 | /id/anything/rest      | Not Found |
 
-Dynamic path is great to enforce the URL to contain crucial information like ID which then can be used later.
+动态路径非常适合强制 URL 包含重要信息（例如 ID），以便以后使用。
 
-We refer to the named variable path as **path parameter** or **params** for short.
+我们将命名变量路径称为**路径参数**或简称为 **params** 。
 
-## Segment
+## 分段
 
-URL segment is each path that is composed into a full path.
+URL 段是组成完整路径的每个路径。
 
-Segment is separated by `/`.
+段之间用 `/` 分隔。
+
 ![Representation of URL segments](/essential/url-segment.webp)
 
-Path parameters in Elysia are represented by prefixing a segment with ':' followed by a name.
+Elysia 中的路径参数通过在段前面加上 `:` 前缀后跟名称来表示。
+
 ![Representation of path parameter](/essential/path-parameter.webp)
 
-Path parameters allow Elysia to capture a specific segment of URL.
+路径参数允许 Elysia 捕获 URL 的特定段。
 
-The named path parameter will then be stored in `Context.params`.
+命名的路径参数将存储在 `Context.params`.
 
 | Route     | Path   | Params  |
 | --------- | ------ | ------- |
@@ -144,9 +146,9 @@ The named path parameter will then be stored in `Context.params`.
 | /id/:id   | /id/hi | id=hi   |
 | /id/:name | /id/hi | name=hi |
 
-## Multiple path parameter
+## 多路径参数
 
-You can have as many path parameters as you would like, which will then be stored into a `params`.
+你可以拥有任意数量的路径参数，然后这些参数将存储到 `params`。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -174,7 +176,7 @@ new Elysia()
   }" 
 />
 
-Requesting to the server should return the response as the following:
+向服务器发出请求应返回如下响应：
 
 | Path                   | Response      |
 | ---------------------- | ------------- |
@@ -185,13 +187,13 @@ Requesting to the server should return the response as the following:
 | /id                    | Not Found     |
 | /id/anything/rest      | anything rest |
 
-## Wildcard
+## 通配符
 
-Dynamic path allows us to capture certain segments of the URL.
+动态路径允许我们捕捉 URL 的某些部分。
 
-However, when you need a value of the path to be more dynamic and capture the rest of the URL segment, a wildcard can be used.
+但是，如果需要路径值更加动态，并捕获 URL 段的其余部分，则可以使用通配符。
 
-Wildcard can capture the value after segment regardless of amount by using "\*".
+通配符可以通过使用 `*` 来捕获段后的值，而不管其数量多少。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -218,7 +220,7 @@ new Elysia()
   }" 
 />
 
-Sending a request to the server should return the response as the following:
+向服务器发送请求应返回如下响应：
 
 | Path                   | Response      |
 | ---------------------- | ------------- |
@@ -229,29 +231,30 @@ Sending a request to the server should return the response as the following:
 | /id                    | Not Found     |
 | /id/anything/rest      | anything/rest |
 
-A wildcard is useful for capturing a path until a specific point.
+通配符对于捕获直到特定点的路径很有用。
 
 ::: tip
-You can use a wildcard with a path parameter.
+你可以将通配符与路径参数一起使用。
 :::
 
-## Summarize
+## 总结
 
-To summarize, the path in Elysia can be grouped into 3 types:
+总结一下，Elysia 中的路径可以分为 3 种类型：
 
--   **static path** - static string to locate the resource
--   **dynamic path** - segment can be any value
--   **wildcard** - path until a specific point can be anything
+- **静态路径** - 用于定位资源的静态字符串
+- **动态路径** - 段可以是任何值
+- **通配符** - 直到特定点的路径可以是任何值
 
-You can use all of the path types together to compose a behavior for your web server.
 
-The priority of the path is aligned as follows:
+你可以同时使用所有路径类型，为你的网络服务器创建一个行为。
 
-1. static path
-2. dynamic path
-3. wildcard
+路径的优先级排列如下：
 
-If the path is resolved as the static wild dynamic path is presented, Elysia will resolve the static path rather than the dynamic path
+1. 静态路径
+2. 动态路径
+3. 通配符
+
+如果路径解析为静态通配符动态路径，Elysia 将解析静态路径而非动态路径
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -276,7 +279,7 @@ new Elysia()
   }" 
 />
 
-Sending a request to the server should return the response as the following:
+向服务器发送请求应返回如下响应：
 
 | Path    | Response      |
 | ------- | ------------- |

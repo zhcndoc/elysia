@@ -149,19 +149,19 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: '路由',
+                        text: 'Route',
                         link: '/essential/route'
                     },
                     {
-                        text: '路径',
+                        text: 'Path',
                         link: '/essential/path'
                     },
                     {
-                        text: '处理程序',
+                        text: 'Handler',
                         link: '/essential/handler'
                     },
                     {
-                        text: '上下文',
+                        text: 'Context',
                         link: '/essential/context'
                     },
                     {
@@ -169,7 +169,7 @@ export default defineConfig({
                         link: '/essential/life-cycle'
                     },
                     {
-                        text: '模式',
+                        text: 'Schema',
                         link: '/essential/schema'
                     },
                     {

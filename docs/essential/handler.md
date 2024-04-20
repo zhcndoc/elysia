@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: handler is a function that responds to the request for each route. Accepting request information and returning a response to the client. Handler can be registered through Elysia.get / Elysia.post
+        content: Handler 是一个响应每个路由请求的函数。接受请求信息并向客户端返回响应。Handler 可通过 Elysia.get / Elysia.post 注册。
 
     - - meta
       - property: 'og:description'
-        content: handler is a function that responds to the request for each route. Accepting request information and returning a response to the client. Handler can be registered through Elysia.get / Elysia.post
+        content: Handler 是一个响应每个路由请求的函数。接受请求信息并向客户端返回响应。Handler 可通过 Elysia.get / Elysia.post 注册。
 ---
 
 <script setup>
@@ -27,7 +27,7 @@ const demo2 = new Elysia()
 
 # Handler
 
-After a resource is located, a function that respond is refers as **handler**
+找到资源后，响应的函数称为 **Handler**
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -38,7 +38,7 @@ new Elysia()
     .listen(3000)
 ```
 
-Handler maybe a literal value, and can be inlined.
+Handler 可能是一个文字值，并且可以内联。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -49,20 +49,19 @@ new Elysia()
     .listen(3000)
 ```
 
-Using an inline value always returns the same value which is useful to optimize performance for static resource like file.
+使用内联值始终返回相同的值，这对于优化文件等静态资源的性能很有用。
 
-This allows Elysia to compile the response ahead of time to optimize performance.
+这使得 Elysia 能够提前编译响应以优化性能。
 
 ::: tip
-Providing an inline value is not a cache.
+提供内联值不是缓存。
 
-Static Resource value, headers and status can be mutate dynamically using lifecycle.
+静态资源值、标头和状态可以使用生命周期动态改变。
 :::
-
 
 ## Context
 
-Context is an request's information sent to server.
+Context 是发送到服务器的请求信息。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -74,25 +73,26 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-We will be covering context property in the next page [context](/essential/context), for now lets see what handler is capable of.
+我们将在下一页 Context 中介绍 [Context](/essential/context) 属性，现在让我们看看 Handler 的功能。
 
 ## Set
 
-**set** is a mutable property that form a response accessible via `Context.set`.
+**set** 是一个可变属性，可通过 `Context.set` 形成一个可访问的响应。
 
-- **set.status** - Set custom status code
-- **set.headers** - Append custom headers
-- **set.redirect** - Append redirect
-
+- **set.status** - 设置自定义状态码
+- **set.headers** - 附加自定义请求头
+- **set.redirect** - 追加重定向
 
 ## Status
-We can return a custom status code by using either:
 
-- **error** function (recommended)
+我们可以使用以下任一方法返回自定义状态代码：
+
+- **error** 函数（推荐）
 - **set.status**
 
 ## error
-A dedicated `error` function for returning status code with response.
+
+用于返回状态代码和响应的 `error` 专用函数。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -104,16 +104,17 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-It's recommend to use `error` inside main handler as it has better inference:
+建议 `error` 在主处理程序内部使用，因为它具有更好的推理能力：
 
-- allows TypeScript to check if a return value is correctly type to response schema
-- autocompletion for type narrowing base on status code
-- type narrowing for error handling using End-to-end type safety (Eden)
+- 允许 TypeScript 检查返回值是否正确键入响应模式
+- 根据状态代码自动完成类型缩小
+- 使用端到端类型安全（Eden）进行错误处理的类型缩小
 
 ## set.status
-Set a default status code if not provided.
 
-It's recommended to use in a plugin that only only need to return a specific status code while allowing user to return a custom value for example, HTTP 201/206 or 403/405 etc.
+如果未提供，请设置默认状态代码。
+
+建议在只需要返回特定状态代码的插件中使用，同时允许用户返回自定义值，例如 HTTP 201/206 或 403/405 等。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -129,10 +130,10 @@ new Elysia()
 ```
 
 ::: tip
-HTTP Status indicates the type of response. If the route handler is executed successfully without error, Elysia will return the status code 200.
+HTTP 状态指示响应的类型。如果路由处理程序成功执行且没有错误，Elysia 将返回状态代码 200。
 :::
 
-You can also set a status code using the common name of the status code instead of using a number.
+你还可以使用状态代码的通用名称而不是使用数字来设置状态代码。
 
 ```typescript twoslash
 // @errors 2322
@@ -149,7 +150,8 @@ new Elysia()
 ```
 
 ## set.headers
-Allowing us to append or delete a response headers represent as Object.
+
+允许我们附加或删除表示为对象的响应标头。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -164,7 +166,8 @@ new Elysia()
 ```
 
 ## set.redirect
-Redirect a request to another resource.
+
+将请求重定向到另一个资源。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -176,15 +179,15 @@ new Elysia()
     .listen(3000)
 ```
 
-When using redirect, returned value is not required and will be ignored. As response will be from another resource.
+使用重定向时，返回值不是必需的，并且将被忽略。因为响应将来自另一个资源。
 
 ## Response
 
-Elysia is built on top of Web Standard Request/Response.
+Elysia 构建在 Web 标准的 Request/Response 之上。
 
-To comply with the Web Standard, a value returned from route handler will be mapped into a [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) by Elysia.
+为了符合 Web 标准，从路由处理程序返回的值将被 Elysia 映射到 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 中。
 
-Letting you focus on business logic rather than boilerplate code.
+让你专注于业务逻辑而不是样板代码。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -195,7 +198,7 @@ new Elysia()
     .listen(3000)
 ```
 
-If you prefer an explicit Response class, Elysia also handles that automatically.
+如果你更喜欢显式的 Response 类，Elysia 也会自动处理。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -206,5 +209,5 @@ new Elysia()
 ```
 
 ::: tip
-Using a primitive value or `Response` has near identical performance (+- 0.1%), so pick the one you prefer, regardless of performance.
+使用原始值或 `Response` 具有几乎相同的性能 (± 0.1%)，因此无论性能如何，请选择你喜欢的值。
 :::
