@@ -236,8 +236,6 @@ Elysia 不仅能帮助你创建一个自信的后端，还能帮助你创建这�
 
 ## 与平台无关
 
-Elysia was designed but was **not limited to Bun**. Being [WinterCG compliant] allows you to deploy the Elysia server on Cloudflare Worker, Vercel Edge Function, and most other runtimes that support Web Standard Request.
-
 Elysia 的设计**不局限于 Bun**。由于[兼容 WinterCG](https://wintercg.org/)，你可以将 Elysia 服务器部署到 Cloudflare Worker、Vercel Edge Function 和其他大多数支持 Web 标准请求的运行时上。
 
 ## 我们的社区

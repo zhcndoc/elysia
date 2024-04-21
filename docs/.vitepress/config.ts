@@ -199,7 +199,7 @@ export default defineConfig({
                         link: '/essential/plugin'
                     },
                     {
-                        text: '范围',
+                        text: '作用域',
                         link: '/essential/scope'
                     }
                 ]

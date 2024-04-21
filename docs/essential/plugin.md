@@ -1,17 +1,17 @@
 ---
-title: Plugin - ElysiaJS
+title: 插件
 head:
     - - meta
       - property: 'og:title'
-        content: Plugin - ElysiaJS
+        content: 插件 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
+        content: 插件是一种将逻辑解耦为更小部分的方法，可在服务器上定义可重复使用的组件。插件可以通过使用 `use` 进行注册，注册插件会合并插件和当前实例之间的类型，钩子的范围和模式也会合并。
 
     - - meta
       - property: 'og:description'
-        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
+        content: 插件是一种将逻辑解耦为更小部分的方法，可在服务器上定义可重复使用的组件。插件可以通过使用 `use` 进行注册，注册插件会合并插件和当前实例之间的类型，钩子的范围和模式也会合并。
 ---
 
 <script setup>
@@ -70,11 +70,11 @@ const demo5 = new Elysia()
     .use(child)
 </script>
 
-# Plugin
+# 插件
 
-Plugin is a pattern that decouples functionality into smaller parts. Creating reusable components for our web server.
+插件是一种将功能分解成较小部分的模式。为我们的 Web 服务器创建可重复使用的组件。
 
-Defining a plugin is to define a separate instance.
+定义插件就是定义一个单独的实例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -90,23 +90,24 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-We can use the plugin by passing an instance to **Elysia.use**.
+我们可以通过向 `Elysia.use` 传递一个实例来使用该插件。
 
 <Playground :elysia="demo1" />
 
-The plugin will inherit all properties of the plugin instance, including **state**, **decorate**, **derive**, **route**, **lifecycle**, etc.
+插件将继承插件实例的所有属性，包括**状态**、**装饰**、**派生**、**路由**、**生命周期**等。
 
-Elysia will also handle the type inference automatically as well, so you can imagine as if you call all of the other instances on the main one.
+Elysia 还将自动处理类型推断，因此你可以想象一下在主实例上调用所有其他实例的情形。
 
 ::: tip
-Notice that the plugin doesn't contain **.listen**, because **.listen** will allocate a port for the usage, and we only want the main instance to allocate the port.
+注意插件中不包含 `.listen`，因为 `.listen` 会为使用分配端口，而我们只希望主实例分配端口。
 :::
 
-## Separate File
+## 独立文件
 
-Using a plugin pattern, you decouple your business logic into a separate file.
+使用插件模式，可以将业务逻辑分离到单独的文件中。
 
-First, we define an instance in a difference file:
+首先，我们在 `plugin.ts` 中定义一个实例：
+
 ```typescript twoslash
 // plugin.ts
 import { Elysia } from 'elysia'
@@ -115,7 +116,8 @@ export const plugin = new Elysia()
     .get('/plugin', () => 'hi')
 ```
 
-And then we import the instance into the main file:
+然后，我们将实例导入主文件：
+
 ```typescript twoslash
 // @filename: plugin.ts
 import { Elysia } from 'elysia'
@@ -133,11 +135,11 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## Config
+## 配置
 
-To make the plugin more useful, allowing customization via config is recommended.
+为使插件更有用，建议允许通过配置进行自定义。
 
-You can create a function that accepts parameters that may change the behavior of the plugin to make it more reusable.
+你可以创建一个可接受参数的函数，这些参数可以改变插件的行为，使其更易于重用。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -150,13 +152,13 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## Functional callback
+## 函数回调
 
-It's recommended to define a new plugin instance instead of using a function callback.
+建议定义一个新的插件实例，而不是使用函数回调。
 
-Functional callback allows us to access the existing property of the main instance. For example, checking if specific routes or stores existed.
+函数回调允许我们访问主实例的现有属性。例如，检查特定路线或商店是否存在。
 
-To define a functional callback, create a function that accepts Elysia as a parameter.
+要定义函数回调，请创建一个接受 Elysia 作为参数的函数。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -173,21 +175,21 @@ const app = new Elysia()
 
 <Playground :elysia="demo3" />
 
-Once passed to `Elysia.use`, functional callback behaves as a normal plugin except the property is assigned directly to
+一旦传递给 `Elysia.use`，函数回调的行为与普通插件无异，只是属性会直接赋值。
 
 ::: tip
-You shall not worry about the performance difference between a functional callback and creating an instance.
+你不必担心函数回调与创建实例之间的性能差异。
 
-Elysia can create 10k instances in a matter of milliseconds, the new Elysia instance has even better type inference performance than the functional callback.
+Elysia 可以在几毫秒内创建 1 万个实例，新的 Elysia 实例的类型推断性能甚至比函数回调更好。
 :::
 
-## Plugin Deduplication
+## 插件数据去重
 
-By default, Elysia will register any plugin and handle type definitions.
+默认情况下，Elysia 将注册任何插件并处理类型定义。
 
-Some plugins may be used multiple times to provide type inference, resulting in duplication of setting initial values or routes.
+某些插件可能会多次使用来提供类型推断，从而导致重复设置初始值或路由。
 
-Elysia avoids this by differentiating the instance by using **name** and **optional seeds** to help Elysia identify instance duplication:
+Elysia 通过使用**名称**和**可选种子**来区分实例来帮助 Elysia 识别实例重复，从而避免了这种情况：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -210,9 +212,9 @@ const app = new Elysia()
 
 <Playground :elysia="demo4" />
 
-Elysia will use **name** and **seed** to create a checksum to identify if the instance has been registered previously or not, if so, Elysia will skip the registration of the plugin.
+Elysia 将使用**名称**和**种子**创建校验和，以识别实例是否已被注册，如果已被注册，Elysia 将跳过插件注册。
 
-If seed is not provided, Elysia will only use **name** to differentiate the instance. This means that the plugin is only registered once even if you registered it multiple times.
+如果没有提供 seed，Elysia 将只使用**名称**来区分实例。这意味着，即使你注册了多次插件，也只会注册一次。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -227,18 +229,19 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-This allows Elysia to improve performance by reusing the registered plugins instead of processing the plugin over and over again.
+这样，Elysia 就可以通过重复使用已注册的插件来提高性能，而不是反复处理插件。
 
 ::: tip
-Seed could be anything, varying from a string to a complex object or class.
+种子可以是任何东西，从字符串到复杂对象或类。
 
-If the provided value is class, Elysia will then try to use the `.toString` method to generate a checksum.
+如果提供的值是类，Elysia 将尝试使用 `.toString` 方法生成校验和。
 :::
 
-## Service Locator
-When you apply multiple state and decorators plugin to an instance, the instance will gain type safety.
+## 服务定位器
 
-However, you may notice that when you are trying to use the decorated value in another instance without decorator, the type is missing.
+在一个实例中应用多个状态和装饰器插件时，该实例将获得类型安全。
+
+不过，你可能会注意到，当你试图在另一个不带装饰器的实例中使用被装饰的值时，类型会丢失。
 
 ```typescript twoslash
 // @errors: 2339
@@ -253,13 +256,13 @@ const main = new Elysia()
     .use(child)
 ```
 
-This is a TypeScript limitation; Elysia can only refer to the current instance.
+这是 TypeScript 的限制，Elysia 只能引用当前实例。
 
-Elysia introduces the **Service Locator** pattern to counteract this.
+Elysia 引入了**服务定位器**模式来解决这个问题。
 
-To put it simply, Elysia will lookup the plugin checksum and get the value or register a new one. Infer the type from the plugin.
+简单地说，Elysia 会查找插件校验和，然后获取值或注册一个新值。从插件推断类型。
 
-Simply put, we need to provide the plugin reference for Elysia to find the service.
+简单地说，我们需要提供插件引用，以便 Elysia 找到服务。
 
 ```typescript twoslash
 // @errors: 2339
@@ -281,13 +284,14 @@ const main = new Elysia()
 
 <Playground :elysia="demo5" />
 
-## Official Plugins
+## 官方插件
 
-You can find an officially maintained plugin at Elysia's [plugins](/plugins/overview).
+你可以在 Elysia 的插件中找到官方维护的[插件](/plugins/overview)。
 
-Some plugins include:
+部分插件包括
+
 - GraphQL
 - Swagger
 - Server Sent Event
 
-And various community plugins.
+以及各种社区插件。
