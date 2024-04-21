@@ -1,17 +1,17 @@
 ---
-title: Schema type - ElysiaJS
+title: Schema 类型
 head:
     - - meta
       - property: 'title'
-        content: Validation
+        content: Schema 类型 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Elysia supports declarative schema with the following types. Body for validating an incoming HTTP message. Query for query string or URL parameter. Params for path parameters. Header for request headers. Cookie for  cookies. Response for validating response.
+        content: Elysia 支持以下类型的声明式架构。Body 用于验证传入的 HTTP 消息。Query 用于查询字符串或 URL 参数。Params 用于路径参数。Header 用于请求头。Cookie 用于 cookies。Response 用于验证响应。
 
     - - meta
       - name: 'og:description'
-        content: Elysia supports declarative schema with the following types. Body for validating an incoming HTTP message. Query for query string or URL parameter. Params for path parameters. Header for request headers. Cookie for  cookies. Response for validating response.
+        content: Elysia 支持以下类型的声明式架构。Body 用于验证传入的 HTTP 消息。Query 用于查询字符串或 URL 参数。Params 用于路径参数。Header 用于请求头。Cookie 用于 cookies。Response 用于验证响应。
 ---
 
 <script setup>
@@ -36,34 +36,34 @@ head:
         })
 </script>
 
-# Schema Type
+# Schema 类型
 
-Elysia supports declarative schema with the following types:
+Elysia 支持以下类型的声明式模式：
 
 <Deck>
     <Card title="Body" href="#body">
-        Validate an incoming HTTP Message
+        验证传入的 HTTP 消息
     </Card>
     <Card title="Query" href="#query">
-        Query string or URL parameter
+        查询字符串或 URL 参数
     </Card>
     <Card title="Params" href="#query">
-        Path parameters
+        路径参数
     </Card>
     <Card title="Header" href="#header">
-        Header of the request
+        请求的标头
     </Card>
     <Card title="Cookie" href="#cookie">
-        Cookie of the request
+        请求的 Cookie
     </Card>
     <Card title="Response" href="#response">
-        Response of the request
+        请求的响应
     </Card>
 </Deck>
 
 ---
 
-These properties should be provided as the third argument of the route handler to validate the incoming request.
+这些属性应作为路由处理程序的第三个参数提供，以验证传入请求。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -82,7 +82,8 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-The response should as follows:
+响应应该如下:
+
 | URL | Query | Params |
 | --- | --------- | ------------ |
 | /id/a | ❌ | ❌ |
@@ -91,15 +92,15 @@ The response should as follows:
 | /id/a?name=Elysia | ✅ | ❌ |
 | /id/a?alias=Elysia | ❌ | ❌ |
 
-When schema is provided, the type will be inferred from the schema automatically, and generate an OpenAPI type for Swagger documentation generation, leaving out the redundant task of providing type manually.
+如果提供了模式，将自动从模式中推断出类型，并生成 OpenAPI 类型供生成 Swagger 文档，从而省去了手动提供类型的多余工作。
 
 ## Body
 
-Validate an incoming [HTTP Message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) (or body).
+验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（或 `body`）。
 
-These messages are additional messages for the webserver to process.
+这些信息是供 Web 服务器处理的附加信息。
 
-The body is provided as same as `body` in `fetch` API. The content type should be set accordingly to the defined body.
+提供的 `body` 与 `fetch` API 中的 `body` 相同。应根据定义的 body 设置相应的内容类型。
 
 ```typescript twoslash
 fetch('https://elysiajs.com', {
@@ -111,7 +112,7 @@ fetch('https://elysiajs.com', {
 })
 ```
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -125,7 +126,8 @@ new Elysia()
     .listen(3000)
 ```
 
-The validation should be as follows:
+验证方法如下：
+
 | Body | Validation |
 | --- | --------- |
 | \{ name: 'Elysia' \} | ✅ |
@@ -133,27 +135,27 @@ The validation should be as follows:
 | \{ alias: 'Elysia' \} | ❌ |
 | `undefined` | ❌ |
 
-Elysia disabled body-parser for **GET** and **HEAD** message by default, following the specs of HTTP/1.1 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3)
+根据 HTTP/1.1 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3) 的规定，Elysia 默认禁用了 **GET** 和 **HEAD** 消息的正文解析器。
 
-> If the request method does not include defined semantics for an entity-body, then the message-body SHOULD be ignored when handling the request.
+> 如果请求方法不包含实体正文的定义语义，那么在处理请求时就应该忽略消息正文。
 
-Most browsers disable the attachment of the body by default for **GET** and **HEAD** method.
+对于 **GET** 和 **HEAD** 方法，大多数浏览器默认情况下都会禁用主体附件。
 
 ## Query
 
-A query string is a part of the URL that starts with **?** and can contain one or more query parameters, which are key-value pairs used to convey additional information to the server, usually for customized behavior like filter or search.
+查询字符串是 URL 中以 `?` 开头的部分，可包含一个或多个查询参数，这些参数是键值对，用于向服务器传递附加信息，通常用于过滤或搜索等自定义行为。
 
 ![URL Object](/essential/url-object.svg)
 
-Query is provided after the **?** in Fetch API.
+在 Fetch API 中的 `?` 后面提供查询。
 
 ```typescript twoslash
 fetch('https://elysiajs.com/?name=Elysia')
 ```
 
-When specifying query parameters, it's crucial to understand that all query parameter values must be represented as strings. This is due to how they are encoded and appended to the URL.
+在指定查询参数时，必须了解所有查询参数值都必须用字符串表示。这是因为它们是如何编码并附加到 URL 中的。
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -168,7 +170,8 @@ new Elysia()
     .listen(3000)
 ```
 
-The validation should be as follows:
+验证方法如下：
+
 | Body | Validation |
 | --- | --------- |
 | \{ name: 'Elysia' \} | ✅ |
@@ -178,25 +181,25 @@ The validation should be as follows:
 
 ## Params
 
-For detail explanation, see [path](/essential/path), but to summarize.
+详细解释请参阅[路径](/essential/path)，但可以概括如下。
 
-The dynamic path is a pattern matching for a specific part of the URL segment which could store potentially important information, to be used later.
+动态路径是对 URL 段特定部分的模式匹配，其中可能存储了重要信息，供以后使用。
 
-Elysia uses the segment prefix with a colon "**:**"
+Elysia 使用带冒号 `:` 的段前缀
 
 ![Path Parameters](/essential/path-parameter.webp)
 
-For instance, **/id/:id** tells Elysia to match any path up until /id, then the next segment as a params object.
+例如，`/id/:id` 会告诉 Elysia 匹配 `/id` 之前的任何路径，然后将下一段作为 `params` 对象。
 
-**params** is used to validate the path parameter object.
+**params** 用于验证路径参数对象。
 
-**This field is usually doesn't need as Elysia can infers type from path parameter automatically**, unless a need for specific value pattern is need, for example numeric value or template literal pattern.
+**通常不需要这个字段，因为 Elysia 可以自动从路径参数中推断出类型**，除非需要特定的值模式，例如数值或模板字面模式。
 
 ```typescript twoslash
 fetch('https://elysiajs.com/id/1')
 ```
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -212,7 +215,8 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-The validation should be as follows:
+验证方法如下：
+
 | URL | Validation |
 | --- | --------- |
 | /id/1 | ✅ |
@@ -220,11 +224,12 @@ The validation should be as follows:
 
 ## Header
 
-HTTP headers let the client and the server pass additional information with an HTTP request or response, usually treated as metadata.
+HTTP 头信息可让客户端和服务器通过 HTTP 请求或响应传递附加信息，通常被视为元数据。
 
-This field is usually used to enforce some specific header field, for example, `Authorization`.
+该字段通常用于执行某些特定的头字段，例如 `Authorization`。
 
-Headers are provided as same as `body` in `fetch` API.
+在 `fetch` API 中，头信息的提供与 `body` 相同。
+
 
 ```typescript twoslash
 fetch('https://elysiajs.com/', {
@@ -235,12 +240,12 @@ fetch('https://elysiajs.com/', {
 ```
 
 ::: tip
-Elysia will parse headers as a lower-case key only.
+Elysia 将仅以小写键解析 Header。
 
-Please make sure that you are using a lower-case field name when using header validation.
+在使用标题验证时，请确保使用小写字段名称。
 :::
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -254,7 +259,8 @@ new Elysia()
     .listen(3000)
 ```
 
-The validation should be as follows:
+验证方法如下：
+
 | URL | Validation |
 | --- | --------- |
 | \{ authorization: 'Bearer 12345' \} | ✅ |
@@ -262,13 +268,13 @@ The validation should be as follows:
 
 ## Cookie
 
-An HTTP cookie is a small piece of data that a server sends to the client, it's data that is sent with every visit to the same web server to let the server remember client information.
+HTTP cookie 是服务器发送给客户端的一小段数据，它是每次访问同一网络服务器时都会发送的数据，以便服务器记住客户端的信息。
 
-In simpler terms, a stringified state that sent with every request.
+简单地说，就是每次请求都会发送的字符串化状态。
 
-This field is usually used to enforce some specific cookie field.
+该字段通常用于执行某些特定的 cookie 字段。
 
-A cookie is a special header field that Fetch API doesn't accept a custom value but is managed by the browser. To send a cookie, you must use a `credentials` field instead:
+Cookie 是一种特殊的标头字段，Fetch API 不接受自定义值，而是由浏览器管理。要发送 cookie，必须使用 `credentials` 字段：
 
 ```typescript twoslash
 fetch('https://elysiajs.com/', {
@@ -276,7 +282,7 @@ fetch('https://elysiajs.com/', {
 })
 ```
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -291,13 +297,13 @@ new Elysia()
 
 ## Response
 
-Validate the return value of the handler.
+验证处理程序的返回值。
 
-This field isn't usually used unless the need to enforce a specific value of return type is needed or for documentation purposes.
+除非需要强制执行返回类型的特定值或用于文档目的，否则通常不会使用此字段。
 
-If provided, by default, Elysia will try to enforce type using TypeScript to provide a type hint for your IDE.
+如果提供，默认情况下，Elysia 将尝试使用 TypeScript 强制类型，为你的集成开发环境提供类型提示。
 
-### Example
+### 示例
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -308,7 +314,7 @@ new Elysia()
     })
 ```
 
-The response could accept an object with a key of HTTP status to enforce the response type on a specific status.
+Response 可以接受一个以 HTTP 状态为关键字的对象，以便在特定状态下强制执行响应类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -322,7 +328,8 @@ new Elysia()
     })
 ```
 
-The validation should be as follows:
+验证方法如下：
+
 | Response | Status | Validation |
 | --- | --- | --------- |
 | 'hello' | 200 | ✅ |

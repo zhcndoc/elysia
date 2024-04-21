@@ -1,27 +1,28 @@
 ---
-title: Reference Model - ElysiaJS
+title: 参考模型
 head:
   - - meta
     - property: 'og:title'
-      content: Reference Model - ElysiaJS
+      content: 参考模型 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Reference Models allow you to name existing type models and use that name for validation, and use by specifying the name thus referencing the model in lifecycle event or "handler.guard".
+      content: 参考模型允许你为现有类型模型命名，并在验证时使用该名称，并通过指定名称在生命周期事件或 "handler.guard" 中引用模型。
 
   - - meta
     - name: 'og:description'
-      content: Reference Models allow you to name existing type models and use that name for validation, and use by specifying the name thus referencing the model in lifecycle event or "handler.guard".
+      content: 参考模型允许你为现有类型模型命名，并在验证时使用该名称，并通过指定名称在生命周期事件或 "handler.guard" 中引用模型。
 ---
 
-# Reference Model
-Sometimes you might find yourself declaring duplicated models, or re-using the same model multiple times.
+# 参考模型
 
-With reference model, we can name our model and reuse them by referencing with name.
+有时你可能会发现自己声明了重复的模型，或者多次重复使用同一个模型。
 
-Let's start with a simple scenario.
+通过参考模型，我们可以给模型命名，并通过引用名称来重用它们。
 
-Suppose we have a controller that handles sign-in with the same model.
+让我们从一个简单的场景开始。
+
+假设我们有一个处理使用相同模型的登录的控制器。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -39,11 +40,12 @@ const app = new Elysia()
     })
 ```
 
-We can refactor the code by extracting the model as a variable, and reference them.
+我们可以通过将模型提取为变量并引用它们来重构代码。
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
-// Maybe in a different file eg. models.ts
+// 可能在不同的文件中，例如 models.ts
 const SignDTO = t.Object({
     username: t.String(),
     password: t.String()
@@ -56,9 +58,9 @@ const app = new Elysia()
     })
 ```
 
-This method of separating the concerns is an effective approach but we might find ourselves reusing multiple models with different controllers as the app gets more complex.
+这种分离关注点的方法是一种有效的方法，但随着应用程序变得更复杂，我们可能会发现自己需要在不同的控制器中重复使用多个模型。
 
-We can resolve that by creating a "reference model"  allowing us to name the model and use auto-completion to reference it directly in `schema` by registering the models with `model`.
+我们可以通过创建一个 "参考模型" 来解决这个问题，允许我们给模型命名，并使用自动完成直接在 `schema` 中引用它，通过使用 `model` 注册模型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -71,13 +73,13 @@ const app = new Elysia()
         })
     })
     .post('/sign-in', ({ body }) => body, {
-        // with auto-completion for existing model name
+        // 使用现有模型名称的自动完成
         body: 'sign',
         response: 'sign'
     })
 ```
 
-When we want to access the model's group, we can separate a `model` into a plugin which when registered will provide a set of models instead of multiple import.
+当我们想要访问模型的组时，我们可以将 `model` 分离成一个插件，当注册时，它将提供一组模型，而不是多次导入。
 
 ```typescript twoslash
 // auth.model.ts
@@ -92,7 +94,8 @@ export const authModel = new Elysia()
     })
 ```
 
-Then in an instance file:
+然后在一个实例文件中：
+
 ```typescript twoslash
 // @filename: auth.model.ts
 import { Elysia, t } from 'elysia'
@@ -114,16 +117,17 @@ import { authModel } from './auth.model'
 const app = new Elysia()
     .use(authModel)
     .post('/sign-in', ({ body }) => body, {
-        // with auto-completion for existing model name
+        // 使用现有模型名称的自动完成
         body: 'sign',
         response: 'sign'
     })
 ```
 
-This not only allows us to separate the concerns but also allows us to reuse the model in multiple places while reporting the model into Swagger documentation.
+这不仅允许我们分离关注点，还允许我们在多个地方重用模型，并将模型报告到 Swagger 文档中。
 
-## Multiple Models
-`model` accepts an object with the key as a model name and value as the model definition, multiple models are supported by default.
+## 多个模型
+
+`model` 接受一个以模型名称为键、模型定义为值的对象，支持多个模型。
 
 ```typescript twoslash
 // auth.model.ts
@@ -139,10 +143,11 @@ export const authModel = new Elysia()
     })
 ```
 
-## Naming Convention
-Duplicated model names will cause Elysia to throw an error. To prevent declaring duplicate model names, we can use the following naming convention.
+## 命名约定
 
-Let's say that we have all models stored at `models/<name>.ts`, and declare the prefix of the model as a namespace.
+重复的模型名称将导致 Elysia 抛出错误。为了避免声明重复的模型名称，我们可以使用以下命名约定。
+
+假设我们将所有模型存储在 `models/<name>.ts`，并将模型的前缀声明为命名空间。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -166,6 +171,6 @@ export const userModels = new Elysia()
     })
 ```
 
-This can prevent naming duplication at some level, but in the end, it's best to let the naming convention decision up to your team's agreement is the best option.
+这可以在一定程度上防止名称重复，但最好还是让命名约定的决定权交给你的团队协商决定。
 
-Elysia provides an opinionated option for you to decide to prevent decision fatigue.
+Elysia 为你提供了一种有见地的选项，让你决定是否避免决策疲劳。

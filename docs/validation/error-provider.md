@@ -1,29 +1,29 @@
 ---
-title: Error Provider - ElysiaJS
+title: 错误提供程序
 head:
     - - meta
       - property: 'title'
-        content: Error Provider - ElysiaJS
+        content: 错误提供者 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: There are 2 ways to provide a custom error message when the validation fails. Inline message property. Using onError event. TypeBox offers an additional "error" property, allowing us to return a custom error message if the field is invalid.
+        content: 当验证失败时，提供自定义错误消息有两种方式。内联消息属性。使用 onError 事件。TypeBox 提供了一个额外的 "error" 属性，允许我们在字段无效时返回自定义错误消息。
 
     - - meta
       - name: 'og:description'
-        content: There are 2 ways to provide a custom error message when the validation fails. Inline message property. Using onError event. TypeBox offers an additional "error" property, allowing us to return a custom error message if the field is invalid.
+        content: 当验证失败时，提供自定义错误消息有两种方式。内联消息属性。使用 onError 事件。TypeBox 提供了一个额外的 "error" 属性，允许我们在字段无效时返回自定义错误消息。
 ---
 
-# Error Provider
+# 错误提供程序
 
-There are 2 ways to provide a custom error message when the validation fails:
+当验证失败时，有两种方式提供自定义错误消息：
 
-1. inline `message` property
-2. Using [onError](/life-cycle/on-error) event
+1. 内联 `message` 属性
+2. 使用 [onError](/life-cycle/on-error) 事件
 
-## Message Property
+## 消息属性
 
-TypeBox offers an additional "**error**" property, allowing us to return a custom error message if the field is invalid.
+TypeBox 提供了一个额外的 `error` 属性，允许我们在字段无效时返回自定义错误消息。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -42,7 +42,7 @@ new Elysia()
     .listen(3000)
 ```
 
-The following is an example of usage of the error property on various types:
+以下是在不同类型上使用错误属性的示例：
 
 <table class="md-table">
 <tr>
@@ -117,7 +117,7 @@ Invalid object UwU
 
 ## onError
 
-We can customize the behavior of validation based on [onError](/life-cycle/on-error) event by narrowing down the error code call "**VALIDATION**".
+我们可以根据 [onError](/life-cycle/on-error) 事件自定义验证的行为，通过缩小错误代码调用 "**VALIDATION**"。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -130,9 +130,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-Narrowed down error type, will be typed as `ValidationError` imported from 'elysia/error'.
+缩小的错误类型将被定义为从 `elysia/error` 导入的 `ValidationError`。
 
-**ValidationError** exposed a property name **validator** typed as [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck), allowing us to interact with TypeBox functionality out of the box.
+**ValidationError** 暴露了一个名为 **validator** 的属性，类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，允许我们直接与 TypeBox 的功能进行交互。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -145,9 +145,9 @@ new Elysia()
     .listen(3000)
 ```
 
-## Error list
+## 错误列表
 
-**ValidationError** provides a method `ValidatorError.all`, allowing us to list all of the error causes.
+**ValidationError** 提供了一个 `ValidatorError.all` 方法，允许我们列出所有的错误原因。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -163,10 +163,10 @@ new Elysia()
 				case 'VALIDATION':
                     console.log(error.all)
 
-                    // Find a specific error name (path is OpenAPI Schema compliance)
+                    // 查找特定的错误名称（路径符合 OpenAPI Schema）
 					const name = error.all.find((x) => x.path === '/name')
 
-                    // If has a validation error, then log it
+                    // 如果存在验证错误，则记录它
                     if(name)
     					console.log(name)
 			}
@@ -175,4 +175,4 @@ new Elysia()
 	.listen(3000)
 ```
 
-For more information about TypeBox's validator, see [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck).
+有关 TypeBox 验证器的更多信息，请参阅 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)。

@@ -1,28 +1,28 @@
 ---
-title: Primitive Type - ElysiaJS
+title: 原始类型
 head:
     - - meta
       - property: 'title'
-        content: Primitive Type
+        content: 原始类型 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: There are a lot of familiar names and behaviors that intersect with the TypeScript counterpart. String, Number, Boolean, and Object as well as more advanced features like Intersect, KeyOf, and Tuple for versatility. If you are familiar with TypeScript, creating a TypeBox schema has the same behavior as writing a TypeScript type except it provides an actual type validation in runtime.
+        content: 有很多与 TypeScript 对应类型相交的熟悉名称和行为。String、Number、Boolean 和 Object 以及更高级的功能，如 Intersect、KeyOf 和 Tuple，提供了更多的灵活性。如果你熟悉 TypeScript，创建 TypeBox 模式的行为与编写 TypeScript 类型相同，只是它提供了实际的运行时类型验证。
 
     - - meta
       - name: 'og:description'
-        content: There are a lot of familiar names and behaviors that intersect with the TypeScript counterpart. String, Number, Boolean, and Object as well as more advanced features like Intersect, KeyOf, and Tuple for versatility. If you are familiar with TypeScript, creating a TypeBox schema has the same behavior as writing a TypeScript type except it provides an actual type validation in runtime.
+        content: 有很多与 TypeScript 对应类型相交的熟悉名称和行为。String、Number、Boolean 和 Object 以及更高级的功能，如 Intersect、KeyOf 和 Tuple，提供了更多的灵活性。如果你熟悉 TypeScript，创建 TypeBox 模式的行为与编写 TypeScript 类型相同，只是它提供了实际的运行时类型验证。
 ---
 
-# Primitive Type
+# 原始类型
 
-TypeBox API is designed around and similar to TypeScript type.
+TypeBox API 的设计与 TypeScript 类型类似。
 
-There are a lot of familiar names and behaviors that intersect with TypeScript counter-parts like: **String**, **Number**, **Boolean**, and **Object** as well as more advanced features like **Intersect**, **KeyOf**, **Tuple** for versatility.
+有很多与 TypeScript 对应类型相交的熟悉名称和行为，例如：**String**、**Number**、**Boolean** 和 **Object**，以及更高级的功能，如 **Intersect**、**KeyOf** 和 **Tuple**，提供了更多的灵活性。
 
-If you are familiar with TypeScript, creating a TypeBox schema has the same behavior as writing a TypeScript type except it provides an actual type validation in runtime.
+如果你熟悉 TypeScript，创建 TypeBox 模式的行为与编写 TypeScript 类型相同，只是它提供了实际的运行时类型验证。
 
-To create your first schema, import `Elysia.t` from Elysia and start with the most basic type:
+要创建你的第一个模式，从 Elysia 中导入 `Elysia.t`，并从最基本的类型开始：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -34,17 +34,17 @@ new Elysia()
     .listen(3000)
 ```
 
-This code tells Elysia to validate an incoming HTTP body, make sure that the body is String, and if it is String, then allow it to flow through the request pipeline and handler.
+这段代码告诉 Elysia 验证传入的 HTTP 请求体，确保请求体是字符串，如果是字符串，则允许其通过请求管道和处理程序。
 
-If the shape doesn't match, then it will throw an error, into [Error Life Cycle](/essential/life-cycle.html#events).
+如果形状不匹配，它将抛出错误，进入[错误生命周期](/essential/life-cycle.html#events)。
 
-![Elysia Life Cycle](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle.webp)
 
-## Basic Type
+## 基本类型
 
-TypeBox provides a basic primitive type with the same behavior as same as TypeScript type.
+TypeBox 提供了与 TypeScript 类型相同行为的基本原始类型。
 
-The following table lists the most common basic type:
+下表列出了最常见的基本类型：
 
 <table class="md-table">
 <tr>
@@ -179,13 +179,13 @@ t.Literal(42)
 
 </table>
 
-Elysia extends all types from TypeBox allowing you to reference most of the API from TypeBox to use in Elysia.
+Elysia 扩展了 TypeBox 的所有类型，允许你引用 TypeBox 中的大多数 API 以在 Elysia 中使用。
 
-See [TypeBox's Type](https://github.com/sinclairzx81/typebox#json-types) for additional types that are supported by TypeBox.
+有关 TypeBox 支持的其他类型，请参阅 [TypeBox 的类型](https://github.com/sinclairzx81/typebox#json-types)。
 
-## Attribute
+## 属性
 
-TypeBox can accept an argument for more comprehensive behavior based on JSON Schema 7 specification.
+TypeBox 可以接受一个参数，以基于 JSON Schema 7 规范实现更全面的行为。
 
 <table class="md-table">
 <tr>
@@ -240,11 +240,11 @@ t.Array(
     t.Number(),
     {
         /**
-         * Minimum number of items
+         * 最小项数
          */
         minItems: 1,
         /**
-         * Maximum number of items
+         * 最大项数
          */
         maxItems: 5
     }
@@ -272,9 +272,7 @@ t.Object(
     {
         /**
          * @default false
-         * Accept additional properties
-         * that not specified in schema
-         * but still match the type
+         * 接受未在模式中指定但仍与类型匹配的附加属性
          */
         additionalProperties: true
     }
@@ -294,7 +292,7 @@ y: 200
 
 </table>
 
-See [JSON Schema 7 specification](https://json-schema.org/draft/2020-12/json-schema-validation) For more explanation for each attribute.
+有关每个属性的更多解释，请参阅 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
 
 ---
 
@@ -302,11 +300,11 @@ See [JSON Schema 7 specification](https://json-schema.org/draft/2020-12/json-sch
 
 # Honorable Mention
 
-The following are common patterns that are often found useful when creating a schema.
+以下是在创建模式时经常发现有用的常见模式。
 
-## Union
+## 联合类型
 
-Allow multiple types via union.
+通过联合允许多种类型。
 
 <table class="md-table">
 <tr>
@@ -346,9 +344,9 @@ Hello
 
 </table>
 
-## Optional
+## 可选类型
 
-Provided in a property of `t.Object`, allowing the field to be undefined or optional.
+在 `t.Object` 的属性中提供，允许字段为 undefined 或可选。
 
 <table class="md-table">
 <tr>
@@ -392,9 +390,9 @@ t.Object({
 
 </table>
 
-## Partial
+## 部分类型
 
-Allowing all of the fields in `t.Object` to be optional.
+允许 `t.Object` 中的所有字段都是可选的。
 
 <table class="md-table">
 <tr>
@@ -440,9 +438,9 @@ t.Partial(
 
 </table>
 
-## Custom Error
+## 自定义错误
 
-TypeBox offers an additional "**error**" property, allowing us to return a custom error message if the field is invalid.
+TypeBox 提供了额外的 `error` 属性，允许我们返回自定义错误消息，如果字段无效。
 
 <table class="md-table">
 <tr>
