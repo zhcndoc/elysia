@@ -1,9 +1,9 @@
 ---
-title: 路由 - ElysiaJS
+title: Route
 head:
     - - meta
       - property: 'og:title'
-        content: 路由 - ElysiaJS
+        content: Route - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -42,9 +42,9 @@ const demo5 = new Elysia()
     .get('/hi', ({ error }) => error(404))
 </script>
 
-# 路由
+# Route
 
-Web 服务器使用请求的**路径和 HTTP 方法**来查找正确的资源，这就是 **“路由”**。
+Web 服务器使用请求的**路径和 HTTP 方法**来查找正确的资源，这就是 **Route**。
 
 我们可以通过调用**以 HTTP Verb 命名的方法**、传递路径和匹配时执行的函数来定义路由。
 

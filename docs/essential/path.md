@@ -1,9 +1,9 @@
 ---
-title: 路径 - ElysiaJS
+title: Path
 head:
     - - meta
       - property: 'og:title'
-        content: 路径 - ElysiaJS
+        content: Path - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -46,9 +46,9 @@ const demo4 = new Elysia()
     .get('/id/*', () => 'wildcard path')
 </script>
 
-# 路径
+# Path
 
-路径或路径名是从服务器查找资源的标识符。
+**path** 或 **pathname** 是从服务器查找资源的标识符。
 
 ```bash
 http://localhost:/path/page

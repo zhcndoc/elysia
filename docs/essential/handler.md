@@ -1,9 +1,9 @@
 ---
-title: Handler - ElysiaJS
+title: Handler
 head:
     - - meta
       - property: 'og:title'
-        content: Handler - ElysiaJS
+        content: Handler - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'

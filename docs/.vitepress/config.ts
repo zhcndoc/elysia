@@ -8,6 +8,7 @@ const description =
 export default defineConfig({
     lang: 'zh-Hans',
     title: 'ElysiaJS 中文文档',
+    titleTemplate: ':title - ElysiaJS 中文文档',
     // description,
     ignoreDeadLinks: true,
     lastUpdated: true,
@@ -124,9 +125,9 @@ export default defineConfig({
                                 footer: {
                                     selectText: '选择',
                                     navigateText: '切换',
-                                    closeText: '关闭',
+                                    closeText: '关闭'
                                 }
-                            },
+                            }
                         }
                     }
                 }
@@ -503,5 +504,5 @@ export default defineConfig({
         darkModeSwitchLabel: '主题',
         lightModeSwitchTitle: '切换到浅色模式',
         darkModeSwitchTitle: '切换到深色模式'
-    },
+    }
 })

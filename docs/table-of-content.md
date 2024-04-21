@@ -1,9 +1,9 @@
 ---
-title: 内容纲要 - ElysiaJS
+title: 内容纲要
 head:
   - - meta
     - property: 'og:title'
-      content: 内容纲要 - ElysiaJS
+      content: 内容纲要 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
