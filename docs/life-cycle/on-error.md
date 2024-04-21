@@ -1,32 +1,32 @@
 ---
-title: Error Handling - ElysiaJS
+title: 错误处理
 head:
     - - meta
       - property: 'og:title'
-        content: Error Handling - ElysiaJS
+        content: 错误处理 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Execute when an error is thrown in any other life-cycle at least once. Designed to capture and resolve an unexpected error, it's recommended to use on Error in the following situation. To provide custom error message. Fail safe or an error handler or retrying a request. Logging and analytics.
+        content: 当在任何其他生命周期中至少发生一次错误时执行。旨在捕获和解决意外错误，建议在以下情况下使用 on Error。提供自定义错误消息。故障安全或错误处理程序或重试请求。日志记录和分析。
 
     - - meta
       - property: 'og:description'
-        content: Execute when an error is thrown in any other life-cycle at least once. Designed to capture and resolve an unexpected error, it's recommended to use on Error in the following situation. To provide custom error message. Fail safe or an error handler or retrying a request. Logging and analytics.
+        content: 当在任何其他生命周期中至少发生一次错误时执行。旨在捕获和解决意外错误，建议在以下情况下使用 on Error。提供自定义错误消息。故障安全或错误处理程序或重试请求。日志记录和分析。
 ---
 
-# Error Handling
+# 错误处理
 
-**On Error** is the only life-cycle event that is not always executed on each request, but only when an error is thrown in any other life-cycle at least once.
+**On Error** 是唯一一个不会在每个请求中始终执行的生命周期事件，只有在其他生命周期中至少发生一次错误时才会执行。
 
-Designed to capture and resolve an unexpected error, its recommended to use on Error in the following situation:
+设计用于捕获和解决意外错误，在以下情况下建议使用 on Error：
 
--   To provide custom error message
--   Fail safe or an error handler or retrying a request
--   Logging and analytic
+- 提供自定义错误消息
+- 故障安全或错误处理程序或重试请求
+- 日志记录和分析
 
-## Example
+## 示例
 
-Elysia catches all the errors thrown in the handler, classifies the error code, and pipes them to `onError` middleware.
+Elysia 捕获处理程序中抛出的所有错误，对错误代码进行分类，并将其传递给 `onError` 中间件。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -42,13 +42,13 @@ new Elysia()
     })
 ```
 
-With `onError` we can catch and transform the error into a custom error message.
+通过 `onError`，我们可以捕获并将错误转换为自定义错误消息。
 
 ::: tip
-It's important that `onError` must be called before the handler we want to apply it to.
+重要的是，`onError` 必须在我们要应用它的处理程序之前调用。
 :::
 
-For example, returning custom 404 messages:
+例如，返回自定义的 404 错误消息：
 
 ```typescript twoslash
 import { Elysia, NotFoundError } from 'elysia'
@@ -67,16 +67,16 @@ new Elysia()
     .listen(3000)
 ```
 
-## Context
+## 上下文
 
-`onError` Context is extends from `Context` with additional properties of the following:
+`onError` 上下文是从 `Context` 扩展而来，具有以下附加属性：
 
--   error: Error object thrown
--   code: Error Code
+-   error：抛出的错误对象
+-   code：错误代码
 
-### Error Code
+### 错误代码
 
-Elysia error code consists of:
+Elysia 错误代码包括：
 
 -   NOT_FOUND
 -   INTERNAL_SERVER_ERROR
@@ -84,17 +84,17 @@ Elysia error code consists of:
 -   PARSE
 -   UNKNOWN
 
-By default, the thrown error code is `unknown`.
+默认情况下，抛出的错误代码为 `unknown`。
 
 ::: tip
-If no error response is returned, the error will be returned using `error.name`.
+如果没有返回错误响应，将使用 `error.name` 返回错误。
 :::
 
-## Custom Error
+## 自定义错误
 
-Elysia supports custom error both in the type-level and implementation level.
+Elysia 支持类型级别和实现级别的自定义错误。
 
-To provide a custom error code, we can use `Elysia.error` to add a custom error code, helping us to easily classify and narrow down the error type for full type safety with auto-complete as the following:
+要提供自定义错误代码，我们可以使用 `Elysia.error` 添加自定义错误代码，以帮助我们轻松分类和缩小错误类型，实现完全的类型安全和自动完成，如下所示：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -111,10 +111,10 @@ new Elysia()
     })
     .onError(({ code, error }) => {
         switch (code) {
-            // With auto-completion
+            // 使用自动完成
             case 'MyError':
-                // With type narrowing
-                // Hover to see error is typed as `CustomError`
+                // 使用类型缩小
+                // 悬停以查看错误类型为 `CustomError`
                 return error
         }
     })
@@ -123,11 +123,11 @@ new Elysia()
     })
 ```
 
-Properties of `error` code is based on the properties of `error`, the said properties will be used to classify the error code.
+`error` 代码的属性基于 `error` 的属性，这些属性将用于对错误代码进行分类。
 
-## Local Error
+## 本地错误
 
-Same as others life-cycle, we provide an error into an [scope](/essential/scope) using guard:
+与其他生命周期相同，我们使用 guard 将错误传递给 [scope](/essential/scope)：
 
 ```typescript twoslash
 const isSignIn = (headers: Headers): boolean => true

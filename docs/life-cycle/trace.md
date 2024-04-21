@@ -1,36 +1,36 @@
 ---
-title: Trace - ElysiaJS
+title: Trace
 head:
     - - meta
       - property: 'og:title'
-        content: Trace - ElysiaJS
+        content: Trace - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Trace is an API to measure the performance of your server. Allowing us to interact with the duration span of each life-cycle events and measure the performance of each function to identify performance bottlenecks of the server.
+        content: Trace 是一个用于测量服务器性能的 API。它允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 
     - - meta
       - name: 'og:description'
-        content: Trace is an API to measure the performance of your server. Allowing us to interact with the duration span of each life-cycle events and measure the performance of each function to identify performance bottlenecks of the server.
+        content: Trace 是一个用于测量服务器性能的 API。它允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 ---
 
 # Trace
 
-Trace is an API to measure the performance of your server.
+Trace 是一个用于测量服务器性能的 API。
 
-Trace allows us to interact with the duration span of each life-cycle events and measure the performance of each function to identify performance bottlenecks of the server.
+Trace 允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 
-![Example of usage of Trace](/assets/trace.webp)
+![Trace 使用示例](/assets/trace.webp)
 
-Performance is an important aspect for Elysia.
+性能是 Elysia 的重要方面。
 
-We don't want to be fast for benchmarking purposes, we want you to have a real fast server in real-world scenario.
+我们不仅仅希望在基准测试中快速，更希望你在实际场景中拥有一个真正快速的服务器。
 
-There are many factors that can slow down our app - and it's hard to identify them, but **trace** can helps solve that problem
+有许多因素可能导致应用程序变慢，很难识别它们，但是 **trace** 可以帮助解决这个问题
 
 ## Trace
 
-Trace can measure life cycle execution time of each function to audit the performance bottleneck of each cycle.
+Trace 可以测量每个函数的生命周期执行时间，以审核每个周期的性能瓶颈。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -45,23 +45,24 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-You can trace life cycle of the following:
+你可以追踪以下生命周期：
 
--   **request** - get notified of every new request
--   **parse** - array of functions to parse the body
--   **transform** - transform request and context before validation
--   **beforeHandle** - custom requirement to check before the main handler, can skip the main handler if response returned.
--   **handle** - function assigned to the path
--   **afterHandle** - map returned value into a proper response
--   **error** - handle error thrown during processing request
--   **response** - send a Response back to the client
+-   **request** - 获取每个新请求的通知
+-   **parse** - 用于解析请求主体的函数数组
+-   **transform** - 在验证之前转换请求和上下文
+-   **beforeHandle** - 在主处理程序之前的自定义要求，如果返回响应，可以跳过主处理程序。
+-   **handle** - 分配给路径的函数
+-   **afterHandle** - 将返回值映射到适当的响应
+-   **error** - 处理处理请求过程中抛出的错误
+-   **response** - 将响应发送回客户端
 
-Please refer to [Life Cycle Events](/essential/life-cycle#events) for more information:
-![Elysia Life Cycle](/assets/lifecycle.webp)
+有关更多信息，请参阅[生命周期事件](/essential/life-cycle#events)：
+
+![Elysia 生命周期](/assets/lifecycle.webp)
 
 ## Children
 
-You can tap deeper and measure each function of a life-cycle event by using the **children** property of a life-cycle event
+你可以通过使用生命周期事件的 **children** 属性来深入了解并测量每个生命周期事件的每个函数
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -91,12 +92,12 @@ const app = new Elysia()
 ```
 
 ::: tip
-Every life cycle has support for children except for `handle`
+除了 `handle` 之外，每个生命周期都支持子级
 :::
 
 ## Name
 
-Measuring functions by index can be hard to trace back to the function code, that's why trace provides a **name** property to easily identify the function by name.
+通过索引来测量函数可能很难追溯到函数代码，这就是为什么 trace 提供了一个 **name** 属性，以便通过名称轻松识别函数。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -123,16 +124,16 @@ const app = new Elysia()
 ```
 
 ::: tip
-If you are using an arrow function or unnamed function, **name** will become **"anonymous"**
+如果你使用箭头函数或匿名函数，**name** 将变为 **"anonymous"**
 :::
 
 ## Set
 
-Inside the trace callback, you can access `Context` of the request, and can mutate the value of the request itself, for example using `set.headers` to update headers.
+在 trace 回调中，你可以访问请求的 `Context`，并可以修改请求本身的值，例如使用 `set.headers` 更新标头。
 
-This is useful when you need support an API like Server-Timing.
+这在你需要支持类似 Server-Timing 的 API 时非常有用。
 
-![Example of usage of Trace](/assets/server-timing.webp)
+![Trace 使用示例](/assets/server-timing.webp)
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -148,14 +149,14 @@ const app = new Elysia()
 ```
 
 ::: tip
-Using `set` inside `trace` can affect performance, as Elysia defers the execution to the next micro-tick.
+在 `trace` 中使用 `set` 可能会影响性能，因为 Elysia 将执行推迟到下一个微任务。
 :::
 
 ## Skip
 
-Sometimes, `beforeHandle` or handler can throw an error, skipping the execution of some lifecycles.
+有时，`beforeHandle` 或处理程序可能会抛出错误，跳过某些生命周期的执行。
 
-By default if this happens, each life-cycle will be resolved automatically, and you can track if the API is executed or not by using `skip` property
+默认情况下，如果发生这种情况，每个生命周期都将自动解析，并且你可以使用 `skip` 属性跟踪 API 是否执行或未执行
 
 ```ts twoslash
 import { Elysia } from 'elysia'

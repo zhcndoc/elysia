@@ -1,31 +1,31 @@
 ---
-title: After Handle - ElysiaJS
+title: After Handle
 head:
     - - meta
       - property: 'og:title'
-        content: After Handle - ElysiaJS
+        content: After Handle - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Execute after the main handler, for mapping a returned value of "before handle" and "route handler" into a proper response. It's recommended to use After Handle in the following situations. 1. Transform requests into a new value, eg. Compression, Event Stream. 2. Add custom headers based on the response value, eg. **Content-Type**
+        content: 在主处理程序之后执行，用于将 “before handle” 和 “route handler” 的返回值映射为适当的响应。建议在以下情况下使用 After Handle：将请求转换为新值，例如压缩，事件流；根据响应值添加自定义标头，例如 Content-Type。
 
     - - meta
       - property: 'og:description'
-        content: Execute after the main handler, for mapping a returned value of "before handle" and "route handler" into a proper response. It's recommended to use After Handle in the following situations. 1. Transform requests into a new value, eg. Compression, Event Stream. 2. Add custom headers based on the response value, eg. **Content-Type**
+        content: 在主处理程序之后执行，用于将 “before handle” 和 “route handler” 的返回值映射为适当的响应。建议在以下情况下使用 After Handle：将请求转换为新值，例如压缩，事件流；根据响应值添加自定义标头，例如 Content-Type。
 ---
 
 # After Handle
 
-Execute after the main handler, for mapping a returned value of **before handle** and **route handler** into a proper response.
+在主处理程序之后执行，用于将 “before handle” 和 “route handler” 的返回值映射为适当的响应。
 
-It's recommended to use After Handle in the following situations:
+建议在以下情况下使用 After Handle：
 
--   Transform requests into a new value, eg. Compression, Event Stream
--   Add custom headers based on the response value, eg. **Content-Type**
+-   将请求转换为新值，例如压缩，事件流
+-   根据响应值添加自定义标头，例如 Content-Type
 
-## Example
+## 示例
 
-Below is an example of using the after handle to add HTML content type to response headers.
+以下是使用 after handle 将 HTML 内容类型添加到响应标头的示例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -42,18 +42,18 @@ new Elysia()
     .listen(3000)
 ```
 
-The response should be listed as follows:
+响应应该如下所示：
 
 | Path | Content-Type             |
 | ---- | ------------------------ |
 | /    | text/html; charset=utf8  |
 | /hi  | text/plain; charset=utf8 |
 
-## Returned Value
+## 返回值
 
-If a value is returned After Handle will use a return value as a new response value unless the value is **undefined**
+如果返回一个值，After Handle 将使用该返回值作为新的响应值，除非该值为 **undefined**。
 
-The above example could be rewritten as the following:
+上面的示例可以重写如下：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -72,12 +72,12 @@ new Elysia()
     .listen(3000)
 ```
 
-Unlike **beforeHandle**, after a value is returned from **afterHandle**, the iteration of afterHandle **will **NOT** be skipped.**
+与 **beforeHandle** 不同，在从 **afterHandle** 返回值之后，**afterHandle** 的迭代**不会**被跳过。
 
-## Context
+## 上下文
 
-`onAfterHandle` Context is extends from `Context` with additional properties of the following:
+`onAfterHandle` 上下文扩展自 `Context`，具有以下额外属性：
 
--   response: Response to return to the client
+- response：要返回给客户端的响应
 
-All of the context is based on normal context and can be used like normal context in route handler.
+所有上下文都基于普通上下文，并且可以像在路由处理程序中使用普通上下文一样使用。
