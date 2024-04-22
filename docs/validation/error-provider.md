@@ -117,7 +117,7 @@ Invalid object UwU
 
 ## onError
 
-我们可以根据 [onError](/life-cycle/on-error) 事件自定义验证的行为，通过缩小错误代码调用 "**VALIDATION**"。
+我们可以根据 [onError](/life-cycle/on-error) 事件自定义验证的行为，通过缩小错误代码调用 “**VALIDATION**”。
 
 ```typescript
 import { Elysia, t } from 'elysia'

@@ -47,7 +47,7 @@ const demo2 = new Elysia()
 
 要创建一个安全的 Web 服务器，最重要的一点就是确保请求的格式正确。
 
-Elysia 通过提供一个验证工具来解决这个问题，该工具使用模式生成器（Schema Builder）验证传入的请求。
+Elysia 通过提供一个验证工具来解决这个问题，该工具使用模式生成器 (Schema Builder) 验证传入的请求。
 
 **Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式生成器，可在运行时和编译时验证值，提供严格类型语言的类型安全性。
 
@@ -88,7 +88,7 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-这段代码可确保路径参数 `id` 始终为数字字符串，然后在运行时和编译时（类型级）自动转换为数字。
+这段代码可确保路径参数 `id` 始终为数字字符串，然后在运行时和编译时 (类型级) 自动转换为数字。
 
 响应列表如下：
 

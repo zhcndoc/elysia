@@ -40,7 +40,7 @@ const app = new Elysia()
 
 ## 路由定义
 
-`schema` 用于自定义路由定义，它不仅会生成 OpenAPI 模式和 Swagge r定义，还提供类型验证、类型推断和自动完成。
+`schema` 用于自定义路由定义，它不仅会生成 OpenAPI 模式和 Swagge r 定义，还提供类型验证、类型推断和自动完成。
 
 然而，有时仅定义类型并不清楚路由的作用。你可以使用 `schema.detail` 字段明确定义路由的用途。
 

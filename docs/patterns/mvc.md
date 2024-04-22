@@ -18,7 +18,7 @@ head:
 
 Elysia 是一个无模式的框架，我们将编码模式的决定权交给你和你的团队。
 
-然而，我们发现有一些人在 Elysia 上使用 MVC 模式（[模型-视图-控制器](https://zh.wikipedia.org/wiki/模型-视图-控制器)），并发现它很难解耦并处理类型。
+然而，我们发现有一些人在 Elysia 上使用 MVC 模式 ([模型-视图-控制器](https://zh.wikipedia.org/wiki/模型-视图-控制器))，并发现它很难解耦并处理类型。
 
 本页面是使用 MVC 模式使用 Elysia 的指南。
 
@@ -57,9 +57,9 @@ Elysia 在确保类型完整性方面做了很多工作，如果将整个 Contex
 1. Elysia 类型复杂，且严重依赖插件和多级链接。
 2. 难以进行类型推断，Elysia 类型可能随时更改，特别是使用装饰器和存储器时。
 3. 类型转换可能导致类型完整性丢失或无法确保类型和运行时代码。
-4. 对于 [Sucrose](/blog/elysia-10#sucrose)（Elysia 的“类似”编译器），更难进行静态分析你的代码
+4. 对于 [Sucrose](/blog/elysia-10#sucrose) (Elysia 的 “类似” 编译器)，更难进行静态分析你的代码
 
-我们建议使用对象解构将所需内容提取出来，并传递给 **"Service"**。
+我们建议使用对象解构将所需内容提取出来，并传递给 **“Service”**。
 
 将整个 `Controller.method` 传递给 Elysia 相当于有 2 个控制器之间相互传递数据。这与框架和 MVC 模式的设计相违背。
 
@@ -284,7 +284,7 @@ export class AppController {
 
 如果你的 Service 将在多个实例中使用，或者可能需要一些来自请求的属性。我们建议创建一个专用的 Elysia 实例作为 **Service**。
 
-Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此你不必担心性能问题，因为如果指定了 **"name"** 属性，它将成为单例。
+Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此你不必担心性能问题，因为如果指定了 **“name”** 属性，它将成为单例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -315,7 +315,7 @@ const UserController = new Elysia()
 
 ## 模型
 
-Model 或 [DTO](https://zh.wikipedia.org/wiki/数据传输对象)（数据传输对象）由 [Elysia.t](/validation/overview.html#data-validation)（验证）处理。
+Model 或 [DTO](https://zh.wikipedia.org/wiki/数据传输对象) (数据传输对象) 由 [Elysia.t](/validation/overview.html#data-validation) (验证) 处理。
 
 我们建议使用 [Elysia 引用模型](/validation/reference-model.html#reference-model)或为每个模块创建 DTO 的对象或类。
 

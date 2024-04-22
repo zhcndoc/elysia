@@ -82,7 +82,7 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-响应应该如下:
+响应应该如下：
 
 | URL | Query | Params |
 | --- | --------- | ------------ |
@@ -96,7 +96,7 @@ new Elysia()
 
 ## Body
 
-验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（或 `body`）。
+验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) (或 `body`)。
 
 这些信息是供 Web 服务器处理的附加信息。
 

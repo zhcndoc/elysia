@@ -20,7 +20,7 @@ head:
 
 Elysia 提供了 **Elysia.handle** 方法，它接受一个 Web 标准的 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 对象，并返回一个 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 对象，模拟了一个 HTTP 请求。
 
-Bun 包含一个内置的 [测试运行器](https://bun.sh/docs/cli/test)，通过 `bun:test` 模块提供了类似 Jest 的 API，方便创建单元测试。
+Bun 包含一个内置的[测试运行器](https://bun.sh/docs/cli/test)，通过 `bun:test` 模块提供了类似 Jest 的 API，方便创建单元测试。
 
 在项目根目录下创建 **test/index.test.ts**，内容如下：
 
@@ -83,4 +83,4 @@ describe('Elysia', () => {
 })
 ```
 
-参见 [Eden Treaty 单元测试](/eden/treaty/unit-test) 获取设置和更多信息。
+参见 [Eden Treaty 单元测试](/eden/treaty/unit-test)获取设置和更多信息。

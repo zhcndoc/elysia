@@ -44,7 +44,7 @@ Elysia Cookie 是具有响应式的。这意味着当你更改 Cookie 值时，�
 
 Elysia Cookie 提供了处理 Cookie 的单一事实来源，它具有自动设置标头和同步 Cookie 值的能力。
 
-由于默认情况下 Cookie 是依赖代理的对象，提取的值永远不会是 **undefined**；而是始终是一个 `Cookie<unknown>` 的值，可以通过调用 **.value** 属性来获取。
+由于默认情况下 Cookie 是依赖代理的对象，提取的值永远不会是 **undefined**；而是始终是一个 `Cookie<unknown>` 的值，可以通过调用**。value** 属性来获取。
 
 我们可以将 Cookie 存储库视为常规对象，迭代它只会迭代已存在的 Cookie 值。
 
@@ -77,7 +77,7 @@ new Elysia()
 
 ## set
 
-**set** 允许通过 **重置所有属性** 并使用新值覆盖属性来同时更新多个 Cookie 属性。
+**set** 允许通过**重置所有属性**并使用新值覆盖属性来同时更新多个 Cookie 属性。
 
 ```ts twoslash
 import { Elysia } from 'elysia'

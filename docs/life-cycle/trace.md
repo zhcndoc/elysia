@@ -124,7 +124,7 @@ const app = new Elysia()
 ```
 
 ::: tip
-如果你使用箭头函数或匿名函数，**name** 将变为 **"anonymous"**
+如果你使用箭头函数或匿名函数，**name** 将变为 **“anonymous”**
 :::
 
 ## Set

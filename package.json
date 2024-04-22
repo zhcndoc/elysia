@@ -41,11 +41,13 @@
     "react": "^18.2.0",
     "view-transitions-api-types": "^0.1.1",
     "vitepress": "^1.1.3",
-    "vue": "^3.4.23"
+    "vue": "^3.4.23",
+    "zhlint": "^0.8.1"
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--max_old_space_size=4096' vitepress dev docs",
     "build": "NODE_OPTIONS='--max_old_space_size=4096' vitepress build docs",
-    "serve": "vitepress serve docs"
+    "serve": "vitepress serve docs",
+    "zhlint-fix": "zhlint 'docs/{api,eden,essential,integrations,life-cycle,patterns,plugins,validation}/**/*.md' --fix"
   }
 }

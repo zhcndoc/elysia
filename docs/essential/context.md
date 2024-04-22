@@ -90,12 +90,12 @@ Elysia 上下文包括：
 
 -   **path** - 请求的路径名
 -   **body** - [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)、表单或文件上传。
--   **query** - [查询字符串](https://en.wikipedia.org/wiki/Query_string)，包括作为 JavaScript 对象的搜索查询附加参数。（查询字符串是从 `?` 开始的路径名后的值中提取的）
+-   **query** - [查询字符串](https://en.wikipedia.org/wiki/Query_string)，包括作为 JavaScript 对象的搜索查询附加参数。(查询字符串是从 `?` 开始的路径名后的值中提取的)
 -   **params** - Elysia 的路径参数解析为 JavaScript 对象
 -   **headers** - [HTTP 标头](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)，有关请求的附加信息，如用户代理、内容类型、缓存提示。
 -   **request** - [Web 标准请求](https://developer.mozilla.org/en-US/docs/Web/API/Request)
 -   **store** - Elysia 实例的全局可变存储
--   **cookie** - 用于与 Cookie 交互的全局可变信号存储（包括 get/set）
+-   **cookie** - 用于与 Cookie 交互的全局可变信号存储 (包括 get/set)
 -   **set** - 应用于响应的属性：
     -   **status** - [HTTP 状态](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)，如果未设置，则默认为 200。
     -   **headers** - 响应标头
@@ -202,7 +202,7 @@ new Elysia()
 
 与在服务器启动前赋值不同，**derive** 会在请求发生时赋值。
 
-这样我们就可以“派生”（根据现有属性创建新属性）。
+这样我们就可以 “派生” (根据现有属性创建新属性)。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'

@@ -112,14 +112,14 @@ new Elysia({
 
 指定 [Domain Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.3)的值。
 
-默认情况下，不设置域，大多数客户端将只将Cookie应用于当前域。
+默认情况下，不设置域，大多数客户端将只将 Cookie 应用于当前域。
 
 ### encode
 @default `encodeURIComponent`
 
 指定用于编码 Cookie 值的函数。
 
-由于 Cookie 的值具有有限的字符集（必须是简单字符串），该函数可用于将值编码为适用于 Cookie 值的字符串。
+由于 Cookie 的值具有有限的字符集 (必须是简单字符串)，该函数可用于将值编码为适用于 Cookie 值的字符串。
 
 默认函数是全局的 `encodeURIComponent`，它将 JavaScript 字符串编码为 UTF-8 字节序列，然后对超出 Cookie 范围的字节进行 URL 编码。
 
@@ -127,7 +127,7 @@ new Elysia({
 
 指定用于 [Expires Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.1)的 Date 对象的值。
 
-默认情况下，不设置过期时间，大多数客户端将将其视为“非持久性 Cookie”，并在条件（例如退出 Web 浏览器应用程序）下将其删除。
+默认情况下，不设置过期时间，大多数客户端将将其视为 “非持久性 Cookie”，并在条件 (例如退出 Web 浏览器应用程序) 下将其删除。
 
 ::: tip
 [Cookie 存储模型规范](https://tools.ietf.org/html/rfc6265#section-5.3)规定，如果同时设置了 `expires` 和 `maxAge`，则 `maxAge` 优先，但并非所有客户端都遵守此规定，因此如果同时设置了两者，它们应该指向相同的日期和时间。
@@ -169,7 +169,7 @@ new Elysia({
 指定要用于 [Priority Set-Cookie 属性](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)的字符串值。
 
 - `low` 将 Priority 属性设置为 Low。
-- `medium` 将Priority 属性设置为 Medium，这是默认优先级。
+- `medium` 将 Priority 属性设置为 Medium，这是默认优先级。
 - `high` 将 Priority 属性设置为 High。
 
 有关不同优先级级别的更多信息，请参阅[规范](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)。

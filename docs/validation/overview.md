@@ -59,7 +59,7 @@ Elysia 通过自定义类型扩展了 TypeBox 的使用，为 Elysia 内部代�
 
 ## 章节
 
-本章将介绍 TypeBox 的基本用法，以及 Elysia 类型中引入的新 API（默认 TypeBox 未提供）。
+本章将介绍 TypeBox 的基本用法，以及 Elysia 类型中引入的新 API (默认 TypeBox 未提供)。
 
 我们建议先阅读基本章节的[模式](/essential/schema.html)，以了解 Elysia 类型的基本概念。
 

@@ -60,7 +60,7 @@ Elysia 使用路径和方法来查找正确的资源。
     <img src="/essential/url-object.svg" alt="URL Representation" />
 </div>
 
-路径从原点后开始，前缀为 `/`，在 `serach` 查询 **（?）**
+路径从原点后开始，前缀为 `/`，在 `serach` 查询 **(？)**
 
 我们可以将 URL 和路径分类如下：
 
@@ -73,7 +73,7 @@ Elysia 使用路径和方法来查找正确的资源。
 | http://site.com/hello#title     | /hello       |
 
 ::: tip
-如果未指定路径，浏览器和网络服务器将把路径默认为 "/"。
+如果未指定路径，浏览器和网络服务器将把路径默认为 “/”。
 :::
 
 Elysia 将使用[处理](/essential/handler)函数查找每个请求的[路由](/essential/route)和响应。
@@ -95,7 +95,7 @@ new Elysia()
     .listen(3000)
 ```
 
-我们用 `/id/:id` 创建了一个动态路径，它告诉 Elysia 匹配 `/id` 之前的任何路径，而 `/id`之 后的路径可以是任何值，然后将其存储为 **params** 对象。
+我们用 `/id/:id` 创建了一个动态路径，它告诉 Elysia 匹配 `/id` 之前的任何路径，而 `/id` 之后的路径可以是任何值，然后将其存储为 **params** 对象。
 
 <Playground
   :elysia="demo1"
@@ -120,9 +120,9 @@ new Elysia()
 | /id                    | Not Found |
 | /id/anything/rest      | Not Found |
 
-动态路径非常适合强制 URL 包含重要信息（例如 ID），以便以后使用。
+动态路径非常适合强制 URL 包含重要信息 (例如 ID)，以便以后使用。
 
-我们将命名变量路径称为**路径参数**或简称为 **params** 。
+我们将命名变量路径称为**路径参数**或简称为 **params**。
 
 ## 分段
 
@@ -138,7 +138,7 @@ Elysia 中的路径参数通过在段前面加上 `:` 前缀后跟名称来表�
 
 路径参数允许 Elysia 捕获 URL 的特定段。
 
-命名的路径参数将存储在 `Context.params`.
+命名的路径参数将存储在 `Context.params`。
 
 | Route     | Path   | Params  |
 | --------- | ------ | ------- |

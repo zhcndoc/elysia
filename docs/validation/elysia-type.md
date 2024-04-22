@@ -58,7 +58,7 @@ t.Numeric()
 
 当传入的值是数字字符串时，例如路径参数或查询字符串，这非常有用。
 
-Numeric 接受与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
+Numeric 接受与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)相同的属性。
 
 ## File
 
@@ -103,8 +103,8 @@ maxSize?: number | `${number}${'k' | 'm'}`
 #### 文件单位后缀：
 
 以下是文件单位的规范：
-m: 兆字节（1048576 字节）
-k: 千字节（1024 字节）
+m：兆字节 (1048576 字节)
+k：千字节 (1024 字节)
 
 ## Files
 

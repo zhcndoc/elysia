@@ -39,7 +39,7 @@ const app = new Elysia()
     })
 ```
 
-访问该路径应将结果记录为 **"Elysia"**。
+访问该路径应将结果记录为 **“Elysia”**。
 
 ## API
 
@@ -47,7 +47,7 @@ const app = new Elysia()
 
 在上面的示例中，我们创建了一个接受 **string** 的 **hi**。
 
-然后，我们将 **hi** 分配给 **"Elysia"**，然后该值将发送回 **hi** 函数，然后该函数将一个新事件添加到 **beforeHandle** 堆栈中。
+然后，我们将 **hi** 分配给 **“Elysia”**，然后该值将发送回 **hi** 函数，然后该函数将一个新事件添加到 **beforeHandle** 堆栈中。
 
 这等效于将函数推送到 **beforeHandle**，如下所示：
 
@@ -105,7 +105,7 @@ const app = new Elysia()
 -   onResponse
 -   events - 生命周期存储
     -   global：全局堆栈的生命周期
-    -   local：内联钩子（路由）的生命周期
+    -   local：内联钩子 (路由) 的生命周期
 
 以 **on** 开头的参数是将函数附加到生命周期堆栈中的函数。
 
@@ -113,9 +113,9 @@ const app = new Elysia()
 
 ## 选项
 
-扩展API的生命周期函数接受额外的**选项**以确保对生命周期事件的控制。
+扩展 API 的生命周期函数接受额外的**选项**以确保对生命周期事件的控制。
 
--   **options**（可选）- 确定哪个堆栈
+-   **options** (可选)- 确定哪个堆栈
 -   **function** - 在事件上执行的函数
 
 ```typescript twoslash
@@ -140,10 +140,10 @@ const plugin = new Elysia({ name: 'plugin' })
 
 -   **insert**
     -   函数应添加到何处
-    -   值：**'before' | 'after'**
-    -   @default：**'after'**
+    -   值：**‘before’ | ‘after’**
+    -   @default：**‘after’**
 -   **stack**
     -   确定应添加哪种类型的堆栈
-    -   值：**'global' | 'local'**
-    -   @default：**'local'**
+    -   值：**‘global’ | ‘local’**
+    -   @default：**‘local’**
     

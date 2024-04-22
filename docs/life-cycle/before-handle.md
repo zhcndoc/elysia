@@ -59,7 +59,7 @@ new Elysia()
 
 ## 守卫
 
-当我们需要将相同的 before handle 应用于多个路由时，可以使用 [守卫](#guard) 将相同的 before handle 应用于多个路由。
+当我们需要将相同的 before handle 应用于多个路由时，可以使用[守卫](#guard)将相同的 before handle 应用于多个路由。
 
 ```typescript twoslash
 // @filename: user.ts
@@ -99,11 +99,11 @@ new Elysia()
 
 ## Resolve
 
-[派生](/life-cycle/before-handle#derive) 的 "安全" 版本。
+[派生](/life-cycle/before-handle#derive)的 “安全” 版本。
 
 旨在在验证过程后将新值附加到上下文中，存储在与 **beforeHandle** 相同的堆栈中。
 
-Resolve 语法与 [派生](/life-cycle/before-handle#derive) 相同，下面是从授权插件中检索 bearer 标头的示例。
+Resolve 语法与[派生](/life-cycle/before-handle#derive)相同，下面是从授权插件中检索 bearer 标头的示例。
 
 ```typescript twoslash
 // @filename: user.ts
@@ -159,7 +159,7 @@ new Elysia()
 3
 ```
 
-与 **派生** 相同，由 **resolve** 分配的属性是唯一的，不与另一个请求共享。
+与**派生**相同，由 **resolve** 分配的属性是唯一的，不与另一个请求共享。
 
 ## 守卫 Resolve
 

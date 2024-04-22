@@ -26,7 +26,7 @@ Elysia 是符合 WinterCG 的。我们优化了在 Bun 上运行，但也公开�
 
 ## Mount
 
-要使用 **.mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
+要使用**。mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
 ```ts
 import { Elysia } from 'elysia'
 
@@ -54,7 +54,7 @@ type fetch = (request: RequestLike) => Response
 
 这使得你可以在单个服务器环境中执行所有前述的代码，从而可以与 Elysia 无缝交互。你还可以在单个部署中重用现有函数，无需使用反向代理来管理多个服务器。
 
-如果框架还支持 **.mount** 函数，你可以深度嵌套支持它的框架。
+如果框架还支持**。mount** 函数，你可以深度嵌套支持它的框架。
 ```ts
 import { Elysia } from 'elysia'
 

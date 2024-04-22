@@ -104,9 +104,9 @@ new Elysia()
 
 Elysia HTTP 方法接受以下参数：
 
--   **path**: 路径名
--   **function**: 响应客户端的函数
--   **hook**: 附加元数据
+-   **path**：路径名
+-   **function**：响应客户端的函数
+-   **hook**：附加元数据
 
 你可以在 [HTTP 请求方法](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)上阅读有关 HTTP 方法的更多信息。
 
@@ -177,9 +177,9 @@ const app = new Elysia()
 **Elysia.route** 接受以下内容：
 
 -   **method**: HTTP Verb
--   **path**: 路径名
--   **function**: 响应客户端的函数
--   **hook**: 附加元数据
+-   **path**：路径名
+-   **function**：响应客户端的函数
+-   **hook**：附加元数据
 
 导航到每个方法时，你应该看到如下结果：
 
@@ -248,7 +248,7 @@ new Elysia()
 有关生命周期和错误处理的更多信息，请参阅[生命周期事件](/essential/life-cycle#events)和[错误处理](/life-cycle/on-error)。
 
 ::: tip
-HTTP 状态用于指示响应的类型。 默认情况下，如果一切正确，服务器将返回 "200 OK" 状态代码（如果路由匹配并且没有错误，Elysia 将默认返回 200）
+HTTP 状态用于指示响应的类型。默认情况下，如果一切正确，服务器将返回 “200 OK” 状态代码 (如果路由匹配并且没有错误，Elysia 将默认返回 200)
 
-如果服务器未能找到任何要处理的路由（如本例所示），则服务器应返回 "404 NOT FOUND" 状态代码。
+如果服务器未能找到任何要处理的路由 (如本例所示)，则服务器应返回 “404 NOT FOUND” 状态代码。
 :::
