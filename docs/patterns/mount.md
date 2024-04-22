@@ -1,30 +1,32 @@
 ---
-title: Mount - ElysiaJS
+title: Mount
 head:
   - - meta
     - property: 'og:title'
-      content: Mount - ElysiaJS
+      content: Mount - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Applying WinterCG interplopable code to run with Elysia or vice-versa.
+      content: 将 WinterCG 的可互操作代码应用于 Elysia 或反之。
 
   - - meta
     - property: 'og:description'
-      content: Applying WinterCG interplopable code to run with Elysia or vice-versa.
+      content: 将 WinterCG 的可互操作代码应用于 Elysia 或反之。
 ---
 
 # Mount
-WinterCG is a standard for web-interoperable runtimes. Supported by Cloudflare, Deno, Vercel Edge Runtime, Netlify Function, and various others, it allows web servers to run interoperably across runtimes that use Web Standard definitions like `Fetch`, `Request`, and `Response`.
 
-Elysia is WinterCG compliant. We are optimized to run on Bun but also openly support other runtimes if possible.
+WinterCG 是一种用于 Web 可互操作运行时的标准。得到 Cloudflare、Deno、Vercel Edge Runtime、Netlify Function 和其他各种运行时的支持，它允许 Web 服务器在使用像 `Fetch`、`Request` 和 `Response` 之类的 Web 标准定义的运行时之间进行互操作。
 
-In theory, this allows any framework or code that is WinterCG compliant to be run together, allowing frameworks like Elysia, Hono, Remix, Itty Router to run together in a simple function.
+Elysia 是符合 WinterCG 的。我们优化了在 Bun 上运行，但也公开支持其他可能的运行时。
 
-Adhering to this, we implemented the same logic for Elysia by introducing `.mount` method to run with any framework or code that is WinterCG compliant.
+理论上，这允许任何符合 WinterCG 的框架或代码一起运行，使得像 Elysia、Hono、Remix、Itty Router 这样的框架可以在一个简单的函数中一起运行。
+
+为了遵循这一点，我们通过引入 `.mount` 方法为 Elysia 实现了相同的逻辑，以便与任何符合 WinterCG 的框架或代码一起运行。
 
 ## Mount
-To use **.mount**, [simply pass a `fetch` function](https://twitter.com/saltyAom/status/1684786233594290176):
+
+要使用 **.mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
 ```ts
 import { Elysia } from 'elysia'
 
@@ -33,25 +35,26 @@ const app = new Elysia()
     .mount('/hono', hono.fetch)
 ```
 
-A **fetch** function is a function that accepts a Web Standard Request and returns a Web Standard Response with the definition of:
+**fetch** 函数是一个接受 Web 标准请求并返回带有以下定义的 Web 标准响应的函数：
 ```ts
-// Web Standard Request-like object
-// Web Standard Response
+// 类似 Web 标准请求的对象
+// Web 标准响应
 type fetch = (request: RequestLike) => Response
 ```
 
-By default, this declaration is used by:
+默认情况下，这个声明被以下运行时使用：
+
 - Bun
 - Deno
 - Vercel Edge Runtime
 - Cloudflare Worker
 - Netlify Edge Function
 - Remix Function Handler
-- etc.
+- 等等
 
-This allows you to execute all the aforementioned code in a single server environment, making it possible to interact seamlessly with Elysia. You can also reuse existing functions within a single deployment, eliminating the need for a reverse proxy to manage multiple servers.
+这使得你可以在单个服务器环境中执行所有前述的代码，从而可以与 Elysia 无缝交互。你还可以在单个部署中重用现有函数，无需使用反向代理来管理多个服务器。
 
-If the framework also supports a **.mount** function, you can deeply nest a framework that supports it.
+如果框架还支持 **.mount** 函数，你可以深度嵌套支持它的框架。
 ```ts
 import { Elysia } from 'elysia'
 
@@ -68,8 +71,9 @@ const main = new Elysia()
     .listen(3000)
 ```
 
-## Reusing Elysia
-Moreover, you can re-use multiple existing Elysia projects on your server.
+## 重用 Elysia
+
+此外，你可以在服务器上重用多个现有的 Elysia 项目。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -84,6 +88,6 @@ new Elysia()
     .mount(C)
 ```
 
-If an instance passed to `mount` is an Elysia instance, it will be resolved with `use` automatically, providing type-safety and support for Eden by default.
+如果传递给 `mount` 的实例是 Elysia 实例，它将自动解析为 `use`，从而提供类型安全性和对 Eden 的支持。
 
-This makes the possibility of an interoperable framework and runtime a reality.
+这使得可互操作的框架和运行时成为现实。

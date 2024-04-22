@@ -1,28 +1,28 @@
 ---
-title: Testing - ElysiaJS
+title: 单元测试
 head:
     - - meta
       - property: 'og:title'
-        content: Testing - ElysiaJS
+        content: 单元测试 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: You can use `bun:test` to create a unit test with Elysia. Elysia instance has a `handle` method that accepts `Request` and will return a `Response`, the same as creating an HTTP request.
+        content: 你可以使用 `bun:test` 来创建一个使用 Elysia 进行单元测试的测试。Elysia 实例有一个 `handle` 方法，接受 `Request` 对象并返回一个 `Response` 对象，与创建 HTTP 请求相同。
 
     - - meta
       - name: 'og:description'
-        content: You can use `bun:test` to create a unit test with Elysia. Elysia instance has a `handle` method that accepts `Request` and will return a `Response`, the same as creating an HTTP request.
+        content: 你可以使用 `bun:test` 来创建一个使用 Elysia 进行单元测试的测试。Elysia 实例有一个 `handle` 方法，接受 `Request` 对象并返回一个 `Response` 对象，与创建 HTTP 请求相同。
 ---
 
-# Unit Test
+# 单元测试
 
-Being WinterCG compliant, we can use Request / Response classes to test an Elysia server.
+作为 WinterCG 兼容的一部分，我们可以使用 Request / Response 类来测试 Elysia 服务器。
 
-Elysia provides the **Elysia.handle** method, which accepts a Web Standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) and returns [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response), simulating an HTTP Request.
+Elysia 提供了 **Elysia.handle** 方法，它接受一个 Web 标准的 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 对象，并返回一个 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 对象，模拟了一个 HTTP 请求。
 
-Bun includes a built-in [test runner](https://bun.sh/docs/cli/test) that offers a Jest-like API through the `bun:test` module, facilitating the creation of unit tests.
+Bun 包含一个内置的 [测试运行器](https://bun.sh/docs/cli/test)，通过 `bun:test` 模块提供了类似 Jest 的 API，方便创建单元测试。
 
-Create **test/index.test.ts** in the root of project directory with the following:
+在项目根目录下创建 **test/index.test.ts**，内容如下：
 
 ```typescript twoslash
 // test/index.test.ts
@@ -42,26 +42,26 @@ describe('Elysia', () => {
 })
 ```
 
-Then we can perform tests by running **bun test**
+然后我们可以通过运行 **bun test** 来执行测试：
 
 ```bash
 bun test
 ```
 
-New requests to an Elysia server must be a fully valid URL, **NOT** a part of a URL.
+对 Elysia 服务器的新请求必须是一个完全有效的 URL，而**不是** URL 的一部分。
 
-The request must provide URL as the following:
+请求的 URL 必须按照以下格式提供：
 
 | URL                   | Valid |
 | --------------------- | ----- |
 | http://localhost/user | ✅    |
 | /user                 | ❌    |
 
-We can also use other testing libraries like Jest or testing library to create Elysia unit tests.
+我们也可以使用其他测试库，如 Jest 或 testing library，来创建 Elysia 的单元测试。
 
-## Eden Treaty test
+## Eden Treaty 测试
 
-We may use Eden Treaty to create an end-to-end type safety test for Elysia server as follows:
+我们可以使用 Eden Treaty 来创建一个端到端的类型安全测试，用于测试 Elysia 服务器，如下所示：
 
 ```typescript twoslash
 // test/index.test.ts
@@ -83,4 +83,4 @@ describe('Elysia', () => {
 })
 ```
 
-See [Eden Treaty Unit Test](/eden/treaty/unit-test) for setup and more information.
+参见 [Eden Treaty 单元测试](/eden/treaty/unit-test) 获取设置和更多信息。
