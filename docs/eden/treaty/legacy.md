@@ -1,34 +1,36 @@
 ---
-title: Eden Treaty Legacy - ElysiaJS
+
+title: Eden Treaty Legacy
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Treaty Legacy - ElysiaJS
+      content: Eden Treaty Legacy - ElysiaJS 中文文档
 
   - - meta
     - name: 'og:description'
-      content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+      content: Eden Treaty 是 Elysia 服务器的对象式表示，提供了端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，而无需代码生成。
 
   - - meta
     - name: 'og:description'
-      content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+      content: Eden Treaty 是 Elysia 服务器的对象式表示，提供了端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，而无需代码生成。
 ---
 
 # Eden Treaty Legacy
 
 ::: tip NOTE
-This is a documentation for Eden Treaty 1 or (edenTreaty)
+这是 Eden Treaty 1 或 (edenTreaty) 的文档。
 
-For a new project, we recommended starting with Eden Treaty 2 (treaty) instead.
+对于新项目，我们建议使用 Eden Treaty 2 (treaty) 代替。
 :::
 
-Eden Treaty is an object-like representation of an Elysia server.
+Eden Treaty 是 Elysia 服务器的对象式表示。
 
-Providing accessor like a normal object with type directly from the server, helping us to move faster, and make sure that nothing break
+提供像普通对象一样的访问器，类型直接来自服务器，帮助我们更快地移动，并确保没有东西会坏掉。
 
 ---
 
-To use Eden Treaty, first export your existing Elysia server type:
+要使用 Eden Treaty，首先导出您现有的 Elysia 服务器类型：
+
 ```typescript
 // server.ts
 import { Elysia, t } from 'elysia'
@@ -47,7 +49,8 @@ const app = new Elysia()
 export type App = typeof app // [!code ++]
 ```
 
-Then import the server type, and consume the Elysia API on client:
+然后导入服务器类型，并在客户端使用 Elysia API：
+
 ```typescript
 // client.ts
 import { edenTreaty } from '@elysiajs/eden'
@@ -69,11 +72,12 @@ const { data: nendoroid, error } = app.mirror.post({
 ```
 
 ::: tip
-Eden Treaty is fully type-safe with auto-completion support. 
+Eden Treaty 完全类型安全，并支持自动完成。
 :::
 
-## Anatomy
-Eden Treaty will transform all existing paths to object-like representation, that can be described as:
+## 解构
+
+Eden Treaty 将所有现有路径转换为对象式表示，可以描述为：
 ```typescript
 EdenTreaty.<1>.<2>.<n>.<method>({
     ...body,
@@ -82,24 +86,28 @@ EdenTreaty.<1>.<2>.<n>.<method>({
 })
 ```
 
-### Path
-Eden will transform `/` into `.` which can be called with a registered `method`, for example:
+### 路径
+
+Eden 将 `/` 转换为 `.`，可以用注册的 `method` 调用，例如：
+
 - **/path** -> .path
 - **/nested/path** -> .nested.path
 
-### Path parameters
-Path parameters will be mapped automatically by their name in the URL.
+### 路径参数
+
+路径参数将根据 URL 中的名称自动映射。
 
 - **/id/:id** -> .id.`<anyThing>`
-- eg: .id.hi
-- eg: .id['123']
+- 例如：`.id.hi`
+- 例如：`.id['123']`
 
 ::: tip
-If a path doesn't support path parameters, TypeScript will show an error.
+如果路径不支持路径参数，TypeScript 将显示错误。
 :::
 
-### Query
-You can append queries to path with `$query`:
+### 查询
+
+你可以使用 `$query` 将查询附加到路径：
 ```typescript
 app.get({
     $query: {
@@ -109,8 +117,10 @@ app.get({
 })
 ```
 
-### Fetch
-Eden Treaty is a fetch wrapper, you can add any valid [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) parameters to Eden by passing it to `$fetch`:
+### 获取
+
+Eden Treaty 是一个获取包装器，你可以通过将参数传递给 `$fetch` 来向 Eden 添加任何有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数：
+
 ```typescript
 app.post({
     $fetch: {
@@ -121,8 +131,10 @@ app.post({
 })
 ```
 
-## Error Handling
-Eden Treaty will return a value of `data` and `error` as a result, both fully typed.
+## 错误处理
+
+Eden Treaty 将返回 `data` 和 `error` 作为结果，两者都是完全类型的。
+
 ```typescript
 // response type: { id: 1895, name: 'Skadi' }
 const { data: nendoroid, error } = app.mirror.post({
@@ -153,16 +165,17 @@ if(error) {
 const { id, name } = nendoroid
 ```
 
-Both **data**, and **error** will be typed as nullable until you can confirm their statuses with a type guard.
+**data** 和 **error** 都将被类型化为可空，直到你可以使用类型保护来确认它们的状态。
 
-To put it simply, if fetch is successful, data will have a value and error will be null, and vice-versa.
+简单来说，如果获取成功，data 将有值，error 将为 null，反之亦然。
 
 ::: tip
-Error is wrapped with an `Error` with its value return from the server can be retrieve from `Error.value`
+错误被包装在一个 `Error` 中，其值从服务器返回，可以从 `Error.value` 中检索
 :::
 
-### Error type based on status
-Both Eden Treaty and Eden Fetch can narrow down an error type based on status code if you explicitly provided an error type in the Elysia server.
+### 基于状态的错误类型
+
+Eden Treaty 和 Eden Fetch 可以根据状态码缩小错误类型，如果你在 Elysia 服务器中明确提供了错误类型。
 
 ```typescript
 // server.ts
@@ -193,7 +206,8 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-An on the client side:
+在客户端：
+
 ```typescript
 const { data: nendoroid, error } = app.mirror.post({
     id: 1895,
@@ -219,7 +233,9 @@ if(error) {
 ```
 
 ## WebSocket
-Eden supports WebSocket using the same API as a normal route.
+
+Eden 使用与普通路由相同的 API 支持 WebSocket。
+
 ```typescript
 // Server
 import { Elysia, t } from 'elysia'
@@ -237,7 +253,8 @@ const app = new Elysia()
 type App = typeof app
 ```
 
-To start listening to real-time data, call the `.subscribe` method:
+要开始监听实时数据，请调用 `.subscribe` 方法：
+
 ```typescript
 // Client
 import { edenTreaty } from '@elysiajs/eden'
@@ -252,23 +269,26 @@ chat.subscribe((message) => {
 chat.send('hello from client')
 ```
 
-We can use [schema](/essential/schema) to enforce type-safety on WebSockets, just like a normal route.
+我们可以使用 [schema](/essential/schema) 来强制 WebSockets 上的类型安全，就像普通路由一样。
 
 ---
 
-**Eden.subscribe** returns **EdenWebSocket** which extends the [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) class with type-safety. The syntax is identical with the WebSocket
+**Eden.subscribe** 返回 **EdenWebSocket**，它扩展了 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) 类，增加了类型安全。语法与 WebSocket 相同。
 
-If more control is need, **EdenWebSocket.raw** can be accessed to interact with the native WebSocket API.
+如果需要更多控制，**EdenWebSocket.raw** 可以被访问以与原生 WebSocket API 交互。
 
-## File Upload
-You may either pass one of the following to the field to attach file:
+## 文件上传
+
+你可以将以下任一内容传递给字段以附加文件：
+
 - **File**
 - **FileList**
 - **Blob**
 
-Attaching a file will results **content-type** to be **multipart/form-data**
+附加文件将导致 **content-type** 变为 **multipart/form-data**
 
-Suppose we have the server as the following:
+假设我们的服务器如下：
+
 ```typescript
 // server.ts
 import { Elysia } from 'elysia'
@@ -285,7 +305,8 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-We may use the client as follows:
+我们可以使用以下客户端：
+
 ```typescript
 // client.ts
 import { edenTreaty } from '@elysia/eden'

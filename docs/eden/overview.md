@@ -1,36 +1,39 @@
 ---
-title: End-to-End Type Safety - ElysiaJS
+
+title: 端到端类型安全 
 head:
   - - meta
     - property: 'og:title'
-      content: End-to-End Type Safety - ElysiaJS
+      content: 端到端类型安全 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Elysia supports end-to-end type safety with Elysia Eden since start. End-to-end type-safety refers to a system in which every component of the system is checked for type consistency, meaning that data is passed between components only if the types of the data are compatible.
+      content: Elysia 自启动以来就支持端到端类型安全，使用 Elysia Eden。端到端类型安全指的是一个系统，系统中的每个组件都经过类型一致性检查，这意味着只有在数据类型兼容的情况下，数据才会在组件之间传递。
 
   - - meta
     - property: 'og:description'
-      content: Elysia supports end-to-end type safety with Elysia Eden since start. End-to-end type-safety refers to a system in which every component of the system is checked for type consistency, meaning that data is passed between components only if the types of the data are compatible.
+      content: Elysia 自启动以来就支持端到端类型安全，使用 Elysia Eden。端到端类型安全指的是一个系统，系统中的每个组件都经过类型一致性检查，这意味着只有在数据类型兼容的情况下，数据才会在组件之间传递。
 ---
 
-# End-to-End Type Safety
-Imagine you have a toy train set. 
+# 端到端类型安全
 
-Each piece of the train track has to fit perfectly with the next one, like puzzle pieces. 
+想象你有一个玩具火车套装。
 
-End-to-end type safety is like making sure all the pieces of the track match up correctly so the train doesn't fall off or get stuck. 
+每一块铁轨都必须与下一块完美契合，就像拼图一样。
 
-For a framework to have end-to-end type safety means you can connect client and server in a type-safe manner.
+端到端类型安全就像确保所有铁轨的部件正确匹配，这样火车就不会掉下或卡住。
 
-Elysia provide end-to-end type safety **without code generation** out of the box with RPC-like connector, **Eden**
+对于一个框架来说，拥有端到端类型安全意味着你可以以类型安全的方式连接客户端和服务器。
+
+Elysia 提供端到端类型安全**无需代码生成**即可使用 RPC 类似的连接器，**Eden**
 
 <video mute controls>
   <source src="/eden/eden-treaty.mp4" type="video/mp4" />
   Something went wrong trying to load video
 </video>
 
-Others framework that support e2e type safety:
+其他支持 e2e 类型安全的框架：
+
 - tRPC
 - Remix
 - SvelteKit
@@ -49,25 +52,29 @@ Others framework that support e2e type safety:
 Hover over variable and function to see type definition.
 ::: -->
 
-Elysia allows you to change the type on the server and it will be instantly reflected on the client, helping with auto-completion and type-enforcement.
+Elysia 允许你在服务器上更改类型，并且它将立即反映在客户端上，有助于自动完成和类型强制。
 
 ## Eden
-Eden is a RPC-like client to connect Elysia  **end-to-end type safety** using only TypeScript's type inference instead of code generation.
 
-Allowing you to sync client and server types effortlessly, weighing less than 2KB.
+Eden 是一个 RPC 类似的客户端，使用 TypeScript 的类型推断而非代码生成，连接 Elysia **端到端类型安全**。
 
-Eden is consists of 2 modules:
-1. Eden Treaty **(recommended)**: an improved version RFC version of Eden Treaty
-2. Eden Fetch: Fetch-like client with type safety.
+允许你轻松同步客户端和服务器类型，大小不到 2KB。
 
-Below is an overview, use-case and comparison for each module.
+Eden 由 2 个模块组成：
 
-## Eden Treaty (Recommended)
-Eden Treaty is an object-like representation of an Elysia server providing end-to-end type safety and a significantly improved developer experience.
+1. Eden Treaty **(推荐)**：Eden Treaty 的 RFC 版本改进版
+2. Eden Fetch：带有类型安全的类似 Fetch 的客户端。
 
-With Eden Treaty we can connect interact Elysia server with full-type support and auto-completion, error handling with type narrowing, and creating type safe unit test.
+以下是每个模块的概述、用例和比较。
 
-Example usage of Eden Treaty:
+## Eden Treaty (推荐)
+
+Eden Treaty 是一个对象类表示的 Elysia 服务器，提供端到端类型安全和显著改善的开发体验。
+
+使用 Eden Treaty，我们可以连接交互 Elysia 服务器，具有完全类型支持和自动完成，错误处理与类型缩小，以及创建类型安全的单元测试。
+
+Eden Treaty 的示例用法：
+
 ```typescript twoslash
 // @filename: server.ts
 import { Elysia, t } from 'elysia'
@@ -111,7 +118,9 @@ const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).post({
 ```
 
 ## Eden Fetch
-A fetch-like alternative to Eden Treaty for developers that prefers fetch syntax.
+
+对于喜欢 fetch 语法的开发者，Eden Fetch 是 Eden Treaty 的 fetch 类似替代品。
+
 ```typescript twoslash
 // @filename: server.ts
 import { Elysia, t } from 'elysia'
@@ -148,5 +157,5 @@ const { data } = await fetch('/name/:name', {
 ```
 
 ::: tip NOTE
-Unlike Eden Treaty, Eden Fetch doesn't provide Web Socket implementation for Elysia server
+与 Eden Treaty 不同，Eden Fetch 没有为 Elysia 服务器提供 Web Socket 实现
 :::

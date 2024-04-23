@@ -1,29 +1,30 @@
 ---
-title: Eden Treaty Parameters - ElysiaJS
+
+title: Eden Treaty 参数
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty Parameters - ElysiaJS
+        content: Eden Treaty 参数 - ElysiaJS 中文文档
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是一个类似对象的 Elysia 服务器表示，提供端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是一个类似对象的 Elysia 服务器表示，提供端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
 ---
 
-# Parameters
+# 参数
 
-We need to send a payload to server eventaully.
+我们最终需要向服务器发送一个有效载荷。
 
-To handle this, Eden Treaty's methods accept 2 parameters to send data to server.
+为了处理这个问题，Eden Treaty 的方法接受 2 个参数向服务器发送数据。
 
-Both parameters is type safe and will be guided by TypeScript automatically:
+两个参数都是类型安全的，并且将由 TypeScript 自动引导：
 
 1. body
-2. additional parameters
+2. 附加参数
     - query
     - headers
     - fetch
@@ -42,16 +43,16 @@ const app = new Elysia()
 
 const api = treaty<typeof app>('localhost:3000')
 
-// ✅ works
+// ✅ 有效
 api.user.post({
     name: 'Elysia'
 })
 
-// ✅ also works
+// ✅ 同样有效
 api.user.post({
     name: 'Elysia'
 }, {
-    // This is optional as not specified in schema
+    // 这是可选的，因为架构中没有指定
     headers: {
         authorization: 'Bearer 12345'
     },
@@ -61,11 +62,11 @@ api.user.post({
 })
 ```
 
-Unless if the method doesn't accept body, then body will be omitted and left with single parameter only.
+除非方法不接受 body，那么 body 将被省略，只剩下单个参数。
 
-If the method **"GET"** or **"HEAD"**:
+如果方法为 **“GET”** 或 **“HEAD”**：
 
-1. Additional parameters
+1. 附加参数
     -   query
     -   headers
     -   fetch
@@ -80,17 +81,18 @@ const app = new Elysia()
 
 const api = treaty<typeof app>('localhost:3000')
 
-// ✅ works
+// ✅ 有效
 api.hello.get({
-    // This is optional as not specified in schema
+    // 这是可选的，因为架构中没有指定
     headers: {
         hello: 'world'
     }
 })
 ```
 
-## Empty body
-If body is optional or not need but query or headers is required, you may pass the body as `null` or `undefined` instead.
+## 空 body
+
+如果 body 是可选的或不需要，但是需要 query 或 headers，你可以将 body 作为 `null` 或 `undefined` 传递。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -113,9 +115,9 @@ api.user.post(null, {
 })
 ```
 
-## Fetch parameters
+## Fetch 参数
 
-Eden Treaty is a fetch wrapper, we may add any valid [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) parameters to Eden by passing it to `$fetch`:
+Eden Treaty 是一个 fetch 包装器，我们可以通过将它们传递给 `$fetch` 向 Eden 添加任何有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -142,16 +144,19 @@ await api.hello.get({
 clearTimeout(cancelRequest)
 ```
 
-## File Upload
-We may either pass one of the following to attach file(s):
+## 文件上传
+
+我们可以通过传递以下任一来附加文件：
+
 - **File**
 - **File[]**
 - **FileList**
 - **Blob**
 
-Attaching a file will results **content-type** to be **multipart/form-data**
+附加文件将导致 **content-type** 变为 **multipart/form-data**
 
-Suppose we have the server as the following:
+假设我们有如下服务器：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'

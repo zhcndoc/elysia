@@ -1,33 +1,36 @@
 ---
-title: Eden Installation - ElysiaJS
+title: Eden 安装
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Installation - ElysiaJS
+      content: Eden 安装 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Start by installing Eden on your frontend with "bun add elysia @elysiajs/eden", then expose your Elysia server type and then start using Eden Treaty or Eden Fetch.
+      content: 首先通过 "bun add elysia @elysiajs/eden" 在你的前端安装 Eden，然后公开你的 Elysia 服务器类型，然后开始使用 Eden Treaty 或 Eden Fetch。
 
   - - meta
     - name: 'og:description'
-      content: Start by installing Eden on your frontend with "bun add elysia @elysiajs/eden", then expose your Elysia server type and then start using Eden Treaty or Eden Fetch.
+      content: 首先通过 "bun add elysia @elysiajs/eden" 在你的前端安装 Eden，然后公开你的 Elysia 服务器类型，然后开始使用 Eden Treaty 或 Eden Fetch。
 ---
 
-# Eden Installation
-Start by installing Eden on your frontend:
+# Eden 安装
+
+首先在你的前端安装 Eden：
+
 ```bash
 bun add @elysiajs/eden
 bun add -d elysia
 ```
 
 ::: tip
-Eden needs Elysia to infer utilities type.
+Eden 需要 Elysia 来推断实用程序类型。
 
-Make sure to install Elysia with the version matching on the server.
+确保在服务器上安装的 Elysia 版本与客户端匹配。
 :::
 
-First, export your existing Elysia server type:
+首先，导出你现有的 Elysia 服务器类型：
+
 ```typescript twoslash
 // server.ts
 import { Elysia, t } from 'elysia'
@@ -46,7 +49,8 @@ const app = new Elysia()
 export type App = typeof app // [!code ++]
 ```
 
-Then consume the Elysia API on client side:
+然后在客户端使用 Elysia API：
+
 ```typescript twoslash
 // @filename: server.ts
 import { Elysia, t } from 'elysia'
@@ -89,11 +93,14 @@ client.
 //     ^|
 ```
 
-## Gotcha
-Sometimes Eden may not infer type from Elysia correctly, the following are the most common workaround to fix Eden type inference.
+## 注意事项
 
-### Type Strict
-Make sure to enable strict mode in **tsconfig.json**
+有时 Eden 可能无法正确地从 Elysia 推断类型，以下是一些常见的解决方法来修复 Eden 类型推断。
+
+### 类型严格
+
+确保在 **tsconfig.json** 中启用严格模式
+
 ```json
 {
   "compilerOptions": {
@@ -102,24 +109,28 @@ Make sure to enable strict mode in **tsconfig.json**
 }
 ```
 
-### Unmatch Elysia version
-Eden depends Elysia class to import Elysia instance and infers type correctly.
+### Elysia 版本不匹配
 
-Make sure that both client and server have a matching Elysia version.
+Eden 依赖 Elysia 类来导入 Elysia 实例并正确推断类型。
 
-### TypeScript version
-Elysia uses newer features and syntax of TypeScript to infer types in a the most performant way. Features like Const Generic and Template Literal are heavily used.
+确保客户端和服务器使用相同版本的 Elysia。
 
-Make sure your client has a **minimum TypeScript version if >= 5.0**
+### TypeScript 版本
 
-### Method Chaining
-To make Eden works, Elysia must be using **method chaining**
+Elysia 使用 TypeScript 的新特性和语法以最高效的方式推断类型。特性如常量泛型和模板字面量被大量使用。
 
-Elysia's type system is complex, methods usually introduce a new type to the instance.
+确保你的客户端有**至少 TypeScript 版本 >= 5.0**
 
-Using method chaining will help save that new type reference.
+### 方法链
 
-For example:
+为了让 Eden 工作，Elysia 必须使用**方法链**
+
+Elysia 的类型系统是复杂的，方法通常向实例引入一个新类型。
+
+使用方法链将有助于保存那个新类型引用。
+
+例如：
+
 ```typescript twoslash
 import { Elysia } from 'elysia'
 
@@ -129,9 +140,11 @@ new Elysia()
     .get('/', ({ store: { build } }) => build)
     .listen(3000)
 ```
-Using this, **state** now returns a new **ElysiaInstance** type, introducing **build** into store and replace the current one.
 
-Without using method chaining, Elysia doesn't save the new type when introduced, leading to no type inference.
+使用此方法，**state** 现在返回一个新的 **ElysiaInstance** 类型，将 **build** 引入存储并替换当前的。
+
+如果不使用方法链，Elysia 在引入新类型时不会保存新类型，导致没有类型推断。
+
 ```typescript twoslash
 // @errors: 2339
 import { Elysia } from 'elysia'
@@ -145,4 +158,4 @@ app.get('/', ({ store: { build } }) => build)
 app.listen(3000)
 ```
 
-We recommend to **always use method chaining** to provide an accurate type inference.
+我们建议**始终使用方法链**以提供准确的类型推断。
