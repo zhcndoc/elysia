@@ -1,28 +1,30 @@
 ---
-title: Drizzle integration - ElysiaJS
+title: 集成 Drizzle
 head:
   - - meta
     - property: 'og:title'
-      content: Drizzle integration - ElysiaJS
+      content: 集成 Drizzle - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: You can use 'drizzle-typebox' package to convert Drizzle type into Elysia's schema to handle data validation.
+      content: 您可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
 
   - - meta
     - property: 'og:description'
-      content: You can use 'drizzle-typebox' package to convert Drizzle type into Elysia's schema to handle data validation.
+      content: 您可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
 ---
 
-# Drizzle
-[Drizzle](https://orm.drizzle.team) is a TypeScript ORM that offers type integrity out of the box.
+# 集成 Drizzle
 
-Allowing us to define and infers Database schema into TypeScript type directly allowing us to perform end-to-end type safety from database to server to client-side.
+[Drizzle](https://orm.drizzle.team) 是一个 TypeScript ORM，可以直接提供类型完整性支持。
+
+允许我们直接将数据库模式定义和类型推断到 TypeScript 类型中，从而实现从数据库到服务器再到客户端的端到端类型安全。
 
 ## Drizzle Typebox
-[Elysia.t](/validation/overview) is a fork of TypeBox, allowing us to use any TypeBox type in Elysia directly.
 
-We can convert Drizzle schema into TypeBox schema using ["drizzle-typebox"](https://npmjs.org/package/drizzle-typebox), and use it directly on Elysia's schema validation.
+[Elysia.t](/validation/overview) 是 TypeBox 的分支，允许我们直接在 Elysia 中使用任何 TypeBox 类型。
+
+我们可以使用 [“drizzle-typebox”](https://npmjs.org/package/drizzle-typebox) 将 Drizzle 模式转换为 TypeBox 模式，并直接在 Elysia 的模式验证中使用它。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -49,7 +51,7 @@ const auth = new Elysia({ prefix: '/auth' })
     )
 ```
 
-Or if you want to add a custom field on validation-side, eg. file uploading:
+或者如果您想在验证方面添加自定义字段，例如文件上传：
 ```typescript
 import { Elysia, t } from 'elysia'
 

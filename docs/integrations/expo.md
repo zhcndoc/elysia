@@ -1,31 +1,32 @@
 ---
-title: Integration with Expo - ElysiaJS
+title: 集成 Expo
 head:
     - - meta
       - property: 'og:title'
-        content: Integration with Expo - ElysiaJS
+        content: 集成 Expo - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: With Expo App Router, you can run Elysia on Expo route. Elysia will work normally as expected thank to WinterCG compliance.
+        content: 使用 Expo 应用程序路由器，您可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
 
     - - meta
       - property: 'og:description'
-        content: With Expo App Router, you can run Elysia on Expo route. Elysia will work normally as expected thank to WinterCG compliance.
+        content: 使用 Expo 应用程序路由器，您可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
 ---
 
-# Integration with Expo
+# 集成 Expo
 
-Starting from Expo SDK 50, and App Router v3, Expo allows us to create API route directly in an Expo app.
+从 Expo SDK 50 和 App Router v3 开始，Expo 允许我们在 Expo 应用程序中直接创建 API 路由。
 
-1. Create an Expo app if not exists with:
+1. 如果尚不存在，请创建 Expo 应用程序：
+
 ```typescript
 bun create expo-app --template tabs
 ```
 
-2. Create **app/[...slugs]+api.ts**
-3. In **[...slugs]+api.ts**, create or import an existing Elysia server
-4. Export the handler with the name of method you want to expose
+2. 创建 **app/[...slugs]+api.ts**
+3. 在 **[...slugs]+api.ts** 中创建或导入现有的 Elysia 服务器
+4. 使用要公开的方法名称导出处理程序
 
 ```typescript twoslash
 // app/[...slugs]+api.ts
@@ -43,18 +44,19 @@ export const GET = app.handle // [!code ++]
 export const POST = app.handle // [!code ++]
 ```
 
-Elysia will work normally as expected because of WinterCG compliance, however, some plugins like **Elysia Static** may not work if you are running Expo on Node.
+由于 WinterCG 的兼容性，Elysia 将正常工作，但是，如果您在 Expo 上运行，一些插件 (如 **Elysia Static**) 可能不起作用。
 
-You can treat the Elysia server as if normal Expo API route.
+您可以将 Elysia 服务器视为普通的 Expo API 路由。
 
-With this approach, you can have co-location of both frontend and backend in a single repository and have [End-to-end type safety with Eden](https://elysiajs.com/eden/overview.html) with both client-side and server action
+通过这种方法，您可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysiajs.com/eden/overview.html)。
 
-Please refer to [API route](https://docs.expo.dev/router/reference/api-routes/) for more information.
+请参阅 [API 路由](https://docs.expo.dev/router/reference/api-routes/)了解更多信息。
 
-## Prefix
-If you place an Elysia server not in the root directory of the app router, you need to annotate the prefix to the Elysia server.
+## 前缀
 
-For example, if you place Elysia server in **app/api/[...slugs]+api.ts**, you need to annotate prefix as **/api** to Elysia server.
+如果您将 Elysia 服务器放置在应用程序路由器的根目录之外，您需要为 Elysia 服务器添加前缀注释。
+
+例如，如果您将 Elysia 服务器放置在 **app/api/[...slugs]+api.ts** 中，您需要将前缀注释为 **/api**。
 
 ```typescript twoslash
 // app/api/[...slugs]+api.ts
@@ -72,20 +74,22 @@ export const GET = app.handle
 export const POST = app.handle
 ```
 
-This will ensure that Elysia routing will works properly in any location you place in.
+这将确保在任何位置放置时，Elysia 路由将正常工作。
 
-## Deployment
-You can either directly use API route using Elysia and deploy as normal Elysia app normally if need or using [experimental Expo server runtime](https://docs.expo.dev/router/reference/api-routes/#deployment).
+## 部署
 
-If you are using Expo server runtime, you may use `expo export` command to create optimized build for your expo app, this will include an Expo function which is using Elysia at **dist/server/_expo/functions/[...slugs\]+api.js**
+如果需要，您可以直接使用 Elysia 使用 API 路由并像正常的 Elysia 应用程序一样进行部署，或者使用[实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
+
+如果使用 Expo 服务器运行时，您可以使用 `expo export` 命令为您的 Expo 应用程序创建优化构建。这将包括一个使用 Elysia 的 Expo 函数，位于 `dist/server/_expo/functions/[...slugs]+api.js` 中。
 
 ::: tip
-Please note that Expo Function are treated as Edge function instead of normal server, so running the Edge function directly will not allocate any port.
+请注意，Expo 函数被视为边缘函数而不是普通服务器，因此直接运行边缘函数将不会分配任何端口。
 :::
 
-You may use the Expo function adapter provided by Expo to deploy your Edge Function.
+您可以使用 Expo 提供的函数适配器来部署您的边缘函数。
 
-Currently Expo support the following adapter:
+目前 Expo 支持以下适配器：
+
 - [Express](https://docs.expo.dev/router/reference/api-routes/#express)
 - [Netlify](https://docs.expo.dev/router/reference/api-routes/#netlify)
 - [Vercel](https://docs.expo.dev/router/reference/api-routes/#vercel)

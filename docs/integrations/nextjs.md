@@ -1,26 +1,26 @@
 ---
-title: Integration with Nextjs - ElysiaJS
+title: 集成 Next.js
 head:
     - - meta
       - property: 'og:title'
-        content: Integration with Nextjs - ElysiaJS
+        content: 集成 Next.js - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: With Nextjs App Router, you can run Elysia on Nextjs route. Elysia will work normally as expected because of WinterCG compliance.
+        content: 通过 Next.js 应用路由，你可以在 Next.js 路径上运行 Elysia。由于 WinterCG 兼容性，Elysia 将按预期正常工作。
 
     - - meta
       - property: 'og:description'
-        content: With Nextjs App Router, you can run Elysia on Nextjs route. Elysia will work normally as expected because of WinterCG compliance.
+        content: 通过 Next.js 应用路由，你可以在 Next.js 路径上运行 Elysia。由于 WinterCG 兼容性，Elysia 将按预期正常工作。
 ---
 
-# Integration with Nextjs
+# 集成 Next.js
 
-With Nextjs App Router, we can run Elysia on Nextjs route.
+通过 Next.js 应用路由，我们可以在 Next.js 路径上运行 Elysia。
 
-1. Create **[[...slugs]]/route.ts** inside app router
-2. In **route.ts**, create or import an existing Elysia server
-3. Export the handler with the name of method you want to expose
+1. 在应用路由中创建 `[[...slugs]]/route.ts` 文件。
+2. 在 `route.ts` 中创建或导入一个现有的 Elysia 服务器。
+3. 使用想要公开的方法名称导出处理程序。
 
 ```typescript twoslash
 // app/[[...slugs]]/route.ts
@@ -38,19 +38,19 @@ export const GET = app.handle // [!code ++]
 export const POST = app.handle // [!code ++]
 ```
 
-Elysia will work normally as expected because of WinterCG compliance, however, some plugins like **Elysia Static** may not work if you are running Nextjs on Node.
+由于 WinterCG 兼容性，Elysia 将按预期正常工作，然而，如果你在 Node 上运行 Next.js，某些插件如 **Elysia Static** 可能无法正常工作。
 
-You can treat the Elysia server as a normal Nextjs API route.
+你可以将 Elysia 服务器视为普通的 Next.js API 路由。
 
-With this approach, you can have co-location of both frontend and backend in a single repository and have [End-to-end type safety with Eden](https://elysiajs.com/eden/overview.html) with both client-side and server action
+使用这种方法，你可以在单个代码仓库中同时拥有前端和后端，并使用 [Eden 进行端到端类型安全的开发](https://elysiajs.com/eden/overview.html)，包括客户端和服务器端操作。
 
-Please refer to [Nextjs Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers) for more information.
+请参阅 [Next.js 路由处理程序](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers)获取更多信息。
 
-## Prefix
+## 前缀
 
-If you place an Elysia server not in the root directory of the app router, you need to annotate the prefix to the Elysia server.
+如果你将 Elysia 服务器放置在应用路由的根目录以外的位置，你需要在 Elysia 服务器中添加前缀。
 
-For example, if you place Elysia server in **app/api/[[...slugs]]/route.ts**, you need to annotate prefix as **/api** to Elysia server.
+例如，如果你将 Elysia 服务器放置在 **app/api/[[...slugs]]/route.ts** 中，你需要将前缀注释为 **/api**。
 
 ```typescript twoslash
 // app/api/[[...slugs]]/route.ts
@@ -68,4 +68,4 @@ export const GET = app.handle
 export const POST = app.handle
 ```
 
-This will ensure that Elysia routing will work properly in any location you place it.
+这样可以确保无论你将 Elysia 服务器放置在哪个位置，Elysia 路由都能正常工作。

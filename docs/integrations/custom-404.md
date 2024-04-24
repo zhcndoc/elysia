@@ -1,21 +1,22 @@
 ---
-title: Custom 404 - ElysiaJS
+title: 自定义 404
 head:
   - - meta
     - property: 'og:title'
-      content: Custom 404 - ElysiaJS
+      content: 自定义 404 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: You can define custom 404 using `onError` hook to intercept "NOT_FOUND" event and return a custom response
+      content: 你可以使用 `onError` 钩子来定义自定义的 404，以拦截 "NOT_FOUND" 事件并返回自定义响应
 
   - - meta
     - property: 'og:description'
-      content: You can define custom 404 using `onError` hook to intercept "NOT_FOUND" event and return a custom response
+      content: 你可以使用 `onError` 钩子来定义自定义的 404，以拦截 "NOT_FOUND" 事件并返回自定义响应
 ---
 
-# Custom 404
-You can define custom 404 using `onError` hook:
+# 自定义 404
+
+你可以使用 `onError` 钩子来定义自定义的 404：
 ```typescript
 import { Elysia } from 'elysia'
 

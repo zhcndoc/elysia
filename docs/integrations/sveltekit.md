@@ -1,9 +1,9 @@
 ---
-title: Integration with SvelteKit - ElysiaJS
+title: 集成 SvelteKit
 head:
     - - meta
       - property: 'og:title'
-        content: Integration with SvelteKit - ElysiaJS
+        content: 集成 SvelteKit - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -14,13 +14,13 @@ head:
         content: With SvelteKit, you can run Elysia on server routes.
 ---
 
-# Integration with SvelteKit
+# 与 SvelteKit 集成
 
-With SvelteKit, you can run Elysia on server routes.
+通过 SvelteKit，你可以在服务器路由上运行 Elysia。
 
-1. Create **src/routes/[...slugs]/+server.ts**.
-2. In **+server.ts**, create or import an existing Elysia server
-3. Export the handler with the name of method you want to expose
+1. 创建 **src/routes/[...slugs]/+server.ts**。
+2. 在 **+server.ts** 中，创建或导入现有的 Elysia 服务器。
+3. 使用要公开的方法的名称导出处理程序。
 
 ```typescript twoslash
 // src/routes/[...slugs]/+server.ts
@@ -40,16 +40,17 @@ export const GET: RequestHandler = ({ request }) => app.handle(request)
 export const POST: RequestHandler = ({ request }) => app.handle(request)
 ```
 
-You can treat the Elysia server as a normal SvelteKit server route.
+你可以将 Elysia 服务器视为普通的 SvelteKit 服务器路由。
 
-With this approach, you can have co-location of both frontend and backend in a single repository and have [End-to-end type-safety with Eden](https://elysiajs.com/eden/overview.html) with both client-side and server action
+使用这种方法，你可以将前端和后端的代码放在同一个存储库中，并在客户端和服务器端上实现 [End-to-end type-safety with Eden](https://elysiajs.com/eden/overview.html)。
 
-Please refer to [SvelteKit Routing](https://kit.svelte.dev/docs/routing#server) for more information.
+请参考 [SvelteKit Routing](https://kit.svelte.dev/docs/routing#server) 获取更多信息。
 
-## Prefix
-If you place an Elysia server not in the root directory of the app router, you need to annotate the prefix to the Elysia server.
+## 前缀
 
-For example, if you place Elysia server in **src/routes/api/[...slugs]/+server.ts**, you need to annotate prefix as **/api** to Elysia server.
+如果你将 Elysia 服务器放置在应用路由的根目录之外，你需要给 Elysia 服务器添加前缀注释。
+
+例如，如果你将 Elysia 服务器放置在 **src/routes/api/[...slugs]/+server.ts** 中，你需要将前缀注释为 **/api**。
 
 ```typescript twoslash
 // src/routes/api/[...slugs]/+server.ts
@@ -69,4 +70,4 @@ export const GET: RequestHandler = ({ request }) => app.handle(request)
 export const POST: RequestHandler = ({ request }) => app.handle(request)
 ```
 
-This will ensure that Elysia routing will work properly in any location you place it.
+这将确保无论你在何处放置 Elysia 路由，它都能正常工作。

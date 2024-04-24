@@ -1,24 +1,24 @@
 ---
-title: Integration with Astro - ElysiaJS
+title: 集成 Astro
 head:
     - - meta
       - property: 'og:title'
-        content: Integration with Astro - ElysiaJS
+        content: 集成 Astro - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: You can run Elysia on Astro. Elysia will work normally as expected because of WinterCG compliance.
+        content: 你可以在 Astro 上运行 Elysia。由于 WinterCG 合规性，Elysia 将按预期正常工作。
 
     - - meta
       - property: 'og:description'
-        content: You can run Elysia on Astro. Elysia will work normally as expected because of WinterCG compliance.
+        content: 你可以在 Astro 上运行 Elysia。由于 WinterCG 合规性，Elysia 将按预期正常工作。
 ---
 
-# Integration with Astro
+# 集成 Astro
 
-With [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/), we can run Elysia on Astro directly.
+通过 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)，我们可以直接在 Astro 上运行 Elysia。
 
-1. Set **output** to **server** in **astro.config.mjs**
+1. 在 **astro.config.mjs** 中将 **output** 设置为 **server**
 
 ```javascript
 // astro.config.mjs
@@ -30,9 +30,9 @@ export default defineConfig({
 })
 ```
 
-2. Create **pages/[...slugs].ts**
-3. Create or import an existing Elysia server in **[...slugs].ts**
-4. Export the handler with the name of method you want to expose
+2. 创建 `pages/[...slugs].ts`
+3. 在 `[...slugs].ts` 中创建或导入现有的 Elysia 服务器
+4. 通过指定要公开的方法的名称导出处理程序
 
 ```typescript twoslash
 // pages/[...slugs].ts
@@ -52,25 +52,25 @@ export const GET = handle // [!code ++]
 export const POST = handle // [!code ++]
 ```
 
-Elysia will work normally as expected because of WinterCG compliance.
+由于采用了 WinterCG 标准，Elysia 将正常工作。
 
-We recommended running [Astro on Bun](https://docs.astro.build/en/recipes/bun) as Elysia is designed to be run on Bun
+我们建议在 [Bun 上运行 Astro](https://docs.astro.build/en/recipes/bun)，因为 Elysia 是为 Bun 设计的。
 
 ::: tip
-You can run Elysia server without running Astro on Bun thanks to WinterCG support.
+如果您在 Node 上运行 Astro，则可以在不运行 Astro on Bun 的情况下运行 Elysia 服务器，这要归功于 WinterCG 的支持。
 
-However some plugins like **Elysia Static** may not work if you are running Astro on Node.
+但是，如果您在 Node 上运行 Astro，则某些插件 (如 **Elysia Static**) 可能无法正常工作。
 :::
 
-With this approach, you can have co-location of both frontend and backend in a single repository and have End-to-end type-safety with Eden.
+通过这种方法，您可以在单个存储库中同时定位前端和后端，并使用 Eden 进行端到端类型安全。
 
-Please refer to [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/) for more information.
+有关更多信息，请参阅 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)。
 
-## Prefix
+## 前缀
 
-If you place an Elysia server not in the root directory of the app router, you need to annotate the prefix to the Elysia server.
+如果您将 Elysia 服务器放置在应用程序路由的根目录之外，您需要为 Elysia 服务器添加前缀注释。
 
-For example, if you place Elysia server in **pages/api/[...slugs].ts**, you need to annotate prefix as **/api** to Elysia server.
+例如，如果您将 Elysia 服务器放置在 `pages/api/[...slugs].ts` 中，您需要将注释前缀设置为 `/api`。
 
 ```typescript twoslash
 // pages/api/[...slugs].ts
@@ -90,4 +90,4 @@ export const GET = handle // [!code ++]
 export const POST = handle // [!code ++]
 ```
 
-This will ensure that Elysia routing will work properly in any location you place it.
+这样可以确保不管您将 Elysia 放在何处，其路由都能正常工作。
