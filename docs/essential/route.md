@@ -20,11 +20,11 @@ import { Elysia } from 'elysia'
 
 const demo1 = new Elysia()
     .get('/', () => 'hello')
-    .post('/hi', () => 'hi')
+    .get('/hi', () => 'hi')
 
 const demo2 = new Elysia()
     .get('/', () => 'hello')
-    .post('/hi', () => 'world')
+    .post('/hi', () => 'hi')
 
 const demo3 = new Elysia()
     .get('/get', () => 'hello')
@@ -32,14 +32,12 @@ const demo3 = new Elysia()
     .route('M-SEARCH', '/m-search', () => 'connect') 
 
 const demo4 = new Elysia()
-    .get('/', () => 'hello')
-    .post('/', () => 'hello')
-    .delete('/', () => 'hello')
+    .get('/', () => 'hi')
+    .post('/', () => 'hi')
 
 const demo5 = new Elysia()
     .get('/', () => 'hello')
-    .post('/', () => 'hello')
-    .get('/hi', ({ error }) => error(404))
+    .get('/hi', ({ error }) => error(404, 'Route not found :('))
 </script>
 
 # Route
@@ -52,8 +50,8 @@ Web 服务器使用请求的**路径和 HTTP 方法**来查找正确的资源，
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', () => 'Landing')
-    .get('/hello', () => 'Hi')
+    .get('/', () => 'hello')
+    .get('/hi', () => 'hi')
     .listen(3000)
 ```
 

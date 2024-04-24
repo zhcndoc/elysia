@@ -26,7 +26,7 @@ head:
 // app/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia()
+const app = new Elysia({ prefix: '/api' })
     .get('/', () => 'hello Next')
     .post('/', ({ body }) => body, {
         body: t.Object({
@@ -56,7 +56,7 @@ export const POST = app.handle // [!code ++]
 // app/api/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia({ prefix: '/api' }) // [!code ++]
+const app = new Elysia({ prefix: '/user' }) // [!code ++]
     .get('/', () => 'hi')
     .post('/', ({ body }) => body, {
         body: t.Object({

@@ -119,6 +119,8 @@ new Elysia()
     .listen(3000)
 ```
 
+This code ensures that the query must have **name** with a string value for every handler after it. The response should be listed as follows:
+
 <Playground
     :elysia="demo2"
     :mock="{
@@ -140,6 +142,4 @@ new Elysia()
 | /query        | error    |
 | /query?name=a | a        |
 
-与生命周期事件一样，重要的是要记住 Elysia 模式的存储顺序与生命周期、队列或先进先出的顺序相同。
-
-Elysia **始终**遵守代码从上到下的顺序，然后是生命周期事件和验证模式的顺序。
+如果为同一属性定义了多个全局架构，则最新的架构将具有优先权。如果同时定义了本地模式和全局模式，则本地模式将具有优先权。
