@@ -146,6 +146,10 @@ export default defineConfig({
             {
                 text: '博客',
                 link: '/blog'
+            },
+            {
+                text: '英文官网',
+                link: 'https://elysiajs.com/'
             }
         ],
         sidebar: [
