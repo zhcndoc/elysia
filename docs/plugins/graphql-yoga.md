@@ -1,28 +1,28 @@
 ---
-title: GraphQL Yoga Plugin - ElysiaJS
+title: GraphQL Yoga 插件
 head:
     - - meta
       - property: 'og:title'
-        content: GraphQL Yoga Plugin - ElysiaJS
+        content: GraphQL Yoga 插件 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia that adds support for using GraphQL Yoga on the Elysia server. Start by installing the plugin with "bun add graphql graphql-yoga @elysiajs/graphql-yoga".
+        content: 这是一个为 Elysia 添加对 GraphQL Yoga 支持的插件。通过以下命令安装插件："bun add graphql graphql-yoga @elysiajs/graphql-yoga"。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds support for using GraphQL Yoga on the Elysia server. Start by installing the plugin with "bun add graphql graphql-yoga @elysiajs/graphql-yoga".
+        content: 这是一个为 Elysia 添加对 GraphQL Yoga 支持的插件。通过以下命令安装插件："bun add graphql graphql-yoga @elysiajs/graphql-yoga"。
 ---
 
-# GraphQL Yoga Plugin
-This plugin integrates GraphQL yoga with Elysia
+# GraphQL Yoga 插件
+这个插件将 GraphQL Yoga 集成到 Elysia 中。
 
-Install with:
+安装方式：
 ```bash
 bun add @elysiajs/graphql-yoga
 ```
 
-Then use it:
+然后使用它：
 ```typescript
 import { Elysia } from 'elysia'
 import { yoga } from '@elysiajs/graphql-yoga'
@@ -45,18 +45,18 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Accessing `/graphql` in the browser (GET request) would show you a GraphiQL instance for the GraphQL-enabled Elysia server.
+在浏览器中访问 `/graphql` (GET 请求)，将显示一个支持 GraphQL 的 Elysia 服务器的 GraphiQL 实例。
 
-optional: you can install a custom version of optional peer dependencies as well:
+可选：你也可以安装自定义版本的可选依赖：
 ```bash
 bun add graphql graphql-yoga
 ```
 
-## Resolver
-Elysia uses [Mobius](https://github.com/saltyaom/mobius) to infer type from **typeDefs** field automatically, allowing you to get full type-safety and auto-complete when typing **resolver** types.
+## 解析器
+Elysia 使用 [Mobius](https://github.com/saltyaom/mobius) 来自动从 **typeDefs** 字段推断类型，允许在输入 **resolver** 类型时获得完全的类型安全和自动补全。
 
-## Context
-You can add custom context to the resolver function by adding **context**
+## 上下文
+通过添加 **context**，你可以向解析器函数添加自定义上下文。
 ```ts
 import { Elysia } from 'elysia'
 import { yoga } from '@elysiajs/graphql-yoga'
@@ -72,8 +72,8 @@ const app = new Elysia()
             context: {
                 name: 'Mobius'
             },
-            // If context is a function on this doesn't present
-            // for some reason it won't infer context type
+            // 如果 context 是一个函数，此项应该省略
+            // 由于某种原因，没有它无法推断出上下文类型
             useContext(_) {},
             resolvers: {
                 Query: {
@@ -85,12 +85,12 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## Config
-This plugin extends [GraphQL Yoga's createYoga options, please refer to the GraphQL Yoga documentation](https://the-guild.dev/graphql/yoga-server/docs) with inlining `schema` config to root.
+## 配置
+这个插件扩展了 [GraphQL Yoga 的 createYoga 选项，请参考 GraphQL Yoga 文档](https://the-guild.dev/graphql/yoga-server/docs)，并将 `schema` 配置内联到根目录。
 
-Below is a config which is accepted by the plugin
+以下是插件接受的配置
 
 ### path
 @default `/graphql`
 
-Endpoint to expose GraphQL handler
+公开 GraphQL 处理程序的路径

@@ -1,9 +1,9 @@
 ---
-title: Apollo GraphQL Plugin - ElysiaJS
+title: Apollo GraphQL Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Apollo GraphQL Plugin - ElysiaJS
+        content: Apollo GraphQL Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -15,14 +15,14 @@ head:
 ---
 
 # GraphQL Apollo Plugin
-Plugin for [elysia](https://github.com/elysiajs/elysia) for using GraphQL Apollo.
+用于使用 GraphQL Apollo 的 [Elysia](https://github.com/elysiajs/elysia) 插件。
 
-Install with:
+安装方法：
 ```bash
 bun add graphql @elysiajs/apollo @apollo/server
 ```
 
-Then use it:
+使用方法：
 ```typescript
 import { Elysia } from 'elysia'
 import { apollo, gql } from '@elysiajs/apollo'
@@ -57,12 +57,12 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Accessing `/graphql` should show Apollo GraphQL playground work with.
+访问 `/graphql` 可以看到 Apollo GraphQL playground 的工作情况。
 
-## Context
-Because Elysia is based on Web Standard Request and Response which is different from Node's `HttpRequest` and `HttpResponse` that Express uses, results in `req, res` being undefined in context.
+## 上下文
+由于 Elysia 基于 Web 标准的请求和响应，与 Express 使用的 Node 的 HttpRequest 和 HttpResponse 不同，导致上下文中的 `req` 和 `res` 未定义。
 
-Because of this, Elysia replaces both with `context` like route parameters.
+因此，Elysia 将二者替换为像路由参数一样的 `context`。
 ```typescript
 const app = new Elysia()
     .use(
@@ -81,17 +81,16 @@ const app = new Elysia()
     .listen(3000)
 ```
 
+## 配置
+该插件扩展了 Apollo 的 [ServerRegistration](https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options) (即 `ApolloServer` 的构造函 ��� 参数)。
 
-## Config
-This plugin extends Apollo's [ServerRegistration](https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options) (which is `ApolloServer`'s' constructor parameter).
-
-Below are the extended parameters for configuring Apollo Server with Elysia.
+以下是用于配置带有 Elysia 的 Apollo Server 的扩展参数。
 ### path
 @default "/graphql"
 
-Path to expose Apollo Server.
+暴露 Apollo Server 的路径。
 
 ### enablePlayground
 @default "process.env.ENV !== 'production'
 
-Determine whether should Apollo should provide Apollo Playground.
+确定是否应提供 Apollo Playground。

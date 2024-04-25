@@ -1,30 +1,30 @@
 ---
-title: HTML Plugin - ElysiaJS
+title: HTML 插件
 head:
     - - meta
       - property: 'og:title'
-        content: HTML Plugin - ElysiaJS
+        content: HTML 插件 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia that adds shortcut support for returning HTML in the Elysia server. Start by installing the plugin with "bun add @elysiajs/html".
+        content: Elysia 的插件，提供在 Elysia 服务器中返回 HTML 的快捷支持。使用命令 "bun add @elysiajs/html" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds shortcut support for returning HTML in the Elysia server. Start by installing the plugin with "bun add @elysiajs/html".
+        content: Elysia 的插件，提供在 Elysia 服务器中返回 HTML 的快捷支持。使用命令 "bun add @elysiajs/html" 安装插件。
 ---
 
-# HTML Plugin
+# HTML 插件
 
-Allows you to use [JSX](#jsx) and HTML with proper headers and support.
+允许您使用 [JSX](#jsx) 和 HTML，并具有适当的头部和支持。
 
-Install with:
+安装：
 
 ```bash
 bun add @elysiajs/html
 ```
 
-Then use it:
+然后使用它：
 
 ```tsx
 import { Elysia } from 'elysia'
@@ -57,16 +57,16 @@ new Elysia()
     .listen(3000)
 ```
 
-This plugin will automatically add `Content-Type: text/html; charset=utf8` header to the response, add `<!doctype html>`, and convert it into a Response object.
+此插件将自动为响应添加 `Content-Type: text/html; charset=utf8` 头部，添加 `<!doctype html>` 并将其转换为 Response 对象。
 
 ## JSX
-Elysia HTML is based on [@kitajs/html](https://github.com/kitajs/html) allowing us to define JSX to string in compile time to achieve high performance.
+Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们在编译时将 JSX 定义为字符串以实现高性能。
 
-Name your file that needs to use JSX to end with affix **"x"**:
+将需要使用 JSX 的文件命名以 **“x”** 结尾：
 - .js -> .jsx
 - .ts -> .tsx
 
-To register the TypeScript type, please append the following to **tsconfig.json**:
+要注册 TypeScript 类型，请将以下内容追加到 **tsconfig.json**：
 ```jsonc
 // tsconfig.json
 {
@@ -78,7 +78,7 @@ To register the TypeScript type, please append the following to **tsconfig.json*
 }
 ```
 
-That's it, now you can JSX as your template engine:
+现在，您可以将 JSX 作为模板引擎使用了：
 ```tsx
 import { Elysia } from 'elysia'
 import { html } from '@elysiajs/html' // [!code ++]
@@ -99,9 +99,9 @@ new Elysia()
 ```
 
 ## XSS
-Elysia HTML is based use of the Kita HTML plugin to detect possible XSS attacks in compile time.
+Elysia HTML 基于 Kita HTML 插件以在编译时检测可能的 XSS 攻击。
 
-You can use a dedicated `safe` attribute to sanitize user value to prevent XSS vulnerability.
+您可以使用专用的 `safe` 属性来对用户输入进行清理，以预防 XSS 漏洞。
 ```tsx
 import { Elysia, t } from 'elysia'
 import { html } from '@elysiajs/html'
@@ -123,14 +123,14 @@ new Elysia()
     .listen(3000)
 ```
 
-However, when are building a large-scale app, it's best to have a type reminder to detect possible XSS vulnerabilities in your codebase.
+然而，在构建大型应用程序时，最好使用类型提醒来检测代码中可能的 XSS 漏洞。
 
-To add a type-safe reminder, please install:
+要添加类型安全提醒，请安装：
 ```sh
 bun add @kitajs/ts-html-plugin
 ```
 
-Then appends the following **tsconfig.json**
+然后追加以下内容到 **tsconfig.json**
 ```jsonc
 // tsconfig.json
 {
@@ -143,44 +143,44 @@ Then appends the following **tsconfig.json**
 }
 ```
 
-## Options
+## 选项
 
 ### contentType
 
--   Type: `string`
--   Default: `'text/html; charset=utf8'`
+-   类型：`string`
+-   默认值：`'text/html; charset=utf8'`
 
-The content-type of the response.
+响应的内容类型。
 
 ### autoDetect
 
--   Type: `boolean`
--   Default: `true`
+-   类型：`boolean`
+-   默认值：`true`
 
-Whether to automatically detect HTML content and set the content-type.
+是否自动检测 HTML 内容并设置内容类型。
 
 ### autoDoctype
 
--   Type: `boolean | 'full'`
--   Default: `true`
+-   类型：`boolean | 'full'`
+-   默认值：`true`
 
-Whether to automatically add `<!doctype html>` to a response starting with `<html>`, if not found.
+是否自动在以 `<html>` 开头的响应中添加 `<!doctype html>`，如果找不到。
 
-Use `full` to also automatically add doctypes on responses returned without this plugin
+使用 `full` 还可以在没有该插件的情况下自动添加文档类型。
 
 ```ts
-// without the plugin
+// 没有该插件
 app.get('/', () => '<html></html>')
 
-// With the plugin
+// 使用该插件
 app.get('/', ({ html }) => html('<html></html>'))
 ```
 
 ### isHtml
 
--   Type: `(value: string) => boolean`
--   Default: `isHtml` (exported function)
+-   类型：`(value: string) => boolean`
+-   默认值：`isHtml` (导出的函数)
 
-The function is used to detect if a string is a html or not. Default implementation if length is greater than 7, starts with `<` and ends with `>`.
+该函数用于检测字符串是否为 HTML。默认实现是如果长度大于 7，以 `<` 开头并以 `>` 结尾。
 
-Keep in mind there's no real way to validate HTML, so the default implementation is a best guess.
+请记住，没有真正的方法来验证 HTML，因此默认实现只是一个最佳猜测。

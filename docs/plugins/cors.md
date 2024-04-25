@@ -1,28 +1,28 @@
 ---
-title: CORS Plugin - ElysiaJS
+title: CORS Plugin
 head:
   - - meta
     - property: 'og:title'
-      content: CORS Plugin - ElysiaJS
+      content: CORS Plugin - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Plugin for Elysia that adds support for customizing Cross-Origin Resource Sharing behavior. Start by installing the plugin with "bun add @elysiajs/cors".
+      content: Elysia 的插件，增加了对自定义跨域资源共享行为的支持。首先通过 bun add @elysiajs/cors 安装插件。
 
   - - meta
     - name: 'og:description'
-      content: Plugin for Elysia that adds support for customizing Cross-Origin Resource Sharing behavior. Start by installing the plugin with "bun add @elysiajs/cors".
+      content: Elysia 的插件，增加了对自定义跨域资源共享行为的支持。首先通过 bun add @elysiajs/cors 安装插件。
 ---
 
 # CORS Plugin
-This plugin adds support for customizing [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) behavior.
+该插件为 Elysia 提供了自定义跨源资源共享行为的支持。
 
-Install with:
+安装方式：
 ```bash
 bun add @elysiajs/cors
 ```
 
-Then use it:
+然后使用它：
 ```typescript
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
@@ -32,107 +32,107 @@ new Elysia()
     .listen(3000)
 ```
 
-This will set Elysia to accept requests from any origin. 
+这将使 Elysia 接受来自任意源的请求。
 
 ## Config
-Below is a config which is accepted by the plugin
+以下是该插件接受的配置项。
 
 ### origin
 @default `true`
 
-Indicates whether the response can be shared with the requesting code from the given origins.
+表示是否可以与给定源代码共享响应。
 
-Value can be one of the following:
-- **string** - Name of origin which will directly assign to [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) header.
-- **boolean** - If set to true, [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) will be set to `*` (any origins)
-- **RegExp** - Pattern to match request's URL, allowed if matched.
-- **Function** - Custom logic to allow resource sharing, allow if `true` is returned.
-    - Expected to have the type of:
+取值可以是以下之一：
+- **string** - 直接指定为 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 头部的源名称。
+- **boolean** - 如果设置为 true，则 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 将设置为 `*` (任意源)。
+- **RegExp** - 匹配请求 URL 的模式，如果匹配则允许。
+- **Function** - 自定义逻辑来允许资源共享，如果返回 `true` 则允许。
+    - 期望的类型为：
     ```typescript
     cors(context: Context) => boolean | void
     ```
-- **Array<string | RegExp | Function>** - iterate through all cases above in order, allowed if any of the values are `true`.
+- **Array<string | RegExp | Function>** - 按顺序迭代上述所有情况，如果任何值为 `true` 则允许。
 
 ---
 ### methods
 @default `*`
 
-Allowed methods for cross-origin requests.
+允许跨源请求的方法。
 
-Assign [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) header.
+分配 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 头部。
 
-Value can be one of the following:
-- **undefined | null | ''** - Ignore all methods.
-- **\*** - Allows all methods.
-- **string** - Expects either a single method or a comma-delimited string 
-    - (eg: `'GET, PUT, POST'`)
-- **string[]** - Allow multiple HTTP methods.
-    - eg: `['GET', 'PUT', 'POST']`
+取值可以是以下之一：
+- **undefined | null | ‘’** - 忽略所有方法。
+- **\*** - 允许所有方法。
+- **string** - 期望单个方法或逗号分隔的字符串
+    - (例如：`'GET, PUT, POST'`)
+- **string []** - 允许多个 HTTP 方法。
+    - 例如：`['GET', 'PUT', 'POST']`
 
 ---
 ### allowedHeaders
 @default `*`
 
-Allowed headers for an incoming request.
+允许传入请求的标头。
 
-Assign [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) header.
+分配 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 头部。
 
-Value can be one of the following:
-- **string** - Expects either a single header or a comma-delimited string
-    - eg: `'Content-Type, Authorization'`.
-- **string[]** - Allow multiple HTTP headers.
-    - eg: `['Content-Type', 'Authorization']`
+取值可以是以下之一：
+- **string** - 期望单个标头或逗号分隔的字符串
+    - 例如：`'Content-Type, Authorization'`。
+- **string []** - 允许多个 HTTP 标头。
+    - 例如：`['Content-Type', 'Authorization']`
 
 ---
 ### exposedHeaders
 @default `*`
 
-Response CORS with specified headers.
+响应中公开指定标头的 CORS。
 
-Assign [Access-Control-Expose-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers) header.
+分配 [Access-Control-Expose-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers) 头部。
 
-Value can be one of the following:
-- **string** - Expects either a single header or a comma-delimited string.
-    - eg: `'Content-Type, X-Powered-By'`.
-- **string[]** - Allow multiple HTTP headers.
-    - eg: `['Content-Type', 'X-Powered-By']`
+取值可以是以下之一：
+- **string** - 期望单个标头或逗号分隔的字符串。
+    - 例如：`'Content-Type, X-Powered-By'`。
+- **string []** - 允许多个 HTTP 标头。
+    - 例如：`['Content-Type', 'X-Powered-By']`
 
 ---
 ### credentials
 @default `true`
 
-The Access-Control-Allow-Credentials response header tells browsers whether to expose the response to the frontend JavaScript code when the request's credentials mode [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) is `include`.
+Access-Control-Allow-Credentials 响应头告诉浏览器在请求的凭据模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时是否将响应暴露给前端 JavaScript 代码。
 
-When a request's credentials mode [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) is `include`, browsers will only expose the response to the frontend JavaScript code if the Access-Control-Allow-Credentials value is true.
+当请求的凭据模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时，只有当 Access-Control-Allow-Credentials 的值为 true 时，浏览器才会将响应暴露给前端 JavaScript 代码。
 
-Credentials are cookies, authorization headers, or TLS client certificates.
+凭证可以是 cookie、授权标头或 TLS 客户端证书。
 
-Assign [Access-Control-Allow-Credentials](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) header.
+分配 [Access-Control-Allow-Credentials](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) 头部。
 
 ---
 ### maxAge
 @default `5`
 
-Indicates how long the results of a [preflight request](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) (that is the information contained in the [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) and [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) headers) can be cached.
+表示预检请求 (即 [preflight request](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request)) 的结果 (即 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 和 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 标头中包含的信息) 可以缓存多长时间。
 
-Assign [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) header.
+分配 [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) 头部。
 
 ---
 ### preflight
-The preflight request is a request sent to check if the CORS protocol is understood and if a server is aware of using specific methods and headers.
+预检请求是发送的请求，用于检查是否理解 CORS 协议以及服务器是否知道使用特定方法和标头。
 
-Response with **OPTIONS** request with 3 HTTP request headers:
+使用 **OPTIONS** 请求进行响应时需要 3 个 HTTP 请求头：
 - **Access-Control-Request-Method**
 - **Access-Control-Request-Headers**
 - **Origin**
 
-This config indicates if the server should respond to preflight requests.
+该配置指示服务器是否应响应预检请求。
 
 ---
 ## Pattern
-Below you can find the common patterns to use the plugin.
+下面是使用该插件的常见模式。
 
-## Allow CORS by top-level domain
+## 允许特定顶级域名的 CORS
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -146,4 +146,4 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-This will allow requests from top-level domains with `saltyaom.com'
+这将允许来自以 `saltyaom.com` 结尾的顶级域名的请求。
