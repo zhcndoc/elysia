@@ -1,36 +1,38 @@
 ---
-title: Lazy Loading Module - ElysiaJS
+title: 懒加载模块
 head:
   - - meta
     - property: 'og:title'
-      content: Lazy Loading Module - ElysiaJS
+      content: 懒加载模块 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Elysia support Lazy Loading Module. Lazy-loading can help decrease startup time by deferring modules to be gradually indexed after the server start. Lazy-loading modules are a good option when some modules are heavy and importing startup time is crucial.
+      content: Elysia 支持懒加载模块。懒加载可以通过将模块推迟到服务器启动后逐步索引，从而帮助减少启动时间。当某些模块很重且导入启动时间至关重要时，懒加载模块是一个很好的选择。
 
   - - meta
     - property: 'og:description'
-      content: Elysia support Lazy Loading Module. Lazy-loading can help decrease startup time by deferring modules to be gradually indexed after the server start. Lazy-loading modules are a good option when some modules are heavy and importing startup time is crucial.
+      content: Elysia 支持懒加载模块。懒加载可以通过将模块推迟到服务器启动后逐步索引，从而帮助减少启动时间。当某些模块很重且导入启动时间至关重要时，懒加载模块是一个很好的选择。
 ---
 
-# Lazy-Loading Module
-Modules are eagerly loaded by default.
+# 懒加载模块
 
-Elysia loads all modules then registers and indexes all of them before starting the server. This enforces that all the modules have loaded before it starts accepting requests.
+默认情况下，模块会被急切加载。
 
-While this is fine for most applications, it may become a bottleneck for a server running in a serverless environment or an edge function, in which the startup time is important.
+Elysia 在启动服务器之前会加载所有模块并注册和索引它们。这确保在接受请求之前，所有模块都已加载完毕。
 
-Lazy-loading can help decrease startup time by deferring modules to be gradually indexed after the server start.
+虽然对于大多数应用程序来说这是可以的，但对于在无服务器环境或边缘函数中运行的服务器来说，这可能成为一个瓶颈，其中启动时间很重要。
 
-Lazy-loading modules are a good option when some modules are heavy and importing startup time is crucial.
+懒加载可以通过将模块推迟到服务器启动后逐步索引来帮助减少启动时间。
 
-By default, any async plugin without await is treated as a deferred module and the import statement as a lazy-loading module.
+当某些模块很重且导入启动时间至关重要时，懒加载模块是一个很好的选择。
 
-Both will be registered after the server is started.
+默认情况下，任何没有使用 await 的异步插件都被视为延迟加载模块，而 import 语句则被视为懒加载模块。
 
-## Deferred Module
-The deferred module is an async plugin that can be registered after the server is started.
+这两者都会在服务器启动后注册。
+
+## 延迟加载模块
+
+延迟加载模块是一个在服务器启动后可以注册的异步插件。
 
 ```typescript twoslash
 // @filename: files.ts
@@ -53,7 +55,8 @@ export const loadStatic = async (app: Elysia) => {
 }
 ```
 
-And in the main file:
+并在主文件中使用：
+
 ```typescript twoslash
 // @filename: plugin.ts
 import { Elysia } from 'elysia'
@@ -80,12 +83,13 @@ const app = new Elysia()
     .use(loadStatic)
 ```
 
-Elysia static plugin is also a deferred module, as it loads files and registers files path asynchronously.
+Elysia 静态插件也是一个延迟加载模块，因为它异步加载文件并注册文件路径。
 
-## Lazy Load Module
-Same as the async plugin, the lazy-load module will be registered after the server is started.
+## 懒加载模块
 
-A lazy-load module can be both sync or async function, as long as the module is used with `import` the module will be lazy-loaded.
+与异步插件一样，懒加载模块将在服务器启动后注册。
+
+懒加载模块可以是同步或异步函数，只要模块与 `import` 一起使用，模块就会被懒加载。
 
 ```typescript twoslash
 // @filename: plugin.ts
@@ -101,12 +105,13 @@ const app = new Elysia()
     .use(import('./plugin'))
 ```
 
-Using module lazy-loading is recommended when the module is computationally heavy and/or blocking.
+推荐在模块计算量大和/或阻塞时使用模块懒加载。
 
-To ensure module registration before the server starts, we can use `await` on the deferred module.
+为确保在服务器启动之前模块注册完成，我们可以在延迟加载模块上使用 `await`。
 
-## Testing
-In a test environment, we can use `await app.modules` to wait for deferred and lazy-loading modules.
+## 测试
+
+在测试环境中，我们可以使用 `await app.modules` 来等待延迟加载和懒加载模块。
 
 ```typescript twoslash
 import { describe, expect, it } from 'bun:test'

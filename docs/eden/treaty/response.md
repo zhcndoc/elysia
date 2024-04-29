@@ -1,28 +1,29 @@
 ---
-title: Eden Treaty Response - ElysiaJS
+title: Eden Treaty 响应
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty Response - ElysiaJS
+        content: Eden Treaty 响应 - ElysiaJS 中文文档
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象类表示，提供端到端类型安全性，以及显著改善的开发者体验。使用伊甸，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象类表示，提供端到端类型安全性，以及显著改善的开发者体验。使用伊甸，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
 ---
 
-# Response
-Once fetch method is called, Eden Treaty return an Promise with object as follows:
-- data - returned value of the response (2xx)
-- error - returned value from the response (>= 3xx)
-- response `Response` - Web Standard Response class
-- status `number` - HTTP status code
-- headers `FetchRequestInit['headers']` - response's headers
+# 响应
 
-Once returned, you must provide an error handling to ensure that value is truly returned to access the value, otherwise the value will be nullable.
+一旦调用 fetch 方法，Eden Treaty 返回一个 Promise，其对象如下：
+- data - 响应返回值 (2xx)
+- error - 响应返回值 (>= 3xx)
+- response `Response` - Web 标准响应类
+- status `number` - HTTP 状态码
+- headers `FetchRequestInit['headers']` - 响应的头部
+
+返回后，您必须提供错误处理以确保值真正返回以访问该值，否则该值将是可空的。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -48,29 +49,29 @@ const submit = async (name: string) => {
         name
     })
 
-    // type: string | null
+    // 类型: string | null
     console.log(data)
 
     if(error)
         switch(error.status) {
             case 400:
-                // Error type will be narrow down
+                // 错误类型将被缩小
                 throw error.value
 
             default:
                 throw error.value
         }
 
-    // Once error is handle, type will be unwrapped
-    // type: string
+    // 一旦错误被处理，类型将被展开
+    // 类型: string
     return data
 }
 ```
 
-By default, Elysia will infers error and response type to TypeScript automatically, and Eden will be providing an auto-completion and type narrowing for accurate behavior.
+默认情况下，Elysia 将自动推断错误和响应类型到 TypeScript，并且伊甸将提供自动完成和类型缩小以实现准确的行为。
 
 ::: tip
-If server response with HTTP status >= 300, then value will be always be null, and error will have a returned value instead.
+如果服务器响应的 HTTP 状态 >= 300，那么值将始终为 null，并且错误将有返回值。
 
-Otherwise, response will be passed to data.
+否则，响应将传递给 data。
 :::

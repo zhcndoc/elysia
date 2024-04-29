@@ -1,17 +1,17 @@
 ---
-title: Table of Content - ElysiaJS
+title: 内容纲要
 head:
   - - meta
     - property: 'og:title'
-      content: Table of Content - ElysiaJS
+      content: 内容纲要 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: There's no correct or organized way to learn Elysia, however, we recommended completing the essential chapter first as the chapter briefly covers most of Elysia's features and foundation before jumping to other topics that interest you. Once you've completed the essential chapter, you may jump to any topic that interests you. However, we recommended following the order of the chapter as it may reference to previous chapter.
+      content: 学习 Elysia 没有正确或有条理的方法，但我们建议首先完成基本章节，因为该章节简要介绍了 Elysia 的大部分功能和基础，然后再跳转到你感兴趣的其他主题。完成基本章节后，你可以跳转到任何感兴趣的主题。不过，我们建议你遵循本章的顺序，因为本章可能会引用前一章的内容。
 
   - - meta
     - property: 'og:description'
-      content: There's no correct or organized way to learn Elysia, however, we recommended completing the essential chapter first as the chapter briefly covers most of Elysia's features and foundation before jumping to other topics that interest you. Once you've completed the essential chapter, you may jump to any topic that interests you. However, we recommended following the order of the chapter as it may reference to previous chapter.
+      content: 学习 Elysia 没有正确或有条理的方法，但我们建议首先完成基本章节，因为该章节简要介绍了 Elysia 的大部分功能和基础，然后再跳转到你感兴趣的其他主题。完成基本章节后，你可以跳转到任何感兴趣的主题。不过，我们建议你遵循本章的顺序，因为本章可能会引用前一章的内容。
 ---
 
 <script setup>
@@ -19,35 +19,37 @@ head:
     import Deck from '../components/nearl/card-deck.vue'
 </script>
 
-# Table of Content
-There's no correct way to learn Elysia, but we recommended **completing the essential chapter first** as the chapter briefly covers most of Elysia's features and foundation before jumping to other topics that interest you.
+# 内容纲要
+
+学习 Elysia 没有正确的方法，但我们建议**首先完成基本章节**，因为该章节简要介绍了 Elysia 的大部分功能和基础，然后再跳转到你感兴趣的其他主题。
 
 <Deck>
-    <Card title="Essential" href="/essential/route">
-        Important concept and foundation of Elysia
+    <Card title="基础" href="/essential/route">
+        Elysia 的重要概念和基础
     </Card>
-    <Card title="Validation" href="/validation/overview">
-        Enforce data type and create a unified type
+    <Card title="校验" href="/validation/overview">
+        强制数据类型并创建统一类型
     </Card>
-    <Card title="Life Cycle" href="/life-cycle/overview">
-        Intercept events and customize behaviors
+    <Card title="生命周期" href="/life-cycle/overview">
+        拦截事件并自定义行为
     </Card>
-    <Card title="Patterns" href="/patterns/group">
-        Common patterns and best practices
+    <Card title="模式" href="/patterns/group">
+        常见模式和最佳实践
     </Card>
-    <Card title="Plugin" href="/plugins/overview">
-        Pre-built plugin to extend Elysia behavior
+    <Card title="插件" href="/plugins/overview">
+        用于扩展 Elysia 行为的预置插件
     </Card>
     <Card title="Eden" href="/eden/overview">
-        End-to-end type safety client for Elysia
+        用于 Elysia 的端到端类型安全客户端
     </Card>
 </Deck>
 
 ---
 
-Once you've completed the essential chapter, you may jump to any topic that interests you. We have organized a recommended chapter in order as it may reference to previous chapter.
+完成基本章节后，你可以跳到你感兴趣的任何主题。我们按顺序组织了推荐章节，因为它可能会参考前一章。
 
-### Prerequisite Knowledge
-Although Elysia's documentation is designed to be beginner-friendly, we need to establish a baseline so that the docs can stay focused on Elysia's functionality. We will provide links to relevant documentation whenever we introduce a new concept.
+### 前提知识
 
-To get the most out of our documentation, it's recommended that you have a basic understanding of Node.js and basic HTTP.
+尽管 Elysia 文档的设计初衷是方便初学者，但我们需要建立一个基准，以便文档能够始终专注于 Elysia 的功能。每当介绍一个新概念时，我们都会提供相关文档的链接。
+
+想要充分利用我们的文档，建议你对 Node.js 和基本 HTTP 有基本的了解。

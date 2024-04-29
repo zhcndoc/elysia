@@ -1,27 +1,29 @@
 ---
-title: Eden Fetch - ElysiaJS
+title: Eden Fetch
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Fetch - ElysiaJS
+      content: Eden Fetch - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: A fetch-like alternative to Eden Treaty with faster type inference. With Eden Fetch, you can make requests to an Elysia server with end-to-end type-safety without the need of code generation.
+      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，您可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
 
   - - meta
     - name: 'og:description'
-      content: A fetch-like alternative to Eden Treaty with faster type inference. With Eden Fetch, you can make requests to an Elysia server with end-to-end type-safety without the need of code generation.
+      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，您可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
 ---
 
 # Eden Fetch
-A fetch-like alternative to Eden Treaty .
 
-With Eden Fetch can interact with Elysia server in a type-safe manner using Fetch API.
+一个类似 fetch 的 Eden Treaty 替代品。
+
+使用 Eden Fetch 可以使用 Fetch API 以类型安全的方式与 Elysia 服务器交互。
 
 ---
 
-First export your existing Elysia server type:
+首先导出您现有的 Elysia 服务器类型：
+
 ```typescript twoslash
 // server.ts
 import { Elysia, t } from 'elysia'
@@ -40,7 +42,8 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-Then import the server type, and consume the Elysia API on client:
+然后导入服务器类型，并在客户端使用 Elysia API：
+
 ```typescript twoslash
 // @filename: server.ts
 import { Elysia, t } from 'elysia'
@@ -85,8 +88,10 @@ const nendoroid = await fetch('/mirror', {
 })
 ```
 
-## Error Handling
-You can handle errors the same way as Eden Treaty:
+## 错误处理
+
+您可以像 Eden Treaty 一样处理错误：
+
 ```typescript twoslash
 // @filename: server.ts
 import { Elysia, t } from 'elysia'
@@ -142,17 +147,18 @@ if(error) {
 const { id, name } = nendoroid
 ```
 
-## When should I use Eden Fetch over Eden Treaty
-Unlike Elysia < 1.0, Eden Fetch is not faster than Eden Treaty anymore.
+## 何时使用 Eden Fetch 而非 Eden Treaty
 
-The preference is base on you and your team agreement, however we recommend to use [Eden Treaty](/eden/treaty/overview) instead.
+与 Elysia < 1.0 不同，Eden Fetch 并不比 Eden Treaty 更快。
 
-For Elysia < 1.0:
+偏好基于您和您团队的协议，但我们建议使用 [Eden Treaty](/eden/treaty/overview)。
 
-Using Eden Treaty requires a lot of down-level iteration to map all possible types in a single go, while in contrast, Eden Fetch can be lazily executed until you pick a route.
+对于 Elysia < 1.0：
 
-With complex types and a lot of server routes, using Eden Treaty on a low-end development device can lead to slow type inference and auto-completion.
+使用 Eden Treaty 需要大量的降级迭代来一次性映射所有可能的类型，而相比之下，Eden Fetch 可以延迟执行，直到您选择一条路线。
 
-But as Elysia has tweaked and optimized a lot of types and inference, Eden Treaty can perform very well in the considerable amount of routes.
+在复杂类型和许多服务器路由的情况下，在低端开发设备上使用 Eden Treaty 可能会导致缓慢的类型推断和自动完成。
 
-If your single process contains **more than 500 routes**, and you need to consume all of the routes **in a single frontend codebase**, then you might want to use Eden Fetch as it has a significantly better TypeScript performance than Eden Treaty.
+但随着 Elysia 对类型和推断进行了很多调整和优化，Eden Treaty 可以在相当多的路由上表现得很好。
+
+如果您的单个进程包含**超过 500 条路由**，并且您需要在**单个前端代码库**中使用所有路由，那么您可能想要使用 Eden Fetch，因为它的 TypeScript 性能明显优于 Eden Treaty。

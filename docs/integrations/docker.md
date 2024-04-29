@@ -1,21 +1,23 @@
 ---
-title: Docker - ElysiaJS
+title: Docker
 head:
   - - meta
     - property: 'og:title'
-      content: Docker - ElysiaJS
+      content: Docker - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: You use Elysia with Docker with the following Dockerfile by using "oven/bun", or copy the snippet from the page
+      content: 您可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
 
   - - meta
     - property: 'og:description'
-      content: You use Elysia with Docker with the following Dockerfile by using "oven/bun", or copy the snippet from the page
+      content: 您可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
 ---
 
 # Docker
-You use Elysia with Docker with the following Dockerfile below:
+
+使用以下 Dockerfile 使用 Docker 部署 Elysia：
+
 ```docker
 FROM oven/bun
 
@@ -37,7 +39,9 @@ EXPOSE 3000
 ```
 
 ## Distroless
-If you like to use Distroless:
+
+如果您想使用 Distroless：
+
 ```docker
 FROM debian:11.6-slim as builder
 
@@ -73,7 +77,7 @@ EXPOSE 3000
 
 ## Development
 
-To develop with Elysia in Docker, you can use the following minimal docker compose template:
+要在 Docker 中开发 Elysia，您可以使用以下最小 docker compose 模板：
 
 ```yaml
 # docker-compose.yml
@@ -82,12 +86,12 @@ version: '3.9'
 services:
   app:
     image: "oven/bun"
-    # override default entrypoint allows us to do `bun install` before serving
+    # 覆盖默认entrypoint，允许我们在启动服务器之前执行`bun install`
     entrypoint: []
-    # execute bun install before we start the dev server in watch mode
+    # 在以观察模式启动开发服务器之前执行`bun install`
     command: "/bin/sh -c 'bun install && bun run --watch src/index.ts'"
-    # expose the right ports
+    # 暴露正确的端口
     ports: ["3000:3000"]
-    # setup a host mounted volume to sync changes to the container
+    # 设置主机挂载的卷以将更改同步到容器
     volumes: ["./:/home/bun/app"]
 ```

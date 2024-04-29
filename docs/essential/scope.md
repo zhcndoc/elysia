@@ -1,20 +1,20 @@
 ---
-title: Scope - ElysiaJS
+title: 作用域
 head:
     - - meta
       - property: 'og:title'
-        content: Scope - ElysiaJS
+        content: 作用域 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Elysia offers scope to encapsulate global events, refactor redundant logic and apply to the certain route using guard, and group.
+        content: Elysia 可以封装全局事件、重构冗余逻辑，并应用到特定路由使用守卫和组。
 
     - - meta
       - property: 'og:description'
-        content: Elysia offers scope to encapsulate global events, refactor redundant logic and apply to the certain route using guard, and group.
+        content: Elysia 可以封装全局事件、重构冗余逻辑，并应用到特定路由使用守卫和组。
 ---
 
-# Scope
+# 作用域
 
 <script setup>
 import Playground from '../../components/nearl/playground.vue'
@@ -64,23 +64,26 @@ const mock3 = {
 }
 </script>
 
-By default, hook and schema is scope to current instance only not global.
+默认情况下，钩子和架构的作用域仅限于当前实例，而不是全局的。
 
-Elysia has an encapsulation scope for better versatility control of life-cycle.
+Elysia 具有封装作用域，可以更好地控制生命周期的多功能性。
 
-## Hook type
-Hook type is to specify the scope of hook whether is should be encapsulated or global.
+## Hook 类型
 
-Elysia hook type are as the following:
-- **local** (default) - apply to only current instance and descendant only
-- **scoped** - apply to parent, current instance and descendants
-- **global** - apply to all instance that apply the plugin (all parents, current, and descendants)
+钩子类型用于指定钩子的作用域是封装的还是全局的。
 
-If not specified, hook is local by default.
+Elysia 钩子类型如下：
 
-To specify hook's type, add a `{ as: hookType }` to hook.
+- **local** (默认)- 仅适用于当前实例和后代
+- **scoped** - 适用于父类、当前实例和子类
+- **global** - 适用于应用该插件的所有实例 (所有父实例、当前实例和子代实例)
 
-To apply hook to globally, we need to specify hook as global.
+如果未指定，钩子默认为本地钩子。
+
+要指定钩子的类型，请在钩子中添加 `{ as: hookType }`。
+
+要将钩子应用于全局，我们需要将钩子指定为全局钩子。
+
 ```typescript twoslash
 import { Elysia } from 'elysia'
 
@@ -95,7 +98,7 @@ const main = new Elysia()
     .get('/parent', () => 'log hi')
 ```
 
-Let's create a plugin to illustrate how hook type work.
+让我们创建一个插件来说明钩子类型是如何工作的。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -122,7 +125,7 @@ const main = new Elysia()
     .get('/main', () => 'hi')
 ```
 
-By changing the `type` value, the result should be as follows:
+通过更改该 `type` 值，结果应如下所示：
 
 | type       | child | current | parent | main |
 | ---------- | ----- | ------- | ------ | ---- |
@@ -132,7 +135,7 @@ By changing the `type` value, the result should be as follows:
 
 ## Guard
 
-Guard allows us to apply hook and schema into multiple routes all at once.
+Guard 允许我们同时将钩子和模式应用到多个路由中。
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -161,18 +164,19 @@ new Elysia()
     .listen(3000)
 ```
 
-This code applies validation for `body` to both '/sign-in' and '/sign-up' instead of inlining the schema one by one but applies not to '/'.
+这段代码对 `/sign-in` 和 `/sign-up` 的 `body` 都进行了验证，而不是逐一内联模式，但对 `/` 却没有进行验证。
 
-We can summarize the route validation as the following:
+我们可以将路由验证总结如下：
+
 | Path | Has validation |
 | ------- | ------------- |
 | /sign-up | ✅ |
 | /sign-in | ✅ |
 | / | ❌ |
 
-Guard accepts the same parameter as inline hook, the only difference is that you can apply hook to multiple routes in the scope.
+Guard 接受的参数与内联钩子相同，唯一的区别是可以将钩子应用于作用域中的多个路由。
 
-This means that the code above is translated into:
+这意味着上面的代码会被翻译成：
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -199,10 +203,11 @@ new Elysia()
     .listen(3000)
 ```
 
-### Guard scope
-Guard is a hard limit for hook type.
+### Guard 作用域
 
-Any life-cycle defined in `guard`, and `group` **will always** be contained in scope, even if hook type is **global**
+Guard 是钩子类型的硬限制。
+
+在 `guard` 和 `group` 中定义的任何生命周期**都将始终**包含在作用域中，即使钩子类型是**全局**的。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -223,23 +228,25 @@ const app = new Elysia()
 
 <Playground :elysia="demo3" :mock="mock3" />
 
-Evaluating the route, should logs as follows:
+评估路由的日志如下：
+
 | route       | response  |
 | ----------- | --------- |
 | /inner      | overwrite |
 | /outer      | outer     |
 
-## Grouped Guard
+## 分组 Guard
 
-We can use a group with prefixes by providing 3 parameters to the group.
+我们可以通过向组提供 3 个参数来使用带前缀的组。
 
-1. Prefix - Route prefix
+1. Prefix - 路由前缀
 2. Guard - Schema
-3. Scope - Elysia app callback
+3. Scope - Elysia 应用程序回调
 
-With the same API as guard apply to the 2nd parameter, instead of nesting group and guard together.
+与 guard 相同的 API 适用于第 2 个参数，而不是将 group 和 guard 嵌套在一起。
 
-Consider the following example:
+请看下面的示例：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -257,7 +264,8 @@ new Elysia()
 ```
 
 
-From nested groupped guard, we may merge group and guard together by providing guard scope to 2nd parameter of group:
+从嵌套的分组保护中，我们可以通过为分组的第 2 个参数提供保护作用域，将分组和保护合并在一起：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -274,7 +282,8 @@ new Elysia()
     .listen(3000)
 ```
 
-Which results in the follows syntax:
+其语法如下
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -292,11 +301,11 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-## Plugin
+## 插件
 
-By default plugin will only **apply hook to itself and descendants** only.
+默认情况下，插件只**对自身和后代应用钩子**。
 
-If the hook is registered in a plugin, instances that inherit the plugin will **NOT** inherit hooks and schema.
+如果在插件中注册了钩子，继承该插件的实例将**不会**继承钩子和模式。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -312,7 +321,8 @@ const main = new Elysia()
     .get('/parent', () => 'not log hi')
 ```
 
-To apply hook to globally, we need to specify hook as global.
+要在全局应用钩子，我们需要指定钩子为全局钩子。
+
 ```typescript twoslash
 import { Elysia } from 'elysia'
 

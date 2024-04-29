@@ -1,24 +1,24 @@
 ---
-title: Macro - ElysiaJS
+title: Macro
 head:
     - - meta
       - property: 'og:title'
-        content: Macro - ElysiaJS
+        content: Macro - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Macro allows us to define a custom field to the hook to compose custom heavy logic into a simple configuration available in hook, and guard with full type safety.
+        content: Macro 允许我们为钩子定义一个自定义字段，以便将自定义的复杂逻辑组合到简单的配置中，并通过完整的类型安全性进行保护。
 
     - - meta
       - property: 'og:description'
-        content: Macro allows us to define a custom field to the hook to compose custom heavy logic into a simple configuration available in hook, and guard with full type safety.
+        content: Macro 允许我们为钩子定义一个自定义字段，以便将自定义的复杂逻辑组合到简单的配置中，并通过完整的类型安全性进行保护。
 ---
 
 # Macro
 
-Macro allows us to define a custom field to the hook.
+Macro 允许我们为钩子定义一个自定义字段。
 
-**Elysia.macro** allows us to compose custom heavy logic into a simple configuration available in hook, and **guard** with full type safety.
+**Elysia.macro** 允许我们将自定义的复杂逻辑组合到简单的配置中，并通过完整的类型安全性进行**保护**。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -39,17 +39,17 @@ const app = new Elysia()
     })
 ```
 
-Accessing the path should log **"Elysia"** as the results.
+访问该路径应将结果记录为 **“Elysia”**。
 
 ## API
 
-**macro** should return an object, each key is reflected to the hook, and the provided value inside the hook will be sent back as the first parameter.
+**macro** 应返回一个对象，其中每个键都反映到钩子上，并且钩子内部提供的值将作为第一个参数发送回。
 
-In previous example, we create **hi** accepting a **string**.
+在上面的示例中，我们创建了一个接受 **string** 的 **hi**。
 
-We then assigned **hi** to **"Elysia"**, the value was then sent back to the **hi** function, and then the function added a new event to **beforeHandle** stack.
+然后，我们将 **hi** 分配给 **“Elysia”**，然后该值将发送回 **hi** 函数，然后该函数将一个新事件添加到 **beforeHandle** 堆栈中。
 
-Which is an equivalent of pushing function to **beforeHandle** as the following:
+这等效于将函数推送到 **beforeHandle**，如下所示：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -62,7 +62,7 @@ const app = new Elysia()
     })
 ```
 
-**macro** shine when a logic is more complex than accepting a new function, for example creating an authorization layer for each route.
+当逻辑比接受新函数更复杂时，**macro** 发挥作用，例如为每个路由创建授权层。
 
 ```typescript twoslash
 // @filename: auth.ts
@@ -89,13 +89,13 @@ const app = new Elysia()
     })
 ```
 
-The field can accept anything ranging from string to function, allowing us to create a custom life cycle event.
+该字段可以接受从字符串到函数的任何内容，使我们能够创建自定义的生命周期事件。
 
-macro will be executed in order from top-to-bottom according to definition in hook, ensure that the stack should be handle in correct order.
+宏将按照钩子中的定义从上到下顺序执行，确保堆栈应按正确顺序处理。
 
-## Parameters
+## 参数
 
-**Elysia.macro** parameters to interact with the life cycle event as the following:
+**Elysia.macro** 参数用于与生命周期事件进行交互，如下所示：
 
 -   onParse
 -   onTransform
@@ -103,20 +103,20 @@ macro will be executed in order from top-to-bottom according to definition in ho
 -   onAfterHandle
 -   onError
 -   onResponse
--   events - Life cycle store
-    -   global: Life cycle of a global stack
-    -   local: Life cycle of an inline hook (route)
+-   events - 生命周期存储
+    -   global：全局堆栈的生命周期
+    -   local：内联钩子 (路由) 的生命周期
 
-Parameters start with **on** is a function to appends function into a life cycle stack.
+以 **on** 开头的参数是将函数附加到生命周期堆栈中的函数。
 
-While **events** is an actual stack that stores an order of the life-cycle event. You may mutate the stack directly or using the helper function provided by Elysia.
+而 **events** 是实际存储生命周期事件顺序的堆栈。你可以直接更改堆栈，也可以使用 Elysia 提供的辅助函数。
 
-## Options
+## 选项
 
-The life cycle function of an extension API accepts additional **options** to ensure control over life cycle events.
+扩展 API 的生命周期函数接受额外的**选项**以确保对生命周期事件的控制。
 
--   **options** (optional) - determine which stack
--   **function** - function to execute on the event
+-   **options** (可选)- 确定哪个堆栈
+-   **function** - 在事件上执行的函数
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -136,13 +136,14 @@ const plugin = new Elysia({ name: 'plugin' })
     })
 ```
 
-**Options** may accept the following parameter:
+**选项**可以接受以下参数：
 
 -   **insert**
-    -   Where should the function be added
-    -   value: **'before' | 'after'**
-    -   @default: **'after'**
+    -   函数应添加到何处
+    -   值：**‘before’ | ‘after’**
+    -   @default：**‘after’**
 -   **stack**
-    -   Determine which type of stack should be added
-    -   value: **'global' | 'local'**
-    -   @default: **'local'**
+    -   确定应添加哪种类型的堆栈
+    -   值：**‘global’ | ‘local’**
+    -   @default：**‘local’**
+    

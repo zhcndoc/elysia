@@ -1,9 +1,9 @@
 ---
-title: tRPC Plugin - ElysiaJS
+title: tRPC Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: tRPC Plugin - ElysiaJS
+        content: tRPC Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -14,15 +14,15 @@ head:
         content: Plugin for Elysia that adds support for using tRPC on Bun with Elysia Server. Start by installing the plugin with "bun add @elysiajs/trpc".
 ---
 
-# tRPC Plugin
-This plugin adds support for using [tRPC](https://trpc.io/)
+# tRPC 插件
+此插件添加了对 [tRPC](https://trpc.io/) 的支持
 
-Install with:
+安装插件：
 ```bash
 bun add @elysiajs/trpc @trpc/server @elysiajs/websocket 
 ```
 
-Then use it:
+然后使用它：
 ```typescript
 import { compile as c, trpc } from "@elysiajs/trpc";
 import { initTRPC } from "@trpc/server";
@@ -34,9 +34,9 @@ const p = t.procedure;
 const router = t.router({
   greet: p
 
-    // 💡 Using Zod
+    // 💡 使用 Zod
     //.input(z.string())
-    // 💡 Using Elysia's T
+    // 💡 使用 Elysia 的 T
     .input(c(T.String()))
     .query(({ input }) => input),
 });
@@ -47,16 +47,16 @@ const app = new Elysia().use(trpc(router)).listen(3000);
 ```
 
 ## trpc
-Accept the tRPC router and register to Elysia's handler.
+接受 tRPC 路由器并注册到 Elysia 的处理程序。
 
-type:
+类型：
 ```
 trpc(router: Router, option?: {
     endpoint?: string
 }): this
 ```
 
-`Router` is the TRPC Router instance.
+`Router` 是 TRPC 路由器的实例。
 
 ### endpoint
-The path to the exposed TRPC endpoint.
+公开的 TRPC 终点的路径。

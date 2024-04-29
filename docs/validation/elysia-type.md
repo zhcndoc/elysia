@@ -1,17 +1,17 @@
 ---
-title: Elysia Type - ElysiaJS
+title: Elysia 类型
 head:
     - - meta
       - property: 'title'
-        content: Elysia Type - ElysiaJS
+        content: Elysia 类型 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Elysia validator is based on TypeBox with pre-configuration for usage on the server while providing additional types commonly found on server-side validation.
+        content: Elysia 验证器基于 TypeBox，预配置用于服务器使用，同时提供了常见的服务器端验证所需的附加类型。
 
     - - meta
       - name: 'og:description'
-        content: Elysia validator is based on TypeBox with pre-configuration for usage on the server while providing additional types commonly found on server-side validation.
+        content: Elysia 验证器基于 TypeBox，预配置用于服务器使用，同时提供了常见的服务器端验证所需的附加类型。
 ---
 
 <script setup>
@@ -19,62 +19,62 @@ head:
     import Deck from '../../components/nearl/card-deck.vue'
 </script>
 
-# Elysia Type
+# Elysia 类型
 
-`Elysia.t` is based on TypeBox with pre-configuration for usage on the server while providing additional types commonly found on server-side validation.
+`Elysia.t` 基于 TypeBox，预配置用于服务器使用，同时提供了常见的服务器端验证所需的附加类型。
 
-You can find all of the source code of Elysia type in `elysia/type-system`.
+你可以在 `elysia/type-system` 中找到 Elysia 类型的所有源代码。
 
-The following are types provided by Elysia:
+以下是 Elysia 提供的类型：
 
 <Deck>
     <Card title="Numeric" href="#numeric">
-        Accepts a numeric string or number and then transforms the value into a number
+        接受数字字符串或数字，并将其转换为数字值
     </Card>
     <Card title="File" href="#file">
-        A singular file. Often useful for <strong>file upload</strong> validation
+        单个文件。通常用于<strong>文件上传</strong>验证
     </Card>
     <Card title="Files" href="#files">
-        Extends from <a href="#file">File</a>, but adds support for an array of files in a single field
+        扩展自 <a href="#file">File</a>，但支持在单个字段中使用文件数组
     </Card>
     <Card title="Cookie" href="#cookie">
-        Object-like representation of a Cookie Jar extended from Object type
+        Cookie Jar 的对象表示，扩展自 Object 类型
     </Card>
     <Card title="Nullable" href="#nullable">
-    Allow the value to be null but not undefined
+        允许值为 null，但不允许为 undefined
     </Card>
     <Card title="Maybe Empty" href="#maybeempty">
-        Accepts empty string or null value
+        接受空字符串或 null 值
     </Card>
 </Deck>
 
 ## Numeric
 
-Numeric accepts a numeric string or number and then transforms the value into a number.
+Numeric 接受数字字符串或数字，并将其转换为数字值。
 
 ```typescript
 t.Numeric()
 ```
 
-This is useful when an incoming value is a numeric string for example path parameter or query string.
+当传入的值是数字字符串时，例如路径参数或查询字符串，这非常有用。
 
-Numeric accepts the same attribute as [Numeric Instance](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)
+Numeric 接受与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)相同的属性。
 
 ## File
 
-A singular file. Often useful for **file upload** validation.
+单个文件。通常用于<strong>文件上传</strong>验证。
 
 ```typescript
 t.File()
 ```
 
-File extends attribute of base schema, with additional property as follows:
+File 扩展了基本模式的属性，并添加了以下额外属性：
 
 ### type
 
-A format of the file like image, video, audio.
+文件的格式，例如图像、视频、音频。
 
-If an array is provided, will attempt to validate if any of the format is valid.
+如果提供了数组，则会尝试验证其中任何格式是否有效。
 
 ```typescript
 type?: MaybeArray<string>
@@ -82,9 +82,9 @@ type?: MaybeArray<string>
 
 ### minSize
 
-Minimum size of the file.
+文件的最小大小。
 
-Accept number in byte or suffix of file unit:
+接受字节或文件单位后缀的数字：
 
 ```typescript
 minSize?: number | `${number}${'k' | 'm'}`
@@ -92,33 +92,33 @@ minSize?: number | `${number}${'k' | 'm'}`
 
 ### maxSize
 
-Maximum size of the file.
+文件的最大大小。
 
-Accept number in byte or suffix of file unit:
+接受字节或文件单位后缀的数字：
 
 ```typescript
 maxSize?: number | `${number}${'k' | 'm'}`
 ```
 
-#### File Unit Suffix:
+#### 文件单位后缀：
 
-The following are the specifications of the file unit:
-m: MegaByte (1048576 byte)
-k: KiloByte (1024 byte)
+以下是文件单位的规范：
+m：兆字节 (1048576 字节)
+k：千字节 (1024 字节)
 
 ## Files
 
-Extends from [File](#file), but adds support for an array of files in a single field.
+扩展自 [File](#file)，但支持在单个字段中使用文件数组。
 
 ```typescript
 t.Files()
 ```
 
-File extends attributes of base schema, array, and File.
+Files 扩展了基本模式、数组和 File 的属性。
 
 ## Cookie
 
-Object-like representation of a Cookie Jar extended from Object type.
+Cookie Jar 的类似对象表示，扩展自 Object 类型。
 
 ```typescript
 t.Cookie({
@@ -126,23 +126,23 @@ t.Cookie({
 })
 ```
 
-Cookie extends attributes of [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) and [Cookie](https://github.com/jshttp/cookie#options-1) with additional properties follows:
+Cookie 扩展了 [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) 和 [Cookie](https://github.com/jshttp/cookie#options-1) 的属性，并添加了以下附加属性：
 
 ### secrets
 
-The secret key for signing cookies.
+用于签名 Cookie 的密钥。
 
-Accepts a string or an array of string
+接受字符串或字符串数组。
 
 ```typescript
 secrets?: string | string[]
 ```
 
-If an array is provided, [Key Rotation](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation) will be used, the newly signed value will use the first secret as the key.
+如果提供了数组，将使用[密钥轮换](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation)，新签名的值将使用第一个密钥作为密钥。
 
 ## Nullable
 
-Allow the value to be null but not undefined.
+允许值为 null，但不允许为 undefined。
 
 ```typescript
 t.Nullable(t.String())
@@ -150,10 +150,10 @@ t.Nullable(t.String())
 
 ## MaybeEmpty
 
-Allow the value to be null and undefined.
+允许值为 null 和 undefined。
 
 ```typescript
 t.MaybeEmpty(t.String())
 ```
 
-For additional information, you can find the full source code of the type system in [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts).
+有关更多信息，可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到类型系统的完整源代码。

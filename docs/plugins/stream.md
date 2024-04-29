@@ -1,9 +1,9 @@
 ---
-title: Stream Plugin - ElysiaJS
+title: Stream Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Stream Plugin - ElysiaJS
+        content: Stream Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
@@ -15,14 +15,14 @@ head:
 ---
 
 # Stream Plugin
-This plugin adds support for streaming response or sending Server-Sent Event back to the client.
+这个插件为客户端添加了流响应或发送服务器推送事件的支持。
 
-Install with:
+安装方法：
 ```bash
 bun add @elysiajs/stream
 ```
 
-Then use it:
+然后使用它：
 ```typescript
 import { Elysia } from 'elysia'
 import { Stream } from '@elysiajs/stream'
@@ -39,46 +39,46 @@ new Elysia()
     .listen(3000)
 ```
 
-By default, `Stream` will return `Response` with `content-type` of `text/event-stream; charset=utf8`.
+默认情况下，`Stream` 将返回具有 `content-type` 为 `text/event-stream; charset=utf8` 的 `Response`。
 
-## Constructor
-Below is the constructor parameter accepted by `Stream`:
+## 构造函数
+以下是 `Stream` 接受的构造函数参数：
 1. Stream:
-    - Automatic: Automatically stream response from a provided value
-        - Iterable
-        - AsyncIterable
-        - ReadableStream
-        - Response
-    - Manual: Callback of `(stream: this) => unknown` or `undefined`
-2. Options: `StreamOptions`
-    - [event](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event): A string identifying the type of event described
-    - [retry](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#retry): The reconnection time in milliseconds
+    - 自动流：自动从提供的值流式传输响应
+        - 可迭代对象
+        - 异步可迭代对象
+        - 可读流
+        - 响应对象
+    - 手动流：回调函数 `(stream: this) => unknown` 或 `undefined`
+2. 选项：`StreamOptions`
+    - [event](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event)：描述事件类型的字符串
+    - [retry](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#retry)：重连时间 (毫秒)
 
-## Method
-Below is the method provided by `Stream`:
+## 方法
+以下是 `Stream` 提供的方法：
 
 ### send
-Enqueue data to stream to send back to the client
+将数据加入到流中以发送回客户端
 
 ### close
-Close the stream
+关闭流
 
 ### wait
-Return a promise that resolves in the provided value in ms
+返回一个在指定的时间值 (以毫秒为单位) 后解析的 Promise
 
 ### value
-Inner value of the `ReadableStream`
+`ReadableStream` 的内部值
 
-## Pattern
-Below you can find the common patterns to use the plugin.
+## 示例
+以下是使用该插件的常见模式。
 - [OpenAI](#openai)
 - [Fetch Stream](#fetch-stream)
 - [Server Sent Event](#server-sent-event)
 
 ## OpenAI
-Automatic mode is triggered when the parameter is either `Iterable` or `AsyncIterable` streaming the response back to the client automatically.
+当参数为 `Iterable` 或 `AsyncIterable` 时，将会自动触发自动模式，自动将响应流式传输到客户端。
 
-Below is an example of integrating ChatGPT into Elysia.
+下面是将 ChatGPT 集成到 Elysia 中的示例。
 
 ```ts
 new Elysia()
@@ -98,12 +98,13 @@ new Elysia()
     )
 ```
 
-By default [openai](https://npmjs.com/package/openai) chatGPT completion returns `AsyncIterable` so you should be able to wrap the OpenAI in `Stream`.
+默认情况下，[openai](https://npmjs.com/package/openai) 的 ChatGPT 完成返回 `AsyncIterable`，因此您应该能够将 OpenAI 包装在 `Stream` 中。
 
 ## Fetch Stream
-You can pass a fetch from an endpoint that returns the stream to proxy a stream.
+您可以传递一个从返回流的端点获取的 fetch，以代理流。
 
-This is useful for those endpoints that use AI text generation since you can proxy it directly, eg. [Cloudflare AI](https://developers.cloudflare.com/workers-ai/models/llm/#examples---chat-style-with-system-prompt-preferred).
+这对于那些使用 AI 文本生成的端点非常有用，因为您可以直接代理它，例如：[Cloudflare AI](https://developers.cloudflare.com/workers-ai/models/llm/#examples---chat-style-with-system-prompt-preferred)。
+
 ```ts
 const model = '@cf/meta/llama-2-7b-chat-int8'
 const endpoint = `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/ai/run/${model}`
@@ -127,10 +128,10 @@ new Elysia()
 ```
 
 ## Server Sent Event
-Manual mode is triggered when the parameter is either `callback` or `undefined`, allowing you to control the stream.
+当参数为 `callback` 或 `undefined` 时，将会触发手动模式，允许您控制流。
 
-### callback-based
-Below is an example of creating a Server-Sent Event endpoint using a constructor callback
+### 基于回调的
+以下是使用构造函数回调创建服务器推送事件端点的示例。
 
 ```ts
 new Elysia()
@@ -148,8 +149,8 @@ new Elysia()
     )
 ```
 
-### value-based
-Below is an example of creating a Server-Sent Event endpoint using a value-based
+### 基于值的
+以下是使用值为基础创建服务器推送事件端点的示例。
 
 ```ts
 new Elysia()
@@ -169,4 +170,4 @@ new Elysia()
     })
 ```
 
-Both callback-based and value-based streams work in the same way but with different syntax for your preference.
+基于回调和基于值的流工作方式相同，只是语法不同，可根据个人偏好选择其中一种方法。

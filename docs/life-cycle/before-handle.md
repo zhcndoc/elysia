@@ -1,35 +1,35 @@
 ---
-title: Before Handle - ElysiaJS
+title: Before Handle
 head:
     - - meta
       - property: 'og:title'
-        content: Before Handle - ElysiaJS
+        content: Before Handle - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Execute after validation and before the main route handler. Designed to provide a custom validation to provide a specific requirement before running the main handler. It's recommended to use Before Handle in the following situations. Restricted access check, authorization, user sign-in. Custom request requirement over data structure
+        content: 在验证之后、主路由处理程序之前执行。旨在提供自定义验证以满足在运行主处理程序之前的特定要求。建议在以下情况下使用 Before Handle：受限访问检查、授权、用户登录、自定义请求对数据结构的要求。
 
     - - meta
       - property: 'og:description'
-        content: Execute after validation and before the main route handler. Designed to provide a custom validation to provide a specific requirement before running the main handler. It's recommended to use Before Handle in the following situations. Restricted access check, authorization, user sign-in. Custom request requirement over data structure
+        content: 在验证之后、主路由处理程序之前执行。旨在提供自定义验证以满足在运行主处理程序之前的特定要求。建议在以下情况下使用 Before Handle：受限访问检查、授权、用户登录、自定义请求对数据结构的要求。
 ---
 
 # Before Handle
 
-Execute after validation and before the main route handler.
+在验证之后、主路由处理程序之前执行。
 
-Designed to provide a custom validation to provide a specific requirement before running the main handler.
+旨在提供自定义验证以满足在运行主处理程序之前的特定要求。
 
-If a value is returned, the route handler will be skipped.
+如果返回一个值，则路由处理程序将被跳过。
 
-It's recommended to use Before Handle in the following situations:
+建议在以下情况下使用 Before Handle：
 
--   Restricted access check: authorization, user sign-in
--   Custom request requirement over data structure
+-   受限访问检查：授权、用户登录
+-   自定义请求对数据结构的要求
 
-## Example
+## 示例
 
-Below is an example of using the before handle to check for user sign-in.
+下面是使用 before handle 检查用户登录的示例。
 
 ```typescript twoslash
 // @filename: user.ts
@@ -50,16 +50,16 @@ new Elysia()
     .listen(3000)
 ```
 
-The response should be listed as follows:
+响应应如下所示：
 
 | Is signed in | Response     |
 | ------------ | ------------ |
 | ❌           | Unauthorized |
 | ✅           | Hi           |
 
-## Guard
+## 守卫
 
-When we need to apply the same before handle to multiple routes, we can use [guard](#guard) to apply the same before handle to multiple routes.
+当我们需要将相同的 before handle 应用于多个路由时，可以使用[守卫](#guard)将相同的 before handle 应用于多个路由。
 
 ```typescript twoslash
 // @filename: user.ts
@@ -99,11 +99,11 @@ new Elysia()
 
 ## Resolve
 
-A "safe" version of [derive](/life-cycle/before-handle#derive).
+[派生](/life-cycle/before-handle#derive)的 “安全” 版本。
 
-Designed to append new value to context after validation process storing in the same stack as **beforeHandle**.
+旨在在验证过程后将新值附加到上下文中，存储在与 **beforeHandle** 相同的堆栈中。
 
-Resolve syntax is identical to [derive](/life-cycle/before-handle#derive), below is an example of retrieving a bearer header from the Authorization plugin.
+Resolve 语法与[派生](/life-cycle/before-handle#derive)相同，下面是从授权插件中检索 bearer 标头的示例。
 
 ```typescript twoslash
 // @filename: user.ts
@@ -132,7 +132,7 @@ new Elysia()
     .listen(3000)
 ```
 
-Using `resolve` and `onBeforeHandle` is stored in the same queue.
+使用 `resolve` 和 `onBeforeHandle` 存储在同一队列中。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -151,7 +151,7 @@ new Elysia()
     })
 ```
 
-The console should log as the following:
+控制台应如下所示：
 
 ```bash
 1
@@ -159,11 +159,11 @@ The console should log as the following:
 3
 ```
 
-Same as **derive**, properties which assigned by **resolve** is unique and not shared with another request.
+与**派生**相同，由 **resolve** 分配的属性是唯一的，不与另一个请求共享。
 
-## Guard resolve
+## 守卫 Resolve
 
-As resolve is not available in local hook, it's recommended to use guard to encapsulate the **resolve** event.
+由于 resolve 在本地钩子中不可用，建议使用守卫来封装 **resolve** 事件。
 
 ```typescript twoslash
 // @filename: user.ts

@@ -1,24 +1,24 @@
 ---
-title: Overview - ElysiaJS
+title: Eden Treaty 概览
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty Overview - ElysiaJS
+        content: Eden Treaty 概览 - ElysiaJS 中文文档
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性，以及显著提升的开发体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性，以及显著提升的开发体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
 ---
 
 # Eden Treaty
 
-Eden Treaty is an object representation to interact with server with type safety, auto-completion, and error handling.
+Eden Treaty 是一种对象表示，用于与服务器交互，具有类型安全性、自动完成和错误处理。
 
-To use Eden Treaty, first export your existing Elysia server type:
+要使用 Eden Treaty，首先导出您现有的 Elysia 服务器类型：
 
 ```typescript twoslash
 // server.ts
@@ -38,7 +38,7 @@ const app = new Elysia()
 export type App = typeof app // [!code ++]
 ```
 
-Then import the server type, and consume the Elysia API on client:
+然后导入服务器类型，并在客户端使用 Elysia API：
 
 ```typescript twoslash
 // @filename: server.ts
@@ -69,21 +69,21 @@ const app = treaty<App>('localhost:3000')
 const { data, error } = await app.hi.get()
 ```
 
-## Tree like syntax
+## 类似树的语法
 
-HTTP Path is a resource indicator for file-system tree.
+HTTP 路径是文件系统树的资源指示器。
 
-File system is consists of multiple level of folders for example:
+文件系统由多个级别的文件夹组成，例如：
 
--   /documents/elysia
--   /documents/kalpas
--   /documents/kelvin
+- /documents/elysia
+- /documents/kalpas
+- /documents/kelvin
 
-Each level is separate by **/** (slash) and a name.
+每个级别由 **/** (斜杠) 和一个名称分隔。
 
-However in JavaScript, instead of using **"/"** (slash) we use **"."** (dot) instead to access a deeper resources.
+然而在 JavaScript 中，我们不是使用 **“/”** (斜杠)，而是使用 **“。”** (点) 来访问更深层次的资源。
 
-Eden Treaty turns an Elysia server into a file-system tree like system to access in JavaScript frontend instead.
+Eden Treaty 将 Elysia 服务器转换成类似文件系统树的系统，以便在 JavaScript 前端访问。
 
 | Path         | Treaty       |
 | ------------ | ------------ |
@@ -91,7 +91,7 @@ Eden Treaty turns an Elysia server into a file-system tree like system to access
 | /hi          | .hi          |
 | /deep/nested | .deep.nested |
 
-Combined with HTTP method, allowing us fully interact with Elysia server.
+结合 HTTP 方法，允许我们完全与 Elysia 服务器交互。
 
 | Path         | Method | Treaty              |
 | ------------ | ------ | ------------------- |
@@ -100,19 +100,19 @@ Combined with HTTP method, allowing us fully interact with Elysia server.
 | /deep/nested | GET    | .deep.nested.get()  |
 | /deep/nested | POST   | .deep.nested.post() |
 
-## Dynamic path
+## 动态路径
 
-However, dynamic path parameter cannot be express by using notation, if fully replaced then we don't know what the parameter name is supposed to be.
+然而，动态路径参数不能通过符号表示表达，如果完全替换，我们就不知道参数名称应该是什么。
 
 ```typescript
-// ❌ Unclear what the value is suppose to represent?
+// ❌ 不清楚值应该代表什么？
 treaty.item['skadi']
 ```
 
-To handle this, we can specify a dynamic path using function to provide key value instead.
+为了处理这个问题，我们可以使用函数来指定动态路径，提供键值对。
 
 ```typescript
-// ✅ Clear that value is dynamic path is 'name'
+// ✅ 清楚值是动态路径 'name'
 treaty.item({ name: 'Skadi' })
 ```
 

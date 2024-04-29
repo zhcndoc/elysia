@@ -1,34 +1,37 @@
 ---
-title: Remapping - ElysiaJS
+title: 重新映射
 head:
   - - meta
     - property: 'og:title'
-      content: Remapping - ElysiaJS
+      content: 重新映射 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Remap existing `state`, `decorate`, `model`, `derive` to prevent name collision or renaminig a property
+      content: 重新映射 `state`、`decorate`、`model`、`derive`，以防止名称冲突或重命名属性
 
   - - meta
     - property: 'og:description'
-      content: Remap existing `state`, `decorate`, `model`, `derive` to prevent name collision or renaminig a property
+      content: 重新映射 `state`、`decorate`、`model`、`derive`，以防止名称冲突或重命名属性
 ---
 
-# Remapping
-As the name suggest, this allow us to remap existing `state`, `decorate`, `model`, `derive` to anything we like to prevent name collision, or just wanting to rename a property.
+# 重新映射
 
-By providing a function as a first parameters, the callback will accept current value, allowing us to remap the value to anything we like.
+顾名思义，这允许我们将现有的 `state`、`decorate`、`model`、`derive` 重新映射为我们想要的任何内容，以防止名称冲突，或者只是想要重命名一个属性。
+
+通过将函数作为第一个参数提供，回调函数将接受当前值，使我们能够将值重新映射为我们想要的任何内容。
+
 ```ts
 new Elysia()
     .state({
         a: "a",
         b: "b"
     })
-    // Exclude b state
+    // 排除 b state
     .state(({ b, ...rest }) => rest)
 ```
 
-This is useful when you have to deal with a plugin that has some duplicate name, allowing you to remap the name of the plugin:
+当你需要处理一个具有一些重复名称的插件时，这非常有用，允许你重新映射插件的名称：
+
 ```ts
 new Elysia()
     .use(
@@ -40,12 +43,13 @@ new Elysia()
     )
 ```
 
-Remap function can be use with `state`, `decorate`, `model`, `derive` to helps you define a correct property name and preventing name collision.
+重新映射函数可以用于 `state`、`decorate`、`model`、`derive`，帮助你定义正确的属性名称并防止名称冲突。
 
-## Affix
-To provide a smoother experience, some plugins might have a lot of property value which can be overwhelming to remap one-by-one.
+## 附加词
 
-The **Affix** function, which consists of a **prefix** and **suffix**, allows us to effortlessly remap all properties of an instance, preventing the name collision of the plugin.
+为了提供更流畅的体验，一些插件可能有很多属性值，逐个重新映射可能会让人感到不知所措。
+
+**附加词**函数由**前缀**和**后缀**组成，允许我们轻松地重新映射实例的所有属性，防止插件名称冲突。
 
 ```ts
 const setup = new Elysia({ name: 'setup' })
@@ -63,9 +67,10 @@ const app = new Elysia()
     .get('/', ({ setupCarbon }) => setupCarbon)
 ```
 
-By default, **affix** will handle both runtime, type-level code automatically, remapping the property to camelCase as naming convention.
+默认情况下，**附加词**会自动处理运行时和类型级别的代码，将属性重新映射为驼峰命名约定。
 
-In some condition, you can also remap `all` property of the plugin:
+在某些情况下，你还可以重新映射插件的 `all` 属性：
+
 ```ts
 const app = new Elysia()
     .use(

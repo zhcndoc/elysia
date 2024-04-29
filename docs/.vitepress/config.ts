@@ -3,11 +3,12 @@ import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 const description =
-    'Ergonomic Framework for Humans. TypeScript framework supercharged by Bun with End - to - End Type Safety, unified type system and outstanding developer experience'
+    '适合人体工程学的框架，由 Bun 提供支持的 TypeScript 框架，具有端到端类型安全、统一的类型系统和出色的开发人员体验。'
 
 export default defineConfig({
-    lang: 'en-US',
-    title: 'ElysiaJS',
+    lang: 'zh-Hans',
+    title: 'ElysiaJS 中文文档',
+    titleTemplate: ':title - ElysiaJS 中文文档',
     // description,
     ignoreDeadLinks: true,
     lastUpdated: true,
@@ -109,43 +110,69 @@ export default defineConfig({
     ],
     themeConfig: {
         search: {
-            provider: 'local'
+            provider: 'local',
+            options: {
+                locales: {
+                    root: {
+                        translations: {
+                            button: {
+                                buttonText: '搜索文档',
+                                buttonAriaLabel: '搜索文档'
+                            },
+                            modal: {
+                                noResultsText: '无法找到相关结果',
+                                resetButtonTitle: '清除查询条件',
+                                footer: {
+                                    selectText: '选择',
+                                    navigateText: '切换',
+                                    closeText: '关闭'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         logo: '/assets/elysia.svg',
         nav: [
             {
-                text: 'Quick Start',
+                text: '快速入门',
                 link: '/quick-start'
             },
             {
-                text: 'Plugins',
+                text: '插件',
                 link: '/plugins/overview'
             },
             {
-                text: 'Blog',
+                text: '博客',
                 link: '/blog'
+            },
+            {
+                text: '英文官网',
+                link: 'https://elysiajs.com/'
             }
         ],
         sidebar: [
             {
-                text: '👋 Getting Started',
+                text: '👋 入门',
+                collapsed: true,
                 items: [
                     {
-                        text: 'At Glance',
+                        text: '简介',
                         link: '/at-glance'
                     },
                     {
-                        text: 'Quick Start',
+                        text: '快速开始',
                         link: '/quick-start'
                     },
                     {
-                        text: 'Table of Content',
+                        text: '内容纲要',
                         link: '/table-of-content'
                     }
                 ]
             },
             {
-                text: '✨ Essential',
+                text: '✨ 基础',
                 collapsed: true,
                 items: [
                     {
@@ -165,7 +192,7 @@ export default defineConfig({
                         link: '/essential/context'
                     },
                     {
-                        text: 'Life Cycle',
+                        text: '生命周期',
                         link: '/essential/life-cycle'
                     },
                     {
@@ -173,51 +200,51 @@ export default defineConfig({
                         link: '/essential/schema'
                     },
                     {
-                        text: 'Plugin',
+                        text: '插件',
                         link: '/essential/plugin'
                     },
                     {
-                        text: 'Scope',
+                        text: '作用域',
                         link: '/essential/scope'
                     }
                 ]
             },
             {
-                text: '🔎 Validation',
+                text: '🔎 校验',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概述',
                         link: '/validation/overview'
                     },
                     {
-                        text: 'Schema Type',
+                        text: '模式类型',
                         link: '/validation/schema-type'
                     },
                     {
-                        text: 'Primitive Type',
+                        text: '原始类型',
                         link: '/validation/primitive-type'
                     },
                     {
-                        text: 'Elysia Type',
+                        text: 'Elysia 类型',
                         link: '/validation/elysia-type'
                     },
                     {
-                        text: 'Error Provider',
+                        text: '错误提供程序',
                         link: '/validation/error-provider'
                     },
                     {
-                        text: 'Reference Model',
+                        text: '参考模型',
                         link: '/validation/reference-model'
                     }
                 ]
             },
             {
-                text: '⏳ Life Cycle',
+                text: '⏳ 生命周期',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概览',
                         link: '/life-cycle/overview'
                     },
                     {
@@ -259,11 +286,11 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🧭 Patterns',
+                text: '🧭 模式',
                 collapsed: true,
                 items: [
                     {
-                        text: 'Group',
+                        text: '分组路由',
                         link: '/patterns/group'
                     },
                     {
@@ -271,7 +298,7 @@ export default defineConfig({
                         link: '/patterns/cookie'
                     },
                     {
-                        text: 'Cookie Signature',
+                        text: 'Cookie 签名',
                         link: '/patterns/cookie-signature'
                     },
                     {
@@ -279,27 +306,27 @@ export default defineConfig({
                         link: '/patterns/websocket'
                     },
                     {
-                        text: 'Documentation',
+                        text: '文档',
                         link: '/patterns/documentation'
                     },
                     {
-                        text: 'Unit Test',
+                        text: '单元测试',
                         link: '/patterns/unit-test'
                     },
                     {
-                        text: 'Mount',
+                        text: '挂载',
                         link: '/patterns/mount'
                     },
                     {
-                        text: 'Lazy Loading Module',
+                        text: '延迟加载模块',
                         link: '/patterns/lazy-loading-module'
                     },
                     {
-                        text: 'Macro',
+                        text: '宏',
                         link: '/patterns/macro'
                     },
                     {
-                        text: 'MVC model',
+                        text: 'MVC 模式',
                         link: '/patterns/mvc'
                     }
                 ]
@@ -309,11 +336,11 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概述',
                         link: '/eden/overview.md'
                     },
                     {
-                        text: 'Installation',
+                        text: '安装',
                         link: '/eden/installation.md'
                     },
                     {
@@ -321,15 +348,15 @@ export default defineConfig({
                         collapsed: false,
                         items: [
                             {
-                                text: 'Overview',
+                                text: '概述',
                                 link: '/eden/treaty/overview'
                             },
                             {
-                                text: 'Parameters',
+                                text: '参数',
                                 link: '/eden/treaty/parameters'
                             },
                             {
-                                text: 'Response',
+                                text: '响应',
                                 link: '/eden/treaty/response'
                             },
                             {
@@ -337,11 +364,11 @@ export default defineConfig({
                                 link: '/eden/treaty/websocket'
                             },
                             {
-                                text: 'Config',
+                                text: '配置',
                                 link: '/eden/treaty/config'
                             },
                             {
-                                text: 'Unit Test',
+                                text: '单元测试',
                                 link: '/eden/treaty/unit-test'
                             },
                             {
@@ -357,67 +384,62 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🔌 Plugins',
+                text: '🔌 插件',
+                link: '/plugins/overview',
+                collapsed: true,
                 items: [
                     {
-                        text: 'Official Plugins',
-                        link: '/plugins/overview',
-                        collapsed: true,
-                        items: [
-                            {
-                                text: 'Bearer',
-                                link: '/plugins/bearer'
-                            },
-                            {
-                                text: 'CORS',
-                                link: '/plugins/cors'
-                            },
-                            {
-                                text: 'Cron',
-                                link: '/plugins/cron'
-                            },
-                            {
-                                text: 'GraphQL Apollo',
-                                link: '/plugins/graphql-apollo'
-                            },
-                            {
-                                text: 'GraphQL Yoga',
-                                link: '/plugins/graphql-yoga'
-                            },
-                            {
-                                text: 'HTML',
-                                link: '/plugins/html'
-                            },
-                            {
-                                text: 'JWT',
-                                link: '/plugins/jwt'
-                            },
-                            {
-                                text: 'Server Timing',
-                                link: '/plugins/server-timing'
-                            },
-                            {
-                                text: 'Static',
-                                link: '/plugins/static'
-                            },
-                            {
-                                text: 'Stream',
-                                link: '/plugins/stream'
-                            },
-                            {
-                                text: 'Swagger',
-                                link: '/plugins/swagger'
-                            },
-                            {
-                                text: 'trpc',
-                                link: '/plugins/trpc'
-                            }
-                        ]
+                        text: 'Bearer',
+                        link: '/plugins/bearer'
+                    },
+                    {
+                        text: 'CORS',
+                        link: '/plugins/cors'
+                    },
+                    {
+                        text: 'Cron',
+                        link: '/plugins/cron'
+                    },
+                    {
+                        text: 'GraphQL Apollo',
+                        link: '/plugins/graphql-apollo'
+                    },
+                    {
+                        text: 'GraphQL Yoga',
+                        link: '/plugins/graphql-yoga'
+                    },
+                    {
+                        text: 'HTML',
+                        link: '/plugins/html'
+                    },
+                    {
+                        text: 'JWT',
+                        link: '/plugins/jwt'
+                    },
+                    {
+                        text: 'Server Timing',
+                        link: '/plugins/server-timing'
+                    },
+                    {
+                        text: 'Static',
+                        link: '/plugins/static'
+                    },
+                    {
+                        text: 'Stream',
+                        link: '/plugins/stream'
+                    },
+                    {
+                        text: 'Swagger',
+                        link: '/plugins/swagger'
+                    },
+                    {
+                        text: 'trpc',
+                        link: '/plugins/trpc'
                     }
                 ]
             },
             {
-                text: 'Integration',
+                text: '📦 集成',
                 collapsed: true,
                 items: [
                     {
@@ -457,9 +479,30 @@ export default defineConfig({
             { icon: 'discord', link: 'https://discord.gg/eaFJ2KDJck' }
         ],
         editLink: {
-            text: 'Edit this page on GitHub',
+            text: '在 GitHub 上编辑此页面',
             pattern:
-                'https://github.com/elysiajs/documentation/edit/main/docs/:path'
-        }
+                'https://github.com/ikxin/elysia-docs-cn/edit/main/docs/:path'
+        },
+        docFooter: {
+            prev: '上一页',
+            next: '下一页'
+        },
+        outline: {
+            label: '页面导航'
+        },
+
+        lastUpdated: {
+            text: '最后更新于',
+            formatOptions: {
+                dateStyle: 'short',
+                timeStyle: 'medium'
+            }
+        },
+        langMenuLabel: '多语言',
+        returnToTopLabel: '回到顶部',
+        sidebarMenuLabel: '菜单',
+        darkModeSwitchLabel: '主题',
+        lightModeSwitchTitle: '切换到浅色模式',
+        darkModeSwitchTitle: '切换到深色模式'
     }
 })

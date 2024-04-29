@@ -1,31 +1,32 @@
 ---
-title: MVC Model - ElysiaJS
+title: MVC 模式
 head:
     - - meta
       - property: 'og:title'
-        content: MVC Model - ElysiaJS
+        content: MVC 模式 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Elysia is pattern agnostic framework, we the decision up to you and your team for coding patterns to use. However, we found that there are several who are using MVC pattern (Model-View-Controller) on Elysia, and found it's hard to decouple and handling with types. This page is a guide to use Elysia with MVC pattern.
+        content: Elysia 是一个无模式的框架，我们将编码模式的决定权交给你和你的团队。然而，我们发现有一些人在 Elysia 上使用 MVC 模式，并发现它很难解耦并处理类型。本页面是使用 MVC 模式使用 Elysia 的指南。
 
     - - meta
       - property: 'og:description'
-        content: Elysia is pattern agnostic framework, we the decision up to you and your team for coding patterns to use. However, we found that there are several who are using MVC pattern (Model-View-Controller) on Elysia, and found it's hard to decouple and handling with types. This page is a guide to use Elysia with MVC pattern.
+        content: Elysia 是一个无模式的框架，我们将编码模式的决定权交给你和你的团队。然而，我们发现有一些人在 Elysia 上使用 MVC 模式，并发现它很难解耦并处理类型。本页面是使用 MVC 模式使用 Elysia 的指南。
 ---
 
-# MVC Pattern
+# MVC 模式
 
-Elysia is pattern agnostic framework, we the decision up to you and your team for coding patterns to use.
+Elysia 是一个无模式的框架，我们将编码模式的决定权交给你和你的团队。
 
-However, we found that there are several who are using MVC pattern [(Model-View-Controller)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) on Elysia, and found it's hard to decouple and handling with types.
+然而，我们发现有一些人在 Elysia 上使用 MVC 模式 ([模型-视图-控制器](https://zh.wikipedia.org/wiki/模型-视图-控制器))，并发现它很难解耦并处理类型。
 
-This page is a guide to use Elysia with MVC pattern.
+本页面是使用 MVC 模式使用 Elysia 的指南。
 
-## Controller
-1 Elysia instance = 1 controller.
+## 控制器
 
-**DO NOT** create a separate controller, use Elysia itself as a controller instead.
+1 个 Elysia 实例 = 1 个控制器。
+
+**请勿**创建单独的控制器，而是直接使用 Elysia 本身作为控制器。
 
 ```typescript twoslash
 const Controller = {
@@ -39,28 +40,28 @@ const Service = {
 // ---cut---
 import { Elysia } from 'elysia'
  
-// ❌ don't:
+// ❌ 不要这样做：
 new Elysia()
     .get('/', Controller.hi)
 
-// ✅ do:
+// ✅ 这样做：
 new Elysia()
-    // Get what you need
+    // 获取所需内容
     .get('/', ({ query: { name } }) => {
         Service.do1(name)
         Service.do2(name)
     })
 ```
 
-Elysia does a lot to ensure type integrity, and if you pass an entire Context type to a controller, these might be the problems:
-1. Elysia type is complex and heavily depends on plugin and multiple level of chaining.
-2. Hard to type, Elysia type could change at anytime, especially with decorators, and store
-3. Type casting may cause lost of type integrity or unable to ensure type and runtime code.
-4. Harder for [Sucrose](/blog/elysia-10#sucrose) *(Elysia's "kind of" compiler)* to statically analyze your code
+Elysia 在确保类型完整性方面做了很多工作，如果将整个 Context 类型传递给控制器，可能会出现以下问题：
+1. Elysia 类型复杂，且严重依赖插件和多级链接。
+2. 难以进行类型推断，Elysia 类型可能随时更改，特别是使用装饰器和存储器时。
+3. 类型转换可能导致类型完整性丢失或无法确保类型和运行时代码。
+4. 对于 [Sucrose](/blog/elysia-10#sucrose) (Elysia 的 “类似” 编译器)，更难进行静态分析你的代码
 
-We recommended using object destructuring to extract what you need and pass it to **"Service"** instead.
+我们建议使用对象解构将所需内容提取出来，并传递给 **“Service”**。
 
-By passing an entire `Controller.method` to Elysia is an equivalent of having 2 controllers passing data back and forth. It's against the design of framework and MVC pattern itself.
+将整个 `Controller.method` 传递给 Elysia 相当于有 2 个控制器之间相互传递数据。这与框架和 MVC 模式的设计相违背。
 
 ```typescript twoslash
 const Service = {
@@ -69,7 +70,7 @@ const Service = {
     }
 }
 // ---cut---
-// ❌ don't:
+// ❌ 不要这样做：
 import { Elysia, type Context } from 'elysia'
 
 abstract class Controller {
@@ -82,9 +83,10 @@ new Elysia()
     .get('/', Controller.root)
 ```
 
-Here's an example of what it looks like to do something similar in NestJS.
+以下是在 NestJS 中执行类似操作的示例。
+
 ```typescript
-// ❌ don't:
+// ❌ 不要这样做：
 abstract class InternalController {
     static root(res: Response) {
         return Service.doStuff(res.stuff)
@@ -102,7 +104,8 @@ export class AppController {
 }
 ```
 
-Instead treaty an Elysia instance as a controller itself.
+相反，将 Elysia 实例视为控制器本身。
+
 ```typescript twoslash
 // @filename: service.ts
 import { Elysia } from 'elysia'
@@ -122,7 +125,7 @@ export const HiService = new Elysia()
 import { Elysia } from 'elysia'
 import { HiService } from './service'
 
-// ✅ do:
+// ✅ 这样做：
 new Elysia()
     .use(HiService)
     .get('/', ({ Hi, stuff }) => {
@@ -130,7 +133,7 @@ new Elysia()
     })
 ```
 
-If you would like to call or perform unit test on controller, use [Elysia.handle](/essential/route.html#handle).
+如果你想调用或对控制器执行单元测试，请使用 [Elysia.handle](/essential/route.html#handle)。
 
 ```typescript twoslash
 // @filename: service.ts
@@ -161,7 +164,7 @@ app.handle(new Request('http://localhost/'))
     .then(console.log)
 ```
 
-Or even better, use [Eden](/eden/treaty/unit-test.html) with end-to-end type safety.
+或者更好的是，使用 [Eden](/eden/treaty/unit-test.html) 进行端到端类型安全的单元测试。
 
 ```typescript twoslash
 // @filename: service.ts
@@ -193,10 +196,11 @@ const controller = treaty(AController)
 const { data, error } = await controller.index.get()
 ```
 
-## Service
-Service is a set of utility/helper functions for each module, in our case, Elysia instance.
+## 服务
 
-Any logic that can be decoupled from controller may be live inside a **Service**.
+Service 是每个模块的一组实用程序/辅助函数，在我们的案例中是 Elysia 实例。
+
+可以将可以与控制器解耦的任何逻辑放在 **Service** 中。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -218,9 +222,9 @@ new Elysia()
     })
 ```
 
-If your service doesn't need to store a property, you may use `abstract class` and `static` instead to avoid allocating class instance.
+如果你的 Service 不需要存储属性，可以使用 `abstract class` 和 `static` 来避免分配类实例。
 
-But if your service involve local mutation eg. caching, you may want to initiate an instance instead.
+但是，如果你的 Service 涉及本地变异，例如缓存，你可能需要初始化一个实例。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -256,17 +260,18 @@ new Elysia()
     })
 ```
 
-You may use [Elysia.decorate](/essential/context#decorate) to embedded class instance into Elysia or not is depends on your case.
+你可以使用 [Elysia.decorate](/essential/context#decorate) 将类实例嵌入到 Elysia 中，是否这样做取决于你的情况。
 
-Using [Elysia.decorate](/essential/context#decorate) is an equivalent of using **dependency injection** in NestJS:
+使用 [Elysia.decorate](/essential/context#decorate) 相当于在 NestJS 中使用**依赖注入**：
+
 ```typescript
-// Using dependency injection
+// 使用依赖注入
 @Controller()
 export class AppController {
     constructor(service: Service) {}
 }
 
-// Using separate instance from dependency
+// 使用与依赖项分开的实例
 const service = new Service()
 
 @Controller()
@@ -275,11 +280,11 @@ export class AppController {
 }
 ```
 
-### Request Dependent Service
+### 请求相关的 Service
 
-If your service are going to be used in multiple instance, or may require some property from request. We recommended creating an dedicated Elysia instance as a **Service** instead.
+如果你的 Service 将在多个实例中使用，或者可能需要一些来自请求的属性。我们建议创建一个专用的 Elysia 实例作为 **Service**。
 
-Elysia handle [plugin deduplication](/essential/plugin.html#plugin-deduplication) by default so you don't have to worry about performance, as it's going to be Singleton if you specified a **"name"** property.
+Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此你不必担心性能问题，因为如果指定了 **“name”** 属性，它将成为单例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -308,12 +313,14 @@ const UserController = new Elysia()
     .get('/profile', ({ Auth: { user } }) => user)
 ```
 
-## Model
-Model or [DTO (Data Transfer Object)](https://en.wikipedia.org/wiki/Data_transfer_object) is handle by [Elysia.t (Validation)](/validation/overview.html#data-validation).
+## 模型
 
-We recommended using [Elysia reference model](/validation/reference-model.html#reference-model) or creating an object or class of DTOs for each module.
+Model 或 [DTO](https://zh.wikipedia.org/wiki/数据传输对象) (数据传输对象) 由 [Elysia.t](/validation/overview.html#data-validation) (验证) 处理。
 
-1. Using Elysia's model reference
+我们建议使用 [Elysia 引用模型](/validation/reference-model.html#reference-model)或为每个模块创建 DTO 的对象或类。
+
+1. 使用 Elysia 的模型引用
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -338,19 +345,22 @@ const UserController = new Elysia({ prefix: '/auth' })
     })
 ```
 
-This allows approach provide several benefits.
-1. Allow us to name a model and provide auto-completion.
-2. Modify schema for later usage, or perform [remapping](/patterns/remapping.html#remapping).
-3. Show up as "models" in OpenAPI compliance client, eg. Swagger.
+这种方法提供了几个好处。
 
-## View
-You may use Elysia HTML to do Template Rendering.
+1. 允许我们为模型命名并提供自动完成。
+2. 修改模式以供后续使用，或执行[重新映射](/patterns/remapping.html#remapping)。
+3. 在 OpenAPI 兼容的客户端中显示为 “models”，例如 Swagger。
 
-Elysia support JSX as template engine using [Elysia HTML plugin](/plugins/html)
+## 视图
 
-You **may** create a rendering service or embedding view directly is up to you, but according to MVC pattern, you are likely to create a seperate service for handling view instead.
+你可以使用 Elysia HTML 进行模板渲染。
 
-1. Embedding View directly, this may be useful if you have to render multiple view, eg. using [HTMX](https://htmx.org):
+Elysia 支持使用 [Elysia HTML 插件](/plugins/html)的 JSX 作为模板引擎。
+
+你**可以**创建渲染服务或直接嵌入视图由你决定，但根据 MVC 模式，你可能会创建一个用于处理视图的服务。
+
+1. 直接嵌入视图，如果你需要渲染多个视图可能会很有用，例如使用 [HTMX](https://htmx.org)：
+
 ```tsx twoslash
 import React from 'react'
 // ---cut---
@@ -364,7 +374,8 @@ new Elysia()
     })
 ```
 
-2. Dedicated View as a service:
+2. 作为服务的专用视图：
+
 ```tsx twoslash
 import React from 'react'
 // ---cut---
@@ -384,6 +395,6 @@ new Elysia()
 
 ---
 
-As being said, Elysia is pattern agnostic framework, and we only a recommendation guide for handling Elysia with MVC.
+正如前面所说，Elysia 是一个无模式的框架，我们只是为处理 Elysia 与 MVC 的指南提供了一些建议。
 
-You may choose to follows or not is up to your and your team preference and agreement.
+你可以选择遵循或不遵循，这取决于你和你的团队的偏好和协议。

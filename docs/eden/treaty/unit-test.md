@@ -1,23 +1,24 @@
 ---
-title: Eden Treaty Unit Test - ElysiaJS
+title: Eden Treaty 单元测试 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty Unit Test - ElysiaJS
+        content: Eden Treaty 单元测试 - ElysiaJS
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的一个类似对象的表示，提供端到端的类型安全性，以及显著改善的开发体验。使用伊甸，我们可以完全类型安全地从 Elysia 服务器获取 API，而无需代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的一个类似对象的表示，提供端到端的类型安全性，以及显著改善的开发体验。使用伊甸，我们可以完全类型安全地从 Elysia 服务器获取 API，而无需代码生成。
 ---
 
-# Unit Test
-According to [Eden Treaty config](/eden/treaty/config.html#urlorinstance) and [Unit Test](/patterns/unit-test), we may pass an Elysia instance to Eden Treaty directly to interact with Elysia server directly without sending a network request.
+# 单元测试
 
-We may use this patterns to create a unit test with end-to-end type safety and type-level test all at once.
+根据 [Eden Treaty 配置](/eden/treaty/config.html#urlorinstance)和[单元测试](/patterns/unit-test)，我们可以直接将 Elysia 实例传递给 Eden Treaty，以便直接与 Elysia 服务器交互，而无需发送网络请求。
+
+我们可以使用这种模式来创建具有端到端类型安全性和类型级测试的单元测试。
 
 ```typescript twoslash
 // test/index.test.ts
@@ -34,16 +35,16 @@ describe('Elysia', () => {
 
         expect(data).toBe('hi')
               // ^?
-
     })
 })
 ```
 
-## Type safety test
-To perform a type safety test, simply run **tsc** to test folders.
+## 类型安全性测试
+
+要执行类型安全性测试，只需运行 **tsc** 来测试文件夹。
 
 ```bash
 tsc --noEmit test/**/*.ts
 ```
 
-This is useful to ensure type integrity for both client and server, especially during migrations.
+这对于确保客户端和服务器的类型完整性特别有用，尤其是在迁移期间。

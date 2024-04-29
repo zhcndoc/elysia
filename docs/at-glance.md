@@ -1,17 +1,17 @@
 ---
-title: At glance - ElysiaJS
+title: 简介
 head:
     - - meta
       - property: 'og:title'
-        content: At glance - ElysiaJS
+        content: 简介 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Designed with ergonomic design, extensive support for TypeScript, modern JavaScript API, optimized for Bun. Offers a unique experience unified type, and end-to-end type safety while maintaining excellent performance.
+        content: 设计符合人体工程学，广泛支持 TypeScript、现代 JavaScript API，并针对 Bun 进行了优化。提供独特的统一类型体验和端到端类型安全，同时保持出色的性能。
 
     - - meta
       - property: 'og:description'
-        content: Designed with ergonomic design, extensive support for TypeScript, modern JavaScript API, optimized for Bun. Offers a unique experience unified type, and end-to-end type safety while maintaining excellent performance.
+        content: 设计符合人体工程学，广泛支持 TypeScript、现代 JavaScript API，并针对 Bun 进行了优化。提供独特的统一类型体验和端到端类型安全，同时保持出色的性能。
 ---
 
 <script setup>
@@ -31,12 +31,12 @@ const demo2 = new Elysia()
     .get('/user/abc', () => 'abc')
 </script>
 
-# At glance
-Elysia is an ergonomic web framework for building backend servers with Bun.
+# 简介
+Elysia 是一个符合人体工程学的 Web 框架，用于使用 Bun 构建后端服务器。
 
-Designed with simplicity and type safety in mind with familiar API with extensive support for TypeScript, optimized for Bun.
+该框架在设计时考虑到了简洁性和类型安全性，其熟悉的 API 广泛支持 TypeScript，并针对 Bun 进行了优化。
 
-Here's a simple hello world in Elysia.
+下面是 Elysia 中一个简单的 hello world。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -48,7 +48,7 @@ new Elysia()
     .listen(3000)
 ```
 
-Navigate to [localhost:3000](http://localhost:3000/) and it should show 'Hello Elysia' as a result.
+打开 [localhost:3000](http://localhost:3000/)，结果应该显示 "Hello Elysia"。
 
 <Playground 
     :elysia="demo1"
@@ -68,18 +68,16 @@ Navigate to [localhost:3000](http://localhost:3000/) and it should show 'Hello E
 />
 
 ::: tip
-Hover over the code snippet to see the type definition.
+将鼠标悬停在代码片段上查看类型定义。
 
-In the mock browser, click on path highlight in blue to change path to preview a response and
-
-Elysia can runs on browser and the result you see are actually run using Elysia.
+在模拟浏览器中，单击蓝色路径突出显示以更改路径以预览响应，Elysia 可以在浏览器上运行，你看到的结果实际上是使用 Elysia 运行的。
 :::
 
-## Performance
+## 性能
 
-Building on Bun and extensive optimization like Static Code Analysis allows Elysia to generate optimized code on the fly.
+在 Bun 和静态代码分析（Static Code Analysis）等广泛优化的基础上，Elysia 可以快速生成优化代码。
 
-Elysia can outperform most of the web frameworks available today<a href="#ref-1"><sup>[1]</sup></a>, and even match the performance of Golang and Rust framework<a href="#ref-2"><sup>[2]</sup></a>.
+Elysia 的性能超过了当今大多数网络框架<a href="#ref-1"><sup>[1]</sup></a>，甚至可以媲美 Golang 和 Rust 框架<a href="#ref-2"><sup>[2]</sup></a>。
 
 | Framework     | Runtime | Average     | Plain Text | Dynamic Parameters | JSON Body  |
 | ------------- | ------- | ----------- | ---------- | ------------------ | ---------- |
@@ -97,11 +95,11 @@ Elysia can outperform most of the web frameworks available today<a href="#ref-1"
 
 ## TypeScript
 
-Elysia is designed to help you write less TypeScript.
+Elysia 旨在帮助你减少编写 TypeScript。
 
-Elysia's Type System is fine-tuned to infer your code into type automatically without needing to write explicit TypeScript while providing type-safety for both runtime and compile time to provide you with the most ergonomic developer experience.
+Elysia 的类型系统经过精心调整，可以自动推断出你的代码类型，而无需编写显式的 TypeScript，同时为运行时和编译时提供类型安全性，从而为你提供最舒适的开发者体验。
 
-Take a look at this example:
+看一下这个例子：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -112,7 +110,7 @@ new Elysia()
     .listen(3000)
 ```
 
-The above code create a path parameter "id", the value that replace `:id` will be passed to `params.id` both in runtime and type without manual type declaration.
+上述代码创建了一个路径参数 "id"，替换 `:id` 的值将在运行时和类型中都被传递到 `params.id`，无需手动声明类型。
 
 <Playground 
     :elysia="demo2"
@@ -126,15 +124,15 @@ The above code create a path parameter "id", the value that replace `:id` will b
     }" 
 />
 
-Elysia's goal is to help you write less TypeScript and focus more on Business logic. Let the complex type be handled by the framework.
+Elysia 的目标是帮助你减少 TypeScript 的编写，更专注于业务逻辑。让复杂类型由框架处理。
 
-TypeScript is not needed to use Elysia, but it's recommended to use Elysia with TypeScript.
+使用 Elysia 不需要 TypeScript，但建议与 TypeScript 一起使用 Elysia。
 
-## Type Integrity
+## 类型完整性
 
-To take a step further, Elysia provide **Elysia.t**, a schema builder to validate type and value in both runtime and compile-time to create a single source of truth for your data-type.
+为了更进一步，Elysia 提供了 **Elysia.t**，这是一个模式构建器，用于在运行时和编译时验证类型和值，从而为你的数据类型创建单一的真实来源。
 
-Let's modify the previous code to accept only a numeric value instead of a string.
+让我们修改先前的代码，仅接受数值而不是字符串。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -149,19 +147,19 @@ new Elysia()
     .listen(3000)
 ```
 
-This code ensures that our path parameter **id**, will always be a numeric string and then transform to a number automatically in both runtime and compile-time (type-level).
+这段代码确保我们的路径参数 **id** 将始终是一个数字字符串，并且会在运行时和编译时（类型级别）自动转换为数字。
 
 ::: tip
-Hover over "id" in the above code snippet to see a type definition.
+在上面的代码片段中将鼠标悬停在 "id" 上以查看类型定义。
 :::
 
-With Elysia schema builder, we can ensure type safety like a strong-typed language with a single source of truth.
+通过 Elysia 模式构建器，我们可以像具有单一真实来源的强类型语言一样确保类型安全。
 
-## Standard
+## 标准
 
-Elysia adopts many standards by default, like OpenAPI, and WinterCG compliance, allowing you to integrate with most of the industry standard tools or at least easily integrate with tools you are familiar with.
+Elysia 默认采用许多标准，例如 OpenAPI 和 WinterCG 合规性，允许你与大多数行业标准工具集成，或者至少轻松与你熟悉的工具集成。
 
-For instance, as Elysia adopts OpenAPI by default, generating a documentation with Swagger is as easy as adding a one-liner:
+例如，由于 Elysia 默认采用 OpenAPI，因此使用 Swagger 生成文档就像添加一行代码一样简单：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -177,13 +175,13 @@ new Elysia()
     .listen(3000)
 ```
 
-With the Swagger plugin, you can seamlessly generate a Swagger page without additional code or specific config and share it with your team effortlessly.
+使用 Swagger 插件，你可以无缝生成 Swagger 页面，无需额外代码或特定配置，并轻松与你的团队共享。
 
-## End-to-end Type Safety
+## 端到端类型安全
 
-With Elysia, type safety is not only limited to server-side only.
+对于 Elysia，类型安全不仅限于服务器端。
 
-With Elysia, you can synchronize your type with your frontend team automatically like tRPC, with Elysia's client library, "Eden".
+有了 Elysia，你就可以利用 Elysia 的客户端库 "Eden"，像 tRPC 一样与前端团队自动同步类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -201,7 +199,7 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-And on your client-side:
+在你的客户端：
 
 ```typescript twoslash
 // @filename: server.ts
@@ -232,32 +230,32 @@ const { data } = await app.user({ id: 617 }).get()
 console.log(data)
 ```
 
-With Eden, you can use the existing Elysia type to query Elysia server **without code generation** and synchronize type for both frontend and backend automatically.
+使用 Eden，你可以使用现有的 Elysia 类型来查询 Elysia 服务器，**而无需生成代码**，并自动同步前端和后端的类型。
 
-Elysia is not only about helping you to create a confident backend but for all that is beautiful in this world.
+Elysia 不仅能帮助你创建一个自信的后端，还能帮助你创建这个世界上所有美好的事物。
 
-## Platform Agnostic
+## 与平台无关
 
-Elysia was designed but was **not limited to Bun**. Being [WinterCG compliant](https://wintercg.org/) allows you to deploy the Elysia server on Cloudflare Worker, Vercel Edge Function, and most other runtimes that support Web Standard Request.
+Elysia 的设计**不局限于 Bun**。由于[兼容 WinterCG](https://wintercg.org/)，你可以将 Elysia 服务器部署到 Cloudflare Worker、Vercel Edge Function 和其他大多数支持 Web 标准请求的运行时上。
 
-## Our Community
+## 我们的社区
 
-If you have questions or get stuck about Elysia, feel free to ask our community on GitHub Discussions, Discord, and Twitter.
+如果你对 Elysia 有疑问或遇到困难，请随时在 GitHub 讨论、Discord 和 Twitter 上向我们的社区提问。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        Official ElysiaJS discord community server
+        ElysiaJS 官方 Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        Track update and status of Elysia
+        跟踪 Elysia 的更新和状态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
-        Source code and development
+        源代码和开发
     </Card>
 </Deck>
 
 ---
 
-<small id="ref-1">1. Measure in requests/second. The benchmark for parsing query, path parameter and set response header on Debian 11, Intel i7-13700K tested on Bun 0.7.2 on 6 Aug 2023. See the benchmark condition [here](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results).</small>
+<small id="ref-1">1. 以请求/秒为单位进行测量。 Debian 11、Intel i7-13700K 上解析查询、路径参数和设置响应标头的基准测试于 2023 年 8 月 6 日在 Bun 0.7.2 上进行测试。请参阅[此处的](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)基准测试条件。</small>
 
-<small id="ref-2">2. Based on [TechEmpower Benchmark round 22](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite).</small>
+<small id="ref-2">2. 基于 [TechEmpower 基准测试第 22 轮](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>

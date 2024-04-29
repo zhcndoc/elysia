@@ -1,17 +1,17 @@
 ---
-title: Route - ElysiaJS
+title: Route
 head:
     - - meta
       - property: 'og:title'
-        content: Route - ElysiaJS
+        content: Route - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: To determine the correct response to a client, the web server uses path and HTTP method to look up for the correct resource. This process is known as "routing". We can define a route by calling a method named after an HTTP verb like `Elysia.get`, `Elysia.post` passing a path and a function to execute when matched.
+        content: 为了确定对客户端的正确响应，网络服务器使用路径和 HTTP 方法来查找正确的资源。这个过程被称为 "路由"。我们可以通过调用以 HTTP Verb 命名的方法（如 `Elysia.get`、`Elysia.post`）来定义路由，并在匹配时传递路径和要执行的函数。
 
     - - meta
       - property: 'og:description'
-        content: To determine the correct response to a client, the web server uses path and HTTP method to look up for the correct resource. This process is known as "routing". We can define a route by calling a method named after an HTTP verb like `Elysia.get`, `Elysia.post` passing a path and a function to execute when matched.
+        content: 为了确定对客户端的正确响应，网络服务器使用路径和 HTTP 方法来查找正确的资源。这个过程被称为 "路由"。我们可以通过调用以 HTTP Verb 命名的方法（如 `Elysia.get`、`Elysia.post`）来定义路由，并在匹配时传递路径和要执行的函数。
 ---
 
 <script setup>
@@ -42,9 +42,9 @@ const demo5 = new Elysia()
 
 # Route
 
-Web servers use the request's **path and HTTP method** to look up the correct resource, refers as **"routing"**.
+Web 服务器使用请求的**路径和 HTTP 方法**来查找正确的资源，这就是 **Route**。
 
-We can define a route by calling a **method named after HTTP verbs**, passing a path and a function to execute when matched.
+我们可以通过调用**以 HTTP Verb 命名的方法**、传递路径和匹配时执行的函数来定义路由。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -55,39 +55,39 @@ new Elysia()
     .listen(3000)
 ```
 
-We can access the web server by going to **http://localhost:3000**
+我们可以通过 **http://localhost:3000** 来访问 Web 服务器
 
 <Playground :elysia="demo1" />
 
 ::: tip
-By default, web browser will sent GET method when vising the page.
+默认情况下，Web 浏览器在访问页面时会发送 GET 方法。
 
-This is why accessing GET routes using a browser works.
+这就是使用浏览器访问 GET 路由的原因。
 :::
 
 ## HTTP Verb
 
-There are many HTTP methods to use in a different situation, for instance.
+例如，在不同的情况下可以使用多种 HTTP 方法。
 
 ### GET
 
-Requests using GET should only retrieve data.
+使用 GET 的请求应该只被用于获取数据。
 
 ### POST
 
-Submits a payload to the specified resource, often causing state change or side effect.
+用于将实体提交到指定的资源，通常导致在服务器上的状态变化或副作用。
 
 ### PUT
 
-Replaces all current representations of the target resource using the request's payload.
+用有效载荷请求替换目标资源的所有当前表示。
 
 ### DELETE
 
-Deletes the specified resource.
+删除指定的资源。
 
 ---
 
-To handle each of the different verbs, Elysia has a built-in API for several HTTP verbs by default, similar to `Elysia.get`
+为了处理每个不同的请求方法，Elysia 默认情况下有一个针对多个 HTTP Verb 的内置 API，类似于 `Elysia.get`。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -100,16 +100,17 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-Elysia HTTP methods accepts the following parameters:
+Elysia HTTP 方法接受以下参数：
 
--   **path**: Pathname
--   **function**: Function to respond to the client
--   **hook**: Additional metadata
+-   **path**：路径名
+-   **function**：响应客户端的函数
+-   **hook**：附加元数据
 
-You can read more about the HTTP methods on [HTTP Request Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
+你可以在 [HTTP 请求方法](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)上阅读有关 HTTP 方法的更多信息。
 
-## Method Chaining
-Rule of thumb, **ALWAYS** use method chaining in Elysia.
+## 方法链
+
+根据经验，在 Elysia 中**始终**使用方法链。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -127,15 +128,15 @@ const app = new Elysia()
     .post('/', () => 'world')
 ```
 
-Elysia is using method chaining to synchronize type safety for later use.
+Elysia 正在使用方法链来同步类型安全以供以后使用。
 
-Without method chaining, Elysia can't ensure your type integrity which will have of usage in later chapters.
+如果没有方法链，Elysia 就无法确保类型的完整性，这将在后面的章节中用到。
 
 ## Handle
 
-Most developers use REST clients like Postman, Insomnia or Hoppscotch to test their API.
+大多数开发人员使用 Postman、Insomnia 或 Hoppscotch 等 REST 客户端来测试他们的 API。
 
-However, Elysia can be programmatically test using `Elysia.handle`.
+但是，可以使用 Elysia 以编程方式进行测试 `Elysia.handle`。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -147,18 +148,17 @@ const app = new Elysia()
 
 app.handle(new Request('http://localhost/')).then(console.log)
 ```
-
-**Elysia.handle** is a function to process an actual request sent to the server.
+**Elysia.handle** 是一个处理发送到服务器的实际请求的函数。
 
 ::: tip
-Unlike unit test's mock, **you can expect it to behave like an actual request** sent to the server.
+与单元测试的 mock 不同，它的行为与发送到服务器的**实际请求类似**。
 
-But also useful for simulating or creating unit tests.
+但对于模拟或创建单元测试也很有用。
 :::
 
-## Custom Method
+## 自定义方法
 
-We can accept custom HTTP Methods with `Elysia.route`.
+我们可以通过 `Elysia.route` 接受自定义 HTTP 方法。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -172,14 +172,15 @@ const app = new Elysia()
 
 <Playground :elysia="demo3" />
 
-**Elysia.route** accepts the following:
+**Elysia.route** 接受以下内容：
 
 -   **method**: HTTP Verb
--   **path**: Pathname
--   **function**: Function to response to the client
--   **hook**: Additional metadata
+-   **path**：路径名
+-   **function**：响应客户端的函数
+-   **hook**：附加元数据
 
-When navigating to each method, you should see the results as the following:
+导航到每个方法时，你应该看到如下结果：
+
 | Path | Method | Result |
 | - | --- | --- |
 | / | GET | hello |
@@ -187,14 +188,14 @@ When navigating to each method, you should see the results as the following:
 | / | M-SEARCH | connect |
 
 ::: tip
-Based on [RFC 7231](https://www.rfc-editor.org/rfc/rfc7231#section-4.1), HTTP Verb is case-sensitive.
+根据 RFC 7231，HTTP Verb 区分大小写。
 
-It's recommended to use the UPPERCASE convention for defining a custom HTTP Verb with Elysia.
+建议在使用 Elysia 定义自定义 HTTP Verb 时使用大写规范。
 :::
 
 ## Elysia.all
 
-Elysia provides an `Elysia.all` for handling any HTTP method for a specified path using the same API like **Elysia.get** and **Elysia.post**
+Elysia 提供了一个 `Elysia.all`，用于使用与 **Elysia.get** 和 **Elysia.post** 相同的 API 处理指定路径下的任何 HTTP 方法。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -206,7 +207,8 @@ new Elysia()
 
 <Playground :elysia="demo4" />
 
-Any HTTP method that matches the path, will be handled as follows:
+任何与路径匹配的 HTTP 方法都将按如下方式处理：
+
 | Path | Method | Result |
 | ---- | -------- | ------ |
 | / | GET | hi |
@@ -215,9 +217,9 @@ Any HTTP method that matches the path, will be handled as follows:
 
 ## 404
 
-If no path matches the defined routes, Elysia will pass the request to [error](/life-cycle/on-error) life cycle before returning a **"NOT_FOUND"** with an HTTP status of 404.
+如果没有路径与定义的路由相匹配，Elysia 会将请求传递到 [`onError`](/life-cycle/on-error) 生命周期，然后返回 HTTP 状态为 404 的 `NOT_FOUND`。
 
-We can handle a custom 404 error by returning a value from 'error` life cycle like this:
+我们可以通过像这样从 `onError` 生命周期返回一个值来处理自定义 404 错误：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -233,7 +235,7 @@ new Elysia()
 
 <Playground :elysia="demo5" />
 
-When navigating to your web server, you should see the result as follows:
+导航到 Web 服务器时，应该会看到如下结果：
 
 | Path | Method | Result              |
 | ---- | ------ | ------------------- |
@@ -241,10 +243,10 @@ When navigating to your web server, you should see the result as follows:
 | /    | POST   | Route not found :\( |
 | /hi  | GET    | Route not found :\( |
 
-You can learn more about life cycle and error handling in [Life Cycle Events](/essential/life-cycle#events) and [Error Handling](/life-cycle/on-error).
+有关生命周期和错误处理的更多信息，请参阅[生命周期事件](/essential/life-cycle#events)和[错误处理](/life-cycle/on-error)。
 
 ::: tip
-HTTP Status is used to indicate the type of response. By default if everything is correct, the server will return a '200 OK' status code (If a route matches and there is no error, Elysia will return 200 as default)
+HTTP 状态用于指示响应的类型。默认情况下，如果一切正确，服务器将返回 “200 OK” 状态代码 (如果路由匹配并且没有错误，Elysia 将默认返回 200)
 
-If the server fails to find any route to handle, like in this case, then the server shall return a '404 NOT FOUND' status code.
+如果服务器未能找到任何要处理的路由 (如本例所示)，则服务器应返回 “404 NOT FOUND” 状态代码。
 :::

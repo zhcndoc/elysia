@@ -1,31 +1,31 @@
 ---
-title: Map Response - ElysiaJS
+title: Map Response
 head:
     - - meta
       - property: 'og:title'
-        content: Map Response - ElysiaJS
+        content: Map Response - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Executed just after "afterHandle", designed to provide custom response mapping. It's recommended to use transform for the following. Map value into a Web Standard Response.
+        content: 在 “afterHandle” 之后执行，旨在提供自定义响应映射。建议使用 transform 来进行以下操作。将值映射为 Web 标准响应。
 
     - - meta
       - name: 'og:description'
-        content: Executed just after "afterHandle", designed to provide custom response mapping. It's recommended to use transform for the following. Compression. Map value into a Web Standard Response.
+        content: 在 “afterHandle” 之后执行，旨在提供自定义响应映射。建议使用 transform 来进行以下操作。将值映射为 Web 标准响应。
 ---
 
 # Map Response
 
-Executed just after **"afterHandle"**, designed to provide custom response mapping.
+在 **afterHandle** 之后执行，旨在提供自定义响应映射。
 
-It's recommended to use transform for the following:
+建议使用 transform 进行以下操作：
 
--   Compression
--   Map value into a Web Standard Response
+- 压缩
+- 将值映射为 Web 标准响应
 
-## Example
+## 示例
 
-Below is an example of using mapResponse to provide Response compression.
+以下是使用 mapResponse 提供响应压缩的示例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -58,6 +58,6 @@ new Elysia()
     .listen(3000)
 ```
 
-Like **parse** and **beforeHandle**, after a value is returned, the next iteration of **mapResponse** will be skipped.
+与 **parse** 和 **beforeHandle** 一样，在返回值之后，下一次 **mapResponse** 的迭代将被跳过。
 
-Elysia will handle the merging process of **set.headers** from **mapResponse** automatically. We don't need to worry about appending **set.headers** to Response manually.
+Elysia 将自动处理来自 **mapResponse** 的 **set.headers** 的合并过程。我们不需要手动将 **set.headers** 附加到响应中。

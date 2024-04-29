@@ -1,23 +1,25 @@
 ---
-title: Reactive Cookie - ElysiaJS
+title: 响应式 Cookie
 head:
   - - meta
     - property: 'og:title'
-      content: Reactive Cookie - ElysiaJS
+      content: 响应式 Cookie - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Reactive Cookie take a more modern approach like signal to handle cookie with an ergonomic API. There's no 'getCookie', 'setCookie', everything is just a cookie object. When you want to use cookie, you just extract the name and value directly.
+      content: 响应式 Cookie 采用类似信号的现代方法来处理 Cookie，并提供了人性化的 API。没有 "getCookie"、"setCookie"，一切都是一个 Cookie 对象。当你想要使用 Cookie 时，你只需直接提取名称和值。
 
   - - meta
     - property: 'og:description'
-      content: Reactive Cookie take a more modern approach like signal to handle cookie with an ergonomic API. There's no 'getCookie', 'setCookie', everything is just a cookie object. When you want to use cookie, you just extract the name and value directly.
+      content: 响应式 Cookie 采用类似信号的现代方法来处理 Cookie，并提供了人性化的 API。没有 "getCookie"、"setCookie"，一切都是一个 Cookie 对象。当你想要使用 Cookie 时，你只需直接提取名称和值。
 ---
 
 # Cookie
-To use Cookie, you can extract the cookie property and access its name and value directly.
 
-There's no get/set, you can extract the cookie name and retrieve or update its value directly.
+要使用 Cookie，你可以提取 cookie 属性并直接访问其名称和值。
+
+没有获取/设置的操作，你可以提取 cookie 名称并直接检索或更新其值。
+
 ```ts twoslash
 import { Elysia } from 'elysia'
 
@@ -34,27 +36,30 @@ new Elysia()
     })
 ```
 
-By default, Reactive Cookie can encode/decode type of object automatically allowing us to treat cookie as an object without worrying about the encoding/decoding. **It just works**.
+默认情况下，响应式 Cookie 可以自动编码/解码对象类型，使我们能够将 Cookie 视为一个对象，无需担心编码/解码。**它只是起作用**。
 
-## Reactivity
-The Elysia cookie is reactive. This means that when you change the cookie value, the cookie will be updated automatically based on approach like signal.
+## 响应式
 
-A single source of truth for handling cookies is provided by Elysia cookies, which have the ability to automatically set headers and sync cookie values.
+Elysia Cookie 是具有响应式的。这意味着当你更改 Cookie 值时，基于信号的方法会自动更新 Cookie。
 
-Since cookies are Proxy-dependent objects by default, the extract value can never be **undefined**; instead, it will always be a value of `Cookie<unknown>`, which can be obtained by invoking the **.value** property.
+Elysia Cookie 提供了处理 Cookie 的单一事实来源，它具有自动设置标头和同步 Cookie 值的能力。
 
-We can treat the cookie jar as a regular object, iteration over it will only iterate over an already-existing cookie value.
+由于默认情况下 Cookie 是依赖代理的对象，提取的值永远不会是 **undefined**；而是始终是一个 `Cookie<unknown>` 的值，可以通过调用**。value** 属性来获取。
 
-## Cookie Attribute
-To use Cookie attribute, you can either use one of the following:
+我们可以将 Cookie 存储库视为常规对象，迭代它只会迭代已存在的 Cookie 值。
 
-1. Setting the property directly
-2. Using `set` or `add` to update cookie property.
+## Cookie 属性
 
-See [cookie attribute config](/patterns/cookie-signature#config) for more information.
+要使用 Cookie 属性，你可以使用以下其中之一：
 
-### Assign Property
-You can get/set the property of a cookie like any normal object, the reactivity model synchronizes the cookie value automatically.
+1. 直接设置属性
+2. 使用 `set` 或 `add` 更新 Cookie 属性。
+
+有关更多信息，请参阅 [cookie attribute config](/patterns/cookie-signature#config)。
+
+### 分配属性
+
+你可以像操作普通对象一样获取/设置 Cookie 的属性，响应式模型会自动同步 Cookie 值。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -71,7 +76,8 @@ new Elysia()
 ```
 
 ## set
-**set** permits updating multiple cookie properties all at once through **reset all property** and overwrite the property with a new value.
+
+**set** 允许通过**重置所有属性**并使用新值覆盖属性来同时更新多个 Cookie 属性。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -86,10 +92,12 @@ new Elysia()
 ```
 
 ## add
-Like **set**, **add** allow us to update multiple cookie properties at once, but instead, will only overwrite the property defined instead of resetting.
+
+与 **set** 类似，**add** 允许我们一次性更新多个 Cookie 属性，但只会覆盖已定义的属性，而不是重置所有属性。
 
 ## remove
-To remove a cookie, you can use either:
+
+要删除一个 Cookie，你可以使用以下方法之一：
 1. name.remove
 2. delete cookie.name
 
@@ -104,8 +112,9 @@ new Elysia()
     })
 ```
 
-## Cookie Schema
-You can strictly validate cookie type and providing type inference for cookie by using cookie schema with `t.Cookie`.
+## Cookie 架构
+
+你可以使用 `t.Cookie` 和 Cookie 架构严格验证 Cookie 类型，并为 Cookie 提供类型推断。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -127,8 +136,9 @@ new Elysia()
     })
 ```
 
-## Nullable Cookie
-To handle nullable cookie value, you can use `t.Optional` on the cookie name you want to be nullable.
+## 可空 Cookie
+
+要处理可空的 Cookie 值，你可以在要设置为可空的 Cookie 名称上使用 `t.Optional`。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'

@@ -5,16 +5,14 @@
         </section>
         <header class="flex flex-col gap-3 w-full">
             <h3
-                class="text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-300 to-blue-300">
+                class="text-3xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-300 to-blue-300">
                 OpenAPI / Swagger
             </h3>
             <p class="text-xl leading-normal text-gray-400 w-full max-w-lg mb-4">
-                Elysia generates OpenAPI 3.0 specs automatically to integrate
-                with various tools across multiple languages
+                Elysia 自动生成 OpenAPI 3.0 规范，以与跨多种语言的各种工具集成。
             </p>
             <p class="text-xl leading-normal text-gray-400 w-full max-w-lg mb-4">
-                Thanks to OpenAPI compliance, Elysia can generate Swagger in one
-                line with the Swagger plugin.
+                由于符合 OpenAPI 标准，Elysia 可以使用 Swagger 插件在一行中生成 Swagger。
             </p>
         </header>
     </article>

@@ -1,19 +1,20 @@
 ---
-title: Elysia - Ergonomic Framework for Humans
+title: ElysiaJS 中文文档
+titleTemplate: ':title - 人体工程学框架'
 layout: page
 sidebar: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia - Ergonomic Framework for Humans
+        content: ElysiaJS 中文文档 - 人体工程学框架
 
     - - meta
       - name: 'description'
-        content: Elysia is an ergonomic framework for Humans. With end-to-end type safety and great developer experience. Elysia is familiar, fast, and first class TypeScript support with well-thought integration between services whether it's tRPC, Swagger or WebSocket. Elysia got you covered, start building next generation TypeScript web servers today.
+        content: Elysia 是一个面向人类的人体工程学框架。具有端到端类型安全性和出色的开发者体验。 Elysia 熟悉、快速，并提供一流的 TypeScript 支持，其中与 tRPC、Swagger 或 WebSocket 等服务之间存在良好思考的集成。Elysia 已经为你考虑周全，立即开始构建下一代 TypeScript Web 服务器。
 
     - - meta
       - property: 'og:description'
-        content: Elysia is an ergonomic framework for Humans. With end-to-end type safety and great developer experience. Elysia is familiar, fast, and first class TypeScript support with well-thought integration between services whether it's tRPC, Swagger or WebSocket. Elysia got you covered, start building next generation TypeScript web servers today.
+        content: Elysia 是一个面向人类的人体工程学框架。具有端到端类型安全性和出色的开发者体验。 Elysia 熟悉、快速，并提供一流的 TypeScript 支持，其中与 tRPC、Swagger 或 WebSocket 等服务之间存在良好思考的集成。Elysia 已经为你考虑周全，立即开始构建下一代 TypeScript Web 服务器。
 ---
 
 <script setup>

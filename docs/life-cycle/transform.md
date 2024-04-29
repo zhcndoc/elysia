@@ -1,28 +1,31 @@
 ---
-title: Transform - ElysiaJS
+title: Transform
 head:
   - - meta
     - property: 'og:title'
-      content: Transform - ElysiaJS
+      content: Transform - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Executed just before "Validation" process, designed to mutate context to conform with the validation or appending new value. It's recommended to use transform for the following. Mutate existing context to conform with validation.
+      content: 执行在“验证”过程之前，旨在改变上下文以符合验证要求或附加新值。建议使用 transform 来进行以下操作：改变现有上下文以符合验证要求。
 
   - - meta
     - name: 'og:description'
-      content: Executed just before "Validation" process, designed to mutate context to conform with the validation or appending new value. It's recommended to use transform for the following. Mutate existing context to conform with validation.
+      content: 执行在“验证”过程之前，旨在改变上下文以符合验证要求或附加新值。建议使用 transform 来进行以下操作：改变现有上下文以符合验证要求。
 ---
 
 # Transform
-Executed just before **Validation** process, designed to mutate context to conform with the validation or appending new value.
 
-It's recommended to use transform for the following:
-- Mutate existing context to conform with validation.
-- `derive` is based on `onTransform` with support for providing type.
+执行在**验证**过程之前，旨在改变上下文以符合验证要求或附加新值。
 
-## Example
-Below is an example of using transform to mutate params to be numeric values.
+建议使用 transform 来进行以下操作：
+
+- 改变现有上下文以符合验证要求。
+- `derive` 基于 `onTransform`，支持提供类型。
+
+## 示例
+
+以下是使用 transform 改变参数为数值的示例。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -43,9 +46,10 @@ new Elysia()
 ```
 
 ## Derive
-Designed to append new value to context directly before validation process storing in the same stack as **transform**.
 
-Unlike **state** and **decorate** that assigned value before the server started. **derive** assigns a property when each request happens. Allowing us to extract a piece of information into a property instead.
+设计用于在验证过程之前直接向上下文附加新值，存储在与 **transform** 相同的堆栈中。
+
+与在服务器启动之前分配值的 **state** 和 **decorate** 不同，**derive** 在每个请求发生时分配属性。这样我们就可以将一部分信息提取到属性中。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -61,12 +65,13 @@ new Elysia()
     .get('/', ({ bearer }) => bearer)
 ```
 
-Because **derive** is assigned once a new request starts, **derive** can access Request properties like **headers**, **query**, **body** where **store**, and **decorate** can't.
+由于 **derive** 在每个新请求开始时分配，**derive** 可以访问请求属性，如 **headers**、**query**、**body**，而 **store** 和 **decorate** 不能。
 
-Unlike **state**, and **decorate**. Properties which assigned by **derive** is unique and not shared with another request.
+与 **state** 和 **decorate** 不同，由 **derive** 分配的属性是唯一的，不与其他请求共享。
 
 ## Queue twoslash
-Using `derived` and `transform` is stored in the same queue.
+
+使用 `derived` 和 `transform` 存储在同一个队列中。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -82,7 +87,7 @@ new Elysia()
     })
 ```
 
-The console should log as the following:
+控制台应该按照以下顺序记录：
 
 ```bash
 1

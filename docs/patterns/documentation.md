@@ -1,30 +1,33 @@
 ---
-title: Creating Documentation - ElysiaJS
+title: 创建文档
 head:
   - - meta
     - property: 'og:title'
-      content: Creating Documentation - ElysiaJS
+      content: 创建文档 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Elysia has first-class support and follows OpenAPI schema by default. Allowing any Elysia server to generate a Swagger page and serve as documentation automatically by using just 1 line of the Elysia Swagger plugin.
+      content: Elysia 默认提供一流的支持，并遵循 OpenAPI 模式。通过使用 Elysia Swagger 插件的一行代码，任何 Elysia 服务器都可以自动生成 Swagger 页面并作为文档提供。
 
   - - meta
     - property: 'og:description'
-      content: Elysia has first-class support and follows OpenAPI schema by default. Allowing any Elysia server to generate a Swagger page and serve as documentation automatically by using just 1 line of the Elysia Swagger plugin.
+      content: Elysia 默认提供一流的支持，并遵循 OpenAPI 模式。通过使用 Elysia Swagger 插件的一行代码，任何 Elysia 服务器都可以自动生成 Swagger 页面并作为文档提供。
 ---
 
-# Creating Documentation
-Elysia has first-class support and follows OpenAPI schema by default.
+# 创建文档
 
-Allowing any Elysia server to generate a Swagger page and serve as documentation automatically by using just 1 line of the Elysia Swagger plugin.
+Elysia 默认提供一流的支持，并遵循 OpenAPI 模式。
 
-To generate the Swagger page, install the plugin:
+通过使用 Elysia Swagger 插件的一行代码，任何 Elysia 服务器都可以自动生成 Swagger 页面并作为文档提供。
+
+要生成 wagger 页面，请安装插件：
+
 ```bash
 bun add @elysiajs/swagger
 ```
 
-And register the plugin to the server:
+并将插件注册到服务器：
+
 ```typescript twoslash
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
@@ -33,12 +36,13 @@ const app = new Elysia()
     .use(swagger())
 ```
 
-For more information about Swagger plugin, see the [Swagger plugin page](/plugins/swagger).
+有关 Swagger 插件的更多信息，请参阅 [Swagger 插件页面](/plugins/swagger)。
 
-## Route definitions
-`schema` is used to customize the route definition, not only that it will generate an OpenAPI schema and Swagger definitions, but also type validation, type-inference and auto-completion.
+## 路由定义
 
-However, sometime defining a type only isn't clear what the route might work. You can use `schema.detail` fields to explictly define what the route is all about.
+`schema` 用于自定义路由定义，它不仅会生成 OpenAPI 模式和 Swagge r 定义，还提供类型验证、类型推断和自动完成。
+
+然而，有时仅定义类型并不清楚路由的作用。你可以使用 `schema.detail` 字段明确定义路由的用途。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -63,6 +67,6 @@ new Elysia()
     })
 ```
 
-The detail fields follows an OpenAPI V3 definition with auto-completion and type-safety by default.
+详细字段遵循 OpenAPI V3 定义，并具有默认的自动完成和类型安全性。
 
-Detail is then passed to Swagger to put the description to Swagger route.
+然后，详细信息将传递给 Swagger，以将描述放入 Swagger 路由中。

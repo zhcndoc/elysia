@@ -1,17 +1,17 @@
 ---
-title: Schema - ElysiaJS
+title: Schema
 head:
     - - meta
       - property: 'og:title'
-        content: Schema - ElysiaJS
+        content: Schema - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Schema are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation are based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型化的定义，用于推断 TypeScript 对传入请求和传出响应的类型和数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 
     - - meta
       - property: 'og:description'
-        content: Schema are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation are based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型化的定义，用于推断 TypeScript 对传入请求和传出响应的类型和数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 ---
 
 <script setup>
@@ -45,33 +45,33 @@ const demo2 = new Elysia()
 
 # Schema
 
-One of the most important areas to create a secure web server is to make sure that requests are in the correct shape.
+要创建一个安全的 Web 服务器，最重要的一点就是确保请求的格式正确。
 
-Elysia handled this by providing a validation tool out of the box to validate incoming requests using **Schema Builder**.
+Elysia 通过提供一个验证工具来解决这个问题，该工具使用模式生成器 (Schema Builder) 验证传入的请求。
 
-**Elysia.t**, a schema builder based on [TypeBox](https://github.com/sinclairzx81/typebox) to validate the value in both runtime and compile-time, providing type safety like in a strict type language.
+**Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式生成器，可在运行时和编译时验证值，提供严格类型语言的类型安全性。
 
-## Type
+## 类型
 
-Elysia schema can validate the following:
+Elysia 模式可验证以下内容：
 
--   body - HTTP body.
--   query - query string or URL parameters.
--   params - Path parameters.
--   header - Request's headers.
--   cookie - Request's cookie
--   response - Value returned from handler
+-   body - HTTP 主体
+-   query - 查询字符串或 URL 参数
+-   params - 路径参数
+-   header - 请求标头
+-   cookie - 请求的 cookie
+-   response - 处理程序返回的值
 
-Schema can be categorized into 2 types:
+模式可分为 2 类：
 
-1. Local Schema: Validate on a specific route
-2. Global Schema: Validate on every route
+1. 本地 Schema：在特定路由上验证
+2. 全局 Schema：在每条路由上验证
 
-## Local Schema
+## 本地 Schema
 
-The local schema is executed on a specific route.
+本地模式在特定路由上执行。
 
-To validate a local schema, you can inline schema into a route handler:
+要验证本地模式，可以将模式内嵌到路由处理程序中：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -88,20 +88,20 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-This code ensures that our path parameter **id**, will always be a numeric string and then transform to a number automatically in both runtime and compile-time (type-level).
+这段代码可确保路径参数 `id` 始终为数字字符串，然后在运行时和编译时 (类型级) 自动转换为数字。
 
-The response should be listed as follows:
+响应列表如下：
 
 | Path  | Response |
 | ----- | -------- |
 | /id/1 | 1        |
 | /id/a | Error    |
 
-## Global Schema
+## 全局 Schema
 
-Register hook into **every** handler that came after.
+将钩子注册到之后的**每个**处理程序中。
 
-To add a global hook, you can use `.guard` followed by a life cycle event in camelCase:
+要添加全局钩子，可以使用 `.guard`，然后用 camelCase 写一个生命周期事件：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -133,7 +133,7 @@ This code ensures that the query must have **name** with a string value for ever
     }" 
 />
 
-The response should be listed as follows:
+响应列表如下：
 
 | Path          | Response |
 | ------------- | -------- |
@@ -142,4 +142,4 @@ The response should be listed as follows:
 | /query        | error    |
 | /query?name=a | a        |
 
-If multiple global schemas are defined for same property, the latest one will have the preference. If both local and global schemas are defined, the local one will have the preference.
+如果为同一属性定义了多个全局架构，则最新的架构将具有优先权。如果同时定义了本地模式和全局模式，则本地模式将具有优先权。

@@ -1,17 +1,17 @@
 ---
-title: Life Cycle Event - ElysiaJS
+title: 生命周期事件
 head:
     - - meta
       - property: 'og:title'
-        content: Life Cycle Event - ElysiaJS
+        content: 生命周期事件 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Life Cycle allows us to intercept an important event at the predefined point allowing us to customize the behavior of our server as needed.
+        content: 生命周期允许我们在预定义的点拦截重要事件，从而根据需要自定义服务器的行为。
 
     - - meta
       - property: 'og:description'
-        content: Life Cycle allows us to intercept an important event at the predefined point allowing us to customize the behavior of our server as needed.
+        content: 生命周期允许我们在预定义的点拦截重要事件，从而根据需要自定义服务器的行为。
 ---
 
 <script setup>
@@ -19,59 +19,59 @@ head:
     import Deck from '../../components/nearl/card-deck.vue'
 </script>
 
-# Life Cycle
+# 生命周期
 
-It's recommended that you have read [Essential life-cycle](/essential/life-cycle) for better understanding of Elysia's Life Cycle.
+建议你先阅读 [Elysia 的基本生命周期](/essential/life-cycle)，以更好地了解 Elysia 的生命周期。
 
-Life Cycle allows us to intercept an important event at the predefined point allowing us to customize the behavior of our server as needed.
+Life Cycle 允许我们在预定义的点拦截重要事件，从而根据需要自定义服务器的行为。
 
-Elysia's Life Cycle event can be illustrated as the following.
-![Elysia Life Cycle Graph](/assets/lifecycle.webp)
+Elysia 的生命周期事件可以用以下方式表示。
+![Elysia 生命周期图](/assets/lifecycle.webp)
 
-Below are the request life cycle available in Elysia:
+下面是 Elysia 中可用的请求生命周期：
 
 <Deck>
     <Card title="Request" href="request">
-        Notify new event is received
+        通知接收到新事件
     </Card>
     <Card title="Parse" href="parse">
-        Parse body into <b>Context.body</b>
+        将请求体解析为 <b>Context.body</b>
     </Card>
     <Card title="Transform" href="transform">
-        Modify <b>Context</b> before validation
+        在验证之前修改 <b>Context</b>
     </Card>
     <Card title="Before Handle" href="before-handle">
-        Custom validation before route handler
+        路由处理程序之前的自定义验证
     </Card>
     <Card title="After Handle" href="after-handle">
-        Transform returned value into a new value
+        将返回的值转换为新值
     </Card>
     <Card title="Map Response" href="on-error">
-        Map returned value into a response
+        将返回的值映射为响应
     </Card>
     <Card title="On Error" href="on-error">
-        Capture error when thrown
+        捕获抛出的错误
     </Card>
     <Card title="On Response" href="on-response">
-        Executed after response sent to the client
+        在响应发送给客户端后执行
     </Card>
     <Card title="Trace" href="trace">
-        Audit and capture timespan of each event
+        审计和捕获每个事件的时间跨度
     </Card>
 </Deck>
 
 ---
 
-Every life-cycle could be apply at both:
+每个生命周期都可以应用于以下两个方面：
 
-1. Local Hook (route)
-2. Global Hook
+1. 本地钩子 (路由)
+2. 全局钩子
 
-## Local Hook
+## 本地钩子
 
-The local hook is executed on a specific route.
+本地钩子在特定路由上执行。
 
-To use a local hook, you can inline hook into a route handler:
+要使用本地钩子，你可以将钩子内联到路由处理程序中：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -88,11 +88,11 @@ new Elysia()
     .listen(3000)
 ```
 
-## Global Hook
+## 全局钩子
 
-Register hook into **every** handler that came after.
+将钩子注册到**每个**在其后的处理程序中。
 
-To add a global hook, you can use `.on` followed by a life cycle event in camelCase:
+要添加全局钩子，你可以使用 `.on`，后跟驼峰命名的生命周期事件：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -109,4 +109,4 @@ new Elysia()
     .listen(3000)
 ```
 
-Events from other plugins are also applied to the route so the order of code is important.
+其他插件的事件也适用于路由，因此代码的顺序很重要。

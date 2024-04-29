@@ -1,108 +1,109 @@
 ---
-title: Life Cycle - ElysiaJS
+title: 生命周期
 head:
     - - meta
       - property: 'og:title'
-        content: Life Cycle - ElysiaJS
+        content: 生命周期 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Lifecycle event is a concept for each stage of Elysia processing, "Life Cycle" or "Hook" is an event listener to intercept, and listen to those events cycling around. Hook allows you to transform data running through the data pipeline. With the hook, you can customize Elysia to its fullest potential.
+        content: 生命周期事件是 Elysia 处理过程中每个阶段的概念，"生命周期 "或 "钩子 "是一个事件监听器，用于拦截和监听这些循环事件。钩子允许你转换数据管道中运行的数据。有了钩子，你就可以定制 Elysia，充分发挥其潜力。
 
     - - meta
       - property: 'og:description'
-        content: Lifecycle event is a concept for each stage of Elysia processing, "Life Cycle" or "Hook" is an event listener to intercept, and listen to those events cycling around. Hook allows you to transform data running through the data pipeline. With the hook, you can customize Elysia to its fullest potential.
+        content: 生命周期事件是 Elysia 处理过程中每个阶段的概念，"生命周期 "或 "钩子 "是一个事件监听器，用于拦截和监听这些循环事件。钩子允许你转换数据管道中运行的数据。有了钩子，你就可以定制 Elysia，充分发挥其潜力。
 ---
 
-# Life Cycle
+# 生命周期
 
-Also known as middleware with name in Express or Hook in Fastify.
+在 Express 中也称为中间件，在 Fastify 中称为 Hook。
 
-Imagine we want to return a text of HTML.
+假设我们要返回 HTML 文本。
 
-We need to set **"Content-Type"** headers as **"text/html"** to for browser to render HTML.
+我们需要将 `Content-Type` 头设置为 `text/html`，以便浏览器渲染 HTML。
 
-Explicitly specifying that response is HTML could be repetitive if there are a lot of handlers, says ~200 endpoints.
+如果有很多处理程序 (例如约 200 个端点)，明确指定响应为 HTML 可能会造成重复。
 
-We can see a duplicated code for just specifying that response is HTML.
+我们可以看到，只指定响应为 HTML 的代码是重复的。
 
-But what if after we sent a response, we could detect if a response is an HTML string then append headers automatically?
+但如果在发送响应后，我们可以检测响应是否为 HTML 字符串，然后自动添加标题呢？
 
-That's when the concept of Life Cycle comes into play.
+这就是生命周期概念发挥作用的时候了。
 
 ---
 
-Life Cycle allows us to intercept important events, and customize the behavior of Elysia, like adding an HTML header automatically.
+生命周期允许我们拦截重要事件，并自定义 Elysia 的行为，例如自动添加 HTML 头信息。
 
-Elysia's Life Cycle event can be illustrated as the following.
+Elysia 的生命周期事件可如下图所示。
+
 ![Elysia Life Cycle Graph](/assets/lifecycle.webp)
 
-You don't have to understand/memorize all of the events in one go, we will be covering each on the next chapter.
+你不必一次性理解和记住所有事件，我们将在下一章逐一介绍。
 
 ## Events
 
-Most of the events you are going to use are highlighted in the blue area but to summarize:
+大部分要用到的事件都会在蓝色区域中突出显示，但我们还是要总结一下：
 
-Elysia does the following for every request:
+Elysia 会对每个请求执行以下操作：
 
 1. **Request**
-    - Notify when a new event is received, providing only the most minimal context to reduce overhead
-    - Best for:
-        - Caching
-        - Analytics
+    - 收到新事件时发出通知，只提供最基本的上下文以减少开销
+    - 适用于：
+        - 缓存
+        - 分析
 2. **Parse**
-    - Parse body and add to `Context.body`
-    - Best for:
-        - Providing custom body-parser
+    - 解析正文并添加到 `Context.body` 中
+    - 适用于：
+        - 提供自定义正文解析器
 3. **Transform**
-    - Modify `Context` before validation
-    - Best for:
-        - Mutate existing context to conform with validation.
-        - Adding new context (derive this)
-4. **Validation** (not interceptable)
-    - Strictly validate incoming request provided by `Elysia.t`
+    - 在验证前修改 `Context`
+    - 适用于：
+        - 修改现有上下文以符合验证要求
+        - 添加新上下文 (派生)
+4. **Validation** (不可拦截)
+    - 严格验证 `Elysia.t` 提供的传入请求
 5. **Before Handle**
-    - Custom validation before route handler
-    - **If value is returned, route handler will be skipped**
-    - Best for:
-        - Providing custom requirements to access route, eg. user session, authorization.
-6. **Handle** (Route Handler)
-    - A callback function of each route
+    - 在路由处理程序之前进行自定义验证
+    - **如果返回值，则跳过路由处理程序**
+    - 适用于：
+        - 为访问路由提供自定义要求，如用户会话、授权。
+6. **Handle** (路由处理程序)
+    - 每个路由的回调函数
 7. **After Handle**
-    - Map returned value into a response
-    - Best for:
-        - Add custom headers or transform the value into a new response
+    - 将返回值映射到响应中
+    - 适用于：
+        - 添加自定义标题或将值转换为新的响应
 8. **Error**
-    - Capture error when thrown
-    - Best for:
-        - Provide a custom error response
-        - Catching error response
+    - 捕捉抛出的错误
+    - 适用于：
+        - 提供自定义错误响应
+        - 捕获错误响应
 9. **Response**
-    - Executed after response sent to the client
-    - Best for:
-        - Cleaning up response
-        - Analytics
+    - 在向客户端发送响应后执行
+    - 适用于：
+        - 清除响应
+        - 分析
 
-These events are designed to help you decouple code into smaller reusable pieces instead of having long, repetitive code in a handler.
+这些事件旨在帮助你将代码解耦为更小的可重用片段，而不是在处理程序中使用冗长、重复的代码。
 
 ## Hook
 
-We refer to each function that intercepts the life cycle event as **"hook"**, as the function hooks into the lifecycle event.
+我们把拦截生命周期事件的每个函数都称为 **Hook**，因为函数钩住了生命周期事件。
 
-Hooks can be categorized into 2 types:
+**Hook** 可分为两种类型：
 
-1. Local Hook: Execute on a specific route
-2. Interceptor Hook: Execute on every route
+1. 本地 **Hook**：在特定路径上执行
+2. 拦截器 **Hook**：在每个路由上执行
 
 ::: tip
-The hook will accept the same Context as a handler, you can imagine adding a route handler but at a specific point.
+Hook 将接受与处理程序相同的上下文，你可以想象添加一个路由处理程序，但在特定的点上。
 :::
 
-## Local Hook
+## 本地 Hook
 
-The local hook is executed on a specific route.
+本地钩子在特定路由上执行。
 
-To use a local hook, you can inline hook into a route handler:
+要使用本地钩子，可以将钩子内嵌到路由处理程序中：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -119,18 +120,18 @@ new Elysia()
     .listen(3000)
 ```
 
-The response should be listed as follows:
+响应应列出如下：
 
 | Path | Content-Type             |
 | ---- | ------------------------ |
 | /    | text/html; charset=utf8  |
 | /hi  | text/plain; charset=utf8 |
 
-## Interceptor Hook
+## 拦截器 Hook
 
-Register hook into every handler **of the current instance** that came after.
+将钩子注册到随后出现的**当前实例**的每个处理程序中。
 
-To add an interceptor hook, you can use `.on` followed by a life cycle event in camelCase:
+要添加拦截器钩子，可以使用 `.on` 驼峰式命名法，后跟生命周期事件：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -147,7 +148,7 @@ new Elysia()
     .listen(3000)
 ```
 
-The response should be listed as follows:
+响应应列出如下：
 
 | Path  | Content-Type             |
 | ----- | ------------------------ |
@@ -155,13 +156,13 @@ The response should be listed as follows:
 | /hi   | text/html; charset=utf8  |
 | /none | text/plain; charset=utf8 |
 
-Events from other plugins are also applied to the route so the order of code is important.
+其他插件的事件也会应用到路由中，因此代码的顺序非常重要。
 
-## Order of code
+## 代码顺序
 
-The order of Elysia's life-cycle code is very important.
+Elysia 生命周期代码的顺序非常重要。
 
-Elysia's life-cycle event is stored as a queue, aka first-in first-out. So Elysia will **always** respect the order of code from top-to-bottom followed by the order of life-cycle events.
+Elysia 的生命周期事件以队列形式存储，也就是先入先出。因此，Elysia 将**始终**遵守从上到下的代码顺序，然后是生命周期事件的顺序。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -181,7 +182,7 @@ new Elysia()
     .listen(3000)
 ```
 
-Console should log as the following:
+控制台应记录如下：
 
 ```bash
 1

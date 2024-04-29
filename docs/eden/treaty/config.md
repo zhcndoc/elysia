@@ -1,31 +1,35 @@
 ---
-title: Eden Treaty Config - ElysiaJS
+title: Eden Treaty 配置
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty Config - ElysiaJS
+        content: Eden Treaty 配置 - ElysiaJS 中文文档
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性和显著提高的开发者体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty is an object-like representation of an Elysia server, providing an end-to-end type safety, and a significantly improved developer experience. With Eden, we can fetch an API from Elysia server fully type-safe without code generation.
+        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性和显著提高的开发者体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
 ---
 
-# Config
-Eden Treaty accepts 2 parameters:
-- **urlOrInstance** - URL endpoint or Elysia instance
-- **options** (optional) - Customize fetch behavior
+# 配置
+
+Eden Treaty 接受两个参数：
+
+- **urlOrInstance** - URL 端点或 Elysia 实例
+- **options** (可选)- 自定义 fetch 行为
 
 ## urlOrInstance
-Accept either URL endpoint as string or a literal Elysia instance.
 
-Eden will change the behavior based on type as follows:
+可以接受 URL 端点字符串或直接量 Elysia 实例。
 
-### URL Endpoint (string)
-If URL endpoint is passed, Eden Treaty will use `fetch` or `config.fetcher` to create a network request to an Elysia instance.
+根据类型，Eden 将改变行为如下：
+
+### URL 端点 (字符串)
+
+如果传递了 URL 端点，Eden Treaty 将使用 `fetch` 或 `config.fetcher` 创建到 Elysia 实例的网络请求。
 
 ```typescript twoslash
 // @filename: server.ts
@@ -52,21 +56,23 @@ import type { App } from './server'
 const api = treaty<App>('localhost:3000')
 ```
 
-You may or may not specified a protocol for URL endpoint.
+您可以指定 URL 端点的协议，也可以不指定。
 
-Elysia will appends the endpoints automatically as follows:
-1. If protocol is specified, use the URL directly
-2. If the URL is localhost and ENV is not production, use http
-3. Otherwise use https
+Elysia 会自动附加端点，规则如下：
 
-This also apply to Web Socket as well for determining between **ws://** or **wss://**.
+1. 如果指定了协议，则直接使用该 URL
+2. 如果 URL 是 localhost，并且环境不是生产环境，则使用 http
+3. 否则使用 https
+
+对于 Web Socket 也适用于确定 **ws://** 或 **wss://**。
 
 ---
 
-### Elysia Instance
-If Elysia instance is passed, Eden Treaty will create a `Request` class and pass to `Elysia.handle` directly without creating a network request.
+### Elysia 实例
 
-This allows us to interact with Elysia server directly without request overhead, or the need start a server.
+如果传递了 Elysia 实例，Eden Treaty 将创建一个 `Request` 类并直接传递给 `Elysia.handle`，而不创建网络请求。
+
+这使我们可以直接与 Elysia 服务器进行交互，无需请求开销或启动服务器的需求。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -79,20 +85,22 @@ const app = new Elysia()
 const api = treaty(app)
 ```
 
-If an instance is passed, generic is not needed to be pass as Eden Treaty can infers the type from a parameter directly.
+如果传递了实例，则不需要传递泛型，因为 Eden Treaty 可以直接从参数中推断出类型。
 
-This patterns is recommended for performing unit tests, or creating a type-safe reverse proxy server or micro-services.
+这种模式适用于执行单元测试，或创建类型安全的反向代理服务器或微服务。
 
 ## Options
-2nd optional parameters for Eden Treaty to customize fetch behavior, accepting parameters as follows:
-- [fetch](#fetch) - add default parameters to fetch intialization (RequestInit)
-- [headers](#headers) - define default headers
-- [fetcher](#fetcher) - custom fetch function eg. Axios, unfetch
-- [onRequest](#on-request) - Intercept and modify fetch request before firing
-- [onResponse](#on-response) - Intercept and modify fetch's response
+
+Eden Treaty 的第二个可选参数，用于自定义 fetch 行为，接受以下参数：
+- [fetch](#fetch) - 向 fetch 初始化 (RequestInit) 添加默认参数
+- [headers](#headers) - 定义默认头部
+- [fetcher](#fetcher) - 自定义 fetch 函数，例如 Axios、unfetch
+- [onRequest](#on-request) - 拦截和修改发送请求之前的 fetch 请求
+- [onResponse](#on-response) - 拦截和修改 fetch 的响应
 
 ## Fetch
-Default parameters append to 2nd parameters of fetch extends type of **Fetch.RequestInit**.
+
+将默认参数附加到 fetch 的第二个参数，扩展了 **Fetch.RequestInit** 的类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -118,7 +126,8 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-All parameters that passed to fetch, will be passed to fetcher, which is an equivalent to:
+将传递给 fetch 的所有参数都将传递给 fetcher，相当于：
+
 ```typescript twoslash
 fetch('http://localhost:3000', {
     credentials: 'include'
@@ -126,7 +135,8 @@ fetch('http://localhost:3000', {
 ```
 
 ## Headers
-Provide an additional default headers to fetch, a shorthand of `options.fetch.headers`.
+
+为 fetch 提供额外的默认头部，是 `options.fetch.headers` 的简写形式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -152,7 +162,8 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-All parameters that passed to fetch, will be passed to fetcher, which is an equivalent to:
+将传递给 fetch 的所有参数都将传递给 fetcher，相当于：
+
 ```typescript twoslash
 fetch('localhost:3000', {
     headers: {
@@ -161,12 +172,14 @@ fetch('localhost:3000', {
 })
 ```
 
-headers may accepts the following as parameters:
-- Object
-- Function
+headers 可以接受以下参数：
 
-### Headers Object
-If object is passed, then it will be passed to fetch directly
+- 对象
+- 函数
+
+### Headers 对象
+
+如果传递了对象，则会直接传递给 fetch
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -192,8 +205,9 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-### Function
-You may specify a headers as a function to return custom headers based on condition
+### 函数
+
+您可以将头部指定为函数，根据条件返回自定义头部
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -222,15 +236,17 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-You may return object to append its value to fetch headers.
+您可以返回对象以将其值附加到 fetch 头部。
 
-headers function accepts 2 parameters:
-- path `string` - path which will be sent to parameter 
-  - note: hostname will be **exclude** eg. (/user/griseo)
-- options `RequestInit`: Parameters that passed through 2nd parameter of fetch
+headers 函数接受两个参数：
 
-### Array
-You may define a headers function as an array if multiple condition is need.
+- path `string` - 将发送到参数的路径
+  - 注意：主机名将被**排除**，例如 (/user/griseo)
+- options `RequestInit`：传递给 fetch 的第二个参数的参数
+
+### 数组
+
+如果需要多个条件，则可以将 headers 函数定义为数组。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -261,16 +277,19 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-Eden Treaty will **run all functions** and even if the value is already returns.
+如果存在多个函数，则 Eden Treaty 将**运行所有函数**，即使值已经返回。
 
-## Headers Priority
-Eden Treaty will prioritize the order headers if duplicated as follows:
-1. Inline method - Passed in method function directly
-2. headers - Passed in `config.headers`
-  - If `config.headers` is array, parameters that come after will be prioritize
-3. fetch - Passed in `config.fetch.headers`
+## Headers 优先级
 
-For example, for the following example:
+如果存在重复的头部，Eden Treaty 将按照以下顺序优先考虑头部：
+
+1. 内联方法 - 直接在方法函数中传递
+2. headers - 传递给 `config.headers`
+  - 如果 `config.headers` 是数组，则后面的参数将优先考虑
+3. fetch - 传递给 `config.fetch.headers`
+
+例如，对于以下示例：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
@@ -293,7 +312,8 @@ api.profile.get({
 })
 ```
 
-This will be results in:
+这将导致以下结果：
+
 ```typescript twoslash
 fetch('http://localhost:3000', {
     headers: {
@@ -302,10 +322,11 @@ fetch('http://localhost:3000', {
 })
 ```
 
-If inline function doesn't specified headers, then the result will be "**Bearer Aponia**" instead.
+如果内联函数没有指定头部，则结果将为 “**Bearer Aponia**”。
 
 ## Fetcher
-Provide a custom fetcher function instead of using an environment's default fetch.
+
+提供自定义的 fetcher 函数，而不是使用环境的默认 fetch。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -323,12 +344,13 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-It's recommended to replace fetch if you want to use other client other than fetch, eg. Axios, unfetch.
+如果要使用除 fetch 之外的其他客户端 (例如 Axios、unfetch)，建议替换 fetch。
 
 ## OnRequest
-Intercept and modify fetch request before firing.
 
-You may return object to append the value to **RequestInit**.
+拦截和修改发送请求之前的 fetch 请求。
+
+您可以返回对象以将值附加到 **RequestInit**。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -351,15 +373,17 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-If value is returned, Eden Treaty will perform a **shallow merge** for returned value and `value.headers`.
+如果返回了值，Eden Treaty 将对返回的值和 `value.headers` 执行**浅合并**。
 
-**onRequest** accepts 2 parameters:
-- path `string` - path which will be sent to parameter 
-  - note: hostname will be **exclude** eg. (/user/griseo)
-- options `RequestInit`: Parameters that passed through 2nd parameter of fetch
+**onRequest** 接受两个参数：
 
-### Array
-You may define an onRequest function as an array if multiple condition is need.
+- path `string` - 将发送到参数的路径
+  - 注意：主机名将被**排除**，例如 (/user/griseo)
+- options `RequestInit`：传递给 fetch 的第二个参数的参数
+
+### 数组
+
+如果需要多个条件，则可以将 onRequest 函数定义为数组。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -384,10 +408,11 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-Eden Treaty will **run all functions** and even if the value is already returns.
+与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环遍历函数，直到找到返回值或抛出错误，返回值将用作新的响应。
 
 ## onResponse
-Intercept and modify fetch's response or return a new value.
+
+拦截和修改 fetch 的响应，或返回新值。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -406,11 +431,13 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-**onRequest** accepts 1 parameter:
-- response `Response` - Web Standard Response normally return from `fetch`
+**onRequest** 接受一个参数：
 
-### Array
-You may define an onResponse function as an array if multiple condition is need.
+- response `Response` - 通常从 `fetch` 返回的 Web 标准响应
+
+### 数组
+
+如果需要多个条件，则可以将 onResponse 函数定义为数组。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -430,4 +457,5 @@ treaty<App>('localhost:3000', {
     ]
 })
 ```
-Unlike [headers](#headers) and [onRequest](#on-request), Eden Treaty will loop through functions until a returned value is found or error thrown, the returned value will be use as a new response.
+
+与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环遍历函数，直到找到返回值或抛出错误，返回值将用作新的响应。

@@ -1,40 +1,40 @@
 ---
-title: Static Plugin - ElysiaJS
+title: Static Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Static Plugin - ElysiaJS
+        content: Static Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia that adds support for serving static files/folders for Elysia Server. Start by installing the plugin with "bun add @elysiajs/static".
+        content: 插件用于为 Elysia Server 添加对静态文件/文件夹的支持。首先使用 "bun add @elysiajs/static" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds support for serving static files/folders for Elysia Server. Start by installing the plugin with "bun add @elysiajs/static".
+        content: 插件用于为 Elysia Server 添加对静态文件/文件夹的支持。首先使用 "bun add @elysiajs/static" 安装插件。
 ---
 
 # Static Plugin
-This plugin can serve static files/folders for Elysia Server
+该插件可为 Elysia Server 提供静态文件/文件夹的服务
 
-Install with:
+安装方法：
 ```bash
 bun add @elysiajs/static
 ```
 
-Then use it:
+然后使用该插件：
 ```typescript
-import { Elysia } from 'elysia'
-import { staticPlugin } from '@elysiajs/static'
+import { Elysia } from 'elysia';
+import { staticPlugin } from '@elysiajs/static';
 
 new Elysia()
     .use(staticPlugin())
-    .listen(3000)
+    .listen(3000);
 ```
 
-By default, the static plugin default folder is `public`, and registered with `/public` prefix.
+默认情况下，静态插件的默认文件夹为 `public`，并通过 `/public` 前缀进行注册。
 
-Suppose your project structure is:
+假设您的项目结构如下：
 ```
 | - src
   | - index.ts
@@ -44,51 +44,50 @@ Suppose your project structure is:
     | - takodachi.png
 ```
 
-The available path will become:
+可用的路径如下：
 - /public/takodachi.png
 - /public/nested/takodachi.png
 
-## Config
-Below is a config which is accepted by the plugin
+## 配置
+以下是插件接受的配置
 
 ### assets
 @default `"public"`
 
-Path to the folder to expose as static
+要公开为静态文件的文件夹路径
 
 ### prefix
 @default `"/public"`
 
-Path prefix to register public files
+注册公共文件的路径前缀
 
 ### ignorePatterns
 @default `[]`
 
-List of files to ignore from serving as static files
+要忽略作为静态文件提供的文件列表
 
 ### staticLimits
 @default `1024`
 
-By default, the static plugin will register paths to the Router with a static name, if the limits are exceeded, paths will be lazily added to the Router to reduce memory usage.
-Tradeoff memory with performance.
+默认情况下，如果超出限制，静态插件将使用静态名称和路径进行注册，如果超出限制，路径将懒加载添加到路由器以减少内存使用。平衡内存与性能。
 
 ### alwaysStatic
 @default `false`
 
-If set to true, static files will path will be registered to Router skipping the `staticLimits`.
+如果设为 true，则静态文件将直接注册到路由器，跳过 `staticLimits`。
 
 ### headers
 @default `{}`
 
-Set response headers of files
+设置文件的响应头
 
-## Pattern
-Below you can find the common patterns to use the plugin.
+## 模式
+以下是使用该插件的常见模式。
 
-- [Single File](#single-file)
+- [单文件](#单文件)
 
-## Single file
-Suppose you want to return just a single file, you can use `Bun.file` instead of using the static plugin
+## 单文件
+假设您只想返回单个文件，可以使用 `Bun.file` 而不是使用静态插件
 ```typescript
 new Elysia()
     .get('/file', () => Bun.file('public/takodachi.png'))

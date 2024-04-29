@@ -1,28 +1,28 @@
 ---
-title: Server Timing Plugin - ElysiaJS
+title: Server Timing Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Server Timing Plugin - ElysiaJS
+        content: Server Timing Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia for performance audit via Server Timing API. Start by installing the plugin with "bun add @elysiajs/server-timing".
+        content: 通过 Server Timing API 对 Elysia 进行性能审计的插件。通过 "bun add @elysiajs/server-timing" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia for performance audit via Server Timing API. Start by installing the plugin with "bun add @elysiajs/server-timing".
+        content: 通过 Server Timing API 对 Elysia 进行性能审计的插件。通过 "bun add @elysiajs/server-timing" 安装插件。
 ---
 
-# Server Timing Plugin
-This plugin adds support for auditing performance bottlenecks with Server Timing API
+# Server Timing 插件
+该插件为 Server Timing API 增加了性能审计支持
 
-Install with:
+安装方式：
 ```bash
 bun add @elysiajs/server-timing
 ```
 
-Then use it:
+然后使用：
 ```typescript
 import { Elysia } from 'elysia'
 import { serverTiming } from '@elysiajs/server-timing'
@@ -33,48 +33,48 @@ new Elysia()
     .listen(3000)
 ```
 
-Server Timing then will append header 'Server-Timing' with log duration, function name, and detail for each life-cycle function.
+Server Timing 将为每个生命周期函数附加 ‘Server-Timing’ 头部，其中包含日志持续时间、函数名称和细节。
 
-To inspect, open browser developer tools > Network > [Request made through Elysia server] > Timing.
+要检查，请打开浏览器开发者工具 > Network > [通过 Elysia 服务器发出的请求] > Timing。
 
-![Developer tools showing Server Timing screenshot](/assets/server-timing.webp)
+![显示 Server Timing 的开发者工具截图](/assets/server-timing.webp)
 
-Now you can effortlessly audit the performance bottleneck of your server.
+现在，您可以轻松审计服务器的性能瓶颈。
 
-## Config
-Below is a config which is accepted by the plugin
+## 配置
+以下是插件接受的配置项
 
 ### enabled
 @default `NODE_ENV !== 'production'`
 
-Determine whether or not Server Timing should be enabled
+确定是否启用 Server Timing
 
 ### allow
 @default `undefined`
 
-A condition whether server timing should be log
+确定是否记录 server timing 的条件
 
 ### trace
 @default `undefined`
 
-Allow Server Timing to log specified life-cycle events:
+允许 Server Timing 记录指定的生命周期事件：
 
-Trace accepts objects of the following:
-- request: capture duration from request
-- parse: capture duration from parse
-- transform: capture duration from transform
-- beforeHandle: capture duration from beforeHandle
-- handle: capture duration from the handle
-- afterHandle: capture duration from afterHandle
-- total: capture total duration from start to finish
+trace 参数接受以下对象：
+- request：捕捉请求的持续时间
+- parse：捕捉解析的持续时间
+- transform：捕捉转换的持续时间
+- beforeHandle：捕捉处理之前的持续时间
+- handle：捕捉处理的持续时间
+- afterHandle：捕捉处理之后的持续时间
+- total：捕捉从开始到结束的总持续时间
 
-## Pattern
-Below you can find the common patterns to use the plugin.
+## 模式
+下面是常见的使用该插件的模式。
 
-- [Allow Condition](#allow-condition)
+- [允许条件](#allow-condition)
 
-## Allow Condition
-You may disable Server Timing on specific routes via `allow` property
+## 允许条件
+您可以通过 `allow` 属性在特定路由上禁用 Server Timing。
 
 ```ts
 import { Elysia } from 'elysia'

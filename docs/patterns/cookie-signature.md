@@ -1,28 +1,30 @@
 ---
-title: Cookie Signature - ElysiaJS
+title: Cookie 签名
 head:
   - - meta
     - property: 'og:title'
-      content: Cookie Signature - ElysiaJS
+      content: Cookie 签名 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Cookie signature is a cryptographic hash appended to a cookie's value, generated using a secret key and the content of the cookie to enhance security by adding a signature to the cookie.
+      content: Cookie 签名是附加在 cookie 值上的密码哈希，使用一个秘钥和 cookie 内容生成，通过向 cookie 添加签名来增强安全性。
 
   - - meta
     - property: 'og:description'
-      content: Cookie signature is a cryptographic hash appended to a cookie's value, generated using a secret key and the content of the cookie to enhance security by adding a signature to the cookie.
+      content: Cookie 签名是附加在 cookie 值上的密码哈希，使用一个秘钥和 cookie 内容生成，通过向 cookie 添加签名来增强安全性。
 ---
 
-# Cookie Signature
-And lastly, with an introduction of Cookie Schema, and `t.Cookie` type. We are able to create a unified type for handling sign/verify cookie signature automatically.
+# Cookie 签名
 
-Cookie signature is a cryptographic hash appended to a cookie's value, generated using a secret key and the content of the cookie to enhance security by adding a signature to the cookie.
+最后，通过引入 Cookie Schema 和 `t.Cookie` 类型，我们能够创建一个统一的类型，用于自动处理签名/验证 Cookie 签名。
 
-This make sure that the cookie value is not modified by malicious actor, helps in verifying the authenticity and integrity of the cookie data.
+Cookie 签名是一个加密哈希，附加在 Cookie 的值上，使用秘密密钥和 Cookie 的内容生成，通过为 Cookie 添加签名来增强安全性。
 
-## Using Cookie Signature
-By provide a cookie secret, and `sign` property to indicate which cookie should have a signature verification.
+这确保了 Cookie 值不会被恶意操作者修改，有助于验证 Cookie 数据的真实性和完整性。
+
+## 使用 Cookie 签名
+
+通过提供一个 Cookie 密钥和 `sign` 属性来指示哪些 Cookie 应该进行签名验证。
 ```ts twoslash
 import { Elysia, t } from 'elysia'
 
@@ -45,10 +47,11 @@ new Elysia()
     })
 ```
 
-Elysia then sign and unsign cookie value automatically.
+Elysia 会自动对 Cookie 值进行签名和取消签名。
 
-## Constructor
-You can use Elysia constructor to set global cookie `secret`, and `sign` value to apply to all route globally instead of inlining to every route you need.
+## 构造函数
+
+你可以使用 Elysia 构造函数设置全局 Cookie `secret` 和 `sign` 值，以便在需要的每个路由中内联应用。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -74,10 +77,11 @@ new Elysia({
     })
 ```
 
-## Cookie Rotation
-Elysia handle Cookie's secret rotation automatically.
+## Cookie 轮换
 
-Cookie Rotation is a migration technique to sign a cookie with a newer secret, while also be able to verify the old signature of the cookie.
+Elysia 会自动处理 Cookie 的密钥轮换。
+
+Cookie 轮换是一种迁移技术，用于使用较新的密钥对 Cookie 进行签名，同时能够验证 Cookie 的旧签名。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -89,100 +93,115 @@ new Elysia({
 })
 ```
 
-## Config
-Below is a cookie config accepted by Elysia.
+## 配置
+
+以下是 Elysia 接受的 Cookie 配置。
 
 ### secret
-The secret key for signing/un-signing cookies.
 
-If an array is passed, will use Key Rotation.
+用于签名/取消签名 Cookie 的密钥。
 
-Key rotation is when an encryption key is retired and replaced by generating a new cryptographic key.
+如果传递了一个数组，将使用密钥轮换。
+
+密钥轮换是一种将加密密钥退役并通过生成新的加密密钥来替换的过程。
 
 ---
-Below is a config that extends from [cookie](https://npmjs.com/package/cookie)
+以下是从 [cookie](https://npmjs.com/package/cookie) 扩展的配置。
 
 ### domain
-Specifies the value for the [Domain Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.3).
- 
-By default, no domain is set, and most clients will consider the cookie to apply to only the current domain.
 
+指定 [Domain Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.3)的值。
+
+默认情况下，不设置域，大多数客户端将只将 Cookie 应用于当前域。
 
 ### encode
 @default `encodeURIComponent`
 
-Specifies a function that will be used to encode a cookie's value. 
+指定用于编码 Cookie 值的函数。
 
-Since the value of a cookie has a limited character set (and must be a simple string), this function can be used to encode a value into a string suited for a cookie's value.
+由于 Cookie 的值具有有限的字符集 (必须是简单字符串)，该函数可用于将值编码为适用于 Cookie 值的字符串。
 
-The default function is the global `encodeURIComponent`, which will encode a JavaScript string into UTF-8 byte sequences and then URL-encode any that fall outside of the cookie range.
+默认函数是全局的 `encodeURIComponent`，它将 JavaScript 字符串编码为 UTF-8 字节序列，然后对超出 Cookie 范围的字节进行 URL 编码。
 
 ### expires
-Specifies the Date object to be the value for the [Expires Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.1). 
 
-By default, no expiration is set, and most clients will consider this a "non-persistent cookie" and will delete it on a condition like exiting a web browser application.
+指定用于 [Expires Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.1)的 Date 对象的值。
+
+默认情况下，不设置过期时间，大多数客户端将将其视为 “非持久性 Cookie”，并在条件 (例如退出 Web 浏览器应用程序) 下将其删除。
 
 ::: tip
-The [cookie storage model specification](https://tools.ietf.org/html/rfc6265#section-5.3) states that if both `expires` and `maxAge` are set, then `maxAge` takes precedence, but not all clients may obey this, so if both are set, they should point to the same date and time.
+[Cookie 存储模型规范](https://tools.ietf.org/html/rfc6265#section-5.3)规定，如果同时设置了 `expires` 和 `maxAge`，则 `maxAge` 优先，但并非所有客户端都遵守此规定，因此如果同时设置了两者，它们应该指向相同的日期和时间。
 :::
 
 ### httpOnly
 @default `false`
 
-Specifies the boolean value for the [HttpOnly Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.6). 
+指定 [HttpOnly Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.6)的布尔值。
 
-When truthy, the HttpOnly attribute is set, otherwise, it is not. 
+当为真时，设置 HttpOnly 属性，否则不设置。
 
-By default, the HttpOnly attribute is not set.
+默认情况下，不设置 HttpOnly 属性。
 
-::: tip 
-be careful when setting this to true, as compliant clients will not allow client-side JavaScript to see the cookie in `document.cookie`.
+::: tip
+将其设置为 true 时要小心，因为符合规范的客户端将不允许客户端 JavaScript 查看 `document.cookie` 中的 Cookie。
 :::
 
 ### maxAge
+
 @default `undefined`
 
-Specifies the number (in seconds) to be the value for the [Max-Age Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.2). 
+指定用于 [Max-Age Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.2)的秒数。
 
-The given number will be converted to an integer by rounding down. By default, no maximum age is set.
+给定的数字将被四舍五入转换为整数。默认情况下，不设置最大年龄。
 
 ::: tip
-The [cookie storage model specification](https://tools.ietf.org/html/rfc6265#section-5.3) states that if both `expires` and `maxAge` are set, then `maxAge` takes precedence, but not all clients may obey this, so if both are set, they should point to the same date and time.
+[Cookie 存储模型规范](https://tools.ietf.org/html/rfc6265#section-5.3)规定，如果同时设置了 `expires` 和 `maxAge`，则 `maxAge` 优先，但并非所有客户端都遵守此规定，因此如果同时设置了两者，它们应该指向相同的日期和时间。
 :::
 
 ### path
-Specifies the value for the [Path Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.4).
 
-By default, the path handler is considered the default path.
+指定 [Path Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.4)的值。
+
+默认情况下，路径处理程序被视为默认路径。
 
 ### priority
-Specifies the string to be the value for the [Priority Set-Cookie attribute](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
-`low` will set the Priority attribute to Low.
-`medium` will set the Priority attribute to Medium, the default priority when not set.
-`high` will set the Priority attribute to High.
 
-More information about the different priority levels can be found in [the specification](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+指定要用于 [Priority Set-Cookie 属性](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)的字符串值。
+
+- `low` 将 Priority 属性设置为 Low。
+- `medium` 将 Priority 属性设置为 Medium，这是默认优先级。
+- `high` 将 Priority 属性设置为 High。
+
+有关不同优先级级别的更多信息，请参阅[规范](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)。
 
 ::: tip
-This is an attribute that has not yet been fully standardized and may change in the future. This also means many clients may ignore this attribute until they understand it.
+这是一个尚未完全标准化的属性，可能会在将来发生变化。这也意味着许多客户端可能会忽略此属性，直到他们理解它为止。
 :::
 
 ### sameSite
-Specifies the boolean or string to be the value for the [SameSite Set-Cookie attribute](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7).
-true will set the SameSite attribute to Strict for strict same-site enforcement.
-false will not set the SameSite attribute.
-'lax' will set the SameSite attribute to Lax for lax same-site enforcement.
-'none' will set the SameSite attribute to None for an explicit cross-site cookie.
-'strict' will set the SameSite attribute to Strict for strict same-site enforcement.
-More information about the different enforcement levels can be found in [the specification](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7).
+
+指定要用于 [SameSite Set-Cookie 属性](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7)的布尔值或字符串。
+
+- `true` 将 SameSite 属性设置为 Strict，以进行严格的同站点执行。
+- `false` 不设置 SameSite 属性。
+- `lax` 将 SameSite 属性设置为 Lax，以进行宽松的同站点执行。
+- `none` 将 SameSite 属性设置为 None，以进行显式的跨站点 Cookie。
+- `strict` 将 SameSite 属性设置为 Strict，以进行严格的同站点执行。
+
+有关不同执行级别的更多信息，请参阅[规范](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7)。
 
 ::: tip
-This is an attribute that has not yet been fully standardized and may change in the future. This also means many clients may ignore this attribute until they understand it.
+这是一个尚未完全标准化的属性，可能会在将来发生变化。这也意味着许多客户端可能会忽略此属性，直到他们理解它为止。
 :::
 
 ### secure
-Specifies the boolean value for the [Secure Set-Cookie attribute](https://tools.ietf.org/html/rfc6265#section-5.2.5). When truthy, the Secure attribute is set, otherwise, it is not. By default, the Secure attribute is not set.
+
+指定 [Secure Set-Cookie 属性](https://tools.ietf.org/html/rfc6265#section-5.2.5)的布尔值。
+
+当为真时，设置 Secure 属性，否则不设置。
+
+默认情况下，不设置 Secure 属性。
 
 ::: tip
-Be careful when setting this to true, as compliant clients will not send the cookie back to the server in the future if the browser does not have an HTTPS connection.
+将其设置为 true 时要小心，因为符合规范的客户端将不会在未来将 Cookie 发送回服务器，如果浏览器没有 HTTPS 连接。
 :::

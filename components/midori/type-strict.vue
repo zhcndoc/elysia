@@ -6,15 +6,13 @@
         <header class="flex flex-col gap-3 w-full">
             <h3
                 class="text-5xl leading-tight font-bold text-transparent bg-clip-text bg-gradient-to-br from-teal-300 to-blue-300">
-                Type Safety
+                类型安全
             </h3>
             <p class="text-xl leading-normal text-gray-400 w-full max-w-lg mb-4">
-                Powered by TypeBox, Elysia enforces type-strict validation to
-                ensure type integrity by default
+                在 TypeBox 的支持下，Elysia 默认强制执行类型严格验证以确保类型完整性。
             </p>
             <p class="text-xl leading-normal text-gray-400 w-full max-w-lg mb-4">
-                Elysia infers types to TypeScript automatically to create
-                unified type system like statically typed language
+                Elysia 自动将类型推断为 TypeScript，以创建像静态类型语言一样的统一类型系统。
             </p>
         </header>
     </article>

@@ -1,17 +1,17 @@
 ---
-title: Group - ElysiaJS
+title: 分组路由
 head:
     - - meta
       - property: 'og:title'
-        content: Group - ElysiaJS
+        content: 分组路由 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Grouping allows you to set prefixes for multiple routes at once, with ".group". Suppose you have many paths with the same prefix - instead of writing the same prefix multiple times, you can group them using a single ".group" method
+        content: 分组允许你一次为多个路由设置前缀，使用 “.group”。假设你有许多具有相同前缀的路径——而不是多次编写相同的前缀，可以使用单个 “.group” 方法对它们进行分组。
 
     - - meta
       - property: 'og:description'
-        content: Grouping allows you to set prefixes for multiple routes at once, with ".group". Suppose you have many paths with the same prefix - instead of writing the same prefix multiple times, you can group them using a single ".group" method
+        content: 分组允许你一次为多个路由设置前缀，使用 “.group”。假设你有许多具有相同前缀的路径——而不是多次编写相同的前缀，可以使用单个 “.group” 方法对它们进行分组。
 ---
 
 <script setup>
@@ -41,9 +41,9 @@ head:
         .use(users)
 </script>
 
-# Grouping Routes
+# 分组路由
 
-When creating a web server, you would often have multiple routes sharing the same prefix:
+在创建一个 Web 服务器时，通常会有多个路由共享相同的前缀：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -57,7 +57,7 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-This can be improved with `Elysia.group`, allowing us to apply prefixes to multiple routes at the same time by grouping them together:
+可以使用 `Elysia.group` 来改进这个问题，它允许我们将多个路由一起分组，并为它们同时应用前缀：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -74,7 +74,7 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-This code behaves the same as our first example and should be structured as follows:
+这段代码的行为与我们第一个示例相同，应该按照以下结构组织：
 
 | Path          | Result  |
 | ------------- | ------- |
@@ -82,7 +82,7 @@ This code behaves the same as our first example and should be structured as foll
 | /user/sign-up | Sign up |
 | /user/profile | Profile |
 
-`.group()` can also accept an optional guard parameter to reduce boilerplate of using groups and guards together:
+`.group()` 还可以接受一个可选的 guard 参数，以减少同时使用分组和 guard 的样板代码：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -101,11 +101,11 @@ new Elysia()
     .listen(3000)
 ```
 
-You may find more information about grouped guards in [scope](/essential/scope.html).
+你可以在 [scope](/essential/scope.html) 中找到有关分组 guard 的更多信息。
 
-## Prefixing
+## 前缀
 
-We can separate a group into a separate plugin instance to reduce nesting by providing a **prefix** to the constructor.
+我们可以通过为构造函数提供一个**前缀**将一个分组分离为一个单独的插件实例，以减少嵌套：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'

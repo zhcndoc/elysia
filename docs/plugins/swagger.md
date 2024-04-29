@@ -1,28 +1,28 @@
 ---
-title: Swagger Plugin - ElysiaJS
+title: Swagger Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Swagger Plugin - ElysiaJS
+        content: Swagger Plugin - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia that adds support for generating Swagger API documentation for Elysia Server. Start by installing the plugin with "bun add @elysiajs/swagger".
+        content: 插件为 Elysia 提供支持，可为 Elysia Server 生成 Swagger API 文档。首先使用"bun add @elysiajs/swagger"安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds support for generating Swagger API documentation for Elysia Server. Start by installing the plugin with "bun add @elysiajs/swagger".
+        content: 插件为 Elysia 提供支持，可为 Elysia Server 生成 Swagger API 文档。首先使用"bun add @elysiajs/swagger"安装该插件。
 ---
 
 # Swagger Plugin
-This plugin generates a Swagger endpoint for an Elysia server
+此插件用于为 Elysia 服务器生成 Swagger 端点
 
-Install with:
+安装方法：
 ```bash
 bun add @elysiajs/swagger
 ```
 
-Then use it:
+使用方法：
 ```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
@@ -34,49 +34,49 @@ new Elysia()
     .listen(3000)
 ```
 
-Accessing `/swagger` would show you a Swagger UI with the generated endpoint documentation from the Elysia server.
+访问 `/swagger` 会显示由 Elysia 服务器生成的端点文档的 Swagger UI。
 
-## Config
-Below is a config which is accepted by the plugin
+## 配置
+以下是插件接受的配置
 
 ### provider
 @default `scalar`
 
-UI Provider for documentation. Default to Scalar.
+文档的 UI 提供程序。默认为 Scalar。
 
 ### scalar
-Configuration for customizing Scalar.
+用于自定义 Scalar 的配置。
 
-Please refer to the [Scalar config](https://github.com/scalar/scalar?tab=readme-ov-file#configuration)
+请参考 [Scalar 配置](https://github.com/scalar/scalar?tab=readme-ov-file#configuration)
 
 ### swagger
-Configuration for customizing Swagger.
+用于自定义 Swagger 的配置。
 
-Please refer to the [Swagger specification](https://swagger.io/specification/v2/).
+请参考 [Swagger 规范](https://swagger.io/specification/v2/)。
 
 ### excludeStaticFile
 @default `true`
 
-Determine if Swagger should exclude static files.
+确定是否 Swagger 应该排除静态文件。
 
 ### path
 @default `/swagger`
 
-Endpoint to expose Swagger
+公开 Swagger 的端点
 
 ### exclude
-Paths to exclude from Swagger documentation.
+要从 Swagger 文档中排除的路径。
 
-Value can be one of the following:
+值可以是以下某个：
 - **string**
 - **RegExp**
 - **Array<string | RegExp>**
 
-## Pattern
-Below you can find the common patterns to use the plugin.
+## 模式
+以下是使用该插件的常见模式。
 
-## Change Swagger Endpoint
-You can change the swagger endpoint by setting [path](#path) in the plugin config.
+## 更改 Swagger 端点
+您可以通过在插件配置中设置 [path](#path) 来更改 swagger 端点。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -89,7 +89,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## Customize Swagger info
+## 自定义 Swagger 信息
 ```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
@@ -98,7 +98,7 @@ new Elysia()
     .use(swagger({
         documentation: {
             info: {
-                title: 'Elysia Documentation',
+                title: 'Elysia 文档',
                 version: '1.0.0'
             }
         }
@@ -106,25 +106,25 @@ new Elysia()
     .listen(3000)
 ```
 
-## Using Tags
-Elysia can separate the endpoints into groups by using the Swaggers tag system
+## 使用标签
+Elysia 可以使用 Swagger 的标签系统将端点分组
 
-Firstly define the available tags in the swagger config object
+首先在 swagger 配置对象中定义可用的标签
 
 ```typescript
 app.use(
   swagger({
     documentation: {
       tags: [
-        { name: 'App', description: 'General endpoints' },
-        { name: 'Auth', description: 'Authentication endpoints' }
+        { name: 'App', description: '通用端点' },
+        { name: '授权', description: '身份验证端点' }
       ]
     }
   })
 )
 ```
 
-Then use the details property of the endpoint configuration section to assign that endpoint to the group 
+然后使用端点配置部分的 details 属性将该端点分配给相应的组别
 
 ```typescript
 app.get('/', () => 'Hello Elysia', {
@@ -146,12 +146,12 @@ app.group('/auth', (app) =>
       }),
     {
       detail: {
-        tags: ['Auth']
+        tags: ['授权']
       }
     }
   )
 )
 ```
 
-Which will produce a swagger page like the following
+这将生成一个类似下面的 Swagger 页面
 <img width="1446" alt="image" src="https://github.com/elysiajs/documentation/assets/184729/8caee6c0-4262-4a5c-b225-196cf74c338b">
