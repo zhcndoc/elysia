@@ -165,7 +165,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## set.redirect
+## redirect
 
 将请求重定向到另一个资源。
 
@@ -173,8 +173,12 @@ new Elysia()
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', ({ set }) => {
-        set.redirect = 'https://youtu.be/whpVWVWBW4U?&t=8'
+    .get('/', ({ redirect }) => {
+        return redirect('https://youtu.be/whpVWVWBW4U?&t=8')
+    })
+    .get('/custom-status', ({ redirect }) => {
+        // You can also set custom status to redirect
+        return redirect('https://youtu.be/whpVWVWBW4U?&t=8', 302)
     })
     .listen(3000)
 ```

@@ -94,6 +94,7 @@ Elysia 上下文包括：
 -   **params** - Elysia 的路径参数解析为 JavaScript 对象
 -   **headers** - [HTTP 标头](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)，有关请求的附加信息，如用户代理、内容类型、缓存提示。
 -   **request** - [Web 标准请求](https://developer.mozilla.org/en-US/docs/Web/API/Request)
+-   **redirect** - 用于重定向响应的函数
 -   **store** - Elysia 实例的全局可变存储
 -   **cookie** - 用于与 Cookie 交互的全局可变信号存储 (包括 get/set)
 -   **set** - 应用于响应的属性：
