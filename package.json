@@ -45,8 +45,8 @@
     "zhlint": "^0.8.1"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS='--max_old_space_size=4096' vitepress dev docs",
-    "build": "NODE_OPTIONS='--max_old_space_size=4096' vitepress build docs",
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
     "serve": "vitepress serve docs",
     "zhlint-fix": "zhlint 'docs/{api,eden,essential,integrations,life-cycle,patterns,plugins,validation}/**/*.md' --fix"
   }
