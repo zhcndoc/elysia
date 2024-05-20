@@ -154,4 +154,4 @@ app.group('/auth', (app) =>
 ```
 
 这将生成一个类似下面的 Swagger 页面
-<img width="1446" alt="image" src="https://github.com/elysiajs/documentation/assets/184729/8caee6c0-4262-4a5c-b225-196cf74c338b">
+<img width="1446" alt="image" src="/assets/swagger-demo.webp">
