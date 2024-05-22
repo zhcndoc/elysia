@@ -3,7 +3,7 @@ title: 快速开始
 head:
   - - meta
     - property: 'og:title'
-      content: 快速开始 - ElysiaJS 中文文档
+      content: 快速开始 - Elysia 中文文档
 
   - - meta
     - name: 'description'

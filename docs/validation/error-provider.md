@@ -3,7 +3,7 @@ title: 错误提供程序
 head:
     - - meta
       - property: 'title'
-        content: 错误提供者 - ElysiaJS 中文文档
+        content: 错误提供者 - Elysia 中文文档
 
     - - meta
       - name: 'description'

@@ -3,7 +3,7 @@ title: Swagger Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Swagger Plugin - ElysiaJS 中文文档
+        content: Swagger Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

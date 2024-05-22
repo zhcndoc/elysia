@@ -3,7 +3,7 @@ title: 生命周期事件
 head:
     - - meta
       - property: 'og:title'
-        content: 生命周期事件 - ElysiaJS 中文文档
+        content: 生命周期事件 - Elysia 中文文档
 
     - - meta
       - name: 'description'

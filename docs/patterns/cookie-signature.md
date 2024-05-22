@@ -3,7 +3,7 @@ title: Cookie 签名
 head:
   - - meta
     - property: 'og:title'
-      content: Cookie 签名 - ElysiaJS 中文文档
+      content: Cookie 签名 - Elysia 中文文档
 
   - - meta
     - name: 'description'

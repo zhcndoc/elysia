@@ -3,7 +3,7 @@ title: tRPC Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: tRPC Plugin - ElysiaJS 中文文档
+        content: tRPC Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

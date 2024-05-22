@@ -3,7 +3,7 @@ title: Bearer Plugin
 head:
   - - meta
     - property: 'og:title'
-      content: Bearer Plugin - ElysiaJS 中文文档
+      content: Bearer Plugin - Elysia 中文文档
 
   - - meta
     - name: 'description'

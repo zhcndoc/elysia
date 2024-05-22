@@ -3,7 +3,7 @@ title: Eden 安装
 head:
   - - meta
     - property: 'og:title'
-      content: Eden 安装 - ElysiaJS 中文文档
+      content: Eden 安装 - Elysia 中文文档
 
   - - meta
     - name: 'description'

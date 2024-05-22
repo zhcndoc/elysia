@@ -4,7 +4,7 @@ title: Eden Treaty Legacy
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Treaty Legacy - ElysiaJS 中文文档
+      content: Eden Treaty Legacy - Elysia 中文文档
 
   - - meta
     - name: 'og:description'

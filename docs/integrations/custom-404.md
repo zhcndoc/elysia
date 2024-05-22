@@ -3,7 +3,7 @@ title: 自定义 404
 head:
   - - meta
     - property: 'og:title'
-      content: 自定义 404 - ElysiaJS 中文文档
+      content: 自定义 404 - Elysia 中文文档
 
   - - meta
     - name: 'description'

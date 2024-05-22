@@ -3,7 +3,7 @@ title: 原始类型
 head:
     - - meta
       - property: 'title'
-        content: 原始类型 - ElysiaJS 中文文档
+        content: 原始类型 - Elysia 中文文档
 
     - - meta
       - name: 'description'

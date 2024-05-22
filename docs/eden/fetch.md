@@ -3,7 +3,7 @@ title: Eden Fetch
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Fetch - ElysiaJS 中文文档
+      content: Eden Fetch - Elysia 中文文档
 
   - - meta
     - name: 'description'

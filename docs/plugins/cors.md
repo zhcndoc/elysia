@@ -3,7 +3,7 @@ title: CORS Plugin
 head:
   - - meta
     - property: 'og:title'
-      content: CORS Plugin - ElysiaJS 中文文档
+      content: CORS Plugin - Elysia 中文文档
 
   - - meta
     - name: 'description'

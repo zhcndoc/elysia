@@ -3,7 +3,7 @@ title: 集成 Next.js
 head:
     - - meta
       - property: 'og:title'
-        content: 集成 Next.js - ElysiaJS 中文文档
+        content: 集成 Next.js - Elysia 中文文档
 
     - - meta
       - name: 'description'

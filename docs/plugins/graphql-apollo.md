@@ -3,7 +3,7 @@ title: Apollo GraphQL Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Apollo GraphQL Plugin - ElysiaJS 中文文档
+        content: Apollo GraphQL Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

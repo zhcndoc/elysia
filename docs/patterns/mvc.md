@@ -3,7 +3,7 @@ title: MVC 模式
 head:
     - - meta
       - property: 'og:title'
-        content: MVC 模式 - ElysiaJS 中文文档
+        content: MVC 模式 - Elysia 中文文档
 
     - - meta
       - name: 'description'

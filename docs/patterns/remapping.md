@@ -3,7 +3,7 @@ title: 重新映射
 head:
   - - meta
     - property: 'og:title'
-      content: 重新映射 - ElysiaJS 中文文档
+      content: 重新映射 - Elysia 中文文档
 
   - - meta
     - name: 'description'

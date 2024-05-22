@@ -3,7 +3,7 @@ title: 懒加载模块
 head:
   - - meta
     - property: 'og:title'
-      content: 懒加载模块 - ElysiaJS 中文文档
+      content: 懒加载模块 - Elysia 中文文档
 
   - - meta
     - name: 'description'

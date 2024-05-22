@@ -3,7 +3,7 @@ title: Stream Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Stream Plugin - ElysiaJS 中文文档
+        content: Stream Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

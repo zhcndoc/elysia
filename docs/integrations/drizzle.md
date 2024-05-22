@@ -3,7 +3,7 @@ title: 集成 Drizzle
 head:
   - - meta
     - property: 'og:title'
-      content: 集成 Drizzle - ElysiaJS 中文文档
+      content: 集成 Drizzle - Elysia 中文文档
 
   - - meta
     - name: 'description'

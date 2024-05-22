@@ -3,7 +3,7 @@ title: Parse
 head:
     - - meta
       - property: 'og:title'
-        content: Parse - ElysiaJS 中文文档
+        content: Parse - Elysia 中文文档
 
     - - meta
       - name: 'description'

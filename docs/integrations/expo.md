@@ -3,7 +3,7 @@ title: 集成 Expo
 head:
     - - meta
       - property: 'og:title'
-        content: 集成 Expo - ElysiaJS 中文文档
+        content: 集成 Expo - Elysia 中文文档
 
     - - meta
       - name: 'description'

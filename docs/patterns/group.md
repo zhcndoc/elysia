@@ -3,7 +3,7 @@ title: 分组路由
 head:
     - - meta
       - property: 'og:title'
-        content: 分组路由 - ElysiaJS 中文文档
+        content: 分组路由 - Elysia 中文文档
 
     - - meta
       - name: 'description'

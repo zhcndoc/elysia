@@ -3,7 +3,7 @@ title: JWT Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: JWT Plugin - ElysiaJS 中文文档
+        content: JWT Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

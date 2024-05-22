@@ -4,7 +4,7 @@ title: 端到端类型安全
 head:
   - - meta
     - property: 'og:title'
-      content: 端到端类型安全 - ElysiaJS 中文文档
+      content: 端到端类型安全 - Elysia 中文文档
 
   - - meta
     - name: 'description'

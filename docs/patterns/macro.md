@@ -3,7 +3,7 @@ title: Macro
 head:
     - - meta
       - property: 'og:title'
-        content: Macro - ElysiaJS 中文文档
+        content: Macro - Elysia 中文文档
 
     - - meta
       - name: 'description'

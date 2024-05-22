@@ -3,7 +3,7 @@ title: Cron Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Cron Plugin - ElysiaJS 中文文档
+        content: Cron Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

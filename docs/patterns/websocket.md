@@ -3,7 +3,7 @@ title: WebSocket
 head:
     - - meta
       - property: 'title'
-        content: WebSocket - ElysiaJS 中文文档
+        content: WebSocket - Elysia 中文文档
 
     - - meta
       - name: 'description'

@@ -3,7 +3,7 @@ title: HTML 插件
 head:
     - - meta
       - property: 'og:title'
-        content: HTML 插件 - ElysiaJS 中文文档
+        content: HTML 插件 - Elysia 中文文档
 
     - - meta
       - name: 'description'

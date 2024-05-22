@@ -3,7 +3,7 @@ title: Mount
 head:
   - - meta
     - property: 'og:title'
-      content: Mount - ElysiaJS 中文文档
+      content: Mount - Elysia 中文文档
 
   - - meta
     - name: 'description'

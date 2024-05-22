@@ -3,7 +3,7 @@ title: On Request
 head:
     - - meta
       - property: 'og:title'
-        content: On Request - ElysiaJS 中文文档
+        content: On Request - Elysia 中文文档
 
     - - meta
       - name: 'description'

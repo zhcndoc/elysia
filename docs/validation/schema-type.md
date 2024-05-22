@@ -3,7 +3,7 @@ title: Schema 类型
 head:
     - - meta
       - property: 'title'
-        content: Schema 类型 - ElysiaJS 中文文档
+        content: Schema 类型 - Elysia 中文文档
 
     - - meta
       - name: 'description'

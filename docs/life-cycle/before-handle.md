@@ -3,7 +3,7 @@ title: Before Handle
 head:
     - - meta
       - property: 'og:title'
-        content: Before Handle - ElysiaJS 中文文档
+        content: Before Handle - Elysia 中文文档
 
     - - meta
       - name: 'description'

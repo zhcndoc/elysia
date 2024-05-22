@@ -3,7 +3,7 @@ title: 校验
 head:
     - - meta
       - property: 'title'
-        content: 校验 - ElysiaJS 中文文档
+        content: 校验 - Elysia 中文文档
 
     - - meta
       - name: 'description'

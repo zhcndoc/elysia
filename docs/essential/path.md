@@ -3,7 +3,7 @@ title: Path
 head:
     - - meta
       - property: 'og:title'
-        content: Path - ElysiaJS 中文文档
+        content: Path - Elysia 中文文档
 
     - - meta
       - name: 'description'

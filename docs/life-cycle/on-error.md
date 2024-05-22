@@ -3,7 +3,7 @@ title: 错误处理
 head:
     - - meta
       - property: 'og:title'
-        content: 错误处理 - ElysiaJS 中文文档
+        content: 错误处理 - Elysia 中文文档
 
     - - meta
       - name: 'description'

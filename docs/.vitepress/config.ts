@@ -7,8 +7,8 @@ const description =
 
 export default defineConfig({
     lang: 'zh-Hans',
-    title: 'ElysiaJS 中文文档',
-    titleTemplate: ':title - ElysiaJS 中文文档',
+    title: 'Elysia 中文文档',
+    titleTemplate: ':title - Elysia 中文文档',
     // description,
     ignoreDeadLinks: true,
     lastUpdated: true,
@@ -27,6 +27,23 @@ export default defineConfig({
             }
         }
     },
+
+    sitemap: {
+        hostname: 'https://elysia.zhcndoc.com'
+    },
+
+    locales: {
+        root: {
+            label: '简体中文',
+            lang: 'zh'
+        },
+        en: {
+            label: 'English',
+            lang: 'en',
+            link: 'https://elysiajs.com/'
+        }
+    },
+
     head: [
         ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
         [
@@ -177,10 +194,6 @@ export default defineConfig({
             {
                 text: '博客',
                 link: '/blog'
-            },
-            {
-                text: '英文官网',
-                link: 'https://elysiajs.com/'
             }
         ],
         sidebar: [

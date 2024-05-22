@@ -3,7 +3,7 @@ title: 简介
 head:
     - - meta
       - property: 'og:title'
-        content: 简介 - ElysiaJS 中文文档
+        content: 简介 - Elysia 中文文档
 
     - - meta
       - name: 'description'

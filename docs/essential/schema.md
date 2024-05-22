@@ -3,7 +3,7 @@ title: Schema
 head:
     - - meta
       - property: 'og:title'
-        content: Schema - ElysiaJS 中文文档
+        content: Schema - Elysia 中文文档
 
     - - meta
       - name: 'description'

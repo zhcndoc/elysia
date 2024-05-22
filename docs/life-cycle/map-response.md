@@ -3,7 +3,7 @@ title: Map Response
 head:
     - - meta
       - property: 'og:title'
-        content: Map Response - ElysiaJS 中文文档
+        content: Map Response - Elysia 中文文档
 
     - - meta
       - name: 'description'

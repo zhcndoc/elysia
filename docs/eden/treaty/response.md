@@ -3,7 +3,7 @@ title: Eden Treaty 响应
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty 响应 - ElysiaJS 中文文档
+        content: Eden Treaty 响应 - Elysia 中文文档
 
     - - meta
       - name: 'og:description'

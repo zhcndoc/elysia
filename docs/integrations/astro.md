@@ -3,7 +3,7 @@ title: 集成 Astro
 head:
     - - meta
       - property: 'og:title'
-        content: 集成 Astro - ElysiaJS 中文文档
+        content: 集成 Astro - Elysia 中文文档
 
     - - meta
       - name: 'description'

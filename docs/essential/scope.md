@@ -3,7 +3,7 @@ title: 作用域
 head:
     - - meta
       - property: 'og:title'
-        content: 作用域 - ElysiaJS 中文文档
+        content: 作用域 - Elysia 中文文档
 
     - - meta
       - name: 'description'

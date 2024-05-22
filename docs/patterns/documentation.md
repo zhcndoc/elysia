@@ -3,7 +3,7 @@ title: 创建文档
 head:
   - - meta
     - property: 'og:title'
-      content: 创建文档 - ElysiaJS 中文文档
+      content: 创建文档 - Elysia 中文文档
 
   - - meta
     - name: 'description'

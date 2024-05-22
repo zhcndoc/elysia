@@ -3,7 +3,7 @@ title: Server Timing Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Server Timing Plugin - ElysiaJS 中文文档
+        content: Server Timing Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

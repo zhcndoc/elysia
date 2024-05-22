@@ -3,7 +3,7 @@ title: Static Plugin
 head:
     - - meta
       - property: 'og:title'
-        content: Static Plugin - ElysiaJS 中文文档
+        content: Static Plugin - Elysia 中文文档
 
     - - meta
       - name: 'description'

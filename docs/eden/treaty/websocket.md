@@ -3,7 +3,7 @@ title: Eden Treaty WebSocket
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty WebSocket - ElysiaJS 中文文档
+        content: Eden Treaty WebSocket - Elysia 中文文档
 
     - - meta
       - name: 'og:description'

@@ -3,7 +3,7 @@ title: Trace
 head:
     - - meta
       - property: 'og:title'
-        content: Trace - ElysiaJS 中文文档
+        content: Trace - Elysia 中文文档
 
     - - meta
       - name: 'description'

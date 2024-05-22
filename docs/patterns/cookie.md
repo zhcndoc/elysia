@@ -3,7 +3,7 @@ title: 响应式 Cookie
 head:
   - - meta
     - property: 'og:title'
-      content: 响应式 Cookie - ElysiaJS 中文文档
+      content: 响应式 Cookie - Elysia 中文文档
 
   - - meta
     - name: 'description'

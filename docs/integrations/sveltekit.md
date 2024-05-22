@@ -3,7 +3,7 @@ title: 集成 SvelteKit
 head:
     - - meta
       - property: 'og:title'
-        content: 集成 SvelteKit - ElysiaJS 中文文档
+        content: 集成 SvelteKit - Elysia 中文文档
 
     - - meta
       - name: 'description'

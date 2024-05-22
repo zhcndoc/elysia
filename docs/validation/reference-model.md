@@ -3,7 +3,7 @@ title: 参考模型
 head:
   - - meta
     - property: 'og:title'
-      content: 参考模型 - ElysiaJS 中文文档
+      content: 参考模型 - Elysia 中文文档
 
   - - meta
     - name: 'description'
