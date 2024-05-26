@@ -525,7 +525,7 @@ export default defineConfig({
         editLink: {
             text: '在 GitHub 上编辑此页面',
             pattern:
-                'https://github.com/ikxin/elysia-docs-cn/edit/main/docs/:path'
+                'https://github.com/ikxin/elysia/edit/main/docs/:path'
         },
         docFooter: {
             prev: '上一页',
