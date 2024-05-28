@@ -21,15 +21,15 @@
             <aside class="flex gap-4">
                 <a
                     class="text-white font-medium text-lg bg-blue-500 px-6 py-2.5 rounded-full"
-                    href="/at-glance"
-                >
-                    简介
-                </a>
-                <a
-                    class="text-blue-500 font-medium text-lg px-6 py-2.5 rounded-full hover:bg-blue-200/25 dark:hover:bg-blue-500/20 transition-colors"
                     href="/quick-start"
                 >
                     快速入门
+                </a>
+                <a
+                    class="text-blue-500 font-medium text-lg px-6 py-2.5 rounded-full hover:bg-blue-200/25 dark:hover:bg-blue-500/20 transition-colors"
+                    href="/integrations/cheat-sheet"
+                >
+                    Cheat Sheet
                 </a>
             </aside>
         </section>

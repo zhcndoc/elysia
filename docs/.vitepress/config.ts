@@ -184,8 +184,8 @@ export default defineConfig({
         logo: '/assets/elysia.svg',
         nav: [
             {
-                text: '快速入门',
-                link: '/quick-start'
+                text: 'Cheat Sheet',
+                link: '/integrations/cheat-sheet'
             },
             {
                 text: '插件',
@@ -250,7 +250,11 @@ export default defineConfig({
                     {
                         text: '作用域',
                         link: '/essential/scope'
-                    }
+                    },
+                    {
+                        text: 'What\'s next',
+                        link: '/essential/what-next'
+                    }                    
                 ]
             },
             {

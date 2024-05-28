@@ -43,7 +43,7 @@ Elysia 的设计目标是模块化和轻量级。
 
 ## 社区插件
 
--   [BunSai](https://github.com/levii-pires/bunsai) - 针对 Web 的全栈无关框架，基于 Bun 和 Elysia 构建
+-   [BunSai](https://github.com/levii-pires/bunsai2) - 针对 Web 的全栈无关框架，基于 Bun 和 Elysia 构建
 -   [Lucia Auth](https://github.com/pilcrowOnPaper/lucia) - 身份验证，简单干净
 -   [Elysia Clerk](https://github.com/wobsoriano/elysia-clerk) - 非官方的 Clerk 身份验证插件
 -   [Elysia Polyfills](https://github.com/bogeychan/elysia-polyfills) - 在 Node.js 和 Deno 上运行 Elysia 生态系统
@@ -90,6 +90,8 @@ Elysia 的设计目标是模块化和轻量级。
 -   [Elysia Auth Drizzle](https://github.com/qlaffont/elysia-auth-drizzle) - 使用 JWT (Header/Cookie/QueryParam) 处理认证的库。
 -   [graceful-server-elysia](https://github.com/qlaffont/graceful-server-elysia) - 受 [graceful-server](https://github.com/gquittet/graceful-server) 启发的库。
 -   [Logixlysia](https://github.com/PunGrumpy/logixlysia) - 一个漂亮而简单的带有颜色和时间戳的 ElysiaJS 日志中间件。
+-   [Elysia Fault](https://github.com/vitorpldev/elysia-fault) - A simple and customizable error handling middleware with the possibility of creating your own HTTP errors
+-   [Elysia Compress](https://github.com/vermaysha/elysia-compress) - ElysiaJS plugin to compress responses inspired by [@fastify/compress](https://github.com/fastify/fastify-compress)
 
 ---
 

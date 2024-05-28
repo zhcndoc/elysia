@@ -37,7 +37,7 @@ Parse 是 Express 中的 **body parser** 的等效功能。
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .onParse(({ request }, contentType) => {
+    .onParse(({ request, contentType }) => {
         if (contentType === 'application/custom-type')
             return request.text()
     })

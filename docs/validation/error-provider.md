@@ -18,18 +18,18 @@ head:
 
 当验证失败时，有两种方式提供自定义错误消息：
 
-1. 内联 `message` 属性
+1. 内联 `error` 属性
 2. 使用 [onError](/life-cycle/on-error) 事件
 
 ## 消息属性
 
-TypeBox 提供了一个额外的 `error` 属性，允许我们在字段无效时返回自定义错误消息。
+Elysia 引入了一个额外的 `error` 属性，允许我们在字段无效时返回自定义错误消息。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
 new Elysia()
-    .get('/', () => 'Hello World!', {
+    .post('/', () => 'Hello World!', {
         body: t.Object(
             {
                 x: t.Number()
@@ -110,6 +110,159 @@ t.Object({
 Invalid object UwU
 ```
 
+</td>
+</tr>
+<tr>
+<td>
+
+```typescript
+t.Object({
+    x: t.Number({
+        error({ errors, type, validation, value }) {
+            return 'Expected x to be a number'
+        }
+    })
+})
+```
+
+</td>
+<td>
+
+```
+Expected x to be a number
+```
+
+</td>
+</tr>
+
+</table>
+
+## Error message as function
+Over a string, Elysia type's error can also accepts a function to programatically return custom error for each property.
+
+The error function accepts same argument as same as `ValidationError`
+
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+    .post('/', () => 'Hello World!', {
+        body: t.Object({
+            x: t.Number({
+                error(error) {
+                    return 'Expected x to be a number'
+                }
+            })
+        })
+    })
+    .listen(3000)
+```
+
+::: tip
+Hover over the `error` to see the type
+:::
+
+### Error is called per field
+Please be cautious that the error function will only be called if the field is invalid.
+
+Please consider the following table:
+
+<table class="md-table">
+<tr>
+<td>Code</td>
+<td>Body</td>
+<td>Error</td>
+</tr>
+
+<tr>
+<td>
+
+```typescript twoslash
+import { t } from 'elysia'
+// ---cut---
+t.Object({
+    x: t.Number({
+        error(error) {
+            return 'Expected x to be a number'
+        }
+    })
+})
+```
+
+</td>
+<td>
+
+```json
+{
+    x: "hello"
+}
+```
+
+</td>
+<td>
+Expected x to be a number
+</td>
+</tr>
+
+<tr>
+<td>
+
+```typescript twoslash
+import { t } from 'elysia'
+// ---cut---
+t.Object({
+    x: t.Number({
+        error(error) {
+            return 'Expected x to be a number'
+        }
+    })
+})
+```
+
+</td>
+<td>
+
+```json
+"hello"
+```
+
+</td>
+<td>
+(default error, `t.Number.error` is not called)
+</td>
+</tr>
+
+<tr>
+<td>
+
+```typescript twoslash
+import { t } from 'elysia'
+// ---cut---
+t.Object(
+    {
+        x: t.Number({
+            error(error) {
+                return 'Expected x to be a number'
+            }
+        })
+    }, {
+        error(error) {
+            return 'Expected value to be an object'
+        }
+    }
+)
+```
+
+</td>
+<td>
+
+```json
+"hello"
+```
+
+</td>
+<td>
+Expected value to be an object
 </td>
 </tr>
 

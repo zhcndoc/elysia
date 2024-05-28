@@ -36,11 +36,11 @@ head:
     <Card title="模式" href="/patterns/group">
         常见模式和最佳实践
     </Card>
-    <Card title="插件" href="/plugins/overview">
-        用于扩展 Elysia 行为的预置插件
-    </Card>
     <Card title="Eden" href="/eden/overview">
         用于 Elysia 的端到端类型安全客户端
+    </Card>
+    <Card title="Cheat sheet" href="/integrations/cheat-sheet">
+        A quick overview of Elysia
     </Card>
 </Deck>
 
