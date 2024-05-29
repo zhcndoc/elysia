@@ -11,6 +11,7 @@
                 Elysia
             </button>
         </p>
+        <a href="https://zeabur.com?referralCode=ikxin&utm_source=ikxin"><img src=https://zeabur.com/deployed-on-zeabur-light.svg alt="Deployed on Zeabur"/></a>
         <figure
             class="overflow-hidden -collpasable"
             style="width: 144px"
