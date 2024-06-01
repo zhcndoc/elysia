@@ -1,32 +1,13 @@
 <template>
     <footer
-        class="flex flex-col justify-center items-center gap-4 text-sm text-gray-400 dark:text-gray-400 mt-8 mb-4"
+        class="flex justify-center items-center gap-4 text-sm text-gray-400 dark:text-gray-400 my-4"
     >
-        <p>
-            Built with 💖 dear
-            <button
-                class="appearance-none text-pink-500 text-sm px-1 py-0.5 rounded hover:bg-pink-500/10 focus:bg-pink-500/15 transition-colors"
-                @click="isToggle = !isToggle"
-            >
-                Elysia
-            </button>
-        </p>
-        <a href="https://zeabur.com?referralCode=ikxin&utm_source=ikxin"><img src=https://zeabur.com/deployed-on-zeabur-light.svg alt="Deployed on Zeabur"/></a>
-        <figure
-            class="overflow-hidden -collpasable"
-            style="width: 144px"
-            :style="isToggle ? 'height: 183px' : 'height: 0px'"
-        >
-            <a
-                v-if="isToggle"
-                href="https://youtu.be/k-K28-A4fBc"
-                target="_blank"
-            >
-                <video muted autoplay loop>
-                    <source src="/assets/elysia.mp4" />
-                </video>
+            <a rel="nofollow" target="__blank" href="https://zeabur.com?referralCode=ikxin&amp;utm_source=ikxin" data-astro-cid-35ed7um5="">
+                Deployed on Zeabur
             </a>
-        </figure>
+            <a rel="nofollow" target="__blank" href="https://beian.miit.gov.cn" data-astro-cid-35ed7um5="">
+                沪ICP备2024070610号-3
+            </a>
     </footer>
 </template>
 

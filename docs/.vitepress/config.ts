@@ -123,6 +123,14 @@ export default defineConfig({
                 property: 'og:description',
                 content: description
             }
+        ],
+        [
+            'script',
+            {
+                defer: '',
+                src: 'https://analytics.ikxin.com/script.js',
+                'data-website-id': 'f0e90b0d-e086-4fdc-b173-de4857b71900'
+            }
         ]
     ],
     themeConfig: {
@@ -252,9 +260,9 @@ export default defineConfig({
                         link: '/essential/scope'
                     },
                     {
-                        text: 'What\'s next',
+                        text: "What's next",
                         link: '/essential/what-next'
-                    }                    
+                    }
                 ]
             },
             {
@@ -528,8 +536,7 @@ export default defineConfig({
         ],
         editLink: {
             text: '在 GitHub 上编辑此页面',
-            pattern:
-                'https://github.com/ikxin/elysia/edit/main/docs/:path'
+            pattern: 'https://github.com/ikxin/elysia/edit/main/docs/:path'
         },
         docFooter: {
             prev: '上一页',
