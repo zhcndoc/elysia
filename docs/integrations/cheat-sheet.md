@@ -1,24 +1,24 @@
 ---
-title: Cheat Sheet (Elysia by example) - ElysiaJS
+title: 速查表 - ElysiaJS 
 head:
   - - meta
     - property: 'og:title'
-      content: Cheat Sheet (Elysia by example) - ElysiaJS
+      content: 速查表 - ElysiaJS 中文文档
 
   - - meta
     - name: 'description'
-      content: Elysia's cheat sheet in summary and how it work with "Elysia by example"
+      content: Elysia 的速查表总结以及它如何与 "Elysia 示例" 一起工作
 
   - - meta
     - property: 'og:description'
-      content: Elysia's cheat sheet in summary and how it work with "Elysia by example"
+      content: Elysia 的速查表总结以及它如何与 "Elysia 示例" 一起工作
 ---
 
-# Cheat Sheet
-Here are a quick overview for a common Elysia patterns
+# 速查表
+这里是一些常见 Elysia 模式的快速概览
 
 ## Hello World
-A simple hello world
+一个简单的 hello world
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -28,10 +28,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Custom HTTP Method
-Define route using custom HTTP methods/verbs
+## 自定义 HTTP 方法
+使用自定义 HTTP 方法/动词定义路由
 
-See [Route](/essential/route.html#custom-method)
+查看 [Route](/essential/route.html#custom-method)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -40,14 +40,14 @@ new Elysia()
     .get('/hi', () => 'Hi')
     .post('/hi', () => 'From Post')
     .put('/hi', () => 'From Put')
-    .route('M-SEARCH', '/hi', () => 'Custom Method')
+    .route('M-SEARCH', '/hi', () => '自定义方法')
     .listen(3000)
 ```
 
-## Path Parameter
-Using dynamic path parameter
+## 路径参数
+使用动态路径参数
 
-See [Path](/essential/path.html)
+查看 [Path](/essential/path.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -58,10 +58,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Return JSON
-Elysia convert JSON to response automatically
+## 返回 JSON
+Elysia 自动将 JSON 转换为响应
 
-See [Handler](/essential/handler.html)
+查看 [Handler](/essential/handler.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -75,10 +75,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Return a file
-A file can be return in as formdata response
+## 返回文件
+文件可以以 formdata 响应的形式返回
 
-The response must 1-level deep object
+响应必须为 1 级深度对象
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -93,10 +93,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Header and status
-Set a custom header and a status code
+## 头部和状态
+设置自定义头部和状态码
 
-See [Handler](/essential/handler.html)
+查看 [Handler](/essential/handler.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -110,10 +110,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Group
-Define a prefix once for sub routes
+## 分组
+为子路由一次定义前缀
 
-See [Group](/patterns/group.html)
+查看 [Group](/patterns/group.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -130,9 +130,9 @@ new Elysia()
 ```
 
 ## Schema
-Enforce a data type of a route
+强制路由的数据类型
 
-See [Schema](/essential/schema.html)
+查看 [Schema](/essential/schema.html)
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -147,20 +147,20 @@ new Elysia()
     .listen(3000)
 ```
 
-## Lifecycle Hook
-Intercept an Elysia event in order
+## 生命周期钩子
+按顺序拦截 Elysia 事件
 
-See [Lifecycle](/essential/life-cycle.html)
+查看 [Lifecycle](/essential/life-cycle.html)
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
 new Elysia()
     .onRequest(() => {
-        console.log('On request')
+        console.log('请求时')
     })
     .on('beforeHandle', () => {
-        console.log('Before handle')
+        console.log('处理前')
     })
     .post('/mirror', ({ body }) => body, {
         body: t.Object({
@@ -168,16 +168,16 @@ new Elysia()
             password: t.String()
         }),
         afterHandle: () => {
-            console.log("After handle")
+            console.log("处理后")
         }
     })
     .listen(3000)
 ```
 
-## Guard
-Enforce a data type of sub routes
+## 守卫
+强制子路由的数据类型
 
-See [Scope](/essential/scope.html#guard)
+查看 [Scope](/essential/scope.html#guard)
 
 ```typescript twoslash
 // @errors: 2345
@@ -188,16 +188,16 @@ new Elysia()
         response: t.String()
     }, (app) => app
         .get('/', () => 'Hi')
-        // Invalid: will throws error, and TypeScript will report error
+        // 无效：将抛出错误，并且 TypeScript 将报告错误
         .get('/invalid', () => 1)
     )
     .listen(3000)
 ```
 
-## Customize context
-Add custom variable to route context
+## 自定义上下文
+向路由上下文添加自定义变量
 
-See [Context](/essential/context.html)
+查看 [Context](/essential/context.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -212,10 +212,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Redirect
-Redirect a response
+## 重定向
+重定向响应
 
-See [Handler](/essential/handler.html#redirect)
+查看 [Handler](/essential/handler.html#redirect)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -228,10 +228,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Plugin
-Create a separate instance
+## 插件
+创建一个单独的实例
 
-See [Plugin](/essential/plugin)
+查看 [Plugin](/essential/plugin)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -247,26 +247,9 @@ new Elysia()
 ```
 
 ## Web Socket
-Create a realtime connection using Web Socket
+使用 Web Socket 创建实时连接
 
-See [Web Socket](/patterns/websocket)
-
-```typescript twoslash
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .ws('/ping', {
-        message(ws, message) {
-            ws.send('hello ' + message)
-        }
-    })
-    .listen(3000)
-```
-
-## OpenAPI documentation
-Create a interactive documentation using Scalar (or optionally Swagger)
-
-See [Documentation](/patterns/documentation)
+查看 [Web Socket](/patterns/websocket)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -280,10 +263,27 @@ new Elysia()
     .listen(3000)
 ```
 
-## Unit Test
-Write a unit test of your Elysia app
+## OpenAPI 文档
+使用 Scalar（或可选的 Swagger）创建交互式文档
 
-See [Unit Test](/patterns/unit-test)
+查看 [Documentation](/patterns/documentation)
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+new Elysia()
+    .ws('/ping', {
+        message(ws, message) {
+            ws.send('hello ' + message)
+        }
+    })
+    .listen(3000)
+```
+
+## 单元测试
+编写您的 Elysia 应用的单元测试
+
+查看 [Unit Test](/patterns/unit-test)
 
 ```typescript twoslash
 // test/index.test.ts
@@ -291,7 +291,7 @@ import { describe, expect, it } from 'bun:test'
 import { Elysia } from 'elysia'
 
 describe('Elysia', () => {
-    it('return a response', async () => {
+    it('返回响应', async () => {
         const app = new Elysia().get('/', () => 'hi')
 
         const response = await app
@@ -303,10 +303,10 @@ describe('Elysia', () => {
 })
 ```
 
-## Custom body parser
-Create a custom logic for parsing body
+## 自定义 body 解析器
+创建解析 body 的自定义逻辑
 
-See [Parse](/life-cycle/parse.html)
+查看 [Parse](/life-cycle/parse.html)
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -319,9 +319,9 @@ new Elysia()
 ```
 
 ## GraphQL
-Create a custom GraphQL server using GraphQL Yoga or Apollo
+使用 GraphQL Yoga 或 Apollo 创建自定义 GraphQL 服务器
 
-See [GraphQL Yoga](/plugins/graphql-yoga)
+查看 [GraphQL Yoga](/plugins/graphql-yoga)
 
 ```typescript
 import { Elysia } from 'elysia'
