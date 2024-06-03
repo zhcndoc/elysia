@@ -1,25 +1,25 @@
 ---
-title: Life Cycle - ElysiaJS
+title: 下一步是什么
 head:
     - - meta
       - property: 'og:title'
-        content: Life Cycle - ElysiaJS
+        content: 下一步是什么 - ElysiaJS 中文文档
 
     - - meta
       - name: 'description'
-        content: Lifecycle event is a concept for each stage of Elysia processing, "Life Cycle" or "Hook" is an event listener to intercept, and listen to those events cycling around. Hook allows you to transform data running through the data pipeline. With the hook, you can customize Elysia to its fullest potential.
+        content: 基本章节涵盖了基本构建模块，但还有一些你可能想要阅读的有用概念，每个概念需要大约 15 分钟左右来完成。这是我们按顺序推荐的章节（请随意跳转到您感兴趣的章节）。
 
     - - meta
       - property: 'og:description'
-        content: Lifecycle event is a concept for each stage of Elysia processing, "Life Cycle" or "Hook" is an event listener to intercept, and listen to those events cycling around. Hook allows you to transform data running through the data pipeline. With the hook, you can customize Elysia to its fullest potential.
+        content: 基本章节涵盖了基本构建模块，但还有一些你可能想要阅读的有用概念，每个概念需要大约 15 分钟左右来完成。这是我们按顺序推荐的章节（请随意跳转到您感兴趣的章节）。
 ---
 
-# What's next
-Congratulation! You have just completed an essential chapter for developing with Elysia.
+# 下一步是什么
+恭喜你！您刚刚完成了与 Elysia 开发相关的一个重要章节。
 
-Essential chapter cover a basic building block, however there are some several useful concepts you might want to read, each take less ~15 minutes to complete.
+基本章节涵盖了基本构建模块，但还有一些你可能想要阅读的有用概念，每个概念需要大约 15 分钟左右来完成。
 
-Here's a recommended chapters we recommended in order (Feels free to jump to the chapter you are interested first).
+这是我们按顺序推荐的章节 (请随意跳转到您感兴趣的章节)。
 
 <script setup>
     import Card from '../../components/nearl/card.vue'
@@ -27,40 +27,40 @@ Here's a recommended chapters we recommended in order (Feels free to jump to the
 </script>
 
 <Deck>
-    <Card title="Validation" href="/validation/overview">
-        Schema to enforce data type
+    <Card title="验证" href="/validation/overview">
+        强制执行数据类型的模式
     </Card>
-    <Card title="Life Cycle" href="/life-cycle/overview">
-        Intercept correct order for each request
+    <Card title="生命周期" href="/life-cycle/overview">
+        拦截每个请求的正确顺序
     </Card>
-    <Card title="Plugin" href="/plugins/overview">
-        Checkout plugins and ecosystem
+    <Card title="插件" href="/plugins/overview">
+        查看插件和生态系统
     </Card>
     <Card title="Eden" href="/eden/overview">
-        Integrate your frontend with E2E type safety
+        将您的前端与端到端类型安全集成。
     </Card>
-    <Card title="MVC model" href="/patterns/mvc">
-        Using MVC model with Elysia
+    <Card title="MVC 模型" href="/patterns/mvc">
+        与 Elysia 一起使用 MVC 模型
     </Card>
-    <Card title="Cheat sheet" href="/integrations/cheat-sheet">
-        A quick overview of Elysia
+    <Card title="速查表" href="/integrations/cheat-sheet">
+        Elysia 的快速概述
     </Card>
 </Deck>
 
-## If you are stuck
+## 如果你被卡住了
 
-Feels free to ask our community on GitHub Discussions, Discord, and Twitter, if you have any further question.
+如果您有任何进一步的问题，请随时在 GitHub Discussions、Discord 和 Twitter 上询问我们的社区。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        Official ElysiaJS discord community server
+        ElysiaJS 官方 discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        Track update and status of Elysia
+        跟踪 Elysia 的更新和状态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
-        Source code and development
+        源代码和开发
     </Card>
 </Deck>
 
-We wish you happy on your journey with Elysia ❤️
+我们祝愿你和 Elysia 一起的旅程愉快 ❤️

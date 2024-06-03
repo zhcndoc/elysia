@@ -39,8 +39,8 @@ head:
     <Card title="Eden" href="/eden/overview">
         用于 Elysia 的端到端类型安全客户端
     </Card>
-    <Card title="Cheat sheet" href="/integrations/cheat-sheet">
-        A quick overview of Elysia
+    <Card title="速查表" href="/integrations/cheat-sheet">
+        Elysia 的快速参考
     </Card>
 </Deck>
 

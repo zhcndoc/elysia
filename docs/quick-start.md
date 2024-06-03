@@ -44,7 +44,7 @@ cd app
 bun dev
 ```
 
-导航到 [localhost:3000](http://localhost:3000) 应该会用 "Hello Elysia" 向你打招呼。
+导航到 [localhost:3000](http://localhost:3000) 应该会用 “Hello Elysia” 向你打招呼。
 
 ::: tip
 Elysia 使用 `dev` 命令为你自动重新加载服务器文件更改。
@@ -96,6 +96,6 @@ bun add elysia
     - **setup.ts** - 由各种插件组成，可用作服务定位器
     - **controllers** - 封装多个端点的实例
     - **libs** - 功能函数
-    - **models** - Elysia 实例的数据类型对象（DTO）
-    - **types** - 共享 TypeScript 类型（可选）
+    - **models** - Elysia 实例的数据类型对象 (DTO)
+    - **types** - 共享 TypeScript 类型 (可选)
 - **test** - Elysia 服务器的测试文件

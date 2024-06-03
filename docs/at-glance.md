@@ -48,7 +48,7 @@ new Elysia()
     .listen(3000)
 ```
 
-打开 [localhost:3000](http://localhost:3000/)，结果应该显示 "Hello Elysia"。
+打开 [localhost:3000](http://localhost:3000/)，结果应该显示 “Hello Elysia”。
 
 <Playground 
     :elysia="demo1"
@@ -75,9 +75,9 @@ new Elysia()
 
 ## 性能
 
-在 Bun 和静态代码分析（Static Code Analysis）等广泛优化的基础上，Elysia 可以快速生成优化代码。
+在 Bun 和静态代码分析 (Static Code Analysis) 等广泛优化的基础上，Elysia 可以快速生成优化代码。
 
-Elysia 的性能超过了当今大多数网络框架<a href="#ref-1"><sup>[1]</sup></a>，甚至可以媲美 Golang 和 Rust 框架<a href="#ref-2"><sup>[2]</sup></a>。
+Elysia 的性能超过了当今大多数网络框架 <a href="#ref-1"><sup>[1]</sup></a>，甚至可以媲美 Golang 和 Rust 框架 <a href="#ref-2"><sup>[2]</sup></a>。
 
 | Framework     | Runtime | Average     | Plain Text | Dynamic Parameters | JSON Body  |
 | ------------- | ------- | ----------- | ---------- | ------------------ | ---------- |
@@ -110,7 +110,7 @@ new Elysia()
     .listen(3000)
 ```
 
-上述代码创建了一个路径参数 "id"，替换 `:id` 的值将在运行时和类型中都被传递到 `params.id`，无需手动声明类型。
+上述代码创建了一个路径参数 “id”，替换 `:id` 的值将在运行时和类型中都被传递到 `params.id`，无需手动声明类型。
 
 <Playground 
     :elysia="demo2"
@@ -147,10 +147,10 @@ new Elysia()
     .listen(3000)
 ```
 
-这段代码确保我们的路径参数 **id** 将始终是一个数字字符串，并且会在运行时和编译时（类型级别）自动转换为数字。
+这段代码确保我们的路径参数 **id** 将始终是一个数字字符串，并且会在运行时和编译时 (类型级别) 自动转换为数字。
 
 ::: tip
-在上面的代码片段中将鼠标悬停在 "id" 上以查看类型定义。
+在上面的代码片段中将鼠标悬停在 “id” 上以查看类型定义。
 :::
 
 通过 Elysia 模式构建器，我们可以像具有单一真实来源的强类型语言一样确保类型安全。
@@ -181,7 +181,7 @@ new Elysia()
 
 对于 Elysia，类型安全不仅限于服务器端。
 
-有了 Elysia，你就可以利用 Elysia 的客户端库 "Eden"，像 tRPC 一样与前端团队自动同步类型。
+有了 Elysia，你就可以利用 Elysia 的客户端库 “Eden”，像 tRPC 一样与前端团队自动同步类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -256,6 +256,6 @@ Elysia 的设计**不局限于 Bun**。由于[兼容 WinterCG](https://wintercg.
 
 ---
 
-<small id="ref-1">1. 以请求/秒为单位进行测量。 Debian 11、Intel i7-13700K 上解析查询、路径参数和设置响应标头的基准测试于 2023 年 8 月 6 日在 Bun 0.7.2 上进行测试。请参阅[此处的](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)基准测试条件。</small>
+<small id="ref-1">1。以请求/秒为单位进行测量。Debian 11、Intel i7-13700K 上解析查询、路径参数和设置响应标头的基准测试于 2023 年 8 月 6 日在 Bun 0.7.2 上进行测试。请参阅[此处的](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)基准测试条件。</small>
 
-<small id="ref-2">2. 基于 [TechEmpower 基准测试第 22 轮](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>
+<small id="ref-2">2。基于 [TechEmpower 基准测试第 22 轮](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>

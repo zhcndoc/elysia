@@ -90,8 +90,8 @@ Elysia 的设计目标是模块化和轻量级。
 -   [Elysia Auth Drizzle](https://github.com/qlaffont/elysia-auth-drizzle) - 使用 JWT (Header/Cookie/QueryParam) 处理认证的库。
 -   [graceful-server-elysia](https://github.com/qlaffont/graceful-server-elysia) - 受 [graceful-server](https://github.com/gquittet/graceful-server) 启发的库。
 -   [Logixlysia](https://github.com/PunGrumpy/logixlysia) - 一个漂亮而简单的带有颜色和时间戳的 ElysiaJS 日志中间件。
--   [Elysia Fault](https://github.com/vitorpldev/elysia-fault) - A simple and customizable error handling middleware with the possibility of creating your own HTTP errors
--   [Elysia Compress](https://github.com/vermaysha/elysia-compress) - ElysiaJS plugin to compress responses inspired by [@fastify/compress](https://github.com/fastify/fastify-compress)
+-   [Elysia Fault](https://github.com/vitorpldev/elysia-fault) - 一个简单且可定制的错误处理中间件，可以创建您自己的 HTTP 错误。
+-   [Elysia Compress](https://github.com/vermaysha/elysia-compress) - ElysiaJS 插件，受 [@fastify/compress](https://github.com/fastify/fastify-compress) 启发，用于压缩响应。
 
 ---
 

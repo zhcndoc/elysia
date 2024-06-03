@@ -39,12 +39,12 @@
     "react": "^18.3.1",
     "view-transitions-api-types": "^0.1.1",
     "vitepress": "^1.1.4",
-    "vue": "^3.4.27"
+    "vue": "^3.4.27",
+    "zhlint": "^0.8.1"
   },
   "scripts": {
+    "zhlint": "zhlint 'docs/**/*.md' --fix",
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "serve": "vitepress serve docs",
-    "zhlint-fix": "zhlint 'docs/{api,eden,essential,integrations,life-cycle,patterns,plugins,validation}/**/*.md' --fix"
+    "build": "vitepress build docs"
   }
 }

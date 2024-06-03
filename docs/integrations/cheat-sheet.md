@@ -264,7 +264,7 @@ new Elysia()
 ```
 
 ## OpenAPI 文档
-使用 Scalar（或可选的 Swagger）创建交互式文档
+使用 Scalar (或可选的 Swagger) 创建交互式文档
 
 查看 [Documentation](/patterns/documentation)
 

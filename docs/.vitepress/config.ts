@@ -6,10 +6,10 @@ const description =
     '适合人体工程学的框架，由 Bun 提供支持的 TypeScript 框架，具有端到端类型安全、统一的类型系统和出色的开发人员体验。'
 
 export default defineConfig({
-    lang: 'zh-Hans',
+    lang: 'zh-CN',
     title: 'Elysia 中文文档',
     titleTemplate: ':title - Elysia 中文文档',
-    // description,
+    description,
     ignoreDeadLinks: true,
     lastUpdated: true,
     markdown: {
@@ -19,7 +19,6 @@ export default defineConfig({
         },
         codeTransformers: [transformerTwoslash()]
     },
-    // ![INFO] uncomment for support hot reload on WSL - https://github.com/vitejs/vite/issues/1153#issuecomment-785467271
     vite: {
         server: {
             watch: {
@@ -79,7 +78,7 @@ export default defineConfig({
             'meta',
             {
                 property: 'og:image',
-                content: 'https://elysiajs.com/assets/cover.jpg'
+                content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
             }
         ],
         [
@@ -107,7 +106,7 @@ export default defineConfig({
             'meta',
             {
                 property: 'twitter:image',
-                content: 'https://elysiajs.com/assets/cover.jpg'
+                content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
             }
         ],
         [
@@ -122,6 +121,13 @@ export default defineConfig({
             {
                 property: 'og:description',
                 content: description
+            }
+        ],
+        [
+            'meta',
+            {
+                name: 'baidu-site-verification',
+                content: 'codeva-u9Z5ZSJCBu'
             }
         ],
         [
@@ -158,13 +164,10 @@ export default defineConfig({
                                 startScreen: {
                                     recentSearchesTitle: '搜索历史',
                                     noRecentSearchesText: '没有搜索历史',
-                                    saveRecentSearchButtonTitle:
-                                        '保存至搜索历史',
-                                    removeRecentSearchButtonTitle:
-                                        '从搜索历史中移除',
+                                    saveRecentSearchButtonTitle: '保存至搜索历史',
+                                    removeRecentSearchButtonTitle: '从搜索历史中移除',
                                     favoriteSearchesTitle: '收藏',
-                                    removeFavoriteSearchButtonTitle:
-                                        '从收藏中移除'
+                                    removeFavoriteSearchButtonTitle: '从收藏中移除'
                                 },
                                 errorScreen: {
                                     titleText: '无法获取结果',
@@ -179,8 +182,7 @@ export default defineConfig({
                                 noResultsScreen: {
                                     noResultsText: '无法找到相关结果',
                                     suggestedQueryText: '你可以尝试查询',
-                                    reportMissingResultsText:
-                                        '你认为该查询应该有结果？',
+                                    reportMissingResultsText: '你认为该查询应该有结果？',
                                     reportMissingResultsLinkText: '点击反馈'
                                 }
                             }
@@ -192,7 +194,7 @@ export default defineConfig({
         logo: '/assets/elysia.svg',
         nav: [
             {
-                text: 'Cheat Sheet',
+                text: '速查表',
                 link: '/integrations/cheat-sheet'
             },
             {
@@ -522,21 +524,15 @@ export default defineConfig({
                         text: 'Drizzle',
                         link: '/integrations/drizzle'
                     }
-                    // {
-                    //     text: 'Cheat Sheet',
-                    //     link: '/integrations/cheat-sheet'
-                    // }
                 ]
             }
         ],
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/elysiajs/elysia' },
-            { icon: 'twitter', link: 'https://twitter.com/elysiajs' },
-            { icon: 'discord', link: 'https://discord.gg/eaFJ2KDJck' }
+            { icon: 'github', link: 'https://github.com/elysiajs/elysia' }
         ],
         editLink: {
-            text: '在 GitHub 上编辑此页面',
-            pattern: 'https://github.com/ikxin/elysia/edit/main/docs/:path'
+            text: '在 GitHub 上查看此页面',
+            pattern: 'https://github.com/zhcndoc/elysia/tree/main/docs/:path'
         },
         docFooter: {
             prev: '上一页',
@@ -545,7 +541,6 @@ export default defineConfig({
         outline: {
             label: '页面导航'
         },
-
         lastUpdated: {
             text: '最后更新于',
             formatOptions: {
