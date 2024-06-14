@@ -57,12 +57,12 @@ new Elysia()
 
 我们可以通过 **http://localhost:3000** 来访问 Web 服务器
 
+默认情况下，Web 浏览器在访问页面时将发送 GET 方法。
+
 <Playground :elysia="demo1" />
 
 ::: tip
-默认情况下，Web 浏览器在访问页面时会发送 GET 方法。
-
-这就是使用浏览器访问 GET 路由的原因。
+使用上面的交互式浏览器，在蓝色高亮区域悬停以查看每条路径之间的不同结果
 :::
 
 ## HTTP Verb

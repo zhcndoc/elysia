@@ -208,7 +208,7 @@ export default defineConfig({
         ],
         sidebar: [
             {
-                text: '👋 入门',
+                text: '入门',
                 collapsed: true,
                 items: [
                     {
@@ -226,7 +226,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '✨ 基础',
+                text: '基础',
                 collapsed: true,
                 items: [
                     {
@@ -268,7 +268,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🔎 校验',
+                text: '校验',
                 collapsed: true,
                 items: [
                     {
@@ -298,7 +298,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '⏳ 生命周期',
+                text: '生命周期',
                 collapsed: true,
                 items: [
                     {
@@ -344,7 +344,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🧭 模式',
+                text: '模式',
                 collapsed: true,
                 items: [
                     {
@@ -390,7 +390,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🪴 Eden',
+                text: 'Eden',
                 collapsed: true,
                 items: [
                     {
@@ -442,62 +442,67 @@ export default defineConfig({
                 ]
             },
             {
-                text: '🔌 插件',
-                link: '/plugins/overview',
-                collapsed: true,
+                text: '插件',
                 items: [
                     {
-                        text: 'Bearer',
-                        link: '/plugins/bearer'
-                    },
-                    {
-                        text: 'CORS',
-                        link: '/plugins/cors'
-                    },
-                    {
-                        text: 'Cron',
-                        link: '/plugins/cron'
-                    },
-                    {
-                        text: 'GraphQL Apollo',
-                        link: '/plugins/graphql-apollo'
-                    },
-                    {
-                        text: 'GraphQL Yoga',
-                        link: '/plugins/graphql-yoga'
-                    },
-                    {
-                        text: 'HTML',
-                        link: '/plugins/html'
-                    },
-                    {
-                        text: 'JWT',
-                        link: '/plugins/jwt'
-                    },
-                    {
-                        text: 'Server Timing',
-                        link: '/plugins/server-timing'
-                    },
-                    {
-                        text: 'Static',
-                        link: '/plugins/static'
-                    },
-                    {
-                        text: 'Stream',
-                        link: '/plugins/stream'
-                    },
-                    {
-                        text: 'Swagger',
-                        link: '/plugins/swagger'
-                    },
-                    {
-                        text: 'trpc',
-                        link: '/plugins/trpc'
+                        text: '官方插件',
+                        link: '/plugins/overview',
+                        collapsed: true,
+                        items: [
+                            {
+                                text: 'Bearer',
+                                link: '/plugins/bearer'
+                            },
+                            {
+                                text: 'CORS',
+                                link: '/plugins/cors'
+                            },
+                            {
+                                text: 'Cron',
+                                link: '/plugins/cron'
+                            },
+                            {
+                                text: 'GraphQL Apollo',
+                                link: '/plugins/graphql-apollo'
+                            },
+                            {
+                                text: 'GraphQL Yoga',
+                                link: '/plugins/graphql-yoga'
+                            },
+                            {
+                                text: 'HTML',
+                                link: '/plugins/html'
+                            },
+                            {
+                                text: 'JWT',
+                                link: '/plugins/jwt'
+                            },
+                            {
+                                text: 'Server Timing',
+                                link: '/plugins/server-timing'
+                            },
+                            {
+                                text: 'Static',
+                                link: '/plugins/static'
+                            },
+                            {
+                                text: 'Stream',
+                                link: '/plugins/stream'
+                            },
+                            {
+                                text: 'Swagger',
+                                link: '/plugins/swagger'
+                            },
+                            {
+                                text: 'trpc',
+                                link: '/plugins/trpc'
+                            }
+                        ]
                     }
                 ]
             },
             {
-                text: '📦 集成',
+                text: '集成',
                 collapsed: true,
                 items: [
                     {
