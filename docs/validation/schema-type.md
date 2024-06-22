@@ -289,7 +289,7 @@ import { Elysia, t } from 'elysia'
 
 new Elysia()
     .get('/', ({ cookie }) => cookie.session.value, {
-        cookie: t.Object({
+        cookie: t.Cookie({
             session: t.String()
         })
     })
