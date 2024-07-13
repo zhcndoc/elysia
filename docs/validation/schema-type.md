@@ -47,7 +47,7 @@ Elysia 支持以下类型的声明式模式：
     <Card title="Query" href="#query">
         查询字符串或 URL 参数
     </Card>
-    <Card title="Params" href="#query">
+    <Card title="Params" href="#params">
         路径参数
     </Card>
     <Card title="Header" href="#header">

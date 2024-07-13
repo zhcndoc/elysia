@@ -260,9 +260,7 @@ new Elysia()
     })
 ```
 
-你可以使用 [Elysia.decorate](/essential/context#decorate) 将类实例嵌入到 Elysia 中，是否这样做取决于你的情况。
-
-使用 [Elysia.decorate](/essential/context#decorate) 相当于在 NestJS 中使用**依赖注入**：
+你可以使用 [Elysia.decorate](/essential/context#decorate) 将类实例嵌入 Elysia 中，也可以不这样做，这取决于你的用例。
 
 ```typescript
 // 使用依赖注入
