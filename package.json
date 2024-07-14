@@ -45,6 +45,6 @@
   "scripts": {
     "zhlint": "zhlint 'docs/**/*.md' --fix",
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs"
+    "build": "NODE_OPTIONS='--max_old_space_size=6144' vitepress build docs"
   }
 }
