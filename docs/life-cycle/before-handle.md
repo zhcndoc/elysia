@@ -33,7 +33,7 @@ head:
 
 ```typescript twoslash
 // @filename: user.ts
-export const validateSession = (a: string): boolean => true
+export const validateSession = (a?: string): boolean => true
 
 // @filename: index.ts
 // ---cut---
@@ -63,7 +63,7 @@ new Elysia()
 
 ```typescript twoslash
 // @filename: user.ts
-export const validateSession = (a: string): boolean => true
+export const validateSession = (a?: string): boolean => true
 export const isUserExists = (a: unknown): boolean => true
 export const signUp = (body: unknown): boolean => true
 export const signIn = (body: unknown): boolean => true
@@ -71,10 +71,10 @@ export const signIn = (body: unknown): boolean => true
 // @filename: index.ts
 // ---cut---
 import { Elysia } from 'elysia'
-import { 
+import {
     signUp,
     signIn,
-    validateSession, 
+    validateSession,
     isUserExists
 } from './user'
 
@@ -168,7 +168,7 @@ new Elysia()
 ```typescript twoslash
 // @filename: user.ts
 export const isSignIn = (body: any): boolean | undefined => true
-export const findUserById = (id: string) => id
+export const findUserById = (id?: string) => id
 
 // @filename: index.ts
 // ---cut---

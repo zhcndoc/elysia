@@ -30,9 +30,6 @@ new Elysia()
 
         // Set
         name.value = "New Value"
-        name.value = {
-            hello: 'world'
-        }
     })
 ```
 
@@ -152,7 +149,7 @@ new Elysia()
         }
     }, {
         cookie: t.Cookie({
-            value: t.Optional(
+            name: t.Optional(
                 t.Object({
                     id: t.Numeric(),
                     name: t.String()

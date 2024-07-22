@@ -16,53 +16,44 @@ head:
 
 # Trace
 
-Trace 是一个用于测量服务器性能的 API。
-
-Trace 允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
-
-![Trace 使用示例](/assets/trace.webp)
-
 性能是 Elysia 的重要方面。
 
 我们不仅仅希望在基准测试中快速，更希望你在实际场景中拥有一个真正快速的服务器。
 
-有许多因素可能导致应用程序变慢，很难识别它们，但是 **trace** 可以帮助解决这个问题
+There are many factors that can slow down our app - and it's hard to identify them, but **trace** can helps solve that problem by injecting start and stop code to each life-cycle.
+
+Trace allows us to inject code to before and after of each life-cycle event, block and interact with the execution of the function.
 
 ## Trace
+Trace use a callback listener to ensure that callback function is finished before moving on to the next lifecycle event.
 
-Trace 可以测量每个函数的生命周期执行时间，以审核每个周期的性能瓶颈。
+To use `trace`, you need to call `trace` method on the Elysia instance, and pass a callback function that will be executed for each life-cycle event.
+
+You may listen to each lifecycle by adding `on` prefix follows by life-cycle name, for example `onHandle` to listen to `handle` event.
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-    .trace(async ({ handle }) => {
-        const { time, end } = await handle
-
-        console.log('handle took', (await end) - time)
+    .trace(async ({ onHandle }) => {
+	    onHandle(({ begin, onStop }) => {
+			onStop(({ end }) => {
+        		console.log('handle took', end - begin, 'ms')
+			})
+	    })
     })
     .get('/', () => 'Hi')
     .listen(3000)
 ```
 
-你可以追踪以下生命周期：
+Please refer to [Life Cycle Events](/essential/life-cycle#events) for more information:
 
--   **request** - 获取每个新请求的通知
--   **parse** - 用于解析请求主体的函数数组
--   **transform** - 在验证之前转换请求和上下文
--   **beforeHandle** - 在主处理程序之前的自定义要求，如果返回响应，可以跳过主处理程序。
--   **handle** - 分配给路径的函数
--   **afterHandle** - 将返回值映射到适当的响应
--   **error** - 处理处理请求过程中抛出的错误
--   **response** - 将响应发送回客户端
-
-有关更多信息，请参阅[生命周期事件](/essential/life-cycle#events)：
-
-![Elysia 生命周期](/assets/lifecycle.webp)
+![Elysia Life Cycle](/assets/lifecycle.webp)
 
 ## Children
+Every events except `handle` have a children, which is an array of events that are executed inside for each life-cycle event.
 
-你可以通过使用生命周期事件的 **children** 属性来深入了解并测量每个生命周期事件的每个函数
+You can use `onEvent` to listen to each child event in order
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -71,14 +62,16 @@ const sleep = (time = 1000) =>
     new Promise((resolve) => setTimeout(resolve, time))
 
 const app = new Elysia()
-    .trace(async ({ beforeHandle }) => {
-        const { children } = await beforeHandle
+    .trace(async ({ onBeforeHandle }) => {
+        onBeforeHandle(({ total, onEvent }) => {
+            console.log('total children:', total)
 
-        for (const child of children) {
-            const { time: start, end, name } = await child
-
-            console.log(name, 'took', (await end) - start, 'ms')
-        }
+            onEvent(({ onStop }) => {
+                onStop(({ elapsed }) => {
+                    console.log('child took', elapsed, 'ms')
+                })
+            })
+        })
     })
     .get('/', () => 'Hi', {
         beforeHandle: [
@@ -91,86 +84,116 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-::: tip
-除了 `handle` 之外，每个生命周期都支持子级
-:::
+In this example, total children will be `2` because there are 2 children in the `beforeHandle` event.
 
-## Name
+Then we listen to each child event by using `onEvent` and print the duration of each child event.
 
-通过索引来测量函数可能很难追溯到函数代码，这就是为什么 trace 提供了一个 **name** 属性，以便通过名称轻松识别函数。
+## Trace Parameter
+When each lifecycle is called
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-	.trace(async ({ beforeHandle }) => {
-        const { children } = await beforeHandle
-
-		for (const child of children) {
-			const { name } = await child
-
-			console.log(name)
-            // setup
-            // anonymous
-		}
+	// This is trace parameter
+	// hover to view the type
+	.trace((parameter) => {
 	})
-	.get('/', () => 'Hi', {
-		beforeHandle: [
-			function setup() {},
-			() => {}
-		]
-	})
+	.get('/', () => 'Hi')
 	.listen(3000)
 ```
 
-::: tip
-如果你使用箭头函数或匿名函数，**name** 将变为 **“anonymous”**
-:::
+`trace` accept the following parameters:
 
-## Set
+### id - `number`
+Randomly generated unique id for each request
 
-在 trace 回调中，你可以访问请求的 `Context`，并可以修改请求本身的值，例如使用 `set.headers` 更新标头。
+### context - `Context`
+Elysia's [Context](/essential/context), eg. `set`, `store`, `query, `params`
 
-这在你需要支持类似 Server-Timing 的 API 时非常有用。
+### set - `Context.set`
+Shortcut for `context.set`, to set a headers or status of the context
 
-![Trace 使用示例](/assets/server-timing.webp)
+### store - `Singleton.store`
+Shortcut for `context.store`, to access a data in the context
+
+### time - `number`
+Timestamp of when request is called
+
+### on[Event] - `TraceListener`
+An event listener for each life-cycle event.
+
+You may listen to the following life-cycle:
+-   **onRequest** - get notified of every new request
+-   **onParse** - array of functions to parse the body
+-   **onTransform** - transform request and context before validation
+-   **onBeforeHandle** - custom requirement to check before the main handler, can skip the main handler if response returned.
+-   **onHandle** - function assigned to the path
+-   **onAfterHandle** - interact with the response before sending it back to the client
+-   **onMapResponse** - map returned value into a Web Standard Response
+-   **onError** - handle error thrown during processing request
+-   **onAfterResponse** - cleanup function after response is sent
+
+## Trace Listener
+A listener for each life-cycle event
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-    .trace(async ({ handle, set }) => {
-        const { time, end } = await handle
+	.trace(({ onBeforeHandle }) => {
+		// This is trace listener
+		// hover to view the type
+		onBeforeHandle((parameter) => {
 
-        set.headers['Server-Timing'] = `handle;dur=${(await end) - time}`
-    })
-    .get('/', () => 'Hi')
-    .listen(3000)
+		})
+	})
+	.get('/', () => 'Hi')
+	.listen(3000)
 ```
 
-::: tip
-在 `trace` 中使用 `set` 可能会影响性能，因为 Elysia 将执行推迟到下一个微任务。
-:::
+Each lifecycle listener accept the following
 
-## Skip
+### name - `string`
+The name of the function, if the function is anonymous, the name will be `anonymous`
 
-有时，`beforeHandle` 或处理程序可能会抛出错误，跳过某些生命周期的执行。
+### begin - `number`
+The time when the function is started
 
-默认情况下，如果发生这种情况，每个生命周期都将自动解析，并且你可以使用 `skip` 属性跟踪 API 是否执行或未执行
+### end - `Promise<number>`
+The time when the function is ended, will be resolved when the function is ended
+
+### error - `Promise<Error | null>`
+Error that was thrown in the lifecycle, will be resolved when the function is ended
+
+### onStop - `callback?: (detail: TraceEndDetail) => any`
+A callback that will be executed when the lifecycle is ended
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-    .trace(async ({ handle, set }) => {
-        const { time, end, skip } = await handle
-
-        console.log(skip)
-    })
-    .get('/', () => 'Hi', {
-        beforeHandle() {
-            throw new Error("I'm a teapot")
-        }
-    })
-    .listen(3000)
+	.trace(({ onBeforeHandle, set }) => {
+		onBeforeHandle(({ onStop }) => {
+			onStop(({ elapsed }) => {
+				set.headers['X-Elapsed'] = elapsed.toString()
+			})
+		})
+	})
+	.get('/', () => 'Hi')
+	.listen(3000)
 ```
+
+It's recommended to mutate context in this function as there's a lock mechanism to ensure the context is mutate successfully before moving on to the next lifecycle event
+
+## TraceEndDetail
+A parameter that passed to `onStop` callback
+
+### end - `number`
+The time when the function is ended
+
+### error - `Error | null`
+Error that was thrown in the lifecycle
+
+### elapsed - `number`
+Elapsed time of the lifecycle or `end - begin`

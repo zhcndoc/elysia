@@ -142,7 +142,7 @@ const app = new Elysia()
 
 ## 预定义模式
 
-可以使用 `@elysiajs/cron/schelude` 中的预定义模式。
+可以使用 `@elysiajs/cron/schedule` 中的预定义模式。
 
 ```typescript
 import { Elysia } from 'elysia'

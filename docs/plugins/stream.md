@@ -15,6 +15,11 @@ head:
 ---
 
 # Stream Plugin
+
+::: warning
+This plugin is in maintenance mode and will not receive new features. We recommend using the [Generator Stream instead](/patterns/stream)
+:::
+
 这个插件为客户端添加了流响应或发送服务器推送事件的支持。
 
 安装方法：
@@ -110,14 +115,14 @@ const model = '@cf/meta/llama-2-7b-chat-int8'
 const endpoint = `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/ai/run/${model}`
 
 new Elysia()
-    .get('/ai', ({ query: { prompt } }) => 
+    .get('/ai', ({ query: { prompt } }) =>
         fetch(endpoint, {
             method: 'POST',
-            headers: { 
+            headers: {
                 authorization: `Bearer ${API_TOKEN}`,
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 messages: [
                     { role: 'system', content: 'You are a friendly assistant' },
                     { role: 'user', content: prompt }

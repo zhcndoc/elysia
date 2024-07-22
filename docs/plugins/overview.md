@@ -34,6 +34,7 @@ Elysia 的设计目标是模块化和轻量级。
 -   [GraphQL Yoga](/plugins/graphql-yoga) - 在 Elysia 上运行 [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga)
 -   [HTML](/plugins/html) - 处理 HTML 响应
 -   [JWT](/plugins/jwt) - 使用 [JWT](https://jwt.io/) 进行身份验证
+-   [OpenTelemetry](/plugins/opentelemetry) - add support for OpenTelemetry
 -   [Server Timing](/plugins/server-timing) - 使用 [Server-Timing API](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) 审计性能瓶颈
 -   [Static](/plugins/static) - 提供静态文件/文件夹服务
 -   [Stream](/plugins/stream) - 集成响应流和[服务器推送事件 (SSEs)](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)

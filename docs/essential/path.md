@@ -34,13 +34,17 @@ const demo2 = new Elysia()
     .get('/id/:id/:name', ({ params: { id, name } }) => id + ' ' + name)
 
 const demo3 = new Elysia()
+	.get('/id', () => `id: undefined`)
+    .get('/id/:id', ({ params: { id } }) => `id: ${id}`)
+
+const demo4 = new Elysia()
     .get('/id/:id', ({ params: { id } }) => id)
     .get('/id/123', '123')
     .get('/id/anything', 'anything')
     .get('/id', ({ error }) => error(404))
     .get('/id/:id/:name', ({ params: { id, name } }) => id + '/' + name)
 
-const demo4 = new Elysia()
+const demo5 = new Elysia()
     .get('/id/1', () => 'static path')
     .get('/id/:id', () => 'dynamic path')
     .get('/id/*', () => 'wildcard path')
@@ -95,6 +99,8 @@ new Elysia()
     .listen(3000)
 ```
 
+<br>
+
 我们用 `/id/:id` 创建了一个动态路径，它告诉 Elysia 匹配 `/id` 之前的任何路径，而 `/id` 之后的路径可以是任何值，然后将其存储为 **params** 对象。
 
 <Playground
@@ -106,7 +112,7 @@ new Elysia()
     '/id/:id': {
       GET: '1'
     }
-  }" 
+  }"
 />
 
 当请求时，服务器应返回如下响应：
@@ -160,6 +166,8 @@ new Elysia()
     .listen(3000)
 ```
 
+<br>
+
 <Playground
   :elysia="demo2"
   :alias="{
@@ -173,7 +181,7 @@ new Elysia()
     '/id/:id/:name': {
       GET: 'anything rest'
     }
-  }" 
+  }"
 />
 
 向服务器发出请求应返回如下响应：
@@ -186,6 +194,41 @@ new Elysia()
 | /id/anything?name=salt | anything      |
 | /id                    | Not Found     |
 | /id/anything/rest      | anything rest |
+
+## Optional path parameters
+Sometime we might want a static and dynamic path to resolve the same handler.
+
+We can make a path parameter optional by adding a question mark `?` after the parameter name.
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+new Elysia()
+    .get('/id/:id?', ({ params: { id } }) => `id ${id}`)
+                          // ^?
+    .listen(3000)
+```
+
+<br>
+
+<Playground
+  :elysia="demo3"
+  :alias="{
+    '/id/:id': '/id/1'
+  }"
+  :mock="{
+    '/id/:id': {
+      GET: 'id 1'
+    },
+  }"
+/>
+
+The server will respond as follows:
+
+| Path                   | Response      |
+| ---------------------- | ------------- |
+| /id                    | id undefined  |
+| /id/1                  | id 1          |
 
 ## 通配符
 
@@ -204,8 +247,10 @@ new Elysia()
     .listen(3000)
 ```
 
+<br>
+
 <Playground
-  :elysia="demo3"
+  :elysia="demo4"
   :alias="{
     '/id/:id': '/id/1',
     '/id/:id/:name': '/id/anything/rest'
@@ -217,7 +262,7 @@ new Elysia()
     '/id/:id/:name': {
       GET: 'anything/rest'
     }
-  }" 
+  }"
 />
 
 向服务器发送请求应返回如下响应：
@@ -267,7 +312,7 @@ new Elysia()
 ```
 
 <Playground
-  :elysia="demo4"
+  :elysia="demo5"
     :alias="{
     '/id/:id': '/id/2',
     '/id/*': '/id/2/a'
@@ -276,7 +321,7 @@ new Elysia()
     '/id/*': {
       GET: 'wildcard path'
     }
-  }" 
+  }"
 />
 
 向服务器发送请求应返回如下响应：

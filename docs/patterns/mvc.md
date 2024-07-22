@@ -38,8 +38,8 @@ const Service = {
     do2(v?: string) {}
 }
 // ---cut---
-import { Elysia } from 'elysia'
- 
+import { Elysia, t } from 'elysia'
+
 // ❌ 不要这样做：
 new Elysia()
     .get('/', Controller.hi)
@@ -50,6 +50,10 @@ new Elysia()
     .get('/', ({ query: { name } }) => {
         Service.do1(name)
         Service.do2(name)
+    }, {
+    	query: t.Object({
+			name: t.String()
+     	})
     })
 ```
 
@@ -377,7 +381,7 @@ new Elysia()
 ```tsx twoslash
 import React from 'react'
 // ---cut---
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 
 abstract class Render {
     static root(name?: string) {
@@ -388,6 +392,10 @@ abstract class Render {
 new Elysia()
     .get('/', ({ query: { name } }) => {
         return Render.root(name)
+    }, {
+    	query: t.Object({
+			name: t.String()
+		})
     })
 ```
 

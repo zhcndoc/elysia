@@ -75,3 +75,25 @@ const submit = async (name: string) => {
 
 否则，响应将传递给 data。
 :::
+
+## Stream response
+Eden will will interpret a stream response as `AsyncGenerator` allowing us to use `for await` loop to consume the stream.
+
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+import { treaty } from '@elysiajs/eden'
+
+const app = new Elysia()
+	.get('/ok', function* () {
+		yield 1
+		yield 2
+		yield 3
+	})
+
+const { data, error } = await treaty(app).ok.get()
+if (error) throw error
+
+for await (const chunk of data)
+	console.log(chunk)
+```

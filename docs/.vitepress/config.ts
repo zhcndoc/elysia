@@ -44,22 +44,6 @@ export default defineConfig({
     },
 
     head: [
-        ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-        [
-            'link',
-            {
-                rel: 'preconnect',
-                href: 'https://fonts.gstatic.com',
-                crossorigin: ''
-            }
-        ],
-        [
-            'link',
-            {
-                href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
-                rel: 'stylesheet'
-            }
-        ],
         [
             'meta',
             {
@@ -334,8 +318,8 @@ export default defineConfig({
                         link: '/life-cycle/on-error'
                     },
                     {
-                        text: 'On Response',
-                        link: '/life-cycle/on-response'
+                        text: 'After Response',
+                        link: '/life-cycle/after-response'
                     },
                     {
                         text: 'Trace',
@@ -386,6 +370,10 @@ export default defineConfig({
                     {
                         text: 'MVC 模式',
                         link: '/patterns/mvc'
+                    },
+                    {
+                        text: 'Stream',
+                        link: '/patterns/stream'
                     }
                 ]
             },
@@ -443,61 +431,63 @@ export default defineConfig({
             },
             {
                 text: '插件',
+                collapsed: true,
                 items: [
                     {
-                        text: '官方插件',
-                        link: '/plugins/overview',
-                        collapsed: true,
-                        items: [
-                            {
-                                text: 'Bearer',
-                                link: '/plugins/bearer'
-                            },
-                            {
-                                text: 'CORS',
-                                link: '/plugins/cors'
-                            },
-                            {
-                                text: 'Cron',
-                                link: '/plugins/cron'
-                            },
-                            {
-                                text: 'GraphQL Apollo',
-                                link: '/plugins/graphql-apollo'
-                            },
-                            {
-                                text: 'GraphQL Yoga',
-                                link: '/plugins/graphql-yoga'
-                            },
-                            {
-                                text: 'HTML',
-                                link: '/plugins/html'
-                            },
-                            {
-                                text: 'JWT',
-                                link: '/plugins/jwt'
-                            },
-                            {
-                                text: 'Server Timing',
-                                link: '/plugins/server-timing'
-                            },
-                            {
-                                text: 'Static',
-                                link: '/plugins/static'
-                            },
-                            {
-                                text: 'Stream',
-                                link: '/plugins/stream'
-                            },
-                            {
-                                text: 'Swagger',
-                                link: '/plugins/swagger'
-                            },
-                            {
-                                text: 'trpc',
-                                link: '/plugins/trpc'
-                            }
-                        ]
+                        text: 'Overview',
+                        link: '/plugins/overview'
+                    },
+                    {
+                        text: 'Bearer',
+                        link: '/plugins/bearer'
+                    },
+                    {
+                        text: 'CORS',
+                        link: '/plugins/cors'
+                    },
+                    {
+                        text: 'Cron',
+                        link: '/plugins/cron'
+                    },
+                    {
+                        text: 'GraphQL Apollo',
+                        link: '/plugins/graphql-apollo'
+                    },
+                    {
+                        text: 'GraphQL Yoga',
+                        link: '/plugins/graphql-yoga'
+                    },
+                    {
+                        text: 'HTML',
+                        link: '/plugins/html'
+                    },
+                    {
+                        text: 'JWT',
+                        link: '/plugins/jwt'
+                    },
+                    {
+                        text: 'OpenTelemetry',
+                        link: '/plugins/opentelemetry'
+                    },
+                    {
+                        text: 'Server Timing',
+                        link: '/plugins/server-timing'
+                    },
+                    {
+                        text: 'Static',
+                        link: '/plugins/static'
+                    },
+                    {
+                        text: 'Stream',
+                        link: '/plugins/stream'
+                    },
+                    {
+                        text: 'Swagger',
+                        link: '/plugins/swagger'
+                    },
+                    {
+                        text: 'trpc',
+                        link: '/plugins/trpc'
                     }
                 ]
             },
