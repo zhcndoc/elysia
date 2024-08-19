@@ -28,10 +28,10 @@ TypeBox API 的设计与 TypeScript 类型类似。
 import { Elysia, t } from 'elysia'
 
 new Elysia()
-    .get('/', () => 'Hello World!', {
-        body: t.String()
-    })
-    .listen(3000)
+  .post('/', ({ body }) => `Hello ${body}`, {
+    body: t.String(),
+  })
+  .listen(3000);
 ```
 
 这段代码告诉 Elysia 验证传入的 HTTP 请求体，确保请求体是字符串，如果是字符串，则允许其通过请求管道和处理程序。

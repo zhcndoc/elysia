@@ -7,16 +7,16 @@ head:
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性，以及显著提升的开发体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
+        content: Eden Treaty 是对 Elysia 服务器的对象样式表示，提供端到端类型安全性和显着改进的开发人员体验。通过 Eden，我们可以从 Elysia 服务器全面类型安全地获取 API，而无需进行代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性，以及显著提升的开发体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
+        content: Eden Treaty 是对 Elysia 服务器的对象样式表示，提供端到端类型安全性和显着改进的开发人员体验。通过 Eden，我们可以从 Elysia 服务器全面类型安全地获取 API，而无需进行代码生成。
 ---
 
 # Eden Treaty
 
-Eden Treaty 是一种对象表示，用于与服务器交互，具有类型安全性、自动完成和错误处理。
+Eden Treaty 是用于与服务器进行交互的对象表示，具有类型安全、自动完成和错误处理功能。
 
 要使用 Eden Treaty，首先导出您现有的 Elysia 服务器类型：
 
@@ -38,7 +38,7 @@ const app = new Elysia()
 export type App = typeof app // [!code ++]
 ```
 
-然后导入服务器类型，并在客户端使用 Elysia API：
+然后在客户端导入服务器类型并使用 Elysia API。
 
 ```typescript twoslash
 // @filename: server.ts
@@ -71,13 +71,13 @@ const { data, error } = await app.hi.get()
 
 ## 类似树的语法
 
-HTTP 路径是文件系统树的资源指示器。
+HTTP 路径是文件系统树的资源指示符。
 
-文件系统由多个级别的文件夹组成，例如：
+文件系统由多层文件夹组成，例如：
 
-- /documents/elysia
-- /documents/kalpas
-- /documents/kelvin
+-   /documents/elysia
+-   /documents/kalpas
+-   /documents/kelvin
 
 每个级别由 **/** (斜杠) 和一个名称分隔。
 
@@ -91,7 +91,7 @@ Eden Treaty 将 Elysia 服务器转换成类似文件系统树的系统，以便
 | /hi          | .hi          |
 | /deep/nested | .deep.nested |
 
-结合 HTTP 方法，允许我们完全与 Elysia 服务器交互。
+结合 HTTP 方法，我们可以与 Elysia 服务器进行交互。
 
 | Path         | Method | Treaty              |
 | ------------ | ------ | ------------------- |
@@ -102,18 +102,18 @@ Eden Treaty 将 Elysia 服务器转换成类似文件系统树的系统，以便
 
 ## 动态路径
 
-然而，动态路径参数不能通过符号表示表达，如果完全替换，我们就不知道参数名称应该是什么。
+然而，不能使用符号表示动态路径参数。如果完全替换它们，我们就不知道参数名称应该是什么。
 
 ```typescript
-// ❌ 不清楚值应该代表什么？
-treaty.item['skadi']
+// ❌ 不清楚这个值应该代表什么？
+treaty.item['skadi'].get()
 ```
 
-为了处理这个问题，我们可以使用函数来指定动态路径，提供键值对。
+为了处理这个问题，我们可以使用一个函数来指定动态路径，以提供一个键值。
 
 ```typescript
 // ✅ 清楚值是动态路径 'name'
-treaty.item({ name: 'Skadi' })
+treaty.item({ name: 'Skadi' }).get()
 ```
 
 | Path            | Treaty                           |

@@ -76,8 +76,6 @@ new Elysia()
 
 ## 上下文
 
-`onAfterHandle` 上下文扩展自 `Context`，具有以下额外属性：
+`onAfterHandle` 上下文从 `Context` 扩展，具有额外的 `response` 属性，该属性是要返回给客户端的响应。
 
-- response：要返回给客户端的响应
-
-所有上下文都基于普通上下文，并且可以像在路由处理程序中使用普通上下文一样使用。
+`onAfterHandle` 上下文基于正常上下文，可以像路由处理程序中的正常上下文一样使用。

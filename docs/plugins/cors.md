@@ -84,7 +84,7 @@ new Elysia()
     - 例如：`['Content-Type', 'Authorization']`
 
 ---
-### exposedHeaders
+### exposeHeaders
 @default `*`
 
 响应中公开指定标头的 CORS。

@@ -45,11 +45,15 @@ Elysia 的设计目标是模块化和轻量级。
 ## 社区插件
 
 -   [BunSai](https://github.com/levii-pires/bunsai2) - 针对 Web 的全栈无关框架，基于 Bun 和 Elysia 构建
+-   [Create ElysiaJS](https://github.com/kravetsone/create-elysiajs) - scaffolding your Elysia project with the environment with easy (help with ORM, Linters and Plugins)!
 -   [Lucia Auth](https://github.com/pilcrowOnPaper/lucia) - 身份验证，简单干净
 -   [Elysia Clerk](https://github.com/wobsoriano/elysia-clerk) - 非官方的 Clerk 身份验证插件
 -   [Elysia Polyfills](https://github.com/bogeychan/elysia-polyfills) - 在 Node.js 和 Deno 上运行 Elysia 生态系统
+-   [Vite server](https://github.com/kravetsone/elysia-vite-server) - plugin which start and decorate [`vite`](https://vitejs.dev/) dev server in `development` and in `production` mode serve static (if it needed)
 -   [Vite](https://github.com/timnghg/elysia-vite) - 使用 Vite 注入脚本来提供入口 HTML 文件服务
 -   [Nuxt](https://github.com/trylovetom/elysiajs-nuxt) - 轻松集成 elysia 到 nuxt！
+-   [Remix](https://github.com/kravetsone/elysia-remix) - use [Remix](https://remix.run/) with `HMR` support (powered by [`vite`](https://vitejs.dev/))! Close a really long-standing plugin request [#12](https://github.com/elysiajs/elysia/issues/12)
+-   [Connect middleware](https://github.com/kravetsone/elysia-connect-middleware) - plugin which allows you to use [`express`](https://www.npmjs.com/package/express)/[`connect`](https://www.npmjs.com/package/connect) middleware directly in Elysia!
 -   [Elysia Helmet](https://github.com/DevTobias/elysia-helmet) - 使用各种 HTTP 标头保护 Elysia 应用
 -   [Vite Plugin SSR](https://github.com/timnghg/elysia-vite-plugin-ssr) - 使用 Elysia 服务器的 Vite SSR 插件
 -   [OAuth 2.0](https://github.com/kravetsone/elysia-oauth2) - 用于 [OAuth 2.0](https://en.wikipedia.org/wiki/OAuth) 授权流程的插件，支持 **42** 个以上的提供商和**类型安全**！
@@ -62,8 +66,9 @@ Elysia 的设计目标是模块化和轻量级。
 -   [Elylog](https://github.com/eajr/elylog) - 简单的 stdout 日志库，带有一些自定义功能
 -   [Elysia Lambda](https://github.com/TotalTechGeek/elysia-lambda) - 在 AWS Lambda 上部署
 -   [Decorators](https://github.com/gaurishhs/elysia-decorators) - 使用 TypeScript 装饰器
--   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysiajs.com/eden/overview.html) 生成类型
+-   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysiajs.com/eden/overview.html) 生成类型 with [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage) support
 -   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许您使用 [MessagePack](https://msgpack.org) 进行操作
+    [XML](https://github.com/kravetsone/elysia-xml) - allows you to work with XML
 -   [Autoroutes](https://github.com/wobsoriano/elysia-autoroutes) - 文件系统路由
 -   [Group Router](https://github.com/itsyoboieltr/elysia-group-router) - 基于文件系统和文件夹的路由器，用于分组
 -   [Basic Auth](https://github.com/itsyoboieltr/elysia-basic-auth) - 基本的 HTTP 身份验证
@@ -94,6 +99,11 @@ Elysia 的设计目标是模块化和轻量级。
 -   [Elysia Fault](https://github.com/vitorpldev/elysia-fault) - 一个简单且可定制的错误处理中间件，可以创建您自己的 HTTP 错误。
 -   [Elysia Compress](https://github.com/vermaysha/elysia-compress) - ElysiaJS 插件，受 [@fastify/compress](https://github.com/fastify/fastify-compress) 启发，用于压缩响应。
 
+-   [@labzzhq/compressor](https://github.com/labzzhq/compressor/) - Compact Brilliance, Expansive Results: HTTP Compressor for Elysia and Bunnyhop with gzip, deflate and brotli support.
+-   [Elysia Accepts](https://github.com/morigs/elysia-accepts) - Elysia plugin for accept headers parsing and content negotiation
+-   [Elysia Compression](https://github.com/chneau/elysia-compression) - Elysia plugin for compressing responses
+-   [Elysia Logger](https://github.com/chneau/elysia-logger) - Elysia plugin for logging HTTP requests and responses inspired by [hono/logger](https://hono.dev/docs/middleware/builtin/logger)
+-   [Elysia CQRS](https://github.com/jassix/elysia-cqrs) - Elysia plugin for CQRS pattern
 ---
 
 如果您为 Elysia 编写了插件，请随时点击下方**在 GitHub 上编辑此页面**添加您的插件到列表中 👇

@@ -16,11 +16,11 @@ head:
 
 # MVC 模式
 
-Elysia 是一个无模式的框架，我们将编码模式的决定权交给你和你的团队。
+Elysia 是一个与模式无关的框架，我们将决策交给您和您的团队，以确定要使用的编码模式。
 
-然而，我们发现有一些人在 Elysia 上使用 MVC 模式 ([模型-视图-控制器](https://zh.wikipedia.org/wiki/模型-视图-控制器))，并发现它很难解耦并处理类型。
+然而，我们发现有一些人正在 Elysia 上使用 MVC 模式（[模型-视图-控制器]((https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller))），并发现它很难解耦和处理不同类型。
 
-本页面是使用 MVC 模式使用 Elysia 的指南。
+本页面是使用 MVC 模式在 Elysia 上的指南。
 
 ## 控制器
 
@@ -226,9 +226,9 @@ new Elysia()
     })
 ```
 
-如果你的 Service 不需要存储属性，可以使用 `abstract class` 和 `static` 来避免分配类实例。
+如果您的服务不需要存储属性，则可以使用 `abstract class` 和 `static`，而不是分配一个类实例。
 
-但是，如果你的 Service 涉及本地变异，例如缓存，你可能需要初始化一个实例。
+但是，如果您的服务涉及本地变异，例如缓存，您可能希望初始化一个实例。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -284,9 +284,9 @@ export class AppController {
 
 ### 请求相关的 Service
 
-如果你的 Service 将在多个实例中使用，或者可能需要一些来自请求的属性。我们建议创建一个专用的 Elysia 实例作为 **Service**。
+如果您的服务将在多个实例中使用，或者可能需要一些来自请求的属性，我们建议创建一个专用的 Elysia 实例作为 **Service**。
 
-Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此你不必担心性能问题，因为如果指定了 **“name”** 属性，它将成为单例。
+Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此您无需担心性能，如果指定了 **“name”** 属性，它将是一个单例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -317,9 +317,9 @@ const UserController = new Elysia()
 
 ## 模型
 
-Model 或 [DTO](https://zh.wikipedia.org/wiki/数据传输对象) (数据传输对象) 由 [Elysia.t](/validation/overview.html#data-validation) (验证) 处理。
+模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object)由 [Elysia.t（验证）](/validation/overview.html#data-validation)处理。
 
-我们建议使用 [Elysia 引用模型](/validation/reference-model.html#reference-model)或为每个模块创建 DTO 的对象或类。
+我们推荐使用 [Elysia 参考模型](/validation/reference-model.html#reference-model)或为每个模块创建一个 DTO 的对象或类。
 
 1. 使用 Elysia 的模型引用
 

@@ -172,12 +172,13 @@ new Elysia()
 
 验证方法如下：
 
-| Body | Validation |
-| --- | --------- |
-| \{ name: 'Elysia' \} | ✅ |
-| \{ name: 1 \} | ❌ |
-| \{ alias: 'Elysia' \} | ❌ |
-| `undefined` | ❌ |
+| Query | Validation |
+| ---- | --------- |
+| /?name=Elysia | ✅ |
+| /?name=1 | ✅ |
+| /?alias=Elysia | ❌ |
+| /?name=ElysiaJS&alias=Elysia | ✅ |
+| / | ❌ |
 
 ## Params
 

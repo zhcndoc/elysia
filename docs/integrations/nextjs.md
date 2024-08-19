@@ -23,7 +23,7 @@ head:
 3. 使用想要公开的方法名称导出处理程序。
 
 ```typescript twoslash
-// app/[[...slugs]]/route.ts
+// app/api/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia({ prefix: '/api' })
