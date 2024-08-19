@@ -40,12 +40,11 @@
     "react": "^18.3.1",
     "view-transitions-api-types": "^0.1.1",
     "vitepress": "^1.2.3",
-    "vue": "^3.4.30",
-    "zhlint": "^0.8.1"
+    "vue": "^3.4.30"
   },
   "scripts": {
-    "zhlint": "zhlint 'docs/**/*.md' --fix",
     "dev": "vitepress dev docs",
-    "build": "NODE_OPTIONS='--max_old_space_size=6144' vitepress build docs"
+    "build": "NODE_OPTIONS='--max_old_space_size=8192' vitepress build docs",
+    "serve": "vitepress serve docs"
   }
 }
