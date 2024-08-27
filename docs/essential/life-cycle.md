@@ -18,23 +18,21 @@ head:
 
 在 Express 中也称为中间件，在 Fastify 中称为 Hook。
 
-假设我们要返回 HTML 文本。
+假设我们要返回一些 HTML 文本。
 
 我们需要将 `Content-Type` 头设置为 `text/html`，以便浏览器渲染 HTML。
 
 如果有很多处理程序 (例如约 200 个端点)，明确指定响应为 HTML 可能会造成重复。
 
-我们可以看到，只指定响应为 HTML 的代码是重复的。
+这可能会导致大量重复代码，只是为了指定 **"text/html"** **"Content-Type"**。
 
-但如果在发送响应后，我们可以检测响应是否为 HTML 字符串，然后自动添加标题呢？
+但是，如果在我们发送响应后，我们可以检测到响应是一个 HTML 字符串，然后自动附加标头呢？
 
 这就是生命周期概念发挥作用的时候了。
 
 ---
 
-生命周期允许我们拦截重要事件，并自定义 Elysia 的行为，例如自动添加 HTML 头信息。
-
-Elysia 的生命周期事件可如下图所示。
+生命周期允许我们拦截重要事件，并自定义 Elysia 的行为，比如自动添加一个 HTML Content-Type 头。
 
 ![Elysia Life Cycle Graph](/assets/lifecycle.webp)
 

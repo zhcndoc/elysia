@@ -82,7 +82,7 @@ const demo7 = new Elysia()
 
 # Context
 
-Context 是传递给[路由处理程序](/handler)的请求信息。
+Context 是传递给[路由处理程序](/essential/handler)的请求信息。
 
 每个请求的上下文都是唯一的，除了存储是全局可变的 `store` 之外，上下文是不可共享的。
 

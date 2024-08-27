@@ -15,7 +15,6 @@ head:
 ---
 
 # 响应
-
 一旦调用 fetch 方法，Eden Treaty 返回一个 Promise，其对象如下：
 - data - 响应返回值 (2xx)
 - error - 响应返回值 (>= 3xx)
@@ -23,7 +22,7 @@ head:
 - status `number` - HTTP 状态码
 - headers `FetchRequestInit['headers']` - 响应的头部
 
-返回后，您必须提供错误处理以确保值真正返回以访问该值，否则该值将是可空的。
+一旦返回，您必须提供错误处理以确保响应数据值被解封装，否则该值将为空。Elysia 提供了 `error()` 辅助函数来处理错误，而 Eden 将为错误值提供类型缩小。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -62,22 +61,22 @@ const submit = async (name: string) => {
                 throw error.value
         }
 
-    // 一旦错误被处理，类型将被展开
-    // 类型: string
+    // Once the error is handled, type will be unwrapped
+    // type: string
     return data
 }
 ```
 
-默认情况下，Elysia 将自动推断错误和响应类型到 TypeScript，并且伊甸将提供自动完成和类型缩小以实现准确的行为。
+默认情况下，Elysia 将自动推断 `error` 和 `response` 类型到 TypeScript，并且伊甸将提供自动完成和类型缩小以实现准确的行为。
 
 ::: tip
-如果服务器响应的 HTTP 状态 >= 300，那么值将始终为 null，并且错误将有返回值。
+如果服务器响应的 HTTP 状态码大于等于 300，则 value 将始终为 null，`error` 将返回一个值。
 
 否则，响应将传递给 data。
 :::
 
-## Stream response
-Eden will will interpret a stream response as `AsyncGenerator` allowing us to use `for await` loop to consume the stream.
+## 流响应
+Eden 将解释流响应为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
 
 
 ```typescript twoslash
