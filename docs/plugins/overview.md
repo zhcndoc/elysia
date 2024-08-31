@@ -44,7 +44,7 @@ Elysia 的设计目标是模块化和轻量级。
 
 ## 社区插件
 
--   [BunSai](https://github.com/levii-pires/bunsai2) - 针对 Web 的全栈无关框架，基于 Bun 和 Elysia 构建
+-   [BunSai](https://github.com/nikiskaarup/bunsai2) - 针对 Web 的全栈无关框架，基于 Bun 和 Elysia 构建
 -   [Create ElysiaJS](https://github.com/kravetsone/create-elysiajs) - scaffolding your Elysia project with the environment with easy (help with ORM, Linters and Plugins)!
 -   [Lucia Auth](https://github.com/pilcrowOnPaper/lucia) - 身份验证，简单干净
 -   [Elysia Clerk](https://github.com/wobsoriano/elysia-clerk) - 非官方的 Clerk 身份验证插件

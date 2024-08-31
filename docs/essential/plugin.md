@@ -173,7 +173,7 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-<Playground :elysia="demo3" />
+<Playground :elysia="demo2" />
 
 一旦传递给 `Elysia.use`，函数回调的行为与普通插件无异，只是属性会直接赋值。
 
