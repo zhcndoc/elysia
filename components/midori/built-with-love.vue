@@ -1,13 +1,16 @@
 <template>
     <footer
-        class="flex justify-center items-center gap-4 text-sm text-gray-400 dark:text-gray-400 my-4"
+        class="flex flex-col justify-center items-center gap-4 text-sm text-gray-400 dark:text-gray-400 mt-8 mb-4"
     >
-            <a rel="nofollow" target="__blank" href="https://zeabur.com?referralCode=ikxin&amp;utm_source=ikxin" data-astro-cid-35ed7um5="">
-                Deployed on Zeabur
+        <p>
+            <a target="_blank" href="https://www.zhcndoc.com?ref=elysia">
+                简中文档
             </a>
-            <a rel="nofollow" target="__blank" href="https://beian.miit.gov.cn" data-astro-cid-35ed7um5="">
+            -
+            <a target="_blank" href="https://beian.miit.gov.cn">
                 沪ICP备2024070610号-3
             </a>
+        </p>
     </footer>
 </template>
 

@@ -11,7 +11,7 @@ import Editor from './editor.vue'
 import Plugins from './plugins.vue'
 import Community from './community.vue'
 import QuickStart from './quickstart.vue'
-// import Sponsor from './sponsor.vue'
+import Sponsor from './sponsor.vue'
 
 import '../tailwind.css'
 import './midori.css'
@@ -63,9 +63,9 @@ import BuiltWithLove from './built-with-love.vue'
                         <source src="/assets/elysia.mp4" />
                     </video>
                 </template>
-            </Suspense> -->
+            </Suspense>
             <Community />
-            <!-- <Sponsor /> -->
+            <Sponsor /> -->
             <hr class="border-gray-200 dark:border-gray-600" />
             <figure
                 class="max-w-6xl w-full mx-auto rounded-2xl overflow-hidden my-12 shadow-xl bg-gray-50 dark:bg-gray-800"
