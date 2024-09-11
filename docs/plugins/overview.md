@@ -104,6 +104,7 @@ Elysia 的设计目标是模块化和轻量级。
 -   [Elysia Compression](https://github.com/chneau/elysia-compression) - Elysia plugin for compressing responses
 -   [Elysia Logger](https://github.com/chneau/elysia-logger) - Elysia plugin for logging HTTP requests and responses inspired by [hono/logger](https://hono.dev/docs/middleware/builtin/logger)
 -   [Elysia CQRS](https://github.com/jassix/elysia-cqrs) - Elysia plugin for CQRS pattern
+-   [Nice Logger](https://github.com/tanishqmanuja/nice-logger) - Not the nicest, but a pretty nice and sweet logger for Elysia.
 
 ## Complementaray projects:
 -   [prismabox](https://github.com/m1212e/prismabox) - Generator for typebox schemes based on your database models, works well with elysia
