@@ -103,7 +103,7 @@ new Elysia()
 提供的 `body` 与 `fetch` API 中的 `body` 相同。应根据定义的 body 设置相应的内容类型。
 
 ```typescript twoslash
-fetch('https://elysiajs.com', {
+fetch('https://elysia.zhcndoc.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -150,7 +150,7 @@ new Elysia()
 在 Fetch API 中的 `?` 后面提供查询。
 
 ```typescript twoslash
-fetch('https://elysiajs.com/?name=Elysia')
+fetch('https://elysia.zhcndoc.com/?name=Elysia')
 ```
 
 在指定查询参数时，必须了解所有查询参数值都必须用字符串表示。这是因为它们是如何编码并附加到 URL 中的。
@@ -197,7 +197,7 @@ Elysia 使用带冒号 `:` 的段前缀
 **通常不需要这个字段，因为 Elysia 可以自动从路径参数中推断出类型**，除非需要特定的值模式，例如数值或模板字面模式。
 
 ```typescript twoslash
-fetch('https://elysiajs.com/id/1')
+fetch('https://elysia.zhcndoc.com/id/1')
 ```
 
 ### 示例
@@ -233,7 +233,7 @@ HTTP 头信息可让客户端和服务器通过 HTTP 请求或响应传递附加
 
 
 ```typescript twoslash
-fetch('https://elysiajs.com/', {
+fetch('https://elysia.zhcndoc.com/', {
     headers: {
         authorization: 'Bearer 12345'
     }
@@ -278,7 +278,7 @@ HTTP cookie 是服务器发送给客户端的一小段数据，它是每次访�
 Cookie 是一种特殊的标头字段，Fetch API 不接受自定义值，而是由浏览器管理。要发送 cookie，必须使用 `credentials` 字段：
 
 ```typescript twoslash
-fetch('https://elysiajs.com/', {
+fetch('https://elysia.zhcndoc.com/', {
     credentials: 'include'
 })
 ```

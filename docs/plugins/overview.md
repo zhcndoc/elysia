@@ -65,7 +65,7 @@ Elysia 被设计为模块化和轻量级的。
 -   [Elylog](https://github.com/eajr/elylog) - 带有一些自定义的简单标准输出日志库
 -   [Elysia Lambda](https://github.com/TotalTechGeek/elysia-lambda) - 在 AWS Lambda 上部署
 -   [Decorators](https://github.com/gaurishhs/elysia-decorators) - 使用 TypeScript 装饰器
--   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysiajs.com/eden/overview.html) 生成类型，支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
+-   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysia.zhcndoc.com/eden/overview.html) 生成类型，支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
 -   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许您使用 [MessagePack](https://msgpack.org)
     [XML](https://github.com/kravetsone/elysia-xml) - 允许您处理 XML
 -   [Autoroutes](https://github.com/wobsoriano/elysia-autoroutes) - 文件系统路由

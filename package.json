@@ -43,7 +43,7 @@
     "vue": "^3.4.30"
   },
   "scripts": {
-    "dev": "vitepress dev docs",
+    "dev": "NODE_OPTIONS='--max_old_space_size=8192' vitepress dev docs",
     "build": "NODE_OPTIONS='--max_old_space_size=8192' vitepress build docs",
     "serve": "vitepress serve docs"
   }

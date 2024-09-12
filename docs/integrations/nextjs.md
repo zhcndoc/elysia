@@ -42,7 +42,7 @@ export const POST = app.handle // [!code ++]
 
 你可以将 Elysia 服务器视为普通的 Next.js API 路由。
 
-使用这种方法，你可以在单个代码仓库中同时拥有前端和后端，并使用 [Eden 进行端到端类型安全的开发](https://elysiajs.com/eden/overview.html)，包括客户端和服务器端操作。
+使用这种方法，你可以在单个代码仓库中同时拥有前端和后端，并使用 [Eden 进行端到端类型安全的开发](https://elysia.zhcndoc.com/eden/overview.html)，包括客户端和服务器端操作。
 
 请参阅 [Next.js 路由处理程序](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers)获取更多信息。
 

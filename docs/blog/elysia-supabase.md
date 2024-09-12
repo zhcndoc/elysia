@@ -1,28 +1,28 @@
 ---
-title: Elysia with Supabase. Your next backend at sonic speed
+title: Elysia 与 Supabase - 使用声速般的速度创建下一个后端
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia with Supabase. Your next backend at sonic speed
+        content: Elysia 与 Supabase - 使用声速般的速度创建下一个后端
 
     - - meta
       - name: 'description'
-        content: Elysia, and Supabase are a great match for rapidly developing prototype in less than a hour, let's take a look of how we can take advantage of both.
+        content: Elysia 和 Supabase 是快速开发原型工具的绝佳匹配，让我们来看看如何利用这两者的优势。
 
     - - meta
       - property: 'og:description'
-        content: Elysia, and Supabase are a great match for rapidly developing prototype in less than a hour, let's take a look of how we can take advantage of both.
+        content: Elysia 和 Supabase 是快速开发原型工具的绝佳匹配，让我们来看看如何利用这两者的优势。
 
     - - meta
       - property: 'og:image'
-        content: https://elysiajs.com/blog/elysia-supabase/elysia-supabase.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-supabase/elysia-supabase.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysiajs.com/blog/elysia-supabase/elysia-supabase.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-supabase/elysia-supabase.webp
 ---
 
 <script setup>
@@ -30,20 +30,20 @@ head:
 </script>
 
 <Blog
-  title="Elysia with Supabase. Your next backend at sonic speed"
+  title="Elysia 与 Supabase - 使用声速般的速度创建下一个后端"
   src="/blog/elysia-supabase/elysia-supabase.webp"
-  alt="Elysia and Supabase resembance as a CPU place closely together"
+  alt="Elysia 和 Supabase 像 CPU 一样紧密相拥"
   author="saltyaom"
-  date="10 Mar 2023"
+  date="2023 年 3 月 10 日"
 >
 
-Supabase, an Open Source alternative to Firebase, has become one of the developers' favorite toolkits known for rapid development.
+Supabase，一个开源的 Firebase 替代品，已经成为开发者们最喜爱的工具之一，因其快速开发而闻名。
 
-Featuring PostgreSQL, ready-to-use user authentication, Serverless Edge function, Cloud Storage, and more, ready to use.
+它提供了 PostgreSQL、现成的用户认证、无服务器边缘函数、云存储等功能，而且这些功能都是即用的。
 
-Because Supabase already has pre-built and composed the situation where you find yourself redoing the same feature for the 100th time into less than 10 lines of code.
+Supabase 已经预构建和组合了你可能需要重复 100 次的相同特性，只需要不到 10 行的代码。
 
-For example, authentication, which would take require you to rewrite a hundred lines of code for every project you did to just:
+例如，认证功能，你可能需要在每个项目中重写 100 行代码，而现在，你只需要：
 
 ```ts
 supabase.auth.signUp(body)
@@ -51,60 +51,60 @@ supabase.auth.signUp(body)
 supabase.auth.signInWithPassword(body)
 ```
 
-Then Supabase will handle the rest, confirming email by sending a confirmation link, or authentication with a magic link or OTP, securing your database with row-level authentication, you name it.
+Supabase 会处理剩下的工作，包括发送确认邮件、使用魔法链接或一次性密码进行认证，以及使用行级认证来保护你的数据库，等等。
 
-Things that take many hours to redo in every project are now a matter of a minute to accomplish.
+许多需要数小时重复的操作，现在只需几分钟就能完成。
 
 ## Elysia
 
-If you haven't heard, Elysia is a Bun-first web framework built with speed and Developer Experience in mind.
+如果你还没有听说过 Elysia，它是一个以速度和开发者体验为核心的 Bun-first 网络框架。
 
-Elysia outperforms Express by nearly ~20x faster, while having almost the same syntax as Express and Fastify. 
+Elysia 的性能比 Express 快了近 20 倍，同时几乎与 Express 和 Fastify 拥有相同的语法。
 
-###### (Performance may vary per machine, we recommended you run [the benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark) on your machine before deciding the performance)
+(性能可能会有所不同，我们建议你在你自己的机器上运行[基准测试](https://github.com/SaltyAom/bun-http-framework-benchmark)，然后再决定性能。)
 
-Elysia has a very snappy Developer Experience.
-Not only that you can define a single source of truth for type, but also detects and warns when you accidentally create a change in data.
+Elysia 提供了一个非常流畅的开发者体验。
+不仅可以定义单一的类型来源，还能在数据发生变化时发出警告。
 
-All done in a declaratively small line of code.
+这一切都是在声明式的少行代码中完成的。
 
-## Setting things up
+## 设置
 
-You can use Supabase Cloud for a quick start.
+你可以使用 Supabase Cloud 来快速开始。
 
-Supabase Cloud will handle setting up the database, scaling, and all things you need in the Cloud in a single click.
+Supabase Cloud 将为你设置数据库、扩展和云中的一切，只需单击一下。
 
-<img class="-png" src="/blog/elysia-supabase/supabase-web.webp" alt="Supabase landing page" />
+<img class="-png" src="/blog/elysia-supabase/supabase-web.webp" alt="Supabase 首页" />
 
-Creating a project, you should see something like this, fill all the requests you need, and if you're in Asia, Supabase has a server in Singapore and Tokyo
+创建项目时，你将看到类似这样的页面，填写你所需的所有请求。如果你在亚洲，Supabase 在新加坡和东京都有服务器。
 
-##### (sometimes this is a tie-breaker for developers living in Asia because of latency)
+##### 有时这是对亚洲开发者的一个决定性因素，因为它们有助于降低延迟。
 
-<img class="-png" src="/blog/elysia-supabase/supabase-create-project.webp" alt="Creating new Supabase project" />
+<img class="-png" src="/blog/elysia-supabase/supabase-create-project.webp" alt="创建新的 Supabase 项目" />
 
-After creating a project, you should greet with a welcome screen where you can copy the project URL and service role.
+创建项目后，您应该在欢迎页面上打招呼，您可以在那里复制项目 URL 和服务角色。
 
-Both are use to indicate which Supabase project you're using in your project.
+两者都用于指示您在项目中使用的 Supabase 项目。
 
-And if you missed the welcome page, you navigate to **Settings > API**, copy **Project URL** and **Project API keys**
+如果你错过了欢迎页面，你可以导航到**设置 > API**，复制**项目 URL** 和**项目 API 密钥**。
 
 <img class="-png" src="/blog/elysia-supabase/supabase-config.webp" alt="Supabase Config Page" />
 
-Now in your command line, you can start creating the Elysia project by running:
+现在，在命令行中，你可以创建 Elysia 项目，运行：
 
 ```bash
 bun create elysia elysia-supabase
 ```
 
-The last argument is our folder name for Bun to create, feel free to change the name to anything you like.
+最后一个参数是我们想让 Bun 创建的文件夹名称，你可以根据自己的喜好更改名称。
 
-Now, **cd** into our folder, as we are going to use a newer feature in Elysia 0.3 (RC), we need to install the Elysia RC channel first, and let's grab a cookie plugin and Supabase client that we are going to use later here too.
+现在，**cd** 进入我们的文件夹。由于我们将使用 Elysia 0.3 (RC) 中的一个新特性，我们首先需要安装 Elysia RC 频道，并且让我们也安装我们将使用的 cookie 插件和 Supabase 客户端。
 
 ```bash
 bun add elysia@rc @elysiajs/cookie@rc @supabase/supabase-js
 ```
 
-Let's create a **.env** file to load our Supabase service load as a secret.
+让我们创建一个**。env** 文件来加载我们的 Supabase 服务加载作为密钥。
 
 ```bash
 # .env
@@ -112,9 +112,9 @@ supabase_url=https://********************.supabase.co
 supabase_service_role=**** **** **** ****
 ```
 
-You don't have to install any plugin to load the env file as Bun load **.env** file by default
+你不需要安装任何插件来加载环境文件，因为 Bun 默认加载**。env** 文件。
 
-Now let's open our project in our favorite IDE, and create a file inside `src/libs/supabase.ts`
+现在，打开我们的项目，创建一个文件在 `src/libs/supabase.ts`。
 
 ```ts
 // src/libs/supabase.ts
@@ -125,15 +125,15 @@ const { supabase_url, supabase_service_role } = process.env
 export const supabase = createClient(supabase_url!, supabase_service_role!)
 ```
 
-And that's it! That's all you need to set up Supabase and a Elysia project.
+就这样！这就是你设置 Supabase 和 Elysia 项目所需的所有内容。
 
-Now let's dive into implementation!
+现在，让我们开始实现！
 
-## Authentication
+## 认证
 
-Now let's create authentication routes separated from the main file.
+现在，让我们创建一个认证路由，与主要文件分开。
 
-Inside `src/modules/authen.ts`, let's create an outline for our routes first.
+创建 `src/modules/authen.ts` 文件，首先为我们的路由创建一个轮廓。
 
 ```ts
 // src/modules/authen.ts
@@ -143,15 +143,15 @@ const authen = (app: Elysia) =>
     app.group('/auth', (app) =>
         app
             .post('/sign-up', () => {
-                return 'This route is expected to sign up a user'
+                return '这个路由预期用于注册用户'
             })
             .post('/sign-in', () => {
-                return 'This route is expected to sign in a user'
+                return '这个路由预期用于登录用户'
             })
     )
 ```
 
-And now, let's apply Supabase to authenticate our user.
+现在，让我们使用 Supabase 来实现用户认证。
 
 ```ts
 // src/modules/authen.ts
@@ -167,7 +167,7 @@ const authen = (app: Elysia) =>
                 if (error) return error // [!code ++]
 
                 return data.user // [!code ++]
-                return 'This route is expected to sign up a user' // [!code --]
+                return '这个路由预期用于注册用户' // [!code --]
             })
             .post('/sign-in', async ({ body }) => {
                 const { data, error } = await supabase.auth.signInWithPassword( // [!code ++]
@@ -177,16 +177,16 @@ const authen = (app: Elysia) =>
                 if (error) return error // [!code ++]
  // [!code ++]
                 return data.user // [!code ++]
-                return 'This route is expected to sign in a user' // [!code --]
+                return '这个路由预期用于登录用户' // [!code --]
             })
     )
 ```
 
-And- done! That's all it needs to create **sign-in** and **sign-up** route for our user.
+而且-完成！这就是创建用户的**登录**和**注册**路由所需要的全部内容。
 
-But we have a little problem here, you see, our route can accept **any** body and put it into a Supabase parameter, even an invalid one.
+但是我们这里有个小问题，你看，我们的路由可以接受**任何**请求主体并将其放入 Supabase 参数中，即使是无效的请求主体。
 
-So, to make sure that we put the correct data, we can define a schema for our body.
+因此，为了确保我们放入正确的数据，我们可以为请求主体定义一个模式。
 
 ```ts
 // src/modules/authen.ts
@@ -244,17 +244,17 @@ const authen = (app: Elysia) =>
     )
 ```
 
-And now we declare a schema in both **sign-in** and **sign-up**, Elysia is going to make sure that an incoming body is going to have the same form as we declare, preventing an invalid argument from passing into `supabase.auth`.
+现在我们在**登录**和**注册**中声明一个模式，Elysia 会确保传入的数据体与我们声明的形式相同，以防止无效参数传入 `supabase.auth`。
 
-Elysia also understands the schema, so instead of declaring TypeScript's type separately, Elysia types the `body` automatically as the schema you defined.
+Elysia 也了解模式，因此她不需要单独声明 TypeScript 的类型，而是自动将 `body` 类型定义为您定义的模式。
 
-So if you accidentally create a breaking change in the future, Elysia going to warn you about the data type.
+因此，如果您意外地在将来创建了一个破坏性的变更，Elysia 会提醒您有关数据类型。
 
-The code we have are great, it did the job that we expected, but we can step it up a little bit further.
+我们拥有的代码很棒，它完成了我们预期的工作，但我们可以再进一步。
 
-You see, both **sign-in** and **sign-up** accept the same shape of data, in the future, you might also find yourself duplicating a long schema in multiple routes.
+您知道，**登录**和**注册**都接受相同形状的数据，在未来，您可能会发现自己在多个路由中重复一个很长的模式。
 
-We can fix that by telling Elysia to memorize our schema, then we can use by telling Elysia the name of the schema we want to use.
+我们可以通过告诉 Elysia 记住我们的模式来解决这个问题，然后告诉 Elysia 我们要使用哪个模式的名字。
 
 ```ts
 // src/modules/authen.ts
@@ -323,25 +323,25 @@ const authen = (app: Elysia) =>
     )
 ```
 
-Great! We have just used name reference on our route!
+太棒了！我们刚刚在路由中使用了名称引用。
 
 ::: tip
-If you found yourself with a long schema, you can declare them in a separate file and re-use them in any Elysia route to put the focus back on business logic instead.
+如果你发现自己在长 schema 中，你可以在一个单独的文件中声明它们，然后在任何 Elysia 路由中重用它们，以将注意力重新集中在业务逻辑上。
 :::
 
-## Storing user session
+## 存储用户会话
 
-Great, now the last thing we need to do to complete the authentication system is to store the user session, after a user is signed in, the token is known as `access_token` and `refresh_token` in Supabase.
+太好了，现在我们需要做的最后一件事就是存储用户会话。登录后，用户会收到一个包含 `access_token` 和 `refresh_token` 的令牌。
 
-access_token is a short live JWT access token. Use to authenticate a user in a short amount of time.
-refresh_token is a one-time-used never-expired token to renew access_token. So as long as we have this token, we can create a new access token to extend our user session.
+`access_token` 是一个短寿命的 JWT 令牌，用于在短时间内认证用户。
+`refresh_token` 是一个一次性使用的永远不过期的令牌，用于刷新 `access_token`。只要我们拥有这个令牌，我们就可以创建一个新的 `access_token` 来延长用户会话。
 
-We can store both values inside a cookie.
+我们可以在 cookie 中存储这两个值。
 
-Now, some might not like the idea of storing the access token inside a cookie and might use Bearer instead. but for simplicity, we are going to use a cookie here.
+现在，有些人可能不喜欢在 cookie 中存储 `access_token`，可能会选择使用 Bearer 令牌。但为了简单起见，我们将在 cookie 中存储它。
 
 ::: tip
-We can set a cookie as **HttpOnly** to prevent XSS, **Secure**, **Same-Site**, and also encrypt a cookie to prevent a man-in-the-middle attack.
+我们可以设置 cookie 为 `HttpOnly` 来防止 XSS，`Secure`，`Same-Site`，还可以加密 cookie 来防止中间人攻击。
 :::
 
 ```ts
@@ -357,13 +357,13 @@ const authen = (app: Elysia) =>
             .use( // [!code ++]
                 cookie({ // [!code ++]
                     httpOnly: true, // [!code ++]
-                    // If you need cookie to deliver via https only // [!code ++]
+                    // 如果你需要 cookie 仅通过 https 传输 // [!code ++]
                     // secure: true, // [!code ++]
                     // // [!code ++]
-                    // If you need a cookie to be available for same-site only // [!code ++]
+                    // 如果你需要 cookie 只对同站有效 // [!code ++]
                     // sameSite: "strict", // [!code ++]
                     // // [!code ++]
-                    // If you want to encrypt a cookie // [!code ++]
+                    // 如果你想加密 cookie // [!code ++]
                     // signed: true, // [!code ++]
                     // secret: process.env.COOKIE_SECRET, // [!code ++]
                 }) // [!code ++]
@@ -378,19 +378,19 @@ const authen = (app: Elysia) =>
                     })
                 })
             })
-            // rest of the code
+            // 其余代码
     )
 ```
 
-And-- That's all it takes to create a **sign-in** and **sign-up** route for Elysia and Supabase!
+这就是创建 Elysia 和 Supabase 的**登录**和**注册**路由所需的全部步骤！
 
-<img class="-png" src="/blog/elysia-supabase/lagrange-sign-in.webp" alt="Using Rest Client to sign in" />
+<img class="-png" src="/blog/elysia-supabase/lagrange-sign-in.webp" alt="使用 Rest Client 登录" />
 
-## Refreshing a token
+## 刷新令牌
 
-Now, as mentioned, access_token is short-lived, and we might need to renew the token now and then.
+如前所述，access_token 的有效期有限，我们可能需要不时地更新令牌。
 
-Luckily, we can do that with a one-liner from Supabase.
+幸运的是，我们可以通过 Supabase 中的一行代码来实现。
 
 ```ts
 // src/modules/authen.ts
@@ -457,7 +457,7 @@ const authen = (app: Elysia) =>
     )
 ```
 
-Finally, add routes to the main server.
+最后，将路由添加到主服务器。
 ```ts
 import { Elysia, t } from 'elysia'
 
@@ -472,24 +472,24 @@ console.log(
 )
 ```
 
-And that's it!
+就是这样！
 
-## Authorization route
+## 授权路由
 
-We have just implemented user authentication which is fun and game, but now you might find yourself in need of authorization for each route, and duplicating the same code to check for cookies all over the place.
+我们刚刚实现了具有乐趣和游戏性的用户认证，但现在您可能发现自己需要为每条路由进行授权，并且在各个地方重复相同的代码来检查 cookie。
 
-Luckily, we can re-use the function in Elysia.
+幸运的是，我们可以在 Elysia 中重复使用该函数。
 
-Let's paint the example by saying that we might want a user to create a simple blog post that can have the database schema as the following:
+让我们举个例子，我们可能希望用户创建一个简单的博客文章，该文章可以具有以下数据库架构：
 
-Inside the Supabse console, we are going to create a Postgres table name 'post' as the following:
+在 Supabse 控制台内，我们将创建一个名为 ‘post’ 的 Postgres 表，如下所示：
 <img class="-png" src="/blog/elysia-supabase/supabase-create-table.webp" alt="Creating table using Supabase UI, in the public table with the name of 'post', and a columns of 'id' with type of 'int8' as a primary value, 'created_at' with type of 'timestamp' with default value of 'now()', 'user_id' linked to Supabase's user schema linked as 'user.id', and 'post' with type of 'text'" />
 
-**user_id** is linked to Supabase's generated **auth** table linked as **user.id**, using this relation, we can create row-level security to only allow the owner of the post to modify the data.
+**user_id** 链接到 Supabase 生成的 **auth** 表，链接为 **user.id**，利用这个关系，我们可以创建基于行级安全性的功能，只允许帖子的所有者修改数据。
 
 <img class="-png" src="/blog/elysia-supabase/supabase-create-table-link.webp" alt="Linking the 'user_id' field with Supabase's user schema as 'user.id'" />
 
-Now, let's create a new separated Elysia route in another folder to separate the code from auth route, inside `src/modules/post/index.ts`
+现在，让我们在另一个文件夹中创建一个新的单独的 Elysia 路由，以将代码与 auth 路由分离开，位于 `src/modules/post/index.ts` 中。
 
 ```ts
 // src/modules/post/index.ts
@@ -526,9 +526,9 @@ export const post = (app: Elysia) =>
     )
 ```
 
-Now, this route can accept the body and put it into the database, the only thing we are left to do is handle authorization and extract the `user_id`.
+现在，这条路由可以接受请求体并将其放入数据库中，我们所要做的只剩下处理授权和提取 `user_id`。
 
-Luckily we can do that easily, thanks to Supabase, and our cookies.
+幸运的是，我们可以很容易地通过 Supabase 和我们的 cookies 来完成这个任务。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -581,34 +581,34 @@ export const post = (app: Elysia) =>
     )
 ```
 
-Great! Now we can extract `user_id` from our cookie using **supabase.auth.getUser**
+太好了！现在我们可以使用 **supabase.auth.getUser** 从我们的 cookie 中提取 `user_id`
 
-## Derive
-Our code work fine for now, but let's paint a little picture.
+## 衍生
+我们的代码目前运行良好，但让我们做个小插曲。
 
-Let's say you have so many routes that require authorization like this, requiring you to extract the `userId`, it means that you will have a lot of duplicated code here, right?
+假设你有很多需要授权的路由，就像这样，需要提取 `userId`，这意味着你在这里将有很多重复的代码，对吧？
 
-Luckily, Elysia is specially designed to tackle this problem.
-
----
-
-In Elysia, we have something called a **scope**.
-
-Imagine it's like a **closure** where only a variable can only be used inside a scope, or ownership if you're from Rust.
-
-Any life-cycle declared in scope like **group**, **guard** is going to be only available in scope.
-
-This means that you can declare a specific life cycle to specific routes inside the scope.
-
-For example, a scope of routes that need authorization while others are not.
-
-So, instead of reusing all that code, we defined it once and applied it to all the routes you need.
+幸运的是，Elysia 是专门设计来解决这个问题的。
 
 ---
 
-Now, let's move this retrieving **user_id** into a plugin and apply it to all routes in the scope.
+在 Elysia，我们有一种叫做 **scope** 的东西。
 
-Let's put this plugin inside `src/libs/authen.ts`
+想象一下它就像 **closure**，在这里只有一个变量可以在其中使用，或者如果你来自 Rust 的话，那就是所有权。
+
+在像 **group**、**guard** 这样的作用域中声明的任何生命周期将只在该作用域中可用。
+
+这意味着您可以将特定的生命周期声明给特定的路由在作用域内。
+
+例如，需要授权的路由范围，而其他根本不需要。
+
+所以，我们不是重复使用所有那些代码，而是定义了一次，然后将其应用于您需要的所有路由。
+
+---
+
+现在，让我们将检索 **user_id** 的功能移动到一个插件中，并将其应用于范围内的所有路由。
+
+让我们将这个插件放在 `src/libs/authen.ts` 中。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -644,15 +644,15 @@ export const authen = (app: Elysia) =>
         )
 ```
 
-This code attempts to extract userId, and add `userId` to `Context` of the route, otherwise, it will throw an error and skip the handler, preventing an invalid error to be put into our business logic, aka **supabase.from.insert**.
+这段代码试图提取 `userId`，并在路由的上下文中添加 `userId`，否则将抛出错误，防止无效的错误进入我们的业务逻辑，即 `supabase.from.insert`。
 
 ::: tip
-We can also use **onBeforeHandle** to create a custom validation before entering the main handler too, **.derive** also does the same but any returned from **derived** will be added to **Context** while **onBeforeHandle** don't.
+我们也可以使用 **onBeforeHandle** 创建一个自定义验证，在进入主要处理程序之前，`.derive` 也做同样的事情，但是 `.derive` 返回的任何内容都会添加到 **Context** 中，而 **onBeforeHandle** 则不会。
 
-Technically, **derive** use **transform** under the hood.
+实际上，**derive** 在背后使用 **transform**。
 :::
 
-And with a single line, we apply all routes inside the scope into authorized-only routes, with type-safe access to **userId**.
+并且用一行代码，我们将所有路由应用到 scope 内的授权路由，类型安全的访问 `userId`。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -706,14 +706,14 @@ export const post = (app: Elysia) =>
 
 ```
 
-Great right? We don't even see that we handled the authorization by looking at the code like magic. 
+很棒对吧？我们甚至不需要像魔术一样查看代码来处理授权。
 
-Putting our focus back on our core business logic instead.
+把我们的焦点重新放在我们的核心业务逻辑上。
 
 <img class="-png" src="/blog/elysia-supabase/lagrange-create-post.webp" alt="Using Rest Client to create post" />
 
-## Non-authorized scope
-Now let's create one more route to fetch the post from the database.
+## 非授权范围
+现在，让我们为数据库创建一个新路由来获取帖子。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -764,15 +764,15 @@ export const post = (app: Elysia) =>
     )
 ```
 
-We are using success to indicate if the post is existed or not.
-<img class="-png" src="/blog/elysia-supabase/lagrange-get-post-success.webp" alt="Using Rest Client to get post by id" />
+我们使用成功来指示是否找到了帖子。
+<img class="-png" src="/blog/elysia-supabase/lagrange-get-post-success.webp" alt="使用 REST 客户端获取帖子" />
 
-If not, we are going to return `success: false` and `data: null` instead.
-<img class="-png" src="/blog/elysia-supabase/lagrange-get-post-failed.webp" alt="Using Rest Client to get post by id but failed" />
+如果没有找到，我们将返回 `success: false` 和 `data: null`。
+<img class="-png" src="/blog/elysia-supabase/lagrange-get-post-failed.webp" alt="使用 REST 客户端获取帖子但失败" />
 
-As we mentioned before, the `.use(authen)` is applied to the scoped **but** with only the one declared after itself, which means that anything before isn't affected, and what came after is now authorized only route.
+正如我们之前提到的，`.use(authen)` 应用到 scope 中，但是只有在其后面的路由，这意味着任何在其前面的路由都不会受到影响，而任何在其后面的路由现在都是强制授权的。
 
-And one last thing, don't forget to add routes to the main server.
+最后，不要忘记将路由添加到主服务器。
 ```ts
 import { Elysia, t } from 'elysia'
 
@@ -789,11 +789,11 @@ console.log(
 ```
 
 
-## Bonus: Documentation
+## 奖励：文档
 
-As a bonus, after all of what we create, instead of telling exactly route by route, we can create documentation for our frontend devs in 1 line.
+作为一个奖励，在我们创建完所有内容之后，而不是一条一条地告知路径，我们可以为我们的前端开发人员创建一行的文档。
 
-With the Swagger plugin, we can install:
+使用 Swagger 插件，我们可以安装：
 
 ```bash
 bun add @elysiajs/swagger@rc
@@ -818,26 +818,26 @@ console.log(
 )
 ```
 
-Tada 🎉 We got well-defined documentation for our API.
+塔达 🎉 我们为我们的 API 准备了明确定义的文档。
 
 <img class="-png" src="/blog/elysia-supabase/elysia-swagger.webp" alt="Swagger documentation generated by Elysia" />
 
-And if anything more, you don't have to worry that you might forget a specification of OpenAPI Schema 3.0, we have auto-completion and type-safety too.
+如果有更多内容，您不必担心可能会忘记 OpenAPI Schema 3.0 的规范，我们还拥有自动补全和类型安全功能。
 
-We can define our route detail with `schema.detail` that also follows OpenAPI Schema 3.0, so you can properly create documentation.
+我们可以使用 `schema.detail` 来定义我们的路由详细信息，这也遵循 OpenAPI Schema 3.0，因此您可以正确地创建文档。
 <img class="-png" src="/blog/elysia-supabase/swagger-auto-complete.webp" alt="Using auto-completion with `schema.detail`" />
 
-## What's next
+## 下一步是什么
 
-For the next step, we encourage you to try out and explore more with the [code we have just written in this article](https://github.com/saltyaom/elysia-supabase-example) and try adding an image-uploading post, to see explore both Supabase and Elysia ecosystems.
+下一步，我们鼓励您尝试和探索更多[我们刚刚在本文中编写的代码](https://github.com/saltyaom/elysia-supabase-example)，并尝试添加图像上传帖子，以探索 Supabase 和 Elysia 生态系统。
 
-As we can see, it's super easy to create a production-ready web server with Supabase, many things are just one-liners and handy for rapid development.
+正如我们所看到的，使用 Supabase 创建一个生产就绪的 Web 服务器超级简单，许多事情只是单行本，方便快速开发。
 
-Especially when paired with Elysia, you get excellent Developer Experience, declarative schema as a single source of truth, and a very well-thought design choice for creating an API, high-performance server while using TypeScript, and as a bonus, we can create documentation in just one line.
+特别是当与 Elysia 配对时，您将获得出色的开发人员体验，声明模式作为唯一真理来源，以及在使用 TypeScript 时创建 API、高性能服务器的经过深思熟虑的设计选择，作为奖励，我们可以在一行中创建文档。
 
-Elysia is on a journey for creating a Bun-first web framework with new technology, and a new approach.
+Elysia 正在用新技术和新方法创建 Bun-first 网络框架。
 
-If you're interested in Elysia, feel free to check out our [Discord server](https://discord.gg/eaFJ2KDJck) or see [Elysia on GitHub](https://github.com/elysiajs/elysia)
+如果您对 Elysia 感兴趣，请随时查看我们的 [Discord 服务器](https://discord.gg/eaFJ2KDJck)或查看 [GitHub 上的 Elysia](https://github.com/elysiajs/elysia)
 
-Also, you might want to checkout out [Elysia Eden](/eden/overview), a fully type-safe, no-code-gen fetch client like tRPC for Elysia server.
+此外，您可能想要查看 [Elysia Eden](/eden/overview)，这是一个完全类型安全、无代码生成的获取客户端，如 Elysia 服务器的 tRPC。
 </Blog>

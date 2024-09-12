@@ -48,7 +48,7 @@ export const POST = app.handle // [!code ++]
 
 您可以将 Elysia 服务器视为普通的 Expo API 路由。
 
-通过这种方法，您可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysiajs.com/eden/overview.html)。
+通过这种方法，您可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysia.zhcndoc.com/eden/overview.html)。
 
 请参阅 [API 路由](https://docs.expo.dev/router/reference/api-routes/)了解更多信息。
 

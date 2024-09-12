@@ -1,28 +1,28 @@
 ---
-title: Elysia 0.7 - Stellar Stellar
+title: Elysia 0.7 - 星光璀璨
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: Introducing Elysia 0.7 - Stellar Stellar
+        content: 介绍 Elysia 0.7 - 星光璀璨
 
     - - meta
       - name: 'description'
-        content: Introducing up to 13x faster type inference. Declarative telemetry with trace. Reactive cookie model, and cookie validation. TypeBox 0.31 and custom decoder support. Rewritten Web Socket. Definitions remapping and custom affix. Leading more solid foundation for Elysia for a brighter future.
+        content: 介绍高达 13 倍速的类型推理。声明式遥测与追踪。响应式饼干模型和饼干验证。TypeBox 0.31 和自定义解码器支持。重写的 Web Socket。定义映射和自定义后缀。为 Elysia 建立更坚实的基础，迎接更辉煌的未来。
 
     - - meta
       - property: 'og:description'
-        content: Introducing up to 13x faster type inference. Declarative telemetry with trace. Reactive cookie model, and cookie validation. TypeBox 0.31 and custom decoder support. Rewritten Web Socket. Definitions remapping and custom affix. Leading more solid foundation for Elysia for a brighter future.
+        content: 介绍高达 13 倍速的类型推理。声明式遥测与追踪。响应式饼干模型和饼干验证。TypeBox 0.31 和自定义解码器支持。重写的 Web Socket。定义映射和自定义后缀。为 Elysia 建立更坚实的基础，迎接更辉煌的未来。
 
     - - meta
       - property: 'og:image'
-        content: https://elysiajs.com/blog/elysia-07/stellar-stellar.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-07/stellar-stellar.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysiajs.com/blog/elysia-07/stellar-stellar.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-07/stellar-stellar.webp
 ---
 
 <script setup>
@@ -30,91 +30,91 @@ head:
 </script>
 
 <Blog
-    title="Elysia 0.7 - Stellar Stellar"
+    title="Elysia 0.7 - 星光璀璨"
     src="/blog/elysia-07/stellar-stellar.webp"
-    alt="Landscape of wild and mountain in the night full of star"
+    alt="夜间充满星星的野外和山脉的风景"
     author="saltyaom"
-    date="20 Sep 2023"
+    date="2023 年 9 月 20 日"
 >
 
-Name after our never giving up spirit, our beloved Virtual YouTuber, ~~Suicopath~~ Hoshimachi Suisei, and her brilliance voice: 「[Stellar Stellar](https://youtu.be/AAsRtnbDs-0)」from her first album:「Still Still Stellar」
+以我们永不放弃的精神命名，我们心爱的虚拟 YouTube 主播，~~Suicopath~~ Hoshimachi Suisei，以及她闪耀的声音：“[Stellar Stellar](https://youtu.be/AAsRtnbDs-0)” 来自她的第一张专辑：“Still Still Stellar”
 
-For once being forgotten, she really is a star that truly shine in the dark.
+一度被遗忘，她确实是真正在黑暗中闪耀的星星。
 
-**Stellar Stellar** brings many exciting new update to help Elysia solid the foundation, and handle complexity with ease, featuring:
-- Entirely rewrite type, up to 13x faster type inference.
-- "Trace" for declarative telemetry and better performance audit. 
-- Reactive Cookie model and cookie valiation to simplify cookie handling. 
-- TypeBox 0.31 with a custom decoder support.
-- Rewritten Web Socket for even better support. 
-- Definitions remapping, and declarative affix for preventing name collision.
-- Text based status
+**星光璀璨**带来了许多令人兴奋的新更新，帮助 Elysia 巩固基础，轻松处理复杂性，包括：
+- 彻底重写的类型，高达 13 倍速的类型推理。
+- 用于声明式遥测和更好性能审计的 “追踪”。
+- 响应式 cookie 模型和 cookie 验证，简化 cookie 处理。
+- TypeBox 0.31 和自定义解码器支持。
+- 重写的 Web Socket，提供更好的支持。
+- 定义映射和声明式后缀，防止名称冲突。
+- 文本基状态
 
-## Rewritten Type
+## 重写的类型
 
-Core feature of Elysia about developer experience.
+Elysia 关于开发者体验的核心功能。
 
-Type is one of the most important aspect of Elysia, as it allows us to do many amazing thing like unified type, syncing your business logic, typing, documentation and frontend.
+类型是 Elysia 最重要的方面之一，因为它允许我们做许多惊人的事情，比如统一类型，同步您的业务逻辑，类型，文档和前端。
 
-We want you to have an outstanding experience with Elysia, focusing on your business logic part, and let's Elysia handle the rest whether it's type-inference with unified type, and Eden connector for syncing type with backend.
+我们希望您能够体验 Elysia 的卓越体验，专注于您的业务逻辑部分，让 Elysia 处理剩余的事情，无论是类型推理与统一类型，还是 Eden 连接器，用于与后端同步类型。
 
-To achieve that, we put our effort on creating a unified type system for to synchronize all of the type, but as the feature grow, we found that our type inference might not be fast enough from our lack of TypeScript experience we have year ago.
+为了实现这一点，我们投入了努力，创建了一个统一的类型系统，以便同步所有类型，但随着功能的增长，我们发现我们的类型推理可能不够快，因为我们缺乏一年前的 TypeScript 经验。
 
-With our experience we made along the way of handling complex type system, various optimization and many project like [Mobius](https://github.com/saltyaom/mobius). We challenge our self to speed up our type system once again, making this a second type rewrite for Elysia.
+随着我们在处理复杂类型系统、各种优化和许多项目，如 [Mobius](https://github.com/saltyaom/mobius) 的过程中积累的经验，我们挑战自己再次加快我们的类型系统，使其成为 Elysia 的第二次类型重写。
 
-We delete and rewrite every Elysia type from ground up to make Elysia type to be magnitude faster.
+我们删除了 Elysia 类型并从基础开始重写，以使 Elysia 类型快几个数量级。
 
-Here's a comparison between 0.6 and 0.7 on a simple `Elysia.get` code:
+这是 0.6 和 0.7 在简单 `Elysia.get` 代码上的比较：
 
 <figure class="flex flex-row w-full max-w-full">
     <img alt="Elysia 0.6" style="width: 50%; background: transparent; box-shadow: unset;" class="object-contain" src="/blog/elysia-07/type-0-6.webp" />
     <img alt="Elysia 0.7" style="width: 50%; background: transparent; box-shadow: unset;" class="object-contain" src="/blog/elysia-07/type-0-7.webp" />
 </figure>
 
-With our new found experience, and newer TypeScript feature like const generic, we are able to simplify a lot of our code, reducing our codebase over a thousand line in type.
+随着我们获得的经验，以及 TypeScript 的新特性如 const generic，我们能够简化大量的类型代码，减少超过一千行的代码库。
 
-Allowing us to refine our type system to be even faster, and even more stable.
+使我们能够精炼我们的类型系统，使其更快，更稳定。
 
-![Comparison between Elysia 0.6 and 0.7 on complex project with our 300 routes, and 3,500 lines of type declaration](/blog/elysia-07/inference-comparison.webp)
+![0.6 和 0.7 在具有 300 个路由和 3,500 行类型声明的复杂项目上的比较](/blog/elysia-07/inference-comparison.webp)
 
-Using Perfetto and TypeScript CLI to generate trace on a large-scale and complex app, we measure up to 13x inference speed.
+使用 Perfetto 和 TypeScript CLI 生成大型和复杂应用的 trace，我们测量了高达 13 倍的推理速度。
 
-And if you might wonder if we might break type inference with 0.6 or not, we do have a unit test in type-level to make sure most of the case, there's no breaking change for type.
+如果你想知道我们是否可能在 0.6 中破坏了类型推理，我们在类型层次上有一个单元测试，以确保大多数情况下，没有类型上的破坏性变化。
 
-We hope this improvement will help you with even faster type inference like faster auto-completion, and load time from your IDE to be near instant to help your development to be even more faster and more fluent than ever before.
+我们希望这个改进将帮助您实现更快的类型推理，比如更快的自动完成和 IDE 加载时间，帮助您的开发变得更加快速和流畅。
 
 ## Trace
 
-Performance is another one of important aspect for Elysia.
+性能是 Elysia 的另一个重要方面。
 
-We don't want to be fast for benchmarking purpose, we want you to have a real fast server in real-world scenario, not just benchmarking.
+我们不希望 Elysia 只是为了基准测试而快，我们希望您有一个真实的、快速的服务器，而不是仅仅为了基准测试。
 
-There are many factor that can slow down your app, and it's hard to identifying one, that's why we introduce **"Trace"**.
+有许多因素可能会减慢您的应用程序，很难识别一个，这就是我们引入**追踪**的原因。
 
-**Trace** allow us to take tap into a life-cycle event and identifying performance bottleneck for our app.
+**追踪**允许我们进入生命周期事件，并识别性能瓶颈。
 
-![Example of usage of Trace](/blog/elysia-07/trace.webp)
+![追踪的使用示例](/blog/elysia-07/trace.webp)
 
-This example code allow us tap into all **beforeHandle** event, and extract the execution time one-by-one before setting the Server-Timing API to inspect the performance bottleneck.
+这个例子代码允许我们进入所有的 `beforeHandle` 事件，并提取一个接一个的执行时间，然后设置 Server-Timing API 来检查性能瓶颈。
 
-And this is not limited to only `beforeHandle`, and event can be trace even the `handler` itself. The naming convention is name after life-cycle event you are already familiar with.
+这不仅限于 `beforeHandle`，事件也可以追踪 `handler` 本身。命名约定是您已经熟悉的生命周期事件的名称。
 
-This API allows us to effortlessly auditing performance bottleneck of your Elysia server and integrate with the report tools of your choice.
+这个 API 让我们轻松地审计 Elysia 服务器的性能瓶颈，并与您选择的报告工具集成。
 
-By default, Trace use AoT compilation and Dynamic Code injection to conditionally report and even that you actually use automatically, which means there's no performance impact at all.
+默认情况下，追踪使用 AoT 编译和动态代码注入来条件性地报告，这意味着如果您实际上没有使用，就不会有任何性能影响。
 
-## Reactive Cookie
-We merged our cookie plugin into Elysia core.
+## 响应式 Cookie 模型和 cookie 验证
+我们将我们的 cookie 插件合并到 Elysia 核心中。
 
-Same as Trace, Reactive Cookie use AoT compilation and Dynamic Code injection to conditionally inject the cookie usage code, leading to no performance impact if you don't use one.
+与追踪一样，响应式 Cookie 使用 AoT 编译和动态代码注入来条件性地注入 cookie 使用代码，从而没有任何性能影响。
 
-Reactive Cookie take a more modern approach like signal to handle cookie with an ergonomic API.
+响应式 Cookie 采用了一种更现代的方法，类似于信号，以一种直观的 API 处理 Cookie。
 
-![Example of usage of Reactive Cookie](/blog/elysia-07/cookie.webp)
+![响应式 Cookie 的使用示例](/blog/elysia-07/cookie.webp)
 
-There's no `getCookie`, `setCookie`, everything is just a cookie object.
+没有 `getCookie` 和 `setCookie`，一切只是 cookie 对象。
 
-When you want to use cookie, you just extract the name get/set its value like:
+当您需要使用 cookie 时，只需提取名称来获取/设置其值：
 ```typescript
 app.get('/', ({ cookie: { name } }) => {
     // Get
@@ -125,14 +125,14 @@ app.get('/', ({ cookie: { name } }) => {
 })
 ```
 
-Then cookie will be automatically sync the value with headers, and the cookie jar, making the `cookie` object a single source of truth for handling cookie.
+然后 cookie 将自动同步值与头部，以及 cookie，使得 `cookie` 对象成为处理 cookie 的唯一真实来源。
 
-The Cookie Jar is reactive, which means that if you don't set the new value for the cookie, the `Set-Cookie` header will not be send to keep the same cookie value and reduce performance bottleneck.
+Cookie 罐是响应式的，这意味着如果你没有为 cookie 设置新值，`Set-Cookie` 头部将不会被发送以保持相同的 cookie 值并减少性能瓶颈。
 
 ### Cookie Schema
-With the merge of cookie into the core of Elysia, we introduce a new **Cookie Schema** for validating cookie value.
+随着 cookie 合并到 Elysia 核心，我们引入了新的 **Cookie Schema** 来验证 cookie 值。
 
-This is useful when you have to strictly validate cookie session or want to have a strict type or type inference for handling cookie.
+这对于严格验证 cookie 会话或想要严格类型或类型推理处理 cookie 时非常有用。
 
 ```typescript
 app.get('/', ({ cookie: { name } }) => {
@@ -151,16 +151,16 @@ app.get('/', ({ cookie: { name } }) => {
 })
 ```
 
-Elysia encode and decode cookie value for you automatically, so if you want to store JSON in a cookie like decoded JWT value, or just want to make sure if the value is a numeric string, you can do that effortlessly.
+Elysia 为您自动编码和解码 cookie 值，因此如果您需要将 JSON 存储在 cookie 中，例如解码的 JWT 值，或者只是确保值是数字字符串，您可以这样做而不费吹灰之力。
 
-### Cookie Signature
-And lastly, with an introduction of Cookie Schema, and `t.Cookie` type. We are able to create a unified type for handling sign/verify cookie signature automatically.
+### Cookie 签名
+最后，随着 Cookie Schema 的引入和 `t.Cookie` 类型的使用，我们能够创建一个统一的类型来自动签名和验证 cookie 签名。
 
-Cookie signature is a cryptographic hash appended to a cookie's value, generated using a secret key and the content of the cookie to enhance security by adding a signature to the cookie.
+Cookie 签名是对 cookie 值进行加密哈希，使用密钥和 cookie 内容生成，以增加安全性，通过添加签名到 cookie 来验证数据的真实性和完整性。
 
-This make sure that the cookie value is not modified by malicious actor, helps in verifying the authenticity and integrity of the cookie data.
+这确保了 cookie 值没有被恶意行为者修改，有助于验证 cookie 数据的确切性和完整性。
 
-To handle cookie signature in Elysia, it's a simple as providing a `secert` and `sign` property:
+要处理 Cookie 签名，您只需提供 `secert` 和 `sign` 属性：
 ```typescript
 new Elysia({
     cookie: {
@@ -184,11 +184,11 @@ new Elysia({
     })
 ```
 
-By provide a cookie secret, and `sign` property to indicate which cookie should have a signature verification.
+通过提供 cookie 密钥，并 `sign` 属性来指示哪些 cookie 应该有签名验证。
 
-Elysia then sign and unsign cookie value automatically, eliminate the need of **sign** / **unsign** function manually.
+Elysia 然后自动签名和解签 cookie 值，消除了手动签名/解签函数的需要。
 
-Elysia handle Cookie's secret rotation automatically, so if you have to migrate to a new cookie secret, you can just append the secret, and Elysia will use the first value to sign a new cookie, while trying to unsign cookie with the rest of the secret if match.
+Elysia 自动处理 Cookie 的密钥轮换，因此如果您需要迁移到新的 cookie 密钥，您可以只追加密钥，Elysia 将使用第一个值来签名新的 cookie，同时尝试使用剩余的密钥解签 cookie，如果匹配。
 ```typescript
 new Elysia({
     cookie: {
@@ -197,16 +197,16 @@ new Elysia({
 })
 ```
 
-The Reactive Cookie API is declarative and straigth forward, and there's some magical thing about the ergonomic it provide, and we really looking forward for you to try it.
+响应式 Cookie API 是声明式的，直接了当，关于它提供的魔法，我们真的期待你尝试它。
 
 ## TypeBox 0.31
-With the release of 0.7, we are updating to TypeBox 0.31 to brings even more feature to Elysia.
+随着 0.7 的发布，我们将 TypeBox 更新到 0.31，带来了更多的功能到 Elysia。
 
-This brings new exciting feature like support for TypeBox's `Decode` in Elysia natively.
+这带来了新的令人兴奋的功能，比如在 Elysia 中支持 TypeBox 的 `Decode`。
 
-Previously, a custom type like `Numeric` require a dynamic code injection to convert numeric string to number, but with the use of TypeBox's decode, we are allow to define a custom function to encode and decode the value of a type automatically.
+以前，自定义类型如 `Numeric` 需要动态代码注入来转换数值字符串为数字，但随着 TypeBox 的 `decode` 的使用，我们现在可以定义一个自定义函数来手动编码和解码类型值。
 
-Allowing us to simplify type to:
+简化了类型到：
 ```typescript
 Numeric: (property?: NumericOptions<number>) =>
     Type.Transform(Type.Union([Type.String(), Type.Number(property)]))
@@ -219,18 +219,18 @@ Numeric: (property?: NumericOptions<number>) =>
         .Encode((value) => value) as any as TNumber,
 ```
 
-Instead of relying on an extensive check and code injection, it's simplified by a `Decode` function in TypeBox.
+TypeBox 中的 `Decode` 函数简化了以往依赖于复杂检查和代码注入的过程。
 
-We have rewrite all type that require Dynamic Code Injection to use `Transform` for easier code maintainance.
+我们已经重写了所有需要动态代码注入的类型，以便使用 `Transform` 来简化代码维护。
 
-Not only limited to that, with `t.Transform` you can now also define a custom type to with a custom function to Encode and Decode manually, allowing you to write a more expressive code than ever before.
+不仅如此，通过 `t.Transform`，你现在还可以定义一个带有自定义函数的自定义类型来自行编码和解码，这使得你可以写出比以往更加表达力强的代码。
 
-We can't wait to see what you will brings with the introduction of `t.Transform`.
+我们迫不及待想看看 `t.Transform` 的引入会给你们带来什么。
 
-### New Type
-With an introduction **Transform**, we have add a new type like `t.ObjectString` to automatically decode a value of Object in request.
+### 新类型
+通过引入 **Transform**，我们添加了一种新的类型，如 `t.ObjectString`，来自动解码请求中的对象值。
 
-This is useful when you have to use **multipart/formdata** for handling file uploading but doesn't support object. You can now just use `t.ObjectString()` to tells Elysia that the field is a stringified JSON, so Elysia can decode it automatically.
+当您必须使用 **multipart/formdata** 来处理文件上传，但它不支持对象时，这非常有用。现在，您可以使用 `t.ObjectString()` 来告诉 Elysia 该字段是一个字符串化的 JSON，因此 Elysia 可以自动解码它。
 ```typescript
 new Elysia({
     cookie: {
@@ -247,38 +247,38 @@ new Elysia({
     })
 ```
 
-We hope that this will simplify the need for JSON with **multipart**.
+我们希望这会简化需要 `multipart` 和 JSON 的需求。
 
-## Rewritten Web Socket
-Aside from entirely rewritten type, we also entirely rewritten Web Socket as well.
+## 重写的 Web Socket
+除了完全重写的类型，我们也完全重写了 Web Socket。
 
-Previously, we found that Web Socket has 3 major problem:
-1. Schema is not strictly validated
-2. Slow type inference
-3. The need for `.use(ws())` in every plugin
+以前，我们发现 Web Socket 有三个主要问题：
+1. 模式没有严格验证。
+2. 类型推理慢。
+3. 需要 `.use(ws())` 在每个插件中。
 
-With this new update, solve all of problem above and while improving the performance of Web Socket.
+随着这个新更新，解决了所有上述问题，同时改进了 Web Socket 的性能。
 
-1. Now, Elysia's Web Socket is strictly validated, and type is synced automatically.
-2. We remove the need for `.use(ws())` for using WebSocket in every plugin.
+1. 现在，Elysia 的 Web Socket 被严格验证，并且类型被自动同步。
+2. 我们消除了在每个插件中使用 `.use(ws())` 的需要。
 
-And we bring a performance improvement to already fast Web Socket.
+我们为已经很快的 Web Socket 带来了性能提升。
 
-Previously, Elysia Web Socket needs to handle routing for every incoming request to unified the data and context, but with the new model. Web Socket now can infers the data for its route without relying on router.
+之前，Elysia Web Socket 需要处理每个传入请求的路由，以统一数据和上下文，但随着新模型的引入，Web Socket 现在可以推断其路由的数据，而无需依赖路由器。
 
-Bringing the performance to near Bun native Web Socket performance.
+这使得性能接近 Bun 本机 Web Socket 的性能。
 
-Thanks to [Bogeychan](https://github.com/bogeychan) for providing the test case for Elysia Web Socket, helping us to rewrite Web Socket with confidence.
+感谢 [Bogeychan](https://github.com/bogeychan) 提供了 Elysia Web Socket 的测试用例，帮助我们自信地重写 Web Socket。
 
-## Definitions Remap
-Proposed on [#83](https://github.com/elysiajs/elysia/issues/83) by [Bogeychan](https://github.com/bogeychan)
+## 定义映射
+在 [#83](https://github.com/elysiajs/elysia/issues/83) 中由 [Bogeychan](https://github.com/bogeychan) 提出。
 
-To summarize, Elysia allows us to decorate and request and store with any value we desire, however some plugin might a duplicate name with the value we have, and sometime plugin has a name collision but we can't rename the property at all.
+简而言之，Elysia 允许我们装饰和请求，并将它们与任何我们想要的值存储，但有些插件可能有一个与我们的值重复的名称，有时插件有一个名称冲突，但我们不能重命名属性。
 
-### Remapping
-As the name suggest, this allow us to remap existing `state`, `decorate`, `model`, `derive` to anything we like to prevent name collision, or just wanting to rename a property.
+### 映射
+正如名称所示，这允许我们重新映射现有的 `state`，`decorate`，`model`，`derive` 到任何我们喜欢的值，以防止插件名称冲突，或者只是想要重命名属性。
 
-By providing a function as a first parameters, the callback will accept current value, allowing us to remap the value to anything we like.
+通过提供一个函数作为第一个参数，回调将接受当前值，允许我们将值重新映射到任何我们喜欢的值。
 ```typescript
 new Elysia()
     .state({
@@ -289,7 +289,7 @@ new Elysia()
     .state(({ b, ...rest }) => rest)
 ```
 
-This is useful when you have to deal with a plugin that has some duplicate name, allowing you to remap the name of the plugin:
+当您需要处理一个具有重复名称的插件时，这很有用，它允许您重新映射插件的名称：
 ```typescript
 new Elysia()
     .use(
@@ -301,12 +301,12 @@ new Elysia()
     )
 ```
 
-Remap function can be use with `state`, `decorate`, `model`, `derive` to helps you define a correct property name and preventing name collision.
+映射函数可以与 `state`，`decorate`，`model`，`derive` 一起使用，帮助我们定义正确的属性名称，并防止插件名称冲突。
 
-### Affix
-To provide a smoother experience, some plugins might have a lot of property value which can be overwhelming to remap one-by-one.
+### 后缀
+为了提供更流畅的体验，有些插件可能有大量属性值，这可能变得令人难以置信地重新映射一个接一个。
 
-The **Affix** function, which consists of a **prefix** and **suffix**, allows us to remap all properties of an instance, preventing the name collision of the plugin.
+**后缀**函数，由**前缀**和**后缀**组成，使我们能够重新映射实例的每个属性，防止插件名称冲突。
 
 ```typescript
 const setup = new Elysia({ name: 'setup' })
@@ -324,11 +324,11 @@ const app = new Elysia()
     .get('/', ({ setupCarbon }) => setupCarbon)
 ```
 
-Allowing us to bulk remap a property of the plugin effortlessly, preventing the name collision of the plugin.
+允许我们批量重新映射插件属性，防止插件名称冲突。
 
-By default, **affix** will handle both runtime, type-level code automatically, remapping the property to camelCase as naming convention.
+默认情况下，**后缀**将同时处理运行时和类型代码，将属性名称转换为驼峰式命名约定。
 
-In some condition, you can also remap `all` property of the plugin:
+在某些情况下，您也可以重新映射 `所有` 插件的属性：
 ```typescript
 const app = new Elysia()
     .use(
@@ -338,12 +338,12 @@ const app = new Elysia()
     .get('/', ({ setupCarbon }) => setupCarbon)
 ```
 
-We hope that remapping and affix will provide a powerful API for you to handle multiple complex plugin with ease.
+我们希望映射和后缀将提供一个强大的 API，帮助您处理多个复杂的插件。
 
-## True Encapsulation Scope
-With the introduction of Elysia 0.7, Elysia can now truly encapsulate an instance by treating a scoped instance as another instance.
+## 真正的封装范围
+随着 Elysia 0.7 的推出，Elysia 现在可以真正地封装一个实例，将一个范围实例视为另一个实例。
 
-The new scope model can even prevent event like `onRequest` to be resolve on a main instance which is not possible.
+新的范围模型甚至可以防止像 `onRequest` 那样的事件在主实例上解决，这在以前是不可能的。
 
 ```typescript
 const plugin = new Elysia({ scoped: true, prefix: '/hello' })
@@ -358,104 +358,104 @@ const app = new Elysia()
     .get('/', () => 'Hello World')
 ```
 
-Further more, scoped is now truly scoped down both in runtime, and type level which is not possible without the type rewrite mentioned before.
+此外，现在作用域在运行时和类型级别上都是真正受限的，这是以前没有提到的类型重写不可能实现的。
 
-This is exciting from maintainer side because previously, it's almost impossible to truly encapsulate the scope the an instance, but using `mount` and WinterCG compilance, we are finally able to truly encapsulate the instance of the plugin while providing a soft link with main instance property like `state`, `decorate`.
+这对维护者来说是非常令人兴奋的，因为之前几乎不可能真正封装实例的作用域，但是使用 `mount` 和 WinterCG 兼容性，我们终于能够真正封装插件的实例，同时为像 `state`、`decorate` 这样的主实例属性提供一个软链接。
 
-## Text based status
-There are over 64 standard HTTP status codes to remember, and I admit that sometime we also forget the status we want to use.
+## 文本状态
+有超过 64 个标准的 HTTP 状态码需要记住，我承认有时我们也会忘记我们想要使用的状态码。
 
-This is why we ship 64 HTTP Status codes in text-based form with autocompletion for you.
+这就是为什么我们以文本形式提供 64 个 HTTP 状态码，并为你提供自动完成功能的原因。
 
-![Example of using text-base status code](/blog/elysia-07/teapot.webp)
+![使用文本基础状态代码的示例](/blog/elysia-07/teapot.webp)
 
-Text will then resolved to status code automatically as expected.
+文本将自动解析为状态代码，如预期。
 
-As you type, there should be auto-completion for text popup automatically for your IDE, whether it's NeoVim or VSCode, as it's a built-in TypeScript feature.
+当您输入时，应该会有 IDE 的自动完成弹出，无论是 NeoVim 还是 VSCode，因为这是 TypeScript 的内置功能。
 
-![Text-base status code showing auto-completion](/blog/elysia-07/teapot-autocompletion.webp)
+![显示自动完成文本基状态码的示例](/blog/elysia-07/teapot-autocompletion.webp)
 
-This is a small ergonomic feature to helps you develop your server without switching between IDE and MDN to search for a correct status code.
+这是一个小的 ergonomic 特性，帮助您开发服务器，无需在 IDE 和 MDN 之间切换，搜索正确的状态码。
 
-## Notable Improvement
-Improvement:
-- `onRequest` can now be async
-- add `Context` to `onError`
-- lifecycle hook now accept array function
-- static Code Analysis now support rest parameter
-- breakdown dynamic router into single pipeline instead of inlining to static router to reduce memory usage
-- set `t.File` and `t.Files` to `File` instead of `Blob`
-- skip class instance merging
-- handle `UnknownContextPassToFunction`
-- [#157](https://github.com/elysiajs/elysia/pull/179) WebSocket - added unit tests and fixed example & api by @bogeychan
-- [#179](https://github.com/elysiajs/elysia/pull/179) add github action to run bun test by @arthurfiorette
+## 值得注意的改进
+改进：
+- `onRequest` 现在可以异步。
+- 添加 `Context` 到 `onError`。
+- 生命周期钩子现在接受一个函数数组。
+- 静态代码分析现在支持剩余参数。
+- 拆分动态路由到单个管道，而不是内联到静态路由，以减少内存使用。
+- 设置 `t.File` 和 `t.Files` 到 `File` 而不是 `Blob`。
+- 跳过类实例合并。
+- 处理 `UnknownContextPassToFunction`。
+- [#157](https://github.com/elysiajs/elysia/pull/179) WebSocket - 添加了单元测试，并修复了示例&api by @bogeychan。
+- [#179](https://github.com/elysiajs/elysia/pull/179) 添加 github action 来运行 bun test by @arthurfiorette。
 
-Breaking Change:
-- remove `ws` plugin, migrate to core
-- rename `addError` to `error`
+重大变更：
+- 移除 `ws` 插件，迁移到核心
+- 将 `addError` 重命名为 `error`
 
-Change:
-- using single findDynamicRoute instead of inlining to static map
-- remove `mergician`
-- remove array routes due to problem with TypeScript
-- rewrite Type.ElysiaMeta to use TypeBox.Transform
+变化：
+- 使用单一的 findDynamicRoute 而不是内联到静态映射。
+- 移除 `mergician`。
+- 移除数组路由，因为 TypeScript 遇到问题。
+- 重写 Type.ElysiaMeta 来使用 TypeBox.Transform。
 
-Bug fix:
-- strictly validate response by default
-- `t.Numeric` not working on headers / query / params
-- `t.Optional(t.Object({ [name]: t.Numeric }))` causing error
-- add null check before converting `Numeric`
-- inherits store to instance plugin
-- handle class overlapping
-- [#187](https://github.com/elysiajs/elysia/pull/187) InternalServerError message fixed to "INTERNAL_SERVER_ERROR" instead of "NOT_FOUND" by @bogeychan
-- [#167](https://github.com/elysiajs/elysia/pull/167) mapEarlyResponse with aot on after handle
+错误修复：
+- 严格验证响应。
+- `t.Numeric` 在头部/查询/参数上不起作用。
+- `t.Optional(t.Object({ [name]: t.Numeric }))` 导致错误。
+- 添加 null 检查，在转换 `Numeric` 之前。
+- 继承存储到实例插件。
+- 处理类重叠。
+- [#187](https://github.com/elysiajs/elysia/pull/187) 内部服务器错误消息修复为 “INTERNAL_SERVER_ERROR”，而不是 “NOT_FOUND” by @bogeychan。
+- [#167](https://github.com/elysiajs/elysia/pull/167) 地图 EarlyResponse 与 AoT 在处理后。
 
-## Afterward
-Since the latest release, we have gained over 2,000 stars on GitHub!
+## 之后
+自从最新的发布以来，我们在 GitHub 上获得了超过 2,000 颗星！
 
-Taking a look back, we have progressed more than we have ever imagined back then.
+回顾过去，我们的进步超出了我们当时的想象。
 
-Pushing the boundary of TypeScript, and developer experience even to the point that we are doing something we feels truly profound.
+推动 TypeScript 和开发者体验的边界，甚至到了我们正在做一些我们觉得真正深刻的事情的地步。
 
-With every release, we are gradually one step closer to brings the future we drawn long time ago.
+随着每一次发布，我们逐渐更接近于带来我们很久以前绘制的未来。
 
-A future where we can freely create anything we want with an astonishing developer experience.
+一个未来，我们可以自由地创造我们想要的东西，拥有惊人的开发者体验。
 
-We feels truly thanksful to be loved by you and lovely community of TypeScript and Bun.
+我们感到非常感激能被你和你可爱的 TypeScript 和 Bun 社区所爱。
 
-It's exciting to see Elysia is bring to live with amazing developer like: 
-- [Ethan Niser with his amazing BETH Stack](https://youtu.be/aDYYn9R-JyE?si=hgvGgbywu_-jsmhR)
-- Being mentioned by [Fireship](https://youtu.be/dWqNgzZwVJQ?si=AeCmcMsTZtNwmhm2)
-- Having official integration for [Lucia Auth](https://github.com/pilcrowOnPaper/lucia)
+看到 Elysia 被像这样令人惊叹的开发者带入生活，真是令人兴奋：
+- [Ethan Niser 和他的令人惊叹的 BETH 堆栈](https://youtu.be/aDYYn9R-JyE?si=hgvGgbywu_-jsmhR)
+- 被 [Fireship](https://youtu.be/dWqNgzZwVJQ?si=AeCmcMsTZtNwmhm2) 提到
+- 拥有 [Lucia Auth](https://github.com/pilcrowOnPaper/lucia) 的官方集成
 
-And much more developers that choose Elysia for their next project.
+还有更多选择 Elysia 作为他们下一个项目的开发者。
 
-Our goal is simple, to brings an eternal paradise where you can persue your dream and everyone can live happily.
+我们的目标很简单，就是带来一个永恒的天堂，在那里你可以追求你的梦想，每个人都可以幸福地生活。
 
-Thanks you and your love and overwhelming support for Elysia, we hope we can paint the future to persue our dream a reality one day.
+谢谢你的爱和对你对 Elysia 的压倒性支持，我们希望有一天我们能够将追求我们梦想的未来变成现实。
 
-**May all the beauty be blessed**
+**愿所有的美丽都被祝福**
 
-> Stretch out that hand as if to reach someone
+> 伸出手，好像要触及某人
 >
-> I'm just like you, nothing special
+> 我就像你，没什么特别的
 >
-> That's right, I'll sing the song of the night
+> 没错，我会唱夜晚的歌曲
 >
-> Stellar Stellar
+> 星光璀璨
 >
-> In the middle of the world, the universe
+> 在这个世界，宇宙的中心
 >
-> The music won't ever, ever stop tonight
+> 音乐永远不会，永远不会在今夜停止
 >
-> That's right, I'd always longed to be
+> 没错，我一直渴望成为
 >
-> Not Cinderella, forever waiting
+> 不是灰姑娘，永远等待
 >
-> But the prince that came to for her
+> 而是来找她的王子
 > 
-> Cause I'm a star, that's why
+> 因为我是星星，这就是为什么
 >
-> Stellar Stellar
+> 星光璀璨
 
 </Blog>

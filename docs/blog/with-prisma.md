@@ -1,29 +1,29 @@
 ---
-title: Accelerate your next Prisma server with Elysia
+title: 使用 Elysia 加速您的下一个 Prisma 服务器
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: Accelerate your next Prisma server with Elysia
+        content: 使用 Elysia 加速您的下一个 Prisma 服务器
 
     - - meta
       - name: 'description'
-        content: With the support of Prisma with Bun and Elysia, we are entering a new era of a new level of developer experience. For Prisma we can accelerate our interaction with database, Elysia accelerate our creation of backend web server in term of both developer experience and performance.
+        content: 通过 Bun 和 Elysia 对 Prisma 的支持，我们进入了一个新的开发体验时代。对于 Prisma，我们可以加速与数据库的交互，而 Elysia 则可以加速后端 web 服务器的创建，在开发体验和性能方面都提供了提升。
 
 
     - - meta
       - property: 'og:description'
-        content: With the support of Prisma with Bun and Elysia, we are entering a new era of a new level of developer experience. For Prisma we can accelerate our interaction with database, Elysia accelerate our creation of backend web server in term of both developer experience and performance.
+        content: 通过 Bun 和 Elysia 对 Prisma 的支持，我们进入了一个新的开发体验时代。对于 Prisma，我们可以加速与数据库的交互，而 Elysia 则可以加速后端 web 服务器的创建，在开发体验和性能方面都提供了提升。
 
     - - meta
       - property: 'og:image'
-        content: https://elysiajs.com/blog/with-prisma/prism.webp
+        content: https://elysia.zhcndoc.com/blog/with-prisma/prism.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysiajs.com/blog/with-prisma/prism.webp
+        content: https://elysia.zhcndoc.com/blog/with-prisma/prism.webp
 ---
 
 <script setup>
@@ -31,19 +31,19 @@ head:
 </script>
 
 <Blog
-title="Accelerate your next Prisma server with Elysia"
+title="使用 Elysia 加速您的下一个 Prisma 服务器"
 src="/blog/with-prisma/prism.webp"
-alt="Triangular Prism placing in the center"
+alt="中心放置的三角形棱镜"
 author="saltyaom"
-date="4 Jun 2023"
+date="2023 年 6 月 4 日"
 >
-Prisma is a renowned TypeScript ORM for its developer experience.
+Prisma 是一种著名的 TypeScript ORM，以其出色的开发体验而著称。
 
-With type-safe and intuitive API that allows us to interact with databases using a fluent and natural syntax.
+Prisma 提供了一组类型安全的、直观的 API，这些 API 允许我们使用流畅、自然的语法与数据库进行交互。
 
-Writing a database query is as simple as writing a shape of data with TypeScript auto-completion, then Prisma takes care of the rest by generating efficient SQL queries and handling database connections in the background.
+编写数据库查询就像使用 TypeScript 自动完成功能编写数据形状一样简单，Prisma 会负责生成高效的 SQL 查询并在后台处理数据库连接。
 
-One of the standout features of Prisma is its seamless integration with popular databases like:
+Prisma 的一个显著特点是它与流行数据库的紧密集成，包括：
 - PostgreSQL
 - MySQL
 - SQLite
@@ -51,55 +51,55 @@ One of the standout features of Prisma is its seamless integration with popular 
 - MongoDB
 - CockroachDB
 
-So we have the flexibility to choose the database that best suits our project's needs, without compromising on the power and performance that Prisma brings to the table.
+这意味着我们可以选择最适合项目需求的数据库，同时不会牺牲 Prisma 提供的强大性能。
 
-This means you can focus on what really matters: building your application logic.
+这意味着你可以专注于真正重要的内容：构建应用程序逻辑。
 
-Prisma is one of an inspiration for Elysia, its declarative API, fluent developer experience is an absolute joy to work with.
+Prisma 一直是对 Elysia 的一个灵感来源，它的声明式 API 和流畅的开发体验使用起来是一种绝对的乐趣。
 
-Now we can bring the long-awaited imagination to life with [the release of Bun 0.6.7](https://bun.sh/blog/bun-v0.6.7), Bun now support Prisma out of the box.
+现在，随着 [Bun 0.6.7](https://bun.sh/blog/bun-v0.6.7) 的发布，Bun 现在支持 Prisma 开箱即用。
 
 ## Elysia
 
-Elysia is one of the answer that would come to mind when you asked what framework should I use with Bun.
+当被问到你应该使用哪个框架与 Bun 搭配时，Elysia 是一个可能浮现在脑海中的答案。
 
-Although, you can use Express with Bun, but with Elysia is built specifically for Bun.
+尽管你可以使用 Express 与 Bun 搭配，但 Elysia 是专门为 Bun 构建的。
 
-Elysia can outperforms Express by nearly ~19x faster supercharged with declarative API for creating a unified type system and end-to-end type safety
+Elysia 可以以约 19 倍的速度超过 Express，它拥有一个声明式 API，用于创建统一类型系统和端到端类型安全。
 
-Elysia also known for having a fluent Developer Experience especially as Elysia is designed to be used with Prisma since its early day.
+Elysia 还以其流畅的开发体验而闻名，特别是自从 Elysia 的早期日子就开始与 Prisma 设计使用。
 
-With Elysia's strict-type validation, we can integrate Elysia and Prisma with ease using declarative API.
+Elysia 的严格类型验证可以轻松地与 Prisma 集成，使用声明式 API。
 
-In other word, Elysia will ensure that runtime type and TypeScript's type will be always in sync, making it behave like Type Strict Language where you can completely trust the type system and looks ahead for any type error, and easier debugging errors relating to type.
+换句话说，Elysia 将确保运行时类型与 TypeScript 的类型始终保持同步，使得类型系统完全值得信赖，并能够提前发现任何类型错误，以及更容易调试与类型相关的错误。
 
-## Setting up
+## 设置
 
-All we need to get start is to run `bun create` to setup an Elysia server
+我们需要做的就是运行 `bun create` 来设置一个 Elysia 服务器
 
 ```bash
 bun create elysia elysia-prisma
 ```
 
-Where `elysia-prisma` is our project name (folder destination), feels free to change the name to anything you like.
+在这里，`elysia-prisma` 是我们的项目名称 (文件夹目的地)，可以随意更改名称。
 
-Now in our folder, and let's install Prisma CLI as dev dependency.
+现在在我们的文件夹中，让我们将 Prisma CLI 作为开发依赖项安装。
 ```ts
 bun add -d prisma
 ```
 
-Then we can setup prisma project with `prisma init`
+然后我们可以使用 `prisma init` 设置 Prisma 项目：
 ```ts
 bunx prisma init
 ```
 
-`bunx` is a bun command equivalent to `npx`, which allows us to execute package bin.
+`bunx` 是 bun 命令，相当于 `npx`，允许我们执行包二进制文件。
 
-Once setup, we can see that Prisma will update `.env` file and generate a folder named **prisma** with **schema.prisma** as a file inside.
+设置完成后，我们可以看到 Prisma 将更新 `.env` 文件，并在 `prisma` 文件夹中生成一个名为 **schema.prisma** 的文件。
 
-**schema.prisma** is an database model defined with Prisma's schema language. 
+**schema.prisma** 是使用 Prisma 的模式语言定义的数据库模型。
 
-Let's update our **schema.prisma** file like this for a demonstration:
+让我们更新我们的 **schema.prisma** 文件，用于演示：
 ```ts
 generator client {
   provider = "prisma-client-js"
@@ -117,37 +117,37 @@ model User {
 }
 ```
 
-Telling Prisma that we want to create a table name **User** with column as:
-| Column | Type | Constraint |
+这告诉 Prisma，我们想要创建一个名为 **User** 的表，其中包含以下列：
+| 列 | 类型 | 约束 |
 | --- | --- | --- |
-| id  | Number | Primary Key with auto increment |
-| username | String | Unique |
-| password | String | - |
+| id  | 数字 | 主键，具有自动递增 |
+| username | 字符串 | 唯一 |
+| password | 字符串 | - |
 
-Prisma will then read the schema, and DATABASE_URL from an `.env` file, so before syncing our database we need to define the `DATABASE_URL` first.
+Prisma 会读取模式，并从 `.env` 文件中获取 DATABASE_URL，因此在同步数据库之前，我们需要首先定义 `DATABASE_URL`。
 
-Since we don't have any database running, we can setup one using docker:
+由于我们没有运行任何数据库，我们可以使用 Docker 设置一个：
 ```bash
 docker run -p 5432:5432 -e POSTGRES_PASSWORD=12345678 -d postgres
 ```
 
-Now go into `.env` file at the root of our project then edit:
+现在进入项目根目录的 `.env` 文件，然后编辑：
 ```
 DATABASE_URL="postgresql://postgres:12345678@localhost:5432/db?schema=public"
 ```
 
-Then we can run `prisma migrate` to sync our database with Prisma schema:
+然后我们可以运行 `prisma migrate` 来同步我们的数据库与 Prisma 模式：
 ```bash
 bunx prisma migrate dev --name init
 ```
 
-Prisma then generate a strongly-typed Prisma Client code based on our schema. 
+Prisma 会根据我们的模式生成一个强类型的 Prisma Client 代码。
 
-This means we get autocomplete and type checking in our code editor, catching potential errors at compile time rather than runtime.
+这意味着我们在代码编辑器中得到自动完成和类型检查，在编译时而不是运行时捕获潜在错误。
 
-## Into the code
+## 进入代码
 
-In our **src/index.ts**, let's update our Elysia server to create a simple user sign-up endpoint.
+在我们的 **src/index.ts** 中，让我们更新我们的 Elysia 服务器，创建一个简单的用户注册端点。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -169,17 +169,17 @@ console.log(
 )
 ```
 
-We have just created a simple endpoint to insert new user into our database using Elysia and Prisma.
+我们刚刚创建了一个简单的端点，用于将新用户插入我们的数据库中，使用 Elysia 和 Prisma。
 
 ::: tip
-**It's important** that when returning Prisma function, you should always marked a callback function as async.
+**非常重要**，当返回 Prisma 函数时，你应该总是将回调函数标记为 `async`。
 
-As Prisma function doesn't return native Promise, Elysia can not dynamically handle the custom promise type, but with Static Code Analysis, by marking callback function as async, Elysia will try to await the return type of a function thus allowing us to map Prisma result.
+因为 Prisma 函数不会返回原生 Promise，Elysia 不能动态处理自定义 Promise 类型，但是通过静态代码分析，标记回调函数为 `async`，Elysia 将尝试等待函数的返回类型，从而允许我们映射 Prisma 结果。
 :::
 
-Now the problem is that the body could be anything, not limited to our expected defined type.
+现在的问题是，body 可以是任何东西，不限于我们定义的类型。
 
-We can improve that by using Elysia's type system.
+我们可以通过使用 Elysia 的类型系统来提高这一点。
 ```ts
 import { Elysia, t } from 'elysia' // [!code ++]
 import { PrismaClient } from '@prisma/client'
@@ -208,28 +208,28 @@ console.log(
 )
 ```
 
-This tells Elysia to validate the body of an incoming request to match the shape, and update TypeScript's type of the `body` inside the callback to match the exact same type:
+这告诉 Elysia 验证传入请求的 body 是否与形状匹配，并更新回调内 `body` 的 TypeScript 类型以匹配确切的相同类型：
 ```ts
-// 'body' is now typed as the following:
+// 'body' 现在被类型化为以下内容:
 {
     username: string
     password: string
 }
 ```
 
-This means that if you the shape doesn't interlop with database table, it would warn you immediately.
+这意味着如果你修改表或执行迁移，并且类型冲突，它会立即警告你。
 
-Which is effective when you need to edit a table or perform a migration, Elysia can log the error immediately line by line because of a type conflict before reaching the production.
+这对于需要编辑表或执行迁移时非常有用，因为 Elysia 可以在问题到达生产之前立即逐行记录类型错误。
 
-## Error Handling
-Since our `username` field is unique, sometime Prisma can throw an error there could be an accidental duplication of `username` when trying to sign up like this:
+## 错误处理
+由于我们的 `username` 字段是唯一的，有时候 Prisma 可能会抛出错误，因为 `username` 可能不小心重复了，当我们尝试注册时就像这样：
 ```ts
 Invalid `prisma.user.create()` invocation:
 
 Unique constraint failed on the fields: (`username`)
 ```
 
-Default Elysia's error handler can handle the case automatically but we can improve that by specifying a custom error using Elysia's local `onError` hook:
+默认的 Elysia 错误处理程序可以自动处理这种情况，但我们可以通过使用 Elysia 的本地 `onError` 钩子来改进它：
 ```ts
 import { Elysia, t } from 'elysia'
 import { PrismaClient } from '@prisma/client'
@@ -267,25 +267,25 @@ console.log(
 )
 ```
 
-Using `error` hook, any error thown inside a callback will be populate to `error` hook, allowing us to define a custom error handler.
+使用 `error` 钩子，任何回调中抛出的错误都会被填充到 `error` 钩子中，允许我们定义自定义错误处理程序。
 
-According to [Prisma documentation](https://www.prisma.io/docs/reference/api-reference/error-reference#p2002), error code 'P2002' means that by performing the query, it will failed a unique constraint.
+根据 [Prisma 文档](https://www.prisma.io/docs/reference/api-reference/error-reference#p2002)，错误代码 ‘P2002’ 意味着执行查询将失败唯一性约束。
 
-Since this table only a single `username` field that is unique, we can imply that the error is caused because username is not unique, so we return a custom erorr message of:
+因为这个表只有 `username` 字段是唯一的，我们可以推断错误是因为用户名不唯一，所以我们返回一个自定义错误消息：
 ```ts
 {
     error: 'Username must be unique'
 }
 ```
 
-This will return a JSON equivalent of our custom error message when a unique constraints failed.
+这将返回一个 JSON，其内容是我们自定义的错误消息，当唯一性约束失败时。
 
-Allowing us to seemlessly define any custom error from Prisma error.
+这允许我们无缝地定义任何自定义错误。
 
-## Bonus: Reference Schema
-When our server grow complex and type becoming more redundant and become a boilerplate, inlining an Elysia type can be improved by using **Reference Schema**.
+## 额外：参考模式
+当我们的服务器变得复杂，并且类型变得更加冗余并成为样板代码时，内联 Elysia 类型可以通过使用**参考模式**得到改进。
 
-To put it simply, we can named our schema and reference the type by using the name.
+简单来说，我们可以为我们的模式命名并引用类型，通过使用名称。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -333,20 +333,20 @@ console.log(
 )
 ```
 
-This works as same as using an inline but instead you defined it once and refers to the schema by name to remove redundant validation codes.
+这工作得和内联一样，但是你只在定义一次后引用模式名称，以消除重复的验证代码。
 
-TypeScript and validation code will works as expected.
+TypeScript 和验证代码将按预期工作。
 
-## Bonus: Documentation
-As a bonus, Elysia type system is also OpenAPI Schema 3.0 compliance, which means that it can generate documentation with tools that support OpenAPI Schema like Swagger.
+## 额外：文档
+作为一个额外，Elysia 类型系统也是 OpenAPI Schema 3.0 兼容的，这意味着它可以使用支持 OpenAPI Schema 的工具 (如 Swagger) 生成文档。
 
-We can use Elysia Swagger plugin to generate an API documentation in a single line.
+我们可以使用 Elysia Swagger 插件来生成一个 API 文档，只需一行代码。
 
 ```bash
 bun add @elysiajs/swagger
 ```
 
-And then just add the plugin:
+然后只需添加插件：
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -396,28 +396,28 @@ console.log(
 )
 ```
 
-And that's all it takes to create a well-defined documentation for our API.
+这就是创建一个严格定义文档所需的一切。
 
-<img class="-png" src="/blog/with-prisma/swagger.webp" alt="Swagger documentation generated by Elysia" />
+<img class="-png" src="/blog/with-prisma/swagger.webp" alt="Elysia 生成的 Swagger 文档" />
 
-And thanks to defining a strict type for the documentation, we found that we accidentally return `password` field from our API which is not a good idea to return a private information.
+由于定义了严格的类型，我们发现我们错误地从 API 返回了 `password` 字段，这是不应该返回私密信息的。
 
-Thanks to Elysia's type system, we define that response shouldn't contains `password` which automatically warn us that our Prisma query are returning a password allows us to fix that a head of time.
+由于 Elysia 的类型系统，我们定义了响应不应包含 `password`，这自动警告我们，我们的 Prisma 查询正在返回密码，使我们能够提前修复问题。
 
-And if anything more, we don't have to worry that we might forget a specification of OpenAPI Schema 3.0, as we have auto-completion and type safety too.
+如果还有更多，我们不用担心可能会忘记 OpenAPI Schema 3.0 的规格，因为我们在自动完成和类型安全方面都有。
 
-We can define our route detail with `detail` that also follows OpenAPI Schema 3.0, so we can properly create documentation effortlessly.
+我们可以在 `detail` 中定义我们的路由细节，这也遵循 OpenAPI Schema 3.0，因此我们可以轻松创建文档。
 
-## What's next
-With the support of Prisma with Bun and Elysia, we are entering a new era of a new level of developer experience.
+## 下一步是什么
+通过 Bun 和 Elysia 对 Prisma 的支持，我们进入了一个新级别的开发体验新时代。
 
-For Prisma we can accelerate our interaction with database, Elysia accelerate our creation of backend web server in term of both developer experience and performance.
+对于 Prisma，我们可以加速与数据库的交互，而 Elysia 则能够加速后端 web 服务器的创建，在开发体验和性能方面都提供了提升。
 
-> It's an absolute joy to work with.
+> 这绝对是一种乐趣。
 
-Elysia is on a journey to create a new standard for a better developer experience with Bun for high performance TypeScript server that can match the performance of Go and Rust.
+Elysia 正在创造一个新的标准，为与 Bun 结合的高性能 TypeScript 服务器提供更好的开发体验，以匹配 Go 和 Rust 的性能。
 
-If you're looking for a place to start learning about out Bun, consider take a look for what Elysia can offer especially with an [end-to-end type safety](/eden/overview) like tRPC but built on REST standard without any code generation.
+如果你想开始学习关于 Bun 的知识，可以考虑看看 Elysia 能提供什么，特别是[端到端类型安全的概述](/eden/overview)，就像 tRPC 一样，但建立在 REST 标准上，无需任何代码生成。
 
-If you're interested in Elysia, feel free to check out our [Discord server](https://discord.gg/eaFJ2KDJck) or see [Elysia on GitHub](https://github.com/elysiajs/elysia)
+如果你对 Elysia 感兴趣，请查看我们的 [Discord 服务器](https://discord.gg/eaFJ2KDJck)或查看 [Elysia 在 GitHub](https://github.com/elysiajs/elysia)。
 </Blog>

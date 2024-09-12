@@ -42,7 +42,7 @@ export const POST: RequestHandler = ({ request }) => app.handle(request)
 
 你可以将 Elysia 服务器视为普通的 SvelteKit 服务器路由。
 
-使用这种方法，你可以将前端和后端的代码放在同一个存储库中，并在客户端和服务器端上实现 [End-to-end type-safety with Eden](https://elysiajs.com/eden/overview.html)。
+使用这种方法，你可以将前端和后端的代码放在同一个存储库中，并在客户端和服务器端上实现 [End-to-end type-safety with Eden](https://elysia.zhcndoc.com/eden/overview.html)。
 
 请参考 [SvelteKit Routing](https://kit.svelte.dev/docs/routing#server) 获取更多信息。
 

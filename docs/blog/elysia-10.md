@@ -1,28 +1,28 @@
 ---
-title: Elysia 1.0 - Lament of the Fallen
+title: 伊利西亚 1.0 - 陨落者的哀歌
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia 1.0 - Lament of the Fallen
+        content: 伊利西亚 1.0 - 陨落者的哀歌
 
     - - meta
       - name: 'description'
-        content: Introducing Sucrose, a better static code analysis engine, improved starts up time up to 14x, remove 40 routes/instance limitation, faster type inference up to ~3.8x, Eden Treaty 2, Hook type (breaking change), and inline error for strict type check.
+        content: 介绍蔗糖，一个更好的静态代码分析引擎，启动时间提升高达14倍，移除每实例40个路由的限制，类型推断速度提升约3.8倍，更新条约2，钩子类型（重大更改），以及严格类型检查的行内错误。
 
     - - meta
       - property: 'og:description'
-        content: Introducing Sucrose, a better static code analysis engine, improved starts up time up to 14x, remove 40 routes/instance limitation, faster type inference up to ~3.8x, Eden Treaty 2, Hook type (breaking change), and inline error for strict type check.
+        content: 介绍蔗糖，一个更好的静态代码分析引擎，启动时间提升高达14倍，移除每实例40个路由的限制，类型推断速度提升约3.8倍，更新条约2，钩子类型（重大更改），以及严格类型检查的行内错误。
 
     - - meta
       - property: 'og:image'
-        content: https://elysiajs.com/blog/elysia-10/lament-of-the-fallen.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-10/lament-of-the-fallen.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysiajs.com/blog/elysia-10/lament-of-the-fallen.webp
+        content: https://elysia.zhcndoc.com/blog/elysia-10/lament-of-the-fallen.webp
 
     - - script
       - src: https://platform.twitter.com/widgets.js
@@ -35,78 +35,78 @@ head:
 </script>
 
 <Blog
-    title="Elysia 1.0 - Lament of the Fallen"
+    title="伊利西亚 1.0 - 陨落者的哀歌"
     src="/blog/elysia-10/lament-of-the-fallen.webp"
-    alt="Dreamy Euphony landscape of floating bubble"
-    author="saltyaom"
-    date="16 Mar 2024"
+    alt="梦幻协奏曲，漂浮气泡的景象"
+    author="SaltyAom"
+    date="2024 年 6 月 16 日"
     shadow
 >
 
-Elysia 1.0 is the first stable release after development for 1.8 years.
+伊利西亚 1.0 是经过 1.8年开发后的首个稳定版本。
 
-Since started, we have always waiting for a framework that focuses on developer experience, velocity, and how to make writing code for humans, not a machine.
+自从开始，我们一直在期待一个专注于开发者体验、开发速度，以及如何为人类而不是机器编写代码的框架。
 
-We battle-test Elysia in various situations, simulate medium and large-scale projects, shipping code to clients and this is the first version that we felt confident enough to ship.
+我们在各种情况下测试了伊利西亚，模拟了中等到大型的项目，并将代码交付给客户，这是我们感到足够自信可以发布的第一个版本。
 
-Elysia 1.0 introduces significant improvements and contains 1 necessary breaking change.
-- [Sucrose](#sucrose) - Rewritten pattern matching static analysis instead of RegEx
-- [Improved startup time](#improved-startup-time) up to 14x
-- [Remove ~40 routes/instance TypeScript limitation](#remove-40-routesinstance-limit)
-- [Faster type inference](#type-inference-improvement) up to ~3.8x
-- [Treaty 2](#treaty-2)
-- [Hook type](#hook-type-breaking-change) (breaking changes)
-- [Inline error](#inline-error) for strict error check
+伊利西亚 1.0 带来了重大改进，并包含了一个必要的重大变更。
+- [蔗糖](#蔗糖) - 重写的模式匹配静态分析，取代正则表达式
+- [启动时间提升](#启动时间提升)高达 14 倍
+- [移除 ~40 路由/实例的 TypeScript 限制](#移除-~40-路由实例-的限制)
+- [类型推断速度提升](#类型推断速度提升)约 3.8 倍
+- [更新条约 2](#更新条约2)
+- [钩子类型](#钩子类型-重大变更) (重大更改)
+- [严格类型检查的行内错误](#严格类型检查的行内错误)
 
 ---
 
-It's a tradition that Elysia's release note have a version named after a song or media.
+按照传统，伊利西亚的发布笔记以一首歌曲或媒体命名。
 
-This important version is named after ["Lament of the Fallen"](https://youtu.be/v1sd5CzR504).
+这个重要的版本以 [“陨落者的哀歌”](https://youtu.be/v1sd5CzR504) 命名。
 
-Animated short from **"Honkai Impact 3rd"** from my favorite arc, and my favorite character, **"Raiden Mei"** featuring her theme song, ["Honkai World Diva"](https://youtu.be/s_ZLfaZMpe0).
+来自**“崩坏 3” **的动画短片，这是我最喜欢的章节，以及我最喜欢的角色，**“雷电芽衣”**，她演绎的主题曲，[“崩坏世界偶像”](https://youtu.be/s_ZLfaZMpe0)。
 
-It's a very good game, and you should check it out.
+这是一个非常好的游戏，你应该去尝试一下。
 
 ー SaltyAom
 
-<small>Also known as Raiden Mei from Gun Girl Z, Honkai Impact 3rd, Honkai Star Rail. And her "variation", Raiden Shogun from Genshin Impact, and possibly Acheron from Honkai Star Rail (since she's likely a bad-end herrscher form mentioned in Star Rail 2.1).</small>
+<small>也被称为雷电芽衣，来自枪少女 Z、崩坏 3、崩坏星穹铁道。以及她的 “变体”，雷电将军，来自原神，可能还有亚克隆，崩坏星穹铁道 (因为她在星铁 2.1 中被提到的坏结局赫尔墨斯形态)。</small>
 
 ::: tip
-Remember, ElysiaJS is an open source library maintain by volunteers, and isn't associate with Mihoyo nor Hoyoverse. But we are a huge fan of Honkai series, alright?
+请记住，伊利西亚 JS 是由志愿者维护的开源库，与米哈游或霍格沃兹没有关联。但我们确实是崩坏系列的超级粉丝，对吗？:::
 :::
 
-## Sucrose
-Elysia is optimized to have an excellent performance proven in various benchmarks, one of the main factors is thanks to Bun, and our custom JIT static code analysis.
+## 蔗糖
+伊利西亚优化了性能，在各种基准测试中表现出色，其中一个主要因素要归功于 Bun，以及我们的自定义即时静态代码分析。
 
-If you are not aware, Elysia has some sort of "compiler" embedded that reads your code and produces an optimized way to handle functions.
+如果你还不知道，伊利西亚有一个内置的 “编译器”，它读取你的代码并生成一种优化处理函数的方法。
 
-The process is fast and happens on the fly without a need for a build step.
-However, it's challenging to maintain as it's written mostly in many complex RegEx, and can be slow at times if recursion happens.
+这个过程很快，并且不需要构建步骤就在飞行中发生。
+然而，维护起来很困难，因为它是用许多复杂的正则表达式编写的，并且在某些情况下可能会变慢。
 
-That's why we rewrote our static analysis part to separate the code injection phase using a hybrid approach between partial AST-based and pattern-matching name **"Sucrose"**.
+这就是为什么我们用一个混合方法重新实现了我们的静态分析部分，该方法结合了部分抽象语法树和模式匹配的名称**“蔗糖”**。
 
-Instead of using full AST-based which is more accurate, we choose to implement only a subset of rules that is needed to improve performance as it needs to be fast on runtime.
+而不是使用完整的抽象语法树，这种方法更准确，我们选择实现仅适用于提高性能的规则，因为它在运行时需要速度。
 
-Sucrose is good at inferring the recursive property of the handler function accurately with low memory usage, resulting in up to 37% faster inference time and significantly reduced memory usage.
+蔗糖擅长准确地推断处理函数的递归属性，内存使用量低，结果是最快 37%的推断时间和显著减少的内存使用。
 
-Sucrose is shipped to replace RegEx-based to partial AST, and pattern matching starting from Elysia 1.0.
+蔗糖被用来替换正则表达式到部分抽象语法树，从 Elysia 1.0 开始使用模式匹配。
 
-## Improved Startup time
-Thanks to Sucrose, and separation from the dynamic injection phase, we can defer the analysis time JIT instead of AOT.
+## 启动时间改进
+由于蔗糖 (Sucrose) 的贡献，以及与动态注入阶段的分离，我们现在可以将分析时间延迟到 JIT (即时编译) 而不是 AOT (ahead-of-time 编译)。
 
-In other words, the "compile" phase can be lazily evaluated.
+换句话说，“编译” 阶段可以懒惰地评估。
 
-Offloading the evaluation phase from AOT to JIT when a route is matched for the first time and caching the result to compile on demand instead of all routes before server start.
+当路由第一次匹配时，将评估阶段从 AOT 卸载到 JIT，并将结果缓存以按需编译，而不是在服务器启动前编译所有路由。
 
-In a runtime performance, a single compilation is usually fast and takes no longer than 0.01-0.03 ms (millisecond not second).
+在运行时性能方面，单个编译通常很快，耗时不超过 0.01-0.03 毫秒 (毫秒，不是秒)。
 
-In a medium-sized application and stress test, we measure up to between ~6.5-14x faster start-up time.
+在中型应用程序和压力测试中，我们测量到启动时间快了约 6.5-14 倍。
 
-## Remove ~40 routes/instance limit
-Previously you could only stack up to ~40 routes / 1 Elysia instance since Elysia 0.1.
+## 移除约 40 条路由/实例限制
+以前，由于 Elysia 0.1 的限制，您只能堆叠约 40 条路由/1 个 Elysia 实例。
 
-This is the limitation of TypeScript that each queue that has a limited memory and if exceeded, TypeScript will think that **"Type instantiation is excessively deep and possibly infinite"**.
+这是 TypeScript 的限制，每个队列都有有限的内存，如果超出，TypeScript 会认为 “类型实例化过深，可能是无限的”。
 ```typescript
 const main = new Elysia()
     .get('/1', () => '1')
@@ -117,7 +117,7 @@ const main = new Elysia()
     // Type instantiation is excessively deep and possibly infinite
 ```
 
-As a workaround, we need to separate an instance into a controller to overcome the limit and remerge the type to offload the queue like this.
+作为权宜之计，我们需要将实例分开成控制器以克服限制，并重新合并类型以卸载队列，如下所示。
 ```typescript
 const controller1 = new Elysia()
     .get('/42', () => '42')
@@ -130,11 +130,11 @@ const main = new Elysia()
     .use(controller1)
 ```
 
-However, starting from Elysia 1.0, we have overcome the limit after a year after optimizing for type-performance, specifically Tail Call Optimization, and variances.
+然而，从伊利西亚 1.0 开始，我们在优化类型性能，特别是尾调用优化和变体方面克服了这个限制。
 
-This means theoretically, we can stack an unlimited amount of routes and methods until TypeScript breaks.
+这意味着理论上，我们可以堆叠无限数量的路由和方法的直到 TypeScript 崩溃。
 
-<small class="opacity-50">(spoiler: we have done that and it's around 558 routes/instance before TypeScript CLI and language server because of JavaScript memory limit per stack/queue)</small>
+<small class="opacity-50">(提示：我们做到了，大约在 558 个路由/实例之前，因为 TypeScript 命令行和语言服务器因为 JavaScript 堆栈/队列的限制)</small>
 
 ```typescript
 const main = new Elysia()
@@ -145,51 +145,51 @@ const main = new Elysia()
     .get('/550', () => '550')
 ```
 
-So we increase the limit of ~40 routes to JavaScript memory limit instead, so try not to stack more than ~558 routes/instance, and separate into a plugin if necessary.
+因此，我们将 40 个路由的限制提高到 JavaScript 内存限制，所以尽量不要堆叠超过 ~558 个路由/实例，并在必要时分离成插件。
 
-![TypeScript breaks on 558 routes](/blog/elysia-10/558-ts-limit.webp)
+![TypeScript在558个路由时崩溃](/blog/elysia-10/558-ts-limit.webp)
 
-The blocker that made us feel like Elysia is not ready for production has been finally resolved.
+阻止我们感觉伊利西亚还没有准备好生产的是这个限制。
 
-## Type Inference improvement
-Thanks to the effort we put into optimization, we measure **up to ~82%** in most Elysia servers.
+## 类型推断速度提升
+多亏了我们在优化方面所做的努力，我们在大多数伊利西亚服务器中测量了**约 82%**的提升。
 
-Thanks to the removed limitation of stack, and improved type performance, we can expect almost instant type check and auto-completion even after 500 routes stacks.
+由于去除了堆栈限制，以及改进了类型性能，我们可以期望几乎即时的类型检查和自动完成，即使在 500 个路由堆叠之后。
 
 <video controls>
     <source src="/blog/elysia-10/type-demo.mp4" />
 </video>
 
-**Up to 13x faster for Eden Treaty**, type inference performance by precomputing the type instead offload type remap to Eden.
+**约 13 倍速度的提升**，对于条约的类型推断，通过预计算类型而不是卸载类型重映射到伊甸。
 
-Overall, Elysia, and Eden Treaty performing together would be **up to ~3.9x faster**.
+总的来说，伊利西亚和伊甸条约一起工作，速度可以**提升约 3.9 倍**。
 
-Here's a comparison between the Elysia + Eden Treaty on 0.8 and 1.0 for 450 routes.
+这里是 Elysia + Eden Treaty 在 0.8 和 1.0 之间的比较，对于 450 个路由。
 
-![Type performance comparison between Elysia Eden 0.8 and 1.0, the graph shows that Elysia 0.8 took ~1500ms while Elysia 1.0 took ~400ms](/blog/elysia-10/ely-comparison.webp)
+![类型性能比较，显示Elysia 0.8需要大约1500ms，而Elysia 1.0只需要大约400ms](/blog/elysia-10/ely-comparison.webp)
 
-Stress test with 450 routes for Elysia with Eden Treaty, result as follows:
-- Elysia 0.8 took ~1500ms
-- Elysia 1.0 took ~400ms
+压力测试对于 450 个路由的 Elysia 和 Eden 条约，结果如下：
+- Elysia 0.8 需要大约 1500ms
+- Elysia 1.0 需要大约 400ms
 
-And thanks to the removal of stack limitation, and remapping process, it's now possible to stack up to over 1,000 routes for a single Eden Treaty instance.
+多亏了堆栈限制的移除，以及重映射过程，现在有可能堆叠超过 1000 个路由。
 
-## Treaty 2
-We ask you for feedback on Eden Treaty what you like and what could have been improved. and you have given us some flaws in Treaty design and several proposals to improvement.
+## 更新条约 2
+我们向您征求对伊甸条约的意见，您喜欢什么，有什么可以改进的地方。您提出了关于条约设计的一些缺陷，并提出了几种改进措施。
 
-That's why today, we introduce Eden Treaty 2, an overhaul to a more ergonomic design.
+这就是为什么今天，我们介绍伊甸条约 2，一个更加符合人体工程学的设计。
 
-As much as we dislike breaking change, Treaty 2 is a successor to Treaty 1. 
+尽管我们不喜欢重大变更，但条约 2 是条约 1 的继承者。
 
-**What's new in Treaty 2**:
-- More ergonomic syntax
-- End-to-end type safety for Unit Test
-- Interceptor
-- No "$" prefix and property
+**条约 2 的新内容：**
+- 更加符合人体工程学的语法
+- 端到端类型安全的单元测试
+- 拦截器
+- 没有 “$” 前缀和属性
 
-Our favorite one is end-to-end type safety for Unit tests.
+我们最喜欢的是端到端类型安全的单元测试。
 
-So instead of starting a mock server and sending a fetch request, we can use Eden Treaty 2 to write unit tests with auto-completion and type safety instead.
+因此，我们可以在不发送 FETCH 请求的情况下，用伊甸条约 2 来编写单元测试，提供自动完成和类型安全，而不是启动一个模拟服务器。
 ```typescript
 // test/index.test.ts
 import { describe, expect, it } from 'bun:test'
@@ -208,25 +208,25 @@ describe('Elysia', () => {
 })
 ```
 
-The difference between the two is that **Treaty 2 is a successor to Treaty 1.**
+两个之间的区别是**条约 2 是条约 1 的继承者。**
 
-We don't intend to introduce any breaking change to Treaty 1 nor force you to update to Treaty 2.
+我们并不打算引入任何条约 1 的破坏性变更，也不强迫您更新到条约 2。
 
-You can choose to continue using Treaty 1 for your current project without updating to Treaty 2, and we maintain it in a maintenance mode.
+您可以继续使用条约 1 而不需要更新到条约 2，我们将以维护模式维护它。
 
-- You can import `treaty` to use Treaty 2.
-- And import `edenTreaty` for Treaty 1.
+- 您可以导入 `treaty` 来使用条约 2。
+- 并且导入 `edenTreaty` 来使用条约 1。
 
-The documentation for the new Treaty can be found in [Treaty overview](/eden/treaty/overview.html), and for Treaty 1 in [Treaty legacy](/eden/treaty/legacy.html)
+新条约的文档可以在[条约概览](/eden/treaty/overview.html)中找到，而旧条约的文档则在[条约遗留](/eden/treaty/legacy.html)中。
 
-## Hook type (breaking change)
-We hate breaking changes, and this is the first time we do it in large-scale.
+## 钩子类型 (重大变更)
+我们讨厌破坏性变更，这是我们第一次在大型规模上进行这种变更。
 
-We put a lot of effort into API design to reduce changes made to Elysia, but this is necessary to fix a flawed design.
+我们在 API 设计上投入了大量努力，以减少对 Elysia 的变更，但这是为了修复一个有缺陷的设计所必需的。
 
-Previously when we added a hook with **"on"** like `onTransform`, or `onBeforeHandle`, it would become a global hook.
+以前，当我们添加一个钩子时，比如 `onTransform`，或 `onBeforeHandle`，它将成为全局钩子。
 
-This is great for creating something like a plugin but is not ideal for a local instance like a controller.
+这在大规模项目中创建插件时非常有用，但对于单个实例来说，并不是理想的选择。
 
 ```typescript
 const plugin = new Elysia()
@@ -242,22 +242,22 @@ const app = new Elysia()
     .get('/no-hi-please', () => 'oh no')
 ```
 
-However, we found several problems arise from this behavior.
-- We found that many developers have a lot of nested guards even on the new instance. Guard is almost used as a way to start a new instance to avoid side effects.
-- global by default may cause unpredictable (side-effect) behavior if not careful, especially in a team with inexperienced developers.
-- We asked many developers both familiar and not familiar with Elysia, and found that most expected hook to be local at first.
-- Following the previous point, we found that making hook global by default can easily cause accidental bugs (side-effect) if not reviewed carefully and hard to debug and observe.
+然而，我们发现这种行为带来了一些问题。
+- 我们发现许多开发者即使在新的实例中也有很多嵌套的守卫，守卫几乎被用作开始新实例的一种方式，以避免副作用。
+- 默认的全局可能导致不可预测的行为 (副作用)，如果不小心，特别是在团队中，有经验不足的开发者。
+- 我们询问了许多熟悉和不熟悉 Elysia 的开发者，发现大多数开发者最初都期望钩子是本地的。
+- 遵循前一点，我们发现使钩子默认全局可能会在不仔细审查的情况下容易导致意外的错误 (副作用)，并且难以调试和观察。
 
 ---
 
-To fix this, we introduce a hook type to specify how the hook should be inherited by introducing a **"hook-type"**.
+为了解决这个问题，我们引入了钩子类型，以指定钩子应该如何继承，通过引入一个**“钩子类型”**。
 
-Hook types can be classified as follows:
-- local (default) - apply to only current instance and descendant only
-- scoped - apply to only 1 ascendant, current instance, and descendants
-- global (old behavior) - apply to all instances that apply the plugin (all ascendants, current, and descendants)
+钩子类型可以分为以下几种：
+- 本地 (默认)- 仅应用于当前实例及其后代
+- 作用域 - 仅应用于 1 个祖先，当前实例及其后代
+- 全局 (旧行为)- 应用于所有应用插件 (所有祖先，当前实例及其后代) 的实例
 
-To specify the hook's type, simply add a `{ as: hookType }` to the hook.
+要指定钩子的类型，只需在钩子中添加 `{ as: hookType }`。
 ```typescript
 const plugin = new Elysia()
     .onBeforeHandle(() => { // [!code --]
@@ -271,9 +271,9 @@ const main = new Elysia()
     .get('/parent', () => 'log hi')
 ```
 
-This API is designed to fix the **guard nesting problem** for Elysia, where developers are afraid to introduce a hook on root instances because of fear of side effects.
+该 API 旨在解决 Elysia 的**守卫嵌套问题**，开发者在根实例上引入钩子时因为担心副作用而不敢这样做。
 
-For example, to create an authentication check for an entire instance, we need to wrap a route in a guard.
+例如，为了对整个实例创建一个身份验证检查，我们需要在守卫中包装一个路由。
 
 ```typescript
 const plugin = new Elysia()
@@ -284,7 +284,7 @@ const plugin = new Elysia()
     )
 ```
 
-However, with the introduction of hook type, we can remove the nesting guard boilerplate.
+然而，随着钩子类型的引入，我们可以移除嵌套保护样板代码。
 ```typescript
 const plugin = new Elysia()
     .guard((app) => // [!code --]
@@ -294,7 +294,7 @@ const plugin = new Elysia()
     ) // [!code --]
 ```
 
-Hook type will specify how the hook should be inherited, let's create a plugin to illustrate how hook type works.
+钩子类型将指定钩子应该如何被继承，让我们创建一个插件来演示钩子类型是如何工作的。
 ```typescript
 // ? Value based on table value provided below
 const type = 'local'
@@ -318,15 +318,15 @@ const main = new Elysia()
     .get('/main', () => 'hello')
 ```
 
-By changing the `type` value, the result should be as follows:
+通过更改 `type` 值，结果应该是以下几种：
 
 | type       | child | current | parent | main |
 | ---------- | ----- | ------- | ------ | ---- |
-| 'local'    | ✅    | ✅       | ❌     | ❌   | 
-| 'scope'    | ✅    | ✅       | ✅     | ❌   | 
-| 'global'   | ✅    | ✅       | ✅     | ✅   | 
+| 'local'    | ✅    | ✅       | ❌     | ❌   |
+| 'scope'    | ✅    | ✅       | ✅     | ❌   |
+| 'global'   | ✅    | ✅       | ✅     | ✅   |
 
-Migrating from Elysia 0.8, if you want make a hook global, you have to specify that hook is global.
+从 Elysia 0.8 迁移，如果你想使一个钩子全局化，你必须指定那个钩子是全局的。
 
 ```typescript
 // From Elysia 0.8
@@ -340,25 +340,25 @@ new Elysia()
     .derive({ as: 'global' }, () => {})
 ```
 
-As much as we hate breaking change and migration, we think this is an important fix that will happen sooner or later to fix problems.
+尽管我们讨厌破坏性变更和迁移，但我们认为这是一个重要的修复，它迟早会发生以解决问题。
 
-Most of the server might not need to apply migration yourself but **heavily depends on plugin authors**, or should migration required, it usually take no longer than 5-15 minutes.
+大多数服务器可能不需要自己应用迁移，但**很大程度上取决于插件作者**，或者如果迁移是必需的，通常不会超过 5-15分钟。
 
-For a complete migration note, see [Elysia#513](https://github.com/elysiajs/elysia/issues/513).
+要查看完整的迁移说明，请参阅 [Elysia#513](https://github.com/elysiajs/elysia/issues/513)。
 
-For the documentation of hook type, see [Lifecycle#hook-type](https://beta.elysiajs.com/essential/scope.html#hook-type)
+有关钩子类型的文档，请参阅 [Lifecycle#hook-type](https://beta.elysiajs.com/essential/scope.html#hook-type)
 
-## Inline error
-Starting from Elysia 0.8, we can use the `error` function to return a response with a status code for Eden inference.
+## 内联错误
+从 Elysia 0.8 开始，我们可以使用 `error` 函数返回一个带有状态码的响应，以便 Eden 推理。
 
-However, this has some flaws.
+然而，这有一些缺点。
 
-If you specify a response schema for a route, Elysia will be unable to provide an accurate auto-completion for the status code.
+如果你为路由指定了一个响应模式，Elysia 将无法为状态码提供准确的自动完成。
 
-For example, narrowing down an available status code.
-![Using import error in Elysia](/blog/elysia-10/error-fn.webp)
+例如，缩小可用状态码的范围。
+![在Elysia中使用import error](/blog/elysia-10/error-fn.webp)
 
-Inline error can be destructured from handler as follows:
+内联错误可以从处理程序中解构如下：
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -375,26 +375,26 @@ new Elysia()
     })
 ```
 
-Inline error can produce a fine-grained type from a schema, providing type narrowing, auto-completion, and type checking to the accuracy of value, underlining red squiggly at a value instead of an entire function.
+行内错误可以产生细粒度的类型，提供类型窄化、自动完成和类型检查，直到值的准确性，下划线红色波浪线出现在值上，而不是整个函数。
 
-![Using inline error function from Elysia with an auto-completion that shows narrowed down status code](/blog/elysia-10/inline-error-fn.webp)
+![使用Elysia的行内错误函数，显示窄化的状态代码自动完成](/blog/elysia-10/inline-error-fn.webp)
 
 
-We recommended using inline error instead of import error for more accurate type safety.
+我们推荐使用行内错误函数而不是 import error 来获得更准确的类型安全。
 
-## What does it mean for v1, and what's next
-Reaching stable release means we believe that Elysia is stable enough and ready to be used in production.
+## 这意味着 v1，接下来的计划
+达到稳定的发布意味着我们相信 Elysia 是稳定和准备好用于生产的。
 
-Maintaining backward compatibility is now one of our goals, putting effort into not introducing breaking changes to Elysia except for security.
+保持向后兼容性现在是我们的一些目标，专注于不是引入破坏性变更到 Elysia，除了安全性的问题。
 
-Our goal is to make backend development feel easy, fun, and intuitive while making sure that the product built with Elysia will have a solid foundation.
+我们的目标是让后端开发感觉简单、有趣和直观，同时确保用 Elysia 构建的产品有一个坚实的根基。
 
-After this, we will be focusing on refining our ecosystem and plugins.
-Introducing an ergonomic way to handle redundant and mundane tasks, starting some internal plugin rewrite, authentication, synchronize behavior between JIT and non-JIT mode, and **universal runtime support.**
+在此之后，我们将专注于改进我们的生态系统和插件。
+引入一种处理重复和枯燥任务的方式，开始内部插件重写，身份验证，同步 JIT 和非 JIT 模式的行为，以及**通用运行时支持**。
 
-Bun works excellently in both runtime, package manager and all the toolings they offers, and we believe that Bun is going to be a future of JavaScript.
+Bun 在运行时表现出色，包管理器和所有提供的工具，我们相信 Bun 将是 JavaScript 的未来。
 
-We believe that by opening Elysia to more runtime and offers interesting Bun specific feature (or at-least easy to config, eg. [Bun Loaders API](https://bun.sh/docs/bundler/loaders)) will eventually gets people to try Bun more than Elysia choosing to support only Bun.
+我们相信，通过向更多的运行时和提供有趣 Bun 特定的功能 (或至少易于配置，例如 [Bun Loaders API](https://bun.sh/docs/bundler/loaders))，将会逐渐让更多的人尝试 Bun，而不仅仅是 Elysia 选择支持 Bun。
 
 <blockquote class="twitter-tweet">
     <p lang="en" dir="ltr">Bun was right, the best way to migrate people from Node is to have compatibility layer and offers better DX, and performance on Bun</p>
@@ -402,33 +402,33 @@ We believe that by opening Elysia to more runtime and offers interesting Bun spe
     <a href="https://twitter.com/saltyAom/status/1768303850858143887?ref_src=twsrc%5Etfw">March 14, 2024</a>
 </blockquote>
 
-Elysia core itself partially WinterCG compatible, but not all the official plugin works with WinterCG, there are some with Bun specific features, and we want to fix that.
+伊利西亚核心本身部分兼容 WinterCG，但是不是所有的官方插件在 WinterCG 上工作，有一些 Bun 特定的功能，我们想要修复这一点。
 
-We don't have a specific date or version for universal runtime supports yet as we will gradually adopting and test until we make sure that it would works without unexpected behavior.
+我们也不确定具体的日期或版本来支持所有运行时，因为我们将逐渐采用和支持，直到我们确保它不会出现任何不可预见的行为。
 
-You can looks forward for the following runtime to support:
+你可以期待支持的下列运行时：
 - Node
 - Deno
 - Cloudflare Worker
 
-We also want to support the following:
+我们还想支持以下：
 - Vercel Edge Function
 - Netlify Function
 - AWS Lambda / LLRT
 
-More over, we also support, and test Elysia on the following frameworks that support Server Side Rendering or Edge Function:
+此外，我们还想支持以下：
 - Nextjs
 - Expo
 - Astro
 - SvelteKit
 
-In the meantime, there's an [Elysia Polyfills](https://github.com/bogeychan/elysia-polyfills) maintained by Bogeychan, one of an active contributor to Elysia.
+在此期间，有一个 [Elysia Polyfills](https://github.com/bogeychan/elysia-polyfills) 维护由 Bogeychan，一个积极的 Elysia 贡献者。
 
-Additionally, we have rewrote [Eden documentation](/eden/overview) to explain more in depth details about Eden and we think you should check it out.
+此外，我们还重写了 [Eden 文档](/eden/overview)来更深入地解释 Eden 的细节，我们认为你应该去看看。
 
-We also improve several pages, and remove redundant part of the documentation, You can check the affected pages on [Elysia 1.0 documentation PR](https://github.com/elysiajs/documentation/pull/282/files).
+我们也改善了几个页面，并去除了多余的部分文档，你可以查看受影响页面的 [Elysia 1.0 文档 PR](https://github.com/elysiajs/documentation/pull/282/files)。
 
-And finally, if you have problems with migration and additional questions related to Elysia, feels free to ask one in Elysia's Discord server.
+最后，如果你有任何关于迁移和额外问题的疑问，请随时在我们的 Elysia Discord 服务器上提问。
 <iframe
     class="w-full h-64"
     src="https://discord.com/widget?id=1044804142461362206&theme=dark"
@@ -438,29 +438,29 @@ And finally, if you have problems with migration and additional questions relate
     loadin="lazy"
 />
 
-## Notable Improvement
+## 可注意的改进
 
-### Improvement:
-- fine-grained reactive cookie
-- using single source of truth for cookie
-- macro support for websocket
-- add `mapResolve`
-- add `{ as: 'global' | 'scoped' | 'local' }` to lifecycle event
-- add ephemeral type
-- inline `error` to handler
-- inline `error` has auto-completion and type checking based on status code
-- handler now check return type of `error` based on status code
-- utility `Elysia._types` for types inference
-- [#495](https://github.com/elysiajs/elysia/issues/495) Provide user friendly error for failed parse
-- handler now infers return type for error status for Treaty
-- `t.Date` now allow stringified date
-- improves type test case
-- add test case for all life-cycle
-- resolve, mapResolve, derive, mapDerive use ephemeral type to scope down accurately
-- inference query dynamic variable
+### 改进：
+- 细粒度的反应式 cookie
+- 使用单一的 cookie 源
+- 宏对 websocket 的支持
+- 添加 `mapResolve`
+- 添加 `{ as: 'global' | 'scoped' | 'local' }` 到生命周期事件
+- 添加短暂类型
+- 行内 `error` 到处理器
+- 行内 `error` 具有基于状态码的自动完成和类型检查
+- 处理器现在检查 `error` 返回类型对于状态码
+- 实用程序 `Elysia._types` 用于类型推断
+- [#495](https://github.com/elysiajs/elysia/issues/495) 提供用失败的解析生成的用户友好错误
+- 处理器现在基于状态码推断返回类型为条约
+- `t.Date` 现在允许字符串化的日期
+- 改进了类型测试用例
+- 添加了生命周期测试用例
+- `resolve, mapResolve, derive, mapDerive` 使用短暂类型来准确地缩小范围
+- 推断查询动态变量
 
-### Breaking Change:
-- [#513](https://github.com/elysiajs/elysia/issues/513) lifecycle is now local first
+### 重大变更：
+- [#513](https://github.com/elysiajs/elysia/issues/513) 生命周期现在默认是本地的
 
 ### Change:
 - group private API property
@@ -482,36 +482,36 @@ And finally, if you have problems with migration and additional questions relate
 - [#516](https://github.com/elysiajs/elysia/issues/516) server timing breaks beforeHandle guards
 - cookie.remove() doesn't set correct cookie path
 
-## Afterword
+## 后记
 ::: tip
-The following contains personal feeling, possibly venting, ranting, possibly cringe and unprofessionalism that shouldn't be written in software release note. You may choose to not continue reading as we have stated all the necessary content for the release.
+以下内容包含个人感受，可能包含宣泄，抱怨，可能尴尬和不专业，不应该写在软件发布笔记中。你可以选择不继续阅读，因为我们已经提供了所有必要的发布内容。:::
 :::
 
-2 years ago, I have a tragic memory.
+两年前，我有一个悲惨的记忆。
 
-It's easily one of the most painful memory I have, working days and nights to keeps up with unfair tasks that take advantage from loose contract we had with some software house.
+这很容易成为我最痛苦的回忆之一，日夜工作以跟上一些软件公司与我们签订的宽松合同中占便宜的不公平任务。
 
-It took more than 6 months, and I have to work since I woke up until I sleep (15 hours) on repeat, **without doing anything else not even 5 minutes break for a day**, no time for relax, nothing beside coding for almost 2 months, not even a single break day, not even weekdays that I knocked out and almost have to work in hospital bed.
+这花费了超过 6 个月的时间，我必须从醒来工作到睡觉 (15 小时) 不断重复，**一天不休息，甚至没有5分钟的休息时间**，没有时间放松，除了编码之外什么也没有，几乎两个月没有休息日，甚至没有周末，我几乎不得不在医院的病床上工作。
 
-I was souless, no purpose in life at all, my only wish is to make it a dream.
+我失去了灵魂，生活中没有任何目的，我唯一的愿望是让它成为一个梦。
 
-At the time, there are so many breaking changes, uncountable new features introduced from loop hole of loose requirement and contract.
+当时，有太多的重大变化，无数的新功能从宽松要求和合同的漏洞中引入。
 
-Keeping track of it is almost impossible, and we even got scammed not even getting the pay we deserved because of "not satisfied", and we couldn't do anything with it.
+跟踪它几乎是不可能的，我们甚至因为 “不满意” 而被骗，没有得到我们应得的报酬，我们对此无能为力。
 
-It took me a month to recover from a fear of writing code, being unprofessional I couldn't even do my job properly in trauma and consults my manager that I suffered burn out.
+我花了整整一个月的时间从对编写代码的恐惧中恢复过来，因为不专业，我甚至无法在创伤中正确地完成我的工作，并向我的经理咨询我遭受了职业倦怠。
 
-That's why we hate breaking change so much, and want to design Elysia to handle changes easily with TypeScript soundness even if it's not good but it's all we have.
+这就是为什么我们如此讨厌重大变化，并希望设计 Elysia 来轻松处理 TypeScript 的健壮性，即使它不是很好，但这是唯一的选择。
 
-I don't want anyone to ever experienced something like that.
+我不想任何人再经历类似的事情。
 
-We designed a framework to encounter all the flaws that we had from that contract.
+我们设计了一个框架来应对我们合同中所有的缺陷。
 
-The technical flaws I saw in there doesn't have any JavaScript based solution that could satisfies me, yet so I experiment with one.
+我在那里看到的的技术缺陷没有一个基于 JavaScript 的解决方案可以满足我，所以我决定尝试一个。
 
-I could just move on as I could avoid loose contract like this in the future, and make money and not spending most of my free time creating a framework but I didn't.
+可以继续前进，可以避免将来签订这样的宽松合同，赚钱而不是花我大部分的自由时间一个框架但我没有。
 
-There's a my favorite part, [a quote in the animated short](https://youtu.be/v1sd5CzR504?t=128) where Mei is against Kiana of the idea that she would sacrifice herself for the world, and Mei replies:
+有一个部分，[动画短片中的一句引用](https://youtu.be/v1sd5CzR504?t=128)，Mei 反对 Kiana 牺牲自己为世界的想法，Mei 回答说：
 
 <div class="font-mono text-gray-500 dark:text-gray-400 text-base">
 
@@ -529,39 +529,39 @@ There's a my favorite part, [a quote in the animated short](https://youtu.be/v1s
 
 </div>
 
-It's depiction of a duality between the person who would sacrifice themself for the world, and the person who would sacrifice themself to save who they love.
+这是一种双重性，描述了一个人为了世界牺牲自己，而另一个人为了拯救自己所爱的人牺牲自己。
 
-If we saw a problem and move on, how can we know that the person who came after us will not stumble upon the same problem we had, someone need to do something.
+如果我们都看到一个问题并继续前进，我们怎么知道，下一个会遇到同样问题的人，需要有人去做一些事情。
 
-That someone would sacrifice themself to save the others but then who would save the sacrified one?
+那个人会为了拯救他人而牺牲自己，但如果没有人拯救那个牺牲者怎么办？
 
-The name **"Lament of the Fallen"** describe that, and why we create Elysia.
+这个名字**“陨落者的哀歌”**描述了这一点，以及我们为什么创造 Elysia。
 
-<small class="opacity-50">*Despite everything about it being my favorite, and I might relate myself personally a bit too much.</small>
-
----
-
-Despite being build from the bad memory, and tragic event. It's a privilege to see that Elysia grew into something with so much love. And to see what you built are loved, and well received by others.
-
-Elysia is a work of Open Source developer, and not backed by any company.
-
-We have to do something for living, and build Elysia in free time.
-
-At one point I chose not to not looking for a job straight away just to work on Elysia for several months.
-
-We would love to spent our time to improve Elysia continously, and you could help us with [GitHub sponsors](https://github.com/sponsors/SaltyAom) to reduce the work we need to support ourself, and have more free time to work on Elysia.
-
-We are just makers that wants to create something to solve problems we have.
+<small class="opacity-50">尽管一切都是为了我的最爱，我可能和我自己联系得太多。</small>
 
 ---
 
-We have been creating and experimented a lot with Elysia, shipping real code to clients, and use Elysia in real projects to power tools behind our local community, [CreatorsGarten](https://creatorsgarten.org) (local tech community, not organization).
+尽管从痛苦的记忆中创造，和悲剧事件。这是一个特权，看到 Elysia 成长为一个充满爱意的事物。并且看到你建造的东西被爱，并且被很好地接受。
 
-It took a lot of time, preparation, and courage to make sure that Elysia is ready for production. Of course, there will be bugs, but we are willing to listen, and fix it.
+伊利西亚是一个开源开发者的作品，没有任何公司支持。
 
-It's a start of a something new.
+我们需要做一些工作来维持生计，并在业余时间构建 Elysia。
 
-And it's possible **because of you**.
+在一个点上，我选择不立即寻找工作，只是为了在几个月内专注于 Elysia。
+
+我们愿意花费我们的时间来不断改进 Elysia，并且您可以通过 [GitHub 赞助商](https://github.com/sponsors/SaltyAom)帮助我们，以减少我们支持自己的工作量，并拥有更多的时间来工作在 Elysia。
+
+我们只是制造者，想要创造一些东西来解决我们遇到的问题。
+
+---
+
+我们一直在创造和实验 Elysia，将真实代码交付给客户，并使用 Elysia 来为我们的本地社区，[CreatorsGarten](https://creatorsgarten.org) (本地技术社区，不是组织) 提供动力。
+
+这花了很多时间，准备和勇气，以确保 Elysia 准备好生产。当然，会有 bug，但我们愿意倾听并修复它们。
+
+这是一个新的开始，而且可能是因为你。
+
+而且这是可能的**因为你**。
 
 <!-- There are a lot of emotions, a lot of tiring days, and countless nights trying to build something good, something we love, something we dream of.
 
@@ -574,15 +574,15 @@ I hope that we can see this journey together. -->
 
 ー SaltyAom
 
-> All the incandescent stars of heaven will die at the end of days,
+> 所有辉煌的星星在末日终将消逝，
 >
-> Your gentle soul given to damnation.
+> 你温柔的灵魂将沉溺于诅咒之中。
 >
-> "Crimson moon shines upon a town that is smeared in blood"
+> “猩红之月照耀在血迹斑斑的小镇上”
 >
-> Cried the diva given into lament.
+> 哀歌中的偶像在哭泣。
 >
-> All those sweeet little dreams buried deep in memories until the very end.
+> 那些甜蜜的回忆深埋在记忆中，直到世界的尽头。
 >
 > <br>
 >

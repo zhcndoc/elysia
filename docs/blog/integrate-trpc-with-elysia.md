@@ -1,28 +1,28 @@
 ---
-title: Integrate tRPC server to Bun with Elysia
+title: 将 tRPC 服务器集成到 Bun 中，使用 Elysia
 sidebar: false
 editLink: false
 search: false
 head:
   - - meta
     - property: 'og:title'
-      content: Integrate tRPC server to Bun with Elysia
+      content: 将 tRPC 服务器集成到 Bun 中，使用 Elysia
 
   - - meta
     - name: 'description'
-      content: Learn how to integrate existing tRPC to Elysia and Bun with Elysia tRPC plugin and more about Eden end-to-end type-safety for Elysia.
+      content: 了解如何将现有的 tRPC 集成到 Elysia 和 Bun 中，以及更多关于 Elysia 端到端类型安全性的信息。
 
   - - meta
     - property: 'og:description'
-      content: Learn how to integrate existing tRPC to Elysia and Bun with Elysia tRPC plugin and more about Eden end-to-end type-safety for Elysia.
+      content: 了解如何将现有的 tRPC 集成到 Elysia 和 Bun 中，以及更多关于 Elysia 端到端类型安全性的信息。
 
   - - meta
     - property: 'og:image'
-      content: https://elysiajs.com/blog/integrate-trpc-with-elysia/elysia-trpc.webp
+      content: https://elysia.zhcndoc.com/blog/integrate-trpc-with-elysia/elysia-trpc.webp
 
   - - meta
     - property: 'twitter:image'
-      content: https://elysiajs.com/blog/integrate-trpc-with-elysia/elysia-trpc.webp
+      content: https://elysia.zhcndoc.com/blog/integrate-trpc-with-elysia/elysia-trpc.webp
 ---
 
 <script setup>
@@ -30,58 +30,58 @@ head:
 </script>
 
 <Blog
-    title="Integrate tRPC server to Bun with Elysia"
+    title="将 tRPC 服务器集成到 Bun 中，使用 Elysia"
     src="/blog/integrate-trpc-with-elysia/elysia-trpc.webp"
-    alt="Logo of Elysia connect with a plus sign with tRPC"
+    alt="Elysia 连接图标与 tRPC 的加号"
     author="saltyaom"
-    date="4 Feb 2023"
+    date="2023 年 2 月 4 日"
 >
 
-tRPC has been a popular choice for web development recently, thanks to its end-to-end type-safety approach to accelerate development by blurring the line between front and backend, and inferring types from the backend automatically.
+tRPC 最近成为了 web 开发的流行选择，这要归功于其端到端类型安全的方法，这种方法通过模糊前端和后端之间的界限，以及自动推断类型，加速开发过程。
 
-Helping developers develop faster and safer code, knowing instantly when things break while migrating data structure, and removing redundant steps of re-creating type for frontend once again.
+帮助开发者更快、更安全地编写代码，让他们在迁移数据结构时立即知道何时出现问题，并消除前端再次创建类型的多余步骤。
 
-But we can when extending tRPC more.
+但是我们可以扩展 tRPC 的功能。
 
 ## Elysia
-Elysia is a web framework optimized for Bun, inspired by many frameworks including tRPC. Elysia supports end-to-end type safety by default, but unlike tRPC, Elysia uses Express-like syntax that many already know, removing the learning curve of tRPC.
+Elysia 是一个针对 Bun 优化的 web 框架，受到了许多框架的启发，包括 tRPC。Elysia 默认支持端到端类型安全，但与 tRPC 不同，Elysia 使用了许多开发者已经熟悉的 Express 样式的语法，从而消除了 tRPC 的学习曲线。
 
-With Bun being the runtime for Elysia, the speed and throughput for Elysia server are fast and even outperforming [Express up to 21x and Fastify up to 12x on mirroring JSON body (see benchmark)](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/655fe7f87f0f4f73f2121433f4741a9d6cf00de4).
+由于 Bun 是 Elysia 的运行时，Elysia 服务器的速度和吞吐量非常快，甚至在与 Node.js 运行时相比时，性能提升了 21 倍到 12 倍。
 
-The ability to combine the existing tRPC server into Elysia has been one of the very first objectives of Elysia since its start.
+将现有的 tRPC 服务器集成到 Elysia 一直是 Elysia 从一开始就设定的重要目标之一。
 
-The reason why you might want to switch from tRPC to Bun:
-- Significantly faster, even outperform many popular web frameworks running in Nodejs without changing a single piece of code.
-- Extend tRPC with RESTful or GraphQL, both co-existing in the same server.
-- Elysia has end-to-end type-safety like tRPC but with almost no-learning curve for most developer.
-- Using Elysia is the great first start experimenting/investing in Bun runtime.
+你可能想要从 tRPC 切换到 Bun 的理由：
+- 显著提高速度，甚至在不需要更改任何代码的情况下比许多流行的 web 框架运行得更快。
+- 扩展 tRPC 以支持 RESTful 或 GraphQL，两者可以在同一个服务器中共存。
+- Elysia 提供了与 tRPC 类似的端到端类型安全性，但是对于大多数开发者来说几乎没有学习曲线。
+- 使用 Elysia 是开始尝试/投资 Bun 运行时的好方法。
 
-## Creating Elysia Server
-To get started, let's create a new Elysia server, make sure you have [Bun](https://bun.sh) installed first, then run this command to scaffold Elysia project.
+## 创建 Elysia 服务器
+要开始，让我们创建一个新的 Elysia 服务器。确保你已经安装了 [Bun](https://bun.sh)，然后运行以下命令来生成 Elysia 项目。
 ```
 bun create elysia elysia-trpc && cd elysia-trpc && bun add elysia
 ```
 
 ::: tip
-Sometimes Bun doesn't resolve the latest field correctly, so we are using `bun add elysia` to specify the latest version of Elysia instead
+有时 Bun 无法正确解析最新字段，因此我们使用 `bun add elysia` 来指定 Elysia 的最新版本。
 :::
 
-This should create a folder name **"elysia-trpc"** with Elysia pre-configured.
+这将创建一个名为 **“elysia-trpc”** 的文件夹，其中预配置了 Elysia。
 
-Let's start a development server by running the dev command:
+让我们通过运行开发服务器命令来启动开发服务器：
 ```
 bun run dev
 ```
 
-This command should start a development server on port :3000
+此命令应该在端口：3000 启动开发服务器。
 
-## Elysia tRPC plugin
-Building on top of the tRPC Web Standard adapter, Elysia has a plugin for integrating the existing tRPC server into Elysia.
+## Elysia tRPC 插件
+在 tRPC Web Standard 适配器的基础上构建，Elysia 提供了一个插件，用于将现有的 tRPC 服务器集成到 Elysia 中。
 ```bash
 bun add @trpc/server zod @elysiajs/trpc @elysiajs/cors
 ```
 
-Suppose that this is an existing tRPC server:
+假设这是现有的 tRPC 服务器：
 ```typescript
 import { initTRPC } from '@trpc/server'
 import { observable } from '@trpc/server/observable'
@@ -97,9 +97,9 @@ export const router = t.router({
 export type Router = typeof router
 ```
 
-Normally all we need to use tRPC is to export the type of router, but to integrate tRPC with Elysia, we need to export the instance of router too.
+通常，我们只需要导出类型路由器就能使用 tRPC，但是要将 tRPC 集成到 Elysia，我们需要导出路由器的实例。
 
-Then in the Elysia server, we import the router and register tRPC router with `.use(trpc)`
+然后在 Elysia 服务器中，我们导入路由器并使用 `.use(trpc)` 注册 tRPC 路由器。
 ```typescript
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors' // [!code ++]
@@ -118,14 +118,14 @@ const app = new Elysia()
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-And that's it! 🎉 
+就是这样！🎉
 
-That's all it takes to integrate tRPC with Elysia, making tRPC run on Bun.
+这就是将 tRPC 集成到 Elysia 所需的一切，从而让 tRPC 在 Bun 上运行。
 
-## tRPC config and Context
-To create context, `trpc` can accept 2nd parameters that can configure tRPC as same as `createHTTPServer`.
+## tRPC 配置和上下文
+为了创建上下文，`trpc` 可以接受第二个参数，这个参数可以像 `createHTTPServer` 一样配置 tRPC。
 
-For example, adding `createContext` into tRPC server:
+例如，在 tRPC 服务器中添加 `createContext`：
 ```typescript
 // trpc.ts
 import { initTRPC } from '@trpc/server'
@@ -148,9 +148,9 @@ export const router = t.router({
 export type Router = typeof router
 ```
 
-And in the Elysia server
+然后在 Elysia 服务器中：
 ```typescript
-import { Elysia } from 'elysia'
+import { Elysia, ws } from 'elysia'
 import { cors } from '@elysiajs/cors'
 import '@elysiajs/trpc'
 
@@ -169,7 +169,7 @@ const app = new Elysia()
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-And we can specify a custom endpoint of tRPC by using `endpoint`:
+我们可以使用 `endpoint` 指定 tRPC 的自定义端点：
 ```typescript
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
@@ -191,17 +191,17 @@ const app = new Elysia()
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-## Subscription
-By default, tRPC uses WebSocketServer to support `subscription`, but unfortunately as Bun 0.5.4 doesn't support WebSocketServer yet, we can't directly use WebSocket Server.
+## 订阅
+默认情况下，tRPC 使用 WebSocketServer 支持 `subscription`，但由于 Bun 0.5.4 不支持 WebSocketServer，我们无法直接使用 WebSocket Server。
 
-However, Bun does support Web Socket using `Bun.serve`, and with Elysia tRPC plugin has wired all the usage of tRPC's Web Socket into `Bun.serve`, you can directly use tRPC's `subscription` with Elysia Web Socket plugin directly:
+然而，Bun 支持使用 `Bun.serve` 的 Web Socket，并且 Elysia tRPC 插件已经将 tRPC 的 Web Socket 使用全部线接到 `Bun.serve` 中，你可以直接在 Elysia Web Socket 插件中使用 tRPC 的 `subscription`：
 
-Start by installing the Web Socket plugin:
+首先安装 Web Socket 插件：
 ```bash
 bun add @elysiajs/websocket
 ```
 
-Then inside tRPC server:
+然后在 tRPC 服务器中：
 ```typescript
 import { initTRPC } from '@trpc/server'
 import { observable } from '@trpc/server/observable' // [!code ++]
@@ -238,7 +238,7 @@ export const router = t.router({
 export type Router = typeof router
 ```
 
-And then we register:
+然后在 Elysia 服务器中注册：
 ```typescript
 import { Elysia, ws } from 'elysia'
 import { cors } from '@elysiajs/cors'
@@ -258,19 +258,19 @@ const app = new Elysia()
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-And that's all it takes to integrate the existing fully functional tRPC server to Elysia Server thus making tRPC run on Bun 🥳.
+这样就完成了将现有功能齐全的 tRPC 服务器集成到 Elysia 服务器中，从而让 tRPC 在 Bun 上运行。
 
-Elysia is excellent when you need both tRPC and REST API, as they can co-exist together in one server.
+当您需要支持 tRPC 和 REST API 时，Elysia 是完美的选择，因为它们可以在同一个服务器中共存。
 
-## Bonus: Type-Safe Elysia with Eden
-As Elysia is inspired by tRPC, Elysia also supports end-to-end type-safety like tRPC by default using **"Eden"**.
+## 额外福利：使用 Eden 的类型安全 Elysia
+由于 Elysia 受到 tRPC 的启发，因此它也支持端到端的类型安全性，默认使用 **“Eden”**。
 
-This means that you can use Express-like syntax to create RESTful API with full-type support on a client like tRPC.
+这意味着你可以使用类似于 tRPC 的客户端代码，使用 Express 样式的语法创建 RESTful API，并具有完全的类型支持。
 
 <video src="/blog/integrate-trpc-with-elysia/elysia-eden.mp4" controls="controls" muted="muted" style="max-height:640px; min-height: 200px">
 </video>
 
-To get started, let's export the app type.
+要开始，让我们导出应用类型。
 
 ```typescript
 import { Elysia, ws } from 'elysia'
@@ -295,29 +295,29 @@ export type App = typeof app // [!code ++]
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-And on the client side:
+然后在客户端代码中：
 ```bash
 bun add @elysia/eden && bun add -d elysia
 ```
 
-And in the code:
+然后在代码中：
 ```typescript
 import { edenTreaty } from '@elysiajs/eden'
 import type { App } from '../server'
 
-// This now has all type inference from the server
+// 现在这个有了来自服务器的所有类型推断
 const app = edenTreaty<App>('http://localhost:3000')
 
-// data will have a value of 'Hello Elysia' and has a type of 'string'
+// data 将会有一个值为 'Hello Elysia' 的值，并有一个类型为 'string'
 const data = await app.index.get()
 ```
 
-Elysia is a good start when you want end-to-end type-safety like tRPC but need to support more standard patterns like REST, and still have to support tRPC or need to migrate from one.
+Elysia 是一个很好的选择，当您想要实现类似 tRPC 的端到端类型安全性，但又需要支持更多标准模式如 REST，并且仍然需要支持 tRPC 或需要迁移其中之一时。
 
-## Bonus: Extra tip for Elysia
-An additional thing you can do with Elysia is not only that it has support for tRPC and end-to-end type-safety, but also has a variety of support for many essential plugins configured especially for Bun.
+## 额外提示：有关 Elysia 的附加信息
+您可以使用 Elysia 来实现不仅具有 tRPC 和端到端类型安全支持，还配置了许多专为 Bun 设计的关键插件的各种支持。
 
-For example, you can generate documentation with Swagger only in 1 line using [Swagger plugin](/plugins/swagger).
+例如，您可以使用 [Swagger 插件](/plugins/swagger)一行代码即可生成 Swagger 文档。
 ```typescript
 import { Elysia, t } from 'elysia'
 import { swagger } from '@elysiajs/swagger' // [!code ++]
@@ -344,7 +344,7 @@ export type App = typeof app
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-Or when you want to use [GraphQL Apollo](/plugins/graphql-apollo) on Bun.
+或者，当您想在 Bun 上使用 [GraphQL Apollo](/plugins/graphql-apollo) 时。
 ```typescript
 import { Elysia } from 'elysia'
 import { apollo, gql } from '@elysiajs/apollo' // [!code ++]
@@ -384,11 +384,11 @@ export type App = typeof app
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-Or supporting OAuth 2.0 with a [community OAuth plugin](https://github.com/bogeychan/elysia-oauth2).
+支持 OAuth 2.0 或使用[社区 OAuth 插件](https://github.com/bogeychan/elysia-oauth2)。
 
-Nonetheless, Elysia is a great place to start learning/using Bun and the ecosystem around Bun.
+然而，Elysia 是开始学习/使用 Bun 及其周围生态系统的绝佳选择。
 
-If you like to learn more about Elysia, [Elysia documentation](https://elysiajs.com) is a great start to start exploring the concept and patterns, and if you are stuck or need help, feel free to reach out in [Elysia Discord](https://discord.gg/eaFJ2KDJck).
+如果您想了解更多关于 Elysia 的信息，[Elysia 文档](https://elysia.zhcndoc.com)是一个很好的开始，可以探索概念和模式；如果遇到困难或需要帮助，欢迎在 [Elysia Discord](https://discord.gg/eaFJ2KDJck) 上寻求支持。
 
-The repository for all of the code is available at [https://github.com/saltyaom/elysia-trpc-demo](https://github.com/saltyaom/elysia-trpc-demo), feels free to experiment and reach out.
+所有代码的存储库可在 [https://github.com/saltyaom/elysia-trpc-demo](https://github.com/saltyaom/elysia-trpc-demo) 找到，欢迎实验和探讨。
 </Blog>

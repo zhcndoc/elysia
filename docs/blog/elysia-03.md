@@ -1,28 +1,28 @@
 ---
-title: Elysia 0.3 - 大地の閾を探して [Looking for Edge of Ground]
+title: Elysia 0.3 - 寻找大地的边缘
 sidebar: false
 editLink: false
 search: false
 head:
   - - meta
     - property: 'og:title'
-      content: Introducing Elysia 0.3 - 大地の閾を探して [Looking for Edge of Ground]
+      content: 介绍 Elysia 0.3 - 寻找大地的边缘 [Looking for Edge of Ground]
 
   - - meta
     - name: 'description'
-      content: Introducing Elysia Fn, Type Rework for highly scalable TypeScript performance, File Upload support and validation, Reworked Eden Treaty.
+      content: 介绍 Elysia Fn，一种为高度可扩展的 TypeScript 性能重新设计的类型，支持文件上传和验证，以及对《伊甸条约》的重新设计。
 
   - - meta
     - property: 'og:description'
-      content: Introducing Elysia Fn, Type Rework for highly scalable TypeScript performance, File Upload support and validation, Reworked Eden Treaty.
+      content: 介绍 Elysia Fn，一种为高度可扩展的 TypeScript 性能重新设计的类型，支持文件上传和验证，以及对《伊甸条约》的重新设计。
 
   - - meta
     - property: 'og:image'
-      content: https://elysiajs.com/blog/elysia-03/edge-of-ground.webp
+      content: https://elysia.zhcndoc.com/blog/elysia-03/edge-of-ground.webp
 
   - - meta
     - property: 'twitter:image'
-      content: https://elysiajs.com/blog/elysia-03/edge-of-ground.webp
+      content: https://elysia.zhcndoc.com/blog/elysia-03/edge-of-ground.webp
 ---
 
 <script setup>
@@ -30,164 +30,158 @@ head:
 </script>
 
 <Blog
-    title="Elysia 0.3 - 大地の閾を探して [Looking for Edge of Ground]"
+    title="Elysia 0.3 - 寻找大地的边缘"
     src="/blog/elysia-03/edge-of-ground.webp"
-    alt="shattered glass pieces floating in the abyss"
+    alt="破碎的玻璃碎片飘浮在深渊中"
     author="saltyaom"
-    date="17 Mar 2023"
+    date="2023 年 3 月 17 日"
 >
 
-Named after Camellia's song[「大地の閾を探して [Looking for Edge of Ground]」](https://youtu.be/oyJf72je2U0)ft. Hatsune Miku, is the last track of my most favorite's Camellia album,「U.U.F.O」. This song has a high impact on me personally, so I'm not taking the name lightly.
+这个名字来源于 Camellia 的歌曲 “大地 の 閾 を 探 して [Looking for Edge of Ground]”，这首歌曲是我在 Camellia 的专辑 “U.U.F.O” 中最喜欢的最后一首。这首歌对我个人有着深远的影响，所以我不会轻易地对待这个名字。
 
-This is the most challenging update, bringing the biggest release of Elysia yet, with rethinking and redesigning of Elysia architecture to be highly scalable while making less breaking change as possible.
+这是一次最艰难的更新，带来了 Elysia 有史以来最大的发布，重新思考和重新设计了 Elysia 架构，以实现高度可扩展性，同时尽可能减少破坏性变化。
 
-I'm pleased to announce the release candidate of Elysia 0.3 with exciting new features coming right up.
+我很高兴地宣布 Elysia 0.3 的发布候选版本，下面是即将到来的新特性。
 
 ## Elysia Fn
-Introducing Elysia Fn, run any backend function on the frontend with full auto-completion and full type support.
+介绍 Elysia Fn，它允许你在前端运行后端函数，具有完整的自动完成和完全的类型支持。
 
 <video controls autoplay muted>
   <source src="/blog/elysia-03/elysia-fn.mp4" type="video/mp4" />
 </video>
 
-For rapid development, Elysia Fn allows you to "expose" backend code to call from the frontend with full type-safety, autocompletion, original code comment, and "click-to-definition", allowing you to speed up the development.
+为了快速开发，Elysia Fn 允许你 “暴露” 后端代码，以便在前端调用，同时保持类型安全、自动完成、原始代码注释和 “点击以定义” 功能，使你能够加快开发速度。
 
-You can use Elysia Fn with Eden for full-type safety via Eden Fn.
+你可以使用 Elysia Fn 与 Eden 相结合，以实现完整的类型安全，通过 Eden Fn 来实现。
 
-### Permission
-You can limit allow or deny scopes of the function, check for authorization header and other headers' fields, validate parameters, or limit keys access programmatically. 
+### 权限
+你可以限制允许或拒绝函数的权限范围，检查授权头和其他头部字段的验证，验证参数，或者编程方式限制密钥访问。
 
-Keys checking supports type-safety and auto-completion of all possible functions, so you're not missing out on some function or accidentally typing down the wrong name.
+密钥检查支持类型安全和自动完成所有可能的功能，所以你不会错过一些功能或者不小心打错名称。
 ![Narrowed Key](/blog/elysia-03/narrowed-key.webp)
 
-And narrowing the scope of property programmatically also narrow down the type of parameters, or in other words, full type-safety.
+并且，编程方式缩小属性的范围也会缩小参数的类型，换句话说，就是完全类型安全。
 ![Narrowed Params](/blog/elysia-03/narrowed-param.webp)
 
-### Technical detail
-In technical detail, Elysia Fn uses JavaScript's Proxy to capture object property, and parameters to create batched requests to the server to handle and returns the value across the network.
-Elysia Fn extends superjson, allowing native type in JavaScript like Error, Map, Set, and undefined to parse across JSON data.
+### 技术细节
+在技术细节上，Elysia Fn 使用 JavaScript 的 Proxy 来捕获对象属性，以及参数，创建一个批处理请求到服务器来处理并返回跨网络的数据。Elysia Fn 扩展了 superjson，允许 JavaScript 中的原生类型，如 Error、Map、Set 和 undefined，在跨 JSON 数据时解析。
 
-Elysia Fn supports multiple use-cases, for example accessing Prisma on the client-side Nextjs app.
-Theoretically, it's possible to use Redis, Sequelize, RabbitMQ, and more.
-As Elysia is running on Bun, Elysia Fn can run over 1.2 million operation/second concurrently (tested on M1 Max).
+Elysia Fn 支持多种使用案例，例如在 Nextjs 应用程序的前端访问 Prisma。理论上，使用 Redis、Sequelize、RabbitMQ 等都是可能的。由于 Elysia 在 Bun 上运行，Elysia Fn 能够并发地运行超过 120 万次操作/秒 (在 M1 Max 上测试)。
 
-Learn more about Elysia Fn at [Eden Fn](/plugins/eden/fn).
+在 [Eden Fn](/plugins/eden/fn) 了解更多关于 Elysia Fn 的信息。
 
-## Type Rework
-Over 6.5-9x faster for type checking, and uncountable type's LoC reduction.
+## 类型重构
+超过 6.5~9 倍的速度提升用于类型检查，以及无数类型代码行的减少。
 
-Elysia 0.3, over 80% of Elysia, and Eden types have been rewritten to focus on performance, type-inference, and fast auto-completion.
+Elysia 0.3 中，超过 80% 的 Elysia 和 Eden 类型已经被重写，以专注于性能、类型推断和快速的自动完成。
 
-Testing for over 350 routes with complex types, Elysia uses only 0.22 
-seconds to generate a type declaration to use with Eden.
+对于超过 350 个具有复杂类型的路由进行测试，Elysia 在 0.22 秒内生成了一个类型声明，以便与 Eden 一起使用。
 
-As the Elysia route now compile directly to literal object instead of Typebox reference, Elysia type declaration is much smaller than it used to be on 0.2 and is easier to be consumed by Eden. And by much smaller, it means 50-99% smaller.
+由于 Elysia 路由现在直接编译为字面量对象而不是 Typebox 引用，因此 Elysia 的类型声明比 0.2 中使用的要小得多，并且更容易被 Eden 消费。说到小得多，它的意思是小 50-99%。
 
-Not only Elysia integration with TypeScript is significantly faster, but Elysia is better at understanding TypeScript and your code better.
+不仅 Elysia 与 TypeScript 的集成速度显著加快，而且 Elysia 更好地理解了 TypeScript 和你的代码。
 
-For example, with 0.3, Elysia will be less strict with plugin registration, allowing you to register the plugin without full type-completion of Elysia Instance. 
-Inlining `use` function now infers the parent type, and the nested guard can reference types of models from the parent more accurately.
+例如，在 0.3 中，Elysia 将不会对插件注册过于严格，允许你在不完整类型完成的情况下注册插件。内联 `use` 函数现在推断父类型，并且嵌套的守卫可以更准确地引用来自父类的模型类型。
 
-Type Declaration is now also can be built, and exported.
+类型声明现在也可以构建和导出。
 
-With the rewrite of type, Elysia understands TypeScript far better than it used to, type-completion will be significantly faster than it was, and we encourage you to try it out to see how fast it is.
-For more detail, see this [thread on Twitter](https://twitter.com/saltyAom/status/1629876280517869568?s=20)
+随着类型的重写，Elysia 理解 TypeScript 比过去要好得多，类型完成将比过去快得多，我们鼓励你尝试一下，看看它有多快。详细了解请查看这个 [Twitter 上的线程](https://twitter.com/saltyAom/status/1629876280517869568?s=20)。
 
-## File Upload
-Thanks to Bun 0.5.7, Form Data is implemented and enabled by default in Elysia 0.3 with `multipart/formdata`.
+## 文件上传
+感谢 Bun 0.5.7，Form Data 默认在 Elysia 0.3 中实现并启用 `multipart/formdata`。
 
-To define type completion and validation for uploading a file, `Elysia.t` now extends TypeBox with `File` and `Files` for file validation.
+为了定义类型完成和上传文件的验证，`Elysia.t` 现在扩展了 TypeBox，增加了 `File` 和 `Files` 以进行文件验证。
 
-The validation includes checking for file type with auto-completion of standard file size, the minimum and maximum size of the file, and the total of files per field.
+验证包括自动完成标准文件类型的检查，文件的最小和最大大小，以及字段的总文件数。
 
-Elysia 0.3 also features `schema.contentType` to explicitly validate incoming request type to strictly check headers before validating the data.
+Elysia 0.3 还提供了 `schema.contentType`，以明确地验证传入请求的类型，并在验证数据之前严格检查头部。
 
 ## OpenAPI Schema 3.0.x
-With Elysia 0.3, Elysia now uses OpenAPI schema 3.0.x by default for better stating API definitions, and better support for multiple types based on content-type.
+随着 Elysia 0.3 的推出，Elysia 现在默认使用 OpenAPI schema 3.0.x，以更好地表述 API 定义，并更好地支持基于内容类型的多种类型。
 
-`schema.details` are now updated to OpenAPI 3.0.x, and Elysia also updates the Swagger plugin to match the OpenAPI 3.0.x to take advantage of new features in OpenAPI 3 and Swagger, especially with file uploading.
+`schema.details` 现在更新到 OpenAPI 3.0.x，Elysia 还更新了 Swagger 插件以匹配 OpenAPI 3.0.x，以利用 OpenAPI 3 和 Swagger 的新特性，特别是在文件上传方面。
 
-## Eden Rework
-To support more demand for Elysia, supporting Elysia Fn, Rest all together, Eden has been reworked to scale with the new architecture.
+## Eden 重构
+为了支持 Elysia 的更多需求，支持 Elysia Fn、Rest 等，Eden 已经重构以与新架构一起扩展。
 
-Eden now exports 3 types of function.
-- [Eden Treaty](/plugins/eden/treaty) `eden/treaty`: Original Eden syntax you know and love
-- [Eden Fn](/plugins/eden/fn) `eden/fn`: Access to Eden Fn
-- [Eden Fetch](/plugins/eden/fetch) `eden/fetch`: Fetch-like syntax, for highly complex Elysia type (> 1,000 route / Elysia instance)
+Eden 现在导出三种不同类型的函数。
+- [Eden Treaty](/plugins/eden/treaty) `eden/treaty`：你知道并喜爱的原始 Eden 语法
+- [Eden Fn](/plugins/eden/fn) `eden/fn`：访问 Eden Fn
+- [Eden Fetch](/plugins/eden/fetch) `eden/fetch`：类似于 Fetch 的语法，适用于高度复杂的 Elysia 类型 (> 1,000 个路由/Elysia 实例)
 
-With the rework of type definitions and support for Elysia Eden, Eden is now much faster and better at inference type from the server.
+随着 Elysia 类型定义的支持和对 Elysia Eden 的改进，Eden 现在运行得更快，更好地理解类型推断。
 
-Auto-completion and faster and use fewer resources than it used to, in fact, Eden's type declaration has been almost 100% reworked to reduce the size and inference time, making it support over 350 routes of auto-completion in a blink of an eye (~0.26 seconds).
+自动完成速度更快，使用更少的资源，实际上 Eden 的类型声明已经几乎 100% 重写，减少了大小和推断时间，使其支持超过 350 个路线的自动完成，只需眨眼之间 (约 0.26 秒)。
 
-To make Elysia Eden, fully type-safe, with Elysia's better understanding of TypeScript, Eden can now narrow down the type based on response status, allowing you to capture the type correctly in any matter of condition.
+为了使 Elysia Eden 完全类型安全，Elysia 更好地理解 TypeScript，Eden 现在可以根据响应状态缩小类型，允许你在任何条件下正确地捕获类型。
 ![Narrowed error.webp](/blog/elysia-03/narrowed-error.webp)
 
-### Notable Improvement:
-- Add string format: 'email', 'uuid', 'date', 'date-time'
-- Update @sinclair/typebox to 0.25.24
-- Update Raikiri to 0.2.0-beta.0 (ei)
-- Add file upload test thanks to #21 (@amirrezamahyari)
-- Pre compile lowercase method for Eden
-- Reduce complex instruction for most Elysia types
-- Compile `ElysiaRoute` type to literal
-- Optimize type compliation, type inference and auto-completion
-- Improve type compilation speed
-- Improve TypeScript inference between plugin registration
-- Optimize TypeScript inference size
-- Context creation optimization
-- Use Raikiri router by default
-- Remove unused function
-- Refactor `registerSchemaPath` to support OpenAPI 3.0.3
-- Add `error` inference for Eden
-- Mark `@sinclair/typebox` as optional `peerDenpendencies`
+### 显著改进：
+- 添加字符串格式：‘email’，‘uuid’，‘date’，‘date-time’
+- 更新 @sinclair/typebox 到 0.25.24
+- 更新 Raikiri 到 0.2.0-beta.0 (ei)
+- 添加文件上传测试，感谢 #21 (@amirrezamahyari)
+- 预编译小写方法为 Eden
+- 减少大多数 Elysia 类型的复杂指令
+- 将 `ElysiaRoute` 类型编译为字面量
+- 优化类型编译、类型推断和自动完成
+- 提高类型编译速度
+- 提高 TypeScript 对插件注册的理解
+- 优化 TypeScript 推断大小
+- 上下文创建优化
+- 默认使用 Raikiri 路由器
+- 移除未使用的函数
+- 重构 `registerSchemaPath` 以支持 OpenAPI 3.0.3
+- 添加 `error` 推断为 Eden
+- 将 `@sinclair/typebox` 标记为可选 `peerDenpendencies`
 
-Fix:
-- Raikiri 0.2 thrown error on not found
-- Union response with `t.File` is not working
-- Definitions isn't defined on Swagger
-- details are missing on group plugin
-- group plugin, isn't unable to compile schema
-- group is not exportable because EXPOSED is a private property
-- Multiple cookies doesn't set `content-type` to `application/json`
-- `EXPOSED` is not export when using `fn.permission`
-- Missing merged return type for `.ws`
-- Missing nanoid
-- context side-effects
-- `t.Files` in swagger is referring to single file
-- Eden response type is unknown
-- Unable to type `setModel` inference definition via Eden
-- Handle error thrown in non permission function
-- Exported variable has or is using name 'SCHEMA' from external module
-- Exported variable has or is using name 'DEFS' from external module
-- Possible errors for building Elysia app with `declaration: true` in `tsconfig.json`
+修复：
+- Raikiri 0.2 在找不到时抛出错误
+- 联合响应与 `t.File` 不工作
+- 定义不在 Swagger 中
+- 群组插件中的 `details` 丢失
+- 群组插件，无法编译 schema
+- 群组不可导出，因为 EXPOSED 是一个私有属性
+- 多个 cookies 没有将 `content-type` 设置为 `application/json`
+- `EXPOSED` 在调用 `fn.permission` 时不可导出
+- 缺少合并的返回类型为 `.ws`
+- 缺少 nanoid
+- 上下文产生副作用
+- `t.Files` 在 Swagger 中指的是单个文件
+- Eden 响应类型是未知的
+- 无法类型推断 `setModel`，通过 Eden 定义
+- 处理在非权限函数中抛出的错误
+- 导出的变量使用或使用了外部模块中的名称 ‘SCHEMA’
+- 导出的变量使用或使用了外部模块中的名称 ‘DEFS’
+- 在 `tsconfig.json` 中设置 `declaration: true` 可能出现错误
 
-Breaking Change:
-- Rename `inject` to `derive`
-- Depreacate `ElysiaRoute`, changed to inline
-- Remove `derive`
-- Update from OpenAPI 2.x to OpenAPI 3.0.3
-- Move context.store[SYMBOL] to meta[SYMBOL]
+重大变更：
+- 将 `inject` 重命名为 `derive`
+- 过时 `ElysiaRoute`，改为内联
+- 移除 `derive`
+- 更新从 OpenAPI 2.x 到 OpenAPI 3.0.3
+- 将上下文。store[SYMBOL] 移动到 meta[SYMBOL]
 
 
-## Afterward
-With the introduction of Elysia Fn, I'm personally excited to see how it will be adopted in frontend development, removing the line between frontend and backend. And Type Rework of Elysia, making type-checking and auto-completion much faster.
+## 后续
+随着 Elysia Fn 的引入，我个人非常兴奋地看到它将如何在前端开发中得到采用，去除前后端之间的界限。以及 Elysia 的类型重构，使得类型检查和自动完成速度更快。
 
-I'm excited to see how you will use Elysia to create the wonderful things you are going to build.
+我很兴奋看到你会如何使用 Elysia 来创造你将要构建的美好事物。
 
-We have [Discord server](https://discord.gg/eaFJ2KDJck) dedicated to Elysia. Feel free to say hi or just chill and hang out.
+我们有一个 [Discord 服务器](https://discord.gg/eaFJ2KDJck)专门用于 Elysia。随时说嗨或只是放松和闲逛。
 
-Thank you for supporting Elysia.
+感谢您支持 Elysia。
 
-> Under a celestial map that never have ends
+> 在一个永远不会结束的天文地图上
 >
-> On a cliff that never have name
+> 在一块永远不会被命名的悬崖上
 >
-> I just holwed
+> 我只是低声呼唤
 >
-> Hoping the neverending reverberation will reach you
+> 希望这种无尽的回声能到达你
 >
-> And I believe someday, I will stand on edge of the ground
+> 我相信总有一天，我会站在大地的边缘
 >
-> (Until the day I can be back to you to tell it)
+> (直到我能回到你身边告诉你)
 >
 </Blog>
