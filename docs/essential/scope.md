@@ -64,12 +64,12 @@ const mock3 = {
 }
 </script>
 
-By default, hook and schema will apply to **current instance only**.
+默认情况下，钩子和模式将只应用于 **当前实例**。
 
-Elysia has an encapsulation scope for to prevent unintentional side effects.
+Elysia 提供了一个封装作用域，以防止不必要的副作用。
 
-## Scope
-Scope type is to specify the scope of hook whether is should be encapsulated or global.
+## 作用域
+作用域类型用于指定钩子是否应该被封装或全局。
 
 ```typescript twoslash
 // @errors: 2339
@@ -87,9 +87,9 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-From the above code, we can see that `hi` is missing from the parent instance because the scope is local by default if not specified, and will not apply to parent.
+从上面的代码中，我们可以看到 `hi` 在父实例中缺失，因为默认情况下作用域是局部的，如果没有指定，将不会应用到父实例。
 
-To apply the hook to the parent instance, we can use the `as` to specify scope of the hook.
+要使钩子应用到父实例，可以使用 `as` 来指定钩子作用域。
 
 ```typescript twoslash
 // @errors: 2339
@@ -107,14 +107,14 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-## Scope level
-Elysia has 3 levels of scope as the following:
-Scope type are as the following:
-- **local** (default) - apply to only current instance and descendant only
-- **scoped** - apply to parent, current instance and descendants
-- **global** - apply to all instance that apply the plugin (all parents, current, and descendants)
+## 作用域级别
+Elysia 有以下三种作用域级别：
+作用域类型如下：
+- **局部**（默认）- 只应用到当前实例及其子实例
+- **封装**（scoped）- 应用到父实例、当前实例及其子实例
+- **全局** - 应用到所有应用了插件的实例（所有父实例、当前实例及其子实例）
 
-Let's review what each scope type does by using the following example:
+让我们通过以下示例来查看每个作用域级别的效果：
 ```typescript twoslash
 import { Elysia } from 'elysia'
 
@@ -140,7 +140,7 @@ const main = new Elysia()
     .get('/main', () => 'hi')
 ```
 
-By changing the `type` value, the result should be as follows:
+通过更改 `type` 的值，结果应该如下：
 
 | type       | child | current | parent | main |
 | ---------- | ----- | ------- | ------ | ---- |
@@ -148,9 +148,9 @@ By changing the `type` value, the result should be as follows:
 | 'scoped'    | ✅    | ✅       | ✅     | ❌   |
 | 'global'   | ✅    | ✅       | ✅     | ✅   |
 
-## Guard
+## 守卫
 
-Guard allows us to apply hook and schema into multiple routes all at once.
+守卫允许我们将钩子和模式同时应用到多个路由。
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -179,18 +179,18 @@ new Elysia()
     .listen(3000)
 ```
 
-This code applies validation for `body` to both '/sign-in' and '/sign-up' instead of inlining the schema one by one but applies not to '/'.
+这段代码将验证应用于 '/sign-in' 和 '/sign-up'，而不是逐个内联模式，但不会应用于 '/'。
 
-We can summarize the route validation as the following:
+我们可以将路由验证总结如下：
 | Path | Has validation |
 | ------- | ------------- |
 | /sign-up | ✅ |
 | /sign-in | ✅ |
 | / | ❌ |
 
-Guard accepts the same parameter as inline hook, the only difference is that you can apply hook to multiple routes in the scope.
+守卫接受与内联钩子相同的参数，唯一的区别是您可以在作用域内将钩子应用到多个路由。
 
-This means that the code above is translated into:
+这意味着上面的代码被转换为：
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -217,17 +217,17 @@ new Elysia()
     .listen(3000)
 ```
 
-## Grouped Guard
+## 分组守卫
 
-We can use a group with prefixes by providing 3 parameters to the group.
+我们可以通过提供三个参数来使用前缀分组：
 
-1. Prefix - Route prefix
-2. Guard - Schema
-3. Scope - Elysia app callback
+1. 前缀 - 路由前缀
+2. 守卫 - 模式
+3. 作用域 - Elysia 应用回调
 
-With the same API as guard apply to the 2nd parameter, instead of nesting group and guard together.
+与守卫相同的使用 API，而不是将分组和守卫一起嵌套。
 
-Consider the following example:
+考虑以下示例：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -245,24 +245,24 @@ new Elysia()
 ```
 
 
-From nested groupped guard, we may merge group and guard together by providing guard scope to 2nd parameter of group:
+通过将分组守卫合并在一起，我们可以通过将守卫作用域提供给分组的第二参数来实现：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
 new Elysia()
     .group(
         '/v1',
-        (app) => app.guard( // [!code --]
+        (app) => app.guard( // [!code ++]
         {
             body: t.Literal('Rikuhachima Aru')
         },
         (app) => app.post('/student', ({ body }) => body)
-        ) // [!code --]
+        ) // [!code ++]
     )
     .listen(3000)
 ```
 
-Which results in the follows syntax:
+这导致以下语法：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -280,14 +280,14 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-## Scope cast
-To apply hook to parent may use one of the following:
-1. `inline as` apply only to a single hook
-2. `guard as` apply to all hook in a guard
-3. `instance as` apply to all hook in an instance
+## 作用域转换
+要将钩子应用到父实例，可以使用以下方法之一：
+1. `inline as` 仅应用于单个钩子
+2. `guard as` 应用于守卫内的所有钩子和模式
+3. `instance as` 应用于当前实例内的所有钩子和模式
 
-### 1. Inline as
-Every event listener will accept `as` parameter to specify the scope of the hook.
+### 1. 内联
+每个事件监听器都会接受 `as` 参数来指定钩子的作用域。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -304,10 +304,10 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-However, this method is apply to only a single hook, and may not be suitable for multiple hooks.
+但是，这种方法只适用于单个钩子，可能不适用于多个钩子。
 
-### 2. Guard as
-Every event listener will accept `as` parameter to specify the scope of the hook.
+### 2. 守卫
+每个事件监听器都会接受 `as` 参数来指定钩子的作用域。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -327,12 +327,12 @@ const main = new Elysia()
     .get('/parent', () => 'hello')
 ```
 
-Guard alllowing us to apply `schema` and `hook` to multiple routes all at once while specifying the scope.
+守卫允许我们将 `schema` 和 `hook` 同时应用到多个路由，同时指定作用域。
 
-However, it doesn't support `derive` and `resolve` method.
+但是，它不支持 `derive` 和 `resolve` 方法。
 
-### 3. Instance as
-`as` will read all hooks and schema scope of the current instance, modify.
+### 3. 实例
+`as` 会读取当前实例的所有钩子和模式作用域，并进行修改。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -350,11 +350,11 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-Sometimes we want to reapply plugin to parent instance as well but as it's limited by `scoped` mechanism, it's limited to 1 parent only.
+有时我们想要将插件应用到父实例，但由于 `scoped` 机制的限制，它只能应用到 1 个父实例。
 
-To apply to the parent instance, we need to **"lift the scope up** to the parent instance, and `as` is the perfect method to do so.
+要将它应用到父实例，我们需要将作用域 **"提升到父实例"**，`as` 是完成这一点的完美方法。
 
-Which means if you have `local` scope, and want to apply it to the parent instance, you can use `as('plugin')` to lift it up.
+这意味着如果你有一个 `local` 作用域，并且想要将其应用到父实例，你可以使用 `as('plugin')` 来提升它。
 ```typescript twoslash
 // @errors: 2304 2345
 import { Elysia, t } from 'elysia'
@@ -379,11 +379,11 @@ const parent = new Elysia()
 	.get('/ok', () => 3)
 ```
 
-## Plugin
+## 插件
 
-By default plugin will only **apply hook to itself and descendants** only.
+默认情况下，插件将只 **应用钩子到自身及其子实例**。
 
-If the hook is registered in a plugin, instances that inherit the plugin will **NOT** inherit hooks and schema.
+如果钩子注册在插件中，继承了该插件的实例 **将不会继承钩子和模式**。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -399,7 +399,7 @@ const main = new Elysia()
     .get('/parent', () => 'not log hi')
 ```
 
-To apply hook to globally, we need to specify hook as global.
+要全局应用钩子，我们需要指定钩子为全局。
 ```typescript twoslash
 import { Elysia } from 'elysia'
 

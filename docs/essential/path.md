@@ -195,10 +195,10 @@ new Elysia()
 | /id                    | Not Found     |
 | /id/anything/rest      | anything rest |
 
-## Optional path parameters
-Sometime we might want a static and dynamic path to resolve the same handler.
+## 可选路径参数
+有时我们可能希望静态和动态路径解析相同的处理程序。
 
-We can make a path parameter optional by adding a question mark `?` after the parameter name.
+通过在参数名称后添加问号 `?` 可以使路径参数变为可选。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -223,7 +223,7 @@ new Elysia()
   }"
 />
 
-The server will respond as follows:
+服务器将做出如下响应：
 
 | Path                   | Response      |
 | ---------------------- | ------------- |

@@ -17,7 +17,7 @@ head:
 # Stream Plugin
 
 ::: warning
-This plugin is in maintenance mode and will not receive new features. We recommend using the [Generator Stream instead](/patterns/stream)
+此插件处于维护模式，不会接收新功能。我们建议使用[生成器流](/patterns/stream)
 :::
 
 这个插件为客户端添加了流响应或发送服务器推送事件的支持。

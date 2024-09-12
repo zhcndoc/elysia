@@ -1,20 +1,20 @@
 ---
-title: OpenTelemetry Plugin - ElysiaJS
+title: OpenTelemetry 插件
 head:
   - - meta
     - property: 'og:title'
-      content: OpenTelemetry Plugin - ElysiaJS
+      content: OpenTelemetry 插件 - Elysia 中文文档
 
   - - meta
     - name: 'description'
-      content: Plugin for Elysia that adds support for OpenTelemetry. Start by installing the plugin with "bun add @elysiajs/opentelemetry".
+      content: 一个为 Elysia 添加了对 OpenTelemetry 支持的插件。开始使用，只需通过 "bun add @elysiajs/opentelemetry" 安装插件。
 
   - - meta
     - name: 'og:description'
-      content: Plugin for Elysia that adds support for OpenTelemetry. Start by installing the plugin with "bun add @elysiajs/opentelemetry".
+      content: 一个为 Elysia 添加了对 OpenTelemetry 支持的插件。开始使用，只需通过 "bun add @elysiajs/opentelemetry" 安装插件。
 ---
 
-To start using OpenTelemetry, install `@elysiajs/opentelemetry` and apply plugin to any instance.
+要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将其应用于任何实例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -35,24 +35,24 @@ new Elysia()
 	)
 ```
 
-![jaeger showing collected trace automatically](/blog/elysia-11/jaeger.webp)
+![Jaeger 显示自动收集的跟踪](/blog/elysia-11/jaeger.webp)
 
-Elysia OpenTelemetry is will **collect span of any library compatible OpenTelemetry standard**, and will apply parent and child span automatically.
+Elysia OpenTelemetry 将 **收集任何遵循 OpenTelemetry 标准的库的 span**，并自动应用父 span 和子 span。
 
-In the code above, we apply `Prisma` to trace how long each query took.
+在上面的代码中，我们应用了 `Prisma` 来追踪每个查询花费了多长时间。
 
-By applying OpenTelemetry, Elysia will then:
-- collect telemetry data
-- Grouping relevant lifecycle together
-- Measure how long each function took
-- Instrument HTTP request and response
-- Collect error and exception
+通过应用 OpenTelemetry，Elysia 将：
+- 收集遥测数据
+- 将相关生命周期分组在一起
+- 测量每个函数花费的时间
+- 仪器 HTTP 请求和响应
+- 收集错误和异常
 
-You may export telemetry data to Jaeger, Zipkin, New Relic, Axiom or any other OpenTelemetry compatible backend.
+你可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或其他任何兼容 OpenTelemetry 的后端。
 
-![axiom showing collected trace from OpenTelemetry](/blog/elysia-11/axiom.webp)
+![Axiom 显示从 OpenTelemetry 收集的跟踪](/blog/elysia-11/axiom.webp)
 
-Here's an example of exporting telemetry to [Axiom](https://axiom.co)
+这里是将遥测数据导出到 [Axiom](https://axiom.co) 的一个示例：
 ```typescript twoslash
 const Bun = {
 	env: {
@@ -86,11 +86,11 @@ new Elysia()
 ```
 
 ## OpenTelemetry SDK
-Elysia OpenTelemetry is for applying OpenTelemetry to Elysia server only.
+Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用于 Elysia 服务器。
 
-You may use OpenTelemetry SDK normally, and the span is run under Elysia's request span, it will be automatically appear in Elysia trace.
+你可以正常使用 OpenTelemetry SDK，span 在 Elysia 的请求 span 下运行，它会自动出现在 Elysia 的跟踪中。
 
-However, we also provide a `getTracer`, and `record` utility to collect span from any part of your application.
+然而，我们也提供了一个 `getTracer` 和 `record` 实用程序，用于从应用程序的任何部分收集 span。
 
 ```typescript twoslash
 const db = {
@@ -112,17 +112,17 @@ export const plugin = new Elysia()
 	})
 ```
 
-## Record utility
-`record` is an equivalent to OpenTelemetry's `startActiveSpan` but it will handle auto-closing and capture exception automatically.
+## 记录实用程序
+`record` 相当于 OpenTelemetry 的 `startActiveSpan`，但会自动处理关闭和捕获异常。
 
-You may think of `record` as a label for your code that will be shown in trace.
+你可以将 `record` 视为代码的一个标签，它将在跟踪中显示。
 
-### Prepare your codebase for observability
-Elysia OpenTelemetry will group lifecycle and read the **function name** of each hook as the name of the span.
+### 为可观测性准备你的代码库
+Elysia OpenTelemetry 将每个钩子的生命周期分组在一起，并读取每个钩子 **函数名** 作为 span 的名字。
 
-It's a good time to **name your function**.
+这是一个命名你的函数的好时机。
 
-If your hook handler is an arrow function, you may refactor it to named function to understand the trace better otherwise, your trace span will be named as `anonymous`.
+如果你的钩子处理程序是一个箭头函数，你可以将其重构为命名函数，以便更好地理解跟踪，否则，你的跟踪 span 将命名为 `anonymous`。
 
 ```typescript
 const bad = new Elysia()
@@ -142,78 +142,78 @@ const good = new Elysia()
 	})
 ```
 
-## Config
-This plugin extends OpenTelemetry SDK parameters options.
+## 配置
+此插件扩展了 OpenTelemetry SDK 参数选项。
 
-Below is a config which is accepted by the plugin
+以下是插件接受的配置：
 
-### autoDetectResources - boolean
-Detect resources automatically from the environment using the default resource detectors.
+### autoDetectResources - 布尔型
+自动检测资源，使用默认资源检测器。
 
-default: `true`
+默认值: `true`
 
 ### contextManager - ContextManager
-Use a custom context manager.
+使用自定义上下文管理器。
 
-default: `AsyncHooksContextManager`
+默认值: `AsyncHooksContextManager`
 
 ### textMapPropagator - TextMapPropagator
-Use a custom propagator.
+使用自定义传播器。
 
-default: `CompositePropagator` using W3C Trace Context and Baggage
+默认值: `CompositePropagator` 使用 W3C Trace Context 和 Baggage
 
 ### metricReader - MetricReader
-Add a MetricReader that will be passed to the MeterProvider.
+添加一个 MetricReader，它将被传递给 MeterProvider。
 
 ### views - View[]
-A list of views to be passed to the MeterProvider.
+一个视图列表，将被传递给 MeterProvider。
 
-Accepts an array of View-instances. This parameter can be used to configure explicit bucket sizes of histogram metrics.
+接受 View-实例的数组。这个参数可以用来配置直方图度量的显式桶大小。
 
 ### instrumentations - (Instrumentation | Instrumentation[])[]
-Configure instrumentations.
+配置仪器。
 
-By default `getNodeAutoInstrumentations` is enabled, if you want to enable them you can use either metapackage or configure each instrumentation individually.
+默认情况下 `getNodeAutoInstrumentations` 是启用的，如果你想要启用它们，你可以使用元包或单独配置每个仪器。
 
-default: `getNodeAutoInstrumentations()`
+默认值: `getNodeAutoInstrumentations()`
 
 ### resource - IResource
-Configure a resource.
+配置资源。
 
-Resources may also be detected by using the autoDetectResources method of the SDK.
+资源也可以通过使用 SDK 的 autoDetectResources 方法来检测。
 
 ### resourceDetectors - Array<Detector | DetectorSync>
-Configure resource detectors. By default, the resource detectors are [envDetector, processDetector, hostDetector]. NOTE: In order to enable the detection, the parameter autoDetectResources has to be true.
+配置资源检测器。默认情况下，资源检测器是 [envDetector, processDetector, hostDetector]。注意：为了启用检测，参数 autoDetectResources 必须为 true。
 
-If resourceDetectors was not set, you can also use the environment variable OTEL_NODE_RESOURCE_DETECTORS to enable only certain detectors, or completely disable them:
+如果你没有设置 resourceDetectors，你也可以使用环境变量 OTEL_NODE_RESOURCE_DETECTORS 来启用某些检测器，或者完全禁用它们：
 
 - env
 - host
 - os
 - process
-- serviceinstance (experimental)
-- all - enable all resource detectors above
-- none - disable resource detection
+- serviceinstance（实验性的）
+- all - 启用上面所有的资源检测器
+- none - 禁用资源检测
 
-For example, to enable only the env, host detectors:
+例如，只启用 env、host 检测器：
 
 ```bash
 export OTEL_NODE_RESOURCE_DETECTORS="env,host"
 ```
 
 ### sampler - Sampler
-Configure a custom sampler. By default, all traces will be sampled.
+配置自定义采样器。默认情况下，所有的跟踪都会被采样。
 
-### serviceName - string
-Namespace to be identify as.
+### serviceName - 字符串
+命名空间，用于标识。
 
 ### spanProcessors - SpanProcessor[]
-An array of span processors to register to the tracer provider.
+一个 span 处理器的数组，注册到 tracer provider。
 
 ### traceExporter - SpanExporter
-Configure a trace exporter. If an exporter is configured, it will be used with a `BatchSpanProcessor`.
+配置一个追踪器导出器。如果配置了导出器，它将和 `BatchSpanProcessor` 一起使用。
 
-If an exporter OR span processor is not configured programmatically, this package will auto setup the default otlp exporter with http/protobuf protocol with a BatchSpanProcessor.
+如果没有通过编程方式配置导出器或 span 处理器，这个包将自动设置默认的 otlp 导出器，使用 http/protobuf 协议，并带有一个 `BatchSpanProcessor`。
 
 ### spanLimits - SpanLimits
-Configure tracing parameters. These are the same trace parameters used to configure a tracer.
+配置追踪参数。这些是用来配置追踪器的相同的追踪参数。

@@ -1,21 +1,21 @@
 ---
-title: Stream - ElysiaJS
+title: 流
 head:
   - - meta
     - property: 'og:title'
-      content: Stream - ElysiaJS
+      content: 流 - Elysia 中文文档
 
   - - meta
     - name: 'description'
-      content: To return a response stream in Elysia, we may use a generator function, which will be automatically converted to a stream response, by return by using yield.
+      content: 在 Elysia 中返回响应流时，我们可以使用生成器函数，它将自动转换为流响应，通过返回使用 yield。
 
   - - meta
     - property: 'og:description'
-      content: To return a response stream in Elysia, we may use a generator function, which will be automatically converted to a stream response, by return by using yield.
+      content: 在 Elysia 中返回响应流时，我们可以使用生成器函数，它将自动转换为流响应，通过返回使用 yield。
 ---
 
-# Stream
-To return a response streaming out of the box by using a generator function with `yield` keyword.
+# 流
+要使用带有 `yield` 关键字的生成器函数，直接返回一个响应流。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -28,12 +28,12 @@ const app = new Elysia()
 	})
 ```
 
-This this example, we may stream a response by using `yield` keyword.
+在这个例子中，我们可以通过使用 `yield` 关键字来流式发送响应。
 
-## Set headers
-Elysia will defers returning response headers until the first chunk is yielded.
+## 设置头信息
+Elysia 将推迟返回响应头，直到第一个块被产生。
 
-This allows us to set headers before the response is streamed.
+这使我们能够在响应被流式传输之前设置头信息。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -51,12 +51,12 @@ const app = new Elysia()
 	})
 ```
 
-Once the first chunk is yielded, Elysia will send the headers and the first chunk in the same response.
+一旦第一个块被产生，Elysia 将发送头信息和第一个块在同一个响应中。
 
-Setting headers after the first chunk is yielded will do nothing.
+在第一个块被产生后设置头信息将不起作用。
 
-## Conditional Stream
-If the response is returned without yield, Elysia will automatically convert stream to normal response instead.
+## 条件流
+如果响应没有 yield 返回，Elysia 将自动将流转换为正常响应。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -71,15 +71,15 @@ const app = new Elysia()
 	})
 ```
 
-This allows us to conditionally stream a response or return a normal response if necessary.
+这使我们能够根据需要条件性地流式发送响应或返回正常响应。
 
-## Abort
-While streaming a response, it's common that request may be cancelled before the response is fully streamed.
+## 中止
+在流式发送响应时，请求在响应完全流式发送之前被取消是常见的。
 
-Elysia will automatically stop the generator function when the request is cancelled.
+如果请求被取消，Elysia 将自动停止生成器函数。
 
 ## Eden
-Eden will interpret a stream response as `AsyncGenerator` allowing us to use `for await` loop to consume the stream.
+Eden 将流响应解释为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'

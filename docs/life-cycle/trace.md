@@ -14,22 +14,22 @@ head:
         content: Trace 是一个用于测量服务器性能的 API。它允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 ---
 
-# Trace
+# 追踪
 
 性能是 Elysia 的重要方面。
 
 我们不仅仅希望在基准测试中快速，更希望你在实际场景中拥有一个真正快速的服务器。
 
-There are many factors that can slow down our app - and it's hard to identify them, but **trace** can helps solve that problem by injecting start and stop code to each life-cycle.
+有很多因素可能会减慢我们的应用 - 很难识别它们，但 **trace** 可以帮助解决这个问题，通过为每个生命周期注入开始和停止代码。
 
-Trace allows us to inject code to before and after of each life-cycle event, block and interact with the execution of the function.
+Trace 允许我们为每个生命周期事件的开始和结束注入代码，块和交互函数的执行。
 
-## Trace
-Trace use a callback listener to ensure that callback function is finished before moving on to the next lifecycle event.
+## 追踪
+Trace 使用回调监听器来确保在继续到下一个生命周期事件之前回调函数已经完成。
 
-To use `trace`, you need to call `trace` method on the Elysia instance, and pass a callback function that will be executed for each life-cycle event.
+要使用 `trace`，你需要在 Elysia 实例上调用 `trace` 方法，并传递一个回调函数，该函数将为每个生命周期事件执行。
 
-You may listen to each lifecycle by adding `on` prefix follows by life-cycle name, for example `onHandle` to listen to `handle` event.
+你可以通过添加 `on` 前缀和生命周期名称来监听每个生命周期，例如使用 `onHandle` 来监听 `handle` 事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -46,14 +46,14 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Please refer to [Life Cycle Events](/essential/life-cycle#events) for more information:
+请参考 [Life Cycle Events](/essential/life-cycle#events) 获取更多信息：
 
 ![Elysia Life Cycle](/assets/lifecycle.webp)
 
-## Children
-Every events except `handle` have a children, which is an array of events that are executed inside for each life-cycle event.
+## 子项
+除了 `handle` 之外，每个事件都有子项，这是在每个生命周期事件中执行的事件的数组。
 
-You can use `onEvent` to listen to each child event in order
+你可以使用 `onEvent` 按顺序监听每个子事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -84,66 +84,66 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-In this example, total children will be `2` because there are 2 children in the `beforeHandle` event.
+在这个例子中，total children 将会是 `2`，因为在 `beforeHandle` 事件中有 2 个子事件。
 
-Then we listen to each child event by using `onEvent` and print the duration of each child event.
+然后我们通过使用 `onEvent` 监听每个子事件，并打印每个子事件的持续时间。
 
-## Trace Parameter
-When each lifecycle is called
+## 追踪参数
+当每个生命周期被调用时
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-	// This is trace parameter
-	// hover to view the type
+	// 这是 trace 参数
+	// 悬停以查看类型
 	.trace((parameter) => {
 	})
 	.get('/', () => 'Hi')
 	.listen(3000)
 ```
 
-`trace` accept the following parameters:
+`trace` 接受以下参数：
 
 ### id - `number`
-Randomly generated unique id for each request
+为每个请求随机生成的唯一 ID
 
 ### context - `Context`
-Elysia's [Context](/essential/context), eg. `set`, `store`, `query, `params`
+Elysia 的 [Context](/essential/context)，例如 `set`, `store`, `query, `params`
 
 ### set - `Context.set`
-Shortcut for `context.set`, to set a headers or status of the context
+`context.set` 的快捷方式，用于设置 headers 或 context 的状态
 
 ### store - `Singleton.store`
-Shortcut for `context.store`, to access a data in the context
+`context.store` 的快捷方式，用于访问上下文中的数据
 
 ### time - `number`
-Timestamp of when request is called
+请求被调用的时间戳
 
 ### on[Event] - `TraceListener`
-An event listener for each life-cycle event.
+每个生命周期事件的监听器。
 
-You may listen to the following life-cycle:
--   **onRequest** - get notified of every new request
--   **onParse** - array of functions to parse the body
--   **onTransform** - transform request and context before validation
--   **onBeforeHandle** - custom requirement to check before the main handler, can skip the main handler if response returned.
--   **onHandle** - function assigned to the path
--   **onAfterHandle** - interact with the response before sending it back to the client
--   **onMapResponse** - map returned value into a Web Standard Response
--   **onError** - handle error thrown during processing request
--   **onAfterResponse** - cleanup function after response is sent
+你可以监听以下生命周期：
+-   **onRequest** - 每次新请求都会通知
+-   **onParse** - 用于解析 body 的函数数组
+-   **onTransform** - 在验证之前转换请求和上下文
+-   **onBeforeHandle** - 在处理主处理器之前检查自定义要求，如果返回响应，可以跳过主处理器。
+-   **onHandle** - 分配给路径的函数
+-   **onAfterHandle** - 在将响应发送回客户端之前与响应交互
+-   **onMapResponse** - 将返回值映射到 Web Standard Response
+-   **onError** - 处理在处理请求期间抛出的错误
+-   **onAfterResponse** - 发送响应后的清理函数
 
-## Trace Listener
-A listener for each life-cycle event
+## 追踪侦听器
+每个生命周期事件的监听器
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
 	.trace(({ onBeforeHandle }) => {
-		// This is trace listener
-		// hover to view the type
+		// 这是 trace 监听器
+		// 悬停以查看类型
 		onBeforeHandle((parameter) => {
 
 		})
@@ -152,22 +152,22 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-Each lifecycle listener accept the following
+每个生命周期监听器接受以下参数：
 
 ### name - `string`
-The name of the function, if the function is anonymous, the name will be `anonymous`
+函数的名称，如果函数是匿名的，名称将是 `anonymous`
 
 ### begin - `number`
-The time when the function is started
+函数开始的时间
 
 ### end - `Promise<number>`
-The time when the function is ended, will be resolved when the function is ended
+函数结束的时间，将在函数结束时解析
 
 ### error - `Promise<Error | null>`
-Error that was thrown in the lifecycle, will be resolved when the function is ended
+在生命周期中抛出的错误，将在函数结束时解析
 
 ### onStop - `callback?: (detail: TraceEndDetail) => any`
-A callback that will be executed when the lifecycle is ended
+一个回调，将在生命周期结束后执行
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -184,16 +184,16 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-It's recommended to mutate context in this function as there's a lock mechanism to ensure the context is mutate successfully before moving on to the next lifecycle event
+建议在这个函数中修改上下文，因为存在锁定机制，以确保在继续到下一个生命周期事件之前上下文成功修改。
 
-## TraceEndDetail
-A parameter that passed to `onStop` callback
+## 追踪结束
+传递给 `onStop` 回调的参数
 
 ### end - `number`
-The time when the function is ended
+函数结束的时间
 
 ### error - `Error | null`
-Error that was thrown in the lifecycle
+在生命周期中抛出的错误
 
 ### elapsed - `number`
-Elapsed time of the lifecycle or `end - begin`
+生命周期或 `end - begin` 的持续时间

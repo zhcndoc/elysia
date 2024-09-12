@@ -137,10 +137,10 @@ Expected x to be a number
 
 </table>
 
-## Error message as function
-Over a string, Elysia type's error can also accepts a function to programatically return custom error for each property.
+## 作为函数的错误消息
+在一个字符串上，Elysia 类型的错误也可以接受一个函数来以编程方式为每个属性返回自定义错误。
 
-The error function accepts same argument as same as `ValidationError`
+错误函数接受与同 `ValidationError` 相同的参数。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -159,13 +159,13 @@ new Elysia()
 ```
 
 ::: tip
-Hover over the `error` to see the type
+将鼠标悬停在 `error` 上以查看类型
 :::
 
-### Error is called per field
-Please be cautious that the error function will only be called if the field is invalid.
+### 错误是根据字段调用的
+请注意，只有在字段无效时，错误函数才会被调用。
 
-Please consider the following table:
+请参考以下表格：
 
 <table class="md-table">
 <tr>

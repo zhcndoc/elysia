@@ -1,28 +1,28 @@
 ---
-title: After Response - ElysiaJS
+title: After Response
 head:
     - - meta
       - property: 'og:title'
-        content: On After Response - ElysiaJS
+        content: After Response - Elysia 中文文档
 
     - - meta
       - name: 'description'
-        content: Executed after the response sent to the client. It's recommended to use **On After Response** in the following situations. Clean up response. Logging and analytics.
+        content: 在响应发送给客户端后执行。建议在以下情况下使用 **After Response**。清理响应。日志记录和分析。
 
     - - meta
       - property: 'og:description'
-        content: Executed after the response sent to the client. It's recommended to use **On After Response** in the following situations. Clean up response. Logging and analytics.
+        content: 在响应发送给客户端后执行。建议在以下情况下使用 **After Response**。清理响应。日志记录和分析。
 ---
 
 # After Response
-Executed after the response sent to the client.
+在响应发送给客户端后执行。
 
-It's recommended to use **After Response** in the following situations:
-- Clean up response
-- Logging and analytics
+建议在以下情况下使用 **After Response**:
+- 清理响应
+- 日志记录和分析
 
-## Example
-Below is an example of using the response handle to check for user sign-in.
+## 示例
+下面是一个使用响应句柄来检查用户登录的示例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -34,7 +34,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-Console should log as the following:
+控制台应该记录如下:
 
 ```bash
 Response 0.0000
