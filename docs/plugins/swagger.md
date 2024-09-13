@@ -34,7 +34,7 @@ new Elysia()
     .listen(3000)
 ```
 
-访问 `/swagger` 会显示由 Elysia 服务器生成的端点文档的 Swagger UI。您也可以访问 `/swagger/json` 获取原始 OpenAPI 规范。
+访问 `/swagger` 会显示由 Elysia 服务器生成的端点文档的 Swagger UI。你也可以访问 `/swagger/json` 获取原始 OpenAPI 规范。
 
 ## 配置
 以下是插件接受的配置
@@ -76,7 +76,7 @@ new Elysia()
 以下是使用该插件的常见模式。
 
 ## 更改 Swagger 端点
-您可以通过在插件配置中设置 [path](#path) 来更改 swagger 端点。
+你可以通过在插件配置中设置 [path](#path) 来更改 swagger 端点。
 
 ```typescript
 import { Elysia } from 'elysia'

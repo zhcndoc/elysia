@@ -39,7 +39,7 @@ Server Timing 将为每个生命周期函数附加 ‘Server-Timing’ 头部，
 
 ![显示 Server Timing 的开发者工具截图](/assets/server-timing.webp)
 
-现在，您可以轻松审计服务器的性能瓶颈。
+现在，你可以轻松审计服务器的性能瓶颈。
 
 ## 配置
 以下是插件接受的配置项
@@ -74,7 +74,7 @@ trace 参数接受以下对象：
 - [允许条件](#allow-condition)
 
 ## 允许条件
-您可以通过 `allow` 属性在特定路由上禁用 Server Timing。
+你可以通过 `allow` 属性在特定路由上禁用 Server Timing。
 
 ```ts
 import { Elysia } from 'elysia'

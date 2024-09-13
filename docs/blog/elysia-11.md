@@ -100,7 +100,7 @@ Elysia OpenTelemetry 能够收集遵循 OpenTelemetry 标准的所有库的 span
 - 仪器 HTTP 请求和响应
 - 收集错误和异常
 
-您可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或任何其他与 OpenTelemetry 兼容的后端。
+你可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或任何其他与 OpenTelemetry 兼容的后端。
 
 这里有一个将遥测数据导出到 [Axiom](https://axiom.co) 的例子。
 ```typescript twoslash
@@ -662,9 +662,9 @@ for await (const chunk of data)
 
 这是一段美好的旅程，看到大家对 Elysia 的巨大支持让我感到非常高兴，以至于我不知道如何表达我的感受。
 
-我仍然很高兴能够继续开发 Elysia，并且期待着与您和 Elysia 一起踏上一段漫长的旅程。
+我仍然很高兴能够继续开发 Elysia，并且期待着与你和 Elysia 一起踏上一段漫长的旅程。
 
-然而，独自一人开发 Elysia 并不容易，这就是为什么我需要您的帮助来支持 Elysia，无论是通过报告一个 bug，创建一个 PR (毕竟我们是开源的)，还是分享您对 Elysia 的任何喜欢之处，甚至是简单地说一声嗨。
+然而，独自一人开发 Elysia 并不容易，这就是为什么我需要你的帮助来支持 Elysia，无论是通过报告一个 bug，创建一个 PR (毕竟我们是开源的)，还是分享你对 Elysia 的任何喜欢之处，甚至是简单地说一声嗨。
 
 在过去的两年里，我知道 Elysia 并不完美，有时我可能没有足够的时间来回应问题，但我正在尽我最大的努力让它变得更好，并且有一个关于它可能成为什么的愿景。
 

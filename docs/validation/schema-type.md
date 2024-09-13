@@ -341,9 +341,9 @@ new Elysia()
 | `false` | 400 | ❌ |
 
 ## 构造函数
-您可以使用 Elysia 构造函数来通过 `normalize` 选项设置出站和入站消息的未知字段的行为。默认情况下，Elysia 会在请求或响应中包含模式中未显式允许的字段时引发错误。
+你可以使用 Elysia 构造函数来通过 `normalize` 选项设置出站和入站消息的未知字段的行为。默认情况下，Elysia 会在请求或响应中包含模式中未显式允许的字段时引发错误。
 
-在构造 Elysia 实例时，您可以通过将 `normalize` 设置为 true 来更改这一行为。
+在构造 Elysia 实例时，你可以通过将 `normalize` 设置为 true 来更改这一行为。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'

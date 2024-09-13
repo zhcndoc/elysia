@@ -53,7 +53,7 @@ Elysia 被设计为模块化和轻量级的。
 -   [Vite](https://github.com/timnghg/elysia-vite) - 使用 Vite 的脚本注入服务 HTML 文件
 -   [Nuxt](https://github.com/trylovetom/elysiajs-nuxt) - 轻松集成 Nuxt 和 Elysia！
 -   [Remix](https://github.com/kravetsone/elysia-remix) - 使用 [Remix](https://remix.run/) 支持 `HMR`（由 [`vite`](https://vitejs.dev/) 提供动力！关闭了一个长期存在的插件请求 [#12](https://github.com/elysiajs/elysia/issues/12)）
--   [Connect middleware](https://github.com/kravetsone/elysia-connect-middleware) - 插件允许您直接在 Elysia 中使用 [`express`](https://www.npmjs.com/package/express)/[`connect`](https://www.npmjs.com/package/connect) 中间件！
+-   [Connect middleware](https://github.com/kravetsone/elysia-connect-middleware) - 插件允许你直接在 Elysia 中使用 [`express`](https://www.npmjs.com/package/express)/[`connect`](https://www.npmjs.com/package/connect) 中间件！
 -   [Elysia Helmet](https://github.com/DevTobias/elysia-helmet) - 使用各种 HTTP 标头安全 Elysia 应用
 -   [Vite Plugin SSR](https://github.com/timnghg/elysia-vite-plugin-ssr) - Vite SSR 插件使用 Elysia 服务器
 -   [OAuth 2.0](https://github.com/kravetsone/elysia-oauth2) - 插件支持 [OAuth 2.0](https://en.wikipedia.org/wiki/OAuth) 授权流，有超过 **42** 个提供商和 **类型安全**！
@@ -66,8 +66,8 @@ Elysia 被设计为模块化和轻量级的。
 -   [Elysia Lambda](https://github.com/TotalTechGeek/elysia-lambda) - 在 AWS Lambda 上部署
 -   [Decorators](https://github.com/gaurishhs/elysia-decorators) - 使用 TypeScript 装饰器
 -   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysia.zhcndoc.com/eden/overview.html) 生成类型，支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
--   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许您使用 [MessagePack](https://msgpack.org)
-    [XML](https://github.com/kravetsone/elysia-xml) - 允许您处理 XML
+-   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许你使用 [MessagePack](https://msgpack.org)
+    [XML](https://github.com/kravetsone/elysia-xml) - 允许你处理 XML
 -   [Autoroutes](https://github.com/wobsoriano/elysia-autoroutes) - 文件系统路由
 -   [Group Router](https://github.com/itsyoboieltr/elysia-group-router) - 基于目录和文件夹的组路由器
 -   [Basic Auth](https://github.com/itsyoboieltr/elysia-basic-auth) - HTTP基本认证
@@ -105,7 +105,7 @@ Elysia 被设计为模块化和轻量级的。
 -   [Nice Logger](https://github.com/tanishqmanuja/nice-logger) - 不是最漂亮的，但一个相当漂亮和甜美的 Elysia 日志记录库。
 
 ## 互补项目
--   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成类型框方案的生成器，与 Elysia 很好地配合使用
+-   [prismabox](https://github.com/m1212e/prismabox) - 基于你的数据库模型生成类型框方案的生成器，与 Elysia 很好地配合使用
 ---
 
-如果您为 Elysia 编写了一个插件，请自由地将您的插件添加到列表中，只需 **点击下面“在 GitHub 上编辑此页面”** 即可👇
+如果你为 Elysia 编写了一个插件，请自由地将你的插件添加到列表中，只需 **点击下面“在 GitHub 上编辑此页面”** 即可👇

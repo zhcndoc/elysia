@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 您可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
+      content: 你可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
 
   - - meta
     - property: 'og:description'
-      content: 您可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
+      content: 你可以使用以下 Dockerfile 与 Docker 一起使用 Elysia，方法是使用 oven/bun，或者从页面上复制片段。
 ---
 
 # Docker
@@ -40,7 +40,7 @@ EXPOSE 3000
 
 ## Distroless
 
-如果您想使用 Distroless：
+如果你想使用 Distroless：
 
 ```docker
 FROM debian:11.6-slim as builder
@@ -77,7 +77,7 @@ EXPOSE 3000
 
 ## Development
 
-要在 Docker 中开发 Elysia，您可以使用以下最小 docker compose 模板：
+要在 Docker 中开发 Elysia，你可以使用以下最小 docker compose 模板：
 
 ```yaml
 # docker-compose.yml

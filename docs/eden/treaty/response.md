@@ -22,7 +22,7 @@ head:
 - status `number` - HTTP 状态码
 - headers `FetchRequestInit['headers']` - 响应的头部
 
-一旦返回，您必须提供错误处理以确保响应数据值被解封装，否则该值将为空。Elysia 提供了 `error()` 辅助函数来处理错误，而 Eden 将为错误值提供类型缩小。
+一旦返回，你必须提供错误处理以确保响应数据值被解封装，否则该值将为空。Elysia 提供了 `error()` 辅助函数来处理错误，而 Eden 将为错误值提供类型缩小。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

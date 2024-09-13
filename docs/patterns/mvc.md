@@ -16,7 +16,7 @@ head:
 
 # MVC 模式
 
-Elysia 是一个与模式无关的框架，我们将决策交给您和您的团队，以确定要使用的编码模式。
+Elysia 是一个与模式无关的框架，我们将决策交给你和你的团队，以确定要使用的编码模式。
 
 然而，我们发现有一些人正在 Elysia 上使用 MVC 模式（[模型-视图-控制器]((https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller))），并发现它很难解耦和处理不同类型。
 
@@ -61,7 +61,7 @@ Elysia 在确保类型完整性方面做了很多工作，如果将整个 Contex
 1. Elysia 类型复杂，且严重依赖插件和多级链接。
 2. 难以进行类型推断，Elysia 类型可能随时更改，特别是使用装饰器和存储器时。
 3. 类型转换可能导致类型完整性丢失或无法保证类型和运行时代码之间的一致性。
-4. 这让 [Sucrose](/blog/elysia-10#sucrose)（Elysia 的“类型”编译器）更具挑战性，无法静态分析您的代码。
+4. 这让 [Sucrose](/blog/elysia-10#sucrose)（Elysia 的“类型”编译器）更具挑战性，无法静态分析你的代码。
 
 我们建议使用对象解构将所需内容提取出来，并传递给 **“Service”**。
 
@@ -226,9 +226,9 @@ new Elysia()
     })
 ```
 
-如果您的服务不需要存储属性，则可以使用 `abstract class` 和 `static`，而不是分配一个类实例。
+如果你的服务不需要存储属性，则可以使用 `abstract class` 和 `static`，而不是分配一个类实例。
 
-但是，如果您的服务涉及本地变异，例如缓存，您可能希望初始化一个实例。
+但是，如果你的服务涉及本地变异，例如缓存，你可能希望初始化一个实例。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -284,9 +284,9 @@ export class AppController {
 
 ### 请求相关的 Service
 
-如果您的服务将在多个实例中使用，或者可能需要一些来自请求的属性，我们建议创建一个专用的 Elysia 实例作为 **Service**。
+如果你的服务将在多个实例中使用，或者可能需要一些来自请求的属性，我们建议创建一个专用的 Elysia 实例作为 **Service**。
 
-Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此您无需担心性能，如果指定了 **“name”** 属性，它将是一个单例。
+Elysia 默认处理[插件去重](/essential/plugin.html#plugin-deduplication)，因此你无需担心性能，如果指定了 **“name”** 属性，它将是一个单例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -403,4 +403,4 @@ new Elysia()
 
 如前所述，Elysia 是一个与模式无关的框架，我们只为处理 Elysia 与 MVC 模式的建议指南。
 
-您可以选择遵循或不遵循，这取决于您和团队的偏好和协议。
+你可以选择遵循或不遵循，这取决于你和团队的偏好和协议。

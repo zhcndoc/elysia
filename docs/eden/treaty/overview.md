@@ -18,7 +18,7 @@ head:
 
 Eden Treaty 是用于与服务器进行交互的对象表示，具有类型安全、自动完成和错误处理功能。
 
-要使用 Eden Treaty，首先导出您现有的 Elysia 服务器类型：
+要使用 Eden Treaty，首先导出你现有的 Elysia 服务器类型：
 
 ```typescript twoslash
 // server.ts

@@ -56,7 +56,7 @@ import type { App } from './server'
 const api = treaty<App>('localhost:3000')
 ```
 
-您可以指定 URL 端点的协议，也可以不指定。
+你可以指定 URL 端点的协议，也可以不指定。
 
 Elysia 会自动附加端点，规则如下：
 
@@ -207,7 +207,7 @@ treaty<App>('localhost:3000', {
 
 ### 函数
 
-您可以将头部指定为函数，根据条件返回自定义头部
+你可以将头部指定为函数，根据条件返回自定义头部
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -236,7 +236,7 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-您可以返回对象以将其值附加到 fetch 头部。
+你可以返回对象以将其值附加到 fetch 头部。
 
 headers 函数接受两个参数：
 
@@ -350,7 +350,7 @@ treaty<App>('localhost:3000', {
 
 拦截和修改发送请求之前的 fetch 请求。
 
-您可以返回对象以将值附加到 **RequestInit**。
+你可以返回对象以将值附加到 **RequestInit**。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

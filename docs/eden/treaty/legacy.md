@@ -29,7 +29,7 @@ Eden Treaty 是 Elysia 服务器的对象式表示。
 
 ---
 
-要使用 Eden Treaty，首先导出您现有的 Elysia 服务器类型：
+要使用 Eden Treaty，首先导出你现有的 Elysia 服务器类型：
 
 ```typescript
 // server.ts

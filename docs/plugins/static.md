@@ -34,7 +34,7 @@ new Elysia()
 
 默认情况下，静态插件的默认文件夹为 `public`，并通过 `/public` 前缀进行注册。
 
-假设您的项目结构如下：
+假设你的项目结构如下：
 ```
 | - src
   | - index.ts
@@ -87,7 +87,7 @@ new Elysia()
 - [单文件](#单文件)
 
 ## 单文件
-假设您只想返回单个文件，可以使用 `Bun.file` 而不是使用静态插件
+假设你只想返回单个文件，可以使用 `Bun.file` 而不是使用静态插件
 ```typescript
 new Elysia()
     .get('/file', () => Bun.file('public/takodachi.png'))

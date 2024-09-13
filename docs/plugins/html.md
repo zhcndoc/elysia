@@ -16,7 +16,7 @@ head:
 
 # HTML 插件
 
-允许您使用 [JSX](#jsx) 和 HTML，并具有适当的头部和支持。
+允许你使用 [JSX](#jsx) 和 HTML，并具有适当的头部和支持。
 
 安装：
 
@@ -78,7 +78,7 @@ Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们
 }
 ```
 
-现在，您可以将 JSX 作为模板引擎使用了：
+现在，你可以将 JSX 作为模板引擎使用了：
 ```tsx
 import { Elysia } from 'elysia'
 import { html, Html } from '@elysiajs/html' // [!code ++]
@@ -108,7 +108,7 @@ It is important that it is written in uppercase.
 ## XSS
 Elysia HTML 基于 Kita HTML 插件以在编译时检测可能的 XSS 攻击。
 
-您可以使用专用的 `safe` 属性来对用户输入进行清理，以预防 XSS 漏洞。
+你可以使用专用的 `safe` 属性来对用户输入进行清理，以预防 XSS 漏洞。
 ```tsx
 import { Elysia, t } from 'elysia'
 import { html, Html } from '@elysiajs/html'

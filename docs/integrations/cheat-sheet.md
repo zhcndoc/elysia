@@ -280,7 +280,7 @@ console.log(`View documentation at "${app.server!.url}swagger" in your browser`)
 ```
 
 ## 单元测试
-编写您的 Elysia 应用的单元测试
+编写你的 Elysia 应用的单元测试
 
 查看 [Unit Test](/patterns/unit-test)
 

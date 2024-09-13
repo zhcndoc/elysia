@@ -50,7 +50,7 @@ head:
         detail: '引入重新构想的插件模型，动态模式，通过声明性自定义错误提供更好的开发人员体验，可定制的松散和严格路径映射，TypeBox 0.30 和 WinterCG 框架互操作。再次推动可能性的边界。'
       },
       {
-        title: '通过 Elysia 加速您的下一个 Prisma 服务器',
+        title: '通过 Elysia 加速你的下一个 Prisma 服务器',
         href: '/blog/with-prisma',
         detail: '在 Prisma 与 Bun 以及 Elysia 的支持下，我们正在进入一个全新的开发者体验水平的新时代。对于 Prisma，我们可以加快与数据库的交互，Elysia 可以加速我们在开发者体验和性能方面创建后端 Web 服务器。'
       },

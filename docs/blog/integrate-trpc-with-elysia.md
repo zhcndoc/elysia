@@ -260,7 +260,7 @@ console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.por
 
 这样就完成了将现有功能齐全的 tRPC 服务器集成到 Elysia 服务器中，从而让 tRPC 在 Bun 上运行。
 
-当您需要支持 tRPC 和 REST API 时，Elysia 是完美的选择，因为它们可以在同一个服务器中共存。
+当你需要支持 tRPC 和 REST API 时，Elysia 是完美的选择，因为它们可以在同一个服务器中共存。
 
 ## 额外福利：使用 Eden 的类型安全 Elysia
 由于 Elysia 受到 tRPC 的启发，因此它也支持端到端的类型安全性，默认使用 **“Eden”**。
@@ -312,12 +312,12 @@ const app = edenTreaty<App>('http://localhost:3000')
 const data = await app.index.get()
 ```
 
-Elysia 是一个很好的选择，当您想要实现类似 tRPC 的端到端类型安全性，但又需要支持更多标准模式如 REST，并且仍然需要支持 tRPC 或需要迁移其中之一时。
+Elysia 是一个很好的选择，当你想要实现类似 tRPC 的端到端类型安全性，但又需要支持更多标准模式如 REST，并且仍然需要支持 tRPC 或需要迁移其中之一时。
 
 ## 额外提示：有关 Elysia 的附加信息
-您可以使用 Elysia 来实现不仅具有 tRPC 和端到端类型安全支持，还配置了许多专为 Bun 设计的关键插件的各种支持。
+你可以使用 Elysia 来实现不仅具有 tRPC 和端到端类型安全支持，还配置了许多专为 Bun 设计的关键插件的各种支持。
 
-例如，您可以使用 [Swagger 插件](/plugins/swagger)一行代码即可生成 Swagger 文档。
+例如，你可以使用 [Swagger 插件](/plugins/swagger)一行代码即可生成 Swagger 文档。
 ```typescript
 import { Elysia, t } from 'elysia'
 import { swagger } from '@elysiajs/swagger' // [!code ++]
@@ -344,7 +344,7 @@ export type App = typeof app
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`)
 ```
 
-或者，当您想在 Bun 上使用 [GraphQL Apollo](/plugins/graphql-apollo) 时。
+或者，当你想在 Bun 上使用 [GraphQL Apollo](/plugins/graphql-apollo) 时。
 ```typescript
 import { Elysia } from 'elysia'
 import { apollo, gql } from '@elysiajs/apollo' // [!code ++]
@@ -388,7 +388,7 @@ console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.por
 
 然而，Elysia 是开始学习/使用 Bun 及其周围生态系统的绝佳选择。
 
-如果您想了解更多关于 Elysia 的信息，[Elysia 文档](https://elysia.zhcndoc.com)是一个很好的开始，可以探索概念和模式；如果遇到困难或需要帮助，欢迎在 [Elysia Discord](https://discord.gg/eaFJ2KDJck) 上寻求支持。
+如果你想了解更多关于 Elysia 的信息，[Elysia 文档](https://elysia.zhcndoc.com)是一个很好的开始，可以探索概念和模式；如果遇到困难或需要帮助，欢迎在 [Elysia Discord](https://discord.gg/eaFJ2KDJck) 上寻求支持。
 
 所有代码的存储库可在 [https://github.com/saltyaom/elysia-trpc-demo](https://github.com/saltyaom/elysia-trpc-demo) 找到，欢迎实验和探讨。
 </Blog>

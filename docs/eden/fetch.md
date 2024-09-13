@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，您可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
+      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，你可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
 
   - - meta
     - name: 'og:description'
-      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，您可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
+      content: 一个类似 fetch 的 Eden Treaty 替代品，具有更快的类型推断。使用 Eden Fetch，你可以在不需要代码生成的情况下，以端到端类型安全的方式向 Elysia 服务器发出请求。
 ---
 
 # Eden Fetch
@@ -22,7 +22,7 @@ head:
 
 ---
 
-首先导出您现有的 Elysia 服务器类型：
+首先导出你现有的 Elysia 服务器类型：
 
 ```typescript twoslash
 // server.ts
@@ -90,7 +90,7 @@ const nendoroid = await fetch('/mirror', {
 
 ## 错误处理
 
-您可以像 Eden Treaty 一样处理错误：
+你可以像 Eden Treaty 一样处理错误：
 
 ```typescript twoslash
 // @filename: server.ts
@@ -151,14 +151,14 @@ const { id, name } = nendoroid
 
 与 Elysia < 1.0 不同，Eden Fetch 并不比 Eden Treaty 更快。
 
-偏好基于您和您团队的协议，但我们建议使用 [Eden Treaty](/eden/treaty/overview)。
+偏好基于你和你团队的协议，但我们建议使用 [Eden Treaty](/eden/treaty/overview)。
 
 对于 Elysia < 1.0：
 
-使用 Eden Treaty 需要大量的降级迭代来一次性映射所有可能的类型，而相比之下，Eden Fetch 可以延迟执行，直到您选择一条路线。
+使用 Eden Treaty 需要大量的降级迭代来一次性映射所有可能的类型，而相比之下，Eden Fetch 可以延迟执行，直到你选择一条路线。
 
 在复杂类型和许多服务器路由的情况下，在低端开发设备上使用 Eden Treaty 可能会导致缓慢的类型推断和自动完成。
 
 但随着 Elysia 对类型和推断进行了很多调整和优化，Eden Treaty 可以在相当多的路由上表现得很好。
 
-如果您的单个进程包含**超过 500 条路由**，并且您需要在**单个前端代码库**中使用所有路由，那么您可能想要使用 Eden Fetch，因为它的 TypeScript 性能明显优于 Eden Treaty。
+如果你的单个进程包含**超过 500 条路由**，并且你需要在**单个前端代码库**中使用所有路由，那么你可能想要使用 Eden Fetch，因为它的 TypeScript 性能明显优于 Eden Treaty。

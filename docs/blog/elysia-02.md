@@ -108,10 +108,10 @@ const app = new Elysia()
 ## OpenAPI 详细字段
 引入了新的字段 `schema.detail`，用于根据 OpenAPI Schema V2 标准自定义路由的详细信息，并带有自动补全。
 
-<img width="1624" alt="Screenshot 2566-01-23 at 13 54 11" src="https://user-images.githubusercontent.com/35027979/213981321-5717e514-34bc-4db2-86ed-530d27d7ba97.png">
+<!-- <img width="1624" alt="Screenshot 2566-01-23 at 13 54 11" src="https://user-images.githubusercontent.com/35027979/213981321-5717e514-34bc-4db2-86ed-530d27d7ba97.png"> -->
 
 这允许你编写更好的文档，并完全可编辑的 Swagger 文档：
-<img width="1624" alt="Screenshot 2566-01-23 at 13 23 41" src="https://user-images.githubusercontent.com/35027979/213981545-46efc6cc-34bc-4db2-8aff-530d27d7ba97.png">
+<!-- <img width="1624" alt="Screenshot 2566-01-23 at 13 23 41" src="https://user-images.githubusercontent.com/35027979/213981545-46efc6cc-34bc-4db2-8aff-530d27d7ba97.png"> -->
 
 ## 联合类型
 Elysia 之前的版本有时会在区分联合类型时遇到问题，因为 Elysia 试图捕获响应以创建一个完整的类型引用给 Eden。
@@ -177,13 +177,13 @@ Elysia 将尝试验证 `response` 中的所有模式，允许返回其中的一�
     - 要迁移，在上下文中添加 `.request` 来访问 `Request`
 
 ### 后记
-感谢您支持 Elysia 并对此项目感兴趣。
+感谢你支持 Elysia 并对此项目感兴趣。
 
 这次发布带来了更好的 DX，并希望所有你需要的来用 Bun 编写出色的软件。
 
-现在我们有了 [Discord 服务器](https://discord.gg/eaFJ2KDJck)，您可以在其中提出任何关于 Elysia 的问题，或者只是闲逛和放松周围的地方也非常欢迎。
+现在我们有了 [Discord 服务器](https://discord.gg/eaFJ2KDJck)，你可以在其中提出任何关于 Elysia 的问题，或者只是闲逛和放松周围的地方也非常欢迎。
 
-有了这些出色的工具，我们很高兴看到您将构建哪些出色的软件。
+有了这些出色的工具，我们很高兴看到你将构建哪些出色的软件。
 
 > 不成为那些由别人描绘的图画的一部分
 >

@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 您可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
+      content: 你可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
 
   - - meta
     - property: 'og:description'
-      content: 您可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
+      content: 你可以使用 drizzle-typebox 包将 Drizzle 类型转换为 Elysia 的模式来处理数据验证。
 ---
 
 # 集成 Drizzle
@@ -51,7 +51,7 @@ const auth = new Elysia({ prefix: '/auth' })
     )
 ```
 
-或者如果您想在验证方面添加自定义字段，例如文件上传：
+或者如果你想在验证方面添加自定义字段，例如文件上传：
 ```typescript
 import { Elysia, t } from 'elysia'
 

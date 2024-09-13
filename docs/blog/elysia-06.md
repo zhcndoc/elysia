@@ -341,7 +341,7 @@ new Elysia({
 
 我们已经度过了一年的里程碑，对于 Elysia 和 Bun 在这一年中的改进感到非常兴奋！
 
-通过 Bun 推动 JavaScript 的性能边界，并通过 Elysia 提升开发者的体验，我们很高兴能够与您和我们的社区保持联系。
+通过 Bun 推动 JavaScript 的性能边界，并通过 Elysia 提升开发者的体验，我们很高兴能够与你和我们的社区保持联系。
 
 每一次更新都在使 Elysia 更加稳定，并逐渐提供更好的开发者体验，同时不会牺牲性能和功能。
 
@@ -354,7 +354,7 @@ new Elysia({
 
 随着我们的承诺，我们最近还推出了 [Mobius](https://github.com/saltyaom/mobius)，这是一个开源的 TypeScript 库，用于将 GraphQL 解析为 TypeScript 类型，而不依赖于代码生成，完全使用 TypeScript 模板文字类型，成为第一个实现端到端类型安全而不依赖于代码生成的框架。
 
-我们非常感谢您对 Elysia 的巨大持续支持，我们希望在下一次发布中您一起推动边界。
+我们非常感谢你对 Elysia 的巨大持续支持，我们希望在下一次发布中你一起推动边界。
 
 > As this whole new world cheers my name
 >

@@ -6,7 +6,7 @@ search: false
 head:
   - - meta
     - property: 'og:title'
-      content: 介绍 Elysia 0.3 - 寻找大地的边缘 [Looking for Edge of Ground]
+      content: 介绍 Elysia 0.3 - 寻找大地的边缘
 
   - - meta
     - name: 'description'
@@ -170,7 +170,7 @@ Eden 现在导出三种不同类型的函数。
 
 我们有一个 [Discord 服务器](https://discord.gg/eaFJ2KDJck)专门用于 Elysia。随时说嗨或只是放松和闲逛。
 
-感谢您支持 Elysia。
+感谢你支持 Elysia。
 
 > 在一个永远不会结束的天文地图上
 >

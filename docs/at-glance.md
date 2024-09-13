@@ -72,7 +72,7 @@ new Elysia()
 
 在模拟浏览器中，单击蓝色路径突出显示以更改路径以预览响应。
 
-Elysia 可以在浏览器上运行，您看到的结果实际上是使用 Elysia 运行的。
+Elysia 可以在浏览器上运行，你看到的结果实际上是使用 Elysia 运行的。
 :::
 
 ## 性能
@@ -126,7 +126,7 @@ new Elysia()
     }" 
 />
 
-Elysia 的目标是帮助您减少编写 TypeScript 的工作，更专注于业务逻辑，让复杂的类型由框架来处理。
+Elysia 的目标是帮助你减少编写 TypeScript 的工作，更专注于业务逻辑，让复杂的类型由框架来处理。
 
 使用 Elysia 不需要 TypeScript，但建议与 TypeScript 一起使用 Elysia。
 
@@ -183,7 +183,7 @@ new Elysia()
 
 使用 Elysia，类型安全性不仅限于仅限于服务器端。
 
-使用 Elysia，您可以像 tRPC 一样自动将您的类型与前端团队同步，使用 Elysia 的客户端库“Eden”。
+使用 Elysia，你可以像 tRPC 一样自动将你的类型与前端团队同步，使用 Elysia 的客户端库“Eden”。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -232,9 +232,9 @@ const { data } = await app.user({ id: 617 }).get()
 console.log(data)
 ```
 
-使用 Eden，您可以使用现有的 Elysia 类型查询 Elysia 服务器 **不需要代码生成** 并为前端和后端自动同步类型。
+使用 Eden，你可以使用现有的 Elysia 类型查询 Elysia 服务器 **不需要代码生成** 并为前端和后端自动同步类型。
 
-Elysia 不仅是帮助您创建自信的后端，也是为世界上所有美好的事物而创造的。
+Elysia 不仅是帮助你创建自信的后端，也是为世界上所有美好的事物而创造的。
 
 ## 与平台无关
 

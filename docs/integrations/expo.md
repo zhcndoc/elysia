@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 使用 Expo 应用程序路由器，您可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
+        content: 使用 Expo 应用程序路由器，你可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
 
     - - meta
       - property: 'og:description'
-        content: 使用 Expo 应用程序路由器，您可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
+        content: 使用 Expo 应用程序路由器，你可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
 ---
 
 # 集成 Expo
@@ -44,19 +44,19 @@ export const GET = app.handle // [!code ++]
 export const POST = app.handle // [!code ++]
 ```
 
-由于 WinterCG 的兼容性，Elysia 将正常工作，但是，如果您在 Expo 上运行，一些插件 (如 **Elysia Static**) 可能不起作用。
+由于 WinterCG 的兼容性，Elysia 将正常工作，但是，如果你在 Expo 上运行，一些插件 (如 **Elysia Static**) 可能不起作用。
 
-您可以将 Elysia 服务器视为普通的 Expo API 路由。
+你可以将 Elysia 服务器视为普通的 Expo API 路由。
 
-通过这种方法，您可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysia.zhcndoc.com/eden/overview.html)。
+通过这种方法，你可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysia.zhcndoc.com/eden/overview.html)。
 
 请参阅 [API 路由](https://docs.expo.dev/router/reference/api-routes/)了解更多信息。
 
 ## 前缀
 
-如果您将 Elysia 服务器放置在应用程序路由器的根目录之外，您需要为 Elysia 服务器添加前缀注释。
+如果你将 Elysia 服务器放置在应用程序路由器的根目录之外，你需要为 Elysia 服务器添加前缀注释。
 
-例如，如果您将 Elysia 服务器放置在 **app/api/[...slugs]+api.ts** 中，您需要将前缀注释为 **/api**。
+例如，如果你将 Elysia 服务器放置在 **app/api/[...slugs]+api.ts** 中，你需要将前缀注释为 **/api**。
 
 ```typescript twoslash
 // app/api/[...slugs]+api.ts
@@ -78,15 +78,15 @@ export const POST = app.handle
 
 ## 部署
 
-如果需要，您可以直接使用 Elysia 使用 API 路由并像正常的 Elysia 应用程序一样进行部署，或者使用[实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
+如果需要，你可以直接使用 Elysia 使用 API 路由并像正常的 Elysia 应用程序一样进行部署，或者使用[实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
 
-如果使用 Expo 服务器运行时，您可以使用 `expo export` 命令为您的 Expo 应用程序创建优化构建。这将包括一个使用 Elysia 的 Expo 函数，位于 `dist/server/_expo/functions/[...slugs]+api.js` 中。
+如果使用 Expo 服务器运行时，你可以使用 `expo export` 命令为你的 Expo 应用程序创建优化构建。这将包括一个使用 Elysia 的 Expo 函数，位于 `dist/server/_expo/functions/[...slugs]+api.js` 中。
 
 ::: tip
 请注意，Expo 函数被视为边缘函数而不是普通服务器，因此直接运行边缘函数将不会分配任何端口。
 :::
 
-您可以使用 Expo 提供的函数适配器来部署您的边缘函数。
+你可以使用 Expo 提供的函数适配器来部署你的边缘函数。
 
 目前 Expo 支持以下适配器：
 

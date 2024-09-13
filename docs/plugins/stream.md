@@ -103,12 +103,12 @@ new Elysia()
     )
 ```
 
-默认情况下，[openai](https://npmjs.com/package/openai) 的 ChatGPT 完成返回 `AsyncIterable`，因此您应该能够将 OpenAI 包装在 `Stream` 中。
+默认情况下，[openai](https://npmjs.com/package/openai) 的 ChatGPT 完成返回 `AsyncIterable`，因此你应该能够将 OpenAI 包装在 `Stream` 中。
 
 ## Fetch Stream
-您可以传递一个从返回流的端点获取的 fetch，以代理流。
+你可以传递一个从返回流的端点获取的 fetch，以代理流。
 
-这对于那些使用 AI 文本生成的端点非常有用，因为您可以直接代理它，例如：[Cloudflare AI](https://developers.cloudflare.com/workers-ai/models/llm/#examples---chat-style-with-system-prompt-preferred)。
+这对于那些使用 AI 文本生成的端点非常有用，因为你可以直接代理它，例如：[Cloudflare AI](https://developers.cloudflare.com/workers-ai/models/llm/#examples---chat-style-with-system-prompt-preferred)。
 
 ```ts
 const model = '@cf/meta/llama-2-7b-chat-int8'
@@ -133,7 +133,7 @@ new Elysia()
 ```
 
 ## Server Sent Event
-当参数为 `callback` 或 `undefined` 时，将会触发手动模式，允许您控制流。
+当参数为 `callback` 或 `undefined` 时，将会触发手动模式，允许你控制流。
 
 ### 基于回调的
 以下是使用构造函数回调创建服务器推送事件端点的示例。

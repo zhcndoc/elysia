@@ -1,12 +1,12 @@
 ---
-title: 使用 Elysia 加速您的下一个 Prisma 服务器
+title: 使用 Elysia 加速你的下一个 Prisma 服务器
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: 使用 Elysia 加速您的下一个 Prisma 服务器
+        content: 使用 Elysia 加速你的下一个 Prisma 服务器
 
     - - meta
       - name: 'description'
@@ -31,7 +31,7 @@ head:
 </script>
 
 <Blog
-title="使用 Elysia 加速您的下一个 Prisma 服务器"
+title="使用 Elysia 加速你的下一个 Prisma 服务器"
 src="/blog/with-prisma/prism.webp"
 alt="中心放置的三角形棱镜"
 author="saltyaom"
