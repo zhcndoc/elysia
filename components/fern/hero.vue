@@ -25,7 +25,7 @@
         <h2
             class="relative text-5xl md:text-6xl md:leading-tight font-bold md:text-center leading-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-violet-400 mb-6"
         >
-            Ergonomic Framework for Humans
+            人体工程学框架
             <span
                 class="absolute w-10 md:w-12 h-10 md:h-12 bottom-0 mb-4 ml-2 md:ml-0 md:mb-10 text-indigo-400"
             >
@@ -89,12 +89,12 @@
         <h3
             class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 !leading-normal text-left md:text-center w-full max-w-[40.5rem]"
         >
-            TypeScript with
+            具有 TypeScript 
             <span
                 class="text-transparent font-semibold bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
-                >End-to-End Type Safety</span
-            >, type integrity, and exceptional developer experience.
-            Supercharged by Bun.
+                >端到端的类型安全</span
+            >，统一的类型系统和出色的开发人员体验。
+            由 Bun 提供加速支持。
         </h3>
         <section
             class="flex flex-col sm:flex-row items-start sm:items-center w-full md:w-auto gap-4 mt-10 mb-12"
@@ -104,7 +104,7 @@
                 id="hero-get-started"
                 href="/at-glance"
             >
-                Get Started
+                开始使用
             </a>
             <div class="relative flex flex-1 gap-3 text-pink-500">
                 <code
@@ -143,12 +143,12 @@
                     </svg>
                 </button>
                 <p v-if="copied" className="absolute -bottom-8 right-0">
-                    Copied
+                    已复制
                 </p>
             </div>
         </section>
         <p class="flex justify-center items-center gap-2 text-gray-400">
-            See why developers love Elysia
+            了解为什么开发人员喜欢 Elysia
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

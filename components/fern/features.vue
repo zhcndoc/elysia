@@ -8,55 +8,52 @@
             >
                 <span
                     class="text-gray-500 dark:text-gray-400 font-medium text-xl"
-                    >To summarize</span
+                    >总结一下</span
                 ><br />
-                Only the
+                提供
                 <span
                     class="text-gradient font-semibold from-purple-500 to-sky-400"
-                    >best</span
+                    >最好的</span
                 >
                 <br />
-                for the bold
+                给予勇敢的人
             </h2>
             <p
                 class="w-full sm:w-1/2 lg:max-w-lg lg:w-full lg:pr-24 dark:text-gray-400 dark:font-medium"
             >
                 <span class="inline-block mb-2"
-                    >For builders, inventors, and visionaries</span
+                    >对于建设者、发明家和有远见的人来说</span
                 >
                 <br />
-                We spent years studying the strengths and weaknesses of
-                JavaScript frameworks, all to deliver an exceptional experience
+                我们花费了数年时间研究 JavaScript 框架的优点和缺点，所有这一切都是为了提供一次非凡的体验。
             </p>
         </div>
         <div class="list">
             <section>
-                <h3>At the speed of light</h3>
-                <h4 class="text-purple-400">Up to 21x faster than Express</h4>
-                <p>Supercharged by Bun,</p>
-                <p>Elysia is one of top performing JavaScript frameworks</p>
+                <h3>光速</h3>
+                <h4 class="text-purple-400">比 Express 快 21 倍。</h4>
+                <p>由 Bun 超级加速，</p>
+                <p>Elysia 是表现最佳的 JavaScript 框架之一。</p>
             </section>
             <section>
-                <h3>Maximum Type Safety</h3>
-                <h4 class="text-blue-400">Dynamic type safety</h4>
-                <p>Built from type to runtime</p>
+                <h3>安全</h3>
+                <h4 class="text-blue-400">动态的类型安全</h4>
+                <p>从类型到运行时构建</p>
                 <p>
-                    Elysia learn from your codebase, adapt, enforce with your
-                    type
+                    Elysia 学习你的代码库，适应，用你的类型强制执行
                 </p>
             </section>
             <section>
-                <h3>Productive in a reach</h3>
-                <h4 class="text-teal-400">The best experience of today</h4>
+                <h3>生产</h3>
+                <h4 class="text-teal-400">今天最好的体验</h4>
                 <p>
-                    Ergonomically designed for human, putting DX at the
-                    priority. No technical non-sense
+                    人体工程学设计，以开发者体验为优先。没有任何技术废话。
                 </p>
             </section>
         </div>
         <h5 class="text-right text-base mt-6 text-gray-400/75">
-            These are the pillars we built Elysia upon,<br />to deliver the best
-            experience yet
+            这些是我们建立 Elysia 的基础，<br />
+            为了提供最好的体验。
         </h5>
     </article>
 </template>

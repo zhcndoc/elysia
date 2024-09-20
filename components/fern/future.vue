@@ -5,9 +5,10 @@
         <h3
             class="text-5xl md:text-6xl font-semibold text-gray-700 dark:text-gray-300 leading-[3.5rem] md:leading-[4.5rem]"
         >
-            Build the future, <br /><span
+            和我们一起<br />
+            <span
                 class="text-gradient font-bold from-purple-500 to-sky-400"
-                >together</span
+                >构建未来</span
             >
         </h3>
         <section class="flex gap-3 text-xl">
@@ -15,13 +16,13 @@
                 id="future-get-started"
                 class="font-semibold text-pink-400 px-8 py-2.5 rounded-3xl bg-pink-400/10 dark:bg-pink-500/25"
                 href="/at-glance"
-                >Get started</a
+                >快速开始</a
             >
             <a
                 id="future-tutorial"
                 class="font-semibold text-white px-8 py-2.5 rounded-3xl bg-pink-400 dark:bg-pink-500"
                 href="/tutorial"
-                >Tutorial</a
+                >教程</a
             >
         </section>
     </section>

@@ -3,18 +3,16 @@
         <h2
             class="text-5xl lg:text-6xl !leading-[4rem] sm:text-center font-bold text-gray-400 mb-4 bg-clip-text text-transparent bg-gradient-to-tl from-rose-400 to-fuchsia-400"
         >
-            Made possible by you
+            由你实现
         </h2>
         <p
             class="text-lg md:text-xl !leading-[2rem] sm:text-center w-full max-w-2xl mx-auto dark:text-gray-400 dark:font-medium"
         >
-            Elysia is
-            <span class="text-gray-700 dark:text-gray-200 font-medium"
-                >not own by an organization</span
-            >
-            but is driven by the community.
+            Elysia不是<span class="text-gray-700 dark:text-gray-200 font-medium"
+                >由某个组织</span
+            >拥有，而是由社区推动的。
             <br />
-            Elysia development is only possible thanks to your support
+            Elysia 的发展离不开您的支持
         </p>
         <div class="flex sm:justify-center my-8">
             <a
@@ -23,7 +21,7 @@
                 href="https://github.com/sponsors/saltyaom"
                 target="_blank"
             >
-                Become a sponsor
+                成为赞助商
 
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +44,7 @@
         <p
             class="sm:text-center text-gradient from-pink-400 to-fuchsia-400 font-semibold text-base"
         >
-            Thanks you for making Elysia possible
+            感谢你使 Elysia 成为可能。
         </p>
         <ul id="sponsors-fern" v-if="sponsors.length > 0" class="my-4">
             <li v-for="sponsor in sponsors" :key="sponsor.sponsorEntity.login">

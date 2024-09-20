@@ -3,26 +3,24 @@
         <div class="body">
             <header class="flex flex-col flex-1 text-xl gap-6">
                 <div class="flex flex-col gap-3 mb-2">
-                    <h3 class="text-2xl font-medium text-700">Our Principle</h3>
+                    <h3 class="text-2xl font-medium text-700">我们的原则</h3>
                     <h2
                         class="text-6xl font-semibold text-gradient from-sky-500 to-violet-500 leading-[4.25rem]"
                     >
-                        Design for Human
+                        设计以人为本
                     </h2>
                 </div>
                 <p class="max-w-md leading-normal">
-                    Our goal is to designed an ergonomic, sensible and
-                    productive framework that even beginners can use easily
+                    我们的目标是设计一个符合人体工程学、合理且高效的工作框架，即使是初学者也能轻松使用。
                 </p>
                 <p class="max-w-md leading-normal">
-                    Design to avoid unnecessary complexity, and type complexity
-                    for you to focus on building
+                    设计以避免不必要的复杂性，并为您简化类型复杂性，以便您专注于构建。
                 </p>
                 <p class="leading-normal">
-                    A framework that feel
+                    一个感觉就像
                     <span
                         class="text-gradient from-violet-500 to-sky-500 font-semibold"
-                        >just like JavaScript</span
+                        >JavaScript 的框架</span
                     >
                 </p>
             </header>
@@ -54,10 +52,10 @@
                         ></polyline>
                         <line x1="12" y1="22.08" x2="12" y2="12"></line>
                     </svg>
-                    Just Return
+                    返回值
                 </h4>
-                <p>A string, number or complex JSON</p>
-                <p>All we need to do is just return</p>
+                <p>一个字符串、数字或复杂的 JSON</p>
+                <p>我们所需要做的就是返回。</p>
             </article>
             <article>
                 <h4>
@@ -84,10 +82,10 @@
                         <circle cx="8.5" cy="8.5" r="1.5"></circle>
                         <polyline points="21 15 16 10 5 21"></polyline>
                     </svg>
-                    File built-in
+                    内置文件
                 </h4>
-                <p>To send a file or image, just return</p>
-                <p>Nothing more or nothing less</p>
+                <p>要发送文件或图片，只需返回</p>
+                <p>没有更多或更少</p>
             </article>
             <article>
                 <h4>
@@ -113,16 +111,16 @@
                             d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"
                         ></path>
                     </svg>
-                    Stream response
+                    流响应
                 </h4>
                 <p>
-                    Use
+                    使用
                     <span class="font-mono text-violet-500 font-bold"
                         >yield</span
                     >
-                    to stream response
+                    来传输响应
                 </p>
-                <p>All we need to do is just return</p>
+                <p>我们所需要做的就是返回。</p>
             </article>
             <article>
                 <h4>
@@ -142,10 +140,10 @@
                             points="22 12 18 12 15 21 9 3 6 12 2 12"
                         ></polyline>
                     </svg>
-                    Data in realtime
+                    实时数据
                 </h4>
-                <p>With µWebSocket built-in</p>
-                <p>Send live data in just 3 lines</p>
+                <p>内置 µWebSocket</p>
+                <p>发送实时数据只需 3 行代码</p>
             </article>
         </footer>
     </article>

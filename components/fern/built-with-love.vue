@@ -3,29 +3,14 @@
         class="flex flex-col justify-center items-center gap-2 text-sm text-gray-400 dark:text-gray-400 mt-8 mb-6"
     >
         <p>
-            Built with 💖 for
-            <button
-                class="appearance-none text-pink-500 text-sm px-1 py-0.5 rounded hover:bg-pink-500/10 focus:bg-pink-500/15 transition-colors"
-                @click="isToggle = !isToggle"
-            >
-                Elysia
-            </button>
-        </p>
-        <figure
-            class="overflow-hidden -collpasable"
-            style="width: 144px"
-            :style="isToggle ? 'height: 183px' : 'height: 0px'"
-        >
-            <a
-                v-if="isToggle"
-                href="https://youtu.be/k-K28-A4fBc"
-                target="_blank"
-            >
-                <video muted autoplay loop class="rounded-3xl">
-                    <source src="/assets/elysia.mp4" />
-                </video>
+            <a target="_blank" href="https://www.zhcndoc.com?ref=elysia">
+                简中文档
             </a>
-        </figure>
+            -
+            <a rel="nofollow" target="_blank" href="https://beian.miit.gov.cn">
+                沪ICP备2024070610号-3
+            </a>
+        </p>
     </footer>
 </template>
 

@@ -6,11 +6,11 @@
             <h1
                 class="flex flex-col flex-1 text-3xl sm:text-4xl sm:text-center text-gray-600 dark:text-gray-400 font-medium leading-[3rem] sm:leading-[4rem]"
             >
-            	The Next Level of
+            	更加先进的
                 <span
                     class="leading-[5rem] sm:leading-[5.5rem] text-6xl sm:text-7xl font-semibold text-gradient from-cyan-400 to-indigo-400 -translate-y-1"
                 >
-                    Type Safety
+                    类型安全
                 </span>
             </h1>
         </div>
@@ -37,7 +37,7 @@
                         value="1"
                         v-model.number="form"
                     />
-                    <label for="type-integrity-1">Type Inference</label>
+                    <label for="type-integrity-1">类型推断</label>
                 </div>
                 <div>
                     <input
@@ -47,7 +47,7 @@
                         value="2"
                         v-model.number="form"
                     />
-                    <label for="type-integrity-2">Enforce Type</label>
+                    <label for="type-integrity-2">强制类型</label>
                 </div>
                 <div>
                     <input
@@ -57,7 +57,7 @@
                         value="3"
                         v-model.number="form"
                     />
-                    <label for="type-integrity-3">Return Type</label>
+                    <label for="type-integrity-3">返回类型</label>
                 </div>
                 <div>
                     <input
@@ -67,7 +67,7 @@
                         value="4"
                         v-model.number="form"
                     />
-                    <label for="type-integrity-4">Bring your own</label>
+                    <label for="type-integrity-4">代码提示</label>
                 </div>
             </form>
         </section>

@@ -6,14 +6,14 @@
         <header class="flex flex-row md:flex-col justify-around md:justify-center z-10 w-full md:max-w-[10.5rem]">
             <div class="title md:mb-10">
                 <h3 class="text-gradient from-pink-400 to-fuchsia-400">21x</h3>
-                <p>faster than Express</p>
+                <p>比 Express 更快</p>
             </div>
 
             <div class="title">
                 <h3 class="md:!text-7xl text-gradient from-violet-400 to-pink-400">
                     6x
                 </h3>
-                <p>faster than Fastify</p>
+                <p>比 Fastify 更快</p>
             </div>
         </header>
         <div class="result">
@@ -53,14 +53,14 @@
                 </li>
             </ol>
             <p class="text-sm mt-3 text-gray-400">
-                Measure in requests/second. Result from
+                以每秒请求次数进行测量。数据来源于官方
                 <a
                     href="https://www.techempower.com/benchmarks/#hw=ph&test=plaintext&section=data-r22"
                     target="_blank"
                     class="underline"
-                    >TechEmpower Benchmark</a
+                    >TechEmpower 基准测试</a
                 >
-                Round 22 (2023-10-17) in PlainText
+                第 22 轮（2023-10-17）的 PlainText 结果。
             </p>
         </div>
     </article>

@@ -6,18 +6,18 @@
                     <h2
                         class="text-6xl text-gray-700 font-medium leading-[4.5rem] dark:text-gray-400"
                     >
-                        Test with
+                        充满信心地
                         <span
                             class="text-gradient font-semibold from-violet-500 to-sky-400"
-                            >confidence</span
+                            >进行测试</span
                         >
                     </h2>
                     <h3 class="sm:flex items-center text-2xl">
-                        Type safe with
+                        类型安全带有
                         <span
                             class="text-gradient font-semibold from-violet-500 to-sky-400 ml-1 sm:ml-2 mr-1"
                         >
-                            auto-completion
+                            自动完成功能
                         </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -58,12 +58,10 @@
                     </h3>
                 </div>
                 <p class="lg:max-w-md leading-normal">
-                    Elysia provide a type-safe layer for interact and test your
-                    server from routes to parameters.
+                    Elysia 提供了一种类型安全的层，用于从路由到参数地交互和测试您的服务器。
                 </p>
                 <p class="lg:max-w-md leading-normal">
-                    With auto-completion, you can easily write tests for server
-                    without any hassle.
+                    使用自动补全功能，您可以轻松地为服务器编写测试，而无需任何麻烦。
                 </p>
                 <!-- <slot name="test-script" /> -->
             </header>

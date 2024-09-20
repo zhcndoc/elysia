@@ -98,15 +98,13 @@
                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                         />
                     </svg>
-                    For DevOps
+                    对于 DevOps
                 </h5>
                 <h2 class="text-gradient from-sky-400 to-violet-400">
                     OpenTelemetry
                 </h2>
                 <p>
-                    Elysia has 1st party support for OpenTelemetry.
-                    Instrumentation is built-in, so you can easily monitor your
-                    services on regardless of the platform.
+                    Elysia 原生支持 OpenTelemetry。监控功能内置，因此您可以轻松监控您的服务，无论平台如何。
                 </p>
             </header>
         </article>
@@ -132,15 +130,13 @@
                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                         />
                     </svg>
-                    For Frontend
+                    对于前端
                 </h5>
                 <h2 class="text-gradient from-purple-400 to-rose-400">
-                    End-to-end Type Safety
+                    端到端类型安全
                 </h2>
                 <p>
-                    Like tRPC, Elysia provides type-safety from the backend to
-                    the frontend without code generation. Interaction between
-                    frontend and backend is type-checked at compile time.
+                    与 tRPC 类似，Elysia 在无需代码生成的情况下，从后端到前端提供了类型安全。前后端的交互在编译时进行了类型检查。
                 </p>
             </header>
         </article>

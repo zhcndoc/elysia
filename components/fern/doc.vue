@@ -4,18 +4,17 @@
             <h2
                 class="flex flex-col gap-2 text-2xl mb-2 text-gray-500 dark:text-gray-400 font-medium"
             >
-                Your own documentation
+                你自己的文档
                 <span
                     class="text-7xl font-semibold text-gradient from-violet-400 to-blue-500 z-10"
-                    >in 1 line</span
+                    >在 1 行中</span
                 >
             </h2>
             <div class="flex flex-col gap-2 max-w-md md:text-base md:pr-4 dark:font-medium">
-                <p>It's not magic</p>
+                <p>这不是魔法</p>
                 <p>
-                    With deep integration with OpenAPI schema<br />
-                    Elysia can generate Swagger documentation
-                    for your API out of the box
+                    与 OpenAPI 模式深度集成<br />
+                    Elysia 可以直接为您的 API 生成 Swagger 文档。
                 </p>
             </div>
         </header>

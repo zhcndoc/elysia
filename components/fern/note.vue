@@ -22,7 +22,7 @@
         </div>
 
         <h2 class="text-center leading-normal opacity-80">
-            The first production ready,<br class="block sm:none"> and most loved Bun framework
+            第一个生产准备就绪<br class="block sm:none">以及最受欢迎的 Bun 框架
         </h2>
     </div>
 </template>
