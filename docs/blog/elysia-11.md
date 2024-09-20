@@ -68,7 +68,7 @@ Elysia 1.1 专注于以下几个方面的开发者体验改进：
 
 要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将其插件应用到任何实例上。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
 
@@ -103,14 +103,7 @@ Elysia OpenTelemetry 能够收集遵循 OpenTelemetry 标准的所有库的 span
 你可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或任何其他与 OpenTelemetry 兼容的后端。
 
 这里有一个将遥测数据导出到 [Axiom](https://axiom.co) 的例子。
-```typescript twoslash
-const Bun = {
-	env: {
-		AXIOM_TOKEN: '',
-		AXIOM_DATASET: ''
-	}
-}
-// ---cut---
+```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
 
@@ -143,15 +136,7 @@ Elysia 的 OpenTelemetry 是为了将 OpenTelemetry 应用于 Elysia 服务器�
 
 然而，我们也提供了一个 `getTracer` 和 `record` 实用程序，用于在任何部分收集 span。
 
-```typescript twoslash
-const db = {
-	query(query: string) {
-		return new Promise<unknown>((resolve) => {
-			resolve('')
-		})
-	}
-}
-// ---cut---
+```typescript
 import { Elysia } from 'elysia'
 import { record } from '@elysiajs/opentelemetry'
 
@@ -202,7 +187,7 @@ Elysia 的 OpenTelemetry 建立在追踪 v2 之上，取代了追踪 v1。
 追踪 v2 使用回调监听器，而不是 Promise，以确保回调在继续下一个生命周期事件之前完成。
 
 这是追踪 v2 的使用示例：
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -271,7 +256,7 @@ console.log(data) // { name: 'SaltyAom' }
 
 例如，要将查询参数解析为数字，你需要明确地将其转换为 `t.Numeric` 而不是 `t.Number`。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -285,7 +270,7 @@ const app = new Elysia()
 然而，在 Elysia 1.1 中，我们引入了数据类型强制转换，这将自动将数据强制转换为模式中定义的确切数据类型，如果可能的话。
 
 允许我们将 `t.Number` 设置为解析查询参数为数字，而不是 `t.Numeric`。
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -304,7 +289,7 @@ const app = new Elysia()
 ## 守卫
 之前，`守卫` 只会应用到当前实例。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia()
@@ -324,7 +309,7 @@ const 主 = new Elysia()
 
 在 Elysia 1.1 中，我们为 `守卫` 添加了 `as` 属性，允许我们将守卫视为 `作用域` 或 `全局`，就像添加事件监听器一样。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const plugin1 = new Elysia()
@@ -431,11 +416,11 @@ const parent = new Elysia()
 	.get('/ok', () => 3)
 ```
 
-This will cast **guard's response** and **onBeforeHandle** as `scoped` thus lifting it up to the parent instance.
+这将抛出**守卫响应**和 **onBeforeHandle** 为 `scoped`，从而将其提升到父实例。
 
-**as** accept two possible arguments:
-- `plugin` cast event to **scoped**
-- `global` cast event to **global**
+**as** 接受两个可能的参数：
+- `plugin` 将事件抛出为 **scoped**
+- `global` 将事件抛出为 **global**
 
 ```typescript twoslash
 // @errors: 2304 2345
@@ -460,7 +445,7 @@ const parent = new Elysia()
 	.get('/ok', () => 3)
 ```
 
-This allow us to cast multiple hook scope all at once without adding `as` to each hook or applying it to guard, or lifting and existing plugin scope up.
+这使我们能够一次性地投射多个钩子作用域，而无需为每个钩子添加 `as`，或者将其应用于守卫，或者提升现有的插件作用域。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -530,7 +515,7 @@ const parent = new Elysia()
 ## 可选路径参数
 Elysia 现在支持可选路径参数，通过在路径参数末尾添加 `?`。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -546,7 +531,7 @@ new Elysia()
 
 你可以通过 JavaScript 的默认值或模式默认值提供默认值。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -572,7 +557,7 @@ new Elysia()
 
 现在，Elysia 支持响应流式传输，通过使用生成器函数。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
@@ -589,7 +574,7 @@ const app = new Elysia()
 
 Eden 现在会从生成器函数推断响应类型为 `AsyncGenerator`。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 

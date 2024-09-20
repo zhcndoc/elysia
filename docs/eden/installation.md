@@ -15,9 +15,7 @@ head:
 ---
 
 # Eden 安装
-
 首先在你的前端安装 Eden：
-
 ```bash
 bun add @elysiajs/eden
 bun add -d elysia
@@ -30,8 +28,7 @@ Eden 需要 Elysia 来推断实用程序类型。
 :::
 
 首先，导出你现有的 Elysia 服务器类型：
-
-```typescript twoslash
+```typescript
 // server.ts
 import { Elysia, t } from 'elysia'
 

@@ -15,7 +15,6 @@ head:
 ---
 
 # Eden Fetch
-
 一个类似 fetch 的 Eden Treaty 替代品。
 
 使用 Eden Fetch 可以使用 Fetch API 以类型安全的方式与 Elysia 服务器交互。
@@ -23,8 +22,7 @@ head:
 ---
 
 首先导出你现有的 Elysia 服务器类型：
-
-```typescript twoslash
+```typescript
 // server.ts
 import { Elysia, t } from 'elysia'
 
@@ -43,26 +41,7 @@ export type App = typeof app
 ```
 
 然后导入服务器类型，并在客户端使用 Elysia API：
-
-```typescript twoslash
-// @filename: server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-// @filename: client.ts
-// ---cut---
-// client.ts
+```typescript
 import { edenFetch } from '@elysiajs/eden'
 import type { App } from './server'
 
@@ -89,29 +68,8 @@ const nendoroid = await fetch('/mirror', {
 ```
 
 ## 错误处理
-
 你可以像 Eden Treaty 一样处理错误：
-
-```typescript twoslash
-// @filename: server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-
-// @filename: client.ts
-// ---cut---
-// client.ts
+```typescript
 import { edenFetch } from '@elysiajs/eden'
 import type { App } from './server'
 

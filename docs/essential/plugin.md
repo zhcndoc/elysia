@@ -1,17 +1,17 @@
 ---
-title: 插件
+title: Plugin - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 插件 - Elysia 中文文档
+        content: Plugin - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 插件是一种将逻辑解耦为更小部分的方法，可在服务器上定义可重复使用的组件。插件可以通过使用 `use` 进行注册，注册插件会合并插件和当前实例之间的类型，钩子的范围和模式也会合并。
+        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
 
     - - meta
       - property: 'og:description'
-        content: 插件是一种将逻辑解耦为更小部分的方法，可在服务器上定义可重复使用的组件。插件可以通过使用 `use` 进行注册，注册插件会合并插件和当前实例之间的类型，钩子的范围和模式也会合并。
+        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
 ---
 
 <script setup>
@@ -48,8 +48,8 @@ const setup = new Elysia({ name: 'setup' })
     .decorate('a', 'a')
 
 const plugin3 = (config) => new Elysia({
-        name: 'my-plugin', 
-        seed: config, 
+        name: 'my-plugin',
+        seed: config,
     })
     .get(`${config.prefix}/hi`, () => 'Hi')
 
@@ -68,13 +68,56 @@ const child = new Elysia()
 // index.ts
 const demo5 = new Elysia()
     .use(child)
+
+const _demo1 = new Elysia()
+    .post('/student', 'Rikuhachima Aru')
+
+const _plugin2 = new Elysia()
+    .onBeforeHandle({ as: 'global' }, () => {
+        return 'hi'
+    })
+    .get('/child', () => 'child')
+
+const _demo2 = new Elysia()
+    .use(plugin2)
+    .get('/parent', () => 'parent')
+
+const _mock2 = {
+    '/child': {
+        'GET': 'hi'
+    },
+    '/parent': {
+        'GET': 'hi'
+    }
+}
+
+const _plugin3 = new Elysia()
+    .onBeforeHandle({ as: 'global' }, () => {
+        return 'overwrite'
+    })
+
+const _demo3 = new Elysia()
+    .guard(app => app
+        .use(plugin3)
+        .get('/inner', () => 'inner')
+    )
+    .get('/outer', () => 'outer')
+
+const _mock3 = {
+    '/inner': {
+        'GET': 'overwrite'
+    },
+    '/outer': {
+        'GET': 'outer'
+    }
+}
 </script>
 
-# 插件
+# Plugin
 
-插件是一种将功能分解成较小部分的模式。为我们的 Web 服务器创建可重复使用的组件。
+Plugin is a pattern that decouples functionality into smaller parts. Creating reusable components for our web server.
 
-定义插件就是定义一个单独的实例。
+Defining a plugin is to define a separate instance.
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -90,24 +133,25 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-我们可以通过向 `Elysia.use` 传递一个实例来使用该插件。
+We can use the plugin by passing an instance to **Elysia.use**.
 
 <Playground :elysia="demo1" />
 
-插件将继承插件实例的所有属性，包括**状态**、**装饰**、**派生**、**路由**、**生命周期**等。
+The plugin will inherit all properties of the plugin instance, including **state**, **decorate**, **derive**, **route**, **lifecycle**, etc.
 
-Elysia 还将自动处理类型推断，因此你可以想象一下在主实例上调用所有其他实例的情形。
+Elysia will also handle the type inference automatically as well, so you can imagine as if you call all of the other instances on the main one.
 
 ::: tip
-注意插件中不包含 `.listen`，因为 `.listen` 会为使用分配端口，而我们只希望主实例分配端口。
+Notice that the plugin doesn't contain **.listen**, because **.listen** will allocate a port for the usage, and we only want the main instance to allocate the port.
 :::
 
-## 独立文件
+## Plugin
 
-使用插件模式，可以将业务逻辑分离到单独的文件中。
+Every Elysia instance can be a plugin.
 
-首先，我们在 `plugin.ts` 中定义一个实例：
+We can decouple our logic into a new separate Elysia instance and use it as a plugin.
 
+First, we define an instance in a difference file:
 ```typescript twoslash
 // plugin.ts
 import { Elysia } from 'elysia'
@@ -116,17 +160,8 @@ export const plugin = new Elysia()
     .get('/plugin', () => 'hi')
 ```
 
-然后，我们将实例导入主文件：
-
-```typescript twoslash
-// @filename: plugin.ts
-import { Elysia } from 'elysia'
-
-export const plugin = new Elysia()
-    .get('/plugin', () => 'hi')
-// @filename: index.ts
-// ---cut---
-// main.ts
+And then we import the instance into the main file:
+```typescript
 import { Elysia } from 'elysia'
 import { plugin } from './plugin'
 
@@ -135,13 +170,13 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## 配置
+### Config
 
-为使插件更有用，建议允许通过配置进行自定义。
+To make the plugin more useful, allowing customization via config is recommended.
 
-你可以创建一个可接受参数的函数，这些参数可以改变插件的行为，使其更易于重用。
+You can create a function that accepts parameters that may change the behavior of the plugin to make it more reusable.
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const version = (version = 1) => new Elysia()
@@ -152,13 +187,13 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## 函数回调
+### Functional callback
 
-建议定义一个新的插件实例，而不是使用函数回调。
+It's recommended to define a new plugin instance instead of using a function callback.
 
-函数回调允许我们访问主实例的现有属性。例如，检查特定路线或商店是否存在。
+Functional callback allows us to access the existing property of the main instance. For example, checking if specific routes or stores existed.
 
-要定义函数回调，请创建一个接受 Elysia 作为参数的函数。
+To define a functional callback, create a function that accepts Elysia as a parameter.
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -175,26 +210,26 @@ const app = new Elysia()
 
 <Playground :elysia="demo2" />
 
-一旦传递给 `Elysia.use`，函数回调的行为与普通插件无异，只是属性会直接赋值。
+Once passed to `Elysia.use`, functional callback behaves as a normal plugin except the property is assigned directly to
 
 ::: tip
-你不必担心函数回调与创建实例之间的性能差异。
+You shall not worry about the performance difference between a functional callback and creating an instance.
 
-Elysia 可以在几毫秒内创建 1 万个实例，新的 Elysia 实例的类型推断性能甚至比函数回调更好。
+Elysia can create 10k instances in a matter of milliseconds, the new Elysia instance has even better type inference performance than the functional callback.
 :::
 
-## 插件数据去重
+## Plugin Deduplication
 
-默认情况下，Elysia 将注册任何插件并处理类型定义。
+By default, Elysia will register any plugin and handle type definitions.
 
-某些插件可能会多次使用来提供类型推断，从而导致重复设置初始值或路由。
+Some plugins may be used multiple times to provide type inference, resulting in duplication of setting initial values or routes.
 
-Elysia 通过使用**名称**和**可选种子**来区分实例来帮助 Elysia 识别实例重复，从而避免了这种情况：
+Elysia avoids this by differentiating the instance by using **name** and **optional seeds** to help Elysia identify instance duplication:
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
-const plugin = <T extends string>(config: { prefix: T }) => 
+const plugin = <T extends string>(config: { prefix: T }) =>
     new Elysia({
         name: 'my-plugin', // [!code ++]
         seed: config, // [!code ++]
@@ -212,11 +247,11 @@ const app = new Elysia()
 
 <Playground :elysia="demo4" />
 
-Elysia 将使用**名称**和**种子**创建校验和，以识别实例是否已被注册，如果已被注册，Elysia 将跳过插件注册。
+Elysia will use **name** and **seed** to create a checksum to identify if the instance has been registered previously or not, if so, Elysia will skip the registration of the plugin.
 
-如果没有提供 seed，Elysia 将只使用**名称**来区分实例。这意味着，即使你注册了多次插件，也只会注册一次。
+If seed is not provided, Elysia will only use **name** to differentiate the instance. This means that the plugin is only registered once even if you registered it multiple times.
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia({ name: 'plugin' })
@@ -229,19 +264,18 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-这样，Elysia 就可以通过重复使用已注册的插件来提高性能，而不是反复处理插件。
+This allows Elysia to improve performance by reusing the registered plugins instead of processing the plugin over and over again.
 
 ::: tip
-种子可以是任何东西，从字符串到复杂对象或类。
+Seed could be anything, varying from a string to a complex object or class.
 
-如果提供的值是类，Elysia 将尝试使用 `.toString` 方法生成校验和。
+If the provided value is class, Elysia will then try to use the `.toString` method to generate a checksum.
 :::
 
-## 服务定位器
+### Service Locator
+When you apply multiple state and decorators plugin to an instance, the instance will gain type safety.
 
-在一个实例中应用多个状态和装饰器插件时，该实例将获得类型安全。
-
-不过，你可能会注意到，当你试图在另一个不带装饰器的实例中使用被装饰的值时，类型会丢失。
+However, you may notice that when you are trying to use the decorated value in another instance without decorator, the type is missing.
 
 ```typescript twoslash
 // @errors: 2339
@@ -256,13 +290,13 @@ const main = new Elysia()
     .use(child)
 ```
 
-这是 TypeScript 的限制，Elysia 只能引用当前实例。
+This is a TypeScript limitation; Elysia can only refer to the current instance.
 
-Elysia 引入了**服务定位器**模式来解决这个问题。
+Elysia introduces the **Service Locator** pattern to counteract this.
 
-简单地说，Elysia 会查找插件校验和，然后获取值或注册一个新值。从插件推断类型。
+To put it simply, Elysia will lookup the plugin checksum and get the value or register a new one. Infer the type from the plugin.
 
-简单地说，我们需要提供插件引用，以便 Elysia 找到服务。
+Simply put, we need to provide the plugin reference for Elysia to find the service.
 
 ```typescript twoslash
 // @errors: 2339
@@ -284,14 +318,442 @@ const main = new Elysia()
 
 <Playground :elysia="demo5" />
 
-## 官方插件
+## Guard
 
-你可以在 Elysia 的插件中找到官方维护的[插件](/plugins/overview)。
+Guard allows us to apply hook and schema into multiple routes all at once.
 
-部分插件包括
+```typescript twoslash
+const signUp = <T>(a: T) => a
+const signIn = <T>(a: T) => a
+const isUserExists = <T>(a: T) => a
+// ---cut---
+import { Elysia, t } from 'elysia'
 
-- GraphQL
-- Swagger
-- Server Sent Event
+new Elysia()
+    .guard(
+        { // [!code ++]
+            body: t.Object({ // [!code ++]
+                username: t.String(), // [!code ++]
+                password: t.String() // [!code ++]
+            }) // [!code ++]
+        }, // [!code ++]
+        (app) => // [!code ++]
+            app
+                .post('/sign-up', ({ body }) => signUp(body))
+                .post('/sign-in', ({ body }) => signIn(body), {
+                                                     // ^?
+                    beforeHandle: isUserExists
+                })
+    )
+    .get('/', 'hi')
+    .listen(3000)
+```
 
-以及各种社区插件。
+This code applies validation for `body` to both '/sign-in' and '/sign-up' instead of inlining the schema one by one but applies not to '/'.
+
+We can summarize the route validation as the following:
+| Path | Has validation |
+| ------- | ------------- |
+| /sign-up | ✅ |
+| /sign-in | ✅ |
+| / | ❌ |
+
+Guard accepts the same parameter as inline hook, the only difference is that you can apply hook to multiple routes in the scope.
+
+This means that the code above is translated into:
+
+```typescript twoslash
+const signUp = <T>(a: T) => a
+const signIn = <T>(a: T) => a
+const isUserExists = (a: any) => a
+// ---cut---
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+    .post('/sign-up', ({ body }) => signUp(body), {
+        body: t.Object({
+            username: t.String(),
+            password: t.String()
+        })
+    })
+    .post('/sign-in', ({ body }) => body, {
+        beforeHandle: isUserExists,
+        body: t.Object({
+            username: t.String(),
+            password: t.String()
+        })
+    })
+    .get('/', () => 'hi')
+    .listen(3000)
+```
+
+### Grouped Guard
+
+We can use a group with prefixes by providing 3 parameters to the group.
+
+1. Prefix - Route prefix
+2. Guard - Schema
+3. Scope - Elysia app callback
+
+With the same API as guard apply to the 2nd parameter, instead of nesting group and guard together.
+
+Consider the following example:
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+    .group('/v1', (app) =>
+        app.guard(
+            {
+                body: t.Literal('Rikuhachima Aru')
+            },
+            (app) => app.post('/student', ({ body }) => body)
+                                            // ^?
+        )
+    )
+    .listen(3000)
+```
+
+
+From nested groupped guard, we may merge group and guard together by providing guard scope to 2nd parameter of group:
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+    .group(
+        '/v1',
+        (app) => app.guard( // [!code --]
+        {
+            body: t.Literal('Rikuhachima Aru')
+        },
+        (app) => app.post('/student', ({ body }) => body)
+        ) // [!code --]
+    )
+    .listen(3000)
+```
+
+Which results in the follows syntax:
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+    .group(
+        '/v1',
+        {
+            body: t.Literal('Rikuhachima Aru')
+        },
+        (app) => app.post('/student', ({ body }) => body)
+                                       // ^?
+    )
+    .listen(3000)
+```
+
+<Playground :elysia="_demo1" />
+
+## Scope
+
+By default, hook and schema will apply to **current instance only**.
+
+Elysia has an encapsulation scope for to prevent unintentional side effects.
+
+Scope type is to specify the scope of hook whether is should be encapsulated or global.
+
+```typescript twoslash
+// @errors: 2339
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .derive(() => {
+        return { hi: 'ok' }
+    })
+    .get('/child', ({ hi }) => hi)
+
+const main = new Elysia()
+    .use(plugin)
+    // ⚠️ Hi is missing
+    .get('/parent', ({ hi }) => hi)
+```
+
+From the above code, we can see that `hi` is missing from the parent instance because the scope is local by default if not specified, and will not apply to parent.
+
+To apply the hook to the parent instance, we can use the `as` to specify scope of the hook.
+
+```typescript twoslash
+// @errors: 2339
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .derive({ as: 'scoped' }, () => { // [!code ++]
+        return { hi: 'ok' }
+    })
+    .get('/child', ({ hi }) => hi)
+
+const main = new Elysia()
+    .use(plugin)
+    // ✅ Hi is now available
+    .get('/parent', ({ hi }) => hi)
+```
+
+### Scope level
+Elysia has 3 levels of scope as the following:
+Scope type are as the following:
+- **local** (default) - apply to only current instance and descendant only
+- **scoped** - apply to parent, current instance and descendants
+- **global** - apply to all instance that apply the plugin (all parents, current, and descendants)
+
+Let's review what each scope type does by using the following example:
+```typescript
+import { Elysia } from 'elysia'
+
+// ? Value base on table value provided below
+const type = 'local'
+
+const child = new Elysia()
+    .get('/child', 'hi')
+
+const current = new Elysia()
+    .onBeforeHandle({ as: type }, () => { // [!code ++]
+        console.log('hi')
+    })
+    .use(child)
+    .get('/current', 'hi')
+
+const parent = new Elysia()
+    .use(current)
+    .get('/parent', 'hi')
+
+const main = new Elysia()
+    .use(parent)
+    .get('/main', 'hi')
+```
+
+By changing the `type` value, the result should be as follows:
+
+| type       | child | current | parent | main |
+| ---------- | ----- | ------- | ------ | ---- |
+| 'local'    | ✅    | ✅       | ❌     | ❌   |
+| 'scoped'    | ✅    | ✅       | ✅     | ❌   |
+| 'global'   | ✅    | ✅       | ✅     | ✅   |
+
+### Scope cast
+To apply hook to parent may use one of the following:
+1. `inline as` apply only to a single hook
+2. `guard as` apply to all hook in a guard
+3. `instance as` apply to all hook in an instance
+
+### 1. Inline as
+Every event listener will accept `as` parameter to specify the scope of the hook.
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .derive({ as: 'scoped' }, () => { // [!code ++]
+        return { hi: 'ok' }
+    })
+    .get('/child', ({ hi }) => hi)
+
+const main = new Elysia()
+    .use(plugin)
+    // ✅ Hi is now available
+    .get('/parent', ({ hi }) => hi)
+```
+
+However, this method is apply to only a single hook, and may not be suitable for multiple hooks.
+
+### 2. Guard as
+Every event listener will accept `as` parameter to specify the scope of the hook.
+
+```typescript
+import { Elysia, t } from 'elysia'
+
+const plugin = new Elysia()
+	.guard({
+		as: 'scoped', // [!code ++]
+		response: t.String(),
+		beforeHandle() {
+			console.log('ok')
+		}
+	})
+    .get('/child', 'ok')
+
+const main = new Elysia()
+    .use(plugin)
+    .get('/parent', 'hello')
+```
+
+Guard alllowing us to apply `schema` and `hook` to multiple routes all at once while specifying the scope.
+
+However, it doesn't support `derive` and `resolve` method.
+
+### 3. Instance as
+`as` will read all hooks and schema scope of the current instance, modify.
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .derive(() => { // [!code ++]
+        return { hi: 'ok' }
+    })
+    .get('/child', ({ hi }) => hi)
+    .as('plugin')
+
+const main = new Elysia()
+    .use(plugin)
+    // ✅ Hi is now available
+    .get('/parent', ({ hi }) => hi)
+```
+
+Sometimes we want to reapply plugin to parent instance as well but as it's limited by `scoped` mechanism, it's limited to 1 parent only.
+
+To apply to the parent instance, we need to **"lift the scope up** to the parent instance, and `as` is the perfect method to do so.
+
+Which means if you have `local` scope, and want to apply it to the parent instance, you can use `as('plugin')` to lift it up.
+```typescript twoslash
+// @errors: 2304 2345
+import { Elysia, t } from 'elysia'
+
+const plugin = new Elysia()
+	.guard({
+		response: t.String()
+	})
+	.onBeforeHandle(() => { console.log('called') })
+	.get('/ok', () => 'ok')
+	.get('/not-ok', () => 1)
+	.as('plugin') // [!code ++]
+
+const instance = new Elysia()
+	.use(plugin)
+	.get('/no-ok-parent', () => 2)
+	.as('plugin') // [!code ++]
+
+const parent = new Elysia()
+	.use(instance)
+	// This now error because `scoped` is lifted up to parent
+	.get('/ok', () => 3)
+```
+
+### Descendant
+
+By default plugin will only **apply hook to itself and descendants** only.
+
+If the hook is registered in a plugin, instances that inherit the plugin will **NOT** inherit hooks and schema.
+
+```typescript
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .onBeforeHandle(() => {
+        console.log('hi')
+    })
+    .get('/child', 'log hi')
+
+const main = new Elysia()
+    .use(plugin)
+    .get('/parent', 'not log hi')
+```
+
+To apply hook to globally, we need to specify hook as global.
+```typescript
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .onBeforeHandle(() => {
+        return 'hi'
+    })
+    .get('/child', 'child')
+    .as('plugin')
+
+const main = new Elysia()
+    .use(plugin)
+    .get('/parent', 'parent')
+```
+
+<Playground :elysia="_demo2" :mock="_mock2" />
+
+## Lazy Load
+Modules are eagerly loaded by default.
+
+Elysia loads all modules then registers and indexes all of them before starting the server. This enforces that all the modules have loaded before it starts accepting requests.
+
+While this is fine for most applications, it may become a bottleneck for a server running in a serverless environment or an edge function, in which the startup time is important.
+
+Lazy-loading can help decrease startup time by deferring modules to be gradually indexed after the server start.
+
+Lazy-loading modules are a good option when some modules are heavy and importing startup time is crucial.
+
+By default, any async plugin without await is treated as a deferred module and the import statement as a lazy-loading module.
+
+Both will be registered after the server is started.
+
+### Deferred Module
+The deferred module is an async plugin that can be registered after the server is started.
+
+```typescript
+// plugin.ts
+import { Elysia } from 'elysia'
+import { loadAllFiles } from './files'
+
+export const loadStatic = async (app: Elysia) => {
+    const files = await loadAllFiles()
+
+    files.forEach((file) => app
+        .get(file, () => Bun.file(file))
+    )
+
+    return app
+}
+```
+
+And in the main file:
+```typescript
+import { Elysia } from 'elysia'
+import { loadStatic } from './plugin'
+
+const app = new Elysia()
+    .use(loadStatic)
+```
+
+Elysia static plugin is also a deferred module, as it loads files and registers files path asynchronously.
+
+### Lazy Load Module
+Same as the async plugin, the lazy-load module will be registered after the server is started.
+
+A lazy-load module can be both sync or async function, as long as the module is used with `import` the module will be lazy-loaded.
+
+```typescript
+import { Elysia } from 'elysia'
+
+const app = new Elysia()
+    .use(import('./plugin'))
+```
+
+Using module lazy-loading is recommended when the module is computationally heavy and/or blocking.
+
+To ensure module registration before the server starts, we can use `await` on the deferred module.
+
+### Testing
+In a test environment, we can use `await app.modules` to wait for deferred and lazy-loading modules.
+
+```typescript
+import { describe, expect, it } from 'bun:test'
+import { Elysia } from 'elysia'
+
+describe('Modules', () => {
+    it('inline async', async () => {
+        const app = new Elysia()
+              .use(async (app) =>
+                  app.get('/async', () => 'async')
+              )
+
+        await app.modules
+
+        const res = await app
+            .handle(new Request('http://localhost/async'))
+            .then((r) => r.text())
+
+        expect(res).toBe('async')
+    })
+})
+```

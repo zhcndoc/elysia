@@ -191,7 +191,11 @@ export default defineConfig({
                         link: '/quick-start'
                     },
                     {
-                        text: '内容纲要',
+                        text: 'Tutorial',
+                        link: '/tutorial'
+                    },
+                    {
+                        text: 'Table of Content',
                         link: '/table-of-content'
                     }
                 ]
@@ -201,116 +205,28 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Route',
-                        link: '/essential/route'
+                        text: 'Structure',
+                        link: '/essential/structure'
                     },
                     {
-                        text: 'Path',
-                        link: '/essential/path'
+                        text: 'Route',
+                        link: '/essential/route'
                     },
                     {
                         text: 'Handler',
                         link: '/essential/handler'
                     },
                     {
-                        text: 'Context',
-                        link: '/essential/context'
-                    },
-                    {
-                        text: '生命周期',
+                        text: 'Life Cycle',
                         link: '/essential/life-cycle'
                     },
                     {
-                        text: 'Schema',
-                        link: '/essential/schema'
+                        text: 'Validation',
+                        link: '/essential/validation'
                     },
                     {
                         text: '插件',
                         link: '/essential/plugin'
-                    },
-                    {
-                        text: '作用域',
-                        link: '/essential/scope'
-                    },
-                    {
-                        text: "What's next",
-                        link: '/essential/what-next'
-                    }
-                ]
-            },
-            {
-                text: '校验',
-                collapsed: true,
-                items: [
-                    {
-                        text: '概述',
-                        link: '/validation/overview'
-                    },
-                    {
-                        text: '模式类型',
-                        link: '/validation/schema-type'
-                    },
-                    {
-                        text: '原始类型',
-                        link: '/validation/primitive-type'
-                    },
-                    {
-                        text: 'Elysia 类型',
-                        link: '/validation/elysia-type'
-                    },
-                    {
-                        text: '错误提供程序',
-                        link: '/validation/error-provider'
-                    },
-                    {
-                        text: '参考模型',
-                        link: '/validation/reference-model'
-                    }
-                ]
-            },
-            {
-                text: '生命周期',
-                collapsed: true,
-                items: [
-                    {
-                        text: '概览',
-                        link: '/life-cycle/overview'
-                    },
-                    {
-                        text: 'On Request',
-                        link: '/life-cycle/request'
-                    },
-                    {
-                        text: 'Parse',
-                        link: '/life-cycle/parse'
-                    },
-                    {
-                        text: 'Transform',
-                        link: '/life-cycle/transform'
-                    },
-                    {
-                        text: 'Before Handle',
-                        link: '/life-cycle/before-handle'
-                    },
-                    {
-                        text: 'After Handle',
-                        link: '/life-cycle/after-handle'
-                    },
-                    {
-                        text: 'Map Response',
-                        link: '/life-cycle/map-response'
-                    },
-                    {
-                        text: 'On Error',
-                        link: '/life-cycle/on-error'
-                    },
-                    {
-                        text: 'After Response',
-                        link: '/life-cycle/after-response'
-                    },
-                    {
-                        text: 'Trace',
-                        link: '/life-cycle/trace'
                     }
                 ]
             },
@@ -319,24 +235,24 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: '分组路由',
-                        link: '/patterns/group'
+                        text: 'Configuration',
+                        link: '/patterns/configuration'
                     },
+					{
+						text: 'Deployment',
+						link: '/patterns/deployment'
+					},
                     {
                         text: 'Cookie',
                         link: '/patterns/cookie'
                     },
                     {
-                        text: 'Cookie 签名',
-                        link: '/patterns/cookie-signature'
+                        text: 'OpenAPI',
+                        link: '/patterns/openapi'
                     },
                     {
                         text: 'Web Socket',
                         link: '/patterns/websocket'
-                    },
-                    {
-                        text: '文档',
-                        link: '/patterns/documentation'
                     },
                     {
                         text: '单元测试',
@@ -347,20 +263,8 @@ export default defineConfig({
                         link: '/patterns/mount'
                     },
                     {
-                        text: '延迟加载模块',
-                        link: '/patterns/lazy-loading-module'
-                    },
-                    {
-                        text: '宏',
-                        link: '/patterns/macro'
-                    },
-                    {
-                        text: 'MVC 模式',
-                        link: '/patterns/mvc'
-                    },
-                    {
-                        text: 'Stream',
-                        link: '/patterns/stream'
+                        text: 'Trace',
+                        link: '/patterns/trace'
                     }
                 ]
             },
@@ -483,10 +387,6 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Docker',
-                        link: '/integrations/docker'
-                    },
-                    {
                         text: 'Nextjs',
                         link: '/integrations/nextjs'
                     },
@@ -505,10 +405,18 @@ export default defineConfig({
                     {
                         text: 'Drizzle',
                         link: '/integrations/drizzle'
+                    },
+                    {
+                        text: 'Cheat Sheet',
+                        link: '/integrations/cheat-sheet'
                     }
                 ]
             }
         ],
+        outline: {
+            level: [2, 3],
+            label: '页面导航'
+        },
         socialLinks: [
             { icon: 'github', link: 'https://github.com/zhcndoc/elysia' }
         ],
@@ -519,9 +427,6 @@ export default defineConfig({
         docFooter: {
             prev: '上一页',
             next: '下一页'
-        },
-        outline: {
-            label: '页面导航'
         },
         lastUpdated: {
             text: '最后更新于',

@@ -24,7 +24,7 @@ Bun 包含一个内置的[测试运行器](https://bun.sh/docs/cli/test)，通�
 
 在项目根目录下创建 **test/index.test.ts**，内容如下：
 
-```typescript twoslash
+```typescript
 // test/index.test.ts
 import { describe, expect, it } from 'bun:test'
 import { Elysia } from 'elysia'

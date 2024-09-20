@@ -24,7 +24,7 @@ head:
 
 一旦返回，你必须提供错误处理以确保响应数据值被解封装，否则该值将为空。Elysia 提供了 `error()` 辅助函数来处理错误，而 Eden 将为错误值提供类型缩小。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -51,7 +51,7 @@ const submit = async (name: string) => {
     // 类型: string | null
     console.log(data)
 
-    if(error)
+    if (error)
         switch(error.status) {
             case 400:
                 // 错误类型将被缩小
@@ -95,4 +95,5 @@ if (error) throw error
 
 for await (const chunk of data)
 	console.log(chunk)
+               // ^?
 ```

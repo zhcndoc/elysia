@@ -16,7 +16,6 @@ head:
 ---
 
 # 端到端类型安全
-
 想象你有一个玩具火车套装。
 
 每一块铁轨都必须与下一块完美契合，就像拼图一样。
@@ -118,27 +117,8 @@ const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).post({
 ```
 
 ## Eden Fetch
-
 对于喜欢 fetch 语法的开发者，Eden Fetch 是 Eden Treaty 的 fetch 类似替代品。
-
-```typescript twoslash
-// @filename: server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/', 'hi')
-    .post('/name/:name', ({ body }) => body, {
-        body: t.Object({
-            branch: t.String(),
-            type: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-
-// @filename: index.ts
-// ---cut---
+```typescript
 import { edenFetch } from '@elysiajs/eden'
 import type { App } from './server'
 

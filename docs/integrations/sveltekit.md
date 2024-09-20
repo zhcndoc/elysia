@@ -22,7 +22,7 @@ head:
 2. 在 **+server.ts** 中，创建或导入现有的 Elysia 服务器。
 3. 使用要公开的方法的名称导出处理程序。
 
-```typescript twoslash
+```typescript
 // src/routes/[...slugs]/+server.ts
 import { Elysia, t } from 'elysia';
 

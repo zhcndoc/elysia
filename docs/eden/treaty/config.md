@@ -31,25 +31,7 @@ Eden Treaty 接受两个参数：
 
 如果传递了 URL 端点，Eden Treaty 将使用 `fetch` 或 `config.fetcher` 创建到 Elysia 实例的网络请求。
 
-```typescript twoslash
-// @filename: server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app // [!code ++]
-
-// @filename: client.ts
-// ---cut---
+```typescript
 import { treaty } from '@elysiajs/eden'
 import type { App } from './server'
 
@@ -74,7 +56,7 @@ Elysia 会自动附加端点，规则如下：
 
 这使我们可以直接与 Elysia 服务器进行交互，无需请求开销或启动服务器的需求。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -102,20 +84,7 @@ Eden Treaty 的第二个可选参数，用于自定义 fetch 行为，接受以�
 
 将默认参数附加到 fetch 的第二个参数，扩展了 **Fetch.RequestInit** 的类型。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
+```typescript
 export type App = typeof app // [!code ++]
 import { treaty } from '@elysiajs/eden'
 // ---cut---
@@ -127,8 +96,7 @@ treaty<App>('localhost:3000', {
 ```
 
 将传递给 fetch 的所有参数都将传递给 fetcher，相当于：
-
-```typescript twoslash
+```typescript
 fetch('http://localhost:3000', {
     credentials: 'include'
 })
@@ -138,23 +106,7 @@ fetch('http://localhost:3000', {
 
 为 fetch 提供额外的默认头部，是 `options.fetch.headers` 的简写形式。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-import { treaty } from '@elysiajs/eden'
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     headers: {
         'X-Custom': 'Griseo'
@@ -181,23 +133,7 @@ headers 可以接受以下参数：
 
 如果传递了对象，则会直接传递给 fetch
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-import { treaty } from '@elysiajs/eden'
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     headers: {
         'X-Custom': 'Griseo'
@@ -209,23 +145,7 @@ treaty<App>('localhost:3000', {
 
 你可以将头部指定为函数，根据条件返回自定义头部
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-import { treaty } from '@elysiajs/eden'
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     headers(path, options) {
         if(path.startsWith('user'))
@@ -239,7 +159,6 @@ treaty<App>('localhost:3000', {
 你可以返回对象以将其值附加到 fetch 头部。
 
 headers 函数接受两个参数：
-
 - path `string` - 将发送到参数的路径
   - 注意：主机名将被**排除**，例如 (/user/griseo)
 - options `RequestInit`：传递给 fetch 的第二个参数的参数
@@ -248,23 +167,7 @@ headers 函数接受两个参数：
 
 如果需要多个条件，则可以将 headers 函数定义为数组。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .get('/hi', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
-        })
-    })
-    .listen(3000)
-
-export type App = typeof app
-import { treaty } from '@elysiajs/eden'
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     headers: [
       (path, options) => {
@@ -289,16 +192,7 @@ treaty<App>('localhost:3000', {
 3. fetch - 传递给 `config.fetch.headers`
 
 例如，对于以下示例：
-
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 const api = treaty<App>('localhost:3000', {
     headers: {
         authorization: 'Bearer Aponia'
@@ -313,8 +207,7 @@ api.profile.get({
 ```
 
 这将导致以下结果：
-
-```typescript twoslash
+```typescript
 fetch('http://localhost:3000', {
     headers: {
         authorization: 'Bearer Griseo'
@@ -328,15 +221,7 @@ fetch('http://localhost:3000', {
 
 提供自定义的 fetcher 函数，而不是使用环境的默认 fetch。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     fetcher(url, options) {
         return fetch(url, options)
@@ -352,15 +237,7 @@ treaty<App>('localhost:3000', {
 
 你可以返回对象以将值附加到 **RequestInit**。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     onRequest(path, options) {
         if(path.startsWith('user'))
@@ -376,7 +253,6 @@ treaty<App>('localhost:3000', {
 如果返回了值，Eden Treaty 将对返回的值和 `value.headers` 执行**浅合并**。
 
 **onRequest** 接受两个参数：
-
 - path `string` - 将发送到参数的路径
   - 注意：主机名将被**排除**，例如 (/user/griseo)
 - options `RequestInit`：传递给 fetch 的第二个参数的参数
@@ -385,15 +261,7 @@ treaty<App>('localhost:3000', {
 
 如果需要多个条件，则可以将 onRequest 函数定义为数组。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     onRequest: [
       (path, options) => {
@@ -414,15 +282,7 @@ treaty<App>('localhost:3000', {
 
 拦截和修改 fetch 的响应，或返回新值。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     onResponse(response) {
         if(response.ok)
@@ -439,15 +299,7 @@ treaty<App>('localhost:3000', {
 
 如果需要多个条件，则可以将 onResponse 函数定义为数组。
 
-```typescript twoslash
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-    .get('/profile', 'a')
-
-type App = typeof app
-// ---cut---
+```typescript
 treaty<App>('localhost:3000', {
     onResponse: [
         (response) => {

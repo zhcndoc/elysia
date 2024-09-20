@@ -28,7 +28,7 @@ bun create expo-app --template tabs
 3. 在 **[...slugs]+api.ts** 中创建或导入现有的 Elysia 服务器
 4. 使用要公开的方法名称导出处理程序
 
-```typescript twoslash
+```typescript
 // app/[...slugs]+api.ts
 import { Elysia, t } from 'elysia'
 
@@ -58,7 +58,7 @@ export const POST = app.handle // [!code ++]
 
 例如，如果你将 Elysia 服务器放置在 **app/api/[...slugs]+api.ts** 中，你需要将前缀注释为 **/api**。
 
-```typescript twoslash
+```typescript
 // app/api/[...slugs]+api.ts
 import { Elysia, t } from 'elysia'
 

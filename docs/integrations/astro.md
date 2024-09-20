@@ -34,7 +34,7 @@ export default defineConfig({
 3. 在 `[...slugs].ts` 中创建或导入现有的 Elysia 服务器
 4. 通过指定要公开的方法的名称导出处理程序
 
-```typescript twoslash
+```typescript
 // pages/[...slugs].ts
 import { Elysia, t } from 'elysia'
 
@@ -72,7 +72,7 @@ export const POST = handle // [!code ++]
 
 例如，如果你将 Elysia 服务器放置在 `pages/api/[...slugs].ts` 中，你需要将注释前缀设置为 `/api`。
 
-```typescript twoslash
+```typescript
 // pages/api/[...slugs].ts
 import { Elysia, t } from 'elysia'
 

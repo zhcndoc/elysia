@@ -24,23 +24,23 @@ head:
 学习 Elysia 没有正确的方法，但我们建议**首先完成基本章节**，因为该章节简要介绍了 Elysia 的大部分功能和基础，然后再跳转到你感兴趣的其他主题。
 
 <Deck>
-    <Card title="基础" href="/essential/route">
-        Elysia 的重要概念和基础
+	<Card title="速查表" href="/integrations/cheat-sheet">
+	    Elysia 的快速参考
+	</Card>
+    <Card title="结构" href="/essential/structure">
+        了解如何构建你的代码
     </Card>
-    <Card title="校验" href="/validation/overview">
+    <Card title="校验" href="/essential/validation">
         强制数据类型并创建统一类型
     </Card>
-    <Card title="生命周期" href="/life-cycle/overview">
-        拦截事件并自定义行为
+    <Card title="生命周期" href="/essential/life-cycle">
+        拦截事件和自定义行为
     </Card>
-    <Card title="模式" href="/patterns/group">
-        常见模式和最佳实践
+    <Card title="插件和作用域" href="/essential/plugin">
+        理解如何分离 Elysia，并处理作用域
     </Card>
     <Card title="Eden" href="/eden/overview">
-        用于 Elysia 的端到端类型安全客户端
-    </Card>
-    <Card title="速查表" href="/integrations/cheat-sheet">
-        Elysia 的快速参考
+        Elysia 的端到端类型安全客户端
     </Card>
 </Deck>
 

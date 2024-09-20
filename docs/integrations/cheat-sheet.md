@@ -20,7 +20,7 @@ head:
 ## Hello World
 一个简单的 hello world
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -33,7 +33,7 @@ new Elysia()
 
 查看 [Route](/essential/route.html#custom-method)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -49,7 +49,7 @@ new Elysia()
 
 查看 [Path](/essential/path.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -63,7 +63,7 @@ Elysia 自动将 JSON 转换为响应
 
 查看 [Handler](/essential/handler.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -80,7 +80,7 @@ new Elysia()
 
 响应必须为 1 级深度对象
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -98,7 +98,7 @@ new Elysia()
 
 查看 [Handler](/essential/handler.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -115,7 +115,7 @@ new Elysia()
 
 查看 [Group](/patterns/group.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -134,7 +134,7 @@ new Elysia()
 
 查看 [Schema](/essential/schema.html)
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -152,7 +152,7 @@ new Elysia()
 
 查看 [Lifecycle](/essential/life-cycle.html)
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -199,15 +199,15 @@ new Elysia()
 
 查看 [Context](/essential/context.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
     .state('version', 1)
     .decorate('getDate', () => Date.now())
-    .get('/version', ({ 
-        getDate, 
-        store: { version } 
+    .get('/version', ({
+        getDate,
+        store: { version }
     }) => `${version} ${getDate()}`)
     .listen(3000)
 ```
@@ -217,7 +217,7 @@ new Elysia()
 
 查看 [Handler](/essential/handler.html#redirect)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -233,7 +233,7 @@ new Elysia()
 
 查看 [Plugin](/essential/plugin)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia()
@@ -251,7 +251,7 @@ new Elysia()
 
 查看 [Web Socket](/patterns/websocket)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -268,7 +268,7 @@ new Elysia()
 
 查看 [Documentation](/patterns/documentation)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 
@@ -284,7 +284,7 @@ console.log(`View documentation at "${app.server!.url}swagger" in your browser`)
 
 查看 [Unit Test](/patterns/unit-test)
 
-```typescript twoslash
+```typescript
 // test/index.test.ts
 import { describe, expect, it } from 'bun:test'
 import { Elysia } from 'elysia'
@@ -307,7 +307,7 @@ describe('Elysia', () => {
 
 查看 [Parse](/life-cycle/parse.html)
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()

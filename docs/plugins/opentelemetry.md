@@ -14,9 +14,11 @@ head:
       content: 一个为 Elysia 添加了对 OpenTelemetry 支持的插件。开始使用，只需通过 "bun add @elysiajs/opentelemetry" 安装插件。
 ---
 
+# OpenTelemetry
+
 要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将其应用于任何实例。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
 
@@ -53,14 +55,7 @@ Elysia OpenTelemetry 将 **收集任何遵循 OpenTelemetry 标准的库的 span
 ![Axiom 显示从 OpenTelemetry 收集的跟踪](/blog/elysia-11/axiom.webp)
 
 这里是将遥测数据导出到 [Axiom](https://axiom.co) 的一个示例：
-```typescript twoslash
-const Bun = {
-	env: {
-		AXIOM_TOKEN: '',
-		AXIOM_DATASET: ''
-	}
-}
-// ---cut---
+```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
 
@@ -86,21 +81,13 @@ new Elysia()
 ```
 
 ## OpenTelemetry SDK
-Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用于 Elysia 服务器。
+Elysia OpenTelemetry 仅适用于将 OpenTelemetry 应用于 Elysia 服务器。
 
 你可以正常使用 OpenTelemetry SDK，span 在 Elysia 的请求 span 下运行，它会自动出现在 Elysia 的跟踪中。
 
 然而，我们也提供了一个 `getTracer` 和 `record` 实用程序，用于从应用程序的任何部分收集 span。
 
-```typescript twoslash
-const db = {
-	query(query: string) {
-		return new Promise<unknown>((resolve) => {
-			resolve('')
-		})
-	}
-}
-// ---cut---
+```typescript
 import { Elysia } from 'elysia'
 import { record } from '@elysiajs/opentelemetry'
 

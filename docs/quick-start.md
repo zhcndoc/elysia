@@ -56,7 +56,10 @@ Elysia 使用 `dev` 命令为你自动重新加载服务器文件更改。
 
 ```typescript
 bun add elysia
+bun add -d @types/bun
 ```
+
+这将安装 Elysia 和 Bun 的类型定义。
 
 打开你的 `package.json` 文件并添加以下脚本：
 
@@ -88,9 +91,7 @@ bun add elysia
 ```
 
 ## 文件结构
-
 如果你没有严格遵守特定的惯例，下面是推荐的 Elysia 文件结构：
-
 - **src** - 任何与开发 Elysia 服务器相关的文件
     - **index.ts** - Elysia 服务器的入口点，设置全局插件的理想位置
     - **setup.ts** - 由各种插件组成，可用作服务定位器

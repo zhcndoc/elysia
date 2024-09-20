@@ -42,7 +42,7 @@ Elysia 是一个符合人体工程学的 Web 框架，用于使用 Bun 构建后
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', () => 'Hello Elysia')
+    .get('/', 'Hello Elysia')
     .get('/user/:id', ({ params: { id }}) => id)
     .post('/form', ({ body }) => body)
     .listen(3000)
@@ -50,7 +50,7 @@ new Elysia()
 
 打开 [localhost:3000](http://localhost:3000/)，结果应该显示 “Hello Elysia”。
 
-<Playground 
+<Playground
     :elysia="demo1"
     :alias="{
         '/user/:id': '/user/1'
@@ -64,7 +64,7 @@ new Elysia()
                 hello: 'Elysia'
             })
         }
-    }" 
+    }"
 />
 
 ::: tip
@@ -112,9 +112,11 @@ new Elysia()
     .listen(3000)
 ```
 
+<br>
+
 上述代码创建了一个路径参数 `id`，替换 `:id` 的值将在运行时和类型中传递给 `params.id`，无需手动类型声明。
 
-<Playground 
+<Playground
     :elysia="demo2"
     :alias="{
         '/user/:id': '/user/123'
@@ -123,7 +125,7 @@ new Elysia()
         '/user/:id': {
             GET: '123'
         },
-    }" 
+    }"
 />
 
 Elysia 的目标是帮助你减少编写 TypeScript 的工作，更专注于业务逻辑，让复杂的类型由框架来处理。

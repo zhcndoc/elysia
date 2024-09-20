@@ -29,7 +29,7 @@ head:
     - headers
     - fetch
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -71,7 +71,7 @@ api.user.post({
     -   headers
     -   fetch
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -94,7 +94,7 @@ api.hello.get({
 
 如果 body 是可选的或不需要，但是需要 query 或 headers，你可以将 body 作为 `null` 或 `undefined` 传递。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -119,7 +119,7 @@ api.user.post(null, {
 
 Eden Treaty 是一个 fetch 包装器，我们可以通过将它们传递给 `$fetch` 向 Eden 添加任何有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数：
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -156,8 +156,7 @@ clearTimeout(cancelRequest)
 附加文件将导致 **content-type** 变为 **multipart/form-data**
 
 假设我们有如下服务器：
-
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
