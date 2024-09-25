@@ -37,7 +37,7 @@ head:
         拦截事件和自定义行为
     </Card>
     <Card title="插件和作用域" href="/essential/plugin">
-        理解如何分离 Elysia，并处理作用域
+        理解如何分离 Elysia 以及作用域
     </Card>
     <Card title="Eden" href="/eden/overview">
         Elysia 的端到端类型安全客户端

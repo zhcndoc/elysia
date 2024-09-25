@@ -29,31 +29,31 @@ Elysia 的生命周期事件可以如图所示：
 以下是 Elysia 中可用的请求生命周期：
 
 <Deck>
-    <Card title="请求" href="request">
+    <Card title="请求" href="#request">
         通知接收到新的事件
     </Card>
-    <Card title="解析" href="parse">
+    <Card title="解析" href="#parse">
         将身体解析成<b>Context.body</b>
     </Card>
-    <Card title="转换" href="transform">
+    <Card title="转换" href="#transform">
         在验证之前修改<b>Context</b>
     </Card>
-    <Card title="处理前" href="before-handle">
+    <Card title="处理前" href="#before-handle">
         在路由处理前进行自定义验证
     </Card>
-    <Card title="处理后" href="after-handle">
+    <Card title="处理后" href="#after-handle">
         将返回的值转换成新值
     </Card>
-    <Card title="映射响应" href="map-response">
+    <Card title="映射响应" href="#map-response">
         将返回的值映射成响应
     </Card>
-    <Card title="错误" href="on-error">
+    <Card title="错误" href="#on-error">
         捕获抛出错误时
     </Card>
-    <Card title="响应后" href="on-response">
+    <Card title="响应后" href="#on-response">
         在响应发送给客户端后执行
     </Card>
-    <Card title="追踪" href="trace">
+    <Card title="Trace" href="/patterns/trace">
         审计和捕获每个事件的时延
     </Card>
 </Deck>
