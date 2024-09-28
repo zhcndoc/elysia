@@ -1,33 +1,33 @@
 ---
-title: Structure - ElysiaJS
+title: 结构
 head:
     - - meta
       - property: 'og:title'
-        content: Structure - ElysiaJS
+        content: 结构 - Elysia 中文文档
 
     - - meta
       - name: 'description'
-        content: Elysia is pattern agnostic framework, we leave the decision up to you and your team for coding patterns to use. However, we found that there are several who are using MVC pattern (Model-View-Controller) on Elysia, and found it's hard to decouple and handling with types. This page is a guide to use Elysia with MVC pattern.
+        content: Elysia 是一个无模式偏见的框架，我们将决策权交给您和您的团队来选择使用的编码模式。然而，我们发现有一些人在 Elysia 上使用 MVC 模式（模型-视图-控制器），发现解耦和处理类型很困难。本页是一个使用 MVC 模式的 Elysia 的指南。
 
     - - meta
       - property: 'og:description'
-        content: Elysia is pattern agnostic framework, we the decision up to you and your team for coding patterns to use. However, we found that there are several who are using MVC pattern (Model-View-Controller) on Elysia, and found it's hard to decouple and handling with types. This page is a guide to use Elysia with MVC pattern.
+        content: Elysia 是一个无模式偏见的框架，我们将决策权交给您和您的团队来选择使用的编码模式。然而，我们发现有一些人在 Elysia 上使用 MVC 模式（模型-视图-控制器），发现解耦和处理类型很困难。本页是一个使用 MVC 模式的 Elysia 的指南。
 ---
 
-# Structure
+# 结构
 
-Elysia is a pattern-agnostic framework, leaving the decision of which coding patterns to use up to you and your team.
+Elysia 是一个无模式偏见的框架，我们将决策权交给您和您的团队来选择使用的编码模式。
 
-However, there are several concern from trying to adapt an MVC pattern [(Model-View-Controller)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) with Elysia, and found it's hard to decouple and handle types.
+然而，在尝试将 MVC 模式[（模型-视图-控制器）](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)与 Elysia 结合使用时，遇到了一些问题，很难解耦和处理类型。
 
-This page is a guide to on how to follows Elysia structure best practice combined with MVC pattern but can be adapted to any coding pattern you like.
+本页是一个指南，介绍如何按照最佳实践结合 MVC 模式使用 Elysia，但也可以适应任何您喜欢的编码模式。
 
-## Method Chaining
-Elysia code should always use **method chaining**.
+## 方法链
+Elysia 代码应始终使用**方法链**。
 
-As Elysia type system is complex, every methods in Elysia returns a new type reference.
+由于 Elysia 类型系统复杂，Elysia 中的每个方法都返回一个新的类型引用。
 
-**This is important** to ensure type integrity and inference.
+**这很重要**，以确保类型完整性和推断。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -39,10 +39,10 @@ new Elysia()
     .listen(3000)
 ```
 
-In the code above **state** returns a new **ElysiaInstance** type, adding a `build` type.
+在上面的代码中，**state** 返回一个新的 **ElysiaInstance** 类型，添加了一个 `build` 类型。
 
-## ❌ Don't: Use without method chaining
-Without using method chaining, Elysia doesn't save these new types, leading to no type inference.
+## ❌ 不要：不使用方法链
+如果不使用方法链，Elysia 就不会保存这些新类型，导致没有类型推断。
 
 ```typescript twoslash
 // @errors: 2339
@@ -57,20 +57,20 @@ app.get('/', ({ store: { build } }) => build)
 app.listen(3000)
 ```
 
-We recommend to <u>**always use method chaining**</u> to provide an accurate type inference.
+我们建议<u>**始终使用方法链**</u>来提供准确的类型推断。
 
-## Controller
-> 1 Elysia instance = 1 controller
+## 控制器
+> 1 个 Elysia 实例 = 1 个控制器
 
-Elysia does a lot to ensure type integrity, if you pass an entire `Context` type to a controller, these might be the problems:
+Elysia 会做很多事情来确保类型完整性，如果将整个 `Context` 类型传递给控制器，可能会遇到以下问题：
 
-1. Elysia type is complex and heavily depends on plugin and multiple level of chaining.
-2. Hard to type, Elysia type could change at anytime, especially with decorators, and store
-3. Type casting may lead to a loss of type integrity or an inability to ensure consistency between types and runtime code.
-4. This makes it more challenging for [Sucrose](/blog/elysia-10#sucrose) *(Elysia's "kind of" compiler)* to statically analyze your code
+1. Elysia 类型复杂，且严重依赖于插件和多级链式调用。
+2. 很难为其进行类型编写，Elysia 类型可能随时发生变化，特别是使用装饰器和存储。
+3. 类型转换可能导致类型完整性损失或无法确保类型和运行时代码之间的一致性。
+4. 这使得 [Sucrose](/blog/elysia-10#sucrose) 更难以静态分析您的代码（Elysia 的“类似”编译器）。
 
-### ❌ Don't: Create a separate controller
-Don't create a separate controller, use Elysia itself as a controller instead:
+### ❌ 不要：创建一个单独的控制器
+不要创建一个单独的控制器，而是直接使用 Elysia 本身作为控制器：
 ```typescript
 import { Elysia, t, type Context } from 'elysia'
 
@@ -80,15 +80,15 @@ abstract class Controller {
     }
 }
 
-// ❌ Don't
+// ❌ 不要
 new Elysia()
     .get('/', Controller.hi)
 ```
 
-By passing an entire `Controller.method` to Elysia is an equivalent of having 2 controllers passing data back and forth. It's against the design of framework and MVC pattern itself.
+将整个 `Controller.method` 传递给 Elysia 相当于在两个控制器之间传递数据。这违反了框架和 MVC 模式本身的设计。
 
-### ✅ Do: Use Elysia as a controller
-Instead treat an Elysia instance as a controller itself instead.
+### ✅ 应该：将 Elysia 作为控制器使用
+将 Elysia 实例视为控制器本身：
 ```typescript
 import { Elysia } from 'elysia'
 import { Service } from './service'
@@ -99,17 +99,17 @@ new Elysia()
     })
 ```
 
-## Service
-Service is a set of utility/helper functions decoupled as a business logic to use in a module/controller, in our case, an Elysia instance.
+## 服务
+服务是一组作为业务逻辑解耦的实用/辅助函数，我们在这里指的是 Elysia 实例中的模块/控制器中使用的服务。
 
-Any technical logic that can be decoupled from controller may live inside a **Service**.
+任何可以从控制器解耦的技术逻辑都可以作为一个**服务**。
 
-There're 2 types of service in Elysia:
-1. Non-request dependent service
-2. Request dependent service
+Elysia 中有两种类型的服务：
+1. 无请求依赖的服务
+2. 有请求依赖的服务
 
-### ✅ Do: Non-request dependent service
-This kind of service doesn't need to access any property from the request or `Context`, and can be initiated as a static class same as usual MVC service pattern.
+### ✅ 应该：无请求依赖的服务
+这种类型的服务不需要访问请求或 `Context` 的任何属性，可以像通常的 MVC 服务模式一样作为静态类初始化。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -131,22 +131,22 @@ new Elysia()
     })
 ```
 
-If your service doesn't need to store a property, you may use `abstract class` and `static` instead to avoid allocating class instance.
+如果您的服务不需要存储属性，您可以使用 `abstract class` 和 `static` 来避免分配类实例。
 
-### Request Dependent Service
-This kind of service may require some property from the request, and should be **initiated as an Elysia instance**.
+### 有请求依赖的服务
+这种类型的服务可能需要一些来自请求的属性，并且应**作为 Elysia 实例初始化**。
 
-### ❌ Don't: Pass entire `Context` to a service
-**Context is a highly dynamic type** that can be inferred from Elysia instance.
+### ❌ 不要：将整个 `Context` 传递给服务
+**Context 是一个高度动态的类型**，可以从 Elysia 实例中推断出来。
 
-Do not pass an entire `Context` to a service, instead use object destructuring to extract what you need and pass it to the service.
+不要将整个 `Context` 传递给服务，而是使用对象解构提取您所需的内容并将其传递给服务。
 ```typescript
 import type { Context } from 'elysia'
 
 class AuthService {
 	constructor() {}
 
-	// ❌ Don't do this
+	// ❌ 不要这样做
 	isSignIn({ cookie: { session } }: Context) {
 		if (session.value)
 			return error(401)
@@ -154,24 +154,24 @@ class AuthService {
 }
 ```
 
-As Elysia type is complex, and heavily depends on plugin and multiple level of chaining, it can be challenging to manually type as it's highly dynamic.
+由于 Elysia 类型复杂，并且严重依赖于插件和多级链式调用，手动编写类型可能会很困难。
 
-### ✅ Do: Use Elysia instance as a service
+### ✅ 应该：使用 Elysia 实例作为服务
 
-We recommended to use Elysia instance as a service to ensure type integrity and inference:
+我们建议使用 Elysia 实例作为服务，以确保类型完整性和推断：
 ```typescript
 import { Elysia } from 'elysia'
 
-// ✅ Do
+// ✅ 这样做
 const AuthService = new Elysia({ name: 'Service.Auth' })
     .derive({ as: 'scoped' }, ({ cookie: { session } }) => ({
-    	// This is equivalent to dependency injection
+    	// 这相当于依赖注入
         Auth: {
             user: session.value
         }
     }))
     .macro(({ onBeforeHandle }) => ({
-     	// This is declaring a service method
+     	// 这是声明一个服务方法
         isSignIn(value: boolean) {
             onBeforeHandle(({ Auth, error }) => {
                 if (!Auth?.user || !Auth.user) return error(401)
@@ -187,12 +187,12 @@ const UserController = new Elysia()
 ```
 
 ::: tip
-Elysia handle [plugin deduplication](/essential/plugin.html#plugin-deduplication) by default so you don't have to worry about performance, as it's going to be Singleton if you specified a **"name"** property.
+Elysia 默认处理[插件去重](/essential/plugin.html#插件去重)，因此您无需担心性能问题，因为如果指定了 **"name"** 属性，它将成为单例。
 :::
 
-### ⚠️ Infers Context from Elysia instance
+### ⚠️ 根据 Elysia 实例推断 Context
 
-In case of **absolute necessity**, you may infer the `Context` type from the Elysia instance itself:
+如果绝对必要，您可以从 Elysia 实例本身推断出 `Context` 类型：
 ```typescript
 import { Elysia, type InferContext } from 'elysia'
 
@@ -203,7 +203,7 @@ const setup = new Elysia()
 class AuthService {
 	constructor() {}
 
-	// ✅ Do
+	// ✅ 这样做
 	isSignIn({ cookie: { session } }: InferContext<typeof setup>) {
 		if (session.value)
 			return error(401)
@@ -211,20 +211,20 @@ class AuthService {
 }
 ```
 
-However we recommend to avoid this if possible, and use [Elysia as a service](✅-do-use-elysia-instance-as-a-service) instead.
+然而，我们建议避免这样做，而是使用[Elysia 作为服务](#✅-应该：将-Elysia-作为服务使用)。
 
-You may find more about [InferContext](/essential/handler#infercontext) in [Essential: Handler](/essential/handler).
+您可以在[Essential: Handler](/essential/handler) 中了解有关 [InferContext](/essential/handler#infercontext) 的更多信息。
 
-## Model
-Model or [DTO (Data Transfer Object)](https://en.wikipedia.org/wiki/Data_transfer_object) is handle by [Elysia.t (Validation)](/validation/overview.html#data-validation).
+## 模型
+模型或 [DTO (数据传输对象)](https://en.wikipedia.org/wiki/Data_transfer_object) 是由 [Elysia.t（验证）](/validation/overview.html#data-validation) 处理的。
 
-Elysia has a validation system built-in which can infers type from your code and validate it at runtime.
+Elysia 内置了一个验证系统，可以根据您的代码推断类型并在运行时验证它们。
 
-### ❌ Don't: Declare a class instance as a model
+### ❌ 不要：将类实例声明为模型
 
-Do not declare a class instance as a model:
+不要将类实例声明为模型：
 ```typescript
-// ❌ Don't
+// ❌ 不要这样做
 class CustomBody {
 	username: string
 	password: string
@@ -235,18 +235,18 @@ class CustomBody {
 	}
 }
 
-// ❌ Don't
+// ❌ 不要这样做
 interface ICustomBody {
 	username: string
 	password: string
 }
 ```
 
-### ✅ Do: Use Elysia's validation system
+### ✅ 应该：使用 Elysia 的验证系统
 
-Instead of declaring a class or interface, use Elysia's validation system to define a model:
+而不是声明类或接口，使用 Elysia 的验证系统来定义模型：
 ```typescript twoslash
-// ✅ Do
+// ✅ 这样做
 import { Elysia, t } from 'elysia'
 
 const customBody = t.Object({
@@ -264,9 +264,9 @@ type CustomBody = typeof customBody.static
 export { customBody }
 ```
 
-We can get type of model by using `typeof` with `.static` property from the model.
+我们可以通过使用 `typeof` 和模型的 `.static` 属性来获取模型的类型。
 
-Then you can use the `CustomBody` type to infer the type of the request body.
+然后，您可以使用 `CustomBody` 类型来推断请求体的类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -276,7 +276,7 @@ const customBody = t.Object({
 	password: t.String()
 })
 // ---cut---
-// ✅ Do
+// ✅ 这样做
 new Elysia()
 	.post('/login', ({ body }) => {
 	                 // ^?
@@ -286,11 +286,11 @@ new Elysia()
 	})
 ```
 
-### ❌ Don't: Declare type separate from the model
-Do not declare a type separate from the model, instead use `typeof` with `.static` property to get the type of the model.
+### ❌ 不要：将类型与模型分开声明
+不要单独声明类型，而是使用 `typeof` 与 `.static` 属性来获取模型的类型。
 
 ```typescript
-// ❌ Don't
+// ❌ 不要这样做
 import { Elysia, t } from 'elysia'
 
 const customBody = t.Object({
@@ -303,7 +303,7 @@ type CustomBody = {
 	password: string
 }
 
-// ✅ Do
+// ✅ 这样做
 const customBody = t.Object({
 	username: t.String(),
 	password: t.String()
@@ -312,8 +312,8 @@ const customBody = t.Object({
 type customBody = typeof customBody.static
 ```
 
-### Group
-You can group multiple models into a single object to make it more organized.
+### 分组
+您可以将多个模型组合成一个对象，使其更加有组织。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -326,10 +326,10 @@ export const AuthModel = {
 }
 ```
 
-### Model Injection
-Though this is optional, if you are strictly following MVC pattern, you may want to inject like a service into a controller. We recommended using [Elysia reference model](/validation/reference-model.html#reference-model)
+### 模型注入
+尽管这是可选的，如果您严格遵循 MVC 模式，您可能希望像服务一样将其注入到控制器中。我们推荐使用 [Elysia 引用模型](/validation/reference-model.html#reference-model)
 
-Using Elysia's model reference
+使用 Elysia 的模型引用
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -354,14 +354,14 @@ const UserController = new Elysia({ prefix: '/auth' })
     })
 ```
 
-This approach provide several benefits:
-1. Allow us to name a model and provide auto-completion.
-2. Modify schema for later usage, or perform [remapping](/patterns/remapping.html#remapping).
-3. Show up as "models" in OpenAPI compliance client, eg. Swagger.
-4. Improve TypeScript inference speed as model type will be cached during registration.
+这种方法提供了几个好处：
+1. 允许我们给模型命名并提供自动补全。
+2. 修改模式供以后使用，或执行[重映射](/patterns/remapping.html#remapping)。
+3. 在 OpenAPI 兼容的客户端中显示为“模型”，例如 Swagger。
+4. 提高 TypeScript 推断速度，因为模型类型将在注册过程中缓存。
 
 ---
 
-As mentioned, Elysia is a pattern-agnostic framework, and we only provide a recommendation guide for handling Elysia with the MVC pattern.
+正如上面所提到的，Elysia 是一个无模式偏见的框架，并且我们只为使用 MVC 模式处理 Elysia 提供了一些建议。
 
-It’s entirely up to you and your team whether to follow this recommendation based on your preferences and agreement.
+根据您的偏好和协议，是否遵循此建议完全由您和您的团队决定。

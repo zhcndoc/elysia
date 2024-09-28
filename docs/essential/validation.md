@@ -1,17 +1,17 @@
 ---
-title: Schema - ElysiaJS
+title: 验证
 head:
     - - meta
       - property: 'og:title'
-        content: Schema - ElysiaJS
+        content: 验证 - Elysia 中文文档
 
     - - meta
       - name: 'description'
-        content: Schema are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation are based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型的定义，用于推断 TypeScript 的类型和传入请求以及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 
     - - meta
       - property: 'og:description'
-        content: Schema are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation are based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型的定义，用于推断 TypeScript 的类型和传入请求以及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 ---
 
 <script setup>
@@ -45,11 +45,11 @@ const demo2 = new Elysia()
     })
 </script>
 
-# Validation
+# 验证
 
-The point of creating an API server is to take an input and process it.
+创建 API 服务器的目的是接收输入并处理它。
 
-JavaScript allow any data to be any type. Elysia provide a tool to validate data out of to box to ensure that the data is in the correct format.
+JavaScript 允许任何数据具有任何类型。Elysia 提供了一个工具，可以验证数据是否符合正确的格式，以确保数据的有效性。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -65,39 +65,39 @@ new Elysia()
 
 ### TypeBox
 
-**Elysia.t**, a schema builder based on [TypeBox](https://github.com/sinclairzx81/typebox) that provide type-safety on both runtime, compile-time, and OpenAPI schema for generating OpenAPI/Swagger documentation.
+**Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式生成器，它提供运行时和编译时的类型安全性，以及生成 OpenAPI/Swagger 文档的 OpenAPI 模式。
 
-TypeBox is a very fast, lightweight, and type-safe runtime validation library for TypeScript. Elysia extends and customize the default behavior of TypeBox to match for server-side validation.
+TypeBox 是一个非常快速、轻量级和类型安全的 TypeScript 运行时验证库。Elysia 扩展并自定义了 TypeBox 的默认行为，以适应服务器端验证。
 
-We believe that an integration like this should take care of the framework by default instead of relying on the user end to set up a custom type on every project.
+我们认为，这样的集成应该默认情况下照顾到框架，而不是依赖于用户在每个项目上设置自定义类型。
 
-## Schema type
-Elysia supports declarative schema with the following types:
+## 模式类型
+Elysia 支持使用以下类型的声明性模式：
 
 <Deck>
     <Card title="Body" href="#body">
-        Validate an incoming HTTP Message
+        验证传入的 HTTP 消息
     </Card>
     <Card title="Query" href="#query">
-        Query string or URL parameter
+        查询字符串或 URL 参数
     </Card>
     <Card title="Params" href="#params">
-        Path parameters
+        路径参数
     </Card>
     <Card title="Headers" href="#headers">
-        Headers of the request
+        请求头
     </Card>
     <Card title="Cookie" href="#cookie">
-        Cookie of the request
+        请求的 Cookie
     </Card>
     <Card title="Response" href="#response">
-        Response of the request
+        响应结果
     </Card>
 </Deck>
 
 ---
 
-These properties should be provided as the third argument of the route handler to validate the incoming request.
+这些属性应该作为路由处理程序的第三个参数提供，以验证传入的请求。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -116,7 +116,7 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-The response should as follows:
+响应结果应该如下所示：
 | URL | Query | Params |
 | --- | --------- | ------------ |
 | /id/a | ❌ | ❌ |
@@ -125,10 +125,10 @@ The response should as follows:
 | /id/a?name=Elysia | ✅ | ❌ |
 | /id/a?alias=Elysia | ❌ | ❌ |
 
-When schema is provided, the type will be inferred from the schema automatically, and generate an OpenAPI type for Swagger documentation generation, leaving out the redundant task of providing type manually.
+当提供了模式时，类型将自动从模式中推断出来，并生成一个 OpenAPI 类型，用于生成 Swagger 文档，省去了手动提供类型的冗余任务。
 
 ## Body
-An incoming [HTTP Message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) is the data sent to the server. It can be in the form of JSON, form-data, or any other format.
+传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送给服务器的数据。它可以是 JSON、form-data 或其他格式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -147,26 +147,26 @@ new Elysia()
 	.listen(3000)
 ```
 
-The validation should be as follows:
-| Body | Validation |
+验证结果应如下所示：
+| Body | 验证结果 |
 | --- | --------- |
 | \{ name: 'Elysia' \} | ✅ |
 | \{ name: 1 \} | ❌ |
 | \{ alias: 'Elysia' \} | ❌ |
 | `undefined` | ❌ |
 
-Elysia disabled body-parser for **GET** and **HEAD** message by default, following the specs of HTTP/1.1 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3)
+默认情况下，Elysia 对 **GET** 和 **HEAD** 消息禁用了 body-parser，遵循 HTTP/1.1 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3) 的规范。
 
-> If the request method does not include defined semantics for an entity-body, then the message-body SHOULD be ignored when handling the request.
+> 如果请求方法不包含对实体主体定义的语义，那么处理请求时应该忽略消息主体。
 
-Most browsers disable the attachment of the body by default for **GET** and **HEAD** method.
+大多数浏览器默认禁用 **GET** 和 **HEAD** 方法的请求体附加。
 
-### Specs
-Validate an incoming [HTTP Message](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) (or body).
+### 规范
+验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（或 body）。
 
-These messages are additional messages for the webserver to process.
+这些消息是用于让 web 服务器处理的附加消息。
 
-The body is provided as same as `body` in `fetch` API. The content type should be set accordingly to the defined body.
+body 被提供，格式同 `fetch` API 中的 `body`。应相应地设置内容类型以匹配定义的 body。
 
 ```typescript
 fetch('https://elysiajs.com', {
@@ -178,8 +178,8 @@ fetch('https://elysiajs.com', {
 })
 ```
 
-### File
-File is a special type of body that can be used to upload files.
+### 文件
+文件是一种特殊类型的 body，可用于上传文件。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -199,10 +199,10 @@ new Elysia()
 	.listen(3000)
 ```
 
-By providing a file type, Elysia will automatically assume that content-type is `multipart/form-data`.
+通过提供文件类型，Elysia 会自动假定内容类型为 `multipart/form-data`。
 
 ## Query
-Query is the data sent through the URL. It can be in the form of `?key=value`.
+查询是通过 URL 传递的数据。它可以是 `?key=value` 的形式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -221,10 +221,10 @@ new Elysia()
 	.listen(3000)
 ```
 
-Query must be provided in the form of an object.
+查询必须以对象的形式提供。
 
-The validation should be as follows:
-| Query | Validation |
+验证结果应如下所示：
+| Query | 验证结果 |
 | ---- | --------- |
 | /?name=Elysia | ✅ |
 | /?name=1 | ✅ |
@@ -232,24 +232,24 @@ The validation should be as follows:
 | /?name=ElysiaJS&alias=Elysia | ✅ |
 | / | ❌ |
 
-### Specs
+### 规范
 
-A query string is a part of the URL that starts with **?** and can contain one or more query parameters, which are key-value pairs used to convey additional information to the server, usually for customized behavior like filter or search.
+查询字符串是 URL 的一部分，以 **?** 开头，可以包含一个或多个查询参数，这些参数是用于向服务器传递附加信息的键值对，通常用于自定义行为，比如过滤或搜索。
 
-![URL Object](/essential/url-object.svg)
+![URL 对象](/essential/url-object.svg)
 
-Query is provided after the **?** in Fetch API.
+查询在 Fetch API 中的位置是在 **?** 之后。
 
 ```typescript
 fetch('https://elysiajs.com/?name=Elysia')
 ```
 
-When specifying query parameters, it's crucial to understand that all query parameter values must be represented as strings. This is due to how they are encoded and appended to the URL.
+在指定查询参数时，重要的是要了解所有查询参数的值必须表示为字符串。这是因为它们的编码方式以及追加到 URL 的方式。
 
 ## Params
-Params or path parameters are the data sent through the URL path.
+路径参数或路由参数是通过 URL 路径传递的数据。
 
-It can be in the form of `/key`.
+它可以是 `/key` 的形式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -269,25 +269,25 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-Params must be provided in the form of an object.
+路径参数必须以对象的形式提供。
 
-The validation should be as follows:
-| URL | Validation |
+验证结果应如下所示：
+| URL | 验证结果 |
 | --- | --------- |
 | /id/1 | ✅ |
 | /id/a | ❌ |
 
-### Specs
-Path parameter <small>(not to confused with querystring or query parameter)</small>.
+### 规范
+路径参数 <small>（与查询字符串或查询参数不要混淆）</small>。
 
-**This field is usually not needed as Elysia can infer types from path parameters automatically**, unless a need for specific value pattern is need, for example numeric value or template literal pattern.
+**通常情况下，Elysia 可以根据路径参数自动推断类型**，除非需要特定值模式，例如数字值或模板文字模式。
 
 ```typescript
 fetch('https://elysiajs.com/id/1')
 ```
 
-### Params type inference
-If params schema is not provided, Elysia will automatically infer type as string automatically.
+### Params 类型推断
+如果没有提供参数模式，Elysia 将自动将类型推断为字符串。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -297,7 +297,7 @@ new Elysia()
 ```
 
 ## Headers
-Header is the data sent through the request's header.
+请求头是通过请求的头部传递的信息。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -315,16 +315,16 @@ new Elysia()
 	})
 ```
 
-Unlike other types, headers has `additionalProperties` set to `true` by default.
+与其他类型不同，请求头的 `additionalProperties` 默认设置为 `true`。
 
-This means that headers can have any key-value pair, but the value must match the schema.
+这意味着请求头可以有任意键值对，但值必须符合模式。
 
-### Specs
-HTTP headers let the client and the server pass additional information with an HTTP request or response, usually treated as metadata.
+### 规范
+HTTP 请求头允许客户端和服务器在 HTTP 请求或响应中传递附加信息，通常被视为元数据。
 
-This field is usually used to enforce some specific header field, for example, `Authorization`.
+通常用于强制一些特定的请求头字段，例如 `Authorization`。
 
-Headers are provided as same as `body` in `fetch` API.
+请求头与 `fetch` API 中的 `body` 提供的内容相同。
 
 ```typescript
 fetch('https://elysiajs.com/', {
@@ -335,13 +335,13 @@ fetch('https://elysiajs.com/', {
 ```
 
 ::: tip
-Elysia will parse headers as a lower-case key only.
+Elysia 将请求头解析为小写键的形式。
 
-Please make sure that you are using a lower-case field name when using header validation.
+请确保在使用请求头验证时使用小写字段名。
 :::
 
 ## Cookie
-Cookie is the data sent through the request's cookie.
+请求的 Cookie 是通过请求的 Cookie 传递的数据。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -358,19 +358,19 @@ new Elysia()
 	})
 ```
 
-Cookie must be provided in the form of `t.Cookie` or `t.Object`.
+Cookie 必须以 `t.Cookie` 或 `t.Object` 的形式提供。
 
-Same as `headers`, header has `additionalProperties` set to `true` by default.
+与 `headers` 相同，请求头的 `additionalProperties` 默认设置为 `true`。
 
-### Specs
+### 规范
 
-An HTTP cookie is a small piece of data that a server sends to the client, it's data that is sent with every visit to the same web server to let the server remember client information.
+HTTP Cookie 是服务器发送给客户端的一小段数据，它是在每次访问同一台 Web 服务器时与请求一起发送的，用于让服务器记住客户端信息。
 
-In simpler terms, a stringified state that sent with every request.
+简单来说，就是随每个请求一起发送的字符串化状态。
 
-This field is usually used to enforce some specific cookie field.
+通常用于强制一些特定的 Cookie 字段。
 
-A cookie is a special header field that Fetch API doesn't accept a custom value but is managed by the browser. To send a cookie, you must use a `credentials` field instead:
+Cookie 是一个特殊的请求头字段，Fetch API 不接受自定义值，但由浏览器管理。要发送 Cookie，必须使用 `credentials` 字段：
 
 ```typescript
 fetch('https://elysiajs.com/', {
@@ -379,7 +379,7 @@ fetch('https://elysiajs.com/', {
 ```
 
 ### t.Cookie
-`t.Cookie` is a special type that is equivalent to `t.Object` but allow to set cookie specific options.
+`t.Cookie` 是一个特殊类型，相当于 `t.Object`，但允许设置 Cookie 的特定选项。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -401,7 +401,7 @@ new Elysia()
 ```
 
 ## Response
-Response is the data returned from the handler.
+响应是从处理程序返回的数据。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -418,8 +418,8 @@ new Elysia()
 	})
 ```
 
-### Response per status
-Response can be set per status code.
+### 按状态设置响应
+响应可以根据状态码设置。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -446,8 +446,8 @@ new Elysia()
 	})
 ```
 
-## Optional
-To make a field optional, we may use `t.Optional`.
+## 可选属性
+要使一个字段可选，我们可以使用 `t.Optional`。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -467,11 +467,11 @@ new Elysia()
 	})
 ```
 
-This is an Elysia specific feature, allowing us to make a field optional.
+这是 Elysia 的一个特有功能，允许我们使一个字段可选。
 
-## Guard
+## 守卫
 
-Guard can be used to apply schema to multiple handlers.
+守卫可以用于将模式应用于多个处理程序。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -492,7 +492,7 @@ new Elysia()
 
 <br>
 
-This code ensures that the query must have **name** with a string value for every handler after it. The response should be listed as follows:
+此代码确保每个处理程序后面的查询必须有名为 `name` 的字符串值。响应应如下所示：
 
 <Playground
     :elysia="demo1"
@@ -503,21 +503,21 @@ This code ensures that the query must have **name** with a string value for ever
     }"
 />
 
-The response should be listed as follows:
+响应应如下所示：
 
-| Path          | Response |
+| 路径          | 响应     |
 | ------------- | -------- |
 | /none         | hi       |
 | /none?name=a  | hi       |
 | /query        | error    |
 | /query?name=a | a        |
 
-If multiple global schemas are defined for same property, the latest one will have the preference. If both local and global schemas are defined, the local one will have the preference.
+如果为相同的属性定义了多个全局模式，则最新的模式将具有优先级。如果定义了本地和全局模式，则本地模式将具有优先级。
 
-## Normalize
-You can use the Elysia constructor to set the behavior for unknown fields on outgoing and incoming bodies via the `normalize` option. By default, elysia will raise an error in case a request or response contains fields which are not explicitly allowed in the schema of the respective handler.
+## 标准化
+您可以使用 Elysia 构造函数通过 `normalize` 选项设置传出和传入体中未知字段的行为。默认情况下，elysia 会在请求或响应包含在其模式的字段之外的情况下引发错误。
 
-You can change this by setting `normalize` to true when constructing your elysia instance.
+您可以在构建 Elysia 实例时将 `normalize` 设置为 true 来更改此设置。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -527,15 +527,15 @@ new Elysia({
 })
 ```
 
-## Primitive Type
+## 基本类型
 
-TypeBox API is designed around and similar to TypeScript type.
+TypeBox API 的设计与 TypeScript 类型类似。
 
-There are a lot of familiar names and behaviors that intersect with TypeScript counter-parts like: **String**, **Number**, **Boolean**, and **Object** as well as more advanced features like **Intersect**, **KeyOf**, **Tuple** for versatility.
+它有很多熟悉的名称和行为，与 TypeScript 的对应部分（如 **String**、**Number**、**Boolean** 和 **Object**）有重合，还有更高级的功能，如 **Intersect**、**KeyOf**、**Tuple** 等。
 
-If you are familiar with TypeScript, creating a TypeBox schema has the same behavior as writing a TypeScript type except it provides an actual type validation in runtime.
+如果您熟悉 TypeScript，创建一个 TypeBox 模式的行为与编写一个 TypeScript 类型的行为相同，只是它提供了运行时的实际类型验证。
 
-To create your first schema, import `Elysia.t` from Elysia and start with the most basic type:
+要创建您的第一个模式，请从 Elysia 导入 `Elysia.t` 并从最基本的类型开始：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -547,17 +547,17 @@ new Elysia()
 	.listen(3000)
 ```
 
-This code tells Elysia to validate an incoming HTTP body, make sure that the body is String, and if it is String, then allow it to flow through the request pipeline and handler.
+此代码告诉 Elysia 验证传入的 HTTP body，确保 body 是一个字符串，并且如果是一个字符串，则允许它通过请求管道和处理程序。
 
-If the shape doesn't match, then it will throw an error, into [Error Life Cycle](/essential/life-cycle.html#events).
+如果形状不匹配，它将抛出一个错误，进入 [错误生命周期](/essential/life-cycle.html#events)。
 
-![Elysia Life Cycle](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle.webp)
 
-### Basic Type
+### 基本类型
 
-TypeBox provides a basic primitive type with the same behavior as same as TypeScript type.
+TypeBox 提供了与 TypeScript 类型相同行为的基本原始类型。
 
-The following table lists the most common basic type:
+以下表格列出了最常见的基本类型：
 
 <table class="md-table">
 <tr>
@@ -692,13 +692,13 @@ t.Literal(42)
 
 </table>
 
-Elysia extends all types from TypeBox allowing you to reference most of the API from TypeBox to use in Elysia.
+Elysia 扩展了 TypeBox 的所有类型，允许您引用大多数 TypeBox API 来在 Elysia 中使用。
 
-See [TypeBox's Type](https://github.com/sinclairzx81/typebox#json-types) for additional types that are supported by TypeBox.
+有关 TypeBox 支持的其他类型，请参阅 [TypeBox 的类型](https://github.com/sinclairzx81/typebox#json-types)。
 
-### Attribute
+### 属性
 
-TypeBox can accept an argument for more comprehensive behavior based on JSON Schema 7 specification.
+TypeBox 可以接受一个参数，用于基于 JSON Schema 7 规范提供更全面的行为。
 
 <table class="md-table">
 <tr>
@@ -807,19 +807,19 @@ y: 200
 
 </table>
 
-See [JSON Schema 7 specification](https://json-schema.org/draft/2020-12/json-schema-validation) For more explanation for each attribute.
+有关每个属性的更多详细信息，请参阅 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
 
 ---
 
 <br>
 
-## Honorable Mention
+## 荣耀提及
 
-The following are common patterns that are often found useful when creating a schema.
+以下是在创建模式时通常有用的常见模式。
 
 ### Union
 
-Allow multiple types via union.
+通过联合类型允许多种类型。
 
 <table class="md-table">
 <tr>
@@ -859,9 +859,9 @@ Hello
 
 </table>
 
-### Optional
+### 可选
 
-Provided in a property of `t.Object`, allowing the field to be undefined or optional.
+在 `t.Object` 的一个属性中提供，允许字段是未定义的或可选的。
 
 <table class="md-table">
 <tr>
@@ -907,7 +907,7 @@ t.Object({
 
 ### Partial
 
-Allowing all of the fields in `t.Object` to be optional.
+允许 `t.Object` 中的所有字段都是可选的。
 
 <table class="md-table">
 <tr>
@@ -955,7 +955,7 @@ t.Partial(
 
 ## Custom Error
 
-TypeBox offers an additional "**error**" property, allowing us to return a custom error message if the field is invalid.
+TypeBox 提供了额外的 "**error**" 属性，允许我们在字段无效时返回自定义的错误消息。
 
 <table class="md-table">
 <tr>
@@ -1006,66 +1006,66 @@ Invalid object UwU
 
 </table>
 
-## Elysia Type
+## Elysia 类型
 
-`Elysia.t` is based on TypeBox with pre-configuration for usage on the server while providing additional types commonly found on server-side validation.
+`Elysia.t` 基于 TypeBox，并进行了预配置，以便在服务器上使用，同时还提供了服务器端验证中常见的额外类型。
 
-You can find all of the source code of Elysia type in `elysia/type-system`.
+您可以在 `elysia/type-system` 中找到 Elysia 类型的所有源代码。
 
-The following are types provided by Elysia:
+以下是 Elysia 提供的类型：
 
 <Deck>
     <Card title="Numeric" href="#numeric">
-        Accepts a numeric string or number and then transforms the value into a number
+        接受一个数字字符串或数字，然后将值转换为数字。
     </Card>
     <Card title="File" href="#file">
-        A singular file. Often useful for <strong>file upload</strong> validation
+        一个单独的文件。通常在<strong>文件上传</strong>验证时很有用。
     </Card>
     <Card title="Files" href="#files">
-        Extends from <a href="#file">File</a>, but adds support for an array of files in a single field
+        从 <a href="#file">File</a> 扩展，但为单个字段中的文件数组添加了支持。
     </Card>
     <Card title="Cookie" href="#cookie">
-        Object-like representation of a Cookie Jar extended from Object type
+        对象样式的Cookie Jar表示，从对象类型扩展而来。
     </Card>
     <Card title="Nullable" href="#nullable">
-    Allow the value to be null but not undefined
+        允许值为 null，但不能是 undefined
     </Card>
     <Card title="Maybe Empty" href="#maybeempty">
-        Accepts empty string or null value
+        接受空字符串或 null 值
     </Card>
 </Deck>
 
-### Numeric (legacy)
+### 数值（旧版）
 
-Numeric accepts a numeric string or number and then transforms the value into a number.
+数值接受一个数值字符串或数字，然后将值转换为数字。
 
 ```typescript
 t.Numeric()
 ```
 
-This is useful when an incoming value is a numeric string for example path parameter or query string.
+当传入的值是一个数字字符串时，比如路径参数或查询字符串，这很有用。
 
-Numeric accepts the same attribute as [Numeric Instance](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)
+Numeric 接受与 [Numeric Instance](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
 
 ::: tip
-This is not need as Elysia type already transform Number to Numeric automatically
+这不需要，因为 Elysia 类型已经自动将 Number 转换为 Numeric。
 :::
 
-### File
+### 文件
 
-A singular file. Often useful for **file upload** validation.
+一个单独的文件。通常用于**文件上传**验证。
 
 ```typescript
 t.File()
 ```
 
-File extends attribute of base schema, with additional property as follows:
+文件扩展属性的基础模式，具有以下附加属性：
 
 #### type
 
-A format of the file like image, video, audio.
+文件格式，如图片、视频、音频。
 
-If an array is provided, will attempt to validate if any of the format is valid.
+如果提供数组，将尝试验证任何格式是否有效。
 
 ```typescript
 type?: MaybeArray<string>
@@ -1073,9 +1073,9 @@ type?: MaybeArray<string>
 
 #### minSize
 
-Minimum size of the file.
+文件的最小大小。
 
-Accept number in byte or suffix of file unit:
+接受以字节为单位或文件单位的缩写形式表示的数字：
 
 ```typescript
 minSize?: number | `${number}${'k' | 'm'}`
@@ -1083,33 +1083,33 @@ minSize?: number | `${number}${'k' | 'm'}`
 
 #### maxSize
 
-Maximum size of the file.
+文件的最大大小。
 
-Accept number in byte or suffix of file unit:
+接受以字节为单位或文件单位的后缀表示的数字：
 
 ```typescript
 maxSize?: number | `${number}${'k' | 'm'}`
 ```
 
-#### File Unit Suffix:
+#### 文件单位后缀：
 
-The following are the specifications of the file unit:
-m: MegaByte (1048576 byte)
-k: KiloByte (1024 byte)
+以下为文件单位的规格：
+m: 兆字节 (1048576 字节)
+k: 千字节 (1024 字节)
 
 ### Files
 
-Extends from [File](#file), but adds support for an array of files in a single field.
+从[文件](#file)扩展，但在单个字段中添加了对文件数组的支。
 
 ```typescript
 t.Files()
 ```
 
-File extends attributes of base schema, array, and File.
+文件扩展了基础模式、数组和文件的属性。
 
 ### Cookie
 
-Object-like representation of a Cookie Jar extended from Object type.
+从对象类型扩展的 Cookie Jar 的对象表示形式。
 
 ```typescript
 t.Cookie({
@@ -1117,48 +1117,48 @@ t.Cookie({
 })
 ```
 
-Cookie extends attributes of [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) and [Cookie](https://github.com/jshttp/cookie#options-1) with additional properties follows:
+Cookie 扩展了 [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) 和 [Cookie](https://github.com/jshttp/cookie#options-1) 的属性，并具有以下附加属性：
 
 #### secrets
 
-The secret key for signing cookies.
+用于签名的密钥。
 
-Accepts a string or an array of string
+接受字符串或字符串数组。
 
 ```typescript
 secrets?: string | string[]
 ```
 
-If an array is provided, [Key Rotation](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation) will be used, the newly signed value will use the first secret as the key.
+如果提供了数组，将使用[密钥轮换](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation)，新签名的值将使用第一个秘密作为密钥。
 
-### Nullable
+### 可以为空
 
-Allow the value to be null but not undefined.
+允许值为 null，但不允许为 undefined。
 
 ```typescript
 t.Nullable(t.String())
 ```
 
-### MaybeEmpty
+### 可能为空
 
-Allow the value to be null and undefined.
+允许值是 null 和 undefined。
 
 ```typescript
 t.MaybeEmpty(t.String())
 ```
 
-For additional information, you can find the full source code of the type system in [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts).
+要获取类型系统的完整源代码，您可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到。
 
-## Error Provider
+## 错误提供者
 
-There are 2 ways to provide a custom error message when the validation fails:
+当验证失败时，有 2 种方式提供自定义错误消息：
 
-1. inline `error` property
-2. Using [onError](/life-cycle/on-error) event
+1. 内联 `error` 属性
+2. 使用 [onError](/life-cycle/on-error) 事件
 
-### Error Property
+### 错误属性
 
-Elysia's offers an additional "**error**" property, allowing us to return a custom error message if the field is invalid.
+Elysia 提供了一个额外的 "**error**" 属性，允许我们在字段无效时返回自定义错误消息。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -1294,13 +1294,13 @@ new Elysia()
 ```
 
 ::: tip
-Hover over the `error` to see the type
+将鼠标悬停在 `error` 上以查看类型
 :::
 
 ### Error is called per field
-Please be cautious that the error function will only be called if the field is invalid.
+请注意，只有在字段无效时才会调用 error 函数。
 
-Please consider the following table:
+请考虑以下表格：
 
 <table class="md-table">
 <tr>
@@ -1399,7 +1399,7 @@ Expected value to be an object
 
 ### onError
 
-We can customize the behavior of validation based on [onError](/life-cycle/on-error) event by narrowing down the error code call "**VALIDATION**".
+我们可以根据 [onError](/life-cycle/on-error) 事件的错误代码调用“**VALIDATION**”来定制验证的行为。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1412,9 +1412,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-Narrowed down error type, will be typed as `ValidationError` imported from 'elysia/error'.
+缩小了错误类型，将被类型化为从 'elysia/error' 导入的 `ValidationError`。
 
-**ValidationError** exposed a property name **validator** typed as [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck), allowing us to interact with TypeBox functionality out of the box.
+**ValidationError** 暴露了一个名为 **validator** 的属性，其类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，使我们能够开箱即用地与 TypeBox 功能进行交互。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1429,7 +1429,7 @@ new Elysia()
 
 ### Error list
 
-**ValidationError** provides a method `ValidatorError.all`, allowing us to list all of the error causes.
+**ValidationError** 提供了 `ValidatorError.all` 方法，允许我们列出所有的错误原因。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1459,16 +1459,16 @@ new Elysia()
 	.listen(3000)
 ```
 
-For more information about TypeBox's validator, see [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck).
+有关 TypeBox 验证器的更多信息，请参阅 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)。
 
-## Reference Model
-Sometimes you might find yourself declaring duplicated models, or re-using the same model multiple times.
+## 引用模型
+有时，您可能会发现自己声明重复的模型，或使用相同的模型多次。
 
-With reference model, we can name our model and reuse them by referencing with name.
+通过引用模型，我们可以为模型命名，并通过引用名称在 `schema` 中直接引用它，以实现代码自动补全。
 
-Let's start with a simple scenario.
+让我们先从一个简单的场景开始。
 
-Suppose we have a controller that handles sign-in with the same model.
+假设我们有一个处理登录的控制器，其处理程序使用相同的模型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1486,7 +1486,7 @@ const app = new Elysia()
     })
 ```
 
-We can refactor the code by extracting the model as a variable, and reference them.
+我们可以通过将模型提取为变量并引用它们来重构代码。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -1503,9 +1503,9 @@ const app = new Elysia()
     })
 ```
 
-This method of separating the concerns is an effective approach but we might find ourselves reusing multiple models with different controllers as the app gets more complex.
+将模型分离出来的此方法是一个有效的方案，但随着应用程序变得更复杂，我们可能会发现自己在多个控制器中重用多个模型。
 
-We can resolve that by creating a "reference model"  allowing us to name the model and use auto-completion to reference it directly in `schema` by registering the models with `model`.
+我们可以通过创建“引用模型”来解决这个问题，允许我们为模型命名并在 Elysia 的 `model` 中通过自动补全直接引用它们。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1524,7 +1524,7 @@ const app = new Elysia()
     })
 ```
 
-When we want to access the model's group, we can separate a `model` into a plugin which when registered will provide a set of models instead of multiple import.
+当要访问模型组时，我们可以将 `model` 分离为一个插件，注册该插件时会提供一组模型，而不是多个导入。
 
 ```typescript
 // auth.model.ts
@@ -1539,7 +1539,7 @@ export const authModel = new Elysia()
     })
 ```
 
-Then in an instance file:
+然后在一个实例文件中：
 ```typescript twoslash
 // @filename: auth.model.ts
 import { Elysia, t } from 'elysia'
@@ -1567,10 +1567,10 @@ const app = new Elysia()
     })
 ```
 
-This not only allows us to separate the concerns but also allows us to reuse the model in multiple places while reporting the model into Swagger documentation.
+这样不仅允许我们分离关注点，还允许我们在多个位置重用模型，同时将模型报告到 Swagger 文档中。
 
-### Multiple Models
-`model` accepts an object with the key as a model name and value as the model definition, multiple models are supported by default.
+### 多个模型
+`model` 可以接受一个对象，其键作为模型名称，值作为模型定义，支持多个模型。
 
 ```typescript
 // auth.model.ts
@@ -1586,10 +1586,10 @@ export const authModel = new Elysia()
     })
 ```
 
-### Naming Convention
-Duplicated model names will cause Elysia to throw an error. To prevent declaring duplicate model names, we can use the following naming convention.
+### 命名约定
+重复的模型名称将导致 Elysia 抛出一个错误。为了防止重复声明模型名称，我们可以使用以下命名约定。
 
-Let's say that we have all models stored at `models/<name>.ts`, and declare the prefix of the model as a namespace.
+假设我们的所有模型都存储在 `models/<name>.ts` 中，并将模型的前缀声明为命名空间。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -1613,6 +1613,6 @@ export const userModels = new Elysia()
     })
 ```
 
-This can prevent naming duplication at some level, but in the end, it's best to let the naming convention decision up to your team's agreement is the best option.
+这可以在某种程度上防止命名冲突，但最终，最好根据团队的协议决定命名约定。
 
-Elysia provides an opinionated option for you to decide to prevent decision fatigue.
+Elysia 为您提供了一个具有明确目的的选项，以防止纠结于决策疲劳。

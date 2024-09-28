@@ -1,17 +1,17 @@
 ---
-title: Plugin - ElysiaJS
+title: 插件
 head:
     - - meta
       - property: 'og:title'
-        content: Plugin - ElysiaJS
+        content: 插件 - Elysia 中文文档
 
     - - meta
       - name: 'description'
-        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
+        content: 插件是将逻辑解耦为更小的部分的一种方式，定义服务器上可重复使用的组件。我们可以使用 `use` 来注册插件，注册插件将会合并插件和当前实例之间的类型，还有钩子的范围和架构也会合并。
 
     - - meta
       - property: 'og:description'
-        content: A plugin is a way to decouple logic into smaller parts, defining reusable components across the server. Plugin can register by using `use`, registering a plugin will combine types between plugin and current instance, and the scope of hooks, and schema get merged too.
+        content: 插件是将逻辑解耦为更小的部分的一种方式，定义服务器上可重复使用的组件。我们可以使用 `use` 来注册插件，注册插件将会合并插件和当前实例之间的类型，还有钩子的范围和架构也会合并。
 ---
 
 <script setup>
@@ -113,11 +113,11 @@ const _mock3 = {
 }
 </script>
 
-# Plugin
+# 插件
 
-Plugin is a pattern that decouples functionality into smaller parts. Creating reusable components for our web server.
+插件是一种将功能解耦为更小部分的模式，为我们的 Web 服务器创建可重复使用的组件。
 
-Defining a plugin is to define a separate instance.
+定义一个插件就是定义一个单独的实例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -133,25 +133,25 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-We can use the plugin by passing an instance to **Elysia.use**.
+我们可以通过将实例作为参数传递给 **Elysia.use** 来使用插件。
 
 <Playground :elysia="demo1" />
 
-The plugin will inherit all properties of the plugin instance, including **state**, **decorate**, **derive**, **route**, **lifecycle**, etc.
+插件将继承插件实例的所有属性，包括 **state**、**decorate**、**derive**、**route**、**lifecycle** 等等。
 
-Elysia will also handle the type inference automatically as well, so you can imagine as if you call all of the other instances on the main one.
+Elysia 也会自动处理类型推断，所以你可以将其想象成在主要实例上调用所有其他实例。
 
 ::: tip
-Notice that the plugin doesn't contain **.listen**, because **.listen** will allocate a port for the usage, and we only want the main instance to allocate the port.
+请注意插件不包含 **.listen**，因为 **.listen** 会为使用分配一个端口，我们只想主要实例分配端口。
 :::
 
-## Plugin
+## 插件
 
-Every Elysia instance can be a plugin.
+每个 Elysia 实例都可以是一个插件。
 
-We can decouple our logic into a new separate Elysia instance and use it as a plugin.
+我们可以将逻辑解耦为一个新的单独的 Elysia 实例，并将其用作插件。
 
-First, we define an instance in a difference file:
+首先，我们在另一个文件中定义一个实例：
 ```typescript twoslash
 // plugin.ts
 import { Elysia } from 'elysia'
@@ -160,7 +160,7 @@ export const plugin = new Elysia()
     .get('/plugin', () => 'hi')
 ```
 
-And then we import the instance into the main file:
+然后我们将该实例导入到主要文件中：
 ```typescript
 import { Elysia } from 'elysia'
 import { plugin } from './plugin'
@@ -170,11 +170,11 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-### Config
+### 配置
 
-To make the plugin more useful, allowing customization via config is recommended.
+为了使插件更加有用，推荐通过配置允许自定义。
 
-You can create a function that accepts parameters that may change the behavior of the plugin to make it more reusable.
+您可以创建一个接受可能会改变插件行为的参数的函数，以使其更具可重用性。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -187,13 +187,13 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-### Functional callback
+### 函数回调
 
-It's recommended to define a new plugin instance instead of using a function callback.
+建议使用一个新的插件实例来定义一个函数回调，而不是使用一个函数回调。
 
-Functional callback allows us to access the existing property of the main instance. For example, checking if specific routes or stores existed.
+函数回调允许我们访问主要实例的现有属性。例如，检查特定路由或存储是否存在。
 
-To define a functional callback, create a function that accepts Elysia as a parameter.
+要定义一个函数回调，请创建一个接受 Elysia 作为参数的函数。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -210,21 +210,21 @@ const app = new Elysia()
 
 <Playground :elysia="demo2" />
 
-Once passed to `Elysia.use`, functional callback behaves as a normal plugin except the property is assigned directly to
+一旦传递给 `Elysia.use`，函数回调就像一个普通的插件一样运行，只是该属性直接被分配给
 
 ::: tip
-You shall not worry about the performance difference between a functional callback and creating an instance.
+您不需要担心函数回调和创建实例之间的性能差异。
 
-Elysia can create 10k instances in a matter of milliseconds, the new Elysia instance has even better type inference performance than the functional callback.
+Elysia 可以在几毫秒内创建 10k 个实例，新的 Elysia 实例甚至比函数回调有更好的类型推断性能。
 :::
 
-## Plugin Deduplication
+## 插件去重
 
-By default, Elysia will register any plugin and handle type definitions.
+默认情况下，Elysia 将注册任何插件并处理类型定义。
 
-Some plugins may be used multiple times to provide type inference, resulting in duplication of setting initial values or routes.
+某些插件可能被多次使用以提供类型推断，导致初始值或路由设置重复。
 
-Elysia avoids this by differentiating the instance by using **name** and **optional seeds** to help Elysia identify instance duplication:
+Elysia 通过使用 **name** 和 **可选的 seed** 来区分实例，以帮助 Elysia 识别实例重复性:
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -247,9 +247,9 @@ const app = new Elysia()
 
 <Playground :elysia="demo4" />
 
-Elysia will use **name** and **seed** to create a checksum to identify if the instance has been registered previously or not, if so, Elysia will skip the registration of the plugin.
+Elysia 将使用 **name** 和 **seed** 创建一个校验和来识别实例是否先前已注册，如果是，则 Elysia 将跳过插件的注册。
 
-If seed is not provided, Elysia will only use **name** to differentiate the instance. This means that the plugin is only registered once even if you registered it multiple times.
+如果没有提供 seed，Elysia 将只使用 **name** 来区分实例。这意味着即使您多次注册了插件，该插件也只注册一次。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -264,18 +264,18 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-This allows Elysia to improve performance by reusing the registered plugins instead of processing the plugin over and over again.
+这使得 Elysia 可以通过重复使用已注册的插件而不是一遍又一遍地处理插件来提高性能。
 
 ::: tip
-Seed could be anything, varying from a string to a complex object or class.
+Seed 可以是任何内容，从字符串到复杂对象或类不等。
 
-If the provided value is class, Elysia will then try to use the `.toString` method to generate a checksum.
+如果提供的值是一个类，Elysia 将尝试使用 `.toString` 方法生成校验和。
 :::
 
-### Service Locator
-When you apply multiple state and decorators plugin to an instance, the instance will gain type safety.
+### 服务定位器
+当将多个状态和修饰器插件应用于一个实例时，该实例将获得类型安全性。
 
-However, you may notice that when you are trying to use the decorated value in another instance without decorator, the type is missing.
+但是，您可能会注意到，当您尝试在没有修饰器的另一个实例中使用装饰值时，类型会丢失。
 
 ```typescript twoslash
 // @errors: 2339
@@ -290,13 +290,13 @@ const main = new Elysia()
     .use(child)
 ```
 
-This is a TypeScript limitation; Elysia can only refer to the current instance.
+这是 TypeScript 的限制；Elysia 只能引用当前实例。
 
-Elysia introduces the **Service Locator** pattern to counteract this.
+Elysia 引入了 **服务定位器** 模式来解决这个问题。
 
-To put it simply, Elysia will lookup the plugin checksum and get the value or register a new one. Infer the type from the plugin.
+简单来说，Elysia 会查找插件的校验和并获取该值，或注册一个新值。从插件推断类型。
 
-Simply put, we need to provide the plugin reference for Elysia to find the service.
+简单来说，我们需要为 Elysia 提供插件引用，以便找到该服务。
 
 ```typescript twoslash
 // @errors: 2339
@@ -318,9 +318,9 @@ const main = new Elysia()
 
 <Playground :elysia="demo5" />
 
-## Guard
+## 守卫
 
-Guard allows us to apply hook and schema into multiple routes all at once.
+守卫允许我们一次将钩子和架构应用于多个路由。
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -349,18 +349,18 @@ new Elysia()
     .listen(3000)
 ```
 
-This code applies validation for `body` to both '/sign-in' and '/sign-up' instead of inlining the schema one by one but applies not to '/'.
+此代码将对 `/sign-in` 和 `/sign-up` 的 `body` 应用验证，而不是逐个内联模式应用验证，但不适用于 `/`。
 
-We can summarize the route validation as the following:
-| Path | Has validation |
-| ------- | ------------- |
-| /sign-up | ✅ |
-| /sign-in | ✅ |
-| / | ❌ |
+我们可以总结路由验证如下：
+| 路径 | 具有验证 |
+| ---------- | ------------- |
+| /sign-up   | ✅             |
+| /sign-in   | ✅             |
+| /          | ❌             |
 
-Guard accepts the same parameter as inline hook, the only difference is that you can apply hook to multiple routes in the scope.
+守卫接受与内联钩子相同的参数，唯一的区别是你可以在作用域中将钩子应用于多个路由。
 
-This means that the code above is translated into:
+这意味着上面的代码可以转换为：
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -387,17 +387,17 @@ new Elysia()
     .listen(3000)
 ```
 
-### Grouped Guard
+### 分组守卫
 
-We can use a group with prefixes by providing 3 parameters to the group.
+我们可以通过向分组提供 3 个参数来使用带前缀的分组。
 
-1. Prefix - Route prefix
-2. Guard - Schema
-3. Scope - Elysia app callback
+1. 前缀 - 路由前缀
+2. 守卫 - 架构
+3. 作用域 - Elysia 应用回调
 
-With the same API as guard apply to the 2nd parameter, instead of nesting group and guard together.
+与应用于第二个参数的守卫相同的 API，而不是将分组和守卫嵌套在一起。
 
-Consider the following example:
+考虑以下示例：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -415,7 +415,7 @@ new Elysia()
 ```
 
 
-From nested groupped guard, we may merge group and guard together by providing guard scope to 2nd parameter of group:
+从嵌套的分组守卫中，我们可以通过将守卫作用域提供给分组的第二个参数来合并组和守卫：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -432,7 +432,7 @@ new Elysia()
     .listen(3000)
 ```
 
-Which results in the follows syntax:
+这将导致以下语法：
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -450,13 +450,13 @@ new Elysia()
 
 <Playground :elysia="_demo1" />
 
-## Scope
+## 作用域
 
-By default, hook and schema will apply to **current instance only**.
+默认情况下，钩子和架构将仅应用于**当前实例**。
 
-Elysia has an encapsulation scope for to prevent unintentional side effects.
+Elysia 有一个封装作用域，以防止意外副作用发生。
 
-Scope type is to specify the scope of hook whether is should be encapsulated or global.
+作用域类型用于指定钩子的作用域是否应该是封装还是全局。
 
 ```typescript twoslash
 // @errors: 2339
@@ -474,9 +474,9 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-From the above code, we can see that `hi` is missing from the parent instance because the scope is local by default if not specified, and will not apply to parent.
+从以上代码中，我们可以看到父实例缺少 `hi`，因为范围默认为局部，如果未指定，则不会应用于父实例。
 
-To apply the hook to the parent instance, we can use the `as` to specify scope of the hook.
+要将钩子应用于父实例，我们可以使用 `as` 来指定钩子的作用域。
 
 ```typescript twoslash
 // @errors: 2339
@@ -494,14 +494,14 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-### Scope level
-Elysia has 3 levels of scope as the following:
-Scope type are as the following:
-- **local** (default) - apply to only current instance and descendant only
-- **scoped** - apply to parent, current instance and descendants
-- **global** - apply to all instance that apply the plugin (all parents, current, and descendants)
+### 作用域级别
+Elysia拥有以下三个级别的范围：
+范围类型如下：
+- **local**（默认）- 仅应用于当前实例和后代
+- **scoped** - 应用于父级、当前实例和后代
+- **global** - 应用于所有应用插件的实例（父级、当前和后代）
 
-Let's review what each scope type does by using the following example:
+让我们通过使用以下示例来回顾每个作用域类型的功能：
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -527,22 +527,22 @@ const main = new Elysia()
     .get('/main', 'hi')
 ```
 
-By changing the `type` value, the result should be as follows:
+通过更改 `type` 值，结果应如下：
 
-| type       | child | current | parent | main |
-| ---------- | ----- | ------- | ------ | ---- |
-| 'local'    | ✅    | ✅       | ❌     | ❌   |
-| 'scoped'    | ✅    | ✅       | ✅     | ❌   |
-| 'global'   | ✅    | ✅       | ✅     | ✅   |
+| type       | 子实例 | 当前实例 | 父实例 | 主实例 |
+| ---------- | ------ | -------- | ------ | ------ |
+| 'local'    | ✅      | ✅        | ❌      | ❌      |
+| 'scoped'   | ✅      | ✅        | ✅      | ❌      |
+| 'global'   | ✅      | ✅        | ✅      | ✅      |
 
-### Scope cast
-To apply hook to parent may use one of the following:
-1. `inline as` apply only to a single hook
-2. `guard as` apply to all hook in a guard
-3. `instance as` apply to all hook in an instance
+### 作用域转换
+要将钩子应用于父实例，可以使用以下方法之一：
+1. `inline as` 仅适用于单个钩子
+2. `guard as` 适用于作用域中的所有钩子
+3. `instance as` 适用于实例中的所有钩子
 
 ### 1. Inline as
-Every event listener will accept `as` parameter to specify the scope of the hook.
+每个事件监听器都接受 `as` 参数来指定钩子的作用域。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -559,10 +559,10 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-However, this method is apply to only a single hook, and may not be suitable for multiple hooks.
+但是，此方法仅适用于单个钩子，并且可能不适用于多个钩子。
 
 ### 2. Guard as
-Every event listener will accept `as` parameter to specify the scope of the hook.
+每个事件监听器都接受 `as` 参数来指定钩子的作用域。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -582,12 +582,12 @@ const main = new Elysia()
     .get('/parent', 'hello')
 ```
 
-Guard alllowing us to apply `schema` and `hook` to multiple routes all at once while specifying the scope.
+守卫允许我们一次将 `schema` 和 `hook` 应用于多个路由，同时指定作用域。
 
-However, it doesn't support `derive` and `resolve` method.
+但是，它不支持 `derive` 和 `resolve` 方法。
 
 ### 3. Instance as
-`as` will read all hooks and schema scope of the current instance, modify.
+`as` 将读取当前实例的所有钩子和架构作用域，并进行修改。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -605,11 +605,11 @@ const main = new Elysia()
     .get('/parent', ({ hi }) => hi)
 ```
 
-Sometimes we want to reapply plugin to parent instance as well but as it's limited by `scoped` mechanism, it's limited to 1 parent only.
+有时我们希望同时将插件应用于父实例，但由于 `scoped` 机制的限制，它仅限于一个父级。
 
-To apply to the parent instance, we need to **"lift the scope up** to the parent instance, and `as` is the perfect method to do so.
+为了将插件应用于父实例，我们需要将作用域提升到父实例，并且 `as` 是执行此操作的完美方法。
 
-Which means if you have `local` scope, and want to apply it to the parent instance, you can use `as('plugin')` to lift it up.
+这意味着如果你的作用域为 `local`，并且想将其应用于父实例，您可以使用 `as('plugin')` 来提升它。
 ```typescript twoslash
 // @errors: 2304 2345
 import { Elysia, t } from 'elysia'
@@ -634,11 +634,11 @@ const parent = new Elysia()
 	.get('/ok', () => 3)
 ```
 
-### Descendant
+### 后代
 
-By default plugin will only **apply hook to itself and descendants** only.
+默认情况下，插件将仅**应用钩子于自己和后代**。
 
-If the hook is registered in a plugin, instances that inherit the plugin will **NOT** inherit hooks and schema.
+如果钩子在插件中注册，那么继承插件的实例将**不会**继承钩子和架构。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -654,7 +654,7 @@ const main = new Elysia()
     .get('/parent', 'not log hi')
 ```
 
-To apply hook to globally, we need to specify hook as global.
+要将钩子应用于全局，需要将钩子指定为全局。
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -672,23 +672,23 @@ const main = new Elysia()
 
 <Playground :elysia="_demo2" :mock="_mock2" />
 
-## Lazy Load
-Modules are eagerly loaded by default.
+## 懒加载
+默认情况下，模块是急切加载的。
 
-Elysia loads all modules then registers and indexes all of them before starting the server. This enforces that all the modules have loaded before it starts accepting requests.
+Elysia 会先加载所有模块，然后注册并索引它们，最后再启动服务器。这样做确保了所有模块在服务器开始接受请求之前都已经加载完成。
 
-While this is fine for most applications, it may become a bottleneck for a server running in a serverless environment or an edge function, in which the startup time is important.
+虽然这对大多数应用程序来说是可以的，但对于运行在无服务器环境或边缘函数中的服务器来说，启动时间可能变得非常重要，这时懒加载可能成为瓶颈。
 
-Lazy-loading can help decrease startup time by deferring modules to be gradually indexed after the server start.
+懒加载可以帮助减少启动时间，通过在服务器启动后逐步索引模块来实现。
 
-Lazy-loading modules are a good option when some modules are heavy and importing startup time is crucial.
+当一些模块较大且导入时的启动时间至关重要时，懒加载模块是一个不错的选择。
 
-By default, any async plugin without await is treated as a deferred module and the import statement as a lazy-loading module.
+默认情况下，任何不包含 await 的异步插件都被视为延迟模块，而 import 语句被视为懒加载模块。
 
-Both will be registered after the server is started.
+这两种方式都会在服务器启动后注册。
 
-### Deferred Module
-The deferred module is an async plugin that can be registered after the server is started.
+### 延迟模块
+延迟模块是指可以在服务器启动后注册的异步插件。
 
 ```typescript
 // plugin.ts
@@ -706,7 +706,7 @@ export const loadStatic = async (app: Elysia) => {
 }
 ```
 
-And in the main file:
+主文件中的代码如下：
 ```typescript
 import { Elysia } from 'elysia'
 import { loadStatic } from './plugin'
@@ -715,12 +715,12 @@ const app = new Elysia()
     .use(loadStatic)
 ```
 
-Elysia static plugin is also a deferred module, as it loads files and registers files path asynchronously.
+Elysia 静态插件也是一个延迟模块，因为它异步加载文件并注册文件路径。
 
-### Lazy Load Module
-Same as the async plugin, the lazy-load module will be registered after the server is started.
+### 惰性加载模块
+与异步插件相同，惰性加载模块将在服务器启动后注册。
 
-A lazy-load module can be both sync or async function, as long as the module is used with `import` the module will be lazy-loaded.
+惰性加载模块可以是同步函数或异步函数，只要该模块与 `import` 一起使用，它就会被惰性加载。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -729,12 +729,12 @@ const app = new Elysia()
     .use(import('./plugin'))
 ```
 
-Using module lazy-loading is recommended when the module is computationally heavy and/or blocking.
+在计算密集型和/或阻塞的模块上使用模块惰性加载是推荐的。
 
-To ensure module registration before the server starts, we can use `await` on the deferred module.
+为确保模块在服务器启动之前注册，可以在延迟模块上使用 `await`。
 
-### Testing
-In a test environment, we can use `await app.modules` to wait for deferred and lazy-loading modules.
+### 测试
+在测试环境中，我们可以使用 `await app.modules` 来等待延迟和惰性加载模块。
 
 ```typescript
 import { describe, expect, it } from 'bun:test'
