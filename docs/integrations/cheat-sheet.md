@@ -59,7 +59,7 @@ new Elysia()
 ```
 
 ## 返回 JSON
-Elysia 自动将 JSON 转换为响应
+Elysia 自动将响应转换为 JSON
 
 查看 [Handler](/essential/handler.html)
 
@@ -78,7 +78,7 @@ new Elysia()
 ## 返回文件
 文件可以以 formdata 响应的形式返回
 
-响应必须为 1 级深度对象
+响应必须是一个 1 级深度的对象
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -266,7 +266,7 @@ new Elysia()
 ## OpenAPI 文档
 使用 Scalar (或可选的 Swagger) 创建交互式文档
 
-查看 [Documentation](/patterns/documentation)
+查看 [Documentation](/patterns/openapi)
 
 ```typescript
 import { Elysia } from 'elysia'
