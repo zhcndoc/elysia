@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 使用 Expo 应用程序路由器，你可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
+        content: With Expo App Router, you can run Elysia on Expo route. Elysia will work normally as expected thanks to WinterCG compliance.
 
     - - meta
       - property: 'og:description'
-        content: 使用 Expo 应用程序路由器，你可以在 Expo 路由上运行 Elysia。由于 WinterCG 的兼容性，Elysia 将正常工作。
+        content: With Expo App Router, you can run Elysia on Expo route. Elysia will work normally as expected thanks to WinterCG compliance.
 ---
 
 # 集成 Expo
@@ -20,6 +20,7 @@ head:
 
 1. 如果尚不存在，请创建 Expo 应用程序：
 
+1. Create an Expo app if it doesn't exist with:
 ```typescript
 bun create expo-app --template tabs
 ```
@@ -50,7 +51,7 @@ export const POST = app.handle // [!code ++]
 
 通过这种方法，你可以在单个代码库中同时放置前端和后端，并且在客户端和服务器端都使用 [Eden 实现端到端类型安全](https://elysia.zhcndoc.com/eden/overview.html)。
 
-请参阅 [API 路由](https://docs.expo.dev/router/reference/api-routes/)了解更多信息。
+With this approach, you can have co-location of both frontend and backend in a single repository and have [End-to-end type safety with Eden](https://elysiajs.com/eden/overview.html) with both client-side and server action.
 
 ## 前缀
 
@@ -62,7 +63,7 @@ export const POST = app.handle // [!code ++]
 // app/api/[...slugs]+api.ts
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia({ prefix: '/api' }) // ![code ++]
+const app = new Elysia({ prefix: '/api' })
     .get('/', () => 'hi')
     .post('/', ({ body }) => body, {
         body: t.Object({
@@ -74,16 +75,14 @@ export const GET = app.handle
 export const POST = app.handle
 ```
 
-这将确保在任何位置放置时，Elysia 路由将正常工作。
-
-## 部署
+This will ensure that Elysia routing will work properly in any location you place in.
 
 如果需要，你可以直接使用 Elysia 使用 API 路由并像正常的 Elysia 应用程序一样进行部署，或者使用[实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
 
 如果使用 Expo 服务器运行时，你可以使用 `expo export` 命令为你的 Expo 应用程序创建优化构建。这将包括一个使用 Elysia 的 Expo 函数，位于 `dist/server/_expo/functions/[...slugs]+api.js` 中。
 
 ::: tip
-请注意，Expo 函数被视为边缘函数而不是普通服务器，因此直接运行边缘函数将不会分配任何端口。
+Please note that Expo Functions are treated as Edge functions instead of normal server, so running the Edge function directly will not allocate any port.
 :::
 
 你可以使用 Expo 提供的函数适配器来部署你的边缘函数。

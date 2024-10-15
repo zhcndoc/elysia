@@ -24,7 +24,7 @@ SocketIO 是一个流行的 WebSocket 库，但不是唯一的选择。Elysia �
 
 要使用 WebSocket，只需调用 `Elysia.ws()`：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -40,7 +40,7 @@ new Elysia()
 
 与普通路由一样，WebSocket 也接受一个 **schema** 对象来严格类型化和验证请求。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -80,7 +80,7 @@ WebSocket schema 可以验证以下内容：
 
 你可以设置 Elysia 构造函数来设置 WebSocket 的值。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 new Elysia({
@@ -134,7 +134,7 @@ Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，请参阅 [Bun �
 
 示例：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const app = new Elysia()

@@ -57,7 +57,7 @@ type fetch = (request: RequestLike) => Response
 如果框架还支持**。mount** 函数，你可以深度嵌套支持它的框架。
 ```ts
 import { Elysia } from 'elysia'
-import Hono from 'hono'
+import { Hono } from 'hono'
 
 const elysia = new Elysia()
     .get('/Hello from Elysia inside Hono inside Elysia')

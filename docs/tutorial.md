@@ -151,7 +151,7 @@ We can see the result by clicking the black **Send** button.
 
 ## Decorate
 
-However, for more complex data we may want to use class for comlex data as it's allow us to define custom methods and properties.
+However, for more complex data we may want to use class for complex data as it's allow us to define custom methods and properties.
 
 Now, let's create a singleton class to store our notes.
 
@@ -1071,7 +1071,7 @@ export const user = new Elysia({ prefix: '/user' })
  // [!code ++]
             return { // [!code ++]
                 success: true, // [!code ++]
-                messaage: 'Signed out' // [!code ++]
+                message: 'Signed out' // [!code ++]
             } // [!code ++]
         }, // [!code ++]
         { // [!code ++]
@@ -1761,7 +1761,7 @@ export const user = new Elysia({ prefix: '/user' })
 
             return {
                 success: true,
-                messaage: 'Signed out'
+                message: 'Signed out'
             }
         },
         {
@@ -2652,7 +2652,7 @@ export const user = new Elysia({ prefix: '/user' })
 
             return {
                 success: true,
-                messaage: 'Signed out'
+                message: 'Signed out'
             }
         },
         {
@@ -2901,7 +2901,7 @@ export const user = new Elysia({ prefix: '/user' })
 
             return {
                 success: true,
-                messaage: 'Signed out'
+                message: 'Signed out'
             }
         },
         {

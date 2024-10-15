@@ -41,7 +41,7 @@ new Elysia()
 
 在上面的代码中，**state** 返回一个新的 **ElysiaInstance** 类型，添加了一个 `build` 类型。
 
-## ❌ 不要：不使用方法链
+### ❌ 不要：不使用方法链
 如果不使用方法链，Elysia 就不会保存这些新类型，导致没有类型推断。
 
 ```typescript twoslash

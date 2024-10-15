@@ -78,7 +78,7 @@ Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们
 }
 ```
 
-现在，你可以将 JSX 作为模板引擎使用了：
+现在，你可以将 use JSX 作为模板引擎使用了：
 ```tsx
 import { Elysia } from 'elysia'
 import { html, Html } from '@elysiajs/html' // [!code ++]

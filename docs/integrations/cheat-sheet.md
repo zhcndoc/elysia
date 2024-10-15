@@ -105,7 +105,7 @@ new Elysia()
     .get('/', ({ set, error }) => {
         set.headers['x-powered-by'] = 'Elysia'
 
-        return error(418, "I'm teapod")
+        return error(418, "I'm a teapot")
     })
     .listen(3000)
 ```
@@ -113,7 +113,7 @@ new Elysia()
 ## 分组
 为子路由一次定义前缀
 
-查看 [Group](/patterns/group.html)
+查看 [Group](/essential/route.html#group)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -132,7 +132,7 @@ new Elysia()
 ## Schema
 强制路由的数据类型
 
-查看 [Schema](/essential/schema.html)
+查看 [Validation](/essential/validation)
 
 ```typescript
 import { Elysia, t } from 'elysia'

@@ -379,7 +379,7 @@ new Elysia()
 
 ## Handle
 
-由于 Elysia 构建在 Web 标准请求之上，我们可以使用 `Elysia.handle` 程序化地测试它。
+由于 Elysia 基于 Web 标准请求构建，我们可以使用 `Elysia.handle` 进行程序化测试。
 
 ```typescript
 import { Elysia } from 'elysia'

@@ -39,95 +39,10 @@ new Elysia()
 
 ![Jaeger 显示自动收集的跟踪](/blog/elysia-11/jaeger.webp)
 
-Elysia OpenTelemetry 将 **收集任何遵循 OpenTelemetry 标准的库的 span**，并自动应用父 span 和子 span。
+Elysia OpenTelemetry is will **collect span of any library compatible OpenTelemetry standard**, and will apply parent and child span automatically.
 
-在上面的代码中，我们应用了 `Prisma` 来追踪每个查询花费了多长时间。
-
-通过应用 OpenTelemetry，Elysia 将：
-- 收集遥测数据
-- 将相关生命周期分组在一起
-- 测量每个函数花费的时间
-- 仪器 HTTP 请求和响应
-- 收集错误和异常
-
-你可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或其他任何兼容 OpenTelemetry 的后端。
-
-![Axiom 显示从 OpenTelemetry 收集的跟踪](/blog/elysia-11/axiom.webp)
-
-这里是将遥测数据导出到 [Axiom](https://axiom.co) 的一个示例：
-```typescript
-import { Elysia } from 'elysia'
-import { opentelemetry } from '@elysiajs/opentelemetry'
-
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
-
-new Elysia()
-	.use(
-		opentelemetry({
-			spanProcessors: [
-				new BatchSpanProcessor(
-					new OTLPTraceExporter({
-						url: 'https://api.axiom.co/v1/traces', // [!code ++]
-						headers: { // [!code ++]
-						    Authorization: `Bearer ${Bun.env.AXIOM_TOKEN}`, // [!code ++]
-						    'X-Axiom-Dataset': Bun.env.AXIOM_DATASET // [!code ++]
-						} // [!code ++]
-					})
-				)
-			]
-		})
-	)
-```
-
-## OpenTelemetry SDK
-Elysia OpenTelemetry 仅适用于将 OpenTelemetry 应用于 Elysia 服务器。
-
-你可以正常使用 OpenTelemetry SDK，span 在 Elysia 的请求 span 下运行，它会自动出现在 Elysia 的跟踪中。
-
-然而，我们也提供了一个 `getTracer` 和 `record` 实用程序，用于从应用程序的任何部分收集 span。
-
-```typescript
-import { Elysia } from 'elysia'
-import { record } from '@elysiajs/opentelemetry'
-
-export const plugin = new Elysia()
-	.get('', () => {
-		return record('database.query', () => {
-			return db.query('SELECT * FROM users')
-		})
-	})
-```
-
-## 记录实用程序
-`record` 相当于 OpenTelemetry 的 `startActiveSpan`，但会自动处理关闭和捕获异常。
-
-你可以将 `record` 视为代码的一个标签，它将在跟踪中显示。
-
-### 为可观测性准备你的代码库
-Elysia OpenTelemetry 将每个钩子的生命周期分组在一起，并读取每个钩子 **函数名** 作为 span 的名字。
-
-这是一个命名你的函数的好时机。
-
-如果你的钩子处理程序是一个箭头函数，你可以将其重构为命名函数，以便更好地理解跟踪，否则，你的跟踪 span 将命名为 `anonymous`。
-
-```typescript
-const bad = new Elysia()
-	// ⚠️ span name will be anonymous
-	.derive(async ({ cookie: { session } }) => {
-		return {
-			user: await getProfile(session)
-		}
-	})
-
-const good = new Elysia()
-	// ✅ span name will be getProfile
-	.derive(async function getProfile({ cookie: { session } }) {
-		return {
-			user: await getProfile(session)
-		}
-	})
-```
+## Usage
+See [opentelemetry](/recipe/opentelemetry) for usage and utilities
 
 ## 配置
 此插件扩展了 OpenTelemetry SDK 参数选项。
