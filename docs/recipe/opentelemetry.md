@@ -1,22 +1,22 @@
 ---
-title: OpenTelemetry Plugin - ElysiaJS
+title: OpenTelemetry 插件 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: OpenTelemetry Plugin - ElysiaJS
+      content: OpenTelemetry 插件 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Plugin for Elysia that adds support for OpenTelemetry. Start by installing the plugin with "bun add @elysiajs/opentelemetry".
+      content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
 
   - - meta
     - name: 'og:description'
-      content: Plugin for Elysia that adds support for OpenTelemetry. Start by installing the plugin with "bun add @elysiajs/opentelemetry".
+      content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
 ---
 
 # OpenTelemetry
 
-To start using OpenTelemetry, install `@elysiajs/opentelemetry` and apply plugin to any instance.
+要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任何实例。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -37,24 +37,24 @@ new Elysia()
 	)
 ```
 
-![jaeger showing collected trace automatically](/blog/elysia-11/jaeger.webp)
+![jaeger 显示收集到的跟踪信息](/blog/elysia-11/jaeger.webp)
 
-Elysia OpenTelemetry is will **collect span of any library compatible OpenTelemetry standard**, and will apply parent and child span automatically.
+Elysia OpenTelemetry 将 **收集与 OpenTelemetry 标准兼容的任何库的 span**，并会自动应用父子 span。
 
-In the code above, we apply `Prisma` to trace how long each query took.
+在上面的代码中，我们应用 `Prisma` 来跟踪每个查询所花费的时间。
 
-By applying OpenTelemetry, Elysia will then:
-- collect telemetry data
-- Grouping relevant lifecycle together
-- Measure how long each function took
-- Instrument HTTP request and response
-- Collect error and exception
+通过应用 OpenTelemetry，Elysia 将：
+- 收集遥测数据
+- 将相关生命周期分组
+- 测量每个函数所花费的时间
+- 对 HTTP 请求和响应进行仪器化
+- 收集错误和异常
 
-You may export telemetry data to Jaeger, Zipkin, New Relic, Axiom or any other OpenTelemetry compatible backend.
+您可以将遥测数据导出到 Jaeger、Zipkin、New Relic、Axiom 或任何其他与 OpenTelemetry 兼容的后端。
 
-![axiom showing collected trace from OpenTelemetry](/blog/elysia-11/axiom.webp)
+![axiom 显示收集到的 OpenTelemetry 跟踪信息](/blog/elysia-11/axiom.webp)
 
-Here's an example of exporting telemetry to [Axiom](https://axiom.co)
+以下是将遥测数据导出到 [Axiom](https://axiom.co) 的示例
 ```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
@@ -81,11 +81,11 @@ new Elysia()
 ```
 
 ## OpenTelemetry SDK
-Elysia OpenTelemetry is for applying OpenTelemetry to Elysia server only.
+Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用到 Elysia 服务器。
 
-You may use OpenTelemetry SDK normally, and the span is run under Elysia's request span, it will be automatically appear in Elysia trace.
+您可以正常使用 OpenTelemetry SDK，并且 span 在 Elysia 的请求 span 下运行，它将自动出现在 Elysia 的跟踪中。
 
-However, we also provide a `getTracer`, and `record` utility to collect span from any part of your application.
+然而，我们也提供 `getTracer` 和 `record` 实用工具，以便从您应用的任何部分收集 span。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -99,21 +99,21 @@ export const plugin = new Elysia()
 	})
 ```
 
-## Record utility
-`record` is an equivalent to OpenTelemetry's `startActiveSpan` but it will handle auto-closing and capture exception automatically.
+## Record 实用工具
+`record` 相当于 OpenTelemetry 的 `startActiveSpan`，但它将自动处理关闭并捕获异常。
 
-You may think of `record` as a label for your code that will be shown in trace.
+您可以将 `record` 看作是您的代码的标签，这将在跟踪中显示。
 
-### Prepare your codebase for observability
-Elysia OpenTelemetry will group lifecycle and read the **function name** of each hook as the name of the span.
+### 为可观察性准备您的代码库
+Elysia OpenTelemetry 将分组生命周期并读取每个钩子的 **函数名称** 作为 span 的名称。
 
-It's a good time to **name your function**.
+现在是 **命名您的函数** 的好时机。
 
-If your hook handler is an arrow function, you may refactor it to named function to understand the trace better otherwise, your trace span will be named as `anonymous`.
+如果您的钩子处理程序是一个箭头函数，您可以将其重构为命名函数，以便更好地理解跟踪，否则，您的跟踪 span 将被命名为 `anonymous`。
 
 ```typescript
 const bad = new Elysia()
-	// ⚠️ span name will be anonymous
+	// ⚠️ span 名称将是匿名的
 	.derive(async ({ cookie: { session } }) => {
 		return {
 			user: await getProfile(session)
@@ -121,7 +121,7 @@ const bad = new Elysia()
 	})
 
 const good = new Elysia()
-	// ✅ span name will be getProfile
+	// ✅ span 名称将是 getProfile
 	.derive(async function getProfile({ cookie: { session } }) {
 		return {
 			user: await getProfile(session)
@@ -130,7 +130,7 @@ const good = new Elysia()
 ```
 
 ## getCurrentSpan
-`getCurrentSpan` is a utility to get the current span of the current request when you are outside of the handler.
+`getCurrentSpan` 是一个实用工具，用于在处理程序外部获取当前请求的当前 span。
 
 ```typescript
 import { getCurrentSpan } from '@elysiajs/opentelemetry'
@@ -143,10 +143,10 @@ function utility() {
 }
 ```
 
-This works outside of the handler by retriving current span from `AsyncLocalStorage`
+这在处理程序外部通过从 `AsyncLocalStorage` 获取当前 span 而工作。
 
 ## setAttribute
-`setAttribute` is a utility to set attribute to the current span.
+`setAttribute` 是一个用于将属性设置为当前 span 的实用工具。
 
 ```typescript
 import { setAttribute } from '@elysiajs/opentelemetry'
@@ -156,7 +156,7 @@ function utility() {
 }
 ```
 
-This is a syntax sugar for `getCurrentSpan().setAttributes`
+这是 `getCurrentSpan().setAttributes` 的语法糖。
 
-## Configuration
-See [opentelemetry plugin](/plugins/opentelemetry) for configuration option and definition.
+## 配置
+请查看 [opentelemetry 插件](/plugins/opentelemetry) 以获取配置选项和定义。

@@ -1,19 +1,19 @@
 ---
-title: Elysia - Ergonomic Framework for Humans
+title: Elysia - 人体工程学框架
 layout: page
 sidebar: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia - Ergonomic Framework for Humans
+        content: Elysia - 人体工程学框架
 
     - - meta
       - name: 'description'
-        content: Elysia is an ergonomic framework for Humans. With end-to-end type safety and great developer experience. Elysia is familiar, fast, and first class TypeScript support with well-thought integration between services whether it's tRPC, Swagger or WebSocket. Elysia got you covered, start building next generation TypeScript web servers today.
+        content: Elysia 是一个为人类设计的人体工程学框架。具有端到端的类型安全性和卓越的开发者体验。Elysia 既熟悉又快速，支持一流的 TypeScript，并在 tRPC、Swagger 或 WebSocket 等服务之间进行了良好的集成。Elysia 能满足您的需求，立即开始构建下一代 TypeScript 网络服务器吧。
 
     - - meta
       - property: 'og:description'
-        content: Elysia is an ergonomic framework for Humans. With end-to-end type safety and great developer experience. Elysia is familiar, fast, and first class TypeScript support with well-thought integration between services whether it's tRPC, Swagger or WebSocket. Elysia got you covered, start building next generation TypeScript web servers today.
+        content: Elysia 是一个为人类设计的人体工程学框架。具有端到端的类型安全性和卓越的开发者体验。Elysia 既熟悉又快速，支持一流的 TypeScript，并在 tRPC、Swagger 或 WebSocket 等服务之间进行了良好的集成。Elysia 能满足您的需求，立即开始构建下一代 TypeScript 网络服务器吧。
 ---
 
 <script setup>
@@ -27,7 +27,7 @@ head:
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', 'Hello World')
+    .get('/', '你好，世界')
     .get('/json', {
         hello: 'world'
     })
@@ -46,7 +46,7 @@ import { Elysia, t } from 'elysia'
 new Elysia()
     .post(
         '/profile',
-        // ↓ hover me ↓
+        // ↓ 悬停我 ↓
         ({ body }) => body,
         {
             body: t.Object({
@@ -66,7 +66,7 @@ new Elysia()
 import { Elysia } from 'elysia'
 
 export const users = new Elysia()
-    .get('/users', 'Dreamy Euphony')
+    .get('/users', '梦幻的谐音')
 
 export const feed = new Elysia()
     .get('/feed', ['Hoshino', 'Griseo', 'Astro'])
@@ -98,7 +98,7 @@ const app = new Elysia()
         '/user/profile',
         ({ body, error }) => {
             if(body.age < 18) 
-                return error(400, "Oh no")
+                return error(400, "哦不")
 
             if(body.name === 'Nagisa')
                 return error(418)
@@ -130,7 +130,7 @@ const app = new Elysia()
         '/user/profile',
         ({ body, error }) => {
             if(body.age < 18) 
-                return error(400, "Oh no")
+                return error(400, "哦不")
 
             if(body.name === 'Nagisa')
                 return error(418)

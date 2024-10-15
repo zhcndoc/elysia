@@ -1,35 +1,35 @@
 ---
-title: Trace
+title: Trace - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Trace - Elysia 中文文档
+        content: Trace - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Trace 是一个用于测量服务器性能的 API。它允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
+        content: Trace 是一个用于测量服务器性能的 API。它使我们能够与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 
     - - meta
       - name: 'og:description'
-        content: Trace 是一个用于测量服务器性能的 API。它允许我们与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
+        content: Trace 是一个用于测量服务器性能的 API。它使我们能够与每个生命周期事件的持续时间进行交互，并测量每个函数的性能，以识别服务器的性能瓶颈。
 ---
 
-# 追踪
+# Trace
 
-性能是 Elysia 的重要方面。
+性能是 Elysia 一个重要的方面。
 
-我们不仅仅希望在基准测试中快速，更希望你在实际场景中拥有一个真正快速的服务器。
+我们不仅希望在基准测试中快速运行，我们希望您在真实场景中拥有一个真正快速的服务器。
 
-有很多因素可能会减慢我们的应用 - 很难识别它们，但 **trace** 可以帮助解决这个问题，通过为每个生命周期注入开始和停止代码。
+有许多因素可能会减慢我们的应用程序 - 并且很难识别它们，但 **trace** 可以通过在每个生命周期中注入开始和停止代码来帮助解决这个问题。
 
-Trace 允许我们为每个生命周期事件的开始和结束注入代码，块和交互函数的执行。
+Trace 允许我们在每个生命周期事件的前后注入代码，从而阻止并与函数的执行进行交互。
 
-## 追踪
-Trace 使用回调监听器来确保在继续到下一个生命周期事件之前回调函数已经完成。
+## Trace
+Trace 使用回调监听器以确保回调函数在移动到下一个生命周期事件之前完成。
 
-要使用 `trace`，你需要在 Elysia 实例上调用 `trace` 方法，并传递一个回调函数，该函数将为每个生命周期事件执行。
+要使用 `trace`，您需要在 Elysia 实例上调用 `trace` 方法，并传递一个将在每个生命周期事件中执行的回调函数。
 
-你可以通过添加 `on` 前缀和生命周期名称来监听每个生命周期，例如使用 `onHandle` 来监听 `handle` 事件。
+您可以通过在生命周期名称前添加 `on` 前缀来监听每个生命周期，例如 `onHandle` 以监听 `handle` 事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -46,14 +46,14 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-请参考 [Life Cycle Events](/essential/life-cycle#events) 获取更多信息：
+有关更多信息，请参见 [生命周期事件](/essential/life-cycle#events)：
 
-![Elysia Life Cycle](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle.webp)
 
-## 子项
-除了 `handle` 之外，每个事件都有子项，这是在每个生命周期事件中执行的事件的数组。
+## 子事件
+每个事件除了 `handle` 之外都有一个子事件，这是在每个生命周期事件内部执行的事件数组。
 
-你可以使用 `onEvent` 按顺序监听每个子事件。
+您可以使用 `onEvent` 来按顺序监听每个子事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -64,11 +64,11 @@ const sleep = (time = 1000) =>
 const app = new Elysia()
     .trace(async ({ onBeforeHandle }) => {
         onBeforeHandle(({ total, onEvent }) => {
-            console.log('total children:', total)
+            console.log('总子事件:', total)
 
             onEvent(({ onStop }) => {
                 onStop(({ elapsed }) => {
-                    console.log('child took', elapsed, 'ms')
+                    console.log('子事件耗时', elapsed, 'ms')
                 })
             })
         })
@@ -84,12 +84,12 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-在这个例子中，total children 将会是 `2`，因为在 `beforeHandle` 事件中有 2 个子事件。
+在此示例中，总子事件将为 `2`，因为在 `beforeHandle` 事件中有 2 个子事件。
 
-然后我们通过使用 `onEvent` 监听每个子事件，并打印每个子事件的持续时间。
+然后，我们使用 `onEvent` 监听每个子事件，并打印每个子事件的持续时间。
 
-## 追踪参数
-当每个生命周期被调用时
+## Trace 参数
+每个生命周期被调用时
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -106,13 +106,13 @@ const app = new Elysia()
 `trace` 接受以下参数：
 
 ### id - `number`
-为每个请求随机生成的唯一 ID
+为每个请求随机生成的唯一 id
 
 ### context - `Context`
-Elysia 的 [Context](/essential/context)，例如 `set`, `store`, `query, `params`
+Elysia 的 [上下文](/essential/context)，例如 `set`、`store`、`query`、`params`
 
 ### set - `Context.set`
-`context.set` 的快捷方式，用于设置 headers 或 context 的状态
+`context.set` 的快捷方式，用于设置上下文的头部或状态
 
 ### store - `Singleton.store`
 `context.store` 的快捷方式，用于访问上下文中的数据
@@ -121,20 +121,20 @@ Elysia 的 [Context](/essential/context)，例如 `set`, `store`, `query, `param
 请求被调用的时间戳
 
 ### on[Event] - `TraceListener`
-每个生命周期事件的监听器。
+每个生命周期事件的事件监听器。
 
-你可以监听以下生命周期：
--   **onRequest** - 每次新请求都会通知
--   **onParse** - 用于解析 body 的函数数组
+您可以监听以下生命周期：
+-   **onRequest** - 通知每个新请求
+-   **onParse** - 用于解析主体的函数数组
 -   **onTransform** - 在验证之前转换请求和上下文
--   **onBeforeHandle** - 在处理主处理器之前检查自定义要求，如果返回响应，可以跳过主处理器。
+-   **onBeforeHandle** - 在主处理器之前检查的自定义要求，可以在返回响应时跳过主处理器。
 -   **onHandle** - 分配给路径的函数
--   **onAfterHandle** - 在将响应发送回客户端之前与响应交互
--   **onMapResponse** - 将返回值映射到 Web Standard Response
+-   **onAfterHandle** - 在将响应发回客户端之前与响应进行交互
+-   **onMapResponse** - 将返回值映射到 Web 标准响应
 -   **onError** - 处理在处理请求期间抛出的错误
--   **onAfterResponse** - 发送响应后的清理函数
+-   **onAfterResponse** - 在响应发送之后的清理函数
 
-## 追踪侦听器
+## Trace 监听器
 每个生命周期事件的监听器
 
 ```ts twoslash
@@ -152,22 +152,22 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-每个生命周期监听器接受以下参数：
+每个生命周期监听器接受以下内容
 
 ### name - `string`
-函数的名称，如果函数是匿名的，名称将是 `anonymous`
+函数的名称，如果函数是匿名的，则名称将为 `anonymous`
 
 ### begin - `number`
-函数开始的时间
+函数开始执行的时间
 
 ### end - `Promise<number>`
-函数结束的时间，将在函数结束时解析
+函数结束时的时间，当函数结束时将解析
 
 ### error - `Promise<Error | null>`
 在生命周期中抛出的错误，将在函数结束时解析
 
 ### onStop - `callback?: (detail: TraceEndDetail) => any`
-一个回调，将在生命周期结束后执行
+在生命周期结束时将执行的回调
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -184,16 +184,16 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-建议在这个函数中修改上下文，因为存在锁定机制，以确保在继续到下一个生命周期事件之前上下文成功修改。
+建议在此函数中修改上下文，因为有一个锁机制以确保上下文在移动到下一个生命周期事件之前成功修改。
 
-## 追踪结束
+## TraceEndDetail
 传递给 `onStop` 回调的参数
 
 ### end - `number`
-函数结束的时间
+函数结束时的时间
 
 ### error - `Error | null`
 在生命周期中抛出的错误
 
 ### elapsed - `number`
-生命周期或 `end - begin` 的持续时间
+生命周期的经过时间或 `end - begin`

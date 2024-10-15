@@ -180,10 +180,9 @@ export default defineConfig({
         sidebar: [
             {
                 text: '入门',
-                collapsed: true,
                 items: [
                     {
-                        text: '简介',
+                        text: '概览',
                         link: '/at-glance'
                     },
                     {
@@ -191,11 +190,11 @@ export default defineConfig({
                         link: '/quick-start'
                     },
                     {
-                        text: 'Tutorial',
+                        text: '教程',
                         link: '/tutorial'
                     },
                     {
-                        text: 'Table of Content',
+                        text: '目录',
                         link: '/table-of-content'
                     }
                 ]
@@ -205,23 +204,23 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Structure',
+                        text: '结构',
                         link: '/essential/structure'
                     },
                     {
-                        text: 'Route',
+                        text: '路由',
                         link: '/essential/route'
                     },
                     {
-                        text: 'Handler',
+                        text: '处理器',
                         link: '/essential/handler'
                     },
                     {
-                        text: 'Life Cycle',
+                        text: '生命周期',
                         link: '/essential/life-cycle'
                     },
                     {
-                        text: 'Validation',
+                        text: '验证',
                         link: '/essential/validation'
                     },
                     {
@@ -235,7 +234,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Configuration',
+                        text: '配置',
                         link: '/patterns/configuration'
                     },
                     {
@@ -255,13 +254,13 @@ export default defineConfig({
                         link: '/patterns/mount'
                     },
                     {
-                        text: 'Trace',
+                        text: '跟踪',
                         link: '/patterns/trace'
                     }
                 ]
             },
             {
-                text: 'Recipe',
+                text: '解决方案',
                 collapsed: true,
                 items: [
                     {
@@ -279,7 +278,7 @@ export default defineConfig({
                     {
                         text: 'React Email',
                         link: '/recipe/react-email'
-                    },
+                    }
                 ]
             },
             {
@@ -295,7 +294,7 @@ export default defineConfig({
                         link: '/eden/installation.md'
                     },
                     {
-                        text: 'Eden Treaty',
+                        text: 'Eden 协议',
                         collapsed: false,
                         items: [
                             {
@@ -323,7 +322,7 @@ export default defineConfig({
                                 link: '/eden/treaty/unit-test'
                             },
                             {
-                                text: 'Legacy (Treaty 1)',
+                                text: '旧版（协议 1）',
                                 link: '/eden/treaty/legacy.md'
                             }
                         ]
@@ -339,7 +338,7 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        text: 'Overview',
+                        text: '概述',
                         link: '/plugins/overview'
                     },
                     {
@@ -375,11 +374,11 @@ export default defineConfig({
                         link: '/plugins/opentelemetry'
                     },
                     {
-                        text: 'Server Timing',
+                        text: '服务器计时',
                         link: '/plugins/server-timing'
                     },
                     {
-                        text: 'Static',
+                        text: '静态',
                         link: '/plugins/static'
                     },
                     {

@@ -1,23 +1,23 @@
 ---
-title: tRPC Plugin
+title: tRPC 插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: tRPC Plugin - Elysia 中文文档
+        content: tRPC 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Plugin for Elysia that adds support for using tRPC on Bun with Elysia Server. Start by installing the plugin with "bun add @elysiajs/trpc".
+        content: 为 Elysia 提供的插件，支持在 Bun 上使用 tRPC 与 Elysia 服务器。首先通过 "bun add @elysiajs/trpc" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds support for using tRPC on Bun with Elysia Server. Start by installing the plugin with "bun add @elysiajs/trpc".
+        content: 为 Elysia 提供的插件，支持在 Bun 上使用 tRPC 与 Elysia 服务器。首先通过 "bun add @elysiajs/trpc" 安装插件。
 ---
 
 # tRPC 插件
-此插件添加了对 [tRPC](https://trpc.io/) 的支持
+该插件支持使用 [tRPC](https://trpc.io/)
 
-安装插件：
+安装方式：
 ```bash
 bun add @elysiajs/trpc @trpc/server @elysiajs/websocket 
 ```
@@ -56,7 +56,7 @@ trpc(router: Router, option?: {
 }): this
 ```
 
-`Router` 是 TRPC 路由器的实例。
+`Router` 是 TRPC 路由器实例。
 
 ### endpoint
-公开的 TRPC 终点的路径。
+暴露的 TRPC 端点路径。

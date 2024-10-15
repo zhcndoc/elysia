@@ -1,28 +1,28 @@
 ---
-title: Elysia 0.5 - 光芒万丈
+title: Elysia 0.5 - Radiant
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: 介绍 Elysia 0.5 - 光芒万丈
+        content: 介绍 Elysia 0.5 - Radiant
 
     - - meta
       - name: 'description'
-        content: 介绍静态代码分析、新路由器 "Memoirist"、TypeBox 0.28、数值类型、内联模式、状态/装饰/模型/组重构，以及类型稳定性。
+        content: 介绍静态代码分析、新路由 "Memoirist"、TypeBox 0.28、数字类型、内联模式、状态/装饰/模型/组重构，以及类型稳定性。
 
     - - meta
       - property: 'og:description'
-        content: 介绍静态代码分析、新路由器 "Memoirist"、TypeBox 0.28、数值类型、内联模式、状态/装饰重构、以及类型稳定性。
+        content: 介绍静态代码分析、新路由 "Memoirist"、TypeBox 0.28、数字类型、内联模式、状态/装饰重构，以及类型稳定性。
 
     - - meta
       - property: 'og:image'
-        content: https://elysia.zhcndoc.com/blog/elysia-05/radiant.webp
+        content: https://elysiajs.com/blog/elysia-05/radiant.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysia.zhcndoc.com/blog/elysia-05/radiant.webp
+        content: https://elysiajs.com/blog/elysia-05/radiant.webp
 ---
 
 <script setup>
@@ -30,25 +30,25 @@ head:
 </script>
 
 <Blog
-    title="Elysia 0.5 - 光芒万丈"
+    title="Elysia 0.5 - Radiant"
     src="/blog/elysia-05/radiant.webp"
-    alt="光芒万丈"
+    alt="Radiant"
     author="saltyaom"
     date="2023 年 5 月 15 日"
 >
 
-以 Arknights 的原创音乐 “[光芒万丈](https://youtu.be/QhUjD--UUV4)” 为名，由 Monster Sirent Records 创作。
+这是以 Arknights 原作音乐「[Radiant](https://youtu.be/QhUjD--UUV4)」为名，由 Monster Sirent Records 作曲。
 
-光芒万丈推动了性能边界的发展，尤其是类型和动态路由方面的稳定性提升。
+Radiant 推动了性能的边界，特别是在类型和动态路由的稳定性改进方面。
 
 ## 静态代码分析
-在 Elysia 0.4 引入了 Ahead of Time 编译后，Elysia 得以优化函数调用并消除之前存在的许多开销。
+随着 Elysia 0.4 引入的提前编译，使得 Elysia 能够优化函数调用并消除我们之前的许多开销。
 
-今天，我们扩展了 Ahead of Time 编译，使其通过静态代码分析变得更快，成为 Bun 框架中最快的。
+今天，我们将提前编译扩展为更快的静态代码分析，成为最快的 Bun 网络框架。
 
-静态代码分析使 Elysia 能够读取你的函数、处理程序、生命周期和模式，然后尝试调整获取处理程序以提前编译，并消除任何未使用的代码，同时在可能的情况下进行优化。
+静态代码分析允许 Elysia 读取您的函数、处理程序、生命周期和模式，然后尝试调整提取处理程序，提前编译处理程序，消除任何未使用的代码并在可能的地方进行优化。
 
-例如，如果你使用 `schema` 并定义了对象类型的主体，Elysia 期望该路由是 JSON 优先，并将主体解析为 JSON，而不是依赖于内容类型头的动态检查：
+例如，如果您使用 `schema` 并且主体类型为对象，Elysia 期望该路由是 JSON 优先的，并将主体解析为 JSON，而不是依赖于内容类型头的动态检查：
 
 ```ts
 app.post('/sign-in', ({ body }) => signIn(body), {
@@ -61,16 +61,16 @@ app.post('/sign-in', ({ body }) => signIn(body), {
 })
 ```
 
-这允许我们提高主体解析的性能近 2.5 倍。
+这使我们能够将主体解析的性能提高近 2.5 倍。
 
-通过静态代码分析，Elysia 不依赖于猜测你是否将使用昂贵的属性。
+通过静态代码分析，不再依赖于猜测您是否会使用昂贵的属性。
 
-Elysia 可以读取你的代码并检测你将使用的内容，然后提前调整以适应你的需求。
+Elysia 可以读取您的代码并检测您将使用什么，并提前调整以适应您的需求。
 
-这意味着如果你没有使用昂贵的属性，如 `query` 或 `body`，Elysia 将完全跳过解析以提高性能。
+这意味着如果您没有使用像 `query` 或 `body` 这样的昂贵属性，Elysia 将完全跳过解析，以提高性能。
 
 ```ts
-// Body is not used, skip body parsing
+// 身体未使用，跳过身体解析
 app.post('/id/:id', ({ params: { id } }) => id, {
     schema: {
         body: t.Object({
@@ -81,44 +81,44 @@ app.post('/id/:id', ({ params: { id } }) => id, {
 })
 ```
 
-通过静态代码分析和 Ahead of Time 编译，你可以放心地知道 Elysia 非常擅长阅读你的代码并自动调整以最大化性能。
+通过静态代码分析和提前编译，您可以放心，Elysia 非常擅长读取您的代码并自动调整以最大化性能。
 
-静态代码分析允许我们提高 Elysia 的性能，远远超出了我们的想象，以下是一些显著的改进：
-- 总体性能提升约 15%
-- 静态路由速度提升 33%
-- 空查询解析速度提升 50%
-- 严格类型主体解析速度提升 100%
-- 空主体解析速度提升 150%
+静态代码分析使得我们能够提升 Elysia 性能，超出我们想象，以下是显著的改进：
+- 整体提高约 15%
+- 静态路由加速约 33%
+- 空查询解析加速约 50%
+- 严格类型主体解析加速约 100%
+- 空主体解析加速约 150%
 
-通过这些改进，我们能够超越 **Stricjs** 的性能，与 Elysia 0.5.0-beta.0 和 Stricjs 2.0.4 相比。
+凭借这一改进，我们能够在性能上超越 **Stricjs**，比较 Elysia 0.5.0-beta.0 和 Stricjs 2.0.4。
 
-我们计划在未来的研究论文中详细解释这个话题，以及我们如何通过静态代码分析提高性能。
+我们打算在将来以研究论文的形式详细解释此主题及我们如何通过静态代码分析提高性能。
 
-## 新路由器，“Memoirist”
+## 新路由 "Memoirist"
 
-自 0.2 版以来，我们一直在构建自己的路由器 Raikiri。
+自 0.2 起，我们一直在构建自己的路由器 "Raikiri"。
 
-Raikiri 满足了它的目的，它是基于基本原理被快速构建的，使用了我们的自定义 Radix 树实现。
+Raikiri 达到了它的目的，它是基于我们自定义的径向树实现，从零开始构建以实现快速。
 
-但随着我们的进步，我们发现 Raikiri 在 Radix 树的重新认知方面表现不佳，这导致了开发者报告了许多错误，特别是动态路由问题，这些问题通常通过重新排列路由来解决。
+但随着我们的进步，我们发现 Raikiri 在复杂的径向树重整方面表现不佳，这导致开发人员报告了许多错误，尤其是在动态路由方面，这通常可以通过重新排列路由解决。
 
-我们理解这一点，并修补了 Raikiri 中的 Radix 树重新认知算法的许多方面，但我们的算法很复杂，随着我们对路由器的补丁越来越多，它不再符合我们的目的。
+我们理解，并修补了 Raikiri 径向树重整算法的许多领域，但我们的算法很复杂，修补路由后变得越来越昂贵，直到它不再适合我们的目的。
 
-这就是为什么我们引入了一个新的路由器，“Memoirist”。
+这就是我们引入新路由 "Memoirist" 的原因。
 
-Memoirist 是一个稳定的 Radix 树路由器，它基于 Medley Router 的算法快速处理动态路径，同时在静态方面利用 Ahead of Time 编译。
+Memoirist 是一个稳定的 RaixTree 路由器，能够快速处理基于 Medley Router 算法的动态路径，而在静态方面则利用了提前编译的优势。
 
-在这个版本中，我们将从 Raikiri 迁移到 Memoirist，以提高稳定性和路径映射速度。
+随着此次发布，我们将从 Raikiri 迁移到 Memoirist，以提高稳定性并获得比 Raikiri 更快的路径映射。
 
-我们希望你遇到的任何 Raikiri 问题都将通过 Memoirist 得到解决，我们鼓励你尝试使用它。
+我们希望您在使用 Raikiri 时遇到的任何问题都能通过 Memoirist 得到解决，并鼓励您进行尝试。
 
 ## TypeBox 0.28
 
-TypeBox 是 Elysia 严格类型系统的核心库，也称为 **Elysia.t**。
+TypeBox 是一个核心库，支持 Elysia 的严格类型系统，称为 **Elysia.t**。
 
-在这个更新中，我们将 TypeBox 从 0.26 更新到 0.28，以提供更细致的类型系统，接近严格类型的语言。
+在此次更新中，我们将 TypeBox 从 0.26 更新到 0.28，以使类型系统更加精细，接近严格的类型语言。
 
-我们更新了 Typebox，以改进 Elysia 的类型系统，以匹配 TypeScript 的新版本，如**常量泛型**。
+我们更新了 TypeBox，以改进 Elysia 类型系统，以匹配新 TypeBox 功能以及与新版本 TypeScript 的兼容性，如 **Constant Generic**。
 
 ```ts
 new Elysia()
@@ -133,27 +133,27 @@ new Elysia()
             ])
         ])
     )
-    // Strictly check for template literal
+    // 严格检查模板字面量
     .get('/', ({ version }) => version)
 ```
 
-这允许我们严格检查模板文字，或者字符串/数字的模式，以在开发和运行时同时验证你的需求。
+这使我们能够严格检查模板字面量或字符串/数字的模式，以同时在运行时和开发过程中进行验证。
 
-### Ahead of Time & Type System
+### 提前编译与类型系统
 
-通过 Ahead of Time 编译，Elysia 可以调整自己以优化和匹配定义的类型，以减少开销。
+通过提前编译，Elysia 可以调整自身以优化并匹配定义的模式类型，以减少开销。
 
-这就是为什么我们引入了一种新的类型，**URLEncoded**。
+这就是我们引入了一种新类型 **URLEncoded** 的原因。
 
-正如我们之前提到的，Elysia 现在可以基于主体的模式类型来解析主体，减少开销。
+正如之前提到的，Elysia 现在可以利用模式并在提前进行优化，主体解析是 Elysia 中更昂贵的领域之一，因此我们引入了一种专门用于解析主体的类型，如 URLEncoded。
 
 默认情况下，Elysia 将根据主体的模式类型解析主体，如下所示：
 - t.URLEncoded -> `application/x-www-form-urlencoded`
 - t.Object -> `application/json`
 - t.File -> `multipart/form-data`
-- the rest -> `text/plain`
+- 其余 -> `text/plain`
 
-但是，你可以使用 `type` 来显式告诉 Elysia 以特定的方法解析主体，如下所示：
+但是，您可以明确告诉 Elysia 使用特定方法解析主体，如下所示：
 ```ts
 app.post('/', ({ body }) => body, {
     type: 'json'
@@ -163,13 +163,13 @@ app.post('/', ({ body }) => body, {
 `type` 可以是以下之一：
 ```ts
 type ContentType = |
-    // Shorthand for 'text/plain'
+    // 'text/plain' 的简写
     | 'text'
-    // Shorthand for 'application/json'
+    // 'application/json' 的简写
     | 'json'
-    // Shorthand for 'multipart/form-data'
+    // 'multipart/form-data' 的简写
     | 'formdata'
-    // Shorthand for 'application/x-www-form-urlencoded'\
+    // 'application/x-www-form-urlencoded' 的简写
     | 'urlencoded'
     | 'text/plain'
     | 'application/json'
@@ -177,14 +177,14 @@ type ContentType = |
     | 'application/x-www-form-urlencoded'
 ```
 
-你可以在概念的[显式主体](/life-cycle/parse.html#explicit-body)页面上找到更多细节。
+您可以在概念中的 [explicit body](/life-cycle/parse.html#explicit-body) 页面中找到更多详细信息。
 
-### 数值类型
-我们发现开发者在使用 Elysia 时，最常遇到的问题之一是解析数值字符串。
+### 数字类型
+我们发现开发人员在使用 Elysia 时经常会遇到冗余的任务，即解析数字字符串。
 
-这就是我们引入了一个新的**数值**类型。
+因此，我们引入了一种新的 **Numeric** 类型。
 
-在 Elysia 0.4 中，要解析数值字符串，我们需要使用 `transform` 来手动解析字符串。
+在 Elysia 0.4 中，解析数字字符串时，我们需要使用 `transform` 手动解析字符串：
 ```ts
 app.get('/id/:id', ({ params: { id } }) => id, {
     schema: {
@@ -201,11 +201,11 @@ app.get('/id/:id', ({ params: { id } }) => id, {
 })
 ```
 
-我们发现这一步是多余的，充满了样板，我们想要以声明式的方式解决这个问题。
+我们发现这个步骤是冗余的，充满了样板代码，我们希望以声明的方式解决这个问题。
 
-感谢静态代码分析，数值类型允许你定义数值字符串并自动解析为数字。
+感谢静态代码分析，数字类型允许您定义数字字符串并自动将其解析为数字。
 
-一旦验证，数值类型将在运行时和类型级别以数字形式解析，以满足我们的需求。
+一旦验证，数字类型将在运行时和类型级别自动解析为数字，以满足我们的需求。
 
 ```ts
 app.get('/id/:id', ({ params: { id } }) => id, {
@@ -215,24 +215,24 @@ app.get('/id/:id', ({ params: { id } }) => id, {
 })
 ```
 
-你可以在支持模式类型化的任何属性上使用数值类型，包括：
+您可以在任何支持模式类型的属性上使用数字类型，包括：
 - params
 - query
 - headers
 - body
 - response
 
-我们希望你会发现这个新的数值类型在你的服务器中非常有用。
+我们希望您会发现这种新的数字类型在您的服务器中很有用。
 
-你可以在概念页面的[数值类型](/validation/elysia-type.html#numeric)上找到更多详细信息。
+您可以在概念中查看 [numeric type](/validation/elysia-type.html#numeric) 页面以获取更多详细信息。
 
-随着 TypeBox 0.28 的发布，我们正在使 Elysia 类型系统更加完善，我们兴奋地看到它在你那边的表现。
+随着 TypeBox 0.28 的发布，我们使 Elysia 的类型系统更加完整，并期待看到它在您那的表现。
 
 ## 内联模式
-你可能已经注意到，我们的示例不再使用 `schema.type` 来创建类型，因为我们正在进行一个**破坏性更改**，将模式内联到钩子声明中。
+您可能已经注意到，我们的示例不再使用 `schema.type` 来创建类型，因为我们进行了一项 **重大变更**，将模式移至钩子语句的内联方式。
 
 ```ts
-// ? From
+// ? 从
 app.get('/id/:id', ({ params: { id } }) => id, {
     schema: {
         params: t.Object({
@@ -241,7 +241,7 @@ app.get('/id/:id', ({ params: { id } }) => id, {
     },
 })
 
-// ? To
+// ? 到
 app.get('/id/:id', ({ params: { id } }) => id, {
     params: t.Object({
         id: t.Number()
@@ -249,32 +249,32 @@ app.get('/id/:id', ({ params: { id } }) => id, {
 })
 ```
 
-当我们做出破坏性更改时，特别是对于 Elysia 最重要的一部分，我们思考了很多。
+在进行重大变更时我们考虑了很多，特别是对于 Elysia 最重要的部分之一。
 
-根据大量的尝试和实际使用情况，我们建议这一新的更改，并让我们的社区进行了投票，发现大约 60% 的 Elysia 开发者对于迁移到内联模式感到高兴。
+基于大量的实验和实际使用，我们尝试通过投票向我们的社区建议这一新变更，并发现约 60% 的 Elysia 开发人员愿意迁移到内联模式。
 
-但我们也倾听了我们社区的其他部分，并试图解决反对这一决定的论点：
+但我们也倾听了社区其余部分的声音，试图理解反对这一决定的论点：
 
 ### 清晰的分离
-在旧的语法中，你需要明确告诉 Elysia 你创建的部分是一个模式，使用 `Elysia.t`。
+在旧语法中，您必须明确告诉 Elysia 您创建的部分是一个模式，使用 `Elysia.t`。
 
-创建模式和生命周期钩子之间的清晰分离更有助于阅读和理解代码。
+创建生命周期和模式之间的明确分离更清晰，具有更好的可读性。
 
-但在我们的深入测试中，我们发现大多数人没有问题阅读新的语法，尽管没有像显式模式那样清晰的分离，但人们可以快速习惯新的语法，特别是如果他们熟悉 Elysia 的话。
+但根据我们的严格测试，我们发现大多数人没有对此新语法感到困惑，生命周期钩子与模式类型的分离仍然具有明确的分离，`t.Type` 和函数之间的语法高亮在代码审查时尤为明显，尽管没有明确的模式那样清晰，但人们可以很快适应新语法，特别是如果他们熟悉 Elysia。
 
 ### 自动完成
-人们担心的问题之一是阅读自动完成。
+人们关注的另一个领域是读写自动完成功能。
 
-合并模式和生命周期钩子导致自动完成时有很多选项供用户选择，根据许多经过验证的用户体验研究，这可能对用户来说很令人沮丧，并可能导致学习曲线更陡峭。
+将模式和生命周期钩子合并导致自动完成有大约 10 个可供选择的属性，而基于多项经过验证的用户体验研究，这可能会让用户感到沮丧，因为可供选择的选项太多，并可能造成更陡的学习曲线。
 
-然而，我们发现 Elysia 的模式属性名称非常可预测，以克服这个问题，一旦开发者熟悉 Elysia 模式。
+然而，我们发现，Elysia 的模式属性名相当可预测，一旦开发人员习惯了 Elysia 类型，就能克服这个问题。
 
-例如，如果你想要访问头部，你可以在上下文中访问 `headers`，并且你可以在挂钩中输入 `headers`，两者都共享相同的名称以提高可预测性。
+例如，如果您想访问头部，您可以在上下文中访问 `headers`，而在钩子中输入 `headers`，两者共享相同的名称以提高可预测性。
 
-有了这些，Elysia 可能需要稍微更多的学习曲线，但这是我们愿意为更好的开发体验所做出的权衡。
+因此，Elysia 可能会有一点学习曲线，但这是我们愿意为更好的开发者体验付出的代价。
 
-## “头部” 字段
-之前，你可以通过访问 `request.headers.get` 来获取头部字段，你可能想知道为什么我们没有默认提供头部字段。
+## "headers" 字段
+之前，您可以通过访问 `request.headers.get` 来获取 headers 字段，您可能会想知道为什么我们不默认发送 headers。
 
 ```ts
 app.post('/headers', ({ request: { headers } }) => {
@@ -282,69 +282,69 @@ app.post('/headers', ({ request: { headers } }) => {
 })
 ```
 
-因为解析头部有其自己的开销，我们发现许多开发人员不经常访问头部，所以我们决定不实现头部。
+因为解析 headers 有其自身的开销，并且我们发现许多开发人员并不经常访问 headers，因此我们决定不实现 headers。
 
-但是，随着静态代码分析，Elysia 可以读取你的代码，如果你打算使用头部，然后动态解析头部。
+但通过静态代码分析，这种情况发生了改变，Elysia 可以读取您的代码，判断您是否打算使用 headers，然后动态解析 headers。
 
-静态代码分析允许我们添加更多新功能，而不产生任何开销。
+静态代码分析使我们能够添加新的功能，而没有任何开销。
 
 ```ts
 app.post('/headers', ({ headers }) => headers['content-type'])
 ```
 
-解析后的头部将以原始对象的格式提供，以头部名称的小写键形式。
+解析后的 headers 将作为头部名称的小写键的普通对象可用。
 
 ## 状态、装饰、模型重构
-Elysia 的主要功能之一是能够根据你的需要定制 Elysia。
+Elysia 的主要特性之一是能够根据您的需求自定义 Elysia。
 
-我们重新审视了 `state`、`decorate`、和 `setModel`，我们发现 API 不一致，需要改进。
+我们重新审视了 `state`、`decorate` 和 `setModel`，并发现 API 不够一致，可以进行改进。
 
-我们发现许多开发人员经常重复使用 `state` 和 `decorate` 来设置多个值，并希望一次性设置所有值，就像 `setModel` 一样，我们希望统一 API 规范，让 `setModel` 与 `state` 和 `decorate` 的使用方式相同，以提供更好的可预测性。
+我们发现许多人在设置多个值时会重复使用 `state` 和 `decorate`，好希望能够像使用 `setModel` 一样一次性设置所有内容，我们希望将 `setModel` 的 API 规范统一，以便与 `state` 和 `decorate` 一样使用，以提高可预测性。
 
-因此，我们将 `setModel` 重命名为 `model`，并添加了对单值和多值设置的支持，并通过函数重载统一了 `state`、`decorate` 和 `model` 的 API。
+因此，我们将 `setModel` 重命名为 `model`，并添加了支持为 `state`、`decorate` 和 `model` 设定单个和多个值的函数重载。
 
 ```ts
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
-	// ? set model using label
+	// ? 使用标签设置模型
 	.model('string', t.String())
 	.model({
 		number: t.Number()
 	})
 	.state('visitor', 1)
-	// ? set model using object
+	// ? 使用对象设置模型
 	.state({
 		multiple: 'value',
 		are: 'now supported!'
 	})
 	.decorate('visitor', 1)
-	// ? set model using object
+	// ? 使用对象设置模型
 	.decorate({
 		name: 'world',
 		number: 2
 	})
 ```
 
-随着我们将 TypeScript 的最低支持提高到 5.0，以提高严格的类型与**常量泛型**的匹配。
+同时，我们将 TypeScript 的最低支持版本提高到 5.0，以增强与 **Constant Generic** 的严格类型支持。
 
-`state`、`decorate` 和 `model` 现在支持字面量类型和模板字符串，以严格验证类型，运行时和类型级别。
+`state`、`decorate` 和 `model` 现在支持字面量类型和模板字符串，以严谨地验证类型，包括运行时和类型级别。
 
 ```ts
-	// ? state, decorate, now support literal
+	// ? state、decorate 现在支持字面量
 app.get('/', ({ body }) => number, {
 		body: t.Literal(1),
 		response: t.Literal(2)
 	})
 ```
 
-### 分组和守护
-我们发现许多开发人员经常将 `group` 与 `guard` 结合使用，我们发现嵌套它们可能变得冗余且可能充满样板。
+### 组与守卫
+我们发现许多开发人员经常将 `group` 和 `guard` 一起使用，我们发现在嵌套时有些多余，可能会充满样板代码。
 
-从 Elysia 0.5 开始，我们为 `.group` 添加了一个守护范围作为可选的第二参数。
+从 Elysia 0.5 开始，我们为 `.group` 添加了作为可选第二个参数的守卫范围。
 
 ```ts
-// ✅ previously, you need to nest guard inside a group
+// ✅ 之前，需要将守卫嵌套在组内
 app.group('/v1', (app) =>
     app.guard(
         {
@@ -354,7 +354,7 @@ app.group('/v1', (app) =>
     )
 )
 
-// ✅ new, compatible with old syntax
+// ✅ 新的，兼容旧语法
 app.group(
     '/v1', {
         body: t.Literal('Rikuhachima Aru')
@@ -362,48 +362,48 @@ app.group(
     app => app.get('/student', () => 'Rikuhachima Aru')
 )
 
-// ✅ compatible with function overload
+// ✅ 兼容函数重载
 app.group('/v1', app => app.get('/student', () => 'Rikuhachima Aru'))
 ```
 
-我们希望你会发现这些新的重新设计的 API 更加有用，并更好地适应你的用例。
+我们希望您会发现这些新重新审视的 API 更加有用，并更符合您的用例。
 
 ## 类型稳定性
-Elysia 的类型系统非常复杂。
+Elysia 的类型系统是复杂的。
 
-我们可以在类型级别声明变量，通过名称引用类型，应用多个 Elysia 实例，甚至支持闭包式的类型级别，这非常复杂，旨在为你提供最佳的开发体验，特别是与 Eden 结合使用时。
+我们可以在类型级别声明变量，通过名称引用类型，应用多个 Elysia 实例，甚至在类型级别支持闭包，这使得为您提供最佳的开发者体验变得非常复杂，特别是在 Eden。
 
-但是，类型的某些方面在更新 Elysia 版本时没有按照我们的意图工作，因为我们必须在每次发布前手动检查，这可能导致人为错误。
+但有时，随着我们更新 Elysia 版本，类型并不会按预期工作，因为我们必须在每次发行之前手动检查，并可能导致人为错误。
 
-随着 Elysia 0.5 的发布，我们为类型级别添加了单元测试，以防止未来的问题。这些测试将在每次发布前运行，如果发生错误，将阻止我们发布包，迫使我们修复类型问题。
+随着 Elysia 0.5 的发布，我们为类型级别的测试添加了单元测试，以防止将来的可能错误，这些测试将在每次发布之前运行，如果出现错误，将阻止我们发布软件包，迫使我们修复类型问题。
 
-这意味着你现在可以依赖我们检查类型的完整性，我们相信这将减少类型引用方面的错误。
+这意味着，您现在可以依靠我们在每次发布时检查类型完整性，确信在类型引用方面会更少出现错误。
 
 ---
 
-### 显著改进：
-- 添加对 CommonJS 的支持，以便在 Node 适配器中运行 Elysia
-- 移除手动片段映射以加速路径提取
-- 内联验证器在 `composeHandler` 中以提高性能
+### 显著改进:
+- 添加对 CommonJS 的支持，以便与 Node 适配器运行 Elysia
+- 删除手动片段映射，以加速路径提取
+- 在 `composeHandler` 中内联验证器，以提高性能
 - 使用一次性上下文分配
-- 添加对懒惰上下文注入的支持通过静态代码分析
+- 通过静态代码分析添加对延迟上下文注入的支持
 - 确保响应的非空性
-- 添加联合主体验证器检查
-- 将默认对象处理程序设置为继承
-- 使用 `constructor.name` 映射替代 `instanceof` 以提高速度
+- 添加联合主体验证检查
+- 设置默认对象处理程序进行继承
+- 使用 `constructor.name` 映射而不是 `instanceof` 来提高速度
 - 添加专用错误构造函数以提高性能
-- 条件字面量函数用于检查 onRequest 迭代
-- 改善 WebSocket 类型
+- 为检查 onRequest 迭代，添加条件字面量函数
+- 改进 WebSocket 类型
 
-破坏性更改：
+重大变更：
 - 将 `innerHandle` 重命名为 `fetch`
-    - 迁移：将 `.innerHandle` 重命名为 `fetch`
+    - 要迁移：将 `.innerHandle` 重命名为 `fetch`
 - 将 `.setModel` 重命名为 `.model`
-    - 迁移：将 `setModel` 重命名为 `model`
-- 将 `hook.schema` 移至 `hook`
-    - 迁移：移除模式和花括号 `schema.type`：
+    - 要迁移：将 `setModel` 重命名为 `model`
+- 将 `hook.schema` 移除至 `hook`
+    - 要迁移：移除 schema 及大括号 `schema.type`：
     ```ts
-    // from
+    // 从
     app.post('/', ({ body }) => body, {
         schema: {
             body: t.Object({
@@ -412,32 +412,32 @@ Elysia 的类型系统非常复杂。
         }
     })
 
-    // to
+    // 到
     app.post('/', ({ body }) => body, {
         body: t.Object({
             username: t.String()
         })
     })
     ```
-- remove `mapPathnameRegex` (internal)
+- 移除 `mapPathnameRegex`（内部）
 
-## 尾声
-推动 JavaScript 在 Bun 上的性能边界是我们非常兴奋的事情！
+## 后续
+推动 JavaScript 在 Bun 中的性能边界是我们非常兴奋的事情！
 
-随着新功能的每次发布，Elysia 变得越来越快，性能和稳定性都有所提升，我们希望 Elysia 能够成为下一代 TypeScript 框架的选择之一。
+即使每次发布都有新特性，Elysia 仍然在变得更快，凭借改进的可靠性和稳定性，我们希望 Elysia 会成为下一代 TypeScript 框架的选择之一。
 
-我们很高兴看到许多才华横溢的开放源代码开发者如何通过他们的出色工作使 Elysia 焕发生机，如 [Bogeychan 的 Elysia Node](https://github.com/bogeychan/elysia-polyfills) 和 Deno 适配器，Rayriffy 的 Elysia 限速，我们希望在将来也能看到你的作品！
+我们很高兴看到许多有才华的开源开发人员通过他们的卓越工作使 Elysia 复苏，例如 [Bogeychan's Elysia Node](https://github.com/bogeychan/elysia-polyfills) 和 Deno 适配器，Rayriffy 的 Elysia 限制，我们也期待您未来的作品！
 
-感谢你对 Elysia 持续的支持，我们期待与你在下一个版本中见面。
+感谢您对 Elysia 的持续支持，我们希望在下一个版本中见到您。
 
-> 我不会让人们失望，我会让他们高飞
+> 我不会让人失望，要让他们振奋
 >
-> 我们的声音每天都在变得更响亮，是的，我们被放大
+> 我们每天都在变得更加响亮，是的，我们在放大
 >
-> 以光惊艳
+> 璀璨的光芒
 >
-> 你将想要站在我的一边
+> 你一定想站在我这边
 >
-> 是的，你知道它是**全速前进**
+> 是的，你知道这是 **全速前进**
 
 </Blog>

@@ -1,40 +1,40 @@
 ---
-title: Static Plugin
+title: 静态插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Static Plugin - Elysia 中文文档
+        content: 静态插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 插件用于为 Elysia Server 添加对静态文件/文件夹的支持。首先使用 "bun add @elysiajs/static" 安装插件。
+        content: Elysia 的插件，支持为 Elysia 服务器提供静态文件/文件夹的服务。首先通过 "bun add @elysiajs/static" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: 插件用于为 Elysia Server 添加对静态文件/文件夹的支持。首先使用 "bun add @elysiajs/static" 安装插件。
+        content: Elysia 的插件，支持为 Elysia 服务器提供静态文件/文件夹的服务。首先通过 "bun add @elysiajs/static" 安装插件。
 ---
 
-# Static Plugin
-该插件可为 Elysia Server 提供静态文件/文件夹的服务
+# 静态插件
+该插件可以为 Elysia 服务器提供静态文件/文件夹服务。
 
-安装方法：
+通过以下方式安装：
 ```bash
 bun add @elysiajs/static
 ```
 
-然后使用该插件：
+然后使用它：
 ```typescript
-import { Elysia } from 'elysia';
-import { staticPlugin } from '@elysiajs/static';
+import { Elysia } from 'elysia'
+import { staticPlugin } from '@elysiajs/static'
 
 new Elysia()
     .use(staticPlugin())
-    .listen(3000);
+    .listen(3000)
 ```
 
-默认情况下，静态插件的默认文件夹为 `public`，并通过 `/public` 前缀进行注册。
+默认情况下，静态插件的默认文件夹为 `public`，并注册为 `/public` 前缀。
 
-假设你的项目结构如下：
+假设您的项目结构如下：
 ```
 | - src
   | - index.ts
@@ -44,50 +44,51 @@ new Elysia()
     | - takodachi.png
 ```
 
-可用的路径如下：
+可用的路径将变为：
 - /public/takodachi.png
 - /public/nested/takodachi.png
 
 ## 配置
-以下是插件接受的配置
+以下是插件接受的配置项：
 
 ### assets
-@default `"public"`
+@默认值 `"public"`
 
-要公开为静态文件的文件夹路径
+要暴露为静态的文件夹路径。
 
 ### prefix
-@default `"/public"`
+@默认值 `"/public"`
 
-注册公共文件的路径前缀
+注册公共文件的路径前缀。
 
 ### ignorePatterns
-@default `[]`
+@默认值 `[]`
 
-要忽略作为静态文件提供的文件列表
+要忽略的静态文件列表。
 
 ### staticLimit
-@default `1024`
+@默认值 `1024`
 
-默认情况下，如果超出限制，静态插件将使用静态名称和路径进行注册，如果超出限制，路径将懒加载添加到路由器以减少内存使用。平衡内存与性能。
+默认情况下，静态插件将以静态名称将路径注册到路由器，如果超过限制，路径将懒加载到路由器以减少内存使用。
+在性能和内存之间权衡。
 
 ### alwaysStatic
-@default `false`
+@默认值 `false`
 
-如果设为 true，则静态文件将直接注册到路由器，跳过 `staticLimits`。
+如果设置为 true，将跳过 `staticLimits` 将静态文件路径注册到路由器。
 
 ### headers
-@default `{}`
+@默认值 `{}`
 
-设置文件的响应头
+设置文件的响应头。
 
-## 模式
-以下是使用该插件的常见模式。
+## 常见模式
+以下是使用插件的常见模式。
 
 - [单文件](#单文件)
 
 ## 单文件
-假设你只想返回单个文件，可以使用 `Bun.file` 而不是使用静态插件
+假设您只想返回一个单独的文件，您可以使用 `Bun.file` 来替代静态插件：
 ```typescript
 new Elysia()
     .get('/file', () => Bun.file('public/takodachi.png'))

@@ -1,24 +1,24 @@
 ---
-title: HTML 插件
+title: HTML 插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: HTML 插件 - Elysia 中文文档
+        content: HTML 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，提供在 Elysia 服务器中返回 HTML 的快捷支持。使用命令 "bun add @elysiajs/html" 安装插件。
+        content: 为 Elysia 添加快捷支持以在 Elysia 服务器上返回 HTML 的插件。首先通过 "bun add @elysiajs/html" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，提供在 Elysia 服务器中返回 HTML 的快捷支持。使用命令 "bun add @elysiajs/html" 安装插件。
+        content: 为 Elysia 添加快捷支持以在 Elysia 服务器上返回 HTML 的插件。首先通过 "bun add @elysiajs/html" 安装该插件。
 ---
 
 # HTML 插件
 
-允许你使用 [JSX](#jsx) 和 HTML，并具有适当的头部和支持。
+允许您使用 [JSX](#jsx) 和 HTML，并具有适当的头信息和支持。
 
-安装：
+安装方式：
 
 ```bash
 bun add @elysiajs/html
@@ -37,36 +37,36 @@ new Elysia()
         () => `
             <html lang='en'>
                 <head>
-                    <title>Hello World</title>
+                    <title>你好，世界</title>
                 </head>
                 <body>
-                    <h1>Hello World</h1>
+                    <h1>你好，世界</h1>
                 </body>
             </html>`
     )
     .get('/jsx', () => (
         <html lang='en'>
             <head>
-                <title>Hello World</title>
+                <title>你好，世界</title>
             </head>
             <body>
-                <h1>Hello World</h1>
+                <h1>你好，世界</h1>
             </body>
         </html>
     ))
     .listen(3000)
 ```
 
-此插件将自动为响应添加 `Content-Type: text/html; charset=utf8` 头部，添加 `<!doctype html>` 并将其转换为 Response 对象。
+该插件将自动为响应添加 `Content-Type: text/html; charset=utf8` 头信息，添加 `<!doctype html>`，并将其转换为 Response 对象。
 
 ## JSX
-Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们在编译时将 JSX 定义为字符串以实现高性能。
+Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们在编译时将 JSX 定义为字符串，从而实现高性能。
 
-将需要使用 JSX 的文件命名以 **“x”** 结尾：
+需要使用 JSX 的文件名应以 **"x"** 后缀结尾：
 - .js -> .jsx
 - .ts -> .tsx
 
-要注册 TypeScript 类型，请将以下内容追加到 **tsconfig.json**：
+要注册 TypeScript 类型，请将以下内容附加到 **tsconfig.json**：
 ```jsonc
 // tsconfig.json
 {
@@ -78,7 +78,7 @@ Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们
 }
 ```
 
-现在，你可以将 use JSX 作为模板引擎使用了：
+就这样，现在您可以将 JSX 用作模板引擎：
 ```tsx
 import { Elysia } from 'elysia'
 import { html, Html } from '@elysiajs/html' // [!code ++]
@@ -88,27 +88,27 @@ new Elysia()
     .get('/', () => (
         <html lang="en">
             <head>
-                <title>Hello World</title>
+                <title>你好，世界</title>
             </head>
             <body>
-                <h1>Hello World</h1>
+                <h1>你好，世界</h1>
             </body>
         </html>
     ))
     .listen(3000)
 ```
 
-If the error `Cannot find name 'Html'. Did you mean 'html'?` occurs, this import must be added to the JSX template:
+如果出现错误 `Cannot find name 'Html'. Did you mean 'html'?`，则必须将此导入添加到 JSX 模板中：
 ```tsx
 import { Html } from '@elysiajs/html'
 ```
 
-It is important that it is written in uppercase.
+重要的是，它必须以大写字母书写。
 
 ## XSS
-Elysia HTML 基于 Kita HTML 插件以在编译时检测可能的 XSS 攻击。
+Elysia HTML 基于 Kita HTML 插件，能够在编译时检测可能的 XSS 攻击。
 
-你可以使用专用的 `safe` 属性来对用户输入进行清理，以预防 XSS 漏洞。
+您可以使用专用的 `safe` 属性来清理用户值，以防止 XSS 漏洞。
 ```tsx
 import { Elysia, t } from 'elysia'
 import { html, Html } from '@elysiajs/html'
@@ -118,7 +118,7 @@ new Elysia()
     .post('/', ({ body }) => (
         <html lang="en">
             <head>
-                <title>Hello World</title>
+                <title>你好，世界</title>
             </head>
             <body>
                 <h1 safe>{body}</h1>
@@ -130,14 +130,14 @@ new Elysia()
     .listen(3000)
 ```
 
-然而，在构建大型应用程序时，最好使用类型提醒来检测代码中可能的 XSS 漏洞。
+然而，在构建大型应用时，最好有类型提示以检测代码库中可能的 XSS 漏洞。
 
 要添加类型安全提醒，请安装：
 ```sh
 bun add @kitajs/ts-html-plugin
 ```
 
-然后追加以下内容到 **tsconfig.json**
+然后将以下内容附加到 **tsconfig.json**：
 ```jsonc
 // tsconfig.json
 {
@@ -154,40 +154,40 @@ bun add @kitajs/ts-html-plugin
 
 ### contentType
 
--   类型：`string`
--   默认值：`'text/html; charset=utf8'`
+-   类型: `string`
+-   默认值: `'text/html; charset=utf8'`
 
 响应的内容类型。
 
 ### autoDetect
 
--   类型：`boolean`
--   默认值：`true`
+-   类型: `boolean`
+-   默认值: `true`
 
 是否自动检测 HTML 内容并设置内容类型。
 
 ### autoDoctype
 
--   类型：`boolean | 'full'`
--   默认值：`true`
+-   类型: `boolean | 'full'`
+-   默认值: `true`
 
-是否自动在以 `<html>` 开头的响应中添加 `<!doctype html>`，如果找不到。
+是否在响应中自动添加 `<!doctype html>`，如果未找到 `<html>` 开头的响应。
 
-使用 `full` 还可以在没有该插件的情况下自动添加文档类型。
+使用 `full` 也可以在没有此插件的情况下自动添加文档类型。
 
 ```ts
-// 没有该插件
+// 没有插件
 app.get('/', () => '<html></html>')
 
-// 使用该插件
+// 有插件
 app.get('/', ({ html }) => html('<html></html>'))
 ```
 
 ### isHtml
 
--   类型：`(value: string) => boolean`
--   默认值：`isHtml` (导出的函数)
+-   类型: `(value: string) => boolean`
+-   默认值: `isHtml` (导出函数)
 
-该函数用于检测字符串是否为 HTML。默认实现是如果长度大于 7，以 `<` 开头并以 `>` 结尾。
+该函数用于检测一个字符串是否为 HTML。默认实现是长度大于 7，且以 `<` 开头并以 `>` 结尾。
 
-请记住，没有真正的方法来验证 HTML，因此默认实现只是一个最佳猜测。
+请记住，实际上没有真正的方法来验证 HTML，因此默认实现是一种最佳猜测。

@@ -7,60 +7,60 @@ head:
 
   - - meta
     - name: 'description'
-      content: We may use Drizzle to create end-to-end type safety from database to validation to frontend with drizzle-typebox
+      content: 我们可以使用 Drizzle 创建从数据库到验证再到前端的端到端类型安全，使用 drizzle-typebox。
 
   - - meta
     - name: 'og:description'
-      content: We may use Drizzle to create end-to-end type safety from database to validation to frontend with drizzle-typebox
+      content: 我们可以使用 Drizzle 创建从数据库到验证再到前端的端到端类型安全，使用 drizzle-typebox。
 ---
 
 # Drizzle
-Drizzle ORM is a headless TypeScript ORM with a focus on type safety and developer experience.
+Drizzle ORM 是一个无头 TypeScript ORM，专注于类型安全和开发者体验。
 
-We may convert Drizzle schema to Elysia validation models using `drizzle-typebox`
+我们可以使用 `drizzle-typebox` 将 Drizzle 模式转换为 Elysia 验证模型。
 
 ### Drizzle Typebox
-[Elysia.t](/validation/overview) is a fork of TypeBox, allowing us to use any TypeBox type in Elysia directly.
+[Elysia.t](/validation/overview) 是 TypeBox 的一个分支，允许我们直接在 Elysia 中使用任何 TypeBox 类型。
 
-We can convert Drizzle schema into TypeBox schema using ["drizzle-typebox"](https://npmjs.org/package/drizzle-typebox), and use it directly on Elysia's schema validation.
+我们可以使用 ["drizzle-typebox"](https://npmjs.org/package/drizzle-typebox) 将 Drizzle 模式转换为 TypeBox 模式，并直接在 Elysia 的模式验证中使用。
 
-### Here's how it works:
-1. Define your database schema in Drizzle.
-2. Convert Drizzle schema into Elysia validation models using `drizzle-typebox`.
-3. Use the converted Elysia validation models to ensure type validation.
-4. OpenAPI schema is generated from Elysia validation models.
-5. Add [Eden Treaty](/eden/overview) to add type-safety to your frontend.
+### 其工作原理如下：
+1. 在 Drizzle 中定义你的数据库模式。
+2. 使用 `drizzle-typebox` 将 Drizzle 模式转换为 Elysia 验证模型。
+3. 使用转换后的 Elysia 验证模型来确保类型验证。
+4. 从 Elysia 验证模型生成 OpenAPI 模式。
+5. 添加 [Eden Treaty](/eden/overview) 以增强前端的类型安全。
 
 ```
                                                     * ——————————————— *
                                                     |                 |
-                                               | -> |  Documentation  |
+                                               | -> |  文档          |
 * ————————— *             * ———————— * OpenAPI |    |                 |
 |           |   drizzle-  |          | ——————— |    * ——————————————— *
 |  Drizzle  | —————————-> |  Elysia  |
 |           |  -typebox   |          | ——————— |    * ——————————————— *
 * ————————— *             * ———————— *   Eden  |    |                 |
-                                               | -> |  Frontend Code  |
+                                               | -> |  前端代码      |
 												    |                 |
 												    * ——————————————— *
 
 ```
 
-## Installation
-To install Drizzle, run the following command:
+## 安装
+要安装 Drizzle，请运行以下命令：
 
 ```bash
 bun add drizzle-orm drizzle-typebox
 ```
 
-Then you need to pin `@sinclair/typebox` as there might be a mismatch version between `drizzle-typebox` and `Elysia`, this may cause conflict of Symbols between two versions.
+然后你需要固定 `@sinclair/typebox` 的版本，因为 `drizzle-typebox` 和 `Elysia` 之间可能存在版本不匹配，这可能会导致两个版本之间的符号冲突。
 
-We recommend pinning the version of `@sinclair/typebox` to the **minimum version** used by `elysia` by using:
+我们建议使用以下命令固定 `@sinclair/typebox` 的版本为 `elysia` 使用的 **最低版本**：
 ```bash
 grep "@sinclair/typebox" node_modules/elysia/package.json
 ```
 
-We may use `override` field in `package.json` to pin the version of `@sinclair/typebox`:
+我们可以在 `package.json` 中使用 `override` 字段来固定 `@sinclair/typebox` 的版本：
 ```json
 {
   "override": {
@@ -69,8 +69,8 @@ We may use `override` field in `package.json` to pin the version of `@sinclair/t
 }
 ```
 
-## Drizzle schema
-Assuming we have a `user` table in our codebase as follows:
+## Drizzle 模式
+假设我们在代码库中有一个 `user` 表，如下所示：
 
 ::: code-group
 
@@ -108,7 +108,7 @@ export type Table = typeof table
 :::
 
 ## drizzle-typebox
-We may convert the `user` table into TypeBox models by using `drizzle-typebox`:
+我们可以使用 `drizzle-typebox` 将 `user` 表转换为 TypeBox 模型：
 
 ::: code-group
 
@@ -117,13 +117,13 @@ import { createSelectSchema } from 'drizzle-typebox'
 import { Table } from './database/schema'
 
 const _createUser = createInsertSchema(table.user, {
-	// Replace email with Elysia's email type
+	// 使用 Elysia 的 email 类型替换电子邮件
 	email: t.String({ format: 'email' })
 })
 
 new Elysia()
 	.post('/sign-up', ({ body }) => {
-		// Create a new user
+		// 创建新用户
 	}, {
 		body: t.Omit(
 			_createUser,
@@ -134,14 +134,14 @@ new Elysia()
 
 :::
 
-This allows us to reuse the database schema in Elysia validation models
+这使我们可以在 Elysia 验证模型中重复使用数据库模式。
 
-## Type instantiation is possibly infinite
-If you got an error like **Type instantiation is possibly infinite** this is because of the circular reference between `drizzle-typebox` and `Elysia`.
+## 类型实例化可能是无限的
+如果你遇到错误 **类型实例化可能是无限的**，这可能是因为 `drizzle-typebox` 和 `Elysia` 之间存在循环引用。
 
-If we nested a type from drizzle-typebox into Elysia schema, it will cause an infinite loop of type instantiation.
+如果我们将来自 drizzle-typebox 的类型嵌套到 Elysia 模式中，它将导致类型实例化的无限循环。
 
-To prevent this, we need to **explicitly define a type between `drizzle-typebox` and `Elysia`** schema:
+为了避免这种情况，我们需要 **在 `drizzle-typebox` 和 `Elysia` 模式之间显式定义一个类型**：
 ```ts
 import { t } from 'elysia'
 import { createSelectSchema } from 'drizzle-typebox'
@@ -152,13 +152,13 @@ const _createUser = createInsertSchema(table.user, {
 	email: t.String({ format: 'email' })
 })
 
-// ✅ This works, by referencing the type from `drizzle-typebox`
+// ✅ 这样做有效，通过引用来自 `drizzle-typebox` 的类型
 const createUser = t.Omit(
 	_createUser,
 	['id', 'salt', 'createdAt']
 )
 
-// ❌ This will cause an infinite loop of type instantiation
+// ❌ 这样做会导致类型实例化的无限循环
 const createUser = t.Omit(
 	createInsertSchema(table.user, {
 		email: t.String({ format: 'email' })
@@ -167,12 +167,12 @@ const createUser = t.Omit(
 )
 ```
 
-Always declare a variable for `drizzle-typebox` and reference it if you want to use Elysia type
+如果你想使用 Elysia 类型，始终为 `drizzle-typebox` 声明一个变量并引用它。
 
-## Utility
-As we are likely going to use `t.Pick` and `t.Omit` to exclude or include certain fields, it may be cumbersome to repeat the process:
+## 实用工具
+由于我们很可能会使用 `t.Pick` 和 `t.Omit` 来排除或包括某些字段，重复这个过程可能会很繁琐：
 
-We recommend using these utility functions **(copy as-is)** to simplify the process:
+我们建议使用以下实用函数 **（按原样复制）** 来简化这个过程：
 
 ::: code-group
 
@@ -210,7 +210,7 @@ type Spread<
         : {}
 
 /**
-* Spread a Drizzle schema into a plain object
+* 将 Drizzle 模式展开为一个普通对象
 */
 export const spread = <
     T extends TObject | Table,
@@ -238,7 +238,7 @@ export const spread = <
 	        break
 
         default:
-            if (!(Kind in schema)) throw new Error('Expect a schema')
+            if (!(Kind in schema)) throw new Error('期望是一个模式')
             table = schema
     }
 
@@ -251,11 +251,11 @@ export const spread = <
 const a = spread(table.user, 'insert')
 
 /**
-* Spread a Drizzle Table into a plain object
+* 将 Drizzle 表展开为一个普通对象
 *
-* If `mode` is 'insert', the schema will be refined for insert
-* If `mode` is 'select', the schema will be refined for select
-* If `mode` is undefined, the schema will be spread as is, models will need to be refined manually
+* 如果 `mode` 是 'insert'，则模式将经过插入优化
+* 如果 `mode` 是 'select'，则模式将经过选择优化
+* 如果 `mode` 是未定义，模式将按原样展开，模型需要手动优化
 */
 export const spreads = <
     T extends Record<string, TObject | Table>,
@@ -277,9 +277,9 @@ export const spreads = <
 
 :::
 
-This utility function will convert Drizzle schema into a plain object, which can pick by property name as plain object:
+这个实用函数将把 Drizzle 模式转换为一个普通对象，可以通过属性名称作为普通对象进行选择：
 ```ts
-// ✅ Using spread utility function
+// ✅ 使用展开实用函数
 const user = spread(table.user, 'insert')
 
 const createUser = t.Object({
@@ -288,7 +288,7 @@ const createUser = t.Object({
 	password: user.password // { type: 'string' }
 })
 
-// ⚠️ Using t.Pick
+// ⚠️ 使用 t.Pick
 const _createUser = createInsertSchema(table.user)
 
 const createUser = t.Pick(
@@ -297,8 +297,8 @@ const createUser = t.Pick(
 )
 ```
 
-### Table Singleton
-We recommend using a singleton pattern to store the table schema, this will allow us to access the table schema from anywhere in the codebase:
+### 表单例
+我们建议使用单例模式来存储表模式，这将使我们能够在代码库的任何地方访问表模式：
 
 ::: code-group
 
@@ -318,7 +318,7 @@ export const db = {
 
 :::
 
-This will allow us to access the table schema from anywhere in the codebase:
+这样我们就能在代码库的任何地方访问表模式：
 
 ::: code-group
 
@@ -330,7 +330,7 @@ const { user } = db.insert
 
 new Elysia()
 	.post('/sign-up', ({ body }) => {
-		// Create a new user
+		// 创建新用户
 	}, {
 		body: t.Object({
 			id: user.username,
@@ -342,9 +342,9 @@ new Elysia()
 
 :::
 
-### Refinement
+### 精细化
 
-If type refinement is needed, you may use `createInsertSchema` and `createSelectSchema` to refine the schema directly.
+如果需要类型精细化，你可以直接使用 `createInsertSchema` 和 `createSelectSchema` 来精细化模式。
 
 ::: code-group
 
@@ -371,10 +371,10 @@ export const db = {
 
 :::
 
-In the code above, we refine a `user.email` schema to include a `format` property
+在上述代码中，我们精细化了 `user.email` 模式以包括一个 `format` 属性。
 
-The `spread` utility function will skip a refined schema, so you can use it as is.
+`spread` 实用函数将跳过优化的模式，因此你可以按原样使用它。
 
 ---
 
-For more information, please refer to the [Drizzle ORM](https://orm.drizzle-orm) and [Drizzle TypeBox](https://orm.drizzle.team/docs/typebox) documentation.
+有关更多信息，请参考 [Drizzle ORM](https://orm.drizzle-orm) 和 [Drizzle TypeBox](https://orm.drizzle.team/docs/typebox) 文档。

@@ -1,28 +1,28 @@
 ---
-title: Swagger Plugin
+title: Swagger 插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Swagger Plugin - Elysia 中文文档
+        content: Swagger 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 插件为 Elysia 提供支持，可为 Elysia Server 生成 Swagger API 文档。首先使用"bun add @elysiajs/swagger"安装该插件。
+        content: Elysia 的插件，添加对生成 Elysia 服务器的 Swagger API 文档的支持。首先使用 "bun add @elysiajs/swagger" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: 插件为 Elysia 提供支持，可为 Elysia Server 生成 Swagger API 文档。首先使用"bun add @elysiajs/swagger"安装该插件。
+        content: Elysia 的插件，添加对生成 Elysia 服务器的 Swagger API 文档的支持。首先使用 "bun add @elysiajs/swagger" 安装插件。
 ---
 
-# Swagger Plugin
-此插件用于为 Elysia 服务器生成 Swagger 端点
+# Swagger 插件
+该插件为 Elysia 服务器生成 Swagger 端点
 
-安装方法：
+安装方式：
 ```bash
 bun add @elysiajs/swagger
 ```
 
-使用方法：
+然后使用它：
 ```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
@@ -34,7 +34,7 @@ new Elysia()
     .listen(3000)
 ```
 
-访问 `/swagger` 会显示由 Elysia 服务器生成的端点文档的 Scalar UI。你也可以访问 `/swagger/json` 获取原始 OpenAPI 规范。
+访问 `/swagger` 将显示一个包含 Elysia 服务器生成的端点文档的 Scalar UI。您还可以通过 `/swagger/json` 访问原始的 OpenAPI 规范。
 
 ## 配置
 以下是插件接受的配置
@@ -42,7 +42,7 @@ new Elysia()
 ### provider
 @default `scalar`
 
-文档的 UI 提供程序。默认为 Scalar。
+文档的 UI 提供者。默认为 Scalar。
 
 ### scalar
 用于自定义 Scalar 的配置。
@@ -57,26 +57,26 @@ new Elysia()
 ### excludeStaticFile
 @default `true`
 
-确定是否 Swagger 应该排除静态文件。
+确定 Swagger 是否应排除静态文件。
 
 ### path
 @default `/swagger`
 
-公开 Swagger 的端点
+暴露 Swagger 的端点
 
 ### exclude
 要从 Swagger 文档中排除的路径。
 
-值可以是以下某个：
-- **string**
+值可以是以下之一：
+- **字符串**
 - **RegExp**
 - **Array<string | RegExp>**
 
 ## 模式
-以下是使用该插件的常见模式。
+以下是使用插件的常见模式。
 
 ## 更改 Swagger 端点
-你可以通过在插件配置中设置 [path](#path) 来更改 swagger 端点。
+您可以通过在插件配置中设置 [path](#path) 来更改 swagger 端点。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -107,7 +107,7 @@ new Elysia()
 ```
 
 ## 使用标签
-Elysia 可以使用 Swagger 的标签系统将端点分组
+Elysia 可以通过使用 Swagger 的标签系统将端点分组
 
 首先在 swagger 配置对象中定义可用的标签
 
@@ -117,14 +117,14 @@ app.use(
     documentation: {
       tags: [
         { name: 'App', description: '通用端点' },
-        { name: '授权', description: '身份验证端点' }
+        { name: 'Auth', description: '认证端点' }
       ]
     }
   })
 )
 ```
 
-然后使用端点配置部分的 details 属性将该端点分配给相应的组别
+然后使用端点配置部分的 details 属性将该端点分配到组
 
 ```typescript
 app.get('/', () => 'Hello Elysia', {
@@ -146,12 +146,12 @@ app.group('/auth', (app) =>
       }),
     {
       detail: {
-        tags: ['授权']
+        tags: ['Auth']
       }
     }
   )
 )
 ```
 
-这将生成一个类似下面的 Swagger 页面
+这将生成一个如下的 swagger 页面
 <img width="1446" alt="image" src="/assets/swagger-demo.webp">

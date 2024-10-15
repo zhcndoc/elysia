@@ -1,30 +1,29 @@
 ---
-
-title: Eden Treaty 参数
+title: Eden Treaty 参数 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty 参数 - Elysia 中文文档
+        content: Eden Treaty 参数 - ElysiaJS
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是一个类似对象的 Elysia 服务器表示，提供端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
+        content: Eden Treaty 是 Elysia 服务器的类对象表示，提供端到端的类型安全和显著改善的开发者体验。通过 Eden，我们可以从 Elysia 服务器安全地获取 API，而无需代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是一个类似对象的 Elysia 服务器表示，提供端到端类型安全，以及显著改善的开发体验。使用 Eden，我们可以完全类型安全地从 Elysia 服务器获取 API，无需代码生成。
+        content: Eden Treaty 是 Elysia 服务器的类对象表示，提供端到端的类型安全和显著改善的开发者体验。通过 Eden，我们可以从 Elysia 服务器安全地获取 API，而无需代码生成。
 ---
 
 # 参数
 
 我们最终需要向服务器发送一个有效载荷。
 
-为了处理这个问题，Eden Treaty 的方法接受 2 个参数向服务器发送数据。
+为此，Eden Treaty 的方法接受 2 个参数来发送数据到服务器。
 
-两个参数都是类型安全的，并且将由 TypeScript 自动引导：
+这两个参数都是类型安全的，并且会被 TypeScript 自动引导：
 
 1. body
-2. 附加参数
+2. 其他参数
     - query
     - headers
     - fetch
@@ -48,11 +47,11 @@ api.user.post({
     name: 'Elysia'
 })
 
-// ✅ 同样有效
+// ✅ 也有效
 api.user.post({
     name: 'Elysia'
 }, {
-    // 这是可选的，因为架构中没有指定
+    // 在模式中未指定，这是可选的
     headers: {
         authorization: 'Bearer 12345'
     },
@@ -62,11 +61,11 @@ api.user.post({
 })
 ```
 
-除非方法不接受 body，那么 body 将被省略，只剩下单个参数。
+除非方法不接受 body，否则将省略 body，仅保留一个参数。
 
-如果方法为 **“GET”** 或 **“HEAD”**：
+如果方法为 **"GET"** 或 **"HEAD"**：
 
-1. 附加参数
+1. 其他参数
     -   query
     -   headers
     -   fetch
@@ -83,16 +82,15 @@ const api = treaty<typeof app>('localhost:3000')
 
 // ✅ 有效
 api.hello.get({
-    // 这是可选的，因为架构中没有指定
+    // 在模式中未指定，这是可选的
     headers: {
         hello: 'world'
     }
 })
 ```
 
-## 空 body
-
-如果 body 是可选的或不需要，但是需要 query 或 headers，你可以将 body 作为 `null` 或 `undefined` 传递。
+## 空的 body
+如果 body 可选或不需要，但 query 或 headers 是必需的，则可以将 body 传递为 `null` 或 `undefined`。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -117,7 +115,7 @@ api.user.post(null, {
 
 ## Fetch 参数
 
-Eden Treaty 是一个 fetch 包装器，我们可以通过将它们传递给 `$fetch` 向 Eden 添加任何有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数：
+Eden Treaty 是一个 fetch 封装，我们可以通过将有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数传递给 `$fetch` 来添加到 Eden 中：
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -145,17 +143,15 @@ clearTimeout(cancelRequest)
 ```
 
 ## 文件上传
-
-我们可以通过传递以下任一来附加文件：
-
+我们可以传递以下任一项来附加文件：
 - **File**
 - **File[]**
 - **FileList**
 - **Blob**
 
-附加文件将导致 **content-type** 变为 **multipart/form-data**
+附加文件将使 **content-type** 变为 **multipart/form-data**
 
-假设我们有如下服务器：
+假设我们有如下的服务器：
 ```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'

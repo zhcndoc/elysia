@@ -1,21 +1,21 @@
 ---
-title: CORS Plugin
+title: CORS 插件 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: CORS Plugin - Elysia 中文文档
+      content: CORS 插件 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Elysia 的插件，增加了对自定义跨域资源共享行为的支持。首先通过 bun add @elysiajs/cors 安装插件。
+      content: Elysia 的插件，添加对自定义跨域资源共享行为的支持。使用 "bun add @elysiajs/cors" 安装插件开始。
 
   - - meta
     - name: 'og:description'
-      content: Elysia 的插件，增加了对自定义跨域资源共享行为的支持。首先通过 bun add @elysiajs/cors 安装插件。
+      content: Elysia 的插件，添加对自定义跨域资源共享行为的支持。使用 "bun add @elysiajs/cors" 安装插件开始。
 ---
 
-# CORS Plugin
-该插件为 Elysia 提供了自定义跨源资源共享行为的支持。
+# CORS 插件
+此插件添加对自定义 [跨域资源共享](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 行为的支持。
 
 安装方式：
 ```bash
@@ -32,107 +32,107 @@ new Elysia()
     .listen(3000)
 ```
 
-这将使 Elysia 接受来自任意源的请求。
+这将设置 Elysia 接受来自任何来源的请求。
 
-## Config
-以下是该插件接受的配置项。
+## 配置
+以下是插件接受的配置
 
 ### origin
-@default `true`
+@默认 `true`
 
-表示是否可以与给定源代码共享响应。
+指示响应是否可以与来自给定来源的请求代码共享。
 
-取值可以是以下之一：
-- **string** - 直接指定为 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 头部的源名称。
-- **boolean** - 如果设置为 true，则 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 将设置为 `*` (任意源)。
+值可以是以下之一：
+- **string** - 来源的名称，将直接分配给 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 头。
+- **boolean** - 如果设置为 true， [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 将被设置为 `*`（任何来源）
 - **RegExp** - 匹配请求 URL 的模式，如果匹配则允许。
-- **Function** - 自定义逻辑来允许资源共享，如果返回 `true` 则允许。
-    - 期望的类型为：
+- **Function** - 自定义逻辑以允许资源共享，如果返回 true，则允许。
+    - 预期类型为：
     ```typescript
     cors(context: Context) => boolean | void
     ```
-- **Array<string | RegExp | Function>** - 按顺序迭代上述所有情况，如果任何值为 `true` 则允许。
+- **Array<string | RegExp | Function>** - 按顺序迭代上述所有情况，如果有任一值为 `true` 则允许。
 
 ---
 ### methods
-@default `*`
+@默认 `*`
 
-允许跨源请求的方法。
+允许的跨域请求方法。
 
-分配 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 头部。
+分配给 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 头。
 
-取值可以是以下之一：
-- **undefined | null | ‘’** - 忽略所有方法。
+值可以是以下之一：
+- **undefined | null | ''** - 忽略所有方法。
 - **\*** - 允许所有方法。
-- **string** - 期望单个方法或逗号分隔的字符串
+- **string** - 期望为单个方法或以逗号分隔的字符串 
     - (例如：`'GET, PUT, POST'`)
-- **string []** - 允许多个 HTTP 方法。
+- **string[]** - 允许多个 HTTP 方法。
     - 例如：`['GET', 'PUT', 'POST']`
 
 ---
 ### allowedHeaders
-@default `*`
+@默认 `*`
 
-允许传入请求的标头。
+允许的传入请求头。
 
-分配 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 头部。
+分配给 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 头。
 
-取值可以是以下之一：
-- **string** - 期望单个标头或逗号分隔的字符串
+值可以是以下之一：
+- **string** - 期望为单个头或以逗号分隔的字符串
     - 例如：`'Content-Type, Authorization'`。
-- **string []** - 允许多个 HTTP 标头。
+- **string[]** - 允许多个 HTTP 头。
     - 例如：`['Content-Type', 'Authorization']`
 
 ---
 ### exposeHeaders
-@default `*`
+@默认 `*`
 
-响应中公开指定标头的 CORS。
+通过指定头部响应 CORS。
 
-分配 [Access-Control-Expose-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers) 头部。
+分配给 [Access-Control-Expose-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers) 头。
 
-取值可以是以下之一：
-- **string** - 期望单个标头或逗号分隔的字符串。
+值可以是以下之一：
+- **string** - 期望为单个头或以逗号分隔的字符串。
     - 例如：`'Content-Type, X-Powered-By'`。
-- **string []** - 允许多个 HTTP 标头。
+- **string[]** - 允许多个 HTTP 头。
     - 例如：`['Content-Type', 'X-Powered-By']`
 
 ---
 ### credentials
-@default `true`
+@默认 `true`
 
-Access-Control-Allow-Credentials 响应头告诉浏览器在请求的凭据模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时是否将响应暴露给前端 JavaScript 代码。
+Access-Control-Allow-Credentials 响应头告诉浏览器当请求的凭证模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时，是否将响应暴露给前端 JavaScript 代码。
 
-当请求的凭据模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时，只有当 Access-Control-Allow-Credentials 的值为 true 时，浏览器才会将响应暴露给前端 JavaScript 代码。
+当请求的凭证模式 [Request.credentials](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) 为 `include` 时，只有当 Access-Control-Allow-Credentials 的值为 true 时，浏览器才会将响应暴露给前端 JavaScript 代码。
 
-凭证可以是 cookie、授权标头或 TLS 客户端证书。
+凭证包括 Cookie、授权头或 TLS 客户端证书。
 
-分配 [Access-Control-Allow-Credentials](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) 头部。
+分配给 [Access-Control-Allow-Credentials](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials) 头。
 
 ---
 ### maxAge
-@default `5`
+@默认 `5`
 
-表示预检请求 (即 [preflight request](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request)) 的结果 (即 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 和 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 标头中包含的信息) 可以缓存多长时间。
+指示 [预检请求](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) 的结果（即 [Access-Control-Allow-Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 和 [Access-Control-Allow-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 头中包含的信息）可以被缓存多久。
 
-分配 [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) 头部。
+分配给 [Access-Control-Max-Age](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age) 头。
 
 ---
 ### preflight
-预检请求是发送的请求，用于检查是否理解 CORS 协议以及服务器是否知道使用特定方法和标头。
+预检请求是发送请求以检查 CORS 协议是否被理解，并且服务器是否知晓如何使用特定方法和头。
 
-使用 **OPTIONS** 请求进行响应时需要 3 个 HTTP 请求头：
+响应 **OPTIONS** 请求时包含 3 个 HTTP 请求头：
 - **Access-Control-Request-Method**
 - **Access-Control-Request-Headers**
 - **Origin**
 
-该配置指示服务器是否应响应预检请求。
+此配置指示服务器是否应响应预检请求。
 
 ---
-## Pattern
-下面是使用该插件的常见模式。
+## 使用模式
+以下是使用此插件的常见模式。
 
-## 允许特定顶级域名的 CORS
+## 允许通过顶级域名的 CORS
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -142,8 +142,8 @@ const app = new Elysia()
     .use(cors({
         origin: /.*\.saltyaom\.com$/
     }))
-    .get('/', () => 'Hi')
+    .get('/', () => '嗨')
     .listen(3000)
 ```
 
-这将允许来自以 `saltyaom.com` 结尾的顶级域名的请求。
+这将允许来自顶级域名为 `saltyaom.com` 的请求。

@@ -1,33 +1,33 @@
 ---
-title: Eden Test - ElysiaJS
+title: Eden 测试 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Eden Unit Test - ElysiaJS
+      content: Eden 单元测试 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Using Eden, we can perform unit-test to provide end-to-end type safety, and auto-completion, tracking type safety from migration
+      content: 使用 Eden，我们可以进行单元测试，以提供端到端的类型安全和自动补全，跟踪从迁移来的类型安全
 
   - - meta
     - property: 'og:description'
-      content: Using Eden, we can perform unit-test to provide end-to-end type safety, and auto-completion, tracking type safety from migration
+      content: 使用 Eden，我们可以进行单元测试，以提供端到端的类型安全和自动补全，跟踪从迁移来的类型安全
 ---
 
-# Eden Test
-Using Eden, we can create an integration test with end-to-end type safety and auto-completion.
+# Eden 测试
+使用 Eden，我们可以创建一个具有端到端类型安全和自动补全的集成测试。
 
 <video mute controls>
   <source src="/eden/eden-test.mp4" type="video/mp4" />
-  Something went wrong trying to load video
+  加载视频时出现问题
 </video>
 
-> Using Eden Treaty to create tests by [irvilerodrigues on Twitter](https://twitter.com/irvilerodrigues/status/1724836632300265926)
+> 使用 Eden Treaty 创建测试，由 [irvilerodrigues 在 Twitter 上](https://twitter.com/irvilerodrigues/status/1724836632300265926)
 
-## Setup
-We can use [Bun test](https://bun.sh/guides/test/watch-mode) to create tests.
+## 设置
+我们可以使用 [Bun test](https://bun.sh/guides/test/watch-mode) 来创建测试。
 
-Create **test/index.test.ts** in the root of project directory with the following:
+在项目目录的根部创建 **test/index.test.ts**，内容如下：
 
 ```typescript
 // test/index.test.ts
@@ -42,7 +42,7 @@ const app = new Elysia()
 const api = edenTreaty<typeof app>('http://localhost:3000')
 
 describe('Elysia', () => {
-    it('return a response', async () => {
+    it('返回响应', async () => {
         const { data } = await api.get()
 
         expect(data).toBe('hi')
@@ -50,10 +50,10 @@ describe('Elysia', () => {
 })
 ```
 
-Then we can perform tests by running **bun test**
+然后，我们可以通过运行 **bun test** 来执行测试。
 
 ```bash
 bun test
 ```
 
-This allows us to perform integration tests programmatically instead of manual fetch while supporting type checking automatically.
+这使我们能够以编程方式执行集成测试，而不是手动获取，同时自动支持类型检查。

@@ -1,35 +1,31 @@
 ---
-title: Eden Treaty 配置
+title: Eden Treaty 配置 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Eden Treaty 配置 - Elysia 中文文档
+        content: Eden Treaty 配置 - ElysiaJS
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性和显著提高的开发者体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
+        content: Eden Treaty 是对 Elysia 服务器的类对象表示，提供端到端的类型安全，显著改善开发者体验。通过 Eden，我们可以从 Elysia 服务器获取完全类型安全的 API，而无需代码生成。
 
     - - meta
       - name: 'og:description'
-        content: Eden Treaty 是 Elysia 服务器的对象化表示，提供了端到端的类型安全性和显著提高的开发者体验。使用 Eden，我们可以在不生成代码的情况下，完全类型安全地从 Elysia 服务器获取 API。
+        content: Eden Treaty 是对 Elysia 服务器的类对象表示，提供端到端的类型安全，显著改善开发者体验。通过 Eden，我们可以从 Elysia 服务器获取完全类型安全的 API，而无需代码生成。
 ---
 
 # 配置
-
-Eden Treaty 接受两个参数：
-
-- **urlOrInstance** - URL 端点或 Elysia 实例
-- **options** (可选)- 自定义 fetch 行为
+Eden Treaty 接受 2 个参数：
+- **urlOrInstance** - URL 终端或 Elysia 实例
+- **options**（可选） - 自定义获取行为
 
 ## urlOrInstance
+接受 URL 终端作为字符串或字面量 Elysia 实例。
 
-可以接受 URL 端点字符串或直接量 Elysia 实例。
+Eden 会根据类型改变行为如下：
 
-根据类型，Eden 将改变行为如下：
-
-### URL 端点 (字符串)
-
-如果传递了 URL 端点，Eden Treaty 将使用 `fetch` 或 `config.fetcher` 创建到 Elysia 实例的网络请求。
+### URL 终端 (字符串)
+如果传入 URL 终端，Eden Treaty 将使用 `fetch` 或 `config.fetcher` 创建对 Elysia 实例的网络请求。
 
 ```typescript
 import { treaty } from '@elysiajs/eden'
@@ -38,23 +34,21 @@ import type { App } from './server'
 const api = treaty<App>('localhost:3000')
 ```
 
-你可以指定 URL 端点的协议，也可以不指定。
+你可以选择是否为 URL 终端指定协议。
 
-Elysia 会自动附加端点，规则如下：
-
-1. 如果指定了协议，则直接使用该 URL
-2. 如果 URL 是 localhost，并且环境不是生产环境，则使用 http
+Elysia 将自动附加终端如下：
+1. 如果指定了协议，直接使用该 URL
+2. 如果 URL 是 localhost 并且 ENV 不是生产环境，使用 http
 3. 否则使用 https
 
-对于 Web Socket 也适用于确定 **ws://** 或 **wss://**。
+这同样适用于 Web Socket，以确定使用 **ws://** 还是 **wss://**。
 
 ---
 
 ### Elysia 实例
+如果传入 Elysia 实例，Eden Treaty 将创建一个 `Request` 类，并直接传递到 `Elysia.handle`，而无需创建网络请求。
 
-如果传递了 Elysia 实例，Eden Treaty 将创建一个 `Request` 类并直接传递给 `Elysia.handle`，而不创建网络请求。
-
-这使我们可以直接与 Elysia 服务器进行交互，无需请求开销或启动服务器的需求。
+这使我们能够直接与 Elysia 服务器交互，而无需请求开销或启动服务器。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -67,22 +61,20 @@ const app = new Elysia()
 const api = treaty(app)
 ```
 
-如果传递了实例，则不需要传递泛型，因为 Eden Treaty 可以直接从参数中推断出类型。
+如果传入实例，则不需要传递泛型，因为 Eden Treaty 可以直接从参数中推断类型。
 
-这种模式适用于执行单元测试，或创建类型安全的反向代理服务器或微服务。
+这种模式推荐用于执行单元测试，或创建类型安全的反向代理服务器或微服务。
 
-## Options
-
-Eden Treaty 的第二个可选参数，用于自定义 fetch 行为，接受以下参数：
-- [fetch](#fetch) - 向 fetch 初始化 (RequestInit) 添加默认参数
+## 选项
+Eden Treaty 的第二个可选参数用于自定义获取行为，接受以下参数：
+- [fetch](#fetch) - 添加默认参数到获取初始化（RequestInit）
 - [headers](#headers) - 定义默认头部
-- [fetcher](#fetcher) - 自定义 fetch 函数，例如 Axios、unfetch
-- [onRequest](#on-request) - 拦截和修改发送请求之前的 fetch 请求
-- [onResponse](#on-response) - 拦截和修改 fetch 的响应
+- [fetcher](#fetcher) - 自定义获取函数，例如 Axios，unfetch
+- [onRequest](#on-request) - 在发送请求前拦截并修改获取请求
+- [onResponse](#on-response) - 在获取响应后拦截并修改响应
 
-## Fetch
-
-将默认参数附加到 fetch 的第二个参数，扩展了 **Fetch.RequestInit** 的类型。
+## 获取
+默认参数附加到 fetch 的第二个参数，扩展类型为 **Fetch.RequestInit**。
 
 ```typescript
 export type App = typeof app // [!code ++]
@@ -95,16 +87,15 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-将传递给 fetch 的所有参数都将传递给 fetcher，相当于：
+所有传递给 fetch 的参数，将作为等价传递给 fetcher：
 ```typescript
 fetch('http://localhost:3000', {
     credentials: 'include'
 })
 ```
 
-## Headers
-
-为 fetch 提供额外的默认头部，是 `options.fetch.headers` 的简写形式。
+## 头部
+提供额外的默认头部到 fetch，为 `options.fetch.headers` 的简写。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -114,8 +105,7 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-将传递给 fetch 的所有参数都将传递给 fetcher，相当于：
-
+所有传递给 fetch 的参数，将作为等价传递给 fetcher：
 ```typescript twoslash
 fetch('localhost:3000', {
     headers: {
@@ -124,14 +114,12 @@ fetch('localhost:3000', {
 })
 ```
 
-headers 可以接受以下参数：
-
+头部可以接受以下参数：
 - 对象
 - 函数
 
-### Headers 对象
-
-如果传递了对象，则会直接传递给 fetch
+### 头部对象
+如果传入对象，则将直接传递到 fetch
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -142,8 +130,7 @@ treaty<App>('localhost:3000', {
 ```
 
 ### 函数
-
-你可以将头部指定为函数，根据条件返回自定义头部
+你可以将头部指定为函数，以根据条件返回自定义头部。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -156,16 +143,15 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-你可以返回对象以将其值附加到 fetch 头部。
+你可以返回对象以将其值追加到 fetch 头部。
 
-headers 函数接受两个参数：
+头部函数接受 2 个参数：
 - path `string` - 将发送到参数的路径
-  - 注意：主机名将被**排除**，例如 (/user/griseo)
-- options `RequestInit`：传递给 fetch 的第二个参数的参数
+  - 注意：主机名将被 **排除**，例如（/user/griseo）
+- options `RequestInit`: 通过 fetch 的第二个参数传入的参数
 
 ### 数组
-
-如果需要多个条件，则可以将 headers 函数定义为数组。
+如果需要多个条件，你可以将头部函数定义为数组。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -180,15 +166,13 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-如果存在多个函数，则 Eden Treaty 将**运行所有函数**，即使值已经返回。
+Eden Treaty 将 **运行所有函数**，即使已经返回了值。
 
-## Headers 优先级
-
-如果存在重复的头部，Eden Treaty 将按照以下顺序优先考虑头部：
-
-1. 内联方法 - 直接在方法函数中传递
+## 头部优先级
+Eden Treaty 将优先考虑头部的顺序，如果重复如下：
+1. 内联方法 - 直接传递的方法函数
 2. headers - 传递给 `config.headers`
-  - 如果 `config.headers` 是数组，则后面的参数将优先考虑
+  - 如果 `config.headers` 是数组，则后来的参数将被优先考虑
 3. fetch - 传递给 `config.fetch.headers`
 
 例如，对于以下示例：
@@ -215,11 +199,10 @@ fetch('http://localhost:3000', {
 })
 ```
 
-如果内联函数没有指定头部，则结果将为 “**Bearer Aponia**”。
+如果内联函数未指定头部，则结果将是 "**Bearer Aponia**"。
 
 ## Fetcher
-
-提供自定义的 fetcher 函数，而不是使用环境的默认 fetch。
+提供一个自定义的获取函数，而不是使用环境的默认 fetch。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -229,13 +212,12 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-如果要使用除 fetch 之外的其他客户端 (例如 Axios、unfetch)，建议替换 fetch。
+如果你想使用其他客户端而不是 fetch，建议替换 fetch，例如 Axios，unfetch。
 
 ## OnRequest
+在发送请求前拦截并修改获取请求。
 
-拦截和修改发送请求之前的 fetch 请求。
-
-你可以返回对象以将值附加到 **RequestInit**。
+你可以返回对象以将值追加到 **RequestInit**。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -250,16 +232,15 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-如果返回了值，Eden Treaty 将对返回的值和 `value.headers` 执行**浅合并**。
+如果返回了值，Eden Treaty 将对返回的值和 `value.headers` 进行 **浅合并**。
 
-**onRequest** 接受两个参数：
+**onRequest** 接受 2 个参数：
 - path `string` - 将发送到参数的路径
-  - 注意：主机名将被**排除**，例如 (/user/griseo)
-- options `RequestInit`：传递给 fetch 的第二个参数的参数
+  - 注意：主机名将被 **排除**，例如（/user/griseo）
+- options `RequestInit`: 通过 fetch 的第二个参数传入的参数
 
 ### 数组
-
-如果需要多个条件，则可以将 onRequest 函数定义为数组。
+如果需要多个条件，你可以将 onRequest 函数定义为数组。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -276,11 +257,10 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环遍历函数，直到找到返回值或抛出错误，返回值将用作新的响应。
+Eden Treaty 将 **运行所有函数**，即使值已经返回。
 
 ## onResponse
-
-拦截和修改 fetch 的响应，或返回新值。
+拦截并修改 fetch 的响应或返回新值。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -291,13 +271,11 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-**onRequest** 接受一个参数：
-
+**onResponse** 接受 1 个参数：
 - response `Response` - 通常从 `fetch` 返回的 Web 标准响应
 
 ### 数组
-
-如果需要多个条件，则可以将 onResponse 函数定义为数组。
+如果需要多个条件，你可以将 onResponse 函数定义为数组。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -309,5 +287,4 @@ treaty<App>('localhost:3000', {
     ]
 })
 ```
-
-与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环遍历函数，直到找到返回值或抛出错误，返回值将用作新的响应。
+与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环执行函数，直到找到返回的值或抛出错误，返回的值将用作新响应。

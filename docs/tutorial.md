@@ -1,32 +1,32 @@
 ---
-title: Tutorial - ElysiaJS
+title: 教程 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Tutorial - ElysiaJS
+        content: 教程 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia is a library built for Bun and the only prerequisite. To start, bootstrap a new project with "bun create elysia hi-elysia" and start the development server with "bun dev". This is all it needs to do a quick start or get started with ElysiaJS.
+        content: Elysia 是一款为 Bun 构建的库，唯一的前提条件。要开始，请使用 "bun create elysia hi-elysia" 启动一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始快速入门或使用 ElysiaJS 的全部所需。
 
     - - meta
       - property: 'og:description'
-        content: Elysia is a library built for Bun and the only prerequisite. To start, bootstrap a new project with "bun create elysia hi-elysia" and start the development server with "bun dev". This is all it needs to do a quick start or get started with ElysiaJS.
+        content: Elysia 是一款为 Bun 构建的库，唯一的前提条件。要开始，请使用 "bun create elysia hi-elysia" 启动一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始快速入门或使用 ElysiaJS 的全部所需。
 ---
 
-# Elysia Tutorial
+# Elysia 教程
 
-We will be building a small CRUD note-taking API server.
+我们将构建一个简单的 CRUD 笔记 API 服务器。
 
-There's no database or other "production ready" features. This tutorial is going to only focus on Elysia feature and how to use Elysia only.
+这里没有数据库，也没有其他“生产就绪”功能。本教程将重点介绍 Elysia 的功能以及如何仅使用 Elysia。
 
-We expected it to take around 15-20 minutes if you follow along.
+如果你跟着做，我们预计大约需要 15-20 分钟。
 
-## Setup
+## 设置
 
-Elysia is built on [Bun](https://bun.sh), an alterantive runtime to Node.js.
+Elysia 基于 [Bun](https://bun.sh) 构建，这是 Node.js 的替代运行时。
 
-Install Bun if you haven't already.
+如果你还没有安装 Bun，请先安装。
 
 ::: code-group
 
@@ -40,35 +40,35 @@ powershell -c "irm bun.sh/install.ps1 | iex"
 
 :::
 
-### Create a new project
+### 创建一个新项目
 
 ```bash
-# Create a new product
+# 创建一个新项目
 bun create elysia hi-elysia
 
-# cd into the project
+# 切换到该项目中
 cd hi-elysia
 
-# Install dependencies
+# 安装依赖
 bun install
 ```
 
-This will create a barebone project with Elysia and basic TypeScript config.
+这将创建一个基础项目，包含 Elysia 和基本的 TypeScript 配置。
 
-### Start the development server
+### 启动开发服务器
 
 ```bash
 bun dev
 ```
 
-Open your browser and go to **http://localhost:3000**, you should see **Hello Elysia** message on the screen.
+打开浏览器并访问 **http://localhost:3000**，你应该在屏幕上看到 **Hello Elysia** 消息。
 
-Elysia use Bun with `--watch` flag to automatically reload the server when you make changes.
+Elysia 使用 Bun 的 `--watch` 标志，当你进行更改时自动重新加载服务器。
 
-## Route
-To add a new route, we specify an HTTP method, a pathname, and a value.
+## 路由
+要添加新路由，我们需要指定一个 HTTP 方法、一个路径和一个值。
 
-Let's start by opening the `src/index.ts` file as follows:
+现在让我们打开 `src/index.ts` 文件，如下所示：
 ```typescript [index.ts]
 import { Elysia } from 'elysia'
 
@@ -78,9 +78,9 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Open **http://localhost:3000/hello**, you should see **Do you miss me?**.
+打开 **http://localhost:3000/hello**，你应该看到 **Do you miss me?**。
 
-There are several HTTP methods we can use, but we will use the following for this tutorial:
+我们可以使用几种 HTTP 方法，但本教程将使用以下方法：
 
 -   get
 -   post
@@ -88,7 +88,7 @@ There are several HTTP methods we can use, but we will use the following for thi
 -   patch
 -   delete
 
-Other methods are available, use the same syntax as `get`
+其他方法也可用，使用与 `get` 相同的语法。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -100,9 +100,9 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Elysia accept both value and function as a response.
+Elysia 接受值和函数作为响应。
 
-However, we can use function to access `Context` (route and instance information).
+不过，我们可以使用函数来访问 `Context`（路由和实例信息）。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -116,44 +116,44 @@ const app = new Elysia()
 
 ## Swagger
 
-Entering a URL to the browser can only interact with the GET method. To interact with other methods, we need a REST Client like Postman or Insomnia.
+在浏览器中输入 URL 只能与 GET 方法进行交互。要与其他方法进行交互，我们需要像 Postman 或 Insomnia 这样的 REST 客户端。
 
-Luckily, Elysia comes with a **OpenAPI Schema** with [Scalar](https://scalar.com) to interact with our API.
+幸运的是，Elysia 配备了一个 **OpenAPI Schema** 和 [Scalar](https://scalar.com)，以与我们的 API 进行交互。
 
 ```bash
-# Install the Swagger plugin
+# 安装 Swagger 插件
 bun add @elysiajs/swagger
 ```
 
-Then apply the plugin to the Elysia instance.
+然后将插件应用于 Elysia 实例。
 
 ```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 
 const app = new Elysia()
-    // Apply the swagger plugin
+    // 应用 Swagger 插件
     .use(swagger()) // [!code ++]
     .get('/', ({ path }) => path)
     .post('/hello', 'Do you miss me?')
     .listen(3000)
 ```
 
-Navigate to **http://localhost:3000/swagger**, you should see the documentation like this:
+导航到 **http://localhost:3000/swagger**，你应该看到如下文档：
 ![Scalar Documentation landing](/tutorial/scalar-landing.webp)
 
-Now we can interact with all the routes we have created.
+现在我们可以与所有已创建的路由进行交互。
 
-Scroll to **/hello** and click a blue **Test Request** button to show the form.
+滚动到 **/hello**，点击蓝色的 **测试请求** 按钮以显示表单。
 
-We can see the result by clicking the black **Send** button.
+我们可以通过点击黑色的 **发送** 按钮来查看结果。
 ![Scalar Documentation landing](/tutorial/scalar-request.webp)
 
-## Decorate
+## 装饰
 
-However, for more complex data we may want to use class for complex data as it's allow us to define custom methods and properties.
+然而，对于更复杂的数据，我们可能希望使用类来存储复杂数据，因为它允许我们定义自定义方法和属性。
 
-Now, let's create a singleton class to store our notes.
+现在，让我们创建一个单例类来存储我们的笔记。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -170,18 +170,18 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-`decorate` allow us to inject a singleton class into the Elysia instance, allowing us to access it in the route handler.
+`decorate` 允许我们将单例类注入到 Elysia 实例中，从而允许我们在路由处理程序中访问它。
 
-Open **http://localhost:3000/note**, we should see **["Moonhalo"]** on the screen.
+打开 **http://localhost:3000/note**，我们应该在屏幕上看到 **["Moonhalo"]**。
 
-For Scalar documentation, we may need to reload the page to see the new changes.
+对于 Scalar 文档，我们可能需要重新加载页面以查看新更改。
 ![Scalar Documentation landing](/tutorial/scalar-moonhalo.webp)
 
-## Path parameter
+## 路径参数
 
-Now let's retrieve a note by its index.
+现在，让我们根据索引检索笔记。
 
-We can define a path parameter by prefixing it with a colon.
+我们可以通过在前面加冒号来定义路径参数。
 
 ```typescript twoslash
 // @errors: 7015
@@ -202,19 +202,19 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Let's ignore the error for now.
+现在我们暂时忽略这个错误。
 
-Open **http://localhost:3000/note/0**, we should see **Moonhalo** on the screen.
+打开 **http://localhost:3000/note/0**，我们应该在屏幕上看到 **Moonhalo**。
 
-Path parameter allow us to retrieve a specific part from the URL. In our case, we retrieve a **"0"** from **/note/0** put into a variable named **index**.
+路径参数允许我们从 URL 中检索特定部分。在我们的例子中，我们从 **/note/0** 中检索到 **"0"** ，并将其放入名为 **index** 的变量中。
 
-## Validation
+## 验证
 
-The error above is a warning that path parameter can be any string, while an array index should be a number.
+上面的错误是一个警告，表示路径参数可以是任何字符串，而数组索引应该是数字。
 
-For example, **/note/0** is valid, but **/note/zero** is not.
+例如，**/note/0** 是有效的，但 **/note/zero** 不是。
 
-We can enforce and validate type by declaring a schema:
+我们可以通过声明架构来强制执行和验证类型：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia' // [!code ++]
@@ -242,36 +242,36 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-We import **t** from Elysia to and define a schema for the path parameter.
+我们从 Elysia 导入 **t** 并为路径参数定义一个架构。
 
-Now, if we try to access **http://localhost:3000/note/abc**, we should see an error message.
+现在，如果我们尝试访问 **http://localhost:3000/note/abc**，我们应该看到错误消息。
 
-This code resolve the error we have seen earlier because of **TypeScript warning**.
+这段代码解决了我们之前看到的错误，因为它是由于 **TypeScript 警告** 引起的。
 
-Elysia schema doesn't not only enforce validation on the runtime, but it also infers a TypeScript type for auto-completion and checking error ahead of time, and a Scalar documentation.
+Elysia 的架构不仅在运行时强制执行验证，还会推导出 TypeScript 类型，以实现自动补全和提前查看错误，以及 Scalar 文档。
 
-Most frameworks only provide only one of these features or provided them separately requiring us to update each one separately, but Elysia provides all of them as a **Single Source of Truth**.
+大多数框架仅提供其中一个功能，或者分别提供它们，这要求我们单独更新每一个，但 Elysia 将它们作为 **单一真实来源** 提供。
 
-### Validation type
+### 验证类型
 
-Elysia provide validation for the following properties:
+Elysia 提供以下属性的验证：
 
--   params - path parameter
--   query - URL querystring
--   body - request body
--   headers - request headers
+-   params - 路径参数
+-   query - URL 查询字符串
+-   body - 请求体
+-   headers - 请求头
 -   cookie - cookie
--   response - response body
+-   response - 响应体
 
-All of them sharing the same syntax as the example above.
+它们都共享与上述示例相同的语法。
 
-## Status code
+## 状态码
 
-By default, Elysia will return a status code of 200 for all routes even if the response is an error.
+默认情况下，Elysia 将为所有路由返回 200 状态码，即使响应是错误。
 
-For example, if we try to access **http://localhost:3000/note/1**, we should see **undefined** on the screen which shouldn't be a 200 status code (OK).
+例如，如果我们尝试访问 **http://localhost:3000/note/1**，我们应该在屏幕上看到 **undefined**，这不应该是 200 状态码（OK）。
 
-We can change the status code by returning an error
+我们可以通过返回错误来更改状态码。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -299,9 +299,9 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-Now, if we try to access **http://localhost:3000/note/1**, we should see **Not Found** on the screen with a status code of 404.
+现在，如果我们尝试访问 **http://localhost:3000/note/1**，我们应该看到 **未找到** 的状态码为 404。
 
-We can also return a custom message by passing a string to the error function.
+我们还可以通过将字符串传递给错误函数来返回自定义消息。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -329,11 +329,11 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## Plugin
+## 插件
 
-The main instance is starting to get crowded, we can move the route handler to a separate file and import it as a plugin.
+主实例开始变得拥挤，我们可以将路由处理程序移到单独的文件中，并作为插件导入。
 
-Create a new file named **note.ts**:
+创建一个名为 **note.ts** 的新文件：
 
 ::: code-group
 
@@ -362,7 +362,7 @@ export const note = new Elysia()
 
 :::
 
-Then on the **index.ts**, apply **note** into the main instance:
+然后在 **index.ts** 中，将 **note** 应用到主实例：
 ::: code-group
 
 ```typescript twoslash [index.ts]
@@ -420,15 +420,15 @@ const app = new Elysia()
 
 :::
 
-Open **http://localhost:3000/note/1** and you should see **oh no :\(** as same as before.
+打开 **http://localhost:3000/note/1**，你应该看到 **哦，不 :\(**，与之前相同。
 
-We have just created a **note** plugin, by declaring a new Elysia instance.
+我们刚刚创建了一种 **note** 插件，通过声明一个新的 Elysia 实例。
 
-Each plugin is a separate instance of Elysia which has its own routes, middlewares, and decorators which can be applied to other instances.
+每个插件都是一个独立的 Elysia 实例，具有自己的路由、中间件和装饰器，可以应用于其他实例。
 
-## Applying CRUD
+## 应用 CRUD
 
-We can apply the same pattern to create, update, and delete routes.
+我们可以应用相同的模式来创建、更新和删除路由。
 
 ::: code-group
 
@@ -503,13 +503,13 @@ export const note = new Elysia()
     ) // [!code ++]
 ```
 
-Now let's open **http://localhost:3000/swagger** and try playing around with CRUD operation.
+现在我们让我们打开 **http://localhost:3000/swagger** 并尝试进行 CRUD 操作。
 
-## Group
+## 分组
 
-If we look closely, all of the routes in **note** plugin all share a **/note** prefix.
+如果我们仔细观察，**note** 插件中的所有路由都共享一个 **/note** 前缀。
 
-We can simplify this by declaring **prefix**
+我们可以通过声明 **prefix** 来简化这一点。
 
 ::: code-group
 
@@ -590,11 +590,11 @@ export const note = new Elysia({ prefix: '/note' }) // [!code ++]
 
 :::
 
-## Guard
+## 守卫
 
-Now we may notice that there are several routes in plugin that has **params** validation.
+现在我们可能注意到插件中的几条路由都有 **params** 验证。
 
-We may define a **guard** to apply validation to routes in the plugin.
+我们可以定义一个 **guard** 来将验证应用于插件中的路由。
 
 ::: code-group
 
@@ -677,15 +677,15 @@ export const note = new Elysia({ prefix: '/note' })
 
 :::
 
-Validation will applied to all routes **after guard** is called and tie to the plugin.
+验证将在 **guard** 被调用后应用于所有路由，并与插件绑定。
 
-## Lifecycle
+## 生命周期
 
-Now in real-world usage, we may want to do something like logging before the request is processed.
+在实际使用中，我们可能希望在处理请求之前做一些事情，例如记录日志。
 
-Instead of inline `console.log` for each route, we may apply **lifecycle** that intercept request before/after it is processed.
+与其在每条路由中使用内联的 `console.log`，不如应用 **lifecycle**，该生命周期在请求处理之前/之后拦截请求。
 
-There are several lifecycle that we can use, but in this case we will be using `onTransform`.
+我们可以使用几种生命周期，但在这个例子中我们将使用 `onTransform`。
 
 ::: code-group
 
@@ -754,21 +754,21 @@ export const note = new Elysia({ prefix: '/note' })
 
 :::
 
-`onTransform` is called after **routing but before validation**, so we can do something like logging the request that is defined without **404 Not found** route.
+`onTransform` 在 **路由之后但在验证之前** 被调用，因此我们可以在未定义 **404 未找到** 路由的情况下记录请求。
 
-This allow us to log the request before it is processed, and we can see the request body and path parameters.
+这使我们能够在请求处理之前记录请求，我们可以查看请求体和路径参数。
 
-### Scope
+### 范围
 
-By default, **lifecycle hook is encapsulated**. Hook is applied to routes in the same instance, and is not applied to other plugins (routes that not defined in the same plugin).
+默认情况下，**lifecycle hook 被封装**。钩子应用于同一实例中的路由，而不应用于其他插件（未在同一插件中定义的路由）。
 
-This means `onTransform` log will not be called on other instance, unless we explcity defined as `scoped` or `global`.
+这意味着 `onTransform` 的日志不会在其他实例中被调用，除非我们显式地将其定义为 **scoped** 或 **global**。
 
-## Authentication
+## 身份验证
 
-Now we may want to add authorization to our routes, so only owner of the note can update or delete the note.
+现在我们可能想为我们的路由添加授权，以便只有笔记的拥有者可以更新或删除笔记。
 
-Let's create a `user.ts` file that will handle the user authentication:
+让我们创建一个 `user.ts` 文件来处理用户身份验证：
 
 ```typescript twoslash [user.ts]
 import { Elysia, t } from 'elysia' // [!code ++]
@@ -844,32 +844,32 @@ export const user = new Elysia({ prefix: '/user' })// [!code ++]
     )// [!code ++]
 ```
 
-Now there are a lot to unwrap here:
-1. We create a new instance with 2 routes for sign up and sign in.
-2. In the instance, we define an in-memory store `user` and `session`
-	- 2.1 `user` will hold key-value of `username` and `password`
-	- 2.2 `session` will hold a key-value of `session` and `username`
-3. In `/sign-in` we insert a username and hashed password with argon2id
-4. In `/sign-up` we does the following:
-	- 4.1 We check if user exists and verify the password
-	- 4.2 If the password matches, then we generate a new session into `session`
-	- 4.3 We set cookie `token` with the value of session
-	- 4.4 We append `secret` to cookie to add hash attacker from tampering with the cookie
+现在这里有很多需要解读：
+1. 我们创建了一个新实例，包含两个路由用于注册和登录。
+2. 在该实例中，我们定义了一个内存存储 `user` 和 `session`
+	- 2.1 `user` 将保存 `username` 和 `password` 的键值对
+	- 2.2 `session` 将保存 `session` 和 `username` 的键值对
+3. 在 `/sign-in` 中，我们插入一个用户名和经过 argon2id 散列的密码
+4. 在 `/sign-up` 中我们做以下事情：
+	- 4.1 我们检查用户是否存在并验证密码
+	- 4.2 如果密码匹配，我们会在 `session` 中生成一个新会话
+	- 4.3 我们将 cookie `token` 设置为 session 的值
+	- 4.4 我们将 `secret` 附加到 cookie，以防止攻击者篡改 cookie
 
 ::: tip
-As we are using an in-memory store, the data are wipe out every reload or everytime we edit the code.
+由于我们使用的是内存存储，数据将在每次重新加载或每次编辑代码时被清除。
 
-We will fix that in the later part of the tutorial.
+我们将在本教程的后面部分进行修复。
 :::
 
-Now if we want to check if user is signed in, we could check for value of `token` cookie and check with the `session store.
+现在，如果我们想要检查用户是否已登录，我们可以检查 `token` cookie 的值，并与 `session` 存储进行检查。
 
-## Reference Model
-However, we can recognize that both `/sign-in` and `/sign-up` both share same `body` model.
+## 参考模型
+然而，我们可以识别出 `/sign-in` 和 `/sign-up` 都共享同一个 `body` 模型。
 
-Instead of copy-pasting the model all over the place, we could use a **reference model** to reuse the model by specifying a name.
+我们可以通过使用 **reference model** 来重用模型，具体方法是指定一个名称。
 
-To create a **reference model**, we may use `.model` and pass the name and the value of models:
+要创建 **reference model**，我们可以使用 `.model` 并传递名称与模型的值：
 
 ```typescript twoslash [user.ts]
 import { Elysia, t } from 'elysia'
@@ -949,9 +949,9 @@ export const user = new Elysia({ prefix: '/user' })
     )
 ```
 
-After adding a model/models, we can reuse them by referencing their name in the schema instead of providing a literal type while providing the same functionality and type safety.
+添加模型后，我们可以通过在架构中引用它们的名称来重用这些模型，而不是提供字面类型，同时提供相同的功能和类型安全。
 
-We may also notice that, there's a **remap model** performing in this line:
+我们还可能会注意到，这一行中正在执行 **remap model**：
 ```ts
 import { Elysia } from 'elysia'
 
@@ -976,17 +976,17 @@ new Elysia()
     })) // [!code ++]
 ```
 
-`Elysia.model` could accepts multiple overload:
-1. Providing an object, the register all key-value as models
-2. Providing a function, then access all previous models then return new models
+`Elysia.model` 可以接受多个重载：
+1. 提供一个对象，注册所有键值作为模型
+2. 提供一个函数，然后访问所有先前的模型并返回新模型
 
-By providing a function, we could do a remap/reference or filter out model we don't want to use.
+通过提供一个函数，我们可以进行重映射/引用或过滤掉我们不想使用的模型。
 
-However in our case we want to reference a model and create a new model from it. Notice that we create a new `optionalSession` model by referencing a `model.session` and wrap `t.Optional` over it.
+然而在我们的例子中，我们希望引用一个模型并从中创建一个新模型。注意我们通过引用 `model.session` 创建了一个新的 `optionalSession` 模型，并在其上包裹了 `t.Optional`。
 
-The rest parameter `...rest` is also important as we want to keep all the model while adding a new one.
+其余参数 `...rest` 也很重要，因为我们希望在添加新模型的同时保留所有模型。
 
-Finally, we could add the `/profile` and `/sign-out` route as follows:
+最后，我们可以添加 `/profile` 和 `/sign-out` 路由，如下所示：
 ```typescript twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
@@ -1100,16 +1100,16 @@ export const user = new Elysia({ prefix: '/user' })
     ) // [!code ++]
 ```
 
-As we are going to apply `authorization` in the `note`, we are going to need to repeat 2 things:
+由于我们将在 `note` 中应用 `authorization`，我们需要重复两件事情：
 
-1. Checking if user exists
-2. Getting user id (in our case 'username')
+1. 检查用户是否存在
+2. 获取用户 ID（在我们的例子中是 'username'）
 
-For **1.** instead of using guard, we could use a **macro**.
+对于 **1.** ，我们可以使用 **macro**。
 
-## Plugin deduplication
+## 插件去重
 
-As we are going to reuse this hook in multiple modules (user, and note), let's extract the service (utility) part out and apply to both modules.
+由于我们要在多个模块（用户和笔记）中重用此钩子，因此我们可以将服务（实用程序）部分提取出来并应用于两个模块。
 ```ts twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
@@ -1163,16 +1163,16 @@ export const user = new Elysia({ prefix: '/user' })
     })) // [!code --]
 ```
 
-The `name` property here is very important, as it's a unique identifier for the plugin to prevent duplicate instance (like a singleton).
+这里的 `name` 属性非常重要，因为它是插件的唯一标识符，以防止重复实例（如单例）。
 
-If we were to define the instance without the plugin, hook/lifecycle and routes and going to be register every time the plugin is used.
+如果我们没有定义插件而定义实例，钩子/生命周期和路由会在每次使用插件时注册。
 
-Our intention is to apply this plugin (service) to multiple modules to provide utility function, this make deduplication very important as life-cycle shouldn't be register twice.
+我们的目的是将此插件（服务）应用于多个模块，以提供实用功能，因此去重非常重要，因为生命周期不应注册两次。
 
-## Macro
-Macro allows us to define a custom hook with custom life-cycle management.
+## 宏
+宏允许我们定义一个带有自定义生命周期管理的自定义钩子。
 
-To define a macro, we could use `.macro` as the follows:
+要定义宏，我们可以使用 `.macro`，如下所示：
 ```ts twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
@@ -1224,9 +1224,9 @@ export const userService = new Elysia({ name: 'user/service' })
     })) // [!code ++]
 ```
 
-We have just create a new macro name `isSignIn` that accept `boolean` value, if it was true, then we add a `onBeforeHandle` event that execute **after validation but before the main handler**, allowing us to extract authentication logic here.
+我们刚刚创建了一个名为 `isSignIn` 的新宏，接受 `boolean` 值，如果为 true，则添加一个 `onBeforeHandle` 事件，该事件在 **验证之后但在主处理程序之前** 执行，允许我们在此处提取身份验证逻辑。
 
-To use the macro, simply specified `isSignIn: true` as follows:
+要使用宏，只需指定 `isSignIn: true`，如下所示：
 ```ts twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
@@ -1354,18 +1354,18 @@ export const user = new Elysia({ prefix: '/user' })
     )
 ```
 
-As we specified `isSignIn`, we can extract the imperative checking part, and reuse the same logic on multiple routes without copy-pasting the same code all over again.
+设置 `isSignIn` 后，我们可以提取命令式检查部分，并在多个路由上重用相同的逻辑，而不必重复相同的代码。
 
 ::: tip
-This may seems like a small code change to trade for a larger boilerplate, but as the server grow complex, the user-checking could also grows to be a very complex mechanism as well.
+这看起来可能是一个小的代码更改，以换取更大的样板，但随着服务器变得复杂，用户检查也可能变得非常复杂。
 :::
 
-## Resolve
-Our last objective is to get the username (id) from token, we could use `resolve` to define a new property into context same as `store` but only execute per request.
+## 解决
+我们最后的目标是从令牌中获取用户名（ID），我们可以使用 `resolve` 在上下文中定义一个新属性，类似于 `store`，但仅在每个请求中执行。
 
-Unlike `decorate` and `store`, resolve is defined at `beforeHandle` stage or the value will be available **after validation**.
+与 `decorate` 和 `store` 不同，resolve 在 `beforeHandle` 阶段定义，或者在验证后可用。
 
-This ensure that the property like `cookie: 'session'` is exists before creating a new property.
+这确保了像 `cookie: 'session'` 这样的属性在创建新属性之前存在。
 
 ```ts twoslash [user.ts]
 import { Elysia, t } from 'elysia'
@@ -1427,16 +1427,16 @@ export const getUserId = new Elysia() // [!code ++]
     })) // [!code ++]
 ```
 
-In this instance, we define a new property `username` by using `resolve`, allowing us to reduce the getting `username` logic into a property instead.
+在这个实例中，我们通过使用 `resolve` 定义了一个新属性 `username`，从而简化获取 `username` 的逻辑。
 
-We don't define a name in this `getUserId` instance because we want `guard` and `resolve` to reapply into multiple instance.
+我们在这个 `getUserId` 实例中没有定义名字，因为我们希望在多个实例中重新应用 `guard` 和 `resolve`。
 
 ::: tip
-Same as macro, resolve plays well if the logic for getting the property is complex and might not worth for a small operation like this. But since in the real-world we are going to need database-connection, caching, and queing might make it fits the narrative.
+同样，resolve 在获取属性的逻辑复杂时表现良好，可能不值得用于这样的小操作。但由于在实际情况下，我们需要数据库连接、缓存和排队，可能会使其符合叙述。
 :::
 
-## Scope
-Now if we try to apply the use the `getUserId`, we might notice that the property `username` and `guard` isn't applied.
+## 范围
+如果我们尝试应用 `getUserId`，我们可能会注意到属性 `username` 和 `guard` 并未应用。
 ```ts twoslash [user.ts]
 // @errors: 2339
 import { Elysia, t } from 'elysia'
@@ -1506,17 +1506,17 @@ export const user = new Elysia({ prefix: '/user' })
     }))
 ```
 
-This is because Elysia **encapsulate lifecycle** by default as mention [lifecycle](#lifecycle)
+这是因为 Elysia 默认情况下 **封装生命周期**，如 [lifecycle](#lifecycle) 中提到的那样。
 
-This is intentional by design, as we don't want each module to have a side-effect to other modules. Having a side-effect can be very difficult to debug especially in a large codebase with multiple (Elysia) dependencies.
+这是故意设计的，因为我们不希望每个模块对其他模块产生副作用。产生副作用可能在代码库较大且包含多个（Elysia）依赖项时非常难以调试。
 
-If we want lifecycle to applied to the parent, we can explicitly annotate that it could be applied to the parent by using either:
-1. scoped - only apply to parent at 1-level above only and not above
-2. global - apply to all parent
+如果我们希望生命周期应用于父级，我们可以显式地标注它可以应用于父级，方法有：
+1. scoped - 仅应用于一个级别以上的父级
+2. global - 应用至所有父级
 
-In our case, we want to use **scoped** as it will apply to the controller that use the service only.
+在我们的例子中，我们希望使用 **scoped**，因为它仅应用于使用该服务的控制器。
 
-To do this, we need to annotate that life-cycle as `scoped`:
+要做到这一点，我们需要将生命周期标注为 `scoped`：
 ```typescript twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
@@ -1590,9 +1590,9 @@ export const user = new Elysia({ prefix: '/user' })
     }))
 ```
 
-Alternatively, if we have multiple `scoped` define, we could use `as` to cast multiple life-cycle instead.
+另外，如果我们定义多个 `scoped`，我们可以使用 `as` 来转换多个生命周期。
 
-```ts twoslash [user.ts]
+```typescript twoslash [user.ts]
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1665,15 +1665,15 @@ export const user = new Elysia({ prefix: '/user' })
     }))
 ```
 
-Both acheive the same effect, the only difference is single or multiple cast.
+两者实现相同的效果，唯一的区别在于单个或多个转换。
 
 ::: tip
-Encapsulation happens in both runtime, and type-level. This allows us to catch the error ahead of time.
+封装发生在运行时和类型级别。这使我们能够提前捕获错误。
 :::
 
-Lastly, we can reuse `userService` and `getUserId` to help with authorization in our **note** controller.
+最后，我们可以重用 `userService` 和 `getUserId` 来帮助在 **note** 控制器中进行授权。
 
-But first, don't forget to import the `user` in the `index.ts` file:
+但首先，不要忘记在 `index.ts` 文件中导入 `user`：
 ::: code-group
 
 ```typescript twoslash [index.ts]
@@ -1833,10 +1833,10 @@ const app = new Elysia()
 
 :::
 
-## Authorization
-First, let's modify the `Note` to store the user who created the note.
+## 授权
+首先，让我们修改 `Note` 以存储创建笔记的用户。
 
-But instead of defining the `Memo` type, we can define a memo schema and infer the type from it, allowing us to sync runtime and type-level.
+但我们可以定义一个笔记架构，推导出其类型，允许我们同步运行时和类型级别。
 
 ```typescript [note.ts]
 import { Elysia, t } from 'elysia'
@@ -1939,7 +1939,7 @@ export const note = new Elysia({ prefix: '/note' })
     )
 ```
 
-Now let's import, and apply `userService`, `getUserId` to apply authorization to the **note** controller.
+现在让我们导入并应用 `userService`、`getUserId` 来将授权应用于 **note** 控制器。
 
 ```typescript twoslash [note.ts]
 // @errors: 2392 2300 2403 2345 2698
@@ -2108,15 +2108,15 @@ export const note = new Elysia({ prefix: '/note' })
     )
 ```
 
-And that's it 🎉
+就是这样 🎉
 
-We have just implemented authorization by reusing the service we created earlier.
+我们刚刚通过重用之前创建的服务实现了授权。
 
-## Error handling
+## 错误处理
 
-One of the most important aspect of API is to make sure nothing goes wrong, and if it does, we need to handle it properly.
+API 最重要的一个方面是确保没有问题，如果发生了，我们需要正确处理它。
 
-We use use `onError` lifecycle to catch any error that is thrown in the server.
+我们使用 `onError` 生命周期来捕获服务器抛出的任何错误。
 
 ::: code-group
 
@@ -2235,15 +2235,15 @@ const app = new Elysia()
 
 :::
 
-We have just added an error listener that will catch any error that is thrown in the server, excluding **404 Not Found** and log it to the console.
+我们刚刚添加了一个错误监听器，将捕获服务器抛出的任何错误，排除 **404 未找到**，并将其记录到控制台。
 
 ::: tip
-Notice that `onError` is at before `use(note)`. This is important as Elysia apply method from top-to-bottom. The listener have to be applied before route.
+注意 `onError` 在 `use(note)` 之前。这一点很重要，因为 Elysia 以自上而下的方式应用方法。监听器必须在路由之前应用。
 
-And as `onError` is applied on the root instance, it doesn't need to define a scope as it will apply to all children instances.
+由于 `onError` 应用于根实例，因此不需要定义范围，因为它将应用于所有子实例。
 :::
 
-Returning a truthy value will override a default error response, so we can return a custom error response while inherits the status code.
+返回一个真值将覆盖默认错误响应，因此我们可以返回一个自定义错误响应，同时继承状态码。
 
 ::: code-group
 
@@ -2360,17 +2360,17 @@ const app = new Elysia()
 
 :::
 
-### Observability
+### 可观察性
 
-Now we have a working API, a final touch is to make sure everything is working after we deployed our server.
+现在我们有一个工作中的 API，最后的点缀是确保在部署服务器后所有功能正常。
 
-Elysia support OpenTelemetry by default with `@elysiajs/opentelemetry` plugin.
+Elysia 默认支持 OpenTelemetry，使用 `@elysiajs/opentelemetry` 插件。
 
 ```bash
 bun add @elysiajs/opentelemetry
 ```
 
-Make sure to have a OpenTelemetry collector running otherwise we will be using Jaeger using docker.
+确保有一个 OpenTelemetry 收集器在运行，否则我们将使用 Docker 启动 Jaeger。
 
 ```bash
 docker run --name jaeger \
@@ -2389,7 +2389,7 @@ docker run --name jaeger \
   jaegertracing/all-in-one:latest
 ```
 
-Now let's apply OpenTelemetry plugin to our server.
+现在让我们将 OpenTelemetry 插件应用于我们的服务器。
 ::: code-group
 
 ```typescript twoslash [index.ts]
@@ -2509,24 +2509,24 @@ const app = new Elysia()
 
 :::
 
-Now try out some more requests and open http://localhost:16686 to see traces.
+现在尝试进行更多请求并打开 http://localhost:16686 查看追踪信息。
 
-Select service **Elysia** and click on **Find Traces**, we should able to see list of requests that we have made.
+选择服务 **Elysia**，点击 **查找追踪**，我们应该能够看到我们所做请求的列表。
 
 ![Jaeger showing list of requests](/tutorial/jaeger-list.webp)
 
-Click on any of the request to see how long each lifecycle hook takes to process the request.
+点击任何请求以查看每个生命周期钩子处理请求所花费的时间。
 ![Jaeger showing request span](/tutorial/jaeger-span.webp)
 
-Click on the root parent span to see the request details, this will show you the request and response payload, and error if have any.
+点击根父跨度以查看请求的详细信息，这将显示请求和响应有效载荷，以及任何错误。
 ![Jaeger showing request detail](/tutorial/jaeger-detail.webp)
 
-Elysia support OpenTelemetry out of the box, it automatically integrate with other JavaScript library that support OpenTelemetry like Prisma, GraphQL Yoga, Effect, etc.
+Elysia 直接支持 OpenTelemetry，它自动与支持 OpenTelemetry 的其他 JavaScript 库（如 Prisma、GraphQL Yoga、Effect 等）集成。
 
-You can also use other OpenTelemetry plugins to send traces to other services like Zipkin, Prometheus, etc.
+你还可以使用其他 OpenTelemetry 插件将追踪信息发送到其他服务，如 Zipkin、Prometheus 等。
 
-## Codebase recap
-If you are following along, you should have a codebase that looks like this:
+## 代码库回顾
+如果你跟着做，你应该有一个代码库如下所示：
 
 ::: code-group
 
@@ -3081,8 +3081,8 @@ export const note = new Elysia({ prefix: '/note' })
 
 :::
 
-## Build for production
-Finally we can bundle our server into a binary for production using `bun build`:
+## 生产环境构建
+最后，我们可以使用 `bun build` 将服务器打包成二进制可用于生产：
 ```bash
 bun build \
 	--compile \
@@ -3093,57 +3093,57 @@ bun build \
 	./src/index.ts
 ```
 
-This command is a bit long, so let's break it down:
-1. `--compile` - Compile TypeScript to binary
-2. `--minify-whitespace` - Remove unnecessary whitespace
-3. `--minify-syntax` - Minify JavaScript syntax to reduce file size
-4. `--target bun` - Target the `bun` platform, this can optimize the binary for the target platform
-5. `--outfile server` - Output the binary as `server`
-6. `./src/index.ts` - The entry file of our server (codebase)
+该命令有点长，所以我们将其拆分：
+1. `--compile` - 将 TypeScript 编译为二进制文件
+2. `--minify-whitespace` - 删除不必要的空白
+3. `--minify-syntax` - 压缩 JavaScript 语法以减少文件大小
+4. `--target bun` - 目标为 `bun` 平台，这可以优化二进制文件以适应目标平台
+5. `--outfile server` - 输出二进制文件为 `server`
+6. `./src/index.ts` - 我们服务器的入口文件（代码库）
 
-Now we can run the binary using `./server` and it will start the server on port 3000 same as using `bun dev`.
+现在我们可以使用 `./server` 运行二进制文件，它将在 3000 端口启动服务器，效果与使用 `bun dev` 相同。
 ```bash
 ./server
 ```
 
-Open your browser and navigate to `http://localhost:3000/swagger`, you should see the same result as using dev command.
+打开浏览器并导航到 `http://localhost:3000/swagger`，你应该看到与使用开发命令相同的结果。
 
-By minifying the binary not only that we made our server small and portable, but it also significantly reduce memory usage.
+通过压缩二进制文件，我们不仅使服务器变得小巧且可移植，而且还显著减少了内存使用。
 
 ::: tip
-Bun does have `--minify` flag that will minify the binary, however it include `--minify-identifiers`, and as we are using OpenTelemetry, it's going to rename function name and make tracing harder than it should.
+Bun 确实有 `--minify` 标志，可以压缩二进制文件，但它包含 `--minify-identifiers`，而由于我们使用 OpenTelemetry，这会重命名函数名称，使追踪变得比应有的更困难。
 :::
 
 ::: warning
-Exercise: Try run development server and production server, and compare the memory usage.
+练习：尝试同时运行开发服务器和生产服务器，并比较内存使用情况。
 
-Development server will use a process name 'bun', while production server will use the name 'server'.
+开发服务器将使用进程名称 'bun'，而生产服务器将使用名称 'server'。
 :::
 
-## Wrapping up
+## 总结
 
-And- that's it 🎉
+好的，完成了 🎉
 
-We have created a simple API using Elysia, we have learned how to create a simple API, how to handle errors, and how to observe our server using OpenTelemetry.
+我们使用 Elysia 创建了一个简单的 API，学习了如何创建一个简单的 API、如何处理错误，以及如何使用 OpenTelemetry 观察我们的服务器。
 
-You could to take a step further by trying to connect to a real database, connect to a real frontend or implement a real-time communication with WebSocket.
+你可以进一步尝试连接到一个真实的数据库，连接到一个真实的前端或实现基于 WebSocket 的实时通信。
 
-This Tutorial cover most of the concept we need to know to create Elysia server, however there are some several useful concepts you might want to know.
+本教程涵盖了创建 Elysia 服务器所需了解的大部分概念，但还有一些有用的概念你可能想知道。
 
-### If you are stuck
+### 如果你遇到问题
 
-Feels free to ask our community on GitHub Discussions, Discord, and Twitter, if you have any further question.
+如果你有任何进一步的问题，请随时在 GitHub讨论、Discord和Twitter上询问我们的社区。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        Official ElysiaJS discord community server
+        官方 ElysiaJS Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        Track update and status of Elysia
+        跟踪 Elysia 的更新和状态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
-        Source code and development
+        源代码和开发
     </Card>
 </Deck>
 
-We wish you happy on your journey with Elysia ❤️
+我们祝你在 Elysia 的旅程中好运 ❤️

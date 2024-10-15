@@ -7,24 +7,24 @@ head:
 
   - - meta
     - name: 'description'
-      content: Elysia has first-class support and follows OpenAPI schema by default. Allowing any Elysia server to generate a Swagger page and serve as documentation automatically by using just 1 line of the Elysia Swagger plugin.
+      content: Elysia 提供了一流的支持，并默认遵循 OpenAPI 模式。只需使用 Elysia Swagger 插件的一行代码，便能允许任何 Elysia 服务器自动生成 Swagger 页面并作为文档提供。
 
   - - meta
     - property: 'og:description'
-      content: Elysia has first-class support and follows OpenAPI schema by default. Allowing any Elysia server to generate a Swagger page and serve as documentation automatically by using just 1 line of the Elysia Swagger plugin.
+      content: Elysia 提供了一流的支持，并默认遵循 OpenAPI 模式。只需使用 Elysia Swagger 插件的一行代码，便能允许任何 Elysia 服务器自动生成 Swagger 页面并作为文档提供。
 ---
 
 # OpenAPI
-Elysia has first-class support and follows OpenAPI schema by default.
+Elysia 提供了一流的支持，并默认遵循 OpenAPI 模式。
 
-Elysia can automatically generate an API documentation page and by providing a Swagger plugin.
+Elysia 可以通过提供 Swagger 插件自动生成 API 文档页面。
 
-To generate the Swagger page, install the plugin:
+要生成 Swagger 页面，请安装插件：
 ```bash
 bun add @elysiajs/swagger
 ```
 
-And register the plugin to the server:
+并将插件注册到服务器：
 ```typescript
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
@@ -33,14 +33,14 @@ const app = new Elysia()
     .use(swagger())
 ```
 
-By default, Elysia use OpenAPI V3 schema and [Scalar UI](http://scalar.com) by default
+默认情况下，Elysia 使用 OpenAPI V3 模式和 [Scalar UI](http://scalar.com)。
 
-For Swagger plugin configuration, see the [Swagger plugin page](/plugins/swagger).
+有关 Swagger 插件配置，请参见 [Swagger 插件页面](/plugins/swagger)。
 
-## Route definitions
-We add route information by providing a schema type.
+## 路由定义
+我们通过提供模式类型添加路由信息。
 
-However, sometime defining a type only isn't clear what the route might work. You can use `schema.detail` fields to explictly define what the route is all about.
+然而，有时候仅定义类型并不能清楚表达路由的功能。您可以使用 `schema.detail` 字段明确地定义路由的目的。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -54,54 +54,54 @@ new Elysia()
                 username: t.String(),
                 password: t.String({
                 	minLength: 8,
-                	description: 'User password (at least 8 characters)' // [!code ++]
+                	description: '用户密码（至少 8 个字符）' // [!code ++]
                 })
             },
             { // [!code ++]
-                description: 'Expected an username and password' // [!code ++]
+                description: '期望的用户名和密码' // [!code ++]
             } // [!code ++]
         ),
         detail: { // [!code ++]
-            summary: 'Sign in the user', // [!code ++]
-            tags: ['authentication'] // [!code ++]
+            summary: '用户登录', // [!code ++]
+            tags: ['身份验证'] // [!code ++]
         } // [!code ++]
     })
 ```
 
-The detail fields follows an OpenAPI V3 definition with auto-completion and type-safety by default.
+详细字段遵循 OpenAPI V3 定义，并默认具有自动补全和类型安全。
 
-Detail is then passed to Swagger to put the description to Swagger route.
+详细信息随后传递给 Swagger，以便将描述放入 Swagger 路由中。
 
 ### detail
-`detail` extends the [OpenAPI Operation Object](https://swagger.io/specification#operation-object)
+`detail` 扩展了 [OpenAPI 操作对象](https://swagger.io/specification#operation-object) 
 
-The detail field is an object that can be use to describe information about the route for API documentation.
+详细字段是一个对象，可以用来描述有关该路由的 API 文档信息。
 
-Which may contains the following fields:
+该字段可能包含以下内容：
 
 ### tags
-An array of tags for the operation. Tags can be used for logical grouping of operations by resources or any other qualifier.
+该操作的标签数组。标签可用于根据资源或任何其他标识符逻辑分组操作。
 
 ### summary
-A short summary of what the operation does.
+该操作执行的简短摘要。
 
 ### description
-A verbose explanation of the operation behavior.
+该操作行为的详细解释。
 
 ### externalDocs
-Additional external documentation for this operation.
+该操作的额外外部文档。
 
 ### operationId
-A unique string used to identify the operation. The id MUST be unique among all operations described in the API. The operationId value is case-sensitive.
+用于唯一标识操作的字符串。该 ID 必须在 API 中所有描述的操作中唯一。operationId 值对大小写敏感。
 
 ### deprecated
-Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is false.
+声明该操作已被弃用。消费者应避免使用已声明的操作。默认值为 false。
 
 ### security
-A declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. To make security optional, an empty security requirement ({}) can be included in the array.
+声明此操作可以使用哪些安全机制。值的列表包括可以使用的替代安全要求对象。为了授权请求，只需满足安全要求对象中的其中一个。要使安全性可选，可以在数组中包含一个空的安全要求（{}）。
 
-## Hide
-You can hide the route from the Swagger page by setting `detail.hide` to `true`
+## 隐藏
+您可以通过将 `detail.hide` 设置为 `true` 来隐藏 Swagger 页面上的路由。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -116,7 +116,7 @@ new Elysia()
                 password: t.String()
             },
             {
-                description: 'Expected an username and password'
+                description: '期望的用户名和密码'
             }
         ),
         detail: { // [!code ++]
@@ -125,21 +125,21 @@ new Elysia()
     })
 ```
 
-## Tags group
-Elysia may accept tags to add an entire instance or group of routes to a specific tag.
+## 标签组
+Elysia 可能会接受标签以将整个实例或一组路由添加到特定标签。
 
 ```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia({
-	tags: ['user']
+	tags: ['用户']
 })
-	.get('/user', 'user')
-	.get('/admin', 'admin')
+	.get('/user', '用户')
+	.get('/admin', '管理员')
 ```
 
-## Guard
-Alternatively, Elysia may accept guards to add an entire instance or group of routes to a specific guard.
+## 保护
+另外，Elysia 可能会接受保护以将整个实例或一组路由添加到特定保护。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -147,9 +147,9 @@ import { Elysia, t } from 'elysia'
 new Elysia()
 	.guard({
 		detail: {
-			description: 'Require user to be logged in'
+			description: '要求用户已登录'
 		}
 	})
-	.get('/user', 'user')
-	.get('/admin', 'admin')
+	.get('/user', '用户')
+	.get('/admin', '管理员')
 ```

@@ -1,31 +1,28 @@
 ---
-title: Bearer Plugin
+title: Bearer 插件 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Bearer Plugin - Elysia 中文文档
+      content: Bearer 插件 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Elysia 的插件，用于根据 RFC6750 规范检索 Bearer 令牌。首先通过 bun add @elysiajs/bearer 安装插件。
+      content: Elysia 的插件，用于检索按照 RFC6750 规定的 Bearer 令牌。通过 "bun add @elysiajs/bearer" 安装插件。
 
   - - meta
     - name: 'og:description'
-      content: Elysia 的插件，用于根据 RFC6750 规范检索 Bearer 令牌。首先通过 bun add @elysiajs/bearer 安装插件。
+      content: Elysia 的插件，用于检索按照 RFC6750 规定的 Bearer 令牌。通过 "bun add @elysiajs/bearer" 安装插件。
 ---
 
-# Bearer Plugin
+# Bearer 插件
+用于 [elysia](https://github.com/elysiajs/elysia) 的插件，以检索 Bearer 令牌。
 
-用于从 [Elysia](https://github.com/elysiajs/elysia) 检索 Bearer 令牌的插件。
-
-安装方式：
-
+安装命令：
 ```bash
 bun add @elysiajs/bearer
 ```
 
 然后使用它：
-
 ```typescript
 import { Elysia } from 'elysia'
 import { bearer } from '@elysiajs/bearer'
@@ -47,6 +44,6 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-该插件用于检索在 [RFC6750](https://www.rfc-editor.org/rfc/rfc6750#section-2) 中指定的 Bearer token。
+该插件用于检索在 [RFC6750](https://www.rfc-editor.org/rfc/rfc6750#section-2) 中规定的 Bearer 令牌。
 
-该插件不处理服务器的身份验证验证，而是由开发者自己决定是否应用逻辑来处理验证检查。
+此插件不处理您服务器上的身份验证验证。相反，插件将决定权留给开发人员自行实现处理验证检查的逻辑。

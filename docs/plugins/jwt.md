@@ -1,28 +1,28 @@
 ---
-title: JWT Plugin
+title: JWT 插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: JWT Plugin - Elysia 中文文档
+        content: JWT 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia 插件，为 Elysia 服务器添加 JWT（JSON Web Token）支持。首先使用 "bun add @elysiajs/jwt" 安装该插件。
+        content: 为 Elysia 添加 JWT（JSON Web Token）支持的插件。开始时使用 "bun add @elysiajs/jwt" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 插件，为 Elysia 服务器添加 JWT（JSON Web Token）支持。首先使用 "bun add @elysiajs/jwt" 安装该插件。
+        content: 为 Elysia 添加 JWT（JSON Web Token）支持的插件。开始时使用 "bun add @elysiajs/jwt" 安装插件。
 ---
 
-# JWT Plugin
-该插件为 Elysia handler 添加了对 JWT 的支持。
+# JWT 插件
+该插件为 Elysia 处理器添加了支持使用 JWT。
 
-安装方式：
+安装方法：
 ```bash
 bun add @elysiajs/jwt
 ```
 
-使用方法：
+然后使用它：
 ```typescript
 import { Elysia } from 'elysia'
 import { jwt } from '@elysiajs/jwt'
@@ -42,7 +42,7 @@ const app = new Elysia()
             path: '/profile',
         })
 
-        return `以 ${auth.value} 的身份登录`
+        return `以 ${auth.value} 登录`
     })
     .get('/profile', async ({ jwt, set, cookie: { auth } }) => {
         const profile = await jwt.verify(auth.value)
@@ -52,7 +52,7 @@ const app = new Elysia()
             return '未经授权'
         }
 
-        return `你好，${profile.name}`
+        return `你好 ${profile.name}`
     })
     .listen(3000)
 ```
@@ -60,12 +60,12 @@ const app = new Elysia()
 ## 配置
 该插件扩展了来自 [jose](https://github.com/panva/jose) 的配置。
 
-下方是该插件接受的配置。
+以下是插件接受的配置。
 
 ### name
-用于注册 `jwt` 函数的名称。
+为 `jwt` 函数注册的名称。
 
-例如，你可以使用自定义名称注册 `jwt` 函数。
+例如，`jwt` 函数将使用自定义名称注册。
 ```typescript
 app
     .use(
@@ -79,13 +79,13 @@ app
     })
 ```
 
-由于可能需要在单个服务器中使用多个具有不同配置的 `jwt` 函数，因此需要显式地使用不同的名称注册 JWT 函数。
+因为有些人可能需要在单个服务器中使用多个具有不同配置的 `jwt`，所以显式地以不同名称注册 JWT 函数是必要的。
 
 ### secret
-用于使用私钥对 JWT 负载进行签名。
+用于签署 JWT 负载的私钥。
 
 ### schema
-用于 JWT 负载的类型严格验证。
+对 JWT 负载的类型严格验证。
 
 ---
 以下是扩展自 [cookie](https://npmjs.com/package/cookie) 的配置。
@@ -93,9 +93,9 @@ app
 ### alg
 @default `HS256`
 
-用于对 JWT 负载进行签名的签名算法。
+签署 JWT 负载的算法。
 
-jose 可能的属性有：
+jose 的可能属性有：
 HS256
 HS384
 HS512
@@ -112,94 +112,94 @@ ES512
 EdDSA
 
 ### iss
-发布者声明标识 JWT 的发布者，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1)。
+发行者声明标识了根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1) 发行 JWT 的主体。
 
-TLDR；通常是签名者的 (域) 名称。
+简而言之；通常是签署者的（域）名称。
 
 ### sub
-主体声明标识 JWT 的主体。
+主题声明标识了作为 JWT 主题的主体。
 
-JWT 中的声明通常是关于主题的陈述，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.2)。
+JWT 中的声明通常是关于主体的陈述，按照 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.2) 的规定。
 
 ### aud
-接收方声明标识 JWT 的预期接收方。
+受众声明标识了 JWT 预期的接收者。
 
-每个预期处理 JWT 的主体都必须在接收方声明中使用一个值来标识自己，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.3)。
+每个预期处理 JWT 的主体必须在受众声明中用一个值进行自我标识，按照 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.3) 的规定。
 
 ### jtit
-用于提供 JWT 的唯一标识符的 JWT ID 声明，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.7)。
+JWT ID 声明为 JWT 提供了一个唯一标识符，依据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.7)。
 
 ### nbf
-“不早于” 声明标识 JWT 不应在此之前接受处理的时间，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.5)。
+"not before" 声明标识了在该时间之前 JWT 不得被接受处理，依据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.5)。
 
 ### exp
-过期时间声明标识 JWT 在此时间之后或之后不得接受处理，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.4)。
+过期时间声明标识了在此时间或之后 JWT 不得被接受处理，依据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.4)。
 
 ### iat
-“发布于” 声明标识 JWT 的发布时间。
+"issued at" 声明标识了 JWT 被签发的时间。  
 
-此声明可用于确定 JWT 的年龄，根据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.6)。
+按照 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.6) 的规定，该声明可用于确定 JWT 的年龄。
 
 ### b64
-此 JWS 扩展头部参数修改了 JWS 负载的表示方式和 JWS 签名输入计算，根据 [RFC7797](https://www.rfc-editor.org/rfc/rfc7797)。
+此 JWS 扩展头参数修改 JWS 负载表示和 JWS 签名输入计算，依据 [RFC7797](https://www.rfc-editor.org/rfc/rfc7797)。
 
 ### kid
-提示指示用于保护 JWS 的密钥。
+提示指示用于保护 JWS 的密钥。 
 
-此参数允许发送方显式地向接收方发出密钥更改信号，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.4)。
+此参数允许发起者明确向接收者信号更改密钥，依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.4)。
 
 ### x5t
-(X.509 证书 SHA-1 摘要) 头部参数是对用于数字签名 JWS 的密钥所对应的 X.509 证书的 DER 编码的 base64url 编码的 SHA-1 摘要，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.7)。
+(X.509 证书 SHA-1 指纹) 头参数是 DER 编码的 X.509 证书的 base64url 编码的 SHA-1 摘要，依据 [RFC5280](https://www.rfc-editor.org/rfc/rfc5280)，且与用于数字签名 JWS 的密钥对应，依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.7)。
 
 ### x5c
-(X.509 证书链) 头部参数包含与用于数字签名 JWS 的密钥对应的 X.509 公钥证书或证书链 [RFC5280](https://www.rfc-editor.org/rfc/rfc5280)，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.6)。
+(X.509 证书链) 头参数包含与用于数字签名 JWS 的密钥相对应的 X.509 公钥证书或证书链，依据 [RFC5280](https://www.rfc-editor.org/rfc/rfc5280)，以及依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.6)。
 
 ### x5u
-(X.509 URL) 头部参数是一个指向用于数字签名 JWS 的密钥所对应的 X.509 公钥证书或证书链 [RFC5280] 资源的 URI [RFC3986](https://www.rfc-editor.org/rfc/rfc3986)，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.5)。
+(X.509 URL) 头参数是一个 URI [RFC3986](https://www.rfc-editor.org/rfc/rfc3986)，它指向用于数字签名 JWS 的 X.509 公钥证书或证书链的资源，依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.5)。
 
 ### jwk
-“jku” (JWK 集 URL) 头部参数是一个指向用于数字签名 JWS 的密钥所对应的 JSON 编码的公钥集资源的 URI [RFC3986]。
+"jku" (JWK 集 URL) 头参数是一个 URI [RFC3986]，它指向 JSON 编码的公钥集合的资源，其中一个对应于用于数字签名 JWS 的密钥。
 
-密钥必须编码为 JWK Set [JWK]，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.2)。
+根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.2)，密钥必须编码为 JWK 集 [JWK]。
 
 ### typ
-“type” (类型) 头部参数由 JWS 应用程序用于声明此完整 JWS 的媒体类型 [IANA.MediaTypes]。
+`typ` (类型) 头参数用于 JWS 应用程序声明此完整 JWS 的媒体类型 [IANA.MediaTypes]。
 
-当应用程序数据结构中可能存在多种类型的对象且其中可以包含 JWS 时，该参数是应用程序使用的，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.9)。
+这旨在供应用程序使用，当一个应用程序数据结构中可能存在多种对象而可以包含 JWS，依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.9)。
 
 ### ctr
-Content-Type 参数由 JWS 应用程序用于声明受保护内容 (负载) 的媒体类型 [IANA.MediaTypes]。
+Content-Type 参数由 JWS 应用程序用于声明受保护内容（负载）的媒体类型 [IANA.MediaTypes]。
 
-当 JWS 负载中可以包含多种对象时，该参数是应用程序使用的，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.9)。
+这旨在供应用程序使用，当 JWS 负载中可能存在多种对象，依据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.9)。
 
-## Handler
-下方是添加到 handler 中的新增值。
+## 处理器
+以下是添加到处理器的值。
 
 ### jwt.sign
-与 JWT 相关的动态对象集合，由 JWT 插件注册。
+与 JWT 使用相关的动态对象集合，由 JWT 插件注册。
 
 类型：
 ```typescript
-sign: (payload: JWTPayloadSpec) => Promise<string>
+sign: (payload: JWTPayloadSpec): Promise<string>
 ```
 
-`JWTPayloadSpec` 接受与 [JWT 配置](#config)相同的值。
+`JWTPayloadSpec` 接受与 [JWT 配置](#config) 相同的值。
 
 ### jwt.verify
 使用提供的 JWT 配置验证负载。
 
 类型：
 ```typescript
-verify: (payload: string) => Promise<JWTPayloadSpec | false>
+verify(payload: string) => Promise<JWTPayloadSpec | false>
 ```
 
-`JWTPayloadSpec` 接受与 [JWT 配置](#config)相同的值。
+`JWTPayloadSpec` 接受与 [JWT 配置](#config) 相同的值。
 
-## Pattern
-下方是使用该插件的常见模式。
+## 模式
+以下是使用该插件的常见模式。
 
-## 设置 JWT 过期日期
-默认情况下，配置会传递给 `setCookie` 并继承其值。
+## 设置 JWT 过期时间
+默认情况下，配置传递给 `setCookie` 并继承其值。
 
 ```typescript
 const app = new Elysia()
@@ -213,4 +213,4 @@ const app = new Elysia()
     .get('/sign/:name', async ({ jwt, params }) => jwt.sign(params))
 ```
 
-这将使用未来 7 天设置 JWT 的过期日期。
+这将签署一个有效期为接下来 7 天的 JWT。

@@ -1,17 +1,17 @@
 ---
-title: 生命周期
+title: 生命周期 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 生命周期 - Elysia 中文文档
+        content: 生命周期 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 生命周期事件是 Elysia 处理过程中每个阶段的概念，"生命周期 "或 "钩子 "是一个事件监听器，用于拦截和监听这些循环事件。钩子允许你转换数据管道中运行的数据。有了钩子，你就可以定制 Elysia，充分发挥其潜力。
+        content: 生命周期事件是Elysia处理每个阶段的概念，“生命周期”或“钩子”是一个事件监听器，用于拦截和监听这些事件的循环。钩子允许你转化通过数据管道运行的数据。借助钩子，你可以将Elysia自定义到最大化潜力。
 
     - - meta
       - property: 'og:description'
-        content: 生命周期事件是 Elysia 处理过程中每个阶段的概念，"生命周期 "或 "钩子 "是一个事件监听器，用于拦截和监听这些循环事件。钩子允许你转换数据管道中运行的数据。有了钩子，你就可以定制 Elysia，充分发挥其潜力。
+        content: 生命周期事件是Elysia处理每个阶段的概念，“生命周期”或“钩子”是一个事件监听器，用于拦截和监听这些事件的循环。钩子允许你转化通过数据管道运行的数据。借助钩子，你可以将Elysia自定义到最大化潜力。
 ---
 
 <script setup>
@@ -21,158 +21,159 @@ import Deck from '../../components/nearl/card-deck.vue'
 
 # 生命周期
 
-生命周期允许我们在预定义的点拦截一个重要事件，以便根据需要自定义服务器的行为。
+生命周期允许我们在预定义的点拦截一个重要事件，从而根据需要自定义我们服务器的行为。
 
-Elysia 的生命周期事件可以如图所示：
+Elysia的生命周期事件可以表示如下：
 ![Elysia 生命周期图](/assets/lifecycle.webp)
 
-以下是 Elysia 中可用的请求生命周期：
+以下是Elysia中可用的请求生命周期：
 
 <Deck>
     <Card title="请求" href="#request">
-        通知接收到新的事件
+        通知新事件已被接收
     </Card>
     <Card title="解析" href="#parse">
-        将身体解析成<b>Context.body</b>
+        将主体解析为 <b>Context.body</b>
     </Card>
     <Card title="转换" href="#transform">
-        在验证之前修改<b>Context</b>
+        在验证之前修改 <b>Context</b>
     </Card>
     <Card title="处理前" href="#before-handle">
-        在路由处理前进行自定义验证
+        在路由处理器之前进行自定义验证
     </Card>
     <Card title="处理后" href="#after-handle">
-        将返回的值转换成新值
+        将返回值转换为新值
     </Card>
     <Card title="映射响应" href="#map-response">
-        将返回的值映射成响应
+        将返回值映射为响应
     </Card>
-    <Card title="错误" href="#on-error">
-        捕获抛出错误时
+    <Card title="出错时" href="#on-error">
+        捕获抛出的错误
     </Card>
-    <Card title="响应后" href="#on-response">
-        在响应发送给客户端后执行
+    <Card title="响应时" href="#on-response">
+        在响应发送到客户端后执行
     </Card>
-    <Card title="Trace" href="/patterns/trace">
-        审计和捕获每个事件的时延
+    <Card title="追踪" href="/patterns/trace">
+        审计并捕获每个事件的持续时间
     </Card>
 </Deck>
 
 ## 为什么
-想象一下，我们想要返回一些HTML。
+想象一下，我们想返回一些HTML。
 
-我们需要设置 **"Content-Type"** 头为 **"text/html"**，以便浏览器能够渲染 HTML。
+我们需要将**"Content-Type"**头设置为**"text/html"**，以便浏览器能够渲染HTML。
 
-显式指定响应是 HTML 可能会在有很多处理程序的情况下重复，比如说 ~200 个端点。
+如果有很多处理程序，比如大约200个端点，明确指定响应是HTML可能会变得重复。
 
-这可能导致大量重复代码，只是为了指定 **"text/html"**、**"Content-Type"**。
+这可能导致大量重复代码，仅仅是为了指定**"text/html"** **"Content-Type"**。
 
-但是，如果我们发送响应后，我们能够检测到响应是HTML字符串，然后自动追加头部吗？
+但是如果在我们发送响应后，检测到响应是一个HTML字符串，然后自动附加头部呢？
 
-这时生命周期的概念就派上用场了。
+这就是生命周期概念发挥作用的地方。
 
 ## 钩子
 
-我们将每个拦截生命周期事件的函数称为 **"钩子"**，因为函数钩住了生命周期事件。
+我们将每个拦截生命周期事件的函数称为**"钩子"**，因为该函数挂钩到生命周期事件。
 
-钩子可以分为以下两种类型：
+钩子可以分为两种类型：
 
 1. 本地钩子：在特定路由上执行
 2. 拦截器钩子：在每个路由上执行
 
 ::: tip
-钩子将接受与处理程序相同的上下文，你可以想象是在添加一个路由处理程序，但是在特定的点上。
+钩子将接受与处理程序相同的上下文，你可以想象在特定点添加一个路由处理程序。
 :::
 
 ## 本地钩子
 
 本地钩子在特定路由上执行。
 
-要使用本地钩子，你可以将钩子内联到路由处理程序中：
+要使用本地钩子，可以将钩子内联到路由处理程序中：
 
 ```typescript
 import { Elysia } from 'elysia'
 import { isHtml } from '@elysiajs/html'
 
 new Elysia()
-    .get('/', () => '<h1>你好世界</h1>', {
+    .get('/', () => '<h1>你好，世界</h1>', {
         afterHandle({ response, set }) {
             if (isHtml(response))
                 set.headers['Content-Type'] = 'text/html; charset=utf8'
         }
     })
-    .get('/hi', () => '<h1>你好世界</h1>')
+    .get('/hi', () => '<h1>你好，世界</h1>')
     .listen(3000)
 ```
 
 响应应该列出如下：
 
-| 路径 | Content-Type             |
-| ---- | ------------------------ |
-| /    | text/html; charset=utf8  |
+| 路径 | 内容类型              |
+| ---- | --------------------- |
+| /    | text/html; charset=utf8 |
 | /hi  | text/plain; charset=utf8 |
 
 ## 拦截器钩子
 
-注册钩子到当前实例的每个处理程序之后。
+将钩子注册到当前实例的每个处理程序后。
 
-要添加拦截器钩子，你可以使用 `.on` 后面是驼峰式命名的生命周期事件：
+要添加拦截器钩子，可以使用`.on`后跟生命周期事件的camelCase：
 
 ```typescript
 import { Elysia } from 'elysia'
 import { isHtml } from '@elysiajs/html'
 
 new Elysia()
+    .get('/none', () => '<h1>你好，世界</h1>')
     .onAfterHandle(({ response, set }) => {
         if (isHtml(response))
             set.headers['Content-Type'] = 'text/html; charset=utf8'
     })
-    .get('/', () => '<h1>你好世界</h1>')
-    .get('/hi', () => '<h1>你好世界</h1>')
+    .get('/', () => '<h1>你好，世界</h1>')
+    .get('/hi', () => '<h1>你好，世界</h1>')
     .listen(3000)
 ```
 
 响应应该列出如下：
 
-| 路径  | Content-Type             |
-| ----- | ------------------------ |
-| /     | text/html; charset=utf8  |
-| /hi   | text/html; charset=utf8  |
+| 路径  | 内容类型              |
+| ----- | --------------------- |
+| /     | text/html; charset=utf8 |
+| /hi   | text/html; charset=utf8 |
 | /none | text/plain; charset=utf8 |
 
-来自其他插件的的事件也会应用到路由上，因此代码的顺序很重要。
+其他插件的事件也适用于该路由，因此代码的顺序很重要。
 
 ::: tip
-上面的代码只会应用到当前实例，不应用到父实例。
+上面的代码仅适用于当前实例，不适用于父实例。
 
-查看[作用域](/essential/plugin#scope)来了解为什么
+请参阅[作用域](/essential/plugin#scope)以了解原因。
 :::
 
 ## 代码顺序
 
-Elysia 的生命周期代码的顺序非常重要。
+Elysia的生命周期代码顺序非常重要。
 
-Elysia 的生命周期事件存储为队列，即先进先出。因此，Elysia 总是尊重代码从上到下的顺序和生命周期事件的顺序。
+Elysia的生命周期事件存储为队列，即先进先出。因此，Elysia将**始终**尊重从上到下的代码顺序，后面跟随生命周期事件的顺序。
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
     .onBeforeHandle(() => {
-        console.log(1)
+        console.log('1')
     })
     .onAfterHandle(() => {
-        console.log(3)
+        console.log('3')
     })
     .get('/', () => 'hi', {
         beforeHandle() {
-            console.log(2)
+            console.log('2')
         }
     })
     .listen(3000)
 ```
 
-控制台应该记录如下：
+控制台应记录如下：
 
 ```bash
 1
@@ -181,16 +182,16 @@ new Elysia()
 ```
 
 ## 请求
-对于每个新请求接收到的事件，第一个生命周期事件被执行。
+每个新请求接收到的第一个生命周期事件是`onRequest`。
 
-因为 `onRequest` 是为了提供最重要的上下文以减少开销设计的，所以推荐在以下情况下使用：
+由于`onRequest`旨在提供最关键的上下文以减少开销，建议在以下场景中使用：
 - 缓存
-- 速率限制器/IP/区域锁定
+- 速率限制 / IP/区域锁定
 - 分析
-- 提供自定义头部，例如 CORS
+- 提供自定义头部，例如CORS
 
-#### 例子
-下面是一个伪代码，用于在特定 IP 地址上执行速率限制。
+#### 示例
+下面是一个伪代码，强制限制某个IP地址的速率。
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -198,38 +199,38 @@ new Elysia()
     .use(rateLimiter)
     .onRequest(({ rateLimiter, ip, set, error }) => {
         if(rateLimiter.check(ip))
-            return error(420, 'Enhance your calm')
+            return error(420, '请冷静下来')
     })
-    .get('/', () => '<h1>你好世界</h1>')
+    .get('/', () => 'hi')
     .listen(3000)
 ```
 
-如果 `onRequest` 返回了值，它将用作响应，生命周期的其余部分将被跳过。
+如果从`onRequest`返回一个值，则该值将用作响应，其余的生命周期将被跳过。
 
 ### 预上下文
-`onRequest` 上下文是基于 `Context`，具有以下属性：
-request: `Request`
+请求的上下文类型为`PreContext`，它是`Context`的一个最小表示，包含以下属性：
+请求: `Request`
 - set: `Set`
 - store
 - decorators
 
-上下文不提供 `derived` 值，因为 `derive` 是基于 `onTransform` 事件的。
+上下文不提供`derived`值，因为推导是基于`onTransform`事件的。
 
 ## 解析
-解析相当于 Express 中的 **body parser**。
+解析是Express中**主体解析器**的等价物。
 
-一个函数来解析体，返回的值将被附加到 `Context.body`，如果没有，Elysia 将继续迭代通过由 `onParse` 分配的额外解析器函数，直到身体被分配或所有解析器都被执行。
+一个解析主体的函数，返回值将附加到`Context.body`，如果没有，Elysia将继续迭代通过`onParse`分配的其他解析函数，直到主体被赋值或所有解析器都执行完毕。
 
-默认情况下，Elysia 将解析具有内容类型的体：
+默认情况下，Elysia将解析以下内容类型的主体：
 - `text/plain`
 - `application/json`
 - `multipart/form-data`
 - `application/x-www-form-urlencoded`
 
-建议使用 `onParse` 事件来提供一个 Elysia 不提供的自定义 body 解析器。
+建议使用`onParse`事件提供Elysia未提供的自定义主体解析器。
 
-#### 例子
-下面是一个例子代码，用于根据自定义头部检索值。
+#### 示例
+以下是一个示例代码，通过自定义头部获取值。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -241,19 +242,19 @@ new Elysia()
     })
 ```
 
-返回的值将被分配到 Context.body。如果没有，Elysia 将继续迭代通过额外的 `onParse` 解析器栈直到身体被分配或所有解析器都被执行。
+返回的值将被分配给Context.body。如果没有，Elysia将继续从**onParse**堆栈中迭代其他解析函数，直到主体被赋值或所有解析器都执行完毕。
 
 ### 上下文
-`onParse` 上下文是基于 `Context`，具有以下额外属性：
-- contentType: 请求的 Content-Type头部
+`onParse`的上下文扩展自`Context`，并具有以下附加属性：
+- contentType: 请求的Content-Type头
 
-所有上下文是基于正常上下文，可以像正常上下文在路由处理程序中一样使用。
+所有上下文基于正常上下文，可以像正常上下文一样在路由处理程序中使用。
 
-### 显式体
+### 显式主体
 
-默认情况下，Elysia 试图在接收到请求之前确定体解析函数，并选择最合适的函数来加快这个过程。
+默认情况下，Elysia将尝试提前确定主体解析函数，并选择最合适的函数以加快过程。
 
-Elysia 能够根据体函数来确定内容类型的选择。
+Elysia能够通过读取`body`来确定该主体函数。
 
 看看这个例子：
 ```typescript
@@ -268,42 +269,42 @@ new Elysia()
     })
 ```
 
-Elysia 阅读了体模式，发现类型完全是对象，所以可能是 JSON。因此，Elysia 选择了 JSON 体解析函数，并在接收体之前尝试解析。
+Elysia读取主体模式，发现该类型完全是一个对象，因此主体可能是JSON。Elysia会提前选择JSON主体解析函数，并尝试解析主体。
 
-这里是 Elysia 用来选择体解析函数的准则：
+以下是Elysia用于选择主体解析器类型的标准：
 
-- `application/json`: 类型为 `t.Object`
-- `multipart/form-data`: 类型为 `t.Object`，并且是一层深，带有 `t.File`
-- `application/x-www-form-urlencoded`: 类型为 `t.URLEncoded`
+- `application/json`: 主体类型为`t.Object`
+- `multipart/form-data`: 主体类型为`t.Object`，并且有一层深度为`t.File`
+- `application/x-www-form-urlencoded`: 主体类型为`t.URLEncoded`
 - `text/plain`: 其他原始类型
 
-这允许 Elysia 在编译时优化体解析器，并减少编译时的开销。
+这使Elysia能够提前优化主体解析器，并减少编译时间的开销。
 
 ### 显式内容类型
-然而，在某些情况下，如果 Elysia 无法选择正确的体解析函数，我们可以显式地告诉 Elysia 使用某种函数，通过指定 `type`
+然而，在某些场景中，如果Elysia未能选择正确的主体解析函数，我们可以通过指定`type`明确告诉Elysia使用某个函数。
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
     .post('/', ({ body }) => body, {
-        // 简写形式application/json
+        // 应用程序/json的简写
         type: 'json',
     })
 ```
 
-允许我们控制 Elysia 的行为，为选择体解析器函数提供我们的需求在复杂的情况下。
+允许我们控制Elysia选择主体解析函数的行为，以适应我们在复杂场景中的需求。
 
-`type` 可以是以下之一：
+`type`可以是以下之一：
 ```typescript
 type ContentType = |
-    // 'text/plain' 的快捷方式
+    // 'text/plain'的简写
     | 'text'
-    // 'application/json' 的快捷方式
+    // 'application/json'的简写
     | 'json'
-    // 'multipart/form-data' 的快捷方式
+    // 'multipart/form-data'的简写
     | 'formdata'
-    // 'application/x-www-form-urlencoded' 的快捷方式
+    // 'application/x-www-form-urlencoded'的简写
     | 'urlencoded'
     | 'text/plain'
     | 'application/json'
@@ -312,14 +313,14 @@ type ContentType = |
 ```
 
 ## 转换
-在验证过程之前执行，设计用来改变上下文以符合验证或追加新值。
+在**验证**过程之前执行，旨在修改上下文以符合验证或附加新值。
 
 建议在以下情况下使用转换：
-- 改变现有上下文以符合验证。
-- `derive` 是基于 `onTransform` 事件，支持提供类型。
+- 修改现有上下文以符合验证。
+- `derive`基于`onTransform`提供类型支持。
 
-#### 例子
-下面是一个使用转换来转换参数为数值值的例子。
+#### 示例
+以下是使用转换将参数转变为数字值的示例。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -339,10 +340,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## 派生
-设计来在验证过程之前将新值追加到上下文中，存储在与**转换**相同的栈中。
+## 推导
+旨在在验证过程之前直接将新值附加到上下文，存储在与**transform**相同的堆栈中。
 
-不像**状态**和**装饰**在服务器启动之前分配值，**派生**在每个请求开始时分配一个属性。允许我们将信息的一部分提取成一个属性。
+与在服务器启动之前分配值的**state**和**decorate**不同，**derive**在每次请求发生时分配属性。允许我们将一小段信息提取为属性。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -358,10 +359,12 @@ new Elysia()
     .get('/', ({ bearer }) => bearer)
 ```
 
-因为**派生**是在一个新的请求开始时分配的，**派生**可以访问请求属性，如 **headers**, **query**, **body**，而 **store** 和 **decorate** 不能。
+因为**derive**在新请求开始时被分配，**derive**可以访问请求属性，如**headers**、**query**、**body**，而**store**和**decorate**无法。
+
+与**state**和**decorate**不同，通过**derive**分配的属性是唯一的，并且不会与另一个请求共享。
 
 ### 队列
-`derive` 和 `transform` 存储在同一个队列中。
+`derive`和`transform`存储在同一个队列中。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -384,23 +387,22 @@ new Elysia()
 2
 ```
 
-同 `derive`，由 `derive` 分配的属性是唯一的，不与其他请求共享。
-
 ## 处理前
 
-在验证和主要路由处理程序之前执行。
+在验证后并在主要路由处理程序之前执行。
 
-设计用来提供特定的需求之前的自定义验证。
+旨在提供自定义验证，以满足特定需求，再运行主要处理程序。
 
-如果返回了值，路由处理程序将被跳过。
+如果返回了一个值，则将跳过路由处理程序。
 
 建议在以下情况下使用处理前：
 
-- 受限访问检查：授权，用户登录
-- 自定义基于数据结构的要求
+-   访问限制检查：授权、用户登录
+-   自定义请求要求超过数据结构
 
-#### 例子
-下面是使用处理前检查用户登录的例子。
+#### 示例
+
+以下是使用处理前检查用户登录状态的示例。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -418,14 +420,14 @@ new Elysia()
 
 响应应该列出如下：
 
-| 是否登录 | 响应   |
-| ------- | ------ |
-| ❌       | 未授权 |
-| ✅       | 你好   |
+| 是否登录 | 响应         |
+| -------- | ------------ |
+| ❌       | 未授权      |
+| ✅       | 你好        |
 
 ### 守卫
 
-当我们需要在多个路由上应用相同的处理前时，我们可以使用[守卫](#守卫)来应用相同的处理前到多个路由。
+当我们需要将相同的处理前应用于多个路由时，可以使用[守卫](#guard)将相同的处理前应用于多个路由。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -455,13 +457,13 @@ new Elysia()
     .listen(3000)
 ```
 
-## 解决
+## 解析
 
-一个"安全"版本的[派生](/life-cycle/before-handle#derive)。
+一个“安全”的版本，即[derive](/life-cycle/before-handle#derive)。
 
-设计来在验证过程之前将新值追加到上下文中，存储在与**处理前**相同的栈中。
+旨在在验证过程后向上下文附加新值，存储在与**beforeHandle**相同的堆栈中。
 
-解决语法与[派生](/life-cycle/before-handle#derive)相同，下面是一个从 Authorization 插件检索 bearer 头部的例子。
+解析的语法与[derive](/life-cycle/before-handle#derive)相同，下面是一个示例，从Authorization插件检索bearer头。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -485,7 +487,7 @@ new Elysia()
     .listen(3000)
 ```
 
-使用 `resolve` 和 `onBeforeHandle` 存储在同一个队列中。
+使用`resolve`和`onBeforeHandle`存储在同一个队列中。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -512,11 +514,11 @@ new Elysia()
 3
 ```
 
-同 `derive`，由 `resolve` 分配的属性是唯一的，不与其他请求共享。
+与**derive**相同，通过**resolve**分配的属性是唯一的，并且不会与另一个请求共享。
 
-### 守卫解决
+### 守卫解析
 
-由于解决在本地钩子不可用，建议使用守卫来封装 `resolve` 事件。
+由于本地钩子中不可用，因此建议使用守卫来封装**resolve**事件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -539,49 +541,51 @@ new Elysia()
 
 ## 处理后
 
-在主要处理程序之后执行，用于映射处理程序返回的值到一个合适的响应。
+在主要处理程序之后执行，用于将**处理前**和**路由处理程序**返回的值映射为合适的响应。
 
 建议在以下情况下使用处理后：
-- 将请求转换成新值，例如压缩，事件流
-- 根据响应值添加自定义头部，例如 **Content-Type**
 
-#### 例子
-下面是一个使用处理后添加 HTML 内容类型到响应头部的例子。
+-   将请求转换为新值，例如压缩、事件流
+-   根据响应值添加自定义头部，例如**Content-Type**
+
+#### 示例
+
+以下是使用处理后向响应头添加HTML内容类型的示例。
 
 ```typescript
 import { Elysia } from 'elysia'
 import { isHtml } from '@elysiajs/html'
 
 new Elysia()
-    .get('/', () => '<h1>你好世界</h1>', {
+    .get('/', () => '<h1>你好，世界</h1>', {
         afterHandle({ response, set }) {
             if (isHtml(response))
                 set.headers['content-type'] = 'text/html; charset=utf8'
         }
     })
-    .get('/hi', () => '<h1>你好世界</h1>')
+    .get('/hi', () => '<h1>你好，世界</h1>')
     .listen(3000)
 ```
 
 响应应该列出如下：
 
-| 路径 | Content-Type             |
-| ---- | ------------------------ |
-| /    | text/html; charset=utf8  |
+| 路径 | 内容类型              |
+| ---- | --------------------- |
+| /    | text/html; charset=utf8 |
 | /hi  | text/plain; charset=utf8 |
 
 ### 返回值
 
-如果处理后返回了值，返回的值将被用作新的响应值，除非返回的是 **undefined**
+如果一个值被返回，处理后将使用返回值作为新响应值，除非该值是**未定义**。
 
-上面的例子可以被重写为如下：
+上述示例可以重写如下：
 
 ```typescript
 import { Elysia } from 'elysia'
 import { isHtml } from '@elysiajs/html'
 
 new Elysia()
-    .get('/', () => '<h1>你好世界</h1>', {
+    .get('/', () => '<h1>你好，世界</h1>', {
         afterHandle({ response, set }) {
             if (isHtml(response)) {
                 set.headers['content-type'] = 'text/html; charset=utf8'
@@ -589,29 +593,30 @@ new Elysia()
             }
         }
     })
-    .get('/hi', () => '<h1>你好世界</h1>')
+    .get('/hi', () => '<h1>你好，世界</h1>')
     .listen(3000)
 ```
 
-与**处理前**不同，处理后返回值后，下一轮**处理后**的迭代**不会**被跳过。
+与**处理前**不同，从**处理后**返回一个值后，**处理后**的迭代**不会**被跳过。
 
 ### 上下文
 
-`onAfterHandle` 上下文是基于 `Context`，具有附加的 `response` 属性，是返回给客户端响应。
+`onAfterHandle`的上下文扩展自`Context`，并具有额外的属性`response`，这是返回给客户端的响应。
 
-`onAfterHandle` 上下文是基于正常的上下文，可以像正常的上下文在路由处理程序中一样使用。
+`onAfterHandle`的上下文基于正常上下文，可以像正常上下文一样在路由处理程序中使用。
 
 ## 映射响应
 
-在 **"处理后"** 之后执行，设计来提供自定义响应映射。
+在**"处理后"**之后执行，旨在提供自定义响应映射。
 
-建议在以下情况下使用映射响应：
+建议在以下情况下使用转换：
 
-- 提供响应压缩
-- 将值映射到 Web 标准响应
+-   压缩
+-   将值映射为Web标准响应
 
-#### 例子
-下面是一个使用映射响应来提供响应压缩的例子。
+#### 示例
+
+以下是使用映射响应提供响应压缩的示例。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -640,26 +645,27 @@ new Elysia()
         )
     })
     .get('/text', () => '映射响应')
-    .get('/json', () => ({ 映射: '响应' }))
+    .get('/json', () => ({ map: '响应' }))
     .listen(3000)
 ```
 
-像**解析**和**处理前**一样，一旦映射响应返回了值，下一轮**映射响应**的迭代将被跳过。
+与**解析**和**处理前**类似，在返回一个值后，**映射响应**的下一次迭代将被跳过。
 
-Elysia 将自动处理 **set.headers** 的合并过程。我们不需要担心手动将 **set.headers** 附加到响应。
+Elysia将自动处理**映射响应**中**set.headers**的合并过程，我们不需要担心手动将**set.headers**附加到响应中。
 
-## 错误
+## 当出错时
 
-**错误**是唯一不在每次请求时执行的生命周期事件，但仅当在至少一个其他生命周期中至少抛出一个错误时才会被执行。
+**当出错时**是唯一一个并非总是在每个请求中执行的生命周期事件，而是仅在其他生命周期中至少抛出一次错误时执行。
 
-设计用来捕获和解决一个不期望的错误，推荐在以下情况下使用错误：
+旨在捕获并解决意外错误，强烈建议在以下情况下使用出错时：
 
-- 提供自定义错误消息
-- 失败安全或错误处理器或重试请求
-- 记录和分析
+-   提供自定义错误消息
+-   失败保护或错误处理程序或重试请求
+-   记录和分析
 
-#### 例子
-Elysia 捕捉了在处理程序中抛出的所有错误，将错误分类并通过 `onError` 管道。
+#### 示例
+
+Elysia捕获处理程序中抛出的所有错误，分类错误代码，并将它们传递给`onError`中间件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -675,14 +681,14 @@ new Elysia()
     })
 ```
 
-使用 `onError` 我们可以捕获并将错误转换成自定义错误消息。
+使用`onError`我们可以捕获并将错误转换为自定义错误消息。
 
 ::: tip
-重要的是 `onError` 必须在我们要应用的处理器之前被调用。
+`onError`必须在我们想要应用它的处理程序之前被调用，这一点很重要。
 :::
 
-### 自定义 404 消息
-例如，返回自定义 404 消息：
+### 自定义404消息
+例如，返回自定义404消息：
 
 ```typescript
 import { Elysia, NotFoundError } from 'elysia'
@@ -690,7 +696,7 @@ import { Elysia, NotFoundError } from 'elysia'
 new Elysia()
     .onError(({ code, error, set }) => {
         if (code === 'NOT_FOUND')
-            return error(404, '未找到 :(')
+            return error(404, '找不到 :(')
     })
     .post('/', () => {
         throw new NotFoundError()
@@ -700,29 +706,32 @@ new Elysia()
 
 ### 上下文
 
-`onError` 上下文是基于 `Context`，具有附加的属性 `error` 和 `code`。
+`onError`的上下文扩展自`Context`，并具有以下附加属性：
+
+-   error: 抛出的错误对象
+-   code: 错误代码
 
 ### 错误代码
 
-Elysia 错误代码包括：
+Elysia的错误代码包括：
 
 -   NOT_FOUND
 -   INTERNAL_SERVER_ERROR
 -   VALIDATION
--   解析
+-   PARSE
 -   UNKNOWN
 
-默认情况下，抛出的错误代码是 `unknown`。
+默认情况下，抛出的错误代码为`unknown`。
 
 ::: tip
-如果没有返回错误响应，错误将使用 `error.name` 返回。
+如果没有返回错误响应，错误将使用`error.name`返回。
 :::
 
 ### 自定义错误
 
-Elysia 支持在类型级别和实现级别上的自定义错误。
+Elysia支持自定义错误，既有类型级别的，也有实现级别的。
 
-要提供自定义错误代码，我们可以使用 `Elysia.error` 来添加自定义错误代码，帮助我们轻松地分类和缩小错误类型，带来完整的类型安全和自动完成，如下：
+要提供自定义错误代码，我们可以使用`Elysia.error`添加自定义错误代码，帮助我们轻松分类并缩小错误类型，以保证完整的类型安全和自动完成功能，如下所示：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -739,49 +748,49 @@ new Elysia()
     })
     .onError(({ code, error }) => {
         switch (code) {
-            // 带有自动完成
+            // 具有自动完成功能
             case 'MyError':
-                // 带有类型缩小
-                // 悬停查看 error 被类型化为 `CustomError`
+                // 具有类型缩小
+                // 悬停查看error的类型为`CustomError`
                 return error
         }
     })
     .get('/', () => {
-        throw new MyError('Hello Error')
+        throw new MyError('你好，错误')
     })
 ```
 
-`error` 代码的属性是基于 `error` 的属性，这些属性将被用于分类错误代码。
+`error`的属性代码基于`error`的属性，这些属性将用于分类错误代码。
 
 ### 本地错误
 
-与其它生命周期一样，我们可以通过守卫将错误应用到[范围](/essential/scope)中：
+与其他生命周期一样，我们通过守卫将错误放入[作用域](/essential/scope)中：
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', () => 'hello', {
+    .get('/', () => '你好', {
         beforeHandle({ set, request: { headers }, error }) {
             if (!isSignIn(headers))
                 return error(401)
         },
         error({ error }) {
-            return 'Handled'
+            return '已处理'
         }
     })
     .listen(3000)
 ```
 
-## 响应后
-在将响应发送给客户端后执行。
+## 处理后响应
+在响应发送到客户端后执行。
 
-建议在以下情况下使用**响应后**：
+建议在以下情况下使用**处理后响应**：
 - 清理响应
 - 记录和分析
 
-#### 例子
-下面是一个使用响应后检查用户登录的例子。
+#### 示例
+以下是使用响应处理来检查用户登录状态的示例。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -793,7 +802,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-控制台应该记录如下：
+控制台应记录如下：
 
 ```bash
 响应 0.0000

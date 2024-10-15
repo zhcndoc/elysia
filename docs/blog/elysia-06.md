@@ -1,28 +1,28 @@
 ---
-title: Elysia 0.6 - 游戏
+title: Elysia 0.6 - 这个游戏
 sidebar: false
 editLink: false
 search: false
 head:
     - - meta
       - property: 'og:title'
-        content: 介绍 Elysia 0.6 - 游戏
+        content: 介绍 Elysia 0.6 - 这个游戏
 
     - - meta
       - name: 'description'
-        content: 介绍重新设计的插件模型、动态模式、更好的开发者体验，包括声明式自定义错误、可定制的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架互操作性。再次推动可能性的边界。
+        content: 介绍重新设计的插件模型、动态模式、更好的开发者体验（通过声明式自定义错误）、可自定义的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架的互操作性。再一次推动可能性的边界。
 
     - - meta
       - property: 'og:description'
-        content: 介绍重新设计的插件模型、动态模式、更好的开发者体验，包括声明式自定义错误、可定制的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架互操作性。再次推动可能性的边界。
+        content: 介绍重新设计的插件模型、动态模式、更好的开发者体验（通过声明式自定义错误）、可自定义的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架的互操作性。再一次推动可能性的边界。
 
     - - meta
       - property: 'og:image'
-        content: https://elysia.zhcndoc.com/blog/elysia-06/this-game.webp
+        content: https://elysiajs.com/blog/elysia-06/this-game.webp
 
     - - meta
       - property: 'twitter:image'
-        content: https://elysia.zhcndoc.com/blog/elysia-06/this-game.webp
+        content: https://elysiajs.com/blog/elysia-06/this-game.webp
 ---
 
 <script setup>
@@ -30,36 +30,36 @@ head:
 </script>
 
 <Blog
-    title="Elysia 0.6 - 游戏"
+    title="Elysia 0.6 - 这个游戏"
     src="/blog/elysia-06/this-game.webp"
-    alt="水晶骑士棋子"
+    alt="水晶骑士碎片"
     author="saltyaom"
     date="2023 年 8 月 6 日"
 >
 
-以传奇动漫《No Game No Life》的开场曲名 “这游戏” 命名，由 Konomi Suzuki 创作。
+以传奇动漫 **“No Game No Life”** 的开场曲命名，**「[This Game](https://youtu.be/kJ04dMmimn8)」** 作曲者是 Konomi Suzuki。
 
-这游戏推动中型项目到大型应用的边界，通过重新设计的插件模型、动态模式，提高开发者体验，包括声明式自定义错误、收集更多度量数据的 ‘onResponse’、可定制的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架互操作性。
+这个游戏将中型项目的边界推向了大型应用程序，重新设计的插件模型、动态模式、声明式自定义错误的开发者体验提升、通过“onResponse”收集更多指标、可自定义的宽松和严格路径映射、TypeBox 0.30 和 WinterCG 框架的互操作性。
 
-###### (我们仍在等待《No Game No Life》的第二季)
+###### （我们仍在等待《No Game No Life》第二季）
 
 ## 新插件模型
-这游戏引入了新的插件注册语法，并提出了一个新的内部插件模型。
+这个游戏引入了新的插件注册语法，并提出了新的内部插件模型。
 
-之前，你可以在定义一个回调函数以处理 Elysia 实例，就像这样：
+之前，你可以通过定义 Elysia 实例的回调函数来注册插件，如下所示：
 ```ts
 const plugin = (app: Elysia) => app.get('/', () => 'hello')
 ```
 
-有了新的插件，你现在可以将 Elysia 实例转换成一个插件：
+使用新插件模型，你可以将 Elysia 实例直接转化为插件：
 ```ts
 const plugin = new Elysia()
     .get('/', () => 'hello')
 ```
 
-这允许任何 Elysia 实例，甚至是现有的实例，在应用程序中使用，消除了可能存在的额外回调和缩进。
+这允许任何 Elysia 实例甚至现有实例在应用程序中使用，消除了任何可能的额外回调和制表符间隔。
 
-这极大地提高了开发体验，特别是在嵌套组的情况中：
+这显著提升了嵌套组的开发者体验：
 ```ts
 // < 0.6
 const group = (app: Elysia) => app
@@ -72,73 +72,73 @@ const group = new Elysia({ prefix: '/v1' })
     .get('/hello', () => 'Hello World')
 ```
 
-我们鼓励你使用新的 Elysia 插件实例模型，因为我们能够利用插件校验和未来可能的新功能。
+我们鼓励您使用新的 Elysia 插件实例模型，因为我们可以利用插件校验和未来的新特性。
 
-然而，我们**并没有弃用**回调函数方法，因为有些情况函数模型是有用的，比如：
+然而，我们并未**弃用**回调函数方法，因为某些情况下函数模型仍然有用，例如：
 - 内联函数
-- 插件需要主实例的信息 (例如访问 OpenAPI 模式)
+- 需要访问主实例信息的插件（例如访问 OpenAPI 架构）
 
-有了新的插件模型，我们希望你的代码库更容易维护。
+通过这个新的插件模型，我们希望您能够使代码库更易于维护。
 
-## 插件校验
+## 插件校验和
 默认情况下，Elysia 插件使用函数回调来注册插件。
 
-这意味着如果你注册一个插件用于类型声明，它会在生产环境中重复自身，只为了提供类型支持。
+这意味着如果你为类型声明注册一个插件，它会为了提供类型支持而自我重复，从而在生产中导致插件的重复使用。
 
-这就是为什么引入了插件校验，以去重复化注册的插件。
+因此引入了插件校验和，以防止类型声明注册的插件重复。
 
-要启用插件校验，你需要使用新的插件模型，并为插件提供一个 `name` 属性，告诉 Elysia 防止插件被去重复化：
+要使用插件校验和，您需要使用新的插件模型，并提供一个 `name` 属性来告诉 Elysia 防止插件重复：
 ```ts
 const plugin = new Elysia({
     name: 'plugin'
 })
 ```
 
-这允许 Elysia 识别插件并进行去重复化处理。
+这让 Elysia 能够根据名称识别插件并进行重复消除。
 
-任何重复的名称将只在注册一次，但即使插件被去重复化，也会在注册后提供类型安全性。
+任何重复的名称将只注册一次，但即使插件已被去重，类型安全将在注册后提供。
 
-如果在插件中需要配置，你可以将配置传递到一个 **seed** 属性中来生成一个用于去重复化的校验和。
+如果您的插件需要配置，可以将配置提供到 **seed** 属性中，以生成去重复插件的校验和。
 
 ```ts
-const plugin = (config) = new Elysia({
+const plugin = (config) => new Elysia({
     name: 'plugin',
     seed: config
 })
 ```
 
-名称和种子将用于生成校验和以去重复化注册，从而带来更好的性能改进。
+名称和种子将用于生成去重注册的校验和，从而实现更好的性能提升。
 
-这次更新还修复了插件的生命周期事件，因为在 Elysia 不确定插件是本地还是全局事件时，插件的生命周期事件被意外去重复化。
+此更新还修复了插件的生命周期重复消除的情况，当 Elysia 不确定插件是本地还是全局事件时，会意外内联生命周期。
 
-一如既往，这意味着在 “Hello World” 之外的项目中性能改进。
+一如既往，这意味着对于大于“Hello World”的应用程序来说性能得到了提升。
 
-## Mount 和 WinterCG 兼容性
-WinterCG 是一个由 Cloudflare、Deno、Vercel Edge Runtime、Netlify Function 等支持的 Web 互操作性运行时标准。
+## 挂载和 WinterCG 合规
+WinterCG 是一个由 Cloudflare、Deno、Vercel Edge Runtime、Netlify Functions 和其他多种支持的网络互操作运行时标准。
 
-WinterCG 是一个标准，允许 Web 服务器在不同的运行时之间运行互操作性代码，它使用 Web 标准定义如 Fetch、Request 和 Response。
+WinterCG 允许 Web 服务器在运行时之间进行互操作，它使用 Fetch、Request 和 Response 等 Web 标准定义。
 
-由于这一点，Elysia 部分遵循 WinterCG 兼容性，因为我们优化了 Bun，同时也公开支持其他可能的运行时。
+基于此，Elysia 部分遵循 WinterCG 合规，因为我们对 Bun 进行了优化，但在可能的情况下也开放地支持其他运行时。
 
-这允许任何兼容 WinterCG 的框架和代码在一起运行，[Hono](https://honojs.dev) 框架证明了这个可能，它引入了**。mount** 方法来在单个代码库中运行多个框架，包括 Remix、Elysia、Itty Router 和 Hono 本身。
+这理论上允许任何框架和代码在一起运行，只要它们符合 WinterCG 的标准，这一实现由 [Hono](https://honojs.dev) 提出，它引入了 **.mount** 方法，以 [在一个代码库中运行多个框架](https://twitter.com/honojs/status/1684839623355490304)，包括 Remix、Elysia、Itty Router 和 Hono 本身。
 
-通过这一点，我们实现了同样的逻辑，为 Elysia 引入了 `.mount` 方法来运行任何兼容 WinterCG 的框架或代码。
+因此，我们通过引入 `.mount` 方法实现了相同的逻辑，以运行任何符合 WinterCG 标准的框架或代码。
 
-要使用 `.mount`，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
+要使用 `.mount`，只需 [传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
 ```ts
 const app = new Elysia()
     .get('/', () => 'Hello from Elysia')
     .mount('/hono', hono.fetch)
 ```
 
-一个 **fetch** 函数是一个函数，它接受一个类似 Web 标准请求的对象，并返回一个 Web 标准响应，其定义为：
+**fetch** 函数是接受 Web 标准请求并返回 Web 标准响应的函数，其定义为：
 ```ts
-// Web Standard Request-like object
-// Web Standard Response
+// Web 标准请求类对象
+// Web 标准响应
 type fetch = (request: RequestLike) => Response
 ```
 
-默认情况下，这个声明被以下使用：
+默认情况下，此声明适用于：
 - Bun
 - Deno
 - Vercel Edge Runtime
@@ -146,9 +146,9 @@ type fetch = (request: RequestLike) => Response
 - Netlify Edge Function
 - Remix Function Handler
 
-这意味着你可以在一个服务器上运行所有上述代码，或者在单个部署中重用现有代码，无需设置反向代理来处理多个服务器。
+这意味着您可以在同一服务器上运行上述所有代码与 Elysia 互操作，所有功能都可以在单次部署中重用，不再需要设置反向代理以处理多个服务器。
 
-如果框架也支持 `.mount` 方法，你可以无限地嵌套支持它的框架。
+如果框架还支持 **.mount** 函数，您可以无限嵌套支持此功能的框架。
 ```ts
 const elysia = new Elysia()
     .get('/Hello from Elysia inside Hono inside Elysia')
@@ -163,7 +163,7 @@ const main = new Elysia()
     .listen(3000)
 ```
 
-你甚至可以在你的服务器中重用多个现有的 Elysia 项目。
+您甚至可以在服务器中重用多个现有的 Elysia 项目。
 
 ```ts
 import A from 'project-a/elysia'
@@ -176,27 +176,27 @@ new Elysia()
     .mount(C)
 ```
 
-如果传入 `mount` 的实例是一个 Elysia 实例，它将自动解析为 `use`，默认提供类型安全和 Eden 的支持。
+如果挂载的实例是 Elysia 实例，它将自动解析为 `use`，提供默认的类型安全和 Eden 支持。
 
-这使得框架和运行时之间的互操作性成为可能。
+这使得互操作框架和运行时成为现实的可能性。
 
-## 改进启动时间
-在无服务器环境中，启动时间是一个重要指标，而 Elysia 在这方面表现出色，但我们又进一步提高了它。
+## 启动时间改善
+启动时间是一个在无服务器环境中重要的度量，Elysia 在这方面表现出色，但我们已经进一步提升了这一点。
 
-默认情况下，Elysia 为每个路由自动生成 OpenAPI 模式并将其存储在内部，如果不使用它们。
+默认情况下，Elysia 会自动生成每个路由的 OpenAPI 架构并在内部存储，即使不使用。
 
-在这个版本中，Elysia 推迟了编译并将它移动到 `@elysiajs/swagger`，从而使得 Elysia 的启动时间更快。
+在这个版本中，Elysia 推迟了编译，并移至 `@elysiajs/swagger`，从而使 Elysia 的启动时间更快。
 
-通过各种微优化，以及新的插件模型，启动时间现在快了 35%。
+通过各种微优化，并在新的插件模型的帮助下，启动时间现在提高了多达 35%。
 
 ## 动态模式
-Elysia 引入了静态代码分析和提前编译，以推动性能的边界。
+Elysia 引入了静态代码分析和预编译（Ahead of Time Compilation）以推动性能的边界。
 
-静态代码分析允许 Elysia 读取你的代码，然后生成最优化的代码版本，使 Elysia 性能达到极限。
+静态代码分析允许 Elysia 阅读您的代码，然后生成最优化的代码版本，允许 Elysia 将性能推至极限。
 
-即使 Elysia 是 WinterCG 兼容的，像 Cloudflare worker 这样的环境也不支持函数组合。
+即使 Elysia 符合 WinterCG，像 Cloudflare Worker 这样的环境也不支持函数组合。
 
-这意味着提前编译是不可能的，导致我们创建了一个动态模式，使用即时编译 (JIT)，允许 Elysia 在 Cloudflare Worker 上也运行。
+这意味着无法进行预编译，从而促使我们创建了一种动态模式，采用 JIT 编译而不是 AoT，使 Elysia 也能够在 Cloudflare Worker 上运行。
 
 要启用动态模式，请将 `aot` 设置为 false。
 ```ts
@@ -205,20 +205,20 @@ new Elysia({
 })
 ```
 
-动态模式在 Cloudflare worker 中默认启用。
+动态模式在 Cloudflare Worker 中默认启用。
 
-#### 值得注意的是，启用动态模式会禁用一些特性，比如动态注入代码，如 `t.Numeric`，它自动将字符串解析为数字。
+#### 值得注意的是，启用动态模式将禁用一些功能，例如动态注入的代码，如 `t.Numeric`，它会自动将字符串解析为数字。
 
-提前编译可以读取、检测和优化你的代码，以换取启动时间，而动态模式使用 JIT 编译，使得启动时间更快，达到 6 倍。
+预编译可以读取、检测并优化您的代码，以便换取启动时间的损失，但动态模式使用 JIT 编译，允许启动时间提高到 6 倍。
 
-但应该注意的是，Elysia 的启动时间已经足够快了。
+但需要注意的是，Elysia 的启动时间默认已经足够快。
 
-Elysia 能够注册 10,000 个路由，只需 78 毫秒，这意味着平均每个路由 0.0079 毫秒/路由。
+Elysia 能够在仅 78 毫秒内注册 10,000 个路由，这意味着平均每个路由为 0.0079 毫秒。
 
-也就是说，我们给你留下了一个选择。
+综上所述，我们为您留下了自我决策的选择。
 
 ## 声明式自定义错误
-这个更新增加了为处理自定义错误添加类型支持的功能。
+此更新添加了支持添加类型支持以处理自定义错误的能力。
 
 ```ts
 class CustomError extends Error {
@@ -233,31 +233,31 @@ new Elysia()
     })
     .onError(({ code, error }) => {
         switch(code) {
-            // 带有自动完成
+            // 带自动补全
             case 'MyError':
-                // 带有类型缩小
-                // Error 被类型化为 CustomError
+                // 类型缩小
+                // 错误被类型化为 CustomError
                 return error
         }
     })
 ```
 
-这允许我们处理自定义类型，使用类型缩小来处理自定义错误和自动完成错误代码，完全类型安全地声明式地处理。
+这让我们能够使用类型缩小来处理自定义类型，从而处理自定义错误，并为错误代码提供自动补全，以缩小到正确的类型，从而实现完全的声明式类型安全。
 
-这满足了我们的主要哲学之一，即专注于开发者的体验，特别是类型。
+这实现了我们主要哲学之一，专注于开发者体验，尤其是类型。
 
-Elysia 类型系统很复杂，但我们试图避免使用者需要编写自定义类型或传递自定义泛型，保留所有代码看起来就像 JavaScript。
+Elysia 的类型系统复杂，但我们尽量让用户无需编写自定义类型或传递自定义泛型，使所有代码看起来就像 JavaScript。
 
-它只是工作，所有代码看起来就像 JavaScript。
+它就是这样工作，所有代码看起来都像 JavaScript。
 
 ## TypeBox 0.30
-TypeBox 是核心库，它为 Elysia 的严格类型系统 “Elysia.t” 提供动力。
+TypeBox 是驱动 Elysia 严格类型系统的核心库，称为 **Elysia.t**。
 
-在这个更新中，我们更新了 TypeBox 从 0.28 到 0.30，以使类型系统更加精细，几乎实现了严格的类型语言。
+在此更新中，我们将 TypeBox 从 0.28 更新到 0.30，以使类型系统更为精细，几乎变成严格类型语言。
 
-这些更新引入了新的功能和许多有趣的改变，例如 **Iterator** 类型，减少包的大小，TypeScript 代码生成。
+这些更新引入了新功能和许多有趣的变化，例如 **Iterator** 类型、减少包的大小、TypeScript 代码生成。
 
-并且支持实用类型，如：
+并支持诸如：
 - `t.Awaited`
 - `t.Uppercase`
 - `t.Capitlized`
@@ -265,7 +265,7 @@ TypeBox 是核心库，它为 Elysia 的严格类型系统 “Elysia.t” 提供
 ## 严格路径
 我们收到了很多关于处理宽松路径的请求。
 
-默认情况下，Elysia 严格处理路径，这意味着如果你支持路径有或没有可选的 `/`，它不会被解析，你需要重复路径名两次。
+默认情况下，Elysia 严格处理路径，这意味着如果您需要支持带有或不带可选 `/` 的路径，它将无法解析，您必须重复两次路径名称。
 
 ```ts
 new Elysia()
@@ -277,9 +277,9 @@ new Elysia()
     )
 ```
 
-通过这一点，许多人要求 `/v1/` 也应该解析为 `/v1`。
+因此，许多人请求 `/v1/` 也应该解析为 `/v1`。
 
-有了这个更新，我们添加了对宽松路径匹配的支持，默认自动启用。
+在此更新中，我们默认添加了对宽松路径匹配的支持，以自动启用此功能。
 ```ts
 new Elysia()
     .group('/v1', (app) => app
@@ -288,98 +288,98 @@ new Elysia()
     )
 ```
 
-要禁用宽松路径映射，你可以将 `strictPath` 设置为 true 来使用以前的行为：
+要禁用宽松路径映射，您可以将 `strictPath` 设置为 true，以使用先前的行为：
 ```ts
 new Elysia({
     strictPath: false
 })
 ```
 
-我们希望这将澄清任何关于路径匹配和预期行为的问题。
+我们希望这将清除关于路径匹配及其预期行为的任何疑问。
 
 ## onResponse
-这个更新引入了一个新的生命周期钩子，称为 `onResponse`。
+此更新介绍了一个新的生命周期钩子，称为 `onResponse`。
 
-这是在 elysia#67 中提出的一个提议。
+这是由 [elysia#67](https://github.com/elysiajs/elysia/issues/67) 提出的提案。
 
-以前，Elysia 的生命周期如图所示。
+之前，Elysia 的生命周期如下图所示。
 ![Elysia 生命周期图](/blog/elysia-06/lifecycle-05.webp)
 
-对于任何度量、数据收集或日志记录的目的，你可以使用 `onAfterHandle` 运行函数来收集度量，但是这个生命周期在处理程序运行时错误 (无论是路由错误还是自定义错误提供) 时不会被触发。
+对于任何指标、数据收集或日志记录目的，您可以使用 `onAfterHandle` 来运行收集指标的功能，但是当处理程序遇到错误时，此生命周期并不会被执行，无论是路由错误还是提供的自定义错误。
 
-这就是为什么我们引入了 `onResponse` 来处理所有响应的情况。
+这就是为什么我们引入了 `onResponse` 以处理所有的响应情况。
 
-你可以使用 `onRequest` 和 `onResponse` 一起来衡量性能或其他必要的日志记录。
+您可以同时使用 `onRequest` 和 `onResponse` 来测量性能指标或任何所需的日志记录。
 
-引用
-> 然而，onAfterHandle 函数只有在成功响应时才会触发。例如，如果路由没有找到，或者正文无效，或者抛出错误，它就不会触发。我该如何监听成功和失败的请求？这就是为什么我建议 onResponse。
+引用：
+> 然而，onAfterHandle 函数仅在成功响应时触发。例如，如果找不到路由，或主体无效，或抛出错误，则不会触发。如何监听成功和不成功的请求？这就是我建议 onResponse 的原因。
 >
-> 根据绘图，我建议以下内容：
-> ![Elysia 生命周期图，带有 onResponse 钩子](/blog/elysia-06/lifecycle-06.webp)
+> 根据图示，我建议如下：
+> ![Elysia 生命周期图, 带 onResponse 钩子](/blog/elysia-06/lifecycle-06.webp)
 
 ---
 
-### 重要改进：
-- 添加了一个错误字段到 Elysia 类型系统中，以添加自定义错误消息
-- 支持 Cloudflare worker 的动态模式 (和 ENV)
+### 显著改进：
+- 在 Elysia 类型系统中添加错误字段，以添加自定义错误消息
+- 支持 Cloudflare Worker 的动态模式（和 ENV）
 - AfterHandle 现在自动映射值
-- 使用 bun build 来针对 Bun 环境，总体性能提高了 5-10%
-- 去重复化了内联生命周期，当使用插件注册时
+- 使用 bun build 针对 Bun 环境，整体性能提高 5-10%
+- 在使用插件注册时消除了内联生命周期的重复
 - 支持设置 `prefix`
 - 递归路径类型
-- 略微提高了类型检查速度
-- 递归模式冲突导致无限类型
+- 轻微提高类型检查速度
+- 递归架构冲突导致无限类型
 
-### 变更：
-- 将 **registerSchemaPath** 移动到 `@elysiajs/swagger`
-- [内部] 增加了 qi (查询索引) 到上下文中
+### 更改：
+- 将 **registerSchemaPath** 移至 @elysiajs/swagger
+- [内部] 向上下文添加 qi (queryIndex)
 
-### 重大变更：
-- [内部] 移除了 Elysia Symbol
-- [内部] 重构了 `getSchemaValidator`、`getResponseSchemaValidator` 到具名参数
-- [内部] 将 `registerSchemaPath` 移动到 `@elysiajs/swagger`
+### 破坏性更改：
+- [内部] 移除 Elysia Symbol
+- [内部] 将 `getSchemaValidator`, `getResponseSchemaValidator` 重构为命名参数
+- [内部] 将 `registerSchemaPath` 移至 `@elysiajs/swagger`
 
-我们已经度过了一年的里程碑，对于 Elysia 和 Bun 在这一年中的改进感到非常兴奋！
+## 后续
+我们刚刚迈过了一年的里程碑，对于 Elysia 和 Bun 在这一年的改进感到非常兴奋！
 
-通过 Bun 推动 JavaScript 的性能边界，并通过 Elysia 提升开发者的体验，我们很高兴能够与你和我们的社区保持联系。
+与 Bun 一起推进 JavaScript 的性能边界，并与 Elysia 一起提升开发者体验，我们非常高兴能与您和我们的社区保持联系。
 
-每一次更新都在使 Elysia 更加稳定，并逐渐提供更好的开发者体验，同时不会牺牲性能和功能。
+每次更新都让 Elysia 变得更加稳定，并逐渐提供更好的开发者体验，同时不影响性能和功能。
 
-我们很高兴看到我们的开源开发者社区如何通过他们的项目使 Elysia 焕发生机，例如：
+我们很高兴看到我们的开源开发者社区通过他们的项目使 Elysia 充满活力。
+- [Elysia Vite 插件 SSR](https://github.com/timnghg/elysia-vite-plugin-ssr)，允许我们使用 Elysia 作为服务器进行 Vite 服务器端渲染。
+- [Elysia Connect](https://github.com/timnghg/elysia-connect)，使 Connect 的插件与 Elysia 兼容
 
-- [Elysia Vite 插件 SSR](https://github.com/timnghg/elysia-vite-plugin-ssr)，允许我们使用 Vite 进行服务器端渲染，使用 Elysia 作为服务器。
-- [Elysia Connect](https://github.com/timnghg/elysia-connect)，使 Connect 的插件与 Elysia 兼容。
+以及许多选择 Elysia 作为下一个大项目的开发者。
 
-以及更多选择 Elysia 作为下一个大项目的开发者。
+凭借我们的承诺，我们最近还推出了 [Mobius](https://github.com/saltyaom/mobius)，这是一个开源 TypeScript 库，可以将 GraphQL 解析为 TypeScript 类型，而无需依赖代码生成，利用 TypeScript 模板字面量类型，使其成为第一个实现端到端类型安全的框架，而不依赖代码生成。
 
-随着我们的承诺，我们最近还推出了 [Mobius](https://github.com/saltyaom/mobius)，这是一个开源的 TypeScript 库，用于将 GraphQL 解析为 TypeScript 类型，而不依赖于代码生成，完全使用 TypeScript 模板文字类型，成为第一个实现端到端类型安全而不依赖于代码生成的框架。
+我们非常感谢您对 Elysia 的持续支持，并希望能在下一次发布中与您一起推动边界。
 
-我们非常感谢你对 Elysia 的巨大持续支持，我们希望在下一次发布中你一起推动边界。
-
-> As this whole new world cheers my name
+> 当这个全新世界为我欢呼时
 >
-> I will never leave it to fate
+> 我绝不会将其交给命运
 >
-> and when I see a chance, I will pave the way
+> 当我看到机会时，我会开辟道路
 >
-> I calls checkmate
+> 我称之为将军
 >
-> This is the time to breakthrough
+> 是时候突破了
 >
-> So I will rewrite the story and finally change all the rule
+> 所以我会重写故事，最终改变所有规则
 >
-> We are maverick
+> 我们是独行侠
 >
-> We won't give in, until we win this game
-> 
-> Though I don't know what tomorrow holds
+> 我们不会放弃，直到赢得这场游戏
 >
-> I'll make a bet any play my cards to win this game
+> 尽管我不知道明天会如何
 >
-> Unlike the rest, I'll do my best, and I won't ever lose
+> 我会下注，尽我所能赢得这场游戏
 >
-> To give up this chance would be a deadly since, so let's bet it all
+> 与其他人不同，我会尽力而为，我永远不会失败
 >
-> I put all my fate in used let **the game begin**
+> 放弃这个机会将是致命的，所以让我们全力以赴
+>
+> 我将把我的命运寄托于此，让 **游戏开始**
 
 </Blog>

@@ -1,26 +1,26 @@
 ---
-title: WebSocket
+title: WebSocket - ElysiaJS
 head:
     - - meta
       - property: 'title'
-        content: WebSocket - Elysia 中文文档
+        content: WebSocket - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia 的 WebSocket 实现。使用 "ws" 声明 WebSocket 路由。WebSocket 是用于客户端和服务器之间实时通信的协议。
+        content: Elysia 的 WebSocket 实现。通过 "ws" 声明 WebSocket 路由开始。WebSocket 是一种用于客户端与服务器之间通信的实时协议。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的 WebSocket 实现。使用 "ws" 声明 WebSocket 路由。WebSocket 是用于客户端和服务器之间实时通信的协议。
+        content: Elysia 的 WebSocket 实现。通过 "ws" 声明 WebSocket 路由开始。WebSocket 是一种用于客户端与服务器之间通信的实时协议。
 ---
 
 # WebSocket
 
-WebSocket 是用于客户端和服务器之间实时通信的协议。
+WebSocket 是一种用于客户端与服务器之间通信的实时协议。
 
-与 HTTP 不同，我们的客户端不需要重复向网站请求信息并等待每次的回复。WebSocket 建立了一条直接的通信线路，使得客户端和服务器可以直接来回发送消息，从而使对话更快、更顺畅，无需每次都重新开始。
+与 HTTP 不同，客户端一次又一次地询问网站信息并等待每次的回复，WebSocket 建立了一条直接的通道，使我们的客户端和服务器可以直接来回发送消息，从而使对话更快、更流畅，而无需每条消息都重新开始。
 
-SocketIO 是一个流行的 WebSocket 库，但不是唯一的选择。Elysia 使用 [uWebSocket](https://github.com/uNetworking/uWebSockets)，Bun 在底层使用相同的 API。
+SocketIO 是一个流行的 WebSocket 库，但并不是唯一的。Elysia 使用 [uWebSocket](https://github.com/uNetworking/uWebSockets)，它与 Bun 在底层使用相同的 API。
 
 要使用 WebSocket，只需调用 `Elysia.ws()`：
 
@@ -36,16 +36,16 @@ new Elysia()
     .listen(3000)
 ```
 
-## WebSocket 消息验证
+## WebSocket 消息验证：
 
-与普通路由一样，WebSocket 也接受一个 **schema** 对象来严格类型化和验证请求。
+与普通路由相同，WebSocket 也接受一个 **schema** 对象来严格类型化和验证请求。
 
 ```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
     .ws('/ws', {
-        // 验证传入的消息
+        // 验证传入消息
         body: t.Object({
             message: t.String()
         }),
@@ -53,7 +53,7 @@ const app = new Elysia()
             id: t.String()
         }),
         message(ws, { message }) {
-            // Get schema from `ws.data`
+            // 从 `ws.data` 获取 schema
             const { id } = ws.data.query
             ws.send({
                 id,
@@ -65,20 +65,20 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-WebSocket schema 可以验证以下内容：
+WebSocket schema 可以验证如下内容：
 
--   **message** - 传入的消息。
+-   **message** - 传入消息。
 -   **query** - 查询字符串或 URL 参数。
 -   **params** - 路径参数。
 -   **header** - 请求的头部。
 -   **cookie** - 请求的 cookie。
--   **response** - 处理程序返回的值。
+-   **response** - 从处理器返回的值。
 
-默认情况下，Elysia 会将传入的字符串化 JSON 消息解析为对象进行验证。
+默认情况下，Elysia 将解析传入的字符串化 JSON 消息为对象以供验证。
 
 ## 配置
 
-你可以设置 Elysia 构造函数来设置 WebSocket 的值。
+您可以通过 Elysia 构造函数设置 WebSocket 值。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -90,17 +90,17 @@ new Elysia({
 })
 ```
 
-Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，请参阅 [Bun 的 WebSocket 文档](https://bun.sh/docs/api/websockets)了解更多信息。
+Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，更多信息请参见 [Bun 的 WebSocket 文档](https://bun.sh/docs/api/websockets)。
 
-以下是来自 [Bun WebSocket](https://bun.sh/docs/api/websockets#create-a-websocket-server) 的简要配置：
+以下是 [Bun WebSocket](https://bun.sh/docs/api/websockets#create-a-websocket-server) 的简要配置：
 
 ### perMessageDeflate
 
 @default `false`
 
-启用对支持的客户端的压缩。
+为支持的客户端启用压缩。
 
-默认情况下，禁用压缩。
+默认情况下，压缩是禁用的。
 
 ### maxPayloadLength
 
@@ -110,7 +110,7 @@ Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，请参阅 [Bun �
 
 @default `120`
 
-连接在多少秒内未接收到消息后将被关闭。
+在连接未接收到消息后，经过这一秒数将关闭连接。
 
 ### backpressureLimit
 
@@ -122,15 +122,15 @@ Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，请参阅 [Bun �
 
 @default `false`
 
-达到背压限制时关闭连接。
+如果超过背压限制，关闭连接。
 
 ## 方法
 
-下面是 WebSocket 路由可用的新方法
+以下是可用于 WebSocket 路由的新方法。
 
 ## ws
 
-创建一个 WebSocket 处理程序。
+创建 WebSocket 处理程序。
 
 示例：
 
@@ -152,12 +152,12 @@ const app = new Elysia()
 .ws(endpoint: path, options: Partial<WebSocketHandler<Context>>): this
 ```
 
-endpoint：要公开为 WebSocket 处理程序的路径
-options：自定义 WebSocket 处理程序的行为
+endpoint: 作为 WebSocket 处理程序暴露的路径
+options: 自定义 WebSocket 处理程序行为
 
 ## WebSocketHandler
 
-WebSocketHandler 扩展了 [config](#configuration) 的配置。
+WebSocketHandler 扩展自 [config](#configuration) 的配置。
 
 以下是 `ws` 接受的配置。
 
@@ -169,7 +169,7 @@ WebSocketHandler 扩展了 [config](#configuration) 的配置。
 
 ```typescript
 open(ws: ServerWebSocket<{
-    // 每个连接的唯一标识符
+    // 每个连接的 uid
     id: string
     data: Context
 }>): this
@@ -184,7 +184,7 @@ open(ws: ServerWebSocket<{
 ```typescript
 message(
     ws: ServerWebSocket<{
-        // 每个连接的唯一标识符
+        // 每个连接的 uid
         id: string
         data: Context
     }>,
@@ -192,7 +192,7 @@ message(
 ): this
 ```
 
-`Message` 类型基于 `schema.message`。默认为 `string`。
+`Message` 类型基于 `schema.message`。默认是 `string`。
 
 ## close
 
@@ -202,7 +202,7 @@ message(
 
 ```typescript
 close(ws: ServerWebSocket<{
-    // 每个连接的唯一标识符
+    // 每个连接的 uid
     id: string
     data: Context
 }>): this
@@ -217,7 +217,7 @@ close(ws: ServerWebSocket<{
 ```typescript
 drain(
     ws: ServerWebSocket<{
-        // 每个连接的唯一标识符
+        // 每个连接的 uid
         id: string
         data: Context
     }>,
@@ -228,17 +228,17 @@ drain(
 
 ## parse
 
-在升级 HTTP 连接为 WebSocket 之前解析请求的 `Parse` 中间件。
+`Parse` 中间件在将 HTTP 连接升级到 WebSocket 之前解析请求。
 
 ## beforeHandle
 
-在升级 HTTP 连接为 WebSocket 之前执行的 `Before Handle` 中间件。
+`Before Handle` 中间件在将 HTTP 连接升级到 WebSocket 之前执行。
 
-验证的理想位置。
+理想的验证位置。
 
 ## transform
 
-在验证之前执行的 `Transform` 中间件。
+`Transform` 中间件在验证之前执行。
 
 ## transformMessage
 
@@ -246,4 +246,4 @@ drain(
 
 ## header
 
-在升级连接为 WebSocket 之前添加的其他头部。
+在将连接升级到 WebSocket 之前添加的附加头。

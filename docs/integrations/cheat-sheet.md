@@ -1,21 +1,21 @@
 ---
-title: 速查表 - ElysiaJS 
+title: 速查表 (通过示例了解 Elysia) - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: 速查表 - ElysiaJS 中文文档
+      content: 速查表 (通过示例了解 Elysia) - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Elysia 的速查表总结以及它如何与 "Elysia 示例" 一起工作
+      content: Elysia 的速查表摘要以及与“通过示例了解 Elysia”的工作原理
 
   - - meta
     - property: 'og:description'
-      content: Elysia 的速查表总结以及它如何与 "Elysia 示例" 一起工作
+      content: Elysia 的速查表摘要以及与“通过示例了解 Elysia”的工作原理
 ---
 
 # 速查表
-这里是一些常见 Elysia 模式的快速概览
+这里是一些常见 Elysia 模式的快速概述
 
 ## Hello World
 一个简单的 hello world
@@ -31,7 +31,7 @@ new Elysia()
 ## 自定义 HTTP 方法
 使用自定义 HTTP 方法/动词定义路由
 
-查看 [Route](/essential/route.html#custom-method)
+参见 [路由](/essential/route.html#custom-method)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -40,14 +40,14 @@ new Elysia()
     .get('/hi', () => 'Hi')
     .post('/hi', () => 'From Post')
     .put('/hi', () => 'From Put')
-    .route('M-SEARCH', '/hi', () => '自定义方法')
+    .route('M-SEARCH', '/hi', () => 'Custom Method')
     .listen(3000)
 ```
 
 ## 路径参数
 使用动态路径参数
 
-查看 [Path](/essential/path.html)
+参见 [路径](/essential/path.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -59,9 +59,9 @@ new Elysia()
 ```
 
 ## 返回 JSON
-Elysia 自动将响应转换为 JSON
+Elysia 会自动将响应转换为 JSON
 
-查看 [Handler](/essential/handler.html)
+参见 [处理器](/essential/handler.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -76,9 +76,9 @@ new Elysia()
 ```
 
 ## 返回文件
-文件可以以 formdata 响应的形式返回
+文件可以作为 formdata 响应返回
 
-响应必须是一个 1 级深度的对象
+响应必须是 1 级深度对象
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -96,7 +96,7 @@ new Elysia()
 ## 头部和状态
 设置自定义头部和状态码
 
-查看 [Handler](/essential/handler.html)
+参见 [处理器](/essential/handler.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -110,10 +110,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## 分组
-为子路由一次定义前缀
+## 组
+为子路由定义一次前缀
 
-查看 [Group](/essential/route.html#group)
+参见 [组](/essential/route.html#group)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -129,10 +129,10 @@ new Elysia()
     .listen(3000)
 ```
 
-## Schema
+## 模式
 强制路由的数据类型
 
-查看 [Validation](/essential/validation)
+参见 [验证](/essential/validation)
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -150,17 +150,17 @@ new Elysia()
 ## 生命周期钩子
 按顺序拦截 Elysia 事件
 
-查看 [Lifecycle](/essential/life-cycle.html)
+参见 [生命周期](/essential/life-cycle.html)
 
 ```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
     .onRequest(() => {
-        console.log('请求时')
+        console.log('On request')
     })
     .on('beforeHandle', () => {
-        console.log('处理前')
+        console.log('Before handle')
     })
     .post('/mirror', ({ body }) => body, {
         body: t.Object({
@@ -168,7 +168,7 @@ new Elysia()
             password: t.String()
         }),
         afterHandle: () => {
-            console.log("处理后")
+            console.log("After handle")
         }
     })
     .listen(3000)
@@ -177,7 +177,7 @@ new Elysia()
 ## 守卫
 强制子路由的数据类型
 
-查看 [Scope](/essential/scope.html#guard)
+参见 [范围](/essential/scope.html#guard)
 
 ```typescript twoslash
 // @errors: 2345
@@ -188,7 +188,7 @@ new Elysia()
         response: t.String()
     }, (app) => app
         .get('/', () => 'Hi')
-        // 无效：将抛出错误，并且 TypeScript 将报告错误
+        // 无效: 会抛出错误，并且 TypeScript 会报告错误
         .get('/invalid', () => 1)
     )
     .listen(3000)
@@ -197,7 +197,7 @@ new Elysia()
 ## 自定义上下文
 向路由上下文添加自定义变量
 
-查看 [Context](/essential/context.html)
+参见 [上下文](/essential/context.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -215,7 +215,7 @@ new Elysia()
 ## 重定向
 重定向响应
 
-查看 [Handler](/essential/handler.html#redirect)
+参见 [处理器](/essential/handler.html#redirect)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -231,7 +231,7 @@ new Elysia()
 ## 插件
 创建一个单独的实例
 
-查看 [Plugin](/essential/plugin)
+参见 [插件](/essential/plugin)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -249,7 +249,7 @@ new Elysia()
 ## Web Socket
 使用 Web Socket 创建实时连接
 
-查看 [Web Socket](/patterns/websocket)
+参见 [Web Socket](/patterns/websocket)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -266,7 +266,7 @@ new Elysia()
 ## OpenAPI 文档
 使用 Scalar (或可选的 Swagger) 创建交互式文档
 
-查看 [Documentation](/patterns/openapi)
+参见 [文档](/patterns/openapi)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -276,13 +276,13 @@ const app = new Elysia()
     .use(swagger())
     .listen(3000)
 
-console.log(`View documentation at "${app.server!.url}swagger" in your browser`);
+console.log(`在浏览器中访问 "${app.server!.url}swagger" 查看文档`);
 ```
 
 ## 单元测试
-编写你的 Elysia 应用的单元测试
+编写 Elysia 应用的单元测试
 
-查看 [Unit Test](/patterns/unit-test)
+参见 [单元测试](/patterns/unit-test)
 
 ```typescript
 // test/index.test.ts
@@ -302,10 +302,10 @@ describe('Elysia', () => {
 })
 ```
 
-## 自定义 body 解析器
-创建解析 body 的自定义逻辑
+## 自定义主体解析器
+为解析主体创建自定义逻辑
 
-查看 [Parse](/life-cycle/parse.html)
+参见 [解析](/life-cycle/parse.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -320,7 +320,7 @@ new Elysia()
 ## GraphQL
 使用 GraphQL Yoga 或 Apollo 创建自定义 GraphQL 服务器
 
-查看 [GraphQL Yoga](/plugins/graphql-yoga)
+参见 [GraphQL Yoga](/plugins/graphql-yoga)
 
 ```typescript
 import { Elysia } from 'elysia'

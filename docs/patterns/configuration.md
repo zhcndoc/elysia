@@ -1,22 +1,22 @@
 ---
-title: Configuration - ElysiaJS
+title: 配置 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Configuration - ElysiaJS
+      content: 配置 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: Elysia can be configured by passing an object to the constructor. We can configure Elysia behavior by passing an object to the constructor.
+      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
 
   - - meta
     - property: 'og:description'
-      content: Elysia can be configured by passing an object to the constructor. We can configure Elysia behavior by passing an object to the constructor.
+      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
 ---
 
-# Configuration
+# 配置
 
-We can configure Elysia behavior by passing an object to the constructor.
+我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -26,10 +26,10 @@ new Elysia({
 })
 ```
 
-Above is an example of configuring Elysia to use `/group` as the path prefix.
+以上是将 Elysia 配置为使用 `/group` 作为路径前缀的示例。
 
-## Max body size
-We can set the maximum body size by setting [`serve.maxRequestBodySize`](#maxrequestbodysize) in the `serve` configuration.
+## 最大请求体大小
+我们可以通过在 `serve` 配置中设置 [`serve.maxRequestBodySize`](#maxrequestbodysize) 来设置最大请求体大小。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -41,10 +41,10 @@ new Elysia({
 })
 ```
 
-By default the maximum request body size is 128MB (1024 * 1024 * 128).
+默认情况下，最大请求体大小为 128MB (1024 * 1024 * 128)。
 
 ## TLS
-We can enable TLS (known as successor of SSL) by passing in a value for key and cert; both are required to enable TLS.
+我们可以通过传入 key 和 cert 的值来启用 TLS（被称为 SSL 的继任者）；这两个值都是启用 TLS 所必需的。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -59,65 +59,65 @@ new Elysia({
 })
 ```
 
-Elysia extends Bun configuration which supports TLS out of the box, powered by BoringSSL.
+Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
 
-See [TLS Options](#tls-options) for available configuration.
+参见 [TLS 选项](#tls-options) 以获取可用配置。
 
-## Config
-Below is a config accepted by Elysia:
+## 配置项
+以下是 Elysia 接受的配置项：
 
 ### prefix
-@default ``
+@默认 ``
 
-Path prefix of the instance
+实例的路径前缀
 
 ### name
-Name of the instance for debugging, and plugin deduplication purpose
+用于调试和插件去重目的的实例名称
 
 ### seed
-Seed for generating checksum for [plugin deduplication](/essential/plugin.html#plugin-deduplication)
+用于生成 [插件去重](/essential/plugin.html#plugin-deduplication) 的校验和的种子
 
 ### detail
-OpenAPI documentation for documentation generation
+用于文档生成的 OpenAPI 文档
 
-This configuration extends [Swagger Specification](https://swagger.io/specification).
+该配置扩展了 [Swagger 规范](https://swagger.io/specification)。
 
-@see [Swagger Specification](https://swagger.io/specification)
+@见 [Swagger 规范](https://swagger.io/specification)
 
 ### tags
-OpenAPI tags for documentation generation
+用于文档生成的 OpenAPI 标签
 
-Decorate all instance routes with tags
+为所有实例路由装饰标签
 
-This configuration extends [Tag Object](https://swagger.io/specification/#tag-object)
+该配置扩展了 [标签对象](https://swagger.io/specification/#tag-object)
 
-@see [Tag Object](https://swagger.io/specification/#tag-object)
+@见 [标签对象](https://swagger.io/specification/#tag-object)
 
 ### precompile
-@default `false`
+@默认 `false`
 
-Warm up Elysia before starting the server
+在启动服务器之前预热 Elysia
 
-This will perform Ahead of Time compilation and generate code for route handlers
+这将执行提前编译并生成路由处理程序的代码
 
-If set to false, Elysia will perform Just in Time compilation
+如果设置为 false，Elysia 将执行即时编译
 
-Only required for root instance (instance which use listen) to effect
+仅根实例（使用 listen 的实例）需要生效
 
 ### aot
-@default `false`
+@默认 `false`
 
-Ahead of Time compliation
+提前编译
 
-Reduced performance but faster startup time
+降低性能但加快启动时间
 
 ## strictPath
-@default `false`
+@默认 `false`
 
-Whether should Elysia tolerate suffix `/` or vice-versa
+Elysia 是否应该容忍后缀 `/` 或反之亦然
 
-#### Example
-If `strictPath` is set to `true`, Elysia will match `/id` and not `/id/`
+#### 示例
+如果将 `strictPath` 设置为 `true`，Elysia 将匹配 `/id` 而不匹配 `/id/`
 
 ```ts
 import { Elysia } from 'elysia'
@@ -128,34 +128,34 @@ new Elysia({
 	.get('/id', 'work')
 ```
 
-Normally, both `/id` and `/id/` will match the route handler (default is `false`)
+通常，`/id` 和 `/id/` 都会匹配路由处理程序（默认值为 `false`）
 
 ## cookie
-Set default cookie options
+设置默认的 cookie 选项
 
 ## normalize
-@default `true`
+@默认 `true`
 
-If enabled, the handlers will run a [clean](https://github.com/sinclairzx81/typebox?tab=readme-ov-file#clean) on incoming and outgoing bodies instead of failing directly.
+如果启用，处理程序将在传入和传出请求体上运行 [clean](https://github.com/sinclairzx81/typebox?tab=readme-ov-file#clean)，而不是直接失败。
 
-This allows for sending unknown or disallowed properties in the bodies. These will simply be filtered out instead of failing the request.
+这允许在请求体中发送未知或不允许的属性。这些属性将被过滤掉，而不会导致请求失败。
 
-This has no effect when the schemas allow additional properties.
+当模式允许附加属性时，这不会产生影响。
 
-Since this uses dynamic schema it may have an impact on performance.
+由于这是使用动态模式，因此可能会对性能产生影响。
 
 ## nativeStaticResponse
-@default `true`
-@since 1.1.11
+@默认 `true`
+@自 1.1.11 起
 
-Enable Bun static response.
+启用 Bun 静态响应。
 
-Whether Elysia should use Bun's static response.
+Elysia 是否应该使用 Bun 的静态响应。
 
-This allows Elysia to improve static content performance and reduce memory significantly.
+这可以提高静态内容的性能，并显著减少内存使用。
 
-#### Example
-Elysia will use Bun's static response for static content
+#### 示例
+Elysia 将为静态内容使用 Bun 的静态响应
 ```ts
 import { Elysia } from 'elysia'
 
@@ -163,7 +163,7 @@ new Elysia()
 	.get('/static', 'work')
 ```
 
-Above is an equivalent to:
+以上等价于：
 ```ts
 Bun.serve({
 	static: {
@@ -174,18 +174,18 @@ Bun.serve({
 ```
 
 ::: tip
-This configuration will only work if using Bun > 1.1.27 as the server
+此配置仅在使用 Bun > 1.1.27 作为服务器时生效
 :::
 
 ## websocket
-Override websocket configuration
+重写 websocket 配置
 
-Recommended to leave this as default as Elysia will generate suitable configuration for handling WebSocket automatically
+建议保留此配置为默认，因为 Elysia 会自动生成适合处理 WebSocket 的配置
 
-This configuration extends [Bun WebSocket API](https://bun.sh/docs/api/websockets)
+该配置扩展了 [Bun WebSocket API](https://bun.sh/docs/api/websockets)
 
 ## serve
-Bun serve configuration.
+Bun 服务器配置。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -201,51 +201,51 @@ new Elysia({
 })
 ```
 
-This configuration extends [Bun Serve API](https://bun.sh/docs/api/http) and [Bun TLS](https://bun.sh/docs/api/http#tls)
+该配置扩展了 [Bun Serve API](https://bun.sh/docs/api/http) 和 [Bun TLS](https://bun.sh/docs/api/http#tls)
 
-The following is ported from Bun JSDoc and Bun documentation:
+以下内容来自 Bun JSDoc 和 Bun 文档：
 
 ### port
-@default `3000`
+@默认 `3000`
 
-Port to listen on
+监听的端口
 
 ### unix
-If set, the HTTP server will listen on a unix socket instead of a port.
+如果设置，将使 HTTP 服务器监听在 unix 套接字而不是端口。
 
-(Cannot be used with hostname+port)
+（不能与 hostname + port 一起使用）
 
 ### hostname
-@default `0.0.0.0`
+@默认 `0.0.0.0`
 
-What hostname should the server listen on
+服务器应监听的主机名
 
 ### maxRequestBodySize
-@default `1024 * 1024 * 128` (128MB)
+@默认 `1024 * 1024 * 128` (128MB)
 
-What is the maximum size of a request body? (in bytes)
+请求体的最大大小？（以字节为单位）
 
 ### reusePort
-@default `true`
+@默认 `true`
 
-If the `SO_REUSEPORT` flag should be set
+是否应设置 `SO_REUSEPORT` 标志
 
-This allows multiple processes to bind to the same port, which is useful for load balancing
+这允许多个进程绑定到同一端口，这对负载均衡很有用
 
-This configuration is override and turns on by default by Elysia
+该配置被覆盖，并默认由 Elysia 打开
 
 ### id
-Uniquely identify a server instance with an ID
+使用 ID 唯一标识服务器实例
 
-This string will be used to hot reload the server without interrupting pending requests or websockets. If not provided, a value will be generated. To disable hot reloading, set this value to `null`.
+此字符串将用于热重载服务器，而不会中断挂起的请求或 WebSocket。如果未提供，将生成一个值。要禁用热重载，请将此值设置为 `null`。
 
 ### rejectUnauthorized
-@default `NODE_TLS_REJECT_UNAUTHORIZED` environment variable
+@默认 `NODE_TLS_REJECT_UNAUTHORIZED` 环境变量
 
-If set to `false`, any certificate is accepted.
+如果设置为 `false`，任何证书都将被接受。
 
-## TLS options
-This configuration extends [Bun TLS API](https://bun.sh/docs/api/http#tls)
+## TLS 选项
+该配置扩展了 [Bun TLS API](https://bun.sh/docs/api/http#tls)
 
 ```ts
 import { Elysia } from 'elysia'
@@ -259,56 +259,56 @@ new Elysia({
 ```
 
 ### cert
-Cert chains in PEM format. One cert chain should be provided per private key.
+PEM 格式的证书链。每个私钥应提供一个证书链。
 
-Each cert chain should consist of the PEM formatted certificate for a provided private key, followed by the PEM formatted intermediate certificates (if any), in order, and not
-including the root CA (the root CA must be pre-known to the peer, see ca).
+每个证书链应由为提供的私钥格式化的 PEM 证书组成，后面跟着 PEM 格式的中间证书（如果有），
+以顺序排列，且不包括根 CA（根 CA 必须预先为对等方所知，参见 ca）。
 
-When providing multiple cert chains, they do not have to be in the same order as their private keys in key.
+提供多个证书链时，它们不必与其在 key 中的私钥的顺序相同。
 
-If the intermediate certificates are not provided, the peer will not be
-able to validate the certificate, and the handshake will fail.
+如果未提供中间证书，
+对等方将无法验证证书，握手将失败。
 
 ### key
-Private keys in PEM format. PEM allows the option of private keys being encrypted. Encrypted keys will be decrypted with options.passphrase.
+PEM 格式的私钥。PEM 允许对私钥进行加密。加密密钥将使用 options.passphrase 解密。
 
-Multiple keys using different algorithms can be provided either as an array of unencrypted key strings or buffers, or an array of objects in the form .
+可以提供使用不同算法的多个密钥，可以是未加密的密钥字符串或缓冲区的数组，或者以对象形式的数组。
 
-The object form can only occur in an array.
+对象形式只能在数组中出现。
 
-object.passphrase is optional. Encrypted keys will be decrypted with
+object.passphrase 是可选的。加密密钥将使用提供的 object.passphrase 解密，
 
-object.passphrase if provided, or options.passphrase if it is not.
+如果未提供，则使用 options.passphrase。
 
 ### ca
-Optionally override the trusted CA certificates. Default is to trust the well-known CAs curated by Mozilla.
+可选覆盖受信任的 CA 证书。默认情况下信任 Mozilla 精心挑选的知名 CA。
 
-Mozilla's CAs are completely replaced when CAs are explicitly specified using this option.
+当明确指定 CA 时，Mozilla 的 CA 会被完全替换。
 
 ### passphrase
-Shared passphrase for a single private key and/or a PFX.
+单个私钥和/或 PFX 的共享密码。
 
 ### dhParamsFile
-File path to a .pem file custom Diffie Helman parameters
+自定义 Diffie Hellman 参数的 .pem 文件路径
 
 ### requestCert
-@default `false`
+@默认 `false`
 
-If set to `true`, the server will request a client certificate.
+如果设置为 `true`，服务器将请求客户端证书。
 
 ### secureOptions
-Optionally affect the OpenSSL protocol behavior, which is not usually necessary.
+可选影响 OpenSSL 协议行为，通常不是必需的。
 
-This should be used carefully if at all!
+应谨慎使用！
 
-Value is a numeric bitmask of the SSL_OP_* options from OpenSSL Options
+值是 OpenSSL 可选选项的 SSL_OP_* 的数字位掩码
 
 ### serverName
-Explicitly set a server name
+显式设置服务器名称
 
 ### lowMemoryMode
-@default `false`
+@默认 `false`
 
-This sets `OPENSSL_RELEASE_BUFFERS` to 1.
+这将 `OPENSSL_RELEASE_BUFFERS` 设置为 1。
 
-It reduces overall performance but saves some memory.
+它会降低整体性能但节省部分内存。

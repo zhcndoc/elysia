@@ -1,20 +1,19 @@
 ---
-title: Elysia 中文文档
-titleTemplate: ':title - 人体工程学框架'
+title: Elysia - 人体工程学框架
 layout: page
 sidebar: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia 中文文档 - 人体工程学框架
+        content: Elysia - 人体工程学框架
 
     - - meta
       - name: 'description'
-        content: Elysia 是一个面向人类的人体工程学框架。具有端到端类型安全性和出色的开发者体验。 Elysia 熟悉、快速，并提供一流的 TypeScript 支持，其中与 tRPC、Swagger 或 WebSocket 等服务之间存在良好思考的集成。Elysia 已经为你考虑周全，立即开始构建下一代 TypeScript Web 服务器。
+        content: Elysia 是一个针对人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具有熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
 
     - - meta
       - property: 'og:description'
-        content: Elysia 是一个面向人类的人体工程学框架。具有端到端类型安全性和出色的开发者体验。 Elysia 熟悉、快速，并提供一流的 TypeScript 支持，其中与 tRPC、Swagger 或 WebSocket 等服务之间存在良好思考的集成。Elysia 已经为你考虑周全，立即开始构建下一代 TypeScript Web 服务器。
+        content: Elysia 是一个针对人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具有熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
 ---
 
 <script setup>
@@ -173,7 +172,7 @@ const app = new Elysia()
         '/profile',
         ({ body, error }) => {
             if(body.age < 18)
-                return error(400, "Oh no")
+                return error(400, "哎呀")
 
             return body
         },
@@ -216,12 +215,12 @@ export const app = new Elysia()
         	if(body.username === 'mika')
 				return error(400, {
 					success: false,
-					message: 'Username already taken'
+					message: '用户名已被占用'
 				} as const)
 
             return {
             	success: true,
-             	message: 'User created'
+             	message: '用户创建成功'
             } as const
         },
         {
@@ -240,14 +239,14 @@ import { test, expect } from 'bun:test'
 
 const server = treaty(app)
 
-test('should handle duplicated user', async () => {
+test('应处理重复用户', async () => {
 	const { error } = await server.user.put({
 	    username: 'mika',
 	})
 
 	expect(error?.value).toEqual({
 		success: false,
-		message: 'Username already taken'
+		message: '用户名已被占用'
 	})
 })
 ```

@@ -1,26 +1,26 @@
 ---
-title: 集成 SvelteKit
+title: 与 SvelteKit 的集成 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 集成 SvelteKit - Elysia 中文文档
+        content: 与 SvelteKit 的集成 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: With SvelteKit, you can run Elysia on server routes.
+        content: 使用 SvelteKit，您可以在服务器路由上运行 Elysia。
 
     - - meta
       - property: 'og:description'
-        content: With SvelteKit, you can run Elysia on server routes.
+        content: 使用 SvelteKit，您可以在服务器路由上运行 Elysia。
 ---
 
-# 与 SvelteKit 集成
+# 与 SvelteKit 的集成
 
-通过 SvelteKit，你可以在服务器路由上运行 Elysia。
+使用 SvelteKit，您可以在服务器路由上运行 Elysia。
 
 1. 创建 **src/routes/[...slugs]/+server.ts**。
-2. 在 **+server.ts** 中，创建或导入现有的 Elysia 服务器。
-3. 使用要公开的方法的名称导出处理程序。
+2. 在 **+server.ts** 中创建或导入一个现有的 Elysia 服务器
+3. 导出您想要公开的方法的处理程序
 
 ```typescript
 // src/routes/[...slugs]/+server.ts
@@ -40,17 +40,16 @@ export const GET: RequestHandler = ({ request }) => app.handle(request)
 export const POST: RequestHandler = ({ request }) => app.handle(request)
 ```
 
-你可以将 Elysia 服务器视为普通的 SvelteKit 服务器路由。
+您可以将 Elysia 服务器视为普通的 SvelteKit 服务器路由。
 
-使用这种方法，你可以将前端和后端的代码放在同一个存储库中，并在客户端和服务器端上实现 [End-to-end type-safety with Eden](https://elysia.zhcndoc.com/eden/overview.html)。
+通过这种方法，您可以在单个代码库中共同定位前端和后端，并且可以实现 [Eden 的端到端类型安全](https://elysiajs.com/eden/overview.html)，支持客户端和服务器的操作。
 
-请参考 [SvelteKit Routing](https://kit.svelte.dev/docs/routing#server) 获取更多信息。
+有关更多信息，请参考 [SvelteKit 路由](https://kit.svelte.dev/docs/routing#server)。
 
 ## 前缀
+如果您将 Elysia 服务器放在应用路由的根目录以外的位置，您需要为 Elysia 服务器注释前缀。
 
-如果你将 Elysia 服务器放置在应用路由的根目录之外，你需要给 Elysia 服务器添加前缀注释。
-
-例如，如果你将 Elysia 服务器放置在 **src/routes/api/[...slugs]/+server.ts** 中，你需要将前缀注释为 **/api**。
+例如，如果您将 Elysia 服务器放在 **src/routes/api/[...slugs]/+server.ts** 中，您需要将前缀注释为 **/api**。
 
 ```typescript twoslash
 // src/routes/api/[...slugs]/+server.ts
@@ -70,4 +69,4 @@ export const GET: RequestHandler = ({ request }) => app.handle(request)
 export const POST: RequestHandler = ({ request }) => app.handle(request)
 ```
 
-这将确保无论你在何处放置 Elysia 路由，它都能正常工作。
+这样可以确保 Elysia 路由在您放置它的任何位置都能正常工作。

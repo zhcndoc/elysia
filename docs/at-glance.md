@@ -1,17 +1,17 @@
 ---
-title: 简介
+title: 简介 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 简介 - Elysia 中文文档
+        content: 简介 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 设计符合人体工程学，广泛支持 TypeScript、现代 JavaScript API，并针对 Bun 进行了优化。提供独特的统一类型体验和端到端类型安全，同时保持出色的性能。
+        content: 设计注重人体工学，广泛支持 TypeScript，现代 JavaScript API，优化用于 Bun。提供独特的统一类型体验和端到端的类型安全，同时保持出色的性能。
 
     - - meta
       - property: 'og:description'
-        content: 设计符合人体工程学，广泛支持 TypeScript、现代 JavaScript API，并针对 Bun 进行了优化。提供独特的统一类型体验和端到端类型安全，同时保持出色的性能。
+        content: 设计注重人体工学，广泛支持 TypeScript，现代 JavaScript API，优化用于 Bun。提供独特的统一类型体验和端到端的类型安全，同时保持出色的性能。
 ---
 
 <script setup>
@@ -22,7 +22,7 @@ import Playground from '../components/nearl/playground.vue'
 import { Elysia } from 'elysia'
 
 const demo1 = new Elysia()
-    .get('/', 'Hello Elysia')
+    .get('/', '你好 Elysia')
     .get('/user/:id', ({ params: { id }}) => id)
     .post('/form', ({ body }) => body)
 
@@ -32,23 +32,23 @@ const demo2 = new Elysia()
 </script>
 
 # 简介
-Elysia 是一个符合人体工程学的 Web 框架，用于使用 Bun 构建后端服务器。
+Elysia 是一个用于构建后端服务器的符合人体工学的 Web 框架，旨在与 Bun 配合使用。
 
-该框架在设计时考虑到了简洁性和类型安全性，其熟悉的 API 广泛支持 TypeScript，并针对 Bun 进行了优化。
+旨在简洁和类型安全，具有熟悉的 API，并广泛支持 TypeScript，优化用于 Bun。
 
-下面是 Elysia 中一个简单的 hello world。
+以下是在 Elysia 中的简单 hello world 示例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', 'Hello Elysia')
+    .get('/', '你好 Elysia')
     .get('/user/:id', ({ params: { id }}) => id)
     .post('/form', ({ body }) => body)
     .listen(3000)
 ```
 
-打开 [localhost:3000](http://localhost:3000/)，结果应该显示 “Hello Elysia”。
+打开 [localhost:3000](http://localhost:3000/)，结果应该显示 '你好 Elysia'。
 
 <Playground
     :elysia="demo1"
@@ -68,40 +68,40 @@ new Elysia()
 />
 
 ::: tip
-将鼠标悬停在代码片段上查看类型定义。
+将鼠标悬停在代码片段上以查看类型定义。
 
-在模拟浏览器中，单击蓝色路径突出显示以更改路径以预览响应。
+在模拟浏览器中，单击蓝色高亮路径更改路径以预览响应， 
 
-Elysia 可以在浏览器上运行，你看到的结果实际上是使用 Elysia 运行的。
+Elysia 可以在浏览器中运行，你所看到的结果实际上是通过 Elysia 执行的。
 :::
 
 ## 性能
 
-在 Bun 和静态代码分析 (Static Code Analysis) 等广泛优化的基础上，Elysia 可以快速生成优化代码。
+基于 Bun 及诸多优化（如静态代码分析），Elysia 能够动态生成优化后的代码。
 
-Elysia 的性能超过了当今大多数网络框架 <a href="#ref-1"><sup>[1]</sup></a>，甚至可以媲美 Golang 和 Rust 框架 <a href="#ref-2"><sup>[2]</sup></a>。
+Elysia 的性能优于当今大多数 Web 框架<a href="#ref-1"><sup>[1]</sup></a>，甚至可以与 Golang 和 Rust 框架的性能相匹配<a href="#ref-2"><sup>[2]</sup></a>。
 
-| Framework     | Runtime | Average     | Plain Text | Dynamic Parameters | JSON Body  |
-| ------------- | ------- | ----------- | ---------- | ------------------ | ---------- |
-| bun           | bun     | 262,660.433 | 326,375.76 | 237,083.18         | 224,522.36 |
-| elysia        | bun     | 255,574.717 | 313,073.64 | 241,891.57         | 211,758.94 |
-| hyper-express | node    | 234,395.837 | 311,775.43 | 249,675            | 141,737.08 |
-| hono          | bun     | 203,937.883 | 239,229.82 | 201,663.43         | 170,920.4  |
-| h3            | node    | 96,515.027  | 114,971.87 | 87,935.94          | 86,637.27  |
-| oak           | deno    | 46,569.853  | 55,174.24  | 48,260.36          | 36,274.96  |
-| fastify       | bun     | 65,897.043  | 92,856.71  | 81,604.66          | 23,229.76  |
-| fastify       | node    | 60,322.413  | 71,150.57  | 62,060.26          | 47,756.41  |
-| koa           | node    | 39,594.14   | 46,219.64  | 40,961.72          | 31,601.06  |
-| express       | bun     | 29,715.537  | 39,455.46  | 34,700.85          | 14,990.3   |
-| express       | node    | 15,913.153  | 17,736.92  | 17,128.7           | 12,873.84  |
+| 框架         | 运行时 | 平均       | 普通文本   | 动态参数       | JSON 数据   |
+| ------------ | ------ | ---------- | ---------- | --------------- | ----------- |
+| bun          | bun    | 262,660.433| 326,375.76 | 237,083.18      | 224,522.36  |
+| elysia       | bun    | 255,574.717| 313,073.64 | 241,891.57      | 211,758.94  |
+| hyper-express| node   | 234,395.837| 311,775.43 | 249,675         | 141,737.08  |
+| hono         | bun    | 203,937.883| 239,229.82 | 201,663.43      | 170,920.4   |
+| h3           | node   | 96,515.027 | 114,971.87 | 87,935.94       | 86,637.27   |
+| oak          | deno   | 46,569.853 | 55,174.24  | 48,260.36       | 36,274.96   |
+| fastify      | bun    | 65,897.043 | 92,856.71  | 81,604.66       | 23,229.76   |
+| fastify      | node   | 60,322.413 | 71,150.57  | 62,060.26       | 47,756.41   |
+| koa          | node   | 39,594.14  | 46,219.64  | 40,961.72       | 31,601.06   |
+| express      | bun    | 29,715.537 | 39,455.46  | 34,700.85       | 14,990.3    |
+| express      | node   | 15,913.153 | 17,736.92  | 17,128.7        | 12,873.84   |
 
 ## TypeScript
 
-Elysia 旨在帮助你减少编写 TypeScript。
+Elysia 旨在帮助你编写更少的 TypeScript。
 
-Elysia 的类型系统经过精心调整，可以自动推断出你的代码类型，而无需编写显式的 TypeScript，同时为运行时和编译时提供类型安全性，从而为你提供最舒适的开发者体验。
+Elysia 的类型系统经过微调，可以自动推断你的代码类型，而无需编写显式的 TypeScript，同时提供运行时和编译时的类型安全，以提供最佳的开发者体验。
 
-看一下这个例子：
+看这个例子：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -114,7 +114,7 @@ new Elysia()
 
 <br>
 
-上述代码创建了一个路径参数 `id`，替换 `:id` 的值将在运行时和类型中传递给 `params.id`，无需手动类型声明。
+上述代码创建了一个路径参数 "id"，替换 `:id` 的值将被作为 `params.id` 传递，在运行时和类型中无需手动声明类型。
 
 <Playground
     :elysia="demo2"
@@ -128,15 +128,15 @@ new Elysia()
     }"
 />
 
-Elysia 的目标是帮助你减少编写 TypeScript 的工作，更专注于业务逻辑，让复杂的类型由框架来处理。
+Elysia 的目标是帮助你编写更少的 TypeScript，并更多地关注业务逻辑。让复杂的类型处理交给框架。
 
-使用 Elysia 不需要 TypeScript，但建议与 TypeScript 一起使用 Elysia。
+使用 Elysia 并不需要 TypeScript，但建议使用 TypeScript。
 
 ## 类型完整性
 
-为了更进一步，Elysia 提供了 **Elysia.t**，这是一个模式构建器，用于在运行时和编译时验证类型和值，从而为你的数据类型创建单一的真实来源。
+为了更进一步，Elysia 提供 **Elysia.t**，一个架构构建器，用于在运行时和编译时验证类型和值，以创建数据类型的单一真实来源。
 
-让我们修改先前的代码，仅接受数值而不是字符串。
+让我们修改之前的代码，仅接受数字值，而不是字符串。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -151,19 +151,19 @@ new Elysia()
     .listen(3000)
 ```
 
-这段代码确保我们的路径参数 **id**，将始终是一个数字字符串，然后在运行时和编译时（类型级别）自动将其转换为数字。
+这段代码确保我们的路径参数 **id** 永远是一个数字字符串，然后在运行时和编译时（类型级别）自动将其转换为数字。
 
 ::: tip
-在上面的代码片段中将鼠标悬停在 “id” 上以查看类型定义。
+将鼠标悬停在上述代码片段中的 "id" 以查看类型定义。
 :::
 
-通过 Elysia 模式构建器，我们可以像具有单一真实来源的强类型语言一样确保类型安全。
+使用 Elysia 架构构建器，我们可以确保类型安全，如同强类型语言，且具有单一真实来源。
 
 ## 标准
 
-Elysia 默认采用许多标准，例如 OpenAPI 和 WinterCG 合规性，允许你与大多数行业标准工具集成，或者至少轻松与你熟悉的工具集成。
+Elysia 默认采用许多标准，如 OpenAPI 和 WinterCG 合规，允许你与大多数行业标准工具集成，或至少与你熟悉的工具轻松集成。
 
-例如，由于 Elysia 默认采用 OpenAPI，因此使用 Swagger 生成文档就像添加一行代码一样简单：
+例如，由于 Elysia 默认采用 OpenAPI，因此生成 Swagger 文档就像添加一行代码一样简单：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -179,13 +179,13 @@ new Elysia()
     .listen(3000)
 ```
 
-使用 Swagger 插件，你可以无缝生成 Swagger 页面，无需额外代码或特定配置，并轻松与你的团队共享。
+使用 Swagger 插件，你可以轻松生成一个 Swagger 页面，而无需额外代码或特定配置，并轻松与团队分享。
 
 ## 端到端类型安全
 
-使用 Elysia，类型安全性不仅限于仅限于服务器端。
+使用 Elysia，类型安全不仅限于服务器端。
 
-使用 Elysia，你可以像 tRPC 一样自动将你的类型与前端团队同步，使用 Elysia 的客户端库“Eden”。
+使用 Elysia，你可以像 tRPC 一样自动与前端团队同步你的类型，使用 Elysia 的客户端库 "Eden"。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -203,7 +203,7 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-在你的客户端：
+在你的客户端代码中：
 
 ```typescript twoslash
 // @filename: server.ts
@@ -227,31 +227,31 @@ import type { App } from './server'
 
 const app = treaty<App>('localhost:3000')
 
-// Get data from /user/617
+// 从 /user/617 获取数据
 const { data } = await app.user({ id: 617 }).get()
       // ^?
 
 console.log(data)
 ```
 
-使用 Eden，你可以使用现有的 Elysia 类型查询 Elysia 服务器 **不需要代码生成** 并为前端和后端自动同步类型。
+使用 Eden，你可以使用现有的 Elysia 类型来查询 Elysia 服务器 **无需代码生成**，并自动同步前后端的类型。
 
-Elysia 不仅是帮助你创建自信的后端，也是为世界上所有美好的事物而创造的。
+Elysia 不仅仅是帮助你创建一个可靠的后端，还关乎这个世界上美好的事物。
 
-## 与平台无关
+## 平台无关性
 
-Elysia 的设计**不局限于 Bun**。由于[兼容 WinterCG](https://wintercg.org/)，你可以将 Elysia 服务器部署到 Cloudflare Worker、Vercel Edge Function 和其他大多数支持 Web 标准请求的运行时上。
+Elysia 被设计但**并不限于 Bun**。遵循 [WinterCG 合规](https://wintercg.org/) 允许你将 Elysia 服务器部署在 Cloudflare Worker、Vercel Edge Function 和其他支持 Web 标准请求的大多数运行时。
 
 ## 我们的社区
 
-如果你对 Elysia 有疑问或遇到困难，请随时在 GitHub 讨论、Discord 和 Twitter 上向我们的社区提问。
+如果你有问题或在使用 Elysia 时遇到困难，欢迎在 GitHub Discussions、Discord 和 Twitter 上询问我们的社区。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        ElysiaJS 官方 Discord 社区服务器
+        官方 ElysiaJS Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        跟踪 Elysia 的更新和状态
+        追踪 Elysia 的更新和状态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
         源代码和开发
@@ -260,6 +260,6 @@ Elysia 的设计**不局限于 Bun**。由于[兼容 WinterCG](https://wintercg.
 
 ---
 
-<small id="ref-1">1。以请求/秒为单位进行测量。Debian 11、Intel i7-13700K 上解析查询、路径参数和设置响应标头的基准测试于 2023 年 8 月 6 日在 Bun 0.7.2 上进行测试。请参阅[此处的](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)基准测试条件。</small>
+<small id="ref-1">1. 测量请求/秒。基于在 Debian 11 上进行的查询、路径参数解析和设置响应头的基准测试，Intel i7-13700K 测试于 2023 年 8 月 6 日，基于 Bun 0.7.2。有关基准测试条件，请参见 [此处](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)。</small>
 
-<small id="ref-2">2。基于 [TechEmpower 基准测试第 22 轮](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>
+<small id="ref-2">2. 基于 [TechEmpower Benchmark round 22](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>

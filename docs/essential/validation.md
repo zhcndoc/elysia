@@ -1,17 +1,17 @@
 ---
-title: 验证
+title: Schema - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 验证 - Elysia 中文文档
+        content: Schema - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 模式是严格类型的定义，用于推断 TypeScript 的类型和传入请求以及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
+        content: Schema 是严格类型的定义，用于推断 TypeScript 的类型和对传入请求及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，一个用于数据验证的 TypeScript 库。
 
     - - meta
       - property: 'og:description'
-        content: 模式是严格类型的定义，用于推断 TypeScript 的类型和传入请求以及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
+        content: Schema 是严格类型的定义，用于推断 TypeScript 的类型和对传入请求及传出响应的数据验证。Elysia 的模式验证基于 Sinclair 的 TypeBox，一个用于数据验证的 TypeScript 库。
 ---
 
 <script setup>
@@ -47,9 +47,9 @@ const demo2 = new Elysia()
 
 # 验证
 
-创建 API 服务器的目的是接收输入并处理它。
+创建 API 服务器的目的在于接收输入并对其进行处理。
 
-JavaScript 允许任何数据具有任何类型。Elysia 提供了一个工具，可以验证数据是否符合正确的格式，以确保数据的有效性。
+JavaScript 允许任何数据成为任何类型。Elysia 提供了一个工具，可以对数据进行验证，以确保数据的格式正确。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -65,39 +65,39 @@ new Elysia()
 
 ### TypeBox
 
-**Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式生成器，它提供运行时和编译时的类型安全性，以及生成 OpenAPI/Swagger 文档的 OpenAPI 模式。
+**Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式构建器，提供了运行时、编译时和 OpenAPI 模式的类型安全，用于生成 OpenAPI/Swagger 文档。
 
-TypeBox 是一个非常快速、轻量级和类型安全的 TypeScript 运行时验证库。Elysia 扩展并自定义了 TypeBox 的默认行为，以适应服务器端验证。
+TypeBox 是一个非常快速、轻量且类型安全的 TypeScript 运行时验证库。Elysia 扩展并定制了 TypeBox 的默认行为，以适应服务器端验证。
 
-我们认为，这样的集成应该默认情况下照顾到框架，而不是依赖于用户在每个项目上设置自定义类型。
+我们相信，这样的集成应该默认处理框架，而不是依赖用户在每个项目中设置自定义类型。
 
 ## 模式类型
-Elysia 支持使用以下类型的声明性模式：
+Elysia 支持具有以下类型的声明式模式：
 
 <Deck>
-    <Card title="Body" href="#body">
+    <Card title="主体" href="#body">
         验证传入的 HTTP 消息
     </Card>
-    <Card title="Query" href="#query">
+    <Card title="查询" href="#query">
         查询字符串或 URL 参数
     </Card>
-    <Card title="Params" href="#params">
+    <Card title="参数" href="#params">
         路径参数
     </Card>
-    <Card title="Headers" href="#headers">
-        请求头
+    <Card title="头部" href="#headers">
+        请求的头部
     </Card>
     <Card title="Cookie" href="#cookie">
         请求的 Cookie
     </Card>
-    <Card title="Response" href="#response">
-        响应结果
+    <Card title="响应" href="#response">
+        请求的响应
     </Card>
 </Deck>
 
 ---
 
-这些属性应该作为路由处理程序的第三个参数提供，以验证传入的请求。
+这些属性应作为路由处理器的第三个参数提供，以验证传入请求。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -116,8 +116,8 @@ new Elysia()
 
 <Playground :elysia="demo1" />
 
-响应结果应该如下所示：
-| URL | Query | Params |
+响应应如下所示：
+| URL | 查询 | 参数 |
 | --- | --------- | ------------ |
 | /id/a | ❌ | ❌ |
 | /id/1?name=Elysia | ✅ | ✅ |
@@ -125,10 +125,10 @@ new Elysia()
 | /id/a?name=Elysia | ✅ | ❌ |
 | /id/a?alias=Elysia | ❌ | ❌ |
 
-当提供了模式时，类型将自动从模式中推断出来，并生成一个 OpenAPI 类型，用于生成 Swagger 文档，省去了手动提供类型的冗余任务。
+当提供模式时，类型将自动从模式中推断，并生成 OpenAPI 类型以生成 Swagger 文档，省去手动提供类型的冗余工作。
 
-## Body
-传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送给服务器的数据。它可以是 JSON、form-data 或其他格式。
+## 主体
+传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送到服务器的数据。它可以是 JSON、表单数据或任何其他格式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -147,26 +147,26 @@ new Elysia()
 	.listen(3000)
 ```
 
-验证结果应如下所示：
-| Body | 验证结果 |
+验证应如下所示：
+| 主体 | 验证 |
 | --- | --------- |
 | \{ name: 'Elysia' \} | ✅ |
 | \{ name: 1 \} | ❌ |
 | \{ alias: 'Elysia' \} | ❌ |
 | `undefined` | ❌ |
 
-默认情况下，Elysia 对 **GET** 和 **HEAD** 消息禁用了 body-parser，遵循 HTTP/1.1 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3) 的规范。
+Elysia 默认禁用了 **GET** 和 **HEAD** 消息的 body 解析，遵循 HTTP/1.1 规范 [RFC2616](https://www.rfc-editor.org/rfc/rfc2616#section-4.3)
 
-> 如果请求方法不包含对实体主体定义的语义，那么处理请求时应该忽略消息主体。
+> 如果请求方法不包括对实体主体的定义语义，则在处理请求时应忽略消息主体。
 
-大多数浏览器默认禁用 **GET** 和 **HEAD** 方法的请求体附加。
+大多数浏览器默认禁用将主体附加到 **GET** 和 **HEAD** 方法。
 
 ### 规范
-验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（或 body）。
+验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（或主体）。
 
-这些消息是用于让 web 服务器处理的附加消息。
+这些消息是供 Web 服务器处理的附加消息。
 
-body 被提供，格式同 `fetch` API 中的 `body`。应相应地设置内容类型以匹配定义的 body。
+主体与 `fetch` API 中的 `body` 图相同提供。内容类型应根据定义的主体进行相应设置。
 
 ```typescript
 fetch('https://elysiajs.com', {
@@ -179,7 +179,7 @@ fetch('https://elysiajs.com', {
 ```
 
 ### 文件
-文件是一种特殊类型的 body，可用于上传文件。
+文件是一种特殊的主体类型，可用于上传文件。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -199,10 +199,10 @@ new Elysia()
 	.listen(3000)
 ```
 
-通过提供文件类型，Elysia 会自动假定内容类型为 `multipart/form-data`。
+通过提供文件类型，Elysia 将自动假设内容类型为 `multipart/form-data`。
 
-## Query
-查询是通过 URL 传递的数据。它可以是 `?key=value` 的形式。
+## 查询
+查询是通过 URL 发送的数据。可以采用 `?key=value` 的形式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -223,8 +223,8 @@ new Elysia()
 
 查询必须以对象的形式提供。
 
-验证结果应如下所示：
-| Query | 验证结果 |
+验证应如下所示：
+| 查询 | 验证 |
 | ---- | --------- |
 | /?name=Elysia | ✅ |
 | /?name=1 | ✅ |
@@ -234,22 +234,22 @@ new Elysia()
 
 ### 规范
 
-查询字符串是 URL 的一部分，以 **?** 开头，可以包含一个或多个查询参数，这些参数是用于向服务器传递附加信息的键值对，通常用于自定义行为，比如过滤或搜索。
+查询字符串是 URL 的一部分，以 **?** 开头，可以包含一个或多个查询参数，这些参数是用于向服务器传达附加信息的一对键值对，通常用于自定义行为，例如过滤或搜索。
 
 ![URL 对象](/essential/url-object.svg)
 
-查询在 Fetch API 中的位置是在 **?** 之后。
+查询在 Fetch API 的 **?** 之后提供。
 
 ```typescript
 fetch('https://elysiajs.com/?name=Elysia')
 ```
 
-在指定查询参数时，重要的是要了解所有查询参数的值必须表示为字符串。这是因为它们的编码方式以及追加到 URL 的方式。
+在指定查询参数时，必须了解所有查询参数值必须表示为字符串。这是因为它们的编码和添加到 URL 的方式。
 
-## Params
-路径参数或路由参数是通过 URL 路径传递的数据。
+## 参数
+参数或路径参数是通过 URL 路径发送的数据。
 
-它可以是 `/key` 的形式。
+可以采用 `/key` 的形式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -269,25 +269,25 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-路径参数必须以对象的形式提供。
+参数必须以对象的形式提供。
 
-验证结果应如下所示：
-| URL | 验证结果 |
+验证应如下所示：
+| URL | 验证 |
 | --- | --------- |
 | /id/1 | ✅ |
 | /id/a | ❌ |
 
 ### 规范
-路径参数 <small>（与查询字符串或查询参数不要混淆）</small>。
+路径参数 <small>(不要与查询字符串或查询参数混淆)</small>。
 
-**通常情况下，Elysia 可以根据路径参数自动推断类型**，除非需要特定值模式，例如数字值或模板文字模式。
+**通常不需要此字段，因为 Elysia 可以自动推断路径参数的类型**，除非需要特定值模式，例如数字值或模板字面量模式。
 
 ```typescript
 fetch('https://elysiajs.com/id/1')
 ```
 
-### Params 类型推断
-如果没有提供参数模式，Elysia 将自动将类型推断为字符串。
+### 参数类型推断
+如果未提供参数模式，Elysia 将自动将类型推断为字符串。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -296,8 +296,8 @@ new Elysia()
                       // ^?
 ```
 
-## Headers
-请求头是通过请求的头部传递的信息。
+## 头部
+头部是通过请求的头部发送的数据。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -315,16 +315,16 @@ new Elysia()
 	})
 ```
 
-与其他类型不同，请求头的 `additionalProperties` 默认设置为 `true`。
+与其他类型不同，头部的 `additionalProperties` 默认设置为 `true`。
 
-这意味着请求头可以有任意键值对，但值必须符合模式。
+这意味着头部可以包含任何键值对，但值必须符合模式。
 
 ### 规范
-HTTP 请求头允许客户端和服务器在 HTTP 请求或响应中传递附加信息，通常被视为元数据。
+HTTP 头部允许客户端和服务器通过 HTTP 请求或响应传递附加信息，通常视为元数据。
 
-通常用于强制一些特定的请求头字段，例如 `Authorization`。
+此字段通常用于强制执行某些特定的头部字段，例如 `Authorization`。
 
-请求头与 `fetch` API 中的 `body` 提供的内容相同。
+头部与 `fetch` API 中的 `body` 以相同方式提供。
 
 ```typescript
 fetch('https://elysiajs.com/', {
@@ -335,13 +335,13 @@ fetch('https://elysiajs.com/', {
 ```
 
 ::: tip
-Elysia 将请求头解析为小写键的形式。
+Elysia 将仅以小写键解析头部。
 
-请确保在使用请求头验证时使用小写字段名。
+请确保在使用头部验证时使用小写字段名称。
 :::
 
 ## Cookie
-请求的 Cookie 是通过请求的 Cookie 传递的数据。
+Cookie 是通过请求的 Cookie 发送的数据。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -360,17 +360,17 @@ new Elysia()
 
 Cookie 必须以 `t.Cookie` 或 `t.Object` 的形式提供。
 
-与 `headers` 相同，请求头的 `additionalProperties` 默认设置为 `true`。
+与 `headers` 相同，头部的 `additionalProperties` 默认设置为 `true`。
 
 ### 规范
 
-HTTP Cookie 是服务器发送给客户端的一小段数据，它是在每次访问同一台 Web 服务器时与请求一起发送的，用于让服务器记住客户端信息。
+HTTP Cookie 是服务器发送给客户端的小数据块，这是数据，在每次访问同一网页服务器时都会发送，以便让服务器记住客户端信息。
 
-简单来说，就是随每个请求一起发送的字符串化状态。
+简单来说，一种字符串化的状态，在每个请求中发送。
 
-通常用于强制一些特定的 Cookie 字段。
+此字段通常用于强制执行某些特定的 cookie 字段。
 
-Cookie 是一个特殊的请求头字段，Fetch API 不接受自定义值，但由浏览器管理。要发送 Cookie，必须使用 `credentials` 字段：
+Cookie 是一个特殊的头部字段，Fetch API 不接受自定义值，而是由浏览器管理。要发送 Cookie，必须使用 `credentials` 字段：
 
 ```typescript
 fetch('https://elysiajs.com/', {
@@ -379,7 +379,7 @@ fetch('https://elysiajs.com/', {
 ```
 
 ### t.Cookie
-`t.Cookie` 是一个特殊类型，相当于 `t.Object`，但允许设置 Cookie 的特定选项。
+`t.Cookie` 是一种特殊类型，相当于 `t.Object`，但允许设置 cookie 特定选项。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -400,7 +400,7 @@ new Elysia()
 	})
 ```
 
-## Response
+## 响应
 响应是从处理程序返回的数据。
 
 ```typescript
@@ -419,7 +419,7 @@ new Elysia()
 ```
 
 ### 按状态设置响应
-响应可以根据状态码设置。
+响应可以按状态代码设置。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -428,7 +428,7 @@ new Elysia()
 	.get('/response', ({ error }) => {
 		if (Math.random() > 0.5)
 			return error(400, {
-				error: 'Something went wrong'
+				error: '出了点问题'
 			})
 
 		return {
@@ -446,8 +446,8 @@ new Elysia()
 	})
 ```
 
-## 可选属性
-要使一个字段可选，我们可以使用 `t.Optional`。
+## 可选
+要使字段可选，可以使用 `t.Optional`。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -467,11 +467,11 @@ new Elysia()
 	})
 ```
 
-这是 Elysia 的一个特有功能，允许我们使一个字段可选。
+这是 Elysia 特定的功能，允许我们使字段可选。
 
-## 守卫
+## 防护
 
-守卫可以用于将模式应用于多个处理程序。
+防护可用于将模式应用于多个处理程序。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -492,7 +492,7 @@ new Elysia()
 
 <br>
 
-此代码确保每个处理程序后面的查询必须有名为 `name` 的字符串值。响应应如下所示：
+这段代码确保查询必须包含 **name**，并且其值为字符串，对于后面的每个处理程序。响应应列出如下：
 
 <Playground
     :elysia="demo1"
@@ -503,21 +503,21 @@ new Elysia()
     }"
 />
 
-响应应如下所示：
+响应应列出如下：
 
-| 路径          | 响应     |
+| 路径          | 响应 |
 | ------------- | -------- |
 | /none         | hi       |
 | /none?name=a  | hi       |
 | /query        | error    |
 | /query?name=a | a        |
 
-如果为相同的属性定义了多个全局模式，则最新的模式将具有优先级。如果定义了本地和全局模式，则本地模式将具有优先级。
+如果多个全局模式针对同一属性定义，则最新的将优先。如果同时定义了本地和全局模式，则本地模式将优先。
 
 ## 标准化
-您可以使用 Elysia 构造函数通过 `normalize` 选项设置传出和传入体中未知字段的行为。默认情况下，elysia 会在请求或响应包含在其模式的字段之外的情况下引发错误。
+您可以使用 Elysia 构造函数通过 `normalize` 选项设置传入和传出主体中未知字段的行为。默认情况下，当请求或响应包含不明确允许的字段时，elysia 将引发错误。
 
-您可以在构建 Elysia 实例时将 `normalize` 设置为 true 来更改此设置。
+您可以在构造您的 elysia 实例时将 `normalize` 设置为 true 来更改这一点。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -529,13 +529,13 @@ new Elysia({
 
 ## 基本类型
 
-TypeBox API 的设计与 TypeScript 类型类似。
+TypeBox API 设计围绕 TypeScript 类型，
 
-它有很多熟悉的名称和行为，与 TypeScript 的对应部分（如 **String**、**Number**、**Boolean** 和 **Object**）有重合，还有更高级的功能，如 **Intersect**、**KeyOf**、**Tuple** 等。
+并且与 TypeScript 相关的许多熟悉名称和行为交织在一起，包括： **String**、**Number**、**Boolean** 和 **Object** 以及更高级的特性如 **Intersect**、**KeyOf**、**Tuple** 以增加多样性。
 
-如果您熟悉 TypeScript，创建一个 TypeBox 模式的行为与编写一个 TypeScript 类型的行为相同，只是它提供了运行时的实际类型验证。
+如果您熟悉 TypeScript，则创建 TypeBox 模式的行为与编写 TypeScript 类型相同，只是它在运行时提供实际的类型验证。
 
-要创建您的第一个模式，请从 Elysia 导入 `Elysia.t` 并从最基本的类型开始：
+要创建第一个模式，请从 Elysia 中导入 `Elysia.t` 并从最基本的类型开始：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -547,9 +547,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-此代码告诉 Elysia 验证传入的 HTTP body，确保 body 是一个字符串，并且如果是一个字符串，则允许它通过请求管道和处理程序。
+此代码告诉 Elysia 验证传入的 HTTP 主文，确保主体是字符串，如果是字符串，则允许其通过请求管道和处理程序。
 
-如果形状不匹配，它将抛出一个错误，进入 [错误生命周期](/essential/life-cycle.html#events)。
+如果形状不匹配，则将抛出错误，进入 [错误生命周期](/essential/life-cycle.html#events)。
 
 ![Elysia 生命周期](/assets/lifecycle.webp)
 
@@ -557,7 +557,7 @@ new Elysia()
 
 TypeBox 提供了与 TypeScript 类型相同行为的基本原始类型。
 
-以下表格列出了最常见的基本类型：
+以下表列出了最常见的基本类型：
 
 <table class="md-table">
 <tr>
@@ -692,13 +692,13 @@ t.Literal(42)
 
 </table>
 
-Elysia 扩展了 TypeBox 的所有类型，允许您引用大多数 TypeBox API 来在 Elysia 中使用。
+Elysia 从 TypeBox 中扩展了所有类型，允许您从 TypeBox 中参考大多数 API 用于 Elysia。
 
-有关 TypeBox 支持的其他类型，请参阅 [TypeBox 的类型](https://github.com/sinclairzx81/typebox#json-types)。
+有关 TypeBox 支持的其他类型，请参见 [TypeBox 的类型](https://github.com/sinclairzx81/typebox#json-types)。
 
 ### 属性
 
-TypeBox 可以接受一个参数，用于基于 JSON Schema 7 规范提供更全面的行为。
+TypeBox 可以接受一个参数，以便根据 JSON Schema 7 规范提供更全面的行为。
 
 <table class="md-table">
 <tr>
@@ -753,11 +753,11 @@ t.Array(
     t.Number(),
     {
         /**
-         * Minimum number of items
+         * 最小项数
          */
         minItems: 1,
         /**
-         * Maximum number of items
+         * 最大项数
          */
         maxItems: 5
     }
@@ -785,9 +785,9 @@ t.Object(
     {
         /**
          * @default false
-         * Accept additional properties
-         * that not specified in schema
-         * but still match the type
+         * 接受未在模式中
+         * 指定的附加属性
+         * 但仍然匹配所需类型
          */
         additionalProperties: true
     }
@@ -807,25 +807,25 @@ y: 200
 
 </table>
 
-有关每个属性的更多详细信息，请参阅 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
+有关每个属性的更多解释，请参见 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
 
 ---
 
 <br>
 
-## 荣耀提及
+## 荣誉提名
 
-以下是在创建模式时通常有用的常见模式。
+以下是创建模式时通常发现有用的常见模式。
 
-### Union
+### 联合
 
-通过联合类型允许多种类型。
+通过联合允许多种类型。
 
 <table class="md-table">
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -861,13 +861,13 @@ Hello
 
 ### 可选
 
-在 `t.Object` 的一个属性中提供，允许字段是未定义的或可选的。
+在 `t.Object` 的一个属性中提供，允许字段为 undefined 或可选。
 
 <table class="md-table">
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -905,7 +905,7 @@ t.Object({
 
 </table>
 
-### Partial
+### 部分
 
 允许 `t.Object` 中的所有字段都是可选的。
 
@@ -913,7 +913,7 @@ t.Object({
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -953,14 +953,14 @@ t.Partial(
 
 </table>
 
-## Custom Error
+## 自定义错误
 
-TypeBox 提供了额外的 "**error**" 属性，允许我们在字段无效时返回自定义的错误消息。
+TypeBox 提供了一个额外的 "**错误**" 属性，允许我们在字段无效时返回自定义错误消息。
 
 <table class="md-table">
 <tr>
 <td>TypeBox</td>
-<td>Error</td>
+<td>错误</td>
 </tr>
 
 <tr>
@@ -969,7 +969,7 @@ TypeBox 提供了额外的 "**error**" 属性，允许我们在字段无效时�
 ```typescript
 t.String({
     format: 'email',
-    error: 'Invalid email :('
+    error: '无效的电子邮箱 :( '
 })
 ```
 
@@ -977,7 +977,7 @@ t.String({
 <td>
 
 ```
-Invalid Email :(
+无效的电子邮箱 :(
 ```
 
 </td>
@@ -990,7 +990,7 @@ Invalid Email :(
 t.Object({
     x: t.Number()
 }, {
-    error: 'Invalid object UwU'
+    error: '无效的对象 UwU'
 })
 ```
 
@@ -998,7 +998,7 @@ t.Object({
 <td>
 
 ```
-Invalid object UwU
+无效的对象 UwU
 ```
 
 </td>
@@ -1008,84 +1008,84 @@ Invalid object UwU
 
 ## Elysia 类型
 
-`Elysia.t` 基于 TypeBox，并进行了预配置，以便在服务器上使用，同时还提供了服务器端验证中常见的额外类型。
+`Elysia.t` 基于 TypeBox，为服务器使用提供了预配置，同时提供了常见的服务器端验证中常用的附加类型。
 
-您可以在 `elysia/type-system` 中找到 Elysia 类型的所有源代码。
+您可以在 `elysia/type-system` 中找到所有 Elysia 类型的源代码。
 
 以下是 Elysia 提供的类型：
 
 <Deck>
-    <Card title="Numeric" href="#numeric">
-        接受一个数字字符串或数字，然后将值转换为数字。
+    <Card title="数字" href="#numeric">
+        接受数字字符串或数字，然后将值转换为数字
     </Card>
-    <Card title="File" href="#file">
-        一个单独的文件。通常在<strong>文件上传</strong>验证时很有用。
+    <Card title="文件" href="#file">
+        单个文件。通常用于<strong>文件上传</strong>验证。
     </Card>
-    <Card title="Files" href="#files">
-        从 <a href="#file">File</a> 扩展，但为单个字段中的文件数组添加了支持。
+    <Card title="文件集合" href="#files">
+        扩展自 <a href="#file">文件</a>，但为单个字段添加对文件数组的支持
     </Card>
     <Card title="Cookie" href="#cookie">
-        对象样式的Cookie Jar表示，从对象类型扩展而来。
+        从对象类型扩展的 Cookie 罐的对象视图
     </Card>
-    <Card title="Nullable" href="#nullable">
-        允许值为 null，但不能是 undefined
+    <Card title="可空" href="#nullable">
+    允许值为 null，但不允许为 undefined
     </Card>
-    <Card title="Maybe Empty" href="#maybeempty">
+    <Card title="可能为空" href="#maybeempty">
         接受空字符串或 null 值
     </Card>
 </Deck>
 
-### 数值（旧版）
+### 数字（旧版）
 
-数值接受一个数值字符串或数字，然后将值转换为数字。
+数字接受数字字符串或数字，然后将值转换为数字。
 
 ```typescript
 t.Numeric()
 ```
 
-当传入的值是一个数字字符串时，比如路径参数或查询字符串，这很有用。
+这在传入值是数字字符串时很有用，例如路径参数或查询字符串。
 
-Numeric 接受与 [Numeric Instance](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
+数字接受相同的属性，作为 [数字实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)
 
 ::: tip
-这不需要，因为 Elysia 类型已经自动将 Number 转换为 Numeric。
+这一点不是必须的，因为 Elysia 类型会自动将 Number 转换为数字
 :::
 
 ### 文件
 
-一个单独的文件。通常用于**文件上传**验证。
+单个文件。通常用于 **文件上传** 验证。
 
 ```typescript
 t.File()
 ```
 
-文件扩展属性的基础模式，具有以下附加属性：
+文件扩展了基本模式的属性，附加属性如下：
 
-#### type
+#### 类型
 
-文件格式，如图片、视频、音频。
+文件的格式，如图像、视频、音频。
 
-如果提供数组，将尝试验证任何格式是否有效。
+如果提供一个数组，将尝试验证其中任何一种格式是否有效。
 
 ```typescript
 type?: MaybeArray<string>
 ```
 
-#### minSize
+#### 最小大小
 
 文件的最小大小。
 
-接受以字节为单位或文件单位的缩写形式表示的数字：
+接受以字节为单位的数字或文件单位的后缀：
 
 ```typescript
 minSize?: number | `${number}${'k' | 'm'}`
 ```
 
-#### maxSize
+#### 最大大小
 
 文件的最大大小。
 
-接受以字节为单位或文件单位的后缀表示的数字：
+接受以字节为单位的数字或文件单位的后缀：
 
 ```typescript
 maxSize?: number | `${number}${'k' | 'm'}`
@@ -1093,23 +1093,23 @@ maxSize?: number | `${number}${'k' | 'm'}`
 
 #### 文件单位后缀：
 
-以下为文件单位的规格：
-m: 兆字节 (1048576 字节)
-k: 千字节 (1024 字节)
+以下是文件单位的规格：
+m: 兆字节（1048576 字节）
+k: 千字节（1024 字节）
 
-### Files
+### 文件集合
 
-从[文件](#file)扩展，但在单个字段中添加了对文件数组的支。
+扩展自 [文件](#file)，但添加了对单个字段中数组文件的支持。
 
 ```typescript
 t.Files()
 ```
 
-文件扩展了基础模式、数组和文件的属性。
+文件扩展了基本模式的属性、数组和文件。
 
 ### Cookie
 
-从对象类型扩展的 Cookie Jar 的对象表示形式。
+从对象类型扩展的 Cookie 罐的对象视图。
 
 ```typescript
 t.Cookie({
@@ -1121,17 +1121,17 @@ Cookie 扩展了 [Object](https://json-schema.org/draft/2020-12/json-schema-vali
 
 #### secrets
 
-用于签名的密钥。
+签名 Cookie 的密钥。
 
-接受字符串或字符串数组。
+接受字符串或字符串数组
 
 ```typescript
 secrets?: string | string[]
 ```
 
-如果提供了数组，将使用[密钥轮换](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation)，新签名的值将使用第一个秘密作为密钥。
+如果提供数组，将使用 [密钥轮换](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation)，新签名的值将使用第一个密钥作为密钥。
 
-### 可以为空
+### 可空
 
 允许值为 null，但不允许为 undefined。
 
@@ -1141,24 +1141,24 @@ t.Nullable(t.String())
 
 ### 可能为空
 
-允许值是 null 和 undefined。
+允许值为 null 和 undefined。
 
 ```typescript
 t.MaybeEmpty(t.String())
 ```
 
-要获取类型系统的完整源代码，您可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到。
+有关更多信息，您可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到类型系统的完整源代码。
 
 ## 错误提供者
 
-当验证失败时，有 2 种方式提供自定义错误消息：
+在验证失败时，有两种方法可以提供自定义错误消息：
 
 1. 内联 `error` 属性
 2. 使用 [onError](/life-cycle/on-error) 事件
 
 ### 错误属性
 
-Elysia 提供了一个额外的 "**error**" 属性，允许我们在字段无效时返回自定义错误消息。
+Elysia 提供了一个额外的 "**错误**" 属性，允许我们在字段无效时返回自定义错误消息。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -1170,19 +1170,19 @@ new Elysia()
                 x: t.Number()
             },
             {
-                error: 'x must be a number'
+                error: 'x 必须是数字'
             }
         )
     })
     .listen(3000)
 ```
 
-The following is an example of usage of the error property on various types:
+以下是在各种类型上使用错误属性的示例：
 
 <table class="md-table">
 <tr>
 <td>TypeBox</td>
-<td>Error</td>
+<td>错误</td>
 </tr>
 
 <tr>
@@ -1191,7 +1191,7 @@ The following is an example of usage of the error property on various types:
 ```typescript
 t.String({
     format: 'email',
-    error: 'Invalid email :('
+    error: '无效的电子邮箱 :('
 })
 ```
 
@@ -1199,7 +1199,7 @@ t.String({
 <td>
 
 ```
-Invalid Email :(
+无效的电子邮箱 :(
 ```
 
 </td>
@@ -1212,7 +1212,7 @@ Invalid Email :(
 t.Array(
     t.String(),
     {
-        error: 'All members must be a string'
+        error: '所有成员必须是字符串'
     }
 )
 ```
@@ -1221,7 +1221,7 @@ t.Array(
 <td>
 
 ```
-All members must be a string
+所有成员必须是字符串
 ```
 
 </td>
@@ -1234,7 +1234,7 @@ All members must be a string
 t.Object({
     x: t.Number()
 }, {
-    error: 'Invalid object UwU'
+    error: '无效的对象 UwU'
 })
 ```
 
@@ -1242,7 +1242,7 @@ t.Object({
 <td>
 
 ```
-Invalid object UwU
+无效的对象 UwU
 ```
 
 </td>
@@ -1254,7 +1254,7 @@ Invalid object UwU
 t.Object({
     x: t.Number({
         error({ errors, type, validation, value }) {
-            return 'Expected x to be a number'
+            return '期望 x 为数字'
         }
     })
 })
@@ -1264,7 +1264,7 @@ t.Object({
 <td>
 
 ```
-Expected x to be a number
+期望 x 为数字
 ```
 
 </td>
@@ -1272,10 +1272,10 @@ Expected x to be a number
 
 </table>
 
-### Error message as function
-Over a string, Elysia type's error can also accepts a function to programatically return custom error for each property.
+### 错误消息作为函数
+除了字符串外，Elysia 类型的错误也可以接受一个函数，以程序化地为每个属性返回自定义错误。
 
-The error function accepts same argument as same as `ValidationError`
+错误函数接受与 `ValidationError` 相同的参数。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -1285,7 +1285,7 @@ new Elysia()
         body: t.Object({
             x: t.Number({
                 error() {
-                    return 'Expected x to be a number'
+                    return '期望 x 为数字'
                 }
             })
         })
@@ -1294,19 +1294,19 @@ new Elysia()
 ```
 
 ::: tip
-将鼠标悬停在 `error` 上以查看类型
+悬停在 `error` 上以查看类型
 :::
 
-### Error is called per field
-请注意，只有在字段无效时才会调用 error 函数。
+### 错误按字段调用
+请注意，仅当字段无效时，错误函数才会被调用。
 
-请考虑以下表格：
+请考虑以下表：
 
 <table class="md-table">
 <tr>
-<td>Code</td>
-<td>Body</td>
-<td>Error</td>
+<td>代码</td>
+<td>主体</td>
+<td>错误</td>
 </tr>
 
 <tr>
@@ -1316,7 +1316,7 @@ new Elysia()
 t.Object({
     x: t.Number({
         error() {
-            return 'Expected x to be a number'
+            return '期望 x 为数字'
         }
     })
 })
@@ -1333,7 +1333,7 @@ t.Object({
 
 </td>
 <td>
-Expected x to be a number
+期望 x 为数字
 </td>
 </tr>
 
@@ -1344,7 +1344,7 @@ Expected x to be a number
 t.Object({
     x: t.Number({
         error() {
-            return 'Expected x to be a number'
+            return '期望 x 为数字'
         }
     })
 })
@@ -1359,7 +1359,7 @@ t.Object({
 
 </td>
 <td>
-(default error, `t.Number.error` is not called)
+(默认错误， `t.Number.error` 不会被调用)
 </td>
 </tr>
 
@@ -1371,12 +1371,12 @@ t.Object(
     {
         x: t.Number({
             error() {
-                return 'Expected x to be a number'
+                return '期望 x 为数字'
             }
         })
     }, {
         error() {
-            return 'Expected value to be an object'
+            return '期望值为对象'
         }
     }
 )
@@ -1391,7 +1391,7 @@ t.Object(
 
 </td>
 <td>
-Expected value to be an object
+期望值为对象
 </td>
 </tr>
 
@@ -1399,7 +1399,7 @@ Expected value to be an object
 
 ### onError
 
-我们可以根据 [onError](/life-cycle/on-error) 事件的错误代码调用“**VALIDATION**”来定制验证的行为。
+我们可以根据 [onError](/life-cycle/on-error) 事件自定义验证行为，缩小到一个错误代码 "**VALIDATION**"。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1412,9 +1412,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-缩小了错误类型，将被类型化为从 'elysia/error' 导入的 `ValidationError`。
+缩小的错误类型将被表示为 `ValidationError` 从 'elysia/error' 导入。
 
-**ValidationError** 暴露了一个名为 **validator** 的属性，其类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，使我们能够开箱即用地与 TypeBox 功能进行交互。
+**ValidationError** 暴露了名为 **validator** 的属性，类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，允许我们与 TypeBox 功能直接交互。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1427,9 +1427,9 @@ new Elysia()
     .listen(3000)
 ```
 
-### Error list
+### 错误列表
 
-**ValidationError** 提供了 `ValidatorError.all` 方法，允许我们列出所有的错误原因。
+**ValidationError** 提供了一个方法 `ValidatorError.all`，允许我们列出所有的错误原因。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1445,12 +1445,12 @@ new Elysia()
 				case 'VALIDATION':
                     console.log(error.all)
 
-                    // Find a specific error name (path is OpenAPI Schema compliance)
+                    // 查找特定错误名称（路径符合 OpenAPI 架构）
                     const name = error.all.find(
 						(x) => x.summary && x.path === '/name'
 					)
 
-                    // If has a validation error, then log it
+                    // 如果有验证错误，则记录它
                     if(name)
     					console.log(name)
 			}
@@ -1459,16 +1459,16 @@ new Elysia()
 	.listen(3000)
 ```
 
-有关 TypeBox 验证器的更多信息，请参阅 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)。
+有关 TypeBox 的验证器的更多信息，请参见 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)。
 
 ## 引用模型
-有时，您可能会发现自己声明重复的模型，或使用相同的模型多次。
+有时您可能会发现自己声明重复模型，或多次重用相同模型。
 
-通过引用模型，我们可以为模型命名，并通过引用名称在 `schema` 中直接引用它，以实现代码自动补全。
+通过引用模型，我们可以为模型命名，并通过引用名称重复使用它们。
 
-让我们先从一个简单的场景开始。
+让我们从一个简单的场景开始。
 
-假设我们有一个处理登录的控制器，其处理程序使用相同的模型。
+假设我们有一个处理登录的控制器，使用同一个模型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1486,11 +1486,11 @@ const app = new Elysia()
     })
 ```
 
-我们可以通过将模型提取为变量并引用它们来重构代码。
+我们可以通过提取模型作为变量的方式重构代码，并引用它们。
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
-// Maybe in a different file eg. models.ts
+// 也许在不同的文件，例如 models.ts
 const SignDTO = t.Object({
     username: t.String(),
     password: t.String()
@@ -1503,9 +1503,9 @@ const app = new Elysia()
     })
 ```
 
-将模型分离出来的此方法是一个有效的方案，但随着应用程序变得更复杂，我们可能会发现自己在多个控制器中重用多个模型。
+这种分离关注的方法是有效的，但随着应用的复杂性增加，我们可能会发现自己在不同的控制器中重用多个模型。
 
-我们可以通过创建“引用模型”来解决这个问题，允许我们为模型命名并在 Elysia 的 `model` 中通过自动补全直接引用它们。
+我们可以通过创建 "引用模型" 来解决此问题，允许我们命名模型并使用自动完成直接在 `schema` 中引用它，同时通过 `model` 注册模型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -1518,13 +1518,13 @@ const app = new Elysia()
         })
     })
     .post('/sign-in', ({ body }) => body, {
-        // with auto-completion for existing model name
+        // 在现有模型名称的上下文中使用自动完成
         body: 'sign',
         response: 'sign'
     })
 ```
 
-当要访问模型组时，我们可以将 `model` 分离为一个插件，注册该插件时会提供一组模型，而不是多个导入。
+当我们想访问模型组时，可以将一个 `model` 分离成一个插件，当注册时将提供一组模型，而不是多个导入。
 
 ```typescript
 // auth.model.ts
@@ -1539,7 +1539,7 @@ export const authModel = new Elysia()
     })
 ```
 
-然后在一个实例文件中：
+然后在实例文件中：
 ```typescript twoslash
 // @filename: auth.model.ts
 import { Elysia, t } from 'elysia'
@@ -1553,7 +1553,7 @@ export const authModel = new Elysia()
     })
 
 // @filename: index.ts
-// ---cut---
+// ---省略---
 // index.ts
 import { Elysia } from 'elysia'
 import { authModel } from './auth.model'
@@ -1561,16 +1561,16 @@ import { authModel } from './auth.model'
 const app = new Elysia()
     .use(authModel)
     .post('/sign-in', ({ body }) => body, {
-        // with auto-completion for existing model name
+        // 在现有模型名称的上下文中使用自动完成
         body: 'sign',
         response: 'sign'
     })
 ```
 
-这样不仅允许我们分离关注点，还允许我们在多个位置重用模型，同时将模型报告到 Swagger 文档中。
+这不仅可以让我们分离关注，还可以在多个地方重用模型，同时将模型报告到 Swagger 文档中。
 
 ### 多个模型
-`model` 可以接受一个对象，其键作为模型名称，值作为模型定义，支持多个模型。
+`model` 接受一个对象，键为模型名称，值为模型定义，默认支持多个模型。
 
 ```typescript
 // auth.model.ts
@@ -1587,9 +1587,9 @@ export const authModel = new Elysia()
 ```
 
 ### 命名约定
-重复的模型名称将导致 Elysia 抛出一个错误。为了防止重复声明模型名称，我们可以使用以下命名约定。
+重复的模型名称会导致 Elysia 抛出错误。为防止声明重复的模型名称，我们可以使用以下命名约定。
 
-假设我们的所有模型都存储在 `models/<name>.ts` 中，并将模型的前缀声明为命名空间。
+假设我们在 `models/<name>.ts` 中存储所有模型，并声明模型的前缀作为命名空间。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -1613,6 +1613,6 @@ export const userModels = new Elysia()
     })
 ```
 
-这可以在某种程度上防止命名冲突，但最终，最好根据团队的协议决定命名约定。
+这可以在某种程度上防止命名冲突，但最终，最好的选项是让团队对命名约定的决定达成一致。
 
-Elysia 为您提供了一个具有明确目的的选项，以防止纠结于决策疲劳。
+Elysia 提供了一种有见地的选项，供您决定以防止决策疲劳。
