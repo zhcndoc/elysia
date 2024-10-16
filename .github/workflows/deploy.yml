@@ -27,26 +27,26 @@ jobs:
           bun run build          
           cd docs/.vitepress/dist && zip -rq ../../../build.zip .
 
-      - name: Deploy to Zeabur
-        env:
-          PROJECT_ID: 66e2444d723926097b6fd1c7
-          SERVICE_ID: 66e2446c31bde736b00fd551
-          ENVIRONMENT_ID: 66e2444dbc556e0e05b26a38
-          API_TOKEN: ${{ secrets.ZEABUR_TOKEN }}
-        run: |
-          curl --request POST \
-            --url https://gateway.zeabur.com/projects/${{ env.PROJECT_ID }}/services/${{ env.SERVICE_ID }}/deploy \
-            --header "Authorization: Bearer ${{ env.API_TOKEN }}" \
-            --form "code=@build.zip" \
-            --form "environment=${{ env.ENVIRONMENT_ID }}" || true
+      # - name: Deploy to Zeabur
+      #   env:
+      #     PROJECT_ID: 66e2444d723926097b6fd1c7
+      #     SERVICE_ID: 66e2446c31bde736b00fd551
+      #     ENVIRONMENT_ID: 66e2444dbc556e0e05b26a38
+      #     API_TOKEN: ${{ secrets.ZEABUR_TOKEN }}
+      #   run: |
+      #     curl --request POST \
+      #       --url https://gateway.zeabur.com/projects/${{ env.PROJECT_ID }}/services/${{ env.SERVICE_ID }}/deploy \
+      #       --header "Authorization: Bearer ${{ env.API_TOKEN }}" \
+      #       --form "code=@build.zip" \
+      #       --form "environment=${{ env.ENVIRONMENT_ID }}" || true
 
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_KEY }}
-          REMOTE_USER: ${{ secrets.SERVER_USER }}
-          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-          REMOTE_PORT: ${{ secrets.SERVER_PORT }}
-          SOURCE: "docs/.vitepress/dist/"
-          ARGS: "-azr --delete"
-          TARGET: "${{ secrets.SERVER_PATH }}/elysia/"
+      # - name: Deploy to Server
+      #   uses: easingthemes/ssh-deploy@main
+      #   with:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SERVER_KEY }}
+      #     REMOTE_USER: ${{ secrets.SERVER_USER }}
+      #     REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+      #     REMOTE_PORT: ${{ secrets.SERVER_PORT }}
+      #     SOURCE: "docs/.vitepress/dist/"
+      #     ARGS: "-azr --delete"
+      #     TARGET: "${{ secrets.SERVER_PATH }}/elysia/"
