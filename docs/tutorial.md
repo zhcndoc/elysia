@@ -24,7 +24,7 @@ head:
 
 ## 设置
 
-Elysia 基于 [Bun](https://bun.sh) 构建，这是 Node.js 的替代运行时。
+Elysia 是基于 [Bun](https://bun.sh) 构建的，Bun 是 Node.js 的一种替代运行时。
 
 如果你还没有安装 Bun，请先安装。
 
@@ -762,7 +762,7 @@ export const note = new Elysia({ prefix: '/note' })
 
 默认情况下，**lifecycle hook 被封装**。钩子应用于同一实例中的路由，而不应用于其他插件（未在同一插件中定义的路由）。
 
-这意味着 `onTransform` 的日志不会在其他实例中被调用，除非我们显式地将其定义为 **scoped** 或 **global**。
+这意味着 `onTransform` 日志不会在其他实例上被调用，除非我们明确地定义为 `scoped` 或 `global`。
 
 ## 身份验证
 
@@ -857,7 +857,7 @@ export const user = new Elysia({ prefix: '/user' })// [!code ++]
 	- 4.4 我们将 `secret` 附加到 cookie，以防止攻击者篡改 cookie
 
 ::: tip
-由于我们使用的是内存存储，数据将在每次重新加载或每次编辑代码时被清除。
+由于我们使用的是内存存储，数据在每次重新加载或每次编辑代码时都会被清除。
 
 我们将在本教程的后面部分进行修复。
 :::
@@ -1080,7 +1080,7 @@ export const user = new Elysia({ prefix: '/user' })
     ) // [!code ++]
     .get( // [!code ++]
         '/profile', // [!code ++]
-        ({ cookie: { token }, store: { user, session }, error }) => { // [!code ++]
+        ({ cookie: { token }, store: { session }, error }) => { // [!code ++]
             const username = session[token.value] // [!code ++]
  // [!code ++]
             if (!username) // [!code ++]
@@ -1200,7 +1200,7 @@ export const userService = new Elysia({ name: 'user/service' })
         optionalSession: t.Optional(model.session)
     }))
     .macro(({ onBeforeHandle }) => ({ // [!code ++]
-        isSignIn(enabled: true) { // [!code ++]
+        isSignIn(enabled: boolean) { // [!code ++]
             if (!enabled) return // [!code ++]
 
             onBeforeHandle( // [!code ++]
@@ -1254,7 +1254,7 @@ export const userService = new Elysia({ name: 'user/service' })
         optionalSession: t.Optional(model.session)
     }))
     .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
             onBeforeHandle(
@@ -1333,7 +1333,7 @@ export const user = new Elysia({ prefix: '/user' })
     // ---cut---
     .get(
         '/profile',
-        ({ cookie: { token }, store: { user, session }, error }) => {
+        ({ cookie: { token }, store: { session }, error }) => {
             const username = session[token.value]
 
             if (!username) // [!code --]
@@ -1821,11 +1821,6 @@ import { user } from './user' // [!code ++]
 
 const app = new Elysia()
     .use(swagger())
-    .onError(({ error, code }) => {
-        if (code === 'NOT_FOUND') return
-
-        console.error(error)
-    })
     .use(user) // [!code ++]
     .use(note)
     .listen(3000)
@@ -2807,7 +2802,7 @@ export const userService = new Elysia({ name: 'user/service' })
         optionalSession: t.Optional(model.session)
     }))
     .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
             onBeforeHandle(
@@ -2943,7 +2938,7 @@ export const userService = new Elysia({ name: 'user/service' })
         optionalSession: t.Optional(model.session)
     }))
     .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
             onBeforeHandle(

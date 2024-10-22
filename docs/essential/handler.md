@@ -207,7 +207,7 @@ new Elysia()
 
 - 允许 TypeScript 检查返回值是否正确类型为响应模式
 - 基于状态码的类型缩小的自动补全
-- 使用端到端类型安全的错误处理的类型缩小 ([Eden](/overview/eden))
+- 使用端到端类型安全的错误处理的类型缩小 ([Eden](/eden/overview))
 
 ### set.status
 如果没有提供，设置默认状态码。
