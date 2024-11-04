@@ -104,7 +104,7 @@ app.
 const { data } = await app.index.get()
 
 // 调用 [POST] 在 '/nendoroid/:id'
-const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).post({
+const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).put({
     name: 'Skadi',
     from: 'Arknights'
 })
