@@ -19,6 +19,9 @@ head:
 ```bash
 bun add @elysiajs/eden
 bun add -d elysia
+
+# 如果您使用 Bun 特定功能，例如`Bun.file`
+bun add -d @types/bun
 ```
 
 ::: tip
@@ -145,4 +148,94 @@ app.get('/', ({ store: { build } }) => build)
 app.listen(3000)
 ```
 
-我们建议 **始终使用方法链** 来提供准确的类型推断。
+### 类型定义
+有时，如果您使用的是 Bun 特定功能，如 `Bun.file` 或类似的 API，您可能还需要将 Bun 类型定义安装到客户端。
+
+```bash
+bun add -d @types/bun
+```
+
+### 路径别名（单一代码库）
+如果您在单一代码库中使用路径别名，请确保前端能够与后端相同地解析路径。
+
+例如，如果您在 **tsconfig.json** 中为后端设置了以下路径别名：
+```json
+{
+  "compilerOptions": {
+  	"baseUrl": ".",
+	"paths": {
+	  "@/*": ["./src/*"]
+	}
+  }
+}
+```
+
+你的后端代码是这样的：
+```typescript
+import { Elysia } from 'elysia'
+import { a, b } from '@/controllers'
+
+const app = new Elysia()
+	.use(a)
+	.use(b)
+	.listen(3000)
+
+export type app = typeof app
+```
+
+您**必须**确保您的前端代码能够解析相同的路径别名，否则类型推断将被解析为任何类型。
+
+```typescript
+import { treaty } from '@elysiajs/eden'
+import type { app } from '@/index'
+
+const client = treaty<app>('localhost:3000')
+
+// 这应该能够在前端和后端解析相同的模块，而不是 `any`。
+import { a, b } from '@/controllers'
+```
+
+要解决此问题，您必须确保路径别名在前端和后端解析为相同的文件。
+
+因此，您必须将 **tsconfig.json** 中的路径别名更改为：
+```json
+{
+  "compilerOptions": {
+  	"baseUrl": ".",
+	"paths": {
+	  "@/*": ["../apps/backend/src/*"]
+	}
+  }
+}
+```
+
+如果配置正确，您应该能够在前端和后端解析相同的模块。
+```typescript
+// 这应该能够在前端和后端解析相同的模块，而不是 `any`。
+import { a, b } from '@/controllers'
+```
+
+#### 范围
+我们建议在您的单体仓库中的每个模块前添加一个 **scope** 前缀，以避免可能发生的任何混淆和冲突。
+
+```json
+{
+  "compilerOptions": {
+  	"baseUrl": ".",
+	"paths": {
+	  "@frontend/*": ["./apps/frontend/src/*"],
+	  "@backend/*": ["./apps/backend/src/*"]
+	}
+  }
+}
+```
+
+然后你可以像这样导入模块：
+```typescript
+// Should work in both frontend and backend and not return `any`
+import { a, b } from '@backend/controllers'
+```
+
+我们建议创建一个 **single tsconfig.json**，将 `baseUrl` 定义为您仓库的根目录，根据模块位置提供路径，并为每个模块创建一个继承根 **tsconfig.json** 的 **tsconfig.json**，该文件具有路径别名。
+
+您可以在这个 [路径别名示例仓库](https://github.com/SaltyAom/elysia-monorepo-path-alias) 中找到一个有效的示例。
