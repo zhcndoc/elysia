@@ -38,8 +38,8 @@
     "vue": "^3.5.13"
   },
   "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "serve": "vitepress serve docs"
+    "dev": "bun --bun vitepress dev docs",
+    "build": "bun --bun vitepress build docs",
+    "serve": "bun --bun vitepress serve docs"
   }
 }
