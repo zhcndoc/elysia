@@ -83,13 +83,21 @@ bun add -d @types/bun
 }
 ```
 
-## 结构
-如果您不严格偏爱特定的约定，这里是 Elysia 推荐的文件结构：
-- **src** - 任何与 Elysia 服务器开发相关的文件。
-    - **index.ts** - 您的 Elysia 服务器的入口点，设置全局插件的理想位置。
-    - **setup.ts** - 组成多个插件，用作服务定位器。
-    - **controllers** - 封装多个端点的实例。
-    - **libs** - 实用功能。
-    - **models** - Elysia 实例的数据类型对象（DTO）。
-    - **types** - 如有需要，供共享 TypeScript 类型使用。
-- **test** - Elysia 服务器的测试文件。
+## 下一步
+我们推荐查看以下内容之一：
+
+<script setup>
+import Card from '../components/nearl/card.vue'
+import Deck from '../components/nearl/card-deck.vue'
+</script>
+
+<Deck>
+    <Card title="核心概念 (5 分钟)" href="/key-concept">
+    	Elysia 的核心概念及其使用方法。
+    </Card>
+    <Card title="教程 (15 分钟)" href="/tutorial">
+    	Elysia 功能的逐步指南。
+    </Card>
+</Deck>
+
+如果你有任何问题，请随时在我们的 [Discord](https://discord.gg/elysia) 社区中提问。

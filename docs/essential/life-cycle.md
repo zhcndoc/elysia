@@ -50,8 +50,8 @@ Elysia的生命周期事件可以表示如下：
     <Card title="出错时" href="#on-error">
         捕获抛出的错误
     </Card>
-    <Card title="响应时" href="#on-response">
-        在响应发送到客户端后执行
+    <Card title="响应后" href="#after-response">
+        在发送响应给客户端后执行
     </Card>
     <Card title="追踪" href="/patterns/trace">
         审计并捕获每个事件的持续时间

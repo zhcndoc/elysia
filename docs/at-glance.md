@@ -34,7 +34,7 @@ const demo2 = new Elysia()
 # 简介
 Elysia 是一个用于构建后端服务器的符合人体工学的 Web 框架，旨在与 Bun 配合使用。
 
-旨在简洁和类型安全，具有熟悉的 API，并广泛支持 TypeScript，优化用于 Bun。
+Elysia 以简单性和类型安全为设计理念，拥有熟悉的 API，并广泛支持 TypeScript，针对 Bun 进行了优化。
 
 以下是在 Elysia 中的简单 hello world 示例。
 
@@ -70,9 +70,9 @@ new Elysia()
 ::: tip
 将鼠标悬停在代码片段上以查看类型定义。
 
-在模拟浏览器中，单击蓝色高亮路径更改路径以预览响应， 
+在 mock 浏览器中，点击蓝色路径以更改路径并预览响应。
 
-Elysia 可以在浏览器中运行，你所看到的结果实际上是通过 Elysia 执行的。
+Elysia 可以在浏览器中运行，您看到的结果实际上是使用 Elysia 运行的。
 :::
 
 ## 性能
@@ -163,7 +163,7 @@ new Elysia()
 
 Elysia 默认采用许多标准，如 OpenAPI 和 WinterCG 合规，允许你与大多数行业标准工具集成，或至少与你熟悉的工具轻松集成。
 
-例如，由于 Elysia 默认采用 OpenAPI，因此生成 Swagger 文档就像添加一行代码一样简单：
+例如，因为 Elysia 默认采用 OpenAPI，生成 Swagger 文档就像添加一行代码一样简单：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -240,11 +240,11 @@ Elysia 不仅仅是帮助你创建一个可靠的后端，还关乎这个世界�
 
 ## 平台无关性
 
-Elysia 被设计但**并不限于 Bun**。遵循 [WinterCG 合规](https://wintercg.org/) 允许你将 Elysia 服务器部署在 Cloudflare Worker、Vercel Edge Function 和其他支持 Web 标准请求的大多数运行时。
+Elysia 最初是为 Bun 设计的，但 **不限于 Bun**。因为 Elysia 符合 [WinterCG](https://wintercg.org/)，你可以将 Elysia 服务器部署在 Cloudflare Workers、Vercel Edge Functions 和其他支持 Web 标准请求的运行时上。
 
 ## 我们的社区
 
-如果你有问题或在使用 Elysia 时遇到困难，欢迎在 GitHub Discussions、Discord 和 Twitter 上询问我们的社区。
+如果你有关于 Elysia 的问题或遇到困难，请随时在我们的 GitHub Discussions、Discord 和 Twitter 上提问。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">

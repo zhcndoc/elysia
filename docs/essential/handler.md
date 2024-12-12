@@ -305,14 +305,14 @@ new Elysia()
 ```
 
 ### 请求 IP
-我们可以使用 `server.ip` 方法获取请求 IP
+我们可以使用 `server.requestIP` 方法获取请求 IP
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
 	.get('/ip', ({ server, request }) => {
-		return server?.ip(request)
+		return server?.requestIP(request)
 	})
 	.listen(3000)
 ```

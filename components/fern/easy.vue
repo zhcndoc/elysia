@@ -82,10 +82,10 @@
                         <circle cx="8.5" cy="8.5" r="1.5"></circle>
                         <polyline points="21 15 16 10 5 21"></polyline>
                     </svg>
-                    内置文件
+                    内置文件支持
                 </h4>
-                <p>要发送文件或图片，只需返回</p>
-                <p>没有更多或更少</p>
+                <p>要发送文件或图像，只需返回</p>
+                <p>没有什么更多或更少</p>
             </article>
             <article>
                 <h4>
@@ -118,9 +118,9 @@
                     <span class="font-mono text-violet-500 font-bold"
                         >yield</span
                     >
-                    来传输响应
+                    流响应
                 </p>
-                <p>我们所需要做的就是返回。</p>
+                <p>我们所需要做的就是返回</p>
             </article>
             <article>
                 <h4>

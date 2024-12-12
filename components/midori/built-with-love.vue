@@ -3,7 +3,7 @@
         class="flex flex-col justify-center items-center gap-4 text-sm text-gray-400 dark:text-gray-400 mt-8 mb-4"
     >
         <p>
-            <a target="_blank" href="https://www.zhcndoc.com?ref=elysia">
+            <a target="_blank" href="https://www.zhcndoc.com">
                 简中文档
             </a>
             -

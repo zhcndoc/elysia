@@ -116,26 +116,10 @@ export default defineConfig({
     [
       'script',
       {
-        defer: '',
-        src: 'https://analytics.ikxin.com/script.js',
-        'data-website-id': 'f0e90b0d-e086-4fdc-b173-de4857b71900'
-      }
-    ],
-    [
-      'script',
-      {
+        src: 'https://www.zhcndoc.com/js/common.js',
         async: '',
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-HYH4TH7PWM'
       }
     ],
-    [
-      'script',
-      {},
-      `window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-HYH4TH7PWM');`
-    ]
   ],
   themeConfig: {
     search: {
@@ -192,6 +176,10 @@ export default defineConfig({
             text: '教程',
             link: '/tutorial'
           },
+					{
+						text: '关键概念',
+						link: '/key-concept'
+					},
           {
             text: '目录',
             link: '/table-of-content'
@@ -277,6 +265,10 @@ export default defineConfig({
           {
             text: 'React Email',
             link: '/recipe/react-email'
+					},
+					{
+						text: 'Better Auth',
+						link: '/recipe/better-auth'
           }
         ]
       },

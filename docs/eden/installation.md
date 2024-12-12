@@ -110,6 +110,33 @@ Eden 依赖 Elysia 类来导入 Elysia 实例并正确推断类型。
 
 确保客户端和服务器使用匹配的 Elysia 版本。
 
+您可以使用 [`npm why`](https://docs.npmjs.com/cli/v10/commands/npm-explain) 命令检查它：
+
+```bash
+npm why elysia
+```
+
+并且输出应仅包含一个顶层的 elysia 版本：
+
+```tree
+elysia@1.1.12
+node_modules/elysia
+  elysia@"1.1.25" from the root project
+  peer elysia@">= 1.1.0" from @elysiajs/html@1.1.0
+  node_modules/@elysiajs/html
+    dev @elysiajs/html@"1.1.1" from the root project
+  peer elysia@">= 1.1.0" from @elysiajs/opentelemetry@1.1.2
+  node_modules/@elysiajs/opentelemetry
+    dev @elysiajs/opentelemetry@"1.1.7" from the root project
+  peer elysia@">= 1.1.0" from @elysiajs/swagger@1.1.0
+  node_modules/@elysiajs/swagger
+    dev @elysiajs/swagger@"1.1.6" from the root project
+  peer elysia@">= 1.1.0" from @elysiajs/eden@1.1.2
+  node_modules/@elysiajs/eden
+    dev @elysiajs/eden@"1.1.3" from the root project
+```
+
+
 ### TypeScript 版本
 Elysia 使用 TypeScript 的新特性和语法以最有效的方式推断类型。像 Const Generic 和 Template Literal 的特性被广泛使用。
 

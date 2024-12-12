@@ -126,7 +126,7 @@ JWT 中的声明通常是关于主体的陈述，按照 [RFC7519](https://www.rf
 
 每个预期处理 JWT 的主体必须在受众声明中用一个值进行自我标识，按照 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.3) 的规定。
 
-### jtit
+### jti
 JWT ID 声明为 JWT 提供了一个唯一标识符，依据 [RFC7519](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.7)。
 
 ### nbf

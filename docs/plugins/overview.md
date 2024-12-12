@@ -104,9 +104,14 @@ Elysia 的设计理念是模块化和轻量化。
 -   [Elysia Logger](https://github.com/chneau/elysia-logger) - Elysia 插件，用于记录 HTTP 请求和响应，受 [hono/logger](https://hono.dev/docs/middleware/builtin/logger) 启发
 -   [Elysia CQRS](https://github.com/jassix/elysia-cqrs) - Elysia 插件，用于 CQRS 模式
 -   [Nice Logger](https://github.com/tanishqmanuja/nice-logger) - 不是最好的，但是一款相当不错的 Elysia 日志记录器。
+-   [Elysia Supabase](https://github.com/mastermakrela/elysia-supabase) - 无缝集成 [Supabase](https://supabase.com/) 身份验证和数据库功能到 Elysia，允许轻松访问经过身份验证的用户数据和 Supabase 客户端实例。特别适用于 [Edge Functions](https://supabase.com/docs/guides/functions)。
+-   [Elysia XSS](https://www.npmjs.com/package/elysia-xss) - 一个为 Elysia.js 提供 XSS（跨站脚本）保护的插件，通过清理请求体数据来实现。
+-   [Elysiajs Helmet](https://www.npmjs.com/package/elysiajs-helmet) - 一个全面的安全中间件，用于 Elysia.js 应用程序，通过设置各种 HTTP 头来帮助保护您的应用。
+-   [Logify for Elysia.js](https://github.com/0xrasla/logify) - 一个美观、快速且类型安全的日志中间件，适用于 Elysia.js 应用程序。
 
 ## 互补项目：
--   [prismabox](https://github.com/m1212e/prismabox) - 基于数据库模型生成 typebox 方案的生成器，与 Elysia 配合良好
+-   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 方案的生成器，与 Elysia 配合良好
+
 ---
 
 如果您为 Elysia 编写了一个插件，欢迎通过**点击下面的 <i>在 GitHub 上编辑此页面</i>**将您的插件添加到列表中 👇
