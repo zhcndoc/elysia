@@ -1,29 +1,44 @@
 ---
 title: 快速开始 - ElysiaJS
 head:
-  - - meta
-    - property: 'og:title'
-      content: 快速开始 - ElysiaJS
+    - - meta
+      - property: 'og:title'
+        content: 快速开始 - ElysiaJS
 
-  - - meta
-    - name: 'description'
-      content: Elysia 是一个为 Bun 构建的库，唯一的前提条件。要开始，使用 "bun create elysia hi-elysia" 引导一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始 ElysiaJS 所需的所有内容。
+    - - meta
+      - name: 'description'
+        content: Elysia 是一个为 Bun 构建的库，唯一的前提条件。要开始，使用 "bun create elysia hi-elysia" 引导一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始 ElysiaJS 所需的所有内容。
 
-  - - meta
-    - property: 'og:description'
-      content: Elysia 是一个为 Bun 构建的库，唯一的前提条件。要开始，使用 "bun create elysia hi-elysia" 引导一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始 ElysiaJS 所需的所有内容。
+    - - meta
+      - property: 'og:description'
+        content: Elysia 是一个为 Bun 构建的库，唯一的前提条件。要开始，使用 "bun create elysia hi-elysia" 引导一个新项目，并使用 "bun dev" 启动开发服务器。这就是开始 ElysiaJS 所需的所有内容。
 ---
 
+<script setup>
+import Card from '../components/nearl/card.vue'
+import Deck from '../components/nearl/card-deck.vue'
+import Tab from '../components/fern/tab.vue'
+</script>
+
 # 快速开始
+
 Elysia 针对 Bun 进行了优化，Bun 是一个旨在作为 Node.js 替代品的 JavaScript 运行时。
 
 您可以使用以下命令安装 Bun：
+
 ```bash
 curl https://bun.sh/install | bash
 ```
 
-## 自动安装
-我们推荐使用 `bun create elysia` 启动一个新的 Elysia 服务器，这样会自动设置所有内容。
+<Tab
+	id="quickstart"
+	:names="['Auto Installation', 'Manual Installation']"
+	:tabs="['auto', 'manual']"
+>
+
+<template v-slot:auto>
+
+我们建议使用 `bun create elysia` 启动一个新的 Elysia 服务器，这样可以自动设置所有内容。
 
 ```bash
 bun create elysia app
@@ -36,6 +51,7 @@ cd app
 ```
 
 通过以下命令启动开发服务器：
+
 ```bash
 bun dev
 ```
@@ -46,7 +62,10 @@ bun dev
 Elysia 提供了 `dev` 命令，能够在文件更改时自动重新加载您的服务器。
 :::
 
-## 手动安装
+</template>
+
+<template v-slot:manual>
+
 要手动创建一个新的 Elysia 应用程序，请将 Elysia 安装为包：
 
 ```typescript
@@ -57,14 +76,15 @@ bun add -d @types/bun
 这将安装 Elysia 和 Bun 的类型定义。
 
 打开您的 `package.json` 文件并添加以下脚本：
+
 ```json
 {
-  "scripts": {
-    "dev": "bun --watch src/index.ts",
-    "build": "bun build src/index.ts --target bun --outdir ./dist",
-    "start": "NODE_ENV=production bun dist/index.js",
-    "test": "bun test"
-  }
+   	"scripts": {
+  		"dev": "bun --watch src/index.ts",
+  		"build": "bun build src/index.ts --target bun --outdir ./dist",
+  		"start": "NODE_ENV=production bun dist/index.js",
+  		"test": "bun test"
+   	}
 }
 ```
 
@@ -75,21 +95,21 @@ bun add -d @types/bun
 - **start** - 启动 Elysia 生产服务器。
 
 如果您使用 TypeScript，请确保创建并更新 `tsconfig.json`，将 `compilerOptions.strict` 设置为 `true`：
+
 ```json
 {
-  "compilerOptions": {
-    "strict": true
-  }
+   	"compilerOptions": {
+  		"strict": true
+   	}
 }
 ```
 
-## 下一步
-我们推荐查看以下内容之一：
+</template>
+</Tab>
 
-<script setup>
-import Card from '../components/nearl/card.vue'
-import Deck from '../components/nearl/card-deck.vue'
-</script>
+## 下一步
+
+我们推荐查看以下内容之一：
 
 <Deck>
     <Card title="核心概念 (5 分钟)" href="/key-concept">
