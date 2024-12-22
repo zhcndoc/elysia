@@ -20,7 +20,7 @@ Drizzle ORM 是一个无头 TypeScript ORM，专注于类型安全和开发者�
 我们可以使用 `drizzle-typebox` 将 Drizzle 模式转换为 Elysia 验证模型。
 
 ### Drizzle Typebox
-[Elysia.t](/validation/overview) 是 TypeBox 的一个分支，允许我们直接在 Elysia 中使用任何 TypeBox 类型。
+[Elysia.t](/essential/validation.html#elysia-type) 是 TypeBox 的一个分支，允许我们直接在 Elysia 中使用任何 TypeBox 类型。
 
 我们可以使用 ["drizzle-typebox"](https://npmjs.org/package/drizzle-typebox) 将 Drizzle 模式转换为 TypeBox 模式，并直接在 Elysia 的模式验证中使用。
 
@@ -377,4 +377,4 @@ export const db = {
 
 ---
 
-有关更多信息，请参考 [Drizzle ORM](https://orm.drizzle-orm) 和 [Drizzle TypeBox](https://orm.drizzle.team/docs/typebox) 文档。
+有关更多信息，请参考 [Drizzle ORM](https://orm.drizzle.team) 和 [Drizzle TypeBox](https://orm.drizzle.team/docs/typebox) 文档。

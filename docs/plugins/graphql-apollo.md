@@ -87,11 +87,11 @@ const app = new Elysia()
 
 以下是用于配置 Elysia 上 Apollo 服务器的扩展参数。
 ### path
-@default "/graphql"
+@default `"/graphql"`
 
 暴露 Apollo 服务器的路径。
 
 ### enablePlayground
-@default "process.env.ENV !== 'production"
+@default `process.env.ENV !== 'production"`
 
 决定是否应提供 Apollo Playground。

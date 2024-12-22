@@ -109,7 +109,7 @@ const app = new Elysia()
 为每个请求随机生成的唯一 id
 
 ### context - `Context`
-Elysia 的 [上下文](/essential/context)，例如 `set`、`store`、`query`、`params`
+Elysia 的 [上下文](/essential/handler.html#context)，例如 `set`、`store`、`query``、`params`
 
 ### set - `Context.set`
 `context.set` 的快捷方式，用于设置上下文的头部或状态

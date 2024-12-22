@@ -240,12 +240,12 @@ class AuthService {
 }
 ```
 
-然而，我们建议尽可能避免这种情况，并使用 [Elysia 作为服务](✅-do-use-elysia-instance-as-a-service) 代替。
+然而，我们建议尽可能避免这种情况，并使用 [Elysia 作为服务](#✅-do-use-elysia-as-a-controller) 代替。
 
 您可以在 [基础：处理程序](/essential/handler) 中找到更多关于 [InferContext](/essential/handler#infercontext) 的信息。
 
 ## 模型
-模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 由 [Elysia.t (验证)](/validation/overview.html#data-validation) 处理。
+模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 由 [Elysia.t (验证)](/essential/validation.html#elysia-type) 处理。
 
 Elysia 有一个内置的验证系统，可以从您的代码中推断类型并在运行时验证它。
 
@@ -358,7 +358,7 @@ const models = AuthModel.models
 ```
 
 ### 模型注入
-虽然这是可选的，但如果您严格遵循 MVC 模式，您可能想像服务一样将模型注入到控制器中。我们推荐使用 [Elysia 引用模型](/validation/reference-model.html#reference-model)。
+虽然这是可选的，但如果您严格遵循 MVC 模式，您可能想像服务一样将模型注入到控制器中。我们推荐使用 [Elysia 引用模型](/essential/validation#reference-model)。
 
 使用 Elysia 的模型引用
 ```typescript twoslash
@@ -389,7 +389,7 @@ const UserController = new Elysia({ prefix: '/auth' })
 
 这种方法提供了几个好处：
 1. 允许我们为模型命名并提供自动补全。
-2. 为以后使用修改模式，或执行 [重新映射](/patterns/remapping.html#remapping)。
+2. 修改架构以供后续使用，或执行 [重映射](/essential/handler.html#remap)。
 3. 作为 OpenAPI 合规客户端中的 “模型” 出现，如 Swagger。
 4. 改善 TypeScript 推断速度，因为模型类型将在注册时缓存。
 

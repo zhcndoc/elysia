@@ -47,7 +47,7 @@ new Elysia()
 ## 路径参数
 使用动态路径参数
 
-参见 [路径](/essential/path.html)
+参见 [路径](/essential/route.html#path-type)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -177,7 +177,7 @@ new Elysia()
 ## 守卫
 强制子路由的数据类型
 
-参见 [范围](/essential/scope.html#guard)
+参见 [范围](/essential/plugin.html#scope)
 
 ```typescript twoslash
 // @errors: 2345
@@ -197,7 +197,7 @@ new Elysia()
 ## 自定义上下文
 向路由上下文添加自定义变量
 
-参见 [上下文](/essential/context.html)
+参见 [上下文](/essential/handler.html#context)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -266,7 +266,7 @@ new Elysia()
 ## OpenAPI 文档
 使用 Scalar (或可选的 Swagger) 创建交互式文档
 
-参见 [文档](/patterns/openapi)
+参见 [swagger](/plugins/swagger.html)
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -305,7 +305,7 @@ describe('Elysia', () => {
 ## 自定义主体解析器
 为解析主体创建自定义逻辑
 
-参见 [解析](/life-cycle/parse.html)
+参见 [解析](/essential/life-cycle.html#parse)
 
 ```typescript
 import { Elysia } from 'elysia'

@@ -252,7 +252,7 @@ chat.subscribe((message) => {
 chat.send('客户端发送的你好')
 ```
 
-我们可以使用 [schema](/essential/schema) 来强制 WebSocket 的类型安全，正如普通路由一样。
+我们可以使用 [schema](/integrations/cheat-sheet#schema) 来强制 WebSocket 的类型安全，正如普通路由一样。
 
 ---
 

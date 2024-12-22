@@ -152,8 +152,8 @@ const app = new Elysia()
 .ws(endpoint: path, options: Partial<WebSocketHandler<Context>>): this
 ```
 
-endpoint: 作为 WebSocket 处理程序暴露的路径
-options: 自定义 WebSocket 处理程序行为
+* **endpoint** - 作为 WebSocket 处理程序暴露的路径
+* **options** - 自定义 WebSocket 处理程序行为
 
 ## WebSocketHandler
 

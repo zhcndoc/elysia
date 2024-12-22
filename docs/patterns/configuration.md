@@ -67,7 +67,7 @@ Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
 以下是 Elysia 接受的配置项：
 
 ### prefix
-@默认 ``
+@默认 `""`
 
 实例的路径前缀
 
@@ -276,9 +276,9 @@ PEM 格式的私钥。PEM 允许对私钥进行加密。加密密钥将使用 op
 
 对象形式只能在数组中出现。
 
-object.passphrase 是可选的。加密密钥将使用提供的 object.passphrase 解密，
+**object.passphrase** 是可选的。加密密钥将使用提供的 object.passphrase 解密，
 
-如果未提供，则使用 options.passphrase。
+**object.passphrase** 如果提供，或 **options.passphrase** 如果未提供。
 
 ### ca
 可选覆盖受信任的 CA 证书。默认情况下信任 Mozilla 精心挑选的知名 CA。

@@ -48,7 +48,7 @@ Elysia Cookies 提供了处理 Cookies 的单一真实来源，能够自动设�
 1. 直接设置属性
 2. 使用 `set` 或 `add` 来更新 Cookie 属性。
 
-有关更多信息，请参见 [Cookie 属性配置](/patterns/cookie-signature#config)。
+有关更多信息，请参见 [Cookie 属性配置](/patterns/cookie.html#config)。
 
 ### 分配属性
 您可以像对待任何普通对象一样获取/设置 Cookie 的属性，响应性模型会自动同步 Cookie 值。
@@ -150,7 +150,7 @@ new Elysia()
 ```
 
 ## Cookie 签名
-通过引入 Cookie 模式和 `t.Cookie` 类型，我们能够自动创建处理签名/验证 Cookie 签名的统一类型。
+通过引入 Cookie Schema，和 `t.Cookie` 类型，我们可以创建一个统一的类型来处理签名/验证 Cookie 签名。
 
 Cookie 签名是附加到 Cookie 值的加密哈希，是使用秘密密钥和 Cookie 的内容生成的，以通过向 Cookie 添加签名来增强安全性。
 
@@ -304,11 +304,11 @@ new Elysia({
 
 ### sameSite
 指定布尔值或字符串作为 [SameSite Set-Cookie 属性](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7) 的值。
-true 将同样会将 SameSite 属性设置为严格的同站强制。
-false 不会设置 SameSite 属性。
-'lax' 将 SameSite 属性设置为宽松同站强制。
-'none' 将 SameSite 属性设置为无以示明确的跨站 Cookie。
-'strict' 将 SameSite 属性设置为严格的同站强制。
+`true` 将 SameSite 属性设置为严格的同站强制。
+`false` 不会设置 SameSite 属性。
+`'lax'` 将 SameSite 属性设置为宽松同站强制。
+`'none'` 将 SameSite 属性设置为无以示明确的跨站 Cookie。
+`'strict'` 将 SameSite 属性设置为严格的同站强制。
 有关不同强制级别的更多信息，请参见 [规范](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7)。
 
 ::: tip

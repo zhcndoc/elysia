@@ -70,8 +70,8 @@ Eden Treaty 的第二个可选参数用于自定义获取行为，接受以下�
 - [fetch](#fetch) - 添加默认参数到获取初始化（RequestInit）
 - [headers](#headers) - 定义默认头部
 - [fetcher](#fetcher) - 自定义获取函数，例如 Axios，unfetch
-- [onRequest](#on-request) - 在发送请求前拦截并修改获取请求
-- [onResponse](#on-response) - 在获取响应后拦截并修改响应
+- [onRequest](#onrequest) - 在发送请求前拦截并修改获取请求
+- [onResponse](#onresponse) - 在获取响应后拦截并修改响应
 
 ## 获取
 默认参数附加到 fetch 的第二个参数，扩展类型为 **Fetch.RequestInit**。
@@ -151,7 +151,7 @@ treaty<App>('localhost:3000', {
 - options `RequestInit`: 通过 fetch 的第二个参数传入的参数
 
 ### 数组
-如果需要多个条件，你可以将头部函数定义为数组。
+如果需要多个条件，您可以将 headers 函数定义为数组。
 
 ```typescript
 treaty<App>('localhost:3000', {
@@ -166,7 +166,7 @@ treaty<App>('localhost:3000', {
 })
 ```
 
-Eden Treaty 将 **运行所有函数**，即使已经返回了值。
+Eden Treaty 将 **运行所有函数**，即使值已经返回。
 
 ## 头部优先级
 Eden Treaty 将优先考虑头部的顺序，如果重复如下：
@@ -287,4 +287,4 @@ treaty<App>('localhost:3000', {
     ]
 })
 ```
-与 [headers](#headers) 和 [onRequest](#on-request) 不同，Eden Treaty 将循环执行函数，直到找到返回的值或抛出错误，返回的值将用作新响应。
+与 [headers](#headers) 和 [onRequest](#onrequest) 不同，Eden Treaty 将循环执行函数，直到找到返回的值或抛出错误，返回的值将用作新响应。

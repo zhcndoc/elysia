@@ -549,7 +549,7 @@ new Elysia()
 
 此代码告诉 Elysia 验证传入的 HTTP 主文，确保主体是字符串，如果是字符串，则允许其通过请求管道和处理程序。
 
-如果形状不匹配，则将抛出错误，进入 [错误生命周期](/essential/life-cycle.html#events)。
+如果形状不匹配，则将抛出错误，进入 [错误生命周期](/essential/life-cycle.html#on-error)。
 
 ![Elysia 生命周期](/assets/lifecycle.webp)
 
@@ -808,10 +808,6 @@ y: 200
 </table>
 
 有关每个属性的更多解释，请参见 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
-
----
-
-<br>
 
 ## 荣誉提名
 
@@ -1154,7 +1150,7 @@ t.MaybeEmpty(t.String())
 在验证失败时，有两种方法可以提供自定义错误消息：
 
 1. 内联 `error` 属性
-2. 使用 [onError](/life-cycle/on-error) 事件
+2. 使用 [onError](/essential/life-cycle.html#on-error) 事件
 
 ### 错误属性
 
@@ -1399,7 +1395,7 @@ t.Object(
 
 ### onError
 
-我们可以根据 [onError](/life-cycle/on-error) 事件自定义验证行为，缩小到一个错误代码 "**VALIDATION**"。
+我们可以根据 [onError](/essential/life-cycle.html#on-error) 事件自定义验证行为，缩小到一个错误代码 "**VALIDATION**"。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

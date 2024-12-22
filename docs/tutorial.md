@@ -1931,7 +1931,7 @@ export const note = new Elysia({ prefix: '/note' })
     )
 ```
 
-现在让我们导入并应用 `userService`、`getUserId` 来将授权应用于 **note** 控制器。
+现在让我们导入并使用 `userService`、`getUserId` 来将授权应用于 **note** 控制器。
 
 ```typescript twoslash [note.ts]
 // @errors: 2392 2300 2403 2345 2698

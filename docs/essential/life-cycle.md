@@ -427,7 +427,7 @@ new Elysia()
 
 ### 守卫
 
-当我们需要将相同的处理前应用于多个路由时，可以使用[守卫](#guard)将相同的处理前应用于多个路由。
+当我们需要将相同的处理前应用于多个路由时，我们可以使用 `guard` 将相同的处理前应用于多个路由。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -459,11 +459,11 @@ new Elysia()
 
 ## 解析
 
-一个“安全”的版本，即[derive](/life-cycle/before-handle#derive)。
+一个“安全”的版本，即[derive](#derive)。
 
 旨在在验证过程后向上下文附加新值，存储在与**beforeHandle**相同的堆栈中。
 
-解析的语法与[derive](/life-cycle/before-handle#derive)相同，下面是一个示例，从Authorization插件检索bearer头。
+解析的语法与[derive](#derive)相同，下面是一个示例，从Authorization插件检索bearer头。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -764,7 +764,7 @@ new Elysia()
 
 ### 本地错误
 
-与其他生命周期一样，我们通过守卫将错误放入[作用域](/essential/scope)中：
+与其他生命周期一样，我们通过守卫将错误放入[作用域](/essential/plugin.html#scope)中：
 
 ```typescript
 import { Elysia } from 'elysia'

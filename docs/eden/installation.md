@@ -118,7 +118,7 @@ npm why elysia
 
 并且输出应仅包含一个顶层的 elysia 版本：
 
-```tree
+```
 elysia@1.1.12
 node_modules/elysia
   elysia@"1.1.25" from the root project
@@ -242,7 +242,7 @@ import { a, b } from '@/controllers'
 import { a, b } from '@/controllers'
 ```
 
-#### 范围
+#### Scope
 我们建议在您的单体仓库中的每个模块前添加一个 **scope** 前缀，以避免可能发生的任何混淆和冲突。
 
 ```json

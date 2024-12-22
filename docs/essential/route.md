@@ -530,9 +530,9 @@ app.handle(new Request('http://localhost/')).then(console.log)
 
 ## 404
 
-如果没有路径与定义的路由匹配，Elysia 将在返回 **"NOT_FOUND"** 和 HTTP 状态码 404 之前将请求传递给 [error](/life-cycle/on-error) 生命周期。
+如果没有路径与定义的路由匹配，Elysia 将在返回 **"NOT_FOUND"** 和 HTTP 状态码 404 之前将请求传递给 [error](/essential/life-cycle.html#on-error) 生命周期。
 
-我们可以通过从 'error` 生命周期返回一个值来处理自定义的 404 错误，如下所示：
+我们可以通过从 `error` 生命周期返回一个值来处理自定义的 404 错误，如下所示：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -557,7 +557,7 @@ new Elysia()
 | /    | POST   | 路由未找到 :\( |
 | /hi  | GET    | 路由未找到 :\( |
 
-你可以在 [生命周期事件](/essential/life-cycle#events) 和 [错误处理](/life-cycle/on-error) 中了解更多关于生命周期和错误处理的信息。
+你可以在 [生命周期事件](/essential/life-cycle#events) 和 [错误处理](/essential/life-cycle.html#on-error) 中了解更多关于生命周期和错误处理的信息。
 
 ::: tip
 HTTP 状态用于指示响应的类型。 默认情况下，如果一切正确，服务器将返回 '200 OK' 状态码（如果路由匹配且没有错误，Elysia 将默认返回 200）。
@@ -625,7 +625,7 @@ new Elysia()
     .listen(3000)
 ```
 
-你可以在 [作用域](/essential/scope.html) 中找到有关分组保护的更多信息。
+你可以在 [作用域](/essential/plugin.html#scope) 中找到有关分组保护的更多信息。
 
 ### 前缀
 
