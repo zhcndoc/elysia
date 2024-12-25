@@ -47,13 +47,13 @@ new Elysia({
 我们可以通过传入 key 和 cert 的值来启用 TLS（被称为 SSL 的继任者）；这两个值都是启用 TLS 所必需的。
 
 ```ts
-import { Elysia } from 'elysia'
+import { Elysia, file } from 'elysia'
 
 new Elysia({
 	serve: {
 		tls: {
-			cert: Bun.file('cert.pem'),
-			key: Bun.file('key.pem')
+			cert: file('cert.pem'),
+			key: file('key.pem')
 		}
 	}
 })

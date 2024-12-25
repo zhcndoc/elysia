@@ -16,6 +16,7 @@ head:
 
 <script setup>
 import Playground from '../../components/nearl/playground.vue'
+import Tab from '../../components/fern/tab.vue'
 import { Elysia } from 'elysia'
 
 const handler1 = new Elysia()
@@ -104,11 +105,11 @@ new Elysia()
 处理程序可以是文字值，也可以内联。
 
 ```typescript
-import { Elysia } from 'elysia'
+import { Elysia, file } from 'elysia'
 
 new Elysia()
     .get('/', 'Hello Elysia')
-    .get('/video', Bun.file('kyuukurarin.mp4'))
+    .get('/video', file('kyuukurarin.mp4'))
     .listen(3000)
 ```
 
@@ -352,12 +353,12 @@ new Elysia()
 我们可以通过直接从处理程序返回 `form` 实用程序来返回 `FormData`。
 
 ```typescript
-import { Elysia, form } from 'elysia'
+import { Elysia, form, file } from 'elysia'
 
 new Elysia()
 	.get('/', () => form({
 		name: 'Tea Party',
-		images: [Bun.file('nagi.web'), Bun.file('mika.webp')]
+		images: [file('nagi.web'), file('mika.webp')]
 	}))
 	.listen(3000)
 ```
@@ -365,13 +366,13 @@ new Elysia()
 这种模式非常有用，即使需要返回文件或多部分表单数据。
 
 ### 返回单个文件
-或者，你可以通过直接返回 `Bun.file` 而不使用 `form` 来返回单个文件。
+或者，您可以通过直接返回 `file` 而不使用 `form` 来返回单个文件。
 
 ```typescript
-import { Elysia } from 'elysia'
+import { Elysia, file } from 'elysia'
 
 new Elysia()
-	.get('/', () => Bun.file('nagi.web'))
+	.get('/', file('nagi.web'))
 	.listen(3000)
 ```
 
@@ -847,139 +848,6 @@ new Elysia()
 ```
 
 <Playground :elysia="demo7" />
-
-## 宏
-
-宏允许我们定义自定义字段到钩子。
-
-**Elysia.macro** 允许我们将自定义复杂逻辑组合为可在钩子中使用的简单配置，并保持完整的类型安全。
-
-```typescript twoslash
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia({ name: 'plugin' })
-    .macro(({ onBeforeHandle }) => ({
-        hi(word: string) {
-            onBeforeHandle(() => {
-                console.log(word)
-            })
-        }
-    }))
-
-const app = new Elysia()
-    .use(plugin)
-    .get('/', () => 'hi', {
-        hi: 'Elysia'
-    })
-```
-
-访问路径应该记录 **"Elysia"** 作为结果。
-
-### API
-
-**macro** 应返回一个对象，每个键在钩子中反映，并且提供的值将作为第一个参数传回。
-
-在前面的例子中，我们创建 **hi** 接受一个 **字符串**。
-
-然后将 **hi** 分配为 **"Elysia"**，该值被返回到 **hi** 函数中，该函数将新事件添加到 **beforeHandle** 栈中。
-
-这相当于将函数推送到 **beforeHandle**，如下所示：
-
-```typescript
-import { Elysia } from 'elysia'
-
-const app = new Elysia()
-    .get('/', () => 'hi', {
-        beforeHandle() {
-            console.log('Elysia')
-        }
-    })
-```
-
-当逻辑比接受新函数复杂时，**macro** 更加闪耀，例如为每个路由创建授权层。
-
-```typescript twoslash
-// @filename: auth.ts
-import { Elysia } from 'elysia'
-
-export const auth = new Elysia()
-    .macro(() => {
-        return {
-            isAuth(isAuth: boolean) {},
-            role(role: 'user' | 'admin') {},
-        }
-    })
-
-// @filename: index.ts
-// ---cut---
-import { Elysia } from 'elysia'
-import { auth } from './auth'
-
-const app = new Elysia()
-    .use(auth)
-    .get('/', () => 'hi', {
-        isAuth: true,
-        role: 'admin'
-    })
-```
-
-该字段可以接受从字符串到函数的任何东西，使我们能够创建自定义生命周期事件。
-
-**macro** 将根据定义在钩子中的顺序从上到下执行，确保堆栈按正确顺序处理。
-
-### 参数
-
-**Elysia.macro** 参数用于与生命周期事件交互，如下所示：
-
--   onParse
--   onTransform
--   onBeforeHandle
--   onAfterHandle
--   onError
--   onResponse
--   events - 生命周期存储
-    -   global: 全局堆栈的生命周期
-    -   local: 内联钩子（路由）的生命周期
-
-以 **on** 开头的参数是一个函数，将函数附加到生命周期栈中。
-
-而 **events** 是实际的堆栈，存储生命周期事件的顺序。你可以直接修改堆栈，或使用 Elysia 提供的辅助函数。
-
-### 选项
-
-扩展 API 的生命周期函数接受额外的 **选项**，以确保控制生命周期事件。
-
--   **options** (可选) - 确定添加哪个堆栈
--   **function** - 在事件上执行的函数
-
-```typescript
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia({ name: 'plugin' })
-    .macro(({ onBeforeHandle }) => {
-        return {
-            hi(word: string) {
-                onBeforeHandle(
-                    { insert: 'before' }, // [!code ++]
-                    () => {
-                        console.log(word)
-                    }
-                )
-            }
-        }
-    })
-```
-
-**选项** 可以接受以下参数：
-
--   **insert**
-    -   函数应添加到哪里
-    -   值：**'before' | 'after'**
-    -   @default: **'after'**
--   **stack**
-    -   确定应该添加什么类型的堆栈
-    -   值：**'global' | 'local'**
-    -   @default: **'local'**
 
 ## TypeScript
 Elysia 根据商店、装饰器、模式等各种因素自动类型上下文。

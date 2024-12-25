@@ -1161,14 +1161,11 @@ import { Elysia, t } from 'elysia'
 
 new Elysia()
     .post('/', () => 'Hello World!', {
-        body: t.Object(
-            {
-                x: t.Number()
-            },
-            {
-                error: 'x 必须是数字'
-            }
-        )
+        body: t.Object({
+            x: t.Number({
+               	error: 'x 必须是数字'
+            })
+        })
     })
     .listen(3000)
 ```

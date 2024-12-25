@@ -24,6 +24,11 @@ head:
 
 <Blogs
   :blogs="[
+      {
+        title: 'Elysia 1.2 - 你和我',
+        href: '/blog/elysia-12',
+        detail: '介绍适配器以支持通用运行时，带有解析的对象宏，带有自定义名称的解析器，带有生命周期的 WebSocket，支持递归类型的 TypeBox 0.34，以及 Eden 验证推断。'
+      },
 	  {
 	    title: 'Elysia 1.1 - 大人的乐园',
 	    href: '/blog/elysia-11',

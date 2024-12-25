@@ -888,12 +888,9 @@ export const user = new Elysia({ prefix: '/user' })
 	     	{ // [!code ++]
 		     	secrets: 'seia' // [!code ++]
 	     	} // [!code ++]
-	    ) // [!code ++]
+	    ), // [!code ++]
+      	optionalSession: t.Optional(t.Ref('session')) // [!code ++]
     }) // [!code ++]
-    .model((model) => ({ // [!code ++]
-    	...model, // [!code ++]
-     	optionalSession: t.Optional(model.session) // [!code ++]
-    })) // [!code ++]
     .put(
         '/sign-up',
         async ({ body: { username, password }, store, error }) => {
@@ -946,42 +943,11 @@ export const user = new Elysia({ prefix: '/user' })
     )
 ```
 
-添加模型后，我们可以通过在架构中引用它们的名称来重用这些模型，而不是提供字面类型，同时提供相同的功能和类型安全。
-
-我们还可能会注意到，这一行中正在执行 **remap model**：
-```ts
-import { Elysia } from 'elysia'
-
-new Elysia()
-	.model({
-    	signIn: t.Object({
-    		username: t.String({ minLength: 1 }),
-    		password: t.String({ minLength: 8 })
-    	}),
-     	session: t.Cookie(
-      		{
-        		token: t.Number()
-        	},
-         	{
-          		secrets: 'seia'
-          	}
-	   	)
-    })
-    .model((model) => ({ // [!code ++]
-    	...model, // [!code ++]
-     	optionalSession: t.Optional(model.session) // [!code ++]
-    })) // [!code ++]
-```
+在添加模型后，我们可以通过在模式中引用它们的名称来重用它们，而不是提供字面类型，同时提供相同的功能和类型安全性。
 
 `Elysia.model` 可以接受多个重载：
-1. 提供一个对象，注册所有键值作为模型
+1. 提供一个对象，将所有键值注册为模型
 2. 提供一个函数，然后访问所有先前的模型并返回新模型
-
-通过提供一个函数，我们可以进行重映射/引用或过滤掉我们不想使用的模型。
-
-然而在我们的例子中，我们希望引用一个模型并从中创建一个新模型。注意我们通过引用 `model.session` 创建了一个新的 `optionalSession` 模型，并在其上包裹了 `t.Optional`。
-
-其余参数 `...rest` 也很重要，因为我们希望在添加新模型的同时保留所有模型。
 
 最后，我们可以添加 `/profile` 和 `/sign-out` 路由，如下所示：
 ```typescript twoslash [user.ts]
@@ -1004,12 +970,9 @@ export const user = new Elysia({ prefix: '/user' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
     .put(
         '/sign-up',
         async ({ body: { username, password }, store, error }) => {
@@ -1107,7 +1070,11 @@ export const user = new Elysia({ prefix: '/user' })
 ## 插件去重
 
 由于我们要在多个模块（用户和笔记）中重用此钩子，因此我们可以将服务（实用程序）部分提取出来并应用于两个模块。
+// @errors: 2538
+// @filename: user.ts
+import { Elysia, t } from 'elysia'
 ```ts twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' }) // [!code ++]
@@ -1127,12 +1094,9 @@ export const userService = new Elysia({ name: 'user/service' }) // [!code ++]
             { // [!code ++]
                 secrets: 'seia' // [!code ++]
             } // [!code ++]
-        ) // [!code ++]
+        ), // [!code ++]
+        optionalSession: t.Optional(t.Ref('session')) // [!code ++]
     }) // [!code ++]
-    .model((model) => ({ // [!code ++]
-        ...model, // [!code ++]
-        optionalSession: t.Optional(model.session) // [!code ++]
-    })) // [!code ++]
 
 export const user = new Elysia({ prefix: '/user' })
 	.use(userService) // [!code ++]
@@ -1152,12 +1116,9 @@ export const user = new Elysia({ prefix: '/user' })
             { // [!code --]
                 secrets: 'seia' // [!code --]
             } // [!code --]
-        ) // [!code --]
+        ), // [!code --]
+  		optionalSession: t.Optional(t.Ref('session')) // [!code --]
     }) // [!code --]
-    .model((model) => ({ // [!code --]
-        ...model, // [!code --]
-        optionalSession: t.Optional(model.session) // [!code --]
-    })) // [!code --]
 ```
 
 这里的 `name` 属性非常重要，因为它是插件的唯一标识符，以防止重复实例（如单例）。
@@ -1171,6 +1132,7 @@ export const user = new Elysia({ prefix: '/user' })
 
 要定义宏，我们可以使用 `.macro`，如下所示：
 ```ts twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1190,18 +1152,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({ // [!code ++]
+    .macro({
         isSignIn(enabled: boolean) { // [!code ++]
             if (!enabled) return // [!code ++]
 
-            onBeforeHandle( // [!code ++]
-                ({ error, cookie: { token }, store: { session } }) => { // [!code ++]
+			return {
+	            beforeHandle({ error, cookie: { token }, store: { session } }) { // [!code ++]
                     if (!token.value) // [!code ++]
                         return error(401, { // [!code ++]
                             success: false, // [!code ++]
@@ -1216,15 +1175,19 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized' // [!code ++]
                         }) // [!code ++]
                 } // [!code ++]
-            ) // [!code ++]
+			} // [!code ++]
         } // [!code ++]
-    })) // [!code ++]
+    }) // [!code ++]
 ```
 
 我们刚刚创建了一个名为 `isSignIn` 的新宏，接受 `boolean` 值，如果为 true，则添加一个 `onBeforeHandle` 事件，该事件在 **验证之后但在主处理程序之前** 执行，允许我们在此处提取身份验证逻辑。
 
 要使用宏，只需指定 `isSignIn: true`，如下所示：
+// @errors: 2538
+// @filename: user.ts
+import { Elysia, t } from 'elysia'
 ```ts twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1244,18 +1207,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
+    .macro({
         isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1270,9 +1230,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const user = new Elysia({ prefix: '/user' })
     .use(userService)
@@ -1364,7 +1324,11 @@ export const user = new Elysia({ prefix: '/user' })
 
 这确保了像 `cookie: 'session'` 这样的属性在创建新属性之前存在。
 
+// @errors: 2538
+// @filename: user.ts
+import { Elysia, t } from 'elysia'
 ```ts twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1384,18 +1348,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1410,9 +1371,10 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
+
 // ---cut---
 export const getUserId = new Elysia() // [!code ++]
     .use(userService) // [!code ++]
@@ -1455,18 +1417,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1481,9 +1440,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 // ---cut---
 export const getUserId = new Elysia()
     .use(userService)
@@ -1515,6 +1474,7 @@ export const user = new Elysia({ prefix: '/user' })
 
 要做到这一点，我们需要将生命周期标注为 `scoped`：
 ```typescript twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1534,18 +1494,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1560,9 +1517,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 // ---cut---
 export const getUserId = new Elysia()
     .use(userService)
@@ -1589,7 +1546,11 @@ export const user = new Elysia({ prefix: '/user' })
 
 另外，如果我们定义多个 `scoped`，我们可以使用 `as` 来转换多个生命周期。
 
-```typescript twoslash [user.ts]
+// @errors: 2538
+// @filename: user.ts
+import { Elysia, t } from 'elysia'
+```ts twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -1609,18 +1570,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1635,9 +1593,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 // ---cut---
 export const getUserId = new Elysia()
     .use(userService)
@@ -1674,6 +1632,7 @@ export const user = new Elysia({ prefix: '/user' })
 ::: code-group
 
 ```typescript twoslash [index.ts]
+// @errors: 2538
 // @filename: user.ts
 import { Elysia, t } from 'elysia'
 
@@ -1694,12 +1653,9 @@ export const user = new Elysia({ prefix: '/user' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
     .put(
         '/sign-up',
         async ({ body: { username, password }, store, error }) => {
@@ -1934,7 +1890,7 @@ export const note = new Elysia({ prefix: '/note' })
 现在让我们导入并使用 `userService`、`getUserId` 来将授权应用于 **note** 控制器。
 
 ```typescript twoslash [note.ts]
-// @errors: 2392 2300 2403 2345 2698
+// @errors: 2392 2300 2403 2345 2698, 2538
 // @filename: user.ts
 import { Elysia, t } from 'elysia'
 
@@ -1955,18 +1911,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -1981,9 +1934,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2135,6 +2088,7 @@ export const note = new Elysia()
         }
     )
 
+// @errors: 2538
 // @filename: user.ts
 import { Elysia, t } from 'elysia'
 
@@ -2155,18 +2109,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2181,9 +2132,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2240,6 +2191,7 @@ const app = new Elysia()
 ::: code-group
 
 ```typescript twoslash [index.ts]
+// @errors: 2538
 // @filename: note.ts
 import { Elysia, t } from 'elysia'
 
@@ -2282,18 +2234,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2308,9 +2257,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2385,6 +2334,7 @@ docker run --name jaeger \
 ::: code-group
 
 ```typescript twoslash [index.ts]
+// @errors: 2538
 // @filename: note.ts
 import { Elysia, t } from 'elysia'
 
@@ -2427,18 +2377,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2453,9 +2400,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2523,6 +2470,7 @@ Elysia 直接支持 OpenTelemetry，它自动与支持 OpenTelemetry 的其他 J
 ::: code-group
 
 ```typescript twoslash [index.ts]
+// @errors: 2538
 // @filename: user.ts
 import { Elysia, t } from 'elysia'
 
@@ -2543,18 +2491,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
-        isSignIn(enabled: true) {
+    .macro({
+        isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2569,9 +2514,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2773,6 +2718,7 @@ const app = new Elysia()
 ```
 
 ```typescript twoslash [user.ts]
+// @errors: 2538
 import { Elysia, t } from 'elysia'
 
 export const userService = new Elysia({ name: 'user/service' })
@@ -2792,18 +2738,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
+    .macro({
         isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2818,9 +2761,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)
@@ -2908,6 +2851,7 @@ export const user = new Elysia({ prefix: '/user' })
 ```
 
 ```typescript twoslash [note.ts]
+// @errors: 2538
 // @filename: user.ts
 import { Elysia, t } from 'elysia'
 
@@ -2928,18 +2872,15 @@ export const userService = new Elysia({ name: 'user/service' })
             {
                 secrets: 'seia'
             }
-        )
+        ),
+        optionalSession: t.Optional(t.Ref('session'))
     })
-    .model((model) => ({
-        ...model,
-        optionalSession: t.Optional(model.session)
-    }))
-    .macro(({ onBeforeHandle }) => ({
+    .macro({
         isSignIn(enabled: boolean) {
             if (!enabled) return
 
-            onBeforeHandle(
-                ({ error, cookie: { token }, store: { session } }) => {
+            return {
+            	beforeHandle({ error, cookie: { token }, store: { session } }) {
                     if (!token.value)
                         return error(401, {
                             success: false,
@@ -2954,9 +2895,9 @@ export const userService = new Elysia({ name: 'user/service' })
                             message: 'Unauthorized'
                         })
                 }
-            )
+            }
         }
-    }))
+    })
 
 export const getUserId = new Elysia()
     .use(userService)

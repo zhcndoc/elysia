@@ -93,8 +93,10 @@ new Elysia()
 - [单文件](#单文件)
 
 ## 单文件
-假设您只想返回一个单独的文件，您可以使用 `Bun.file` 来替代静态插件：
+假设您只想返回一个单独的文件，您可以使用 `file` 来替代静态插件：
 ```typescript
+import { Elysia, file } from 'elysia'
+
 new Elysia()
-    .get('/file', () => Bun.file('public/takodachi.png'))
+    .get('/file', () => file('public/takodachi.png'))
 ```

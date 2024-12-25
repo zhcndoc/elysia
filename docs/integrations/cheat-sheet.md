@@ -81,13 +81,13 @@ new Elysia()
 响应必须是 1 级深度对象
 
 ```typescript
-import { Elysia } from 'elysia'
+import { Elysia, file } from 'elysia'
 
 new Elysia()
     .get('/json', () => {
         return {
             hello: 'Elysia',
-            image: Bun.file('public/cat.jpg')
+            image: file('public/cat.jpg')
         }
     })
     .listen(3000)

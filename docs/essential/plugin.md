@@ -692,14 +692,14 @@ Elysia 在启动服务器之前加载所有模块，然后注册和索引所有�
 
 ```typescript
 // plugin.ts
-import { Elysia } from 'elysia'
+import { Elysia, file } from 'elysia'
 import { loadAllFiles } from './files'
 
 export const loadStatic = async (app: Elysia) => {
     const files = await loadAllFiles()
 
-    files.forEach((file) => app
-        .get(file, () => Bun.file(file))
+    files.forEach((asset) => app
+        .get(asset, file(file))
     )
 
     return app

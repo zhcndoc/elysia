@@ -53,7 +53,7 @@ new Elysia()
 
 用于自定义 Scalar 的配置。
 
-请参考 [Scalar 配置](https://github.com/scalar/scalar?tab=readme-ov-file#configuration)
+请参考 [Scalar 配置](https://github.com/scalar/scalar/blob/main/documentation/configuration.md)
 
 ### swagger
 
