@@ -255,6 +255,34 @@ const app = new Elysia()
 
 **macro** 将按照定义中从上到下的顺序执行，确保栈以正确的顺序处理。
 
+## Resolve
+
+通过返回一个带有 [**resolve**](/essential/life-cycle.html#resolve) 函数的对象，您可以将属性添加到上下文中。
+
+```ts twoslash
+import { Elysia } from 'elysia'
+
+new Elysia()
+	.macro({
+		user: (enabled: true) => ({
+			resolve: () => ({
+				user: 'Pardofelis'
+			})
+		})
+	})
+	.get('/', ({ user }) => user, {
+                          // ^?
+		user: true
+	})
+```
+
+在上面的例子中，我们通过返回一个带有 **resolve** 函数的对象向上下文添加了一个新属性 **user**。
+
+下面是一个宏解析可能有用的示例：
+- 执行身份验证并将用户添加到上下文中
+- 运行额外的数据库查询并将数据添加到上下文中
+- 向上下文添加一个新属性
+
 </template>
 
 </Tab>

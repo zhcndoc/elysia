@@ -1,5 +1,6 @@
 ---
 title: 伊甸条约遗产 - ElysiaJS
+search: false
 head:
   - - meta
     - property: 'og:title'
