@@ -108,6 +108,7 @@ Elysia 的设计理念是模块化和轻量化。
 -   [Elysia XSS](https://www.npmjs.com/package/elysia-xss) - 一个为 Elysia.js 提供 XSS（跨站脚本）保护的插件，通过清理请求体数据来实现。
 -   [Elysiajs Helmet](https://www.npmjs.com/package/elysiajs-helmet) - 一个全面的安全中间件，用于 Elysia.js 应用程序，通过设置各种 HTTP 头来帮助保护您的应用。
 -   [Logify for Elysia.js](https://github.com/0xrasla/logify) - 一个美观、快速且类型安全的日志中间件，适用于 Elysia.js 应用程序。
+-   [Decorators for Elysia.js](https://github.com/Ateeb-Khan-97/better-elysia) - 无缝开发和集成 API、Websocket 和流式 API，只需使用这个小库。
 
 ## 互补项目：
 -   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 方案的生成器，与 Elysia 配合良好

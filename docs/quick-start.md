@@ -147,7 +147,7 @@ console.log(
 
 Node.js 是一个用于服务器端应用的 JavaScript 运行时，也是 Elysia 支持的最流行的运行时。
 
-你可以使用下面的命令安装 Node.js：
+您可以使用以下命令安装 Node.js：
 
 ::: code-group
 
@@ -259,7 +259,7 @@ npx tsc init
 <template v-slot:js>
 
 ::: warning
-使用 TypeScript 的 Elysia 将会错过一些功能，如自动补全、先进的类型检查和端到端类型安全，这些都是 Elysia 的核心功能。
+如果您在没有 TypeScript 的情况下使用 Elysia，您可能会错过一些功能，比如自动补全、先进的类型检查和端到端的类型安全，这些都是 Elysia 的核心功能。
 :::
 
 要使用 JavaScript 创建一个新的 Elysia 应用，首先安装 Elysia：

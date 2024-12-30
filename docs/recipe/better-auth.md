@@ -61,14 +61,14 @@ export const auth = betterAuth({
       account,
     },
   }),
+  emailAndPassword: {  
+    enabled: true // 如果您想使用电子邮件和密码认证
+  },
   socialProviders: {
     /*
     * 我们使用 Google 和 Github 作为我们的社交提供者， 
     * 确保您已设置环境变量
     */
-    emailAndPassword: {  
-        enabled: true // 如果您想使用电子邮件和密码认证
-    },
     github: {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
