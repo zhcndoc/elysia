@@ -242,7 +242,7 @@ const app = new Elysia({ adapter: node() })
 确保创建 `tsconfig.json`
 
 ```bash
-npx tsc init
+npx tsc --init
 ```
 
 不要忘记更新 `tsconfig.json`，将 `compilerOptions.strict` 设置为 `true`：
@@ -317,7 +317,7 @@ const app = new Elysia({ adapter: node() })
 确保创建 `tsconfig.json`
 
 ```bash
-npx tsc init
+npx tsc --init
 ```
 
 不要忘记更新 `tsconfig.json`，将 `compilerOptions.strict` 设置为 `true`：

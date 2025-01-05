@@ -23,15 +23,15 @@ import { Elysia } from 'elysia'
 
 const demo = new Elysia()
 	.onError(({ code }) => {
-		if (code === 418) return '捕获'
+		if (code === 418) return 'caught'
+	})
+    .get('/throw', ({ error }) => {
+		// This will be caught by onError
+		throw error(418)
 	})
 	.get('/return', ({ error }) => {
 		// 这将不会被 onError 捕获
 		return error(418)
-	})
-	.get('/throw', ({ error }) => {
-		// 这将不会被 onError 捕获
-		throw error(418)
 	})
 </script>
 
@@ -781,7 +781,7 @@ new Elysia()
         if (code === 418) return '捕获'
     })
     .get('/throw', ({ error }) => {
-        // 这将不会被 onError 捕获
+        // This will be caught by onError
         throw error(418)
     })
     .get('/return', () => {
