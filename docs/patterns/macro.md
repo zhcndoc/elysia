@@ -221,14 +221,12 @@ import { Elysia } from 'elysia'
 
 export const auth = new Elysia()
     .macro({
-        isAuth(isAuth: boolean) {
-           	return {
-          		resolve() {
-         			return {
-            			user: 'saltyaom'
-            		}
+    	isAuth: {
+      		resolve() {
+     			return {
+         			user: 'saltyaom'
           		}
-           	}
+      		}
         },
         role(role: 'admin' | 'user') {
         	return {}
@@ -282,6 +280,38 @@ new Elysia()
 - 执行身份验证并将用户添加到上下文中
 - 运行额外的数据库查询并将数据添加到上下文中
 - 向上下文添加一个新属性
+
+## Property shorthand
+Starting from Elysia 1.2.10, each property in the macro object can be a function or an object.
+
+If the property is an object, it will be translated to a function that accept a boolean parameter, and will be executed if the parameter is true.
+```typescript
+import { Elysia } from 'elysia'
+
+export const auth = new Elysia()
+    .macro({
+    	// This property shorthand
+    	isAuth: {
+      		resolve() {
+     			return {
+         			user: 'saltyaom'
+          		}
+      		}
+        },
+        // is equivalent to
+        isAuth(enabled: boolean) {
+        	if(!enabled) return
+
+        	return {
+				resolve() {
+					return {
+						user
+					}
+				}
+         	}
+        }
+    })
+```
 
 </template>
 
