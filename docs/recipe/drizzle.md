@@ -113,7 +113,7 @@ export type Table = typeof table
 ::: code-group
 
 ```ts [src/index.ts]
-import { createSelectSchema } from 'drizzle-typebox'
+import { createInsertSchema } from 'drizzle-typebox'
 import { Table } from './database/schema'
 
 const _createUser = createInsertSchema(table.user, {
@@ -144,7 +144,7 @@ new Elysia()
 为了避免这种情况，我们需要 **在 `drizzle-typebox` 和 `Elysia` 模式之间显式定义一个类型**：
 ```ts
 import { t } from 'elysia'
-import { createSelectSchema } from 'drizzle-typebox'
+import { createInsertSchema } from 'drizzle-typebox'
 
 import { table } from './database/schema'
 

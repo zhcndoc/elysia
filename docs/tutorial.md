@@ -846,8 +846,8 @@ export const user = new Elysia({ prefix: '/user' })// [!code ++]
 2. 在该实例中，我们定义了一个内存存储 `user` 和 `session`
 	- 2.1 `user` 将保存 `username` 和 `password` 的键值对
 	- 2.2 `session` 将保存 `session` 和 `username` 的键值对
-3. 在 `/sign-in` 中，我们插入一个用户名和经过 argon2id 散列的密码
-4. 在 `/sign-up` 中我们做以下事情：
+3. 在 `/sign-up` 中，我们插入一个用户名和经过 argon2id 散列的密码
+4. 在 `/sign-in` 中我们做以下事情：
 	- 4.1 我们检查用户是否存在并验证密码
 	- 4.2 如果密码匹配，我们会在 `session` 中生成一个新会话
 	- 4.3 我们将 cookie `token` 设置为 session 的值
