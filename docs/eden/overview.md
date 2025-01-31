@@ -103,7 +103,7 @@ app.
 // 调用 [GET] 在 '/'
 const { data } = await app.index.get()
 
-// 调用 [POST] 在 '/nendoroid/:id'
+// 调用 [PUT] 在 '/nendoroid/:id'
 const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).put({
     name: 'Skadi',
     from: 'Arknights'
