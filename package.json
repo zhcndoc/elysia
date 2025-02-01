@@ -41,8 +41,8 @@
     "vue": "^3.5.13"
   },
   "scripts": {
-    "dev": "bun --bun vitepress dev docs",
-    "build": "bun --bun vitepress build docs",
-    "serve": "bun --bun vitepress serve docs"
+    "dev": "vitepress dev docs",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' vitepress build docs",
+    "serve": "vitepress serve docs"
   }
 }

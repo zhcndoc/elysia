@@ -414,4 +414,4 @@ console.log(
     </Card>
 </Deck>
 
-如果你有任何问题，欢迎在我们的 [Discord](https://discord.gg/elysia) 社区询问。
+如果你有任何问题，欢迎在我们的 [Discord](https://discord.gg/eaFJ2KDJck) 社区询问。
