@@ -53,6 +53,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Vite](https://github.com/timnghg/elysia-vite) - 用 Vite 的脚本注入提供入口 HTML 文件
 -   [Nuxt](https://github.com/trylovetom/elysiajs-nuxt) - 轻松将 Elysia 与 Nuxt 集成！
 -   [Remix](https://github.com/kravetsone/elysia-remix) - 使用支持 `HMR` 的 [Remix](https://remix.run/)！（由 [`vite`](https://vitejs.dev/) 提供支持）解决了长期存在的插件请求 [#12](https://github.com/elysiajs/elysia/issues/12)
+-   [Sync](https://github.com/johnny-woodtke/elysiajs-sync) - 一个轻量级的离线优先数据同步框架，由 [Dexie.js](https://dexie.org/) 提供支持
 -   [Connect middleware](https://github.com/kravetsone/elysia-connect-middleware) - 允许直接在 Elysia 中使用 [`express`](https://www.npmjs.com/package/express)/[`connect`](https://www.npmjs.com/package/connect) 中间件的插件！
 -   [Elysia Helmet](https://github.com/DevTobias/elysia-helmet) - 使用各种 HTTP 头保护 Elysia 应用
 -   [Vite Plugin SSR](https://github.com/timnghg/elysia-vite-plugin-ssr) - 使用 Elysia 服务器的 Vite SSR 插件

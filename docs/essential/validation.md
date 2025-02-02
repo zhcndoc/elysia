@@ -560,6 +560,7 @@ TypeBox 提供了与 TypeScript 类型相同行为的基本原始类型。
 以下表列出了最常见的基本类型：
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
@@ -689,7 +690,7 @@ t.Literal(42)
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 Elysia 从 TypeBox 中扩展了所有类型，允许您从 TypeBox 中参考大多数 API 用于 Elysia。
@@ -701,6 +702,7 @@ Elysia 从 TypeBox 中扩展了所有类型，允许您从 TypeBox 中参考大�
 TypeBox 可以接受一个参数，以便根据 JSON Schema 7 规范提供更全面的行为。
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
@@ -804,7 +806,7 @@ y: 200
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 有关每个属性的更多解释，请参见 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
@@ -818,6 +820,7 @@ y: 200
 通过联合允许多种类型。
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
@@ -852,7 +855,7 @@ Hello
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ### 可选
@@ -860,6 +863,7 @@ Hello
 在 `t.Object` 的一个属性中提供，允许字段为 undefined 或可选。
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
@@ -898,7 +902,7 @@ t.Object({
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ### 部分
@@ -906,6 +910,7 @@ t.Object({
 允许 `t.Object` 中的所有字段都是可选的。
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
@@ -946,7 +951,7 @@ t.Partial(
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ## 自定义错误
@@ -954,6 +959,7 @@ t.Partial(
 TypeBox 提供了一个额外的 "**错误**" 属性，允许我们在字段无效时返回自定义错误消息。
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>错误</td>
@@ -999,7 +1005,7 @@ t.Object({
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ## Elysia 类型
@@ -1173,6 +1179,7 @@ new Elysia()
 以下是在各种类型上使用错误属性的示例：
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>TypeBox</td>
 <td>错误</td>
@@ -1262,7 +1269,7 @@ t.Object({
 
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ### 错误消息作为函数
@@ -1296,6 +1303,7 @@ new Elysia()
 请考虑以下表：
 
 <table class="md-table">
+<tbody>
 <tr>
 <td>代码</td>
 <td>主体</td>
@@ -1387,7 +1395,7 @@ t.Object(
 期望值为对象
 </td>
 </tr>
-
+</tbody>
 </table>
 
 ### onError

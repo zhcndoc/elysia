@@ -185,6 +185,11 @@ pacman -S nodejs npm
 
 ::: code-group
 
+```bash [bun]
+bun add elysia @elysiajs/node && \
+bun add -d tsx @types/node typescript
+```
+
 ```bash [pnpm]
 pnpm add elysia @elysiajs/node && \
 pnpm add -d tsx @types/node typescript
@@ -265,6 +270,10 @@ npx tsc --init
 要使用 JavaScript 创建一个新的 Elysia 应用，首先安装 Elysia：
 
 ::: code-group
+
+```bash [pnpm]
+bun add elysia @elysiajs/node
+```
 
 ```bash [pnpm]
 pnpm add elysia @elysiajs/node

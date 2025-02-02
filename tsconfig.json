@@ -11,5 +11,9 @@
     "outDir": "./dist",
     "strict": true,
     "jsx": "preserve"
-  }
+  },
+  "exclude": [
+    "postcss.config.js",
+    "tailwind.config.js"
+  ]
 }
