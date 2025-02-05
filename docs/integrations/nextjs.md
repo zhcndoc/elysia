@@ -53,7 +53,7 @@ export const POST = app.handle // [!code ++]
 例如，如果您将 Elysia 服务器放在 **app/user/[[...slugs]]/route.ts** 中，则需要将前缀注释为 **/user**。
 
 ```typescript
-// app/api/[[...slugs]]/route.ts
+// app/user/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia({ prefix: '/user' }) // [!code ++]

@@ -117,7 +117,7 @@ WORKDIR /app
 
 # 缓存包安装
 COPY package.json package.json
-COPY bun.lockb bun.lockb
+COPY bun.lock bun.lock
 
 RUN bun install
 
@@ -171,7 +171,7 @@ WORKDIR /app
 
 # 缓存包
 COPY package.json package.json
-COPY bun.lockb bun.lockb
+COPY bun.lock bun.lock
 
 COPY /apps/server/package.json ./apps/server/package.json
 COPY /packages/config/package.json ./packages/config/package.json

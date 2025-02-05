@@ -114,7 +114,7 @@ export type Table = typeof table
 
 ```ts [src/index.ts]
 import { createInsertSchema } from 'drizzle-typebox'
-import { Table } from './database/schema'
+import { table } from './database/schema'
 
 const _createUser = createInsertSchema(table.user, {
 	// 使用 Elysia 的 email 类型替换电子邮件
