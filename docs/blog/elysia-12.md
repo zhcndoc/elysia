@@ -167,7 +167,7 @@ new Elysia()
 
 Elysia 1.2 引入了带自定义名称的解析器，允许您指定应使用哪个解析器来解码请求体。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -184,7 +184,7 @@ new Elysia()
 
 您还可以引用 Elysia 内置的解析器，或提供多个解析器按顺序使用。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 new Elysia()
