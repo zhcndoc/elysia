@@ -329,7 +329,7 @@ export const AuthModel = {
 ```
 
 ### 模型注入
-虽然这不是必需的，如果您严格遵循 MVC 模式，您可能想像服务一样将模型注入到控制器中。我们推荐使用 [Elysia 参考模型](/validation/reference-model.html#reference-model)
+虽然这不是必需的，如果您严格遵循 MVC 模式，您可能想像服务一样将模型注入到控制器中。我们推荐使用 [Elysia 参考模型](/essential/validation.html#reference-model)
 
 使用 Elysia 的模型引用
 ```typescript twoslash
