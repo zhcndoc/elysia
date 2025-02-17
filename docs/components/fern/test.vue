@@ -73,6 +73,8 @@
 </template>
 
 <style>
+@reference "../../tailwind.css";
+
 #test-with-confidence {
     @apply flex flex-col max-w-5xl w-full mx-auto gap-8 my-4;
 
@@ -128,7 +130,7 @@
                 box-shadow: 0 16px 40px rgba(0, 123, 255, 0.075);
                 background-image: radial-gradient(
                         closest-side at center,
-                        theme(colors.gray.800) 0%,
+                        var(--color-gray-800) 0%,
                         transparent 120%
                     ),
                     radial-gradient(

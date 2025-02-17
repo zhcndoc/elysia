@@ -22,11 +22,28 @@ head:
 
 如果你跟着做，我们预计大约需要 15-20 分钟。
 
+---
+
+### 不喜欢教程？
+如果您更倾向于自己动手的方式，可以跳过这个教程，直接访问 [关键概念](/key-concept) 页面，深入了解 Elysia 的工作原理。
+
+<script setup>
+import Card from './components/nearl/card.vue'
+import Deck from './components/nearl/card-deck.vue'
+</script>
+
+<Deck>
+    <Card title="关键概念（5 分钟）" href="/key-concept">
+    	Elysia 的核心概念及其使用方法。
+    </Card>
+</Deck>
+
+
 ## 设置
 
-Elysia 是基于 [Bun](https://bun.sh) 构建的，Bun 是 Node.js 的一种替代运行时。
+Elysia 基于 [Bun](https://bun.sh) 构建，这是 Node.js 的替代运行时。
 
-如果你还没有安装 Bun，请先安装。
+如果您还没有安装 Bun，请先安装。
 
 ::: code-group
 

@@ -26,7 +26,7 @@ head:
 ---
 
 <script setup>
-    import Blog from '../../components/blog/Layout.vue'
+    import Blog from '../components/blog/Layout.vue'
 </script>
 
 <Blog
@@ -65,7 +65,7 @@ TypeBox 是一个库，为 Elysia 提供了验证和类型提供者，以创建�
 
 但对 Elysia 的一个好处是，`Error.First()`，它允许我们获取第一个类型错误，而不是使用迭代器，这减少了创建新错误以发送回客户端的开销。
 
-对 **TypeBox** 和 **Elysia.t** 进行了一些更改，通常不会对您产生太大影响，但您可以在 [这里查看 TypeBox 的新功能。](https://github.com/sinclairzx81/typebox/blob/master/changelog/0.26.0.md) 
+对 **TypeBox** 和 **Elysia.t** 进行了一些更改，通常不会对您产生太大影响，但您可以在 [这里查看 TypeBox 的新功能。](https://github.com/sinclairzx81/typebox/blob/master/changelog/0.26.0.md)
 
 ## 按状态验证响应
 之前，Elysia 使用联合类型验证多个状态的响应。

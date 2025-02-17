@@ -33,6 +33,8 @@
 </template>
 
 <style>
+@reference "../../tailwind.css";
+
 #own-doc {
     @apply relative flex flex-col max-w-5xl w-full mx-auto my-8;
 

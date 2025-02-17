@@ -3,52 +3,56 @@ import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
+import tailwindcss from '@tailwindcss/vite'
+
 // import {
 //     GitChangelog,
 //     GitChangelogMarkdownSection
 // } from '@nolebase/vitepress-plugin-git-changelog/vite'
 
 const description =
-    '适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
+	'适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
 
 export default defineConfig({
-    lang: 'zh-CN',
-    title: 'Elysia 中文文档',
+	lang: 'zh-CN',
+	title: 'Elysia 中文文档',
     titleTemplate: ':title - Elysia 中文文档',
-    // description,
-    ignoreDeadLinks: true,
-    lastUpdated: true,
-    markdown: {
-        theme: {
-            light: 'github-light',
-            dark: 'github-dark'
-        },
-        codeTransformers: [
-            transformerTwoslash({
-                typesCache: createFileSystemTypesCache()
-            })
-        ]
-    },
-    // ![INFO] uncomment for support hot reload on WSL - https://github.com/vitejs/vite/issues/1153#issuecomment-785467271
-    vite: {
-        server: {
-            watch: {
-                usePolling: true
-            }
-        },
-        plugins: [
-            // GitChangelog({
-            //     // Fill in your repository URL here
-            //     repoURL: () => 'https://github.com/elysiajs/documentation'
-            // }),
-            // GitChangelogMarkdownSection()
-        ]
-    },
+	// description,
+	ignoreDeadLinks: true,
+	lastUpdated: true,
+	markdown: {
+		theme: {
+			light: 'github-light',
+			dark: 'github-dark'
+		},
+		codeTransformers: [
+			transformerTwoslash({
+				typesCache: createFileSystemTypesCache({
+					dir: './docs/.vitepress/cache/twoslash'
+				})
+			})
+		]
+	},
 
+	// ![INFO] uncomment for support hot reload on WSL - https://github.com/vitejs/vite/issues/1153#issuecomment-785467271
+	vite: {
+		server: {
+			watch: {
+				usePolling: true
+			}
+		},
+		plugins: [
+			tailwindcss() as any
+			// GitChangelog({
+			//     // Fill in your repository URL here
+			//     repoURL: () => 'https://github.com/elysiajs/documentation'
+			// }),
+			// GitChangelogMarkdownSection()
+		]
+	},
     sitemap: {
         hostname: 'https://elysia.zhcndoc.com'
     },
-
     locales: {
         root: {
             label: '简体中文',
@@ -60,71 +64,70 @@ export default defineConfig({
             link: 'https://elysiajs.com/'
         }
     },
-
-    head: [
-        [
-            'meta',
-            {
-                name: 'viewport',
-                content: 'width=device-width,initial-scale=1,user-scalable=no'
-            }
-        ],
-        [
-            'link',
-            {
-                rel: 'icon',
-                href: '/assets/elysia.png'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'og:image',
-                content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'og:image:width',
-                content: '1920'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'og:image:height',
-                content: '1080'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'twitter:card',
-                content: 'summary_large_image'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'twitter:image',
-                content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'og:title',
-                content: 'ElysiaJS'
-            }
-        ],
-        [
-            'meta',
-            {
-                property: 'og:description',
-                content: description
-            }
-        ],
+	head: [
+		[
+			'meta',
+			{
+				name: 'viewport',
+				content: 'width=device-width,initial-scale=1,user-scalable=no'
+			}
+		],
+		[
+			'link',
+			{
+				rel: 'icon',
+				href: '/assets/elysia.png'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'og:image',
+				content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'og:image:width',
+				content: '1920'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'og:image:height',
+				content: '1080'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'twitter:card',
+				content: 'summary_large_image'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'twitter:image',
+				content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'og:title',
+				content: 'ElysiaJS'
+			}
+		],
+		[
+			'meta',
+			{
+				property: 'og:description',
+				content: description
+			}
+		],
         [
             'script',
             {
@@ -132,10 +135,10 @@ export default defineConfig({
                 src: 'https://www.zhcndoc.com/js/common.js'
             }
         ]
-    ],
-    themeConfig: {
-        search: {
-            provider: 'local',
+	],
+	themeConfig: {
+		search: {
+			provider: 'local',
             options: {
                 locales: {
                     root: {
@@ -156,31 +159,31 @@ export default defineConfig({
                     }
                 }
             }
-        },
-        logo: '/assets/elysia.svg',
-        nav: [
-            {
-                text: '速查表',
-                link: '/integrations/cheat-sheet'
-            },
-            {
-                text: '插件',
-                link: '/plugins/overview'
-            },
-            {
-                text: '博客',
-                link: '/blog'
-            }
-        ],
-        sidebar: [
-            {
-                text: '入门',
-                items: [
-                    {
-                        text: '概览',
-                        link: '/at-glance'
-                    },
-                    {
+		},
+		logo: '/assets/elysia.svg',
+		nav: [
+			{
+				text: '速查表',
+				link: '/integrations/cheat-sheet'
+			},
+			{
+				text: '插件',
+				link: '/plugins/overview'
+			},
+			{
+				text: '博客',
+				link: '/blog'
+			}
+		],
+		sidebar: [
+			{
+				text: '入门',
+				items: [
+					{
+						text: '概览',
+						link: '/at-glance'
+					},
+					{
                         text: '快速开始',
                         link: '/quick-start'
                     },
@@ -196,244 +199,249 @@ export default defineConfig({
                         text: '目录',
                         link: '/table-of-content'
                     }
-                ]
-            },
-            {
-                text: '基础',
-                collapsed: true,
-                items: [
-                    {
-                        text: '结构',
-                        link: '/essential/structure'
-                    },
-                    {
-                        text: '路由',
-                        link: '/essential/route'
-                    },
-                    {
-                        text: '处理器',
-                        link: '/essential/handler'
-                    },
-                    {
-                        text: '生命周期',
-                        link: '/essential/life-cycle'
-                    },
-                    {
-                        text: '验证',
-                        link: '/essential/validation'
-                    },
-                    {
-                        text: '插件',
-                        link: '/essential/plugin'
-                    }
-                ]
-            },
-            {
-                text: '模式',
-                collapsed: true,
-                items: [
-                    {
-                        text: '配置',
-                        link: '/patterns/configuration'
-                    },
-                    {
-                        text: 'Cookie',
-                        link: '/patterns/cookie'
-                    },
-                    {
-                        text: 'Web Socket',
-                        link: '/patterns/websocket'
-                    },
-                    {
-                        text: '单元测试',
-                        link: '/patterns/unit-test'
-                    },
-                    {
-                        text: '挂载',
-                        link: '/patterns/mount'
-                    },
-                    {
-                        text: '跟踪',
-                        link: '/patterns/trace'
-                    }
-                ]
-            },
-            {
-                text: '解决方案',
-                collapsed: true,
-                items: [
-                    {
-                        text: 'OpenAPI',
-                        link: '/recipe/openapi'
-                    },
-                    {
-                        text: 'Opentelemetry',
-                        link: '/recipe/opentelemetry'
-                    },
-                    {
-                        text: 'Drizzle',
-                        link: '/recipe/drizzle'
-                    },
-                    {
-                        text: 'React Email',
-                        link: '/recipe/react-email'
-                    },
-                    {
-                        text: 'Better Auth',
-                        link: '/recipe/better-auth'
-                    }
-                ]
-            },
-            {
-                text: 'Eden',
-                collapsed: true,
-                items: [
-                    {
-                        text: '概述',
-                        link: '/eden/overview.md'
-                    },
-                    {
-                        text: '安装',
-                        link: '/eden/installation.md'
-                    },
-                    {
-                        text: 'Eden 协议',
-                        collapsed: false,
-                        items: [
-                            {
-                                text: '概述',
-                                link: '/eden/treaty/overview'
-                            },
-                            {
-                                text: '参数',
-                                link: '/eden/treaty/parameters'
-                            },
-                            {
-                                text: '响应',
-                                link: '/eden/treaty/response'
-                            },
-                            {
-                                text: 'Web Socket',
-                                link: '/eden/treaty/websocket'
-                            },
-                            {
-                                text: '配置',
-                                link: '/eden/treaty/config'
-                            },
-                            {
-                                text: '单元测试',
-                                link: '/eden/treaty/unit-test'
-                            },
-                            {
-                                text: '旧版（协议 1）',
-                                link: '/eden/treaty/legacy.md'
-                            }
-                        ]
-                    },
-                    {
-                        text: 'Eden Fetch',
-                        link: '/eden/fetch.md'
-                    }
-                ]
-            },
-            {
-                text: '插件',
-                collapsed: true,
-                items: [
-                    {
-                        text: '概述',
-                        link: '/plugins/overview'
-                    },
-                    {
-                        text: 'Bearer',
-                        link: '/plugins/bearer'
-                    },
-                    {
-                        text: 'CORS',
-                        link: '/plugins/cors'
-                    },
-                    {
-                        text: 'Cron',
-                        link: '/plugins/cron'
-                    },
-                    {
-                        text: 'GraphQL Apollo',
-                        link: '/plugins/graphql-apollo'
-                    },
-                    {
-                        text: 'GraphQL Yoga',
-                        link: '/plugins/graphql-yoga'
-                    },
-                    {
-                        text: 'HTML',
-                        link: '/plugins/html'
-                    },
-                    {
-                        text: 'JWT',
-                        link: '/plugins/jwt'
-                    },
-                    {
-                        text: 'OpenTelemetry',
-                        link: '/plugins/opentelemetry'
-                    },
-                    {
-                        text: '服务器计时',
-                        link: '/plugins/server-timing'
-                    },
-                    {
-                        text: '静态',
-                        link: '/plugins/static'
-                    },
-                    {
-                        text: 'Stream',
-                        link: '/plugins/stream'
-                    },
-                    {
-                        text: 'Swagger',
-                        link: '/plugins/swagger'
-                    },
-                    {
-                        text: 'trpc',
-                        link: '/plugins/trpc'
-                    }
-                ]
-            },
-            {
-                text: '集成',
-                collapsed: true,
-                items: [
-                    {
-                        text: 'Nextjs',
-                        link: '/integrations/nextjs'
-                    },
-                    {
-                        text: 'Expo',
-                        link: '/integrations/expo'
-                    },
-                    {
-                        text: 'Astro',
-                        link: '/integrations/astro'
-                    },
-                    {
-                        text: 'SvelteKit',
-                        link: '/integrations/sveltekit'
-                    }
-                ]
-            }
-        ],
-        outline: {
-            level: [2, 3],
-            label: '页面导航'
-        },
-        socialLinks: [
-            { icon: 'github', link: 'https://github.com/elysiajs/elysia' },
-            { icon: 'twitter', link: 'https://twitter.com/elysiajs' },
-            { icon: 'discord', link: 'https://discord.gg/eaFJ2KDJck' }
-        ],
-        editLink: {
-            text: '在 GitHub 上编辑此页面',
-            pattern: 'https://github.com/zhcndoc/elysia/tree/main/docs/:path'
-        },
+				]
+			},
+			{
+				text: '基础',
+				collapsed: true,
+				items: [
+					{
+						text: '路由',
+						link: '/essential/route'
+					},
+					{
+						text: '处理程序',
+						link: '/essential/handler'
+					},
+					{
+						text: '生命周期',
+						link: '/essential/life-cycle'
+					},
+					{
+						text: '验证',
+						link: '/essential/validation'
+					},
+					{
+						text: '插件',
+						link: '/essential/plugin'
+					},
+					{
+						text: '最佳实践',
+						link: '/essential/best-practice'
+					}
+				]
+			},
+			{
+				text: '模式',
+				collapsed: true,
+				items: [
+					{
+						text: 'Macro',
+						link: '/patterns/macro'
+					},
+					{
+						text: '配置',
+						link: '/patterns/configuration'
+					},
+					{
+						text: 'Cookie',
+						link: '/patterns/cookie'
+					},
+					{
+						text: 'Web Socket',
+						link: '/patterns/websocket'
+					},
+					{
+						text: '单元测试',
+						link: '/patterns/unit-test'
+					},
+					{
+						text: '挂载',
+						link: '/patterns/mount'
+					},
+					{
+						text: '跟踪',
+						link: '/patterns/trace'
+					}
+				]
+			},
+			{
+				text: '解决方案',
+				collapsed: true,
+				items: [
+					{
+						text: 'OpenAPI',
+						link: '/recipe/openapi'
+					},
+					{
+						text: 'Opentelemetry',
+						link: '/recipe/opentelemetry'
+					},
+					{
+						text: 'Drizzle',
+						link: '/recipe/drizzle'
+					},
+					{
+						text: 'React Email',
+						link: '/recipe/react-email'
+					},
+					{
+						text: 'Better Auth',
+						link: '/recipe/better-auth'
+					}
+				]
+			},
+			{
+				text: 'Eden',
+				collapsed: true,
+				items: [
+					{
+						text: '概述',
+						link: '/eden/overview.md'
+					},
+					{
+						text: '安装',
+						link: '/eden/installation.md'
+					},
+					{
+						text: 'Eden 协议',
+						collapsed: false,
+						items: [
+							{
+								text: '概述',
+								link: '/eden/treaty/overview'
+							},
+							{
+								text: '参数',
+								link: '/eden/treaty/parameters'
+							},
+							{
+								text: '响应',
+								link: '/eden/treaty/response'
+							},
+							{
+								text: 'Web Socket',
+								link: '/eden/treaty/websocket'
+							},
+							{
+								text: '配置',
+								link: '/eden/treaty/config'
+							},
+							{
+								text: '单元测试',
+								link: '/eden/treaty/unit-test'
+							},
+							{
+								text: '旧版（协议 1）',
+								link: '/eden/treaty/legacy.md'
+							}
+						]
+					},
+					{
+						text: 'Eden Fetch',
+						link: '/eden/fetch.md'
+					}
+				]
+			},
+			{
+				text: '插件',
+				collapsed: true,
+				items: [
+					{
+						text: '概述',
+						link: '/plugins/overview'
+					},
+					{
+						text: 'Bearer',
+						link: '/plugins/bearer'
+					},
+					{
+						text: 'CORS',
+						link: '/plugins/cors'
+					},
+					{
+						text: 'Cron',
+						link: '/plugins/cron'
+					},
+					{
+						text: 'GraphQL Apollo',
+						link: '/plugins/graphql-apollo'
+					},
+					{
+						text: 'GraphQL Yoga',
+						link: '/plugins/graphql-yoga'
+					},
+					{
+						text: 'HTML',
+						link: '/plugins/html'
+					},
+					{
+						text: 'JWT',
+						link: '/plugins/jwt'
+					},
+					{
+						text: 'OpenTelemetry',
+						link: '/plugins/opentelemetry'
+					},
+					{
+						text: '服务器计时',
+						link: '/plugins/server-timing'
+					},
+					{
+						text: '静态',
+						link: '/plugins/static'
+					},
+					{
+						text: 'Stream',
+						link: '/plugins/stream'
+					},
+					{
+						text: 'Swagger',
+						link: '/plugins/swagger'
+					},
+					{
+						text: 'trpc',
+						link: '/plugins/trpc'
+					}
+				]
+			},
+			{
+				text: '集成',
+				collapsed: true,
+				items: [
+					{
+						text: 'Nextjs',
+						link: '/integrations/nextjs'
+					},
+					{
+						text: 'Expo',
+						link: '/integrations/expo'
+					},
+					{
+						text: 'Astro',
+						link: '/integrations/astro'
+					},
+					{
+						text: 'SvelteKit',
+						link: '/integrations/sveltekit'
+					}
+				]
+			}
+		],
+		outline: {
+			level: [2, 3],
+			label: '页面导航'
+		},
+		socialLinks: [
+			{ icon: 'github', link: 'https://github.com/elysiajs/elysia' },
+			{ icon: 'twitter', link: 'https://twitter.com/elysiajs' },
+			{ icon: 'discord', link: 'https://discord.gg/eaFJ2KDJck' }
+		],
+		editLink: {
+			text: '在 GitHub 上编辑此页面',
+			pattern:
+				'https://github.com/zhcndoc/elysia/tree/main/docs/:path'
+		},
         docFooter: {
             prev: '上一页',
             next: '下一页'
@@ -451,5 +459,5 @@ export default defineConfig({
         darkModeSwitchLabel: '主题',
         lightModeSwitchTitle: '切换到浅色模式',
         darkModeSwitchTitle: '切换到深色模式'
-    }
+	}
 })

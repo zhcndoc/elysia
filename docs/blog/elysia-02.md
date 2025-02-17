@@ -26,10 +26,10 @@ head:
 ---
 
 <script setup>
-    import Blog from '../../components/blog/Layout.vue'
+    import Blog from '../components/blog/Layout.vue'
 </script>
 
-<Blog 
+<Blog
     title="Elysia 0.2 - 祝福"
     src="/blog/elysia-02/blessing.webp"
     alt="夜空中雪山上方的蓝紫色极光"

@@ -17,7 +17,7 @@ head:
 # 宏
 
 <script setup>
-import Tab from '../../components/fern/tab.vue'
+import Tab from '../components/fern/tab.vue'
 </script>
 
 宏允许我们为钩子定义一个自定义字段。

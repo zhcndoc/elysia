@@ -20,7 +20,7 @@ head:
 bun add @elysiajs/eden
 bun add -d elysia
 
-# 如果您使用 Bun 特定功能，例如`Bun.file`
+# `@types/bun` must be installed even if you aren't using bun in the client
 bun add -d @types/bun
 ```
 
