@@ -147,6 +147,28 @@ new Elysia()
     .listen(3000)
 ```
 
+## 文件上传
+请参见 [验证#文件](/essential/validation#file)
+
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+	.post('/body', ({ body }) => body, {
+                    // ^?
+
+
+
+
+
+		body: t.Object({
+			file: t.File({ format: 'image/*' }),
+			multipleFiles: t.Files()
+		})
+	})
+	.listen(3000)
+```
+
 ## 生命周期钩子
 按顺序拦截 Elysia 事件
 

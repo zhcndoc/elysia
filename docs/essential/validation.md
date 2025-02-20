@@ -43,6 +43,25 @@ const demo2 = new Elysia()
             }
         )
     })
+
+const demo3 = new Elysia()
+ 	.guard({
+        query: t.Object({
+            name: t.Number()
+        })
+    })
+    .get('/query?id=1', ({ query: { id } }) => id)
+    .get('/query?id=salt', ({ query: { id } }) => id)
+
+const demo4 = new Elysia()
+ 	.guard({
+        query: t.Object({
+            name: t.Array(t.String()),
+            squad: t.String()
+        })
+    })
+    .get('/query?name=rapi,anis,neon&squad=counter', ({ query: { id } }) => id)
+    .get('/query?name=rapi&name=anis&name=neon&squad=counter', ({ query: { id } }) => id)
 </script>
 
 # 验证
@@ -192,7 +211,7 @@ new Elysia()
 
 
 		body: t.Object({
-			file: t.File(),
+			file: t.File({ format: 'image/*' }),
 			multipleFiles: t.Files()
 		})
 	})
@@ -245,6 +264,105 @@ fetch('https://elysiajs.com/?name=Elysia')
 ```
 
 在指定查询参数时，必须了解所有查询参数值必须表示为字符串。这是因为它们的编码和添加到 URL 的方式。
+
+### 强制
+Elysia 将自动将 `query` 强制转换为 schema。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+	.get('/', ({ query }) => query, {
+               // ^?
+
+
+
+
+		query: t.Object({ // [!code ++]
+			name: t.Number() // [!code ++]
+		}) // [!code ++]
+	})
+	.listen(3000)
+```
+
+<Playground
+    :elysia="demo3"
+    :mock="{
+        '/query?id=1': {
+            GET: '1'
+        },
+        '/query?id=salt': {
+        	GET: 'string cannot be assigned to number'
+        }
+    }"
+/>
+
+### 数组
+默认情况下，Elysia 将查询参数视为一个单一字符串，即使它被指定多次。
+
+要使用数组，我们需要明确将其声明为数组。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia()
+	.get('/', ({ query }) => query, {
+               // ^?
+
+
+
+
+		query: t.Object({
+			name: t.Array(t.String()) // [!code ++]
+		})
+	})
+	.listen(3000)
+```
+
+<Playground
+    :elysia="demo4"
+    :mock="{
+        '/query?name=rapi,anis,neon&squad=counter': {
+            GET: JSON.stringify({
+                name: ['rapi', 'anis', 'neon'],
+                squad: 'counter'
+            }, null, 4)
+        },
+        '/query?name=rapi&name=anis&name=neon&squad=counter': {
+        	GET: JSON.stringify({
+                name: ['rapi', 'anis', 'neon'],
+                squad: 'counter'
+            }, null, 4)
+        }
+    }"
+/>
+
+一旦 Elysia 检测到某个属性可以赋值为数组，Elysia 将其强制转换为指定类型的数组。
+
+默认情况下，Elysia 将查询数组格式化为以下格式：
+
+#### nuqs
+此格式由 [nuqs](https://nuqs.47ng.com) 使用。
+
+通过使用 **,** 作为分隔符，属性将被视为数组。
+
+```
+http://localhost?name=rapi,anis,neon&squad=counter
+{
+	name: ['rapi', 'anis', 'neon'],
+	squad: 'counter'
+}
+```
+
+#### HTML 表单格式
+如果一个键被分配多次，该键将被视为数组。
+
+这与 HTML 表单格式类似，当一个名称相同的输入被指定多次时。
+
+```
+http://localhost?name=rapi&name=anis&name=neon&squad=counter
+// name: ['rapi', 'anis', 'neon']
+```
 
 ## 参数
 参数或路径参数是通过 URL 路径发送的数据。
@@ -1017,8 +1135,8 @@ t.Object({
 以下是 Elysia 提供的类型：
 
 <Deck>
-    <Card title="数字" href="#numeric">
-        接受数字字符串或数字，然后将值转换为数字
+	<Card title="UnoinEnum" href="#unionenum">
+		`UnionEnum` 允许值为指定值之一。
     </Card>
     <Card title="文件" href="#file">
         单个文件。通常用于<strong>文件上传</strong>验证。
@@ -1035,23 +1153,20 @@ t.Object({
     <Card title="可能为空" href="#maybeempty">
         接受空字符串或 null 值
     </Card>
+    <Card title="数字" href="#numeric-legacy">
+        接受一个数字字符串或数字，然后将其值转换为数字
+    </Card>
 </Deck>
 
-### 数字（旧版）
+### UnionEnum
 
-数字接受数字字符串或数字，然后将值转换为数字。
+`UnionEnum` 允许值为指定值之一。
 
 ```typescript
-t.Numeric()
+t.UnionEnum(['rapi', 'anis', 1, true, false])
 ```
 
-这在传入值是数字字符串时很有用，例如路径参数或查询字符串。
-
-数字接受相同的属性，作为 [数字实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)
-
-::: tip
-这一点不是必须的，因为 Elysia 类型会自动将 Number 转换为数字
-:::
+默认情况下，这些值不会自动
 
 ### 文件
 
@@ -1150,6 +1265,21 @@ t.MaybeEmpty(t.String())
 ```
 
 有关更多信息，您可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到类型系统的完整源代码。
+
+### 数字（遗留）
+::: warning
+这不是必需的，因为 Elysia 类型自 1.0 以来已经自动将数字转换为数值。
+:::
+
+Numeric 接受一个数字字符串或数字，然后将该值转换为数字。
+
+```typescript
+t.Numeric()
+```
+
+当传入值是一个数字字符串时，这很有用，例如路径参数或查询字符串。
+
+数字接受与 [数字实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
 
 ## 错误提供者
 
@@ -1413,7 +1543,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-缩小的错误类型将被表示为 `ValidationError` 从 'elysia/error' 导入。
+缩小的错误类型将被表示为 `ValidationError` 从 **elysia/error** 导入。
 
 **ValidationError** 暴露了名为 **validator** 的属性，类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，允许我们与 TypeBox 功能直接交互。
 

@@ -593,11 +593,11 @@ const main = new Elysia()
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia()
-    .derive(() => { // [!code ++]
+    .derive(() => {
         return { hi: 'ok' }
     })
     .get('/child', ({ hi }) => hi)
-    .as('plugin')
+    .as('plugin') // [!code ++]
 
 const main = new Elysia()
     .use(plugin)
