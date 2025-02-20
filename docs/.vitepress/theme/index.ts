@@ -4,7 +4,6 @@ import type { EnhanceAppContext, Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import Layout from './layout.vue'
-import Header from './header.vue'
 
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import '@shikijs/vitepress-twoslash/style.css'
@@ -18,11 +17,7 @@ import '../../tailwind.css'
 
 export default {
     extends: DefaultTheme,
-    Layout() {
-        return h(DefaultTheme.Layout, null, {
-            'nav-bar-title-after': () => h(Header)
-        })
-    },
+    Layout,
     enhanceApp({ app }: EnhanceAppContext) {
         app.use(TwoslashFloatingVue)
         // app.use(NolebaseGitChangelogPlugin)
