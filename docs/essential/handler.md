@@ -464,7 +464,7 @@ const app = new Elysia()
 Elysia 将自动停止生成器函数，当请求被取消时。
 
 ### Eden
-[Eden](/eden/overview) 将将流式响应解释为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
+[Eden](/eden/overview) 将把流响应解释为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费这个流。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
