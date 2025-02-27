@@ -16,7 +16,22 @@ const description =
 export default defineConfig({
 	lang: 'zh-CN',
 	title: 'Elysia 中文文档',
-    titleTemplate: ':title - Elysia 中文文档',
+	titleTemplate: ':title - Elysia 中文文档',
+
+	sitemap: {
+		hostname: 'https://elysia.zhcndoc.com'
+	},
+	locales: {
+		root: {
+			label: '简体中文',
+			lang: 'zh'
+		},
+		en: {
+			label: 'English',
+			lang: 'en',
+			link: 'https://elysiajs.com/'
+		}
+	},
 	// description,
 	ignoreDeadLinks: true,
 	lastUpdated: true,
@@ -127,6 +142,7 @@ export default defineConfig({
 		search: {
 			provider: 'local',
 			options: {
+				detailedView: true,
 				locales: {
 					root: {
 						translations: {
@@ -428,20 +444,6 @@ export default defineConfig({
 			text: '在 GitHub 上编辑此页面',
 			pattern:
 				'https://github.com/zhcndoc/elysia/tree/main/docs/:path'
-		},
-		sitemap: {
-			hostname: 'https://elysia.zhcndoc.com'
-		},
-		locales: {
-			root: {
-				label: '简体中文',
-				lang: 'zh'
-			},
-			en: {
-				label: 'English',
-				lang: 'en',
-				link: 'https://elysiajs.com/'
-			}
 		},
 		docFooter: {
 			prev: '上一页',

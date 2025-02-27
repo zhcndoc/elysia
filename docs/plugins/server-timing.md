@@ -7,23 +7,23 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 的性能审计插件，通过服务器计时 API 实现。首先通过 "bun add @elysiajs/server-timing" 安装插件。
+        content: Elysia 的插件，通过服务器计时 API 进行性能审计。首先通过 "bun add @elysiajs/server-timing" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的性能审计插件，通过服务器计时 API 实现。首先通过 "bun add @elysiajs/server-timing" 安装插件。
+        content: Elysia 的插件，通过服务器计时 API 进行性能审计。首先通过 "bun add @elysiajs/server-timing" 安装该插件。
 ---
 
 # 服务器计时插件
-此插件支持使用服务器计时 API 审计性能瓶颈
+该插件支持通过服务器计时 API 审计性能瓶颈
 
-安装命令：
+安装方法：
 ```bash
 bun add @elysiajs/server-timing
 ```
 
 然后使用它：
-```typescript
+```typescript twoslash
 import { Elysia } from 'elysia'
 import { serverTiming } from '@elysiajs/server-timing'
 
@@ -33,13 +33,13 @@ new Elysia()
     .listen(3000)
 ```
 
-服务器计时将为每个生命周期函数附加 'Server-Timing' 头，记录持续时间、函数名称和详细信息。
+然后，服务器计时将附加 'Server-Timing' 头，记录每个生命周期函数的持续时间、函数名称和细节。
 
-要检查，请打开浏览器开发者工具 > 网络 > [通过 Elysia 服务器发出的请求] > 计时。
+要检查，请打开浏览器开发者工具 > 网络 > [通过 Elysia 服务器发出的请求] > 时序。
 
 ![开发者工具显示的服务器计时截图](/assets/server-timing.webp)
 
-现在您可以轻松审计服务器的性能瓶颈。
+现在，您可以轻松审计服务器的性能瓶颈。
 
 ## 配置
 以下是插件接受的配置
@@ -52,7 +52,7 @@ new Elysia()
 ### allow
 @default `undefined`
 
-判断是否记录服务器计时的条件
+一个条件，决定是否记录服务器计时
 
 ### trace
 @default `undefined`
@@ -60,23 +60,23 @@ new Elysia()
 允许服务器计时记录指定的生命周期事件：
 
 Trace 接受以下对象：
-- request：记录请求的持续时间
-- parse：记录解析的持续时间
-- transform：记录转换的持续时间
-- beforeHandle：记录处理前的持续时间
-- handle：记录处理的持续时间
-- afterHandle：记录处理后的持续时间
-- total：记录从开始到结束的总持续时间
+- request: 捕获请求的持续时间
+- parse: 捕获解析的持续时间
+- transform: 捕获转化的持续时间
+- beforeHandle: 捕获处理前的持续时间
+- handle: 捕获处理的持续时间
+- afterHandle: 捕获处理后的持续时间
+- total: 捕获从开始到结束的总持续时间
 
 ## 模式
-以下是使用插件的常见模式。
+下面您可以找到使用插件的常见模式。
 
-- [允许条件](#允许条件)
+- [允许条件](#allow-condition)
 
 ## 允许条件
 您可以通过 `allow` 属性在特定路由上禁用服务器计时
 
-```ts
+```ts twoslash
 import { Elysia } from 'elysia'
 import { serverTiming } from '@elysiajs/server-timing'
 

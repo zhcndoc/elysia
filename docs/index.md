@@ -1,11 +1,12 @@
 ---
-title: Elysia - 人体工程学框架
+title: Elysia 中文文档
+titleTemplate: ':title - 符合人体工程学的 Web 框架'
 layout: page
 sidebar: false
 head:
     - - meta
       - property: 'og:title'
-        content: Elysia - 人体工程学框架
+        content: Elysia 中文文档 - 符合人体工程学的 Web 框架
 
     - - meta
       - name: 'description'
