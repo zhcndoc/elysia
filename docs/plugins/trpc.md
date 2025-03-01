@@ -30,7 +30,7 @@ bun add @elysiajs/trpc @trpc/server @elysiajs/websocket
 import { Elysia, t as T } from 'elysia'
 
 import { initTRPC } from '@trpc/server'
-import { compile as c, trpc } from 'elysiajs/trpc'
+import { compile as c, trpc } from '@elysiajs/trpc'
 
 const t = initTRPC.create()
 const p = t.procedure
