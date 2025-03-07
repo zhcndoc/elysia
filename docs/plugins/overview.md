@@ -72,7 +72,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Decorators](https://github.com/gaurishhs/elysia-decorators) - 使用 TypeScript 装饰器
 -   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由器，为 [Eden](https://elysiajs.com/eden/overview.html) 生成类型，并支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
 -   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许您处理 [MessagePack](https://msgpack.org)
-    [XML](https://github.com/kravetsone/elysia-xml) - 允许您处理 XML
+-   [XML](https://github.com/kravetsone/elysia-xml) - 允许您处理 XML
 -   [Autoroutes](https://github.com/wobsoriano/elysia-autoroutes) - 文件系统路由
 -   [Group Router](https://github.com/itsyoboieltr/elysia-group-router) - 基于文件系统和文件夹的分组路由器
 -   [Basic Auth](https://github.com/itsyoboieltr/elysia-basic-auth) - 基本 HTTP 身份验证
@@ -111,6 +111,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysia XSS](https://www.npmjs.com/package/elysia-xss) - Elysia.js 的插件，通过清洗请求体数据提供 XSS (跨站脚本) 保护。
 -   [Elysiajs Helmet](https://www.npmjs.com/package/elysiajs-helmet) - 一个全面的安全中间件，帮助通过设置各种 HTTP 头来保护 Elysia.js 应用。
 -   [Decorators for Elysia.js](https://github.com/Ateeb-Khan-97/better-elysia) - 通过这个小型库无缝开发和集成 API、Websocket 和流媒体 API。
+-   [Elysia Protobuf](https://github.com/ilyhalight/elysia-protobuf) - 支持 Elysia 的 protobuf。
 
 ## 相关项目：
 -   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 模式的生成器，适用于 elysia
