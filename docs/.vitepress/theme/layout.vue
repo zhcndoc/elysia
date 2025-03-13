@@ -54,6 +54,12 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
         <!-- <template #nav-bar-title-after>
             <Header />
         </template> -->
+        <template #aside-outline-after>
+            <div class="wwads-cn wwads-vertical" data-id="354"></div>
+        </template>
+        <template #doc-footer-before>
+            <div class="wwads-cn wwads-horizontal my-4 xl:!hidden" data-id="354"></div>
+        </template>
     </DefaultTheme.Layout>
 </template>
 
