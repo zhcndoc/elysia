@@ -461,3 +461,21 @@ button.copy::after {
 .vp-nolebase-git-changelog-history {
 	@apply max-w-2xl w-full mx-auto my-4;
 }
+
+.wwads-cn {
+  background-color: var(--vp-c-bg-soft) !important;
+}
+.wwads-text {
+  color: var(--vp-c-text-2) !important;
+}
+.wwads-horizontal .wwads-poweredby, .wwads-vertical .wwads-poweredby {
+  margin-top: 0 !important;
+}
+.wwads-horizontal {
+  margin: 16px 0px;
+}
+@media (min-width: 80rem) {
+  .wwads-horizontal {
+    display: none !important;
+  }
+}
