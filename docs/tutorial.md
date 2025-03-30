@@ -520,7 +520,9 @@ export const note = new Elysia()
     ) // [!code ++]
 ```
 
-现在我们让我们打开 **http://localhost:3000/swagger** 并尝试进行 CRUD 操作。
+:::
+
+现在让我们打开 **http://localhost:3000/swagger** 并尝试进行 CRUD 操作。
 
 ## 分组
 

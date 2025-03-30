@@ -5,6 +5,8 @@ import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs
 
 import tailwindcss from '@tailwindcss/vite'
 
+import llmstxt from 'vitepress-plugin-llms'
+
 // import {
 //     GitChangelog,
 //     GitChangelogMarkdownSection
@@ -57,7 +59,8 @@ export default defineConfig({
 			}
 		},
 		plugins: [
-			tailwindcss() as any
+			tailwindcss() as any,
+			llmstxt()
 			// GitChangelog({
 			//     // Fill in your repository URL here
 			//     repoURL: () => 'https://github.com/elysiajs/documentation'
@@ -239,12 +242,16 @@ export default defineConfig({
 				collapsed: true,
 				items: [
 					{
-						text: 'Macro',
-						link: '/patterns/macro'
-					},
-					{
 						text: '配置',
 						link: '/patterns/configuration'
+					},
+					{
+						text: '类型',
+						link: '/patterns/type'
+					},
+					{
+						text: '宏指令',
+						link: '/patterns/macro'
 					},
 					{
 						text: 'Cookie',
@@ -273,6 +280,14 @@ export default defineConfig({
 				collapsed: true,
 				items: [
 					{
+						text: 'Better Auth',
+						link: '/recipe/better-auth'
+					},
+					{
+						text: 'Drizzle',
+						link: '/recipe/drizzle'
+					},
+					{
 						text: 'OpenAPI',
 						link: '/recipe/openapi'
 					},
@@ -281,16 +296,8 @@ export default defineConfig({
 						link: '/recipe/opentelemetry'
 					},
 					{
-						text: 'Drizzle',
-						link: '/recipe/drizzle'
-					},
-					{
 						text: 'React Email',
 						link: '/recipe/react-email'
-					},
-					{
-						text: 'Better Auth',
-						link: '/recipe/better-auth'
 					}
 				]
 			},

@@ -60,10 +60,10 @@ bun add drizzle-orm drizzle-typebox
 grep "@sinclair/typebox" node_modules/elysia/package.json
 ```
 
-我们可以在 `package.json` 中使用 `override` 字段来固定 `@sinclair/typebox` 的版本：
+我们可以在 `package.json` 中使用 `overrides` 字段来固定 `@sinclair/typebox` 的版本：
 ```json
 {
-  "override": {
+  "overrides": {
   	"@sinclair/typebox": "0.32.4"
   }
 }

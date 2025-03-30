@@ -16,176 +16,238 @@ head:
 
 # 配置
 
-我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
+Elysia 提供了可配置的行为，允许我们自定义其功能的各个方面。
 
-```ts
-import { Elysia } from 'elysia'
+我们可以通过使用构造函数定义配置。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
 
 new Elysia({
-	prefix: '/group'
+	prefix: '/v1',
+	normalize: true
 })
 ```
 
-以上是将 Elysia 配置为使用 `/group` 作为路径前缀的示例。
+## 适配器
 
-## 最大请求体大小
-我们可以通过在 `serve` 配置中设置 [`serve.maxRequestBodySize`](#maxrequestbodysize) 来设置最大请求体大小。
+###### 自 1.1.11 起
+
+用于在不同环境中使用 Elysia 的运行时适配器。
+
+默认适配器会根据环境选择。
 
 ```ts
+import { Elysia, t } from 'elysia'
+import { BunAdapter } from 'elysia/adapter/bun'
+
+new Elysia({
+	adapter: BunAdapter
+})
+```
+
+## AOT
+
+###### 自 0.4.0 起
+
+提前编译（Ahead of Time compilation）。
+
+Elysia 内置了一个 JIT _"编译器"_，可以[优化性能](/blog/elysia-04.html#ahead-of-time-complie)。
+
+```ts twoslash
 import { Elysia } from 'elysia'
 
 new Elysia({
-	serve: {
-		maxRequestBodySize: 1024 * 1024 * 256 // 256MB
+	aot: true
+})
+```
+
+## 详细信息
+
+为实例的所有路由定义 OpenAPI 方案。
+
+此方案将用于生成实例所有路由的 OpenAPI 文档。
+
+```ts twoslash
+import { Elysia } from 'elysia'
+
+new Elysia({
+	detail: {
+		hide: true,
+		tags: ['elysia']
 	}
 })
 ```
 
-默认情况下，最大请求体大小为 128MB (1024 * 1024 * 128)。
+禁用提前编译
 
-## TLS
-我们可以通过传入 key 和 cert 的值来启用 TLS（被称为 SSL 的继任者）；这两个值都是启用 TLS 所必需的。
+#### 选项 - @default `false`
 
-```ts
-import { Elysia, file } from 'elysia'
+- `true` - 在启动服务器之前预编译每个路由
 
-new Elysia({
-	serve: {
-		tls: {
-			cert: file('cert.pem'),
-			key: file('key.pem')
-		}
-	}
-})
-```
+- `false` - 完全禁用 JIT。启动时间更快，但不会影响性能
 
-Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
+## 名称
 
-参见 [TLS 选项](#tls-options) 以获取可用配置。
+定义实例的名称，用于调试和[插件去重](/essential/plugin.html#plugin-deduplication)
 
-## 配置项
-以下是 Elysia 接受的配置项：
-
-### prefix
-@默认 `""`
-
-实例的路径前缀
-
-### name
-用于调试和插件去重目的的实例名称
-
-### seed
-用于生成 [插件去重](/essential/plugin.html#plugin-deduplication) 的校验和的种子
-
-### detail
-用于文档生成的 OpenAPI 文档
-
-该配置扩展了 [Swagger 规范](https://swagger.io/specification)。
-
-@见 [Swagger 规范](https://swagger.io/specification)
-
-### tags
-用于文档生成的 OpenAPI 标签
-
-为所有实例路由装饰标签
-
-该配置扩展了 [标签对象](https://swagger.io/specification/#tag-object)
-
-@见 [标签对象](https://swagger.io/specification/#tag-object)
-
-### precompile
-@默认 `false`
-
-在启动服务器之前预热 Elysia
-
-这将执行提前编译并生成路由处理程序的代码
-
-如果设置为 false，Elysia 将执行即时编译
-
-仅根实例（使用 listen 的实例）需要生效
-
-### aot
-@默认 `false`
-
-提前编译
-
-降低性能但加快启动时间
-
-## strictPath
-@默认 `false`
-
-Elysia 是否应该容忍后缀 `/` 或反之亦然
-
-#### 示例
-如果将 `strictPath` 设置为 `true`，Elysia 将匹配 `/id` 而不匹配 `/id/`
-
-```ts
+```ts twoslash
 import { Elysia } from 'elysia'
 
 new Elysia({
-	strictPath: true
+	name: 'service.thing'
 })
-	.get('/id', 'work')
 ```
-
-通常，`/id` 和 `/id/` 都会匹配路由处理程序（默认值为 `false`）
-
-## cookie
-设置默认的 cookie 选项
-
-## normalize
-@默认 `true`
-
-如果启用，处理程序将在传入和传出请求体上运行 [clean](https://github.com/sinclairzx81/typebox?tab=readme-ov-file#clean)，而不是直接失败。
-
-这允许在请求体中发送未知或不允许的属性。这些属性将被过滤掉，而不会导致请求失败。
-
-当模式允许附加属性时，这不会产生影响。
-
-由于这是使用动态模式，因此可能会对性能产生影响。
 
 ## nativeStaticResponse
-@默认 `true`
-@自 1.1.11 起
+###### 自 1.1.11 起
 
-启用 Bun 静态响应。
+为每个相应的运行时使用优化的函数处理内联值。
 
-Elysia 是否应该使用 Bun 的静态响应。
+```ts twoslash
+import { Elysia } from 'elysia'
 
-这可以提高静态内容的性能，并显著减少内存使用。
+new Elysia({
+	nativeStaticResponse: true
+})
+```
 
 #### 示例
-Elysia 将为静态内容使用 Bun 的静态响应
+
+如果在 Bun 上启用，Elysia 将内联值插入到 `Bun.serve.static` 中，从而提高静态值的性能。
+
 ```ts
 import { Elysia } from 'elysia'
 
-new Elysia()
-	.get('/static', 'work')
-```
+// 这是
+new Elysia({
+	nativeStaticResponse: true
+}).get('/version', 1)
 
-以上等价于：
-```ts
+// 相当于
 Bun.serve({
 	static: {
-		'static': 'work',
-		'/static': '/work'
+		'/version': new Response(1)
 	}
 })
 ```
 
-::: tip
-此配置仅在使用 Bun > 1.1.27 作为服务器时生效
-:::
+## 规范化
 
-## websocket
-重写 websocket 配置
+###### 自 1.1.0 起
 
-建议保留此配置为默认，因为 Elysia 会自动生成适合处理 WebSocket 的配置
+Elysia 是否应该将字段强制转换为指定的模式。
 
-该配置扩展了 [Bun WebSocket API](https://bun.sh/docs/api/websockets)
+```ts twoslash
+import { Elysia, t } from 'elysia'
 
-## serve
-Bun 服务器配置。
+new Elysia({
+	normalize: true
+})
+```
+
+当在输入和输出中发现不在模式中规定的未知属性时，Elysia 应该如何处理字段？
+
+选项 - @default `true`
+
+- `true`: Elysia 将字段强制转换为指定的模式。
+
+- `false`: 如果请求或响应包含不在各自处理程序的模式中明确允许的字段，Elysia 将引发错误。
+
+## 预编译
+
+###### 自 1.0.0 起
+
+Elysia 是否应该在启动服务器之前[预编译所有路由](/blog/elysia-10.html#improved-startup-time)。
+
+```ts twoslash
+import { Elysia } from 'elysia'
+
+new Elysia({
+	precompile: true
+})
+```
+
+选项 - @default `false`
+
+- `true`: 在启动服务器之前对所有路由进行 JIT 编译
+
+- `false`: 动态按需编译路由
+
+推荐将其保持为 `false`。
+
+## 前缀
+
+定义实例所有路由的前缀
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia({
+	prefix: '/v1'
+})
+```
+
+当定义前缀时，所有路由将以给定值为前缀。
+
+#### 示例
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // 路径为 /v1/name
+```
+
+## 种子
+
+定义一个值，用于生成实例的校验和，用于[插件去重](/essential/plugin.html#plugin-deduplication)
+
+```ts twoslash
+import { Elysia } from 'elysia'
+
+new Elysia({
+	seed: {
+		value: 'service.thing'
+	}
+})
+```
+
+该值可以是任何类型，不限于字符串、数字或对象。
+
+## 严格路径
+
+Elysia 是否应该严格处理路径。
+
+根据[RFC 3986](https://tools.ietf.org/html/rfc3986#section-3.3)，路径应与路由中定义的路径完全相等。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia({ strictPath: true })
+```
+
+#### 选项 - @default `false`
+
+- `true` - 严格遵循[RFC 3986](https://tools.ietf.org/html/rfc3986#section-3.3) 进行路径匹配
+- `false` - 容忍后缀 '/' 或反之亦然。
+
+#### 示例
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+// 路径可以是 /name 或 /name/
+new Elysia({ strictPath: false }).get('/name', 'elysia')
+
+// 路径只能是 /name
+new Elysia({ strictPath: true }).get('/name', 'elysia')
+```
+
+## 服务
+
+自定义 HTTP 服务器行为。
+
+Bun 服务配置。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -201,76 +263,131 @@ new Elysia({
 })
 ```
 
-该配置扩展了 [Bun Serve API](https://bun.sh/docs/api/http) 和 [Bun TLS](https://bun.sh/docs/api/http#tls)
+该配置扩展了[Bun Serve API](https://bun.sh/docs/api/http)和[Bun TLS](https://bun.sh/docs/api/http#tls)
 
-以下内容来自 Bun JSDoc 和 Bun 文档：
-
-### port
-@默认 `3000`
-
-监听的端口
-
-### unix
-如果设置，将使 HTTP 服务器监听在 unix 套接字而不是端口。
-
-（不能与 hostname + port 一起使用）
-
-### hostname
-@默认 `0.0.0.0`
-
-服务器应监听的主机名
-
-### maxRequestBodySize
-@默认 `1024 * 1024 * 128` (128MB)
-
-请求体的最大大小？（以字节为单位）
-
-### reusePort
-@默认 `true`
-
-是否应设置 `SO_REUSEPORT` 标志
-
-这允许多个进程绑定到同一端口，这对负载均衡很有用
-
-该配置被覆盖，并默认由 Elysia 打开
-
-### id
-使用 ID 唯一标识服务器实例
-
-此字符串将用于热重载服务器，而不会中断挂起的请求或 WebSocket。如果未提供，将生成一个值。要禁用热重载，请将此值设置为 `null`。
-
-### rejectUnauthorized
-@默认 `NODE_TLS_REJECT_UNAUTHORIZED` 环境变量
-
-如果设置为 `false`，任何证书都将被接受。
-
-## TLS 选项
-该配置扩展了 [Bun TLS API](https://bun.sh/docs/api/http#tls)
+### 示例: 最大主体大小
+我们可以通过在 `serve` 配置中设置[`serve.maxRequestBodySize`](#serve-maxrequestbodysize)来设置最大主体大小。
 
 ```ts
 import { Elysia } from 'elysia'
 
 new Elysia({
-	tls: {
-		cert: Bun.file('cert.pem'),
-		key: Bun.file('key.pem')
+	serve: {
+		maxRequestBodySize: 1024 * 1024 * 256 // 256MB
 	}
 })
 ```
 
-### cert
-PEM 格式的证书链。每个私钥应提供一个证书链。
+默认情况下，最大请求体大小为 128MB (1024 * 1024 * 128)。
+定义主体大小限制。
 
-每个证书链应由为提供的私钥格式化的 PEM 证书组成，后面跟着 PEM 格式的中间证书（如果有），
-以顺序排列，且不包括根 CA（根 CA 必须预先为对等方所知，参见 ca）。
+```ts
+import { Elysia } from 'elysia'
 
-提供多个证书链时，它们不必与其在 key 中的私钥的顺序相同。
+new Elysia({
+	serve: {
+		// 最大消息大小（以字节为单位）
+	    maxPayloadLength: 64 * 1024,
+	}
+})
+```
 
-如果未提供中间证书，
-对等方将无法验证证书，握手将失败。
+### 示例: HTTPS / TLS
+通过传入密钥和证书的值，我们可以启用 TLS（SSL 的继任者）；两者均为启用 TLS 所必需。
 
-### key
-PEM 格式的私钥。PEM 允许对私钥进行加密。加密密钥将使用 options.passphrase 解密。
+```ts
+import { Elysia, file } from 'elysia'
+
+new Elysia({
+	serve: {
+		tls: {
+			cert: file('cert.pem'),
+			key: file('key.pem')
+		}
+	}
+})
+```
+
+Elysia 扩展了支持 TLS 的 Bun 配置，使用 BoringSSL 作为支持。
+
+查看[serve.tls](#serve-tls)以获取可用配置。
+
+### serve.hostname
+@default `0.0.0.0`
+
+服务器应监听的主机名。
+
+### serve.id
+使用 ID 唯一标识服务器实例。
+
+此字符串将用于热重载服务器，而不会中断待处理的请求或网页套接字。如果未提供，将生成一个值。要禁用热重载，请将此值设置为 `null`。
+
+### serve.maxRequestBodySize
+@default `1024 * 1024 * 128` (128MB)
+
+请求体的最大大小？（以字节为单位）
+
+### serve.port
+@default `3000`
+
+监听的端口。
+
+### serve.rejectUnauthorized
+@default `NODE_TLS_REJECT_UNAUTHORIZED` 环境变量
+
+如果设置为 `false`，将接受任何证书。
+
+### serve.reusePort
+@default `true`
+
+是否应设置 `SO_REUSEPORT` 标志。
+
+这允许多个进程绑定到同一端口，对负载均衡很有用。
+
+该配置被覆盖，并默认由 Elysia 打开。
+
+### serve.unix
+如果设置，HTTP 服务器将在 Unix 套接字上监听，而不是在端口上。
+
+（不能与主机名+端口一起使用）
+
+### serve.tls
+我们可以通过传入密钥和证书的值启用 TLS（SSL 的继任者）；这两者都是启用 TLS 所必需的。
+
+```ts
+import { Elysia, file } from 'elysia'
+
+new Elysia({
+	serve: {
+		tls: {
+			cert: file('cert.pem'),
+			key: file('key.pem')
+		}
+	}
+})
+```
+
+Elysia 扩展了支持 TLS 的 Bun 配置，使用 BoringSSL 作为支持。
+
+### serve.tls.ca
+可选覆盖受信任的 CA 证书。默认是信任 Mozilla 精心挑选的知名 CA。
+
+当使用此选项明确指定 CA 时，Mozilla 的 CA 会完全被替换。
+
+### serve.tls.cert
+PEM 格式的证书链。每个私钥应提供一条证书链。
+
+每条证书链应包含为提供的私钥格式化的 PEM 证书，以及 PEM 格式的中间证书（如果有），按顺序排列，不包括根 CA（根 CA 必须提前为对等方所知，参见 ca）。
+
+提供多个证书链时，顺序不必与其在密钥中的私钥顺序相同。
+
+如果未提供中间证书，对等方将无法验证证书，握手将失败。
+
+### serve.tls.dhParamsFile
+自定义 Diffie Helman 参数的 .pem 文件路径。
+
+### serve.tls.key
+PEM 格式的私钥。PEM 允许加密私钥的选项。加密密钥将使用 options.passphrase 解密。
 
 可以提供使用不同算法的多个密钥，可以是未加密的密钥字符串或缓冲区的数组，或者以对象形式的数组。
 
@@ -280,35 +397,84 @@ PEM 格式的私钥。PEM 允许对私钥进行加密。加密密钥将使用 op
 
 **object.passphrase** 如果提供，或 **options.passphrase** 如果未提供。
 
-### ca
-可选覆盖受信任的 CA 证书。默认情况下信任 Mozilla 精心挑选的知名 CA。
+### serve.tls.lowMemoryMode
+@default `false`
 
-当明确指定 CA 时，Mozilla 的 CA 会被完全替换。
+将 `OPENSSL_RELEASE_BUFFERS` 设置为 1。
 
-### passphrase
-单个私钥和/或 PFX 的共享密码。
+这会降低整体性能，但节省一些内存。
 
-### dhParamsFile
-自定义 Diffie Hellman 参数的 .pem 文件路径
+### serve.tls.passphrase
+用于单个私钥和/或 PFX 的共享密码短语。
 
-### requestCert
-@默认 `false`
+### serve.tls.requestCert
+@default `false`
 
 如果设置为 `true`，服务器将请求客户端证书。
 
-### secureOptions
-可选影响 OpenSSL 协议行为，通常不是必需的。
+### serve.tls.secureOptions
+可选影响 OpenSSL 协议行为，这通常不是必需的。
 
 应谨慎使用！
 
-值是 OpenSSL 可选选项的 SSL_OP_* 的数字位掩码
+值是 OpenSSL 可选选项的 SSL_OP_* 的数字位掩码。
 
-### serverName
-显式设置服务器名称
+### serve.tls.serverName
+显式设置服务器名称。
 
-### lowMemoryMode
-@默认 `false`
+## 标签
 
-这将 `OPENSSL_RELEASE_BUFFERS` 设置为 1。
+为实例的所有路由定义 OpenAPI 方案的标签，类似于[详细信息](#detail)。
 
-它会降低整体性能但节省部分内存。
+```ts twoslash
+import { Elysia } from 'elysia'
+
+new Elysia({
+	tags: ['elysia']
+})
+```
+
+## WebSocket
+
+覆盖 WebSocket 配置。
+
+建议将其保持为默认设置，因为 Elysia 将自动生成适合处理 WebSocket 的配置。
+
+该配置扩展了[Bun 的 WebSocket API](https://bun.sh/docs/api/websockets)。
+
+#### 示例
+```ts
+import { Elysia } from 'elysia'
+
+new Elysia({
+	websocket: {
+		// 启用压缩和解压缩
+    	perMessageDeflate: true
+	}
+})
+```
+
+---
+
+<br />
+
+# 试验性
+
+试用可能在未来版本的 Elysia 中可用的实验性功能。
+
+## experimental.encodeSchema
+
+处理自定义 `t.Transform` 方案，并在将响应返回给客户端之前自定义 `Encode`。
+
+这允许我们在发送响应给客户端之前为数据创建自定义编码函数。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia({ experimental: { encodeSchema: true } })
+```
+
+#### 选项 - @default `false`
+
+- `true` - 在将响应发送到客户端之前运行 `Encode`
+- `false` - 完全跳过 `Encode`
