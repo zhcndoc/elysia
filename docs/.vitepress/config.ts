@@ -7,10 +7,13 @@ import tailwindcss from '@tailwindcss/vite'
 
 import llmstxt from 'vitepress-plugin-llms'
 
-// import {
-//     GitChangelog,
-//     GitChangelogMarkdownSection
-// } from '@nolebase/vitepress-plugin-git-changelog/vite'
+// import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
+import {
+	GitChangelog,
+	GitChangelogMarkdownSection
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
+// import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
 
 const description =
 	'适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
@@ -48,8 +51,21 @@ export default defineConfig({
 					dir: './docs/.vitepress/cache/twoslash'
 				})
 			})
-		]
+		],
+		config: (md) => {
+			md.use(InlineLinkPreviewElementTransform)
+			// md.use(UnlazyImages(), {
+			// 	imgElementTag: 'NolebaseUnlazyImg'
+			// })
+		}
 	},
+	// vue: {
+	// 	template: {
+	// 		transformAssetUrls: {
+	// 			NolebaseUnlazyImg: ['src']
+	// 		}
+	// 	}
+	// },
 
 	// ![INFO] uncomment for support hot reload on WSL - https://github.com/vitejs/vite/issues/1153#issuecomment-785467271
 	vite: {
@@ -60,15 +76,53 @@ export default defineConfig({
 		},
 		plugins: [
 			tailwindcss() as any,
-			llmstxt()
-			// GitChangelog({
-			//     // Fill in your repository URL here
-			//     repoURL: () => 'https://github.com/elysiajs/documentation'
-			// }),
-			// GitChangelogMarkdownSection()
-		]
+			process.env.NODE_ENV === 'production' ? llmstxt() : [],
+			GitChangelog({
+				repoURL: () => 'https://github.com/elysiajs/documentation',
+				mapAuthors: [
+					{
+						mapByEmailAliases: ['saltyaom@gmail.com'],
+						avatar: '/blog/authors/aris.webp',
+						links: [
+							{
+								type: 'GitHub',
+								link: 'https://github.com/SaltyAom'
+							}
+						]
+					},
+					{
+						mapByNameAliases: ['bogeychan'],
+						links: [
+							{
+								type: 'GitHub',
+								link: 'http://github.com/bogeychan'
+							}
+						]
+					},
+					{
+						mapByNameAliases: ['Fecony'],
+						links: [
+							{
+								type: 'GitHub',
+								link: 'https://github.com/fecony'
+							}
+						]
+					}
+				]
+			}),
+			GitChangelogMarkdownSection(),
+			// ThumbnailHashImages()
+		],
+		optimizeDeps: {
+			exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client']
+		},
+		ssr: {
+			noExternal: [
+				'@nolebase/vitepress-plugin-inline-link-preview',
+				'@unlazy/vue'
+			]
+		}
 	},
-
 	head: [
 		[
 			'meta',
@@ -276,32 +330,6 @@ export default defineConfig({
 				]
 			},
 			{
-				text: '解决方案',
-				collapsed: true,
-				items: [
-					{
-						text: 'Better Auth',
-						link: '/recipe/better-auth'
-					},
-					{
-						text: 'Drizzle',
-						link: '/recipe/drizzle'
-					},
-					{
-						text: 'OpenAPI',
-						link: '/recipe/openapi'
-					},
-					{
-						text: 'Opentelemetry',
-						link: '/recipe/opentelemetry'
-					},
-					{
-						text: 'React Email',
-						link: '/recipe/react-email'
-					}
-				]
-			},
-			{
 				text: 'Eden',
 				collapsed: true,
 				items: [
@@ -420,21 +448,41 @@ export default defineConfig({
 				collapsed: true,
 				items: [
 					{
-						text: 'Nextjs',
-						link: '/integrations/nextjs'
+						text: 'Astro',
+						link: '/integrations/astro'
+					},
+					{
+						text: 'Better Auth',
+						link: '/integrations/better-auth'
+					},
+					{
+						text: 'Drizzle',
+						link: '/integrations/drizzle'
 					},
 					{
 						text: 'Expo',
 						link: '/integrations/expo'
 					},
 					{
-						text: 'Astro',
-						link: '/integrations/astro'
+						text: 'Nextjs',
+						link: '/integrations/nextjs'
+					},
+					{
+						text: 'OpenAPI',
+						link: '/integrations/openapi'
+					},
+					{
+						text: 'Opentelemetry',
+						link: '/integrations/opentelemetry'
+					},
+					{
+						text: 'React Email',
+						link: '/integrations/react-email'
 					},
 					{
 						text: 'SvelteKit',
 						link: '/integrations/sveltekit'
-					}
+					},
 				]
 			}
 		],
