@@ -454,9 +454,9 @@ Elysia HTTP 方法接受以下参数：
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-    .get('/get', '你好')
-    .post('/post', '嗨')
-    .route('M-SEARCH', '/m-search', '连接') // [!代码 ++]
+    .get('/get', 'hello')
+    .post('/post', 'hi')
+    .route('M-SEARCH', '/m-search', 'connect') // [!code ++]
     .listen(3000)
 ```
 
@@ -471,10 +471,10 @@ const app = new Elysia()
 
 导航到每个方法时，你应该看到以下结果：
 | 路径 | 方法 | 结果 |
-| - | --- | --- |
-| / | GET | 你好 |
-| / | POST | 嗨 |
-| / | M-SEARCH | 连接 |
+| --------- | -------- | ------- |
+| /get      | GET      | hello   |
+| /post     | POST     | hi      |
+| /m-search | M-SEARCH | connect |
 
 ::: tip
 基于 [RFC 7231](https://www.rfc-editor.org/rfc/rfc7231#section-4.1)，HTTP 动词是区分大小写的。
