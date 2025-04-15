@@ -1,17 +1,17 @@
 ---
 title: OpenTelemetry 插件 - ElysiaJS
 head:
-  - - meta
-    - property: 'og:title'
-      content: OpenTelemetry 插件 - ElysiaJS
+    - - meta
+      - property: 'og:title'
+        content: OpenTelemetry 插件 - ElysiaJS
 
-  - - meta
-    - name: 'description'
-      content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+    - - meta
+      - name: 'description'
+        content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
 
-  - - meta
-    - name: 'og:description'
-      content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+    - - meta
+      - name: 'og:description'
+        content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
 ---
 
 # OpenTelemetry
@@ -25,16 +25,11 @@ import { opentelemetry } from '@elysiajs/opentelemetry'
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
 
-new Elysia()
-	.use(
-		opentelemetry({
-			spanProcessors: [
-				new BatchSpanProcessor(
-					new OTLPTraceExporter()
-				)
-			]
-		})
-	)
+new Elysia().use(
+	opentelemetry({
+		spanProcessors: [new BatchSpanProcessor(new OTLPTraceExporter())]
+	})
+)
 ```
 
 ![jaeger 显示收集到的跟踪信息](/blog/elysia-11/jaeger.webp)
@@ -44,6 +39,7 @@ Elysia OpenTelemetry 将 **收集与 OpenTelemetry 标准兼容的任何库的 s
 在上面的代码中，我们应用 `Prisma` 来跟踪每个查询所花费的时间。
 
 通过应用 OpenTelemetry，Elysia 将：
+
 - 收集遥测数据
 - 将相关生命周期分组
 - 测量每个函数所花费的时间
@@ -55,6 +51,7 @@ Elysia OpenTelemetry 将 **收集与 OpenTelemetry 标准兼容的任何库的 s
 ![axiom 显示收集到的 OpenTelemetry 跟踪信息](/blog/elysia-11/axiom.webp)
 
 以下是将遥测数据导出到 [Axiom](https://axiom.co) 的示例
+
 ```typescript
 import { Elysia } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry'
@@ -62,25 +59,65 @@ import { opentelemetry } from '@elysiajs/opentelemetry'
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
 
-new Elysia()
-	.use(
-		opentelemetry({
-			spanProcessors: [
-				new BatchSpanProcessor(
-					new OTLPTraceExporter({
-						url: 'https://api.axiom.co/v1/traces', // [!code ++]
-						headers: { // [!code ++]
-						    Authorization: `Bearer ${Bun.env.AXIOM_TOKEN}`, // [!code ++]
-						    'X-Axiom-Dataset': Bun.env.AXIOM_DATASET // [!code ++]
-						} // [!code ++]
-					})
-				)
-			]
-		})
-	)
+new Elysia().use(
+	opentelemetry({
+		spanProcessors: [
+			new BatchSpanProcessor(
+				new OTLPTraceExporter({
+					url: 'https://api.axiom.co/v1/traces', // [!code ++]
+					headers: {
+						// [!code ++]
+						Authorization: `Bearer ${Bun.env.AXIOM_TOKEN}`, // [!code ++]
+						'X-Axiom-Dataset': Bun.env.AXIOM_DATASET // [!code ++]
+					} // [!code ++]
+				})
+			)
+		]
+	})
+)
 ```
 
+## Instrumentations
+
+Many instrumentation libraries required that the SDK **MUST** run before importing the module.
+
+For example, to use `PgInstrumentation`, the `OpenTelemetry SDK` must run before importing the `pg` module.
+
+To achieve this in Bun, we can
+
+1. Separate an OpenTelemetry setup into a different file
+2. create `bunfig.toml` to preload the OpenTelemetry setup file
+
+Let's create a new file in `src/instrumentation.ts`
+
+```ts [src/instrumentation.ts]
+import { opentelemetry } from '@elysiajs/opentelemetry'
+import { PgInstrumentation } from '@opentelemetry/instrumentation-pg'
+
+export const instrumentation = opentelemetry({
+	instrumentations: [new PgInstrumentation()]
+})
+```
+
+Then we can apply this `instrumentaiton` plugin into our main instance in `src/index.ts`
+
+```ts [src/index.ts]
+import { Elysia } from 'elysia'
+import { instrumentation } from './instrumentation.ts'
+
+new Elysia().use(instrumentation).listen(3000)
+```
+
+Then create a `bunfig.toml` with the following:
+
+```toml [bunfig.toml]
+preload = ["./src/instrumentation.ts"]
+```
+
+This will tell Bun to load and setup `instrumentation` before running the `src/index.ts` allowing OpenTelemetry to do its setup as needed.
+
 ## OpenTelemetry SDK
+
 Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用到 Elysia 服务器。
 
 您可以正常使用 OpenTelemetry SDK，并且 span 在 Elysia 的请求 span 下运行，它将自动出现在 Elysia 的跟踪中。
@@ -91,20 +128,21 @@ Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用到 Elysia 服务器。
 import { Elysia } from 'elysia'
 import { record } from '@elysiajs/opentelemetry'
 
-export const plugin = new Elysia()
-	.get('', () => {
-		return record('database.query', () => {
-			return db.query('SELECT * FROM users')
-		})
+export const plugin = new Elysia().get('', () => {
+	return record('database.query', () => {
+		return db.query('SELECT * FROM users')
 	})
+})
 ```
 
 ## Record 实用工具
+
 `record` 相当于 OpenTelemetry 的 `startActiveSpan`，但它将自动处理关闭并捕获异常。
 
 您可以将 `record` 看作是您的代码的标签，这将在跟踪中显示。
 
 ### 为可观察性准备您的代码库
+
 Elysia OpenTelemetry 将分组生命周期并读取每个钩子的 **函数名称** 作为 span 的名称。
 
 现在是 **命名您的函数** 的好时机。
@@ -130,6 +168,7 @@ const good = new Elysia()
 ```
 
 ## getCurrentSpan
+
 `getCurrentSpan` 是一个实用工具，用于在处理程序外部获取当前请求的当前 span。
 
 ```typescript
@@ -146,6 +185,7 @@ function utility() {
 这在处理程序外部通过从 `AsyncLocalStorage` 获取当前 span 而工作。
 
 ## setAttribute
+
 `setAttribute` 是一个用于将属性设置为当前 span 的实用工具。
 
 ```typescript
@@ -159,4 +199,5 @@ function utility() {
 这是 `getCurrentSpan().setAttributes` 的语法糖。
 
 ## 配置
+
 请查看 [opentelemetry 插件](/plugins/opentelemetry) 以获取配置选项和定义。
