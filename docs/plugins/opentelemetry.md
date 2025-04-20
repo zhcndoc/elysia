@@ -42,7 +42,7 @@ new Elysia()
 Elysia OpenTelemetry 将 **收集任何与 OpenTelemetry 标准兼容的库的跨度**，并将自动应用父子跨度。
 
 ## 使用
-请参见 [opentelemetry](/recipe/opentelemetry) 以获取用法和实用工具
+请参见 [opentelemetry](/integrations/opentelemetry) 以获取用法和实用工具
 
 ## 配置
 此插件扩展 OpenTelemetry SDK 参数选项。
