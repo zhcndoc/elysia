@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme-without-fonts'
 import { nextTick, provide } from 'vue'
 
 import useDark from '../../components/midori/use-dark'
@@ -44,7 +44,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 <template>
     <link rel="preload" as="image" href="/assets/elysia_v.webp" fetchpriority="high">
     <link rel="preload" as="image" href="/assets/elysia.svg" fetchpriority="high">
-    <link rel="preload" as="image" href="/assets/shigure-ui.webp" fetchpriority="low">
+    <link rel="preload" as="image" href="/assets/shigure-ui-smol.gif" fetchpriority="low">
     <DefaultTheme.Layout>
         <template #doc-top>
             <Ray
@@ -97,7 +97,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 }
 
 ::view-transition-new(root) {
-    mask: url('/assets/shigure-ui.webp')
+    mask: url('/assets/shigure-ui-smol.gif')
         center / 0 no-repeat;
     animation: var(--switch-name) var(--switch-duration);
 }
@@ -112,13 +112,13 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
         mask-size: 0;
     }
     10% {
-        mask-size: 50vmax;
+        mask-size: 25vmax;
     }
     90% {
-        mask-size: 50vmax;
+        mask-size: 25vmax;
     }
     100% {
-        mask-size: 2000vmax;
+        mask-size: 1000vmax;
     }
 }
 
@@ -127,13 +127,13 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
         mask-size: 0;
     }
     10% {
-        mask-size: 50vmax;
+        mask-size: 25vmax;
     }
     80% {
-        mask-size: 50vmax;
+        mask-size: 25vmax;
     }
     100% {
-        mask-size: 2000vmax;
+        mask-size: 1000vmax;
     }
 }
 

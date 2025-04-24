@@ -6,14 +6,13 @@ import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs
 import tailwindcss from '@tailwindcss/vite'
 
 import llmstxt from 'vitepress-plugin-llms'
+import { analyzer } from 'vite-bundle-analyzer'
 
-// import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
-import {
-	GitChangelog,
-	GitChangelogMarkdownSection
-} from '@nolebase/vitepress-plugin-git-changelog/vite'
+// import {
+// 	GitChangelog,
+// 	GitChangelogMarkdownSection
+// } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
-// import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
 
 const description =
 	'适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
@@ -46,6 +45,7 @@ export default defineConfig({
 			dark: 'github-dark'
 		},
 		codeTransformers: [
+			// @ts-ignore
 			transformerTwoslash({
 				typesCache: createFileSystemTypesCache({
 					dir: './docs/.vitepress/cache/twoslash'
@@ -77,41 +77,41 @@ export default defineConfig({
 		plugins: [
 			tailwindcss() as any,
 			process.env.NODE_ENV === 'production' ? llmstxt() : [],
-			GitChangelog({
-				repoURL: () => 'https://github.com/elysiajs/documentation',
-				mapAuthors: [
-					{
-						mapByEmailAliases: ['saltyaom@gmail.com'],
-						avatar: '/blog/authors/aris.webp',
-						links: [
-							{
-								type: 'GitHub',
-								link: 'https://github.com/SaltyAom'
-							}
-						]
-					},
-					{
-						mapByNameAliases: ['bogeychan'],
-						links: [
-							{
-								type: 'GitHub',
-								link: 'http://github.com/bogeychan'
-							}
-						]
-					},
-					{
-						mapByNameAliases: ['Fecony'],
-						links: [
-							{
-								type: 'GitHub',
-								link: 'https://github.com/fecony'
-							}
-						]
-					}
-				]
-			}),
-			GitChangelogMarkdownSection(),
-			// ThumbnailHashImages()
+			process.env.ANALYZE === 'true' ? analyzer() : [],
+			// GitChangelog({
+			// 	repoURL: () => 'https://github.com/elysiajs/documentation',
+			// 	mapAuthors: [
+			// 		{
+			// 			mapByEmailAliases: ['saltyaom@gmail.com'],
+			// 			avatar: '/blog/authors/aris.webp',
+			// 			links: [
+			// 				{
+			// 					type: 'GitHub',
+			// 					link: 'https://github.com/SaltyAom'
+			// 				}
+			// 			]
+			// 		},
+			// 		{
+			// 			mapByNameAliases: ['bogeychan'],
+			// 			links: [
+			// 				{
+			// 					type: 'GitHub',
+			// 					link: 'http://github.com/bogeychan'
+			// 				}
+			// 			]
+			// 		},
+			// 		{
+			// 			mapByNameAliases: ['Fecony'],
+			// 			links: [
+			// 				{
+			// 					type: 'GitHub',
+			// 					link: 'https://github.com/fecony'
+			// 				}
+			// 			]
+			// 		}
+			// 	]
+			// }),
+			// GitChangelogMarkdownSection()
 		],
 		optimizeDeps: {
 			exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client']
@@ -119,7 +119,8 @@ export default defineConfig({
 		ssr: {
 			noExternal: [
 				'@nolebase/vitepress-plugin-inline-link-preview',
-				'@unlazy/vue'
+				'@unlazy/vue',
+				'@nolebase/ui'
 			]
 		}
 	},
@@ -482,7 +483,7 @@ export default defineConfig({
 					{
 						text: 'SvelteKit',
 						link: '/integrations/sveltekit'
-					},
+					}
 				]
 			}
 		],

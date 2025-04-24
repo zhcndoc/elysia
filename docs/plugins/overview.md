@@ -112,6 +112,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysiajs Helmet](https://www.npmjs.com/package/elysiajs-helmet) - 一个全面的安全中间件，帮助通过设置各种 HTTP 头来保护 Elysia.js 应用。
 -   [Decorators for Elysia.js](https://github.com/Ateeb-Khan-97/better-elysia) - 通过这个小型库无缝开发和集成 API、Websocket 和流媒体 API。
 -   [Elysia Protobuf](https://github.com/ilyhalight/elysia-protobuf) - 支持 Elysia 的 protobuf。
+-   [Elysia Prometheus](https://github.com/m1handr/elysia-prometheus) - Elysia 插件，用于暴露 Prometheus 的 HTTP 指标。
 
 ## 相关项目：
 -   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 模式的生成器，适用于 elysia
