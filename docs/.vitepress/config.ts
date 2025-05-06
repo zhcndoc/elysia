@@ -301,6 +301,10 @@ export default defineConfig({
 						link: '/patterns/configuration'
 					},
 					{
+						text: "生产环境部署",
+						link: "/patterns/deploy",
+					},
+					{
 						text: '类型',
 						link: '/patterns/type'
 					},

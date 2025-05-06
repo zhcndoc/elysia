@@ -1,17 +1,17 @@
 ---
-title: Type - ElysiaJS
+title: 类型 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Type - ElysiaJS
+        content: 类型 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Schemas are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation is based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型定义，用于推断 TypeScript 的类型和对传入请求及传出响应的数据验证。 Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 
     - - meta
       - property: 'og:description'
-        content: Schemas are strictly typed definitions, used to infer TypeScript's type and data validation of an incoming request and outgoing response. Elysia's schema validation is based on Sinclair's TypeBox, a TypeScript library for data validation.
+        content: 模式是严格类型定义，用于推断 TypeScript 的类型和对传入请求及传出响应的数据验证。 Elysia 的模式验证基于 Sinclair 的 TypeBox，这是一个用于数据验证的 TypeScript 库。
 ---
 
 <script setup>
@@ -19,31 +19,31 @@ import Card from '../components/nearl/card.vue'
 import Deck from '../components/nearl/card-deck.vue'
 </script>
 
-# Type
+# 类型
 
-Here's a common patterns for writing validation types in Elysia.
+这是在 Elysia 中编写验证类型的常见模式。
 
 <Deck>
-    <Card title="Primitive Type" href="#primitive-type">
-    	Common TypeBox API
+    <Card title="基本类型" href="#primitive-type">
+    	常见的 TypeBox API
     </Card>
-    <Card title="Elysia Type" href="#elysia-type">
-   		Dedicated type for Elysia and HTTP
+    <Card title="Elysia 类型" href="#elysia-type">
+   		Elysia 和 HTTP 的专用类型
     </Card>
-    <Card title="Elysia Behavior" href="#elysia-behavior">
-  		Different Elysia.t behavior from TypeBox
+    <Card title="Elysia 行为" href="#elysia-behavior">
+  		Elysia.t 与 TypeBox 的不同之处
     </Card>
 </Deck>
 
-## Primitive Type
+## 基本类型
 
-The TypeBox API is designed around and is similar to TypeScript types.
+TypeBox API 是围绕 TypeScript 类型设计的，并与之类似。
 
-There are many familiar names and behaviors that intersect with TypeScript counterparts, such as **String**, **Number**, **Boolean**, and **Object**, as well as more advanced features like **Intersect**, **KeyOf**, and **Tuple** for versatility.
+有许多熟悉的名称和行为与 TypeScript 对应项交叉，例如 **String**、**Number**、**Boolean** 和 **Object**，以及更高级的功能，如 **Intersect**、**KeyOf** 和 **Tuple**，以增强灵活性。
 
-If you are familiar with TypeScript, creating a TypeBox schema behaves the same as writing a TypeScript type, except it provides actual type validation at runtime.
+如果你熟悉 TypeScript，创建 TypeBox 模式的行为就像编写 TypeScript 类型一样，只是它在运行时提供实际的类型验证。
 
-To create your first schema, import **Elysia.t** from Elysia and start with the most basic type:
+要创建第一个模式，从 Elysia 导入 **Elysia.t**，并从最基本的类型开始：
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -55,17 +55,17 @@ new Elysia()
 	.listen(3000)
 ```
 
-This code tells Elysia to validate an incoming HTTP body, ensuring that the body is a string. If it is a string, it will be allowed to flow through the request pipeline and handler.
+这段代码告诉 Elysia 验证传入的 HTTP 主体，确保主体是一个字符串。如果它是字符串，则可以在请求管道和处理程序中流动。
 
-If the shape doesn't match, it will throw an error into the [Error Life Cycle](/essential/life-cycle.html#on-error).
+如果形状不匹配，将抛出错误到 [错误生命周期](/essential/life-cycle.html#on-error)。
 
-![Elysia Life Cycle](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle.webp)
 
-### Basic Type
+### 基本类型
 
-TypeBox provides basic primitive types with the same behavior as TypeScript types.
+TypeBox 提供具有与 TypeScript 类型相同行为的基本原始类型。
 
-The following table lists the most common basic types:
+以下表格列出了最常见的基本类型：
 
 <table class="md-table">
 <tbody>
@@ -201,13 +201,13 @@ t.Literal(42)
 </tbody>
 </table>
 
-Elysia extends all types from TypeBox, allowing you to reference most of the API from TypeBox for use in Elysia.
+Elysia 扩展了来自 TypeBox 的所有类型，允许你引用 TypeBox 中的大多数 API 以供在 Elysia 中使用。
 
-See [TypeBox's Type](https://github.com/sinclairzx81/typebox#json-types) for additional types supported by TypeBox.
+有关 TypeBox 支持的其他类型，请参见 [TypeBox 的类型](https://github.com/sinclairzx81/typebox#json-types)。
 
-### Attribute
+### 属性
 
-TypeBox can accept arguments for more comprehensive behavior based on the JSON Schema 7 specification.
+TypeBox 可以接受基于 JSON Schema 7 规范的参数，以实现更全面的行为。
 
 <table class="md-table">
 <tbody>
@@ -263,11 +263,11 @@ t.Array(
     t.Number(),
     {
         /**
-         * Minimum number of items
+         * 最小项数量
          */
         minItems: 1,
         /**
-         * Maximum number of items
+         * 最大项数量
          */
         maxItems: 5
     }
@@ -295,9 +295,8 @@ t.Object(
     {
         /**
          * @default false
-         * Accept additional properties
-         * that not specified in schema
-         * but still match the type
+         * 接受未在模式中指定的其他属性
+         * 但仍然匹配类型
          */
         additionalProperties: true
     }
@@ -317,22 +316,22 @@ y: 200
 </tbody>
 </table>
 
-See [JSON Schema 7 specification](https://json-schema.org/draft/2020-12/json-schema-validation) for more explanation of each attribute.
+有关每个属性的更多解释，请参见 [JSON Schema 7 规范](https://json-schema.org/draft/2020-12/json-schema-validation)。
 
-## Honorable Mentions
+## 荣誉提及
 
-The following are common patterns often found useful when creating a schema.
+以下是创建模式时常见的有用模式。
 
-### Union
+### 联合类型
 
-Allows a field in `t.Object` to have multiple types.
+允许 `t.Object` 中的字段具有多种类型。
 
 <table class="md-table">
 <tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -366,16 +365,16 @@ Hello
 </tbody>
 </table>
 
-### Optional
+### 可选类型
 
-Allows a field in `t.Object` to be undefined or optional.
+允许 `t.Object` 中的字段为未定义或可选。
 
 <table class="md-table">
 <tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -413,16 +412,16 @@ t.Object({
 </tbody>
 </table>
 
-### Partial
+### 部分类型
 
-Allows all fields in `t.Object` to be optional.
+允许 `t.Object` 中的所有字段为可选。
 
 <table class="md-table">
 <tbody>
 <tr>
 <td>TypeBox</td>
 <td>TypeScript</td>
-<td>Value</td>
+<td>值</td>
 </tr>
 
 <tr>
@@ -462,107 +461,110 @@ t.Partial(
 </tbody>
 </table>
 
-## Elysia Type
+## Elysia 类型
 
-`Elysia.t` is based on TypeBox with pre-configuration for server usage, providing additional types commonly found in server-side validation.
+`Elysia.t` 建立在 TypeBox 之上，进行了预配置以便于服务器使用，提供了在服务器端验证中常见的额外类型。
 
-You can find all the source code for Elysia types in `elysia/type-system`.
+你可以在 `elysia/type-system` 中找到 Elysia 类型的所有源代码。
 
-The following are types provided by Elysia:
+以下是 Elysia 提供的类型：
 
 <Deck>
-	<Card title="UnoinEnum" href="#unionenum">
-		`UnionEnum` allows the value to be one of the specified values.
+	<Card title="联合枚举" href="#unionenum">
+		`UnionEnum` 允许值是指定的值之一。
     </Card>
-    <Card title="File" href="#file">
-        A singular file. Often useful for <strong>file upload</strong> validation
+    <Card title="文件" href="#file">
+        单个文件。通常用于 <strong>文件上传</strong> 验证
     </Card>
-    <Card title="Files" href="#files">
-        Extends from <a href="#file">File</a>, but adds support for an array of files in a single field
+    <Card title="文件数组" href="#files">
+        从 <a href="#file">文件</a> 扩展，但增加了对单个字段中的文件数组的支持
     </Card>
     <Card title="Cookie" href="#cookie">
-        Object-like representation of a Cookie Jar extended from Object type
+        从对象类型扩展的 Cookie Jar 的类对象表示
     </Card>
-    <Card title="Nullable" href="#nullable">
-    Allow the value to be null but not undefined
+    <Card title="可为空" href="#nullable">
+    允许值为 null 但不为 undefined
     </Card>
-    <Card title="Maybe Empty" href="#maybeempty">
-        Accepts empty string or null value
+    <Card title="允许空值" href="#maybeempty">
+        接受空字符串或 null 值
     </Card>
-    <Card title="Numeric" href="#numeric-legacy">
-        Accepts a numeric string or number and then transforms the value into a number
+    <Card title="表单" href="#form">
+    	验证用于 FormData 的返回值的类型
+    </Card>
+    <Card title="数字" href="#numeric-legacy">
+        接受数字字符串或数字，然后将值转换为数字
     </Card>
 </Deck>
 
-### UnionEnum
+### 联合枚举
 
-`UnionEnum` allows the value to be one of the specified values.
+`UnionEnum` 允许值是指定的值之一。
 
 ```typescript
 t.UnionEnum(['rapi', 'anis', 1, true, false])
 ```
 
-By default, these value will not automatically
+默认情况下，这些值不会自动
 
-### File
+### 文件
 
-A singular file, often useful for **file upload** validation.
+单个文件，通常用于 **文件上传** 验证。
 
 ```typescript
 t.File()
 ```
 
-File extends the attributes of the base schema, with additional properties as follows:
+文件扩展了基本模式的属性，并具有如下附加属性：
 
-#### type
+#### 类型
 
-Specifies the format of the file, such as image, video, or audio.
+指定文件的格式，如图像、视频或音频。
 
-If an array is provided, it will attempt to validate if any of the formats are valid.
+如果提供了一个数组，它将尝试验证任何格式是否有效。
 
 ```typescript
 type?: MaybeArray<string>
 ```
 
-#### minSize
+#### 最小大小
 
-Minimum size of the file.
+文件的最小大小。
 
-Accepts a number in bytes or a suffix of file units:
+接受以字节为单位的数字或文件单位的后缀：
 
 ```typescript
 minSize?: number | `${number}${'k' | 'm'}`
 ```
 
-#### maxSize
+#### 最大大小
 
-Maximum size of the file.
+文件的最大大小。
 
-Accepts a number in bytes or a suffix of file units:
+接受以字节为单位的数字或文件单位的后缀：
 
 ```typescript
 maxSize?: number | `${number}${'k' | 'm'}`
 ```
 
-#### File Unit Suffix:
+#### 文件单位后缀：
 
-The following are the specifications of the file unit:
-m: MegaByte (1048576 byte)
-k: KiloByte (1024 byte)
+以下是文件单位的规格：
+m: 兆字节（1048576 字节）
+k: 千字节（1024 字节）
 
-### Files
+### 文件数组
 
-Extends from [File](#file), but adds support for an array of files in a single field.
+从 [文件](#file) 扩展，但增加了对单个字段中的文件数组的支持。
 
 ```typescript
 t.Files()
 ```
 
-Files extends the attributes of the base schema, array, and File.
+文件数组扩展了基本模式、数组和文件的属性。
 
 ### Cookie
 
-Object-like representation of a Cookie Jar extended from the Object type.
+从对象类型扩展的 Cookie Jar 的类对象表示。
 
 ```typescript
 t.Cookie({
@@ -570,65 +572,76 @@ t.Cookie({
 })
 ```
 
-Cookie extends the attributes of [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) and [Cookie](https://github.com/jshttp/cookie#options-1) with additional properties as follows:
+Cookie 扩展 [Object](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-obj) 和 [Cookie](https://github.com/jshttp/cookie#options-1) 的属性，并具有如下附加属性：
 
 #### secrets
 
-The secret key for signing cookies.
+用于签名 Cookie 的秘密密钥。
 
-Accepts a string or an array of strings.
+接受字符串或字符串数组。
 
 ```typescript
 secrets?: string | string[]
 ```
 
-If an array is provided, [Key Rotation](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation) will be used. The newly signed value will use the first secret as the key.
+如果提供了一个数组，将使用 [密钥轮换](https://crypto.stackexchange.com/questions/41796/whats-the-purpose-of-key-rotation)。新签名的值将使用第一个秘密作为密钥。
 
-### Nullable
+### 可为空
 
-Allows the value to be null but not undefined.
+允许值为 null 但不为 undefined。
 
 ```typescript
 t.Nullable(t.String())
 ```
 
-### MaybeEmpty
+### 允许空值
 
-Allows the value to be null and undefined.
+允许值为 null 和 undefined。
 
 ```typescript
 t.MaybeEmpty(t.String())
 ```
 
-For additional information, you can find the full source code of the type system in [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts).
+有关其他信息，你可以在 [`elysia/type-system`](https://github.com/elysiajs/elysia/blob/main/src/type-system.ts) 中找到完整的类型系统源代码。
 
-### Numeric (legacy)
+### 表单
+
+对我们的 `t.Object` 进行语法糖处理，支持验证 [表单](/essential/handler.html#formdata)（FormData） 的返回值。
+
+```typescript
+t.FormData({
+	someValue: t.File()
+})
+```
+
+### 数字（遗留）
+
 ::: warning
-This is not need as Elysia type already transforms Number to Numeric automatically since 1.0
+这不需要，因为 Elysia 类型自 1.0 起已自动将 Number 转换为 Numeric
 :::
 
-Numeric accepts a numeric string or number and then transforms the value into a number.
+数字接受数字字符串或数字，然后将值转换为数字。
 
 ```typescript
 t.Numeric()
 ```
 
-This is useful when an incoming value is a numeric string, for example, a path parameter or query string.
+当传入值是数字字符串时，这非常有用，例如路径参数或查询字符串。
 
-Numeric accepts the same attributes as [Numeric Instance](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num)
+数字接受与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
 
-## Elysia behavior
+## Elysia 行为
 
-Elysia use TypeBox by default.
+Elysia 默认使用 TypeBox。
 
-However, to help making handling with HTTP easier. Elysia has some dedicated type and have some behavior difference from TypeBox.
+然而，为了更方便地处理 HTTP，Elysia 有一些专用类型，并且与 TypeBox 有一些行为上的不同。
 
-## Optional
-To make a field optional, use `t.Optional`.
+## 可选类型
+要使字段可选，请使用 `t.Optional`。
 
-This will allows client to optionally provide a query parameter. This behavior also applied to `body`, `headers`.
+这将允许客户端可选地提供查询参数。此行为也适用于 `body`、`headers`。
 
-This is different from TypeBox where optional is to mark a field of object as optional.
+这与 TypeBox 不同，其中可选用于标记对象字段为可选。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -648,14 +661,14 @@ new Elysia()
 	})
 ```
 
-## Number to Numeric
-By default, Elysia will convert a `t.Number` to [t.Numeric](#numeric-legacy) when provided as route schema.
+## 数字到数字类型
+默认情况下，Elysia 将 `t.Number` 转换为 [t.Numeric](#numeric-legacy) 当作为路由模式提供时。
 
-Because parsed HTTP headers, query, url parameter is always a string. This means that even if a value is number, it will be treated as string.
+因为解析的 HTTP 头、查询、URL 参数总是字符串。这意味着即使值是数字，它也会被视为字符串。
 
-Elysia override this behavior by checking if a string value looks like a number then convert it even appropriate.
+Elysia 通过检查字符串值是否看起来像数字来覆盖此行为，然后即使适当也进行转换。
 
-This is only applied when it is used as a route schema and not in a nested `t.Object`.
+这仅在作为路由模式使用时应用，而不在嵌套的 `t.Object` 中。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -663,23 +676,23 @@ import { Elysia, t } from 'elysia'
 new Elysia()
 	.get('/:id', ({ id }) => id, {
 		params: t.Object({
-			// Converted to t.Numeric()
+			// 转换为 t.Numeric()
 			id: t.Number()
 		}),
 		body: t.Object({
-			// NOT converted to t.Numeric()
+			// NOT 转换为 t.Numeric()
 			id: t.Number()
 		})
 	})
 
-// NOT converted to t.Numeric()
+// NOT 转换为 t.Numeric()
 t.Number()
 ```
 
-## Boolean to BooleanString
-Similar to [Number to Numeric](#number-to-numeric)
+## 布尔值到布尔字符串
+类似于 [数字到数字类型](#number-to-numeric)
 
-Any `t.Boolean` will be converted to `t.BooleanString`.
+任何 `t.Boolean` 将转换为 `t.BooleanString`。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -687,15 +700,15 @@ import { Elysia, t } from 'elysia'
 new Elysia()
 	.get('/:id', ({ id }) => id, {
 		params: t.Object({
-			// Converted to t.Boolean()
+			// 转换为 t.Boolean()
 			id: t.Boolean()
 		}),
 		body: t.Object({
-			// NOT converted to t.Boolean()
+			// NOT 转换为 t.Boolean()
 			id: t.Boolean()
 		})
 	})
 
-// NOT converted to t.BooleanString()
+// NOT 转换为 t.BooleanString()
 t.Boolean()
 ```

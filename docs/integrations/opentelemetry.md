@@ -77,18 +77,18 @@ new Elysia().use(
 )
 ```
 
-## Instrumentations
+## 仪器化
 
-Many instrumentation libraries required that the SDK **MUST** run before importing the module.
+许多仪器化库要求 SDK **必须** 在导入模块之前运行。
 
-For example, to use `PgInstrumentation`, the `OpenTelemetry SDK` must run before importing the `pg` module.
+例如，要使用 `PgInstrumentation`，`OpenTelemetry SDK` 必须在导入 `pg` 模块之前运行。
 
-To achieve this in Bun, we can
+要在 Bun 中实现这一点，我们可以
 
-1. Separate an OpenTelemetry setup into a different file
-2. create `bunfig.toml` to preload the OpenTelemetry setup file
+1. 将 OpenTelemetry 设置分成一个不同的文件
+2. 创建 `bunfig.toml` 以预加载 OpenTelemetry 设置文件
 
-Let's create a new file in `src/instrumentation.ts`
+让我们在 `src/instrumentation.ts` 中创建一个新文件
 
 ```ts [src/instrumentation.ts]
 import { opentelemetry } from '@elysiajs/opentelemetry'
@@ -99,7 +99,7 @@ export const instrumentation = opentelemetry({
 })
 ```
 
-Then we can apply this `instrumentaiton` plugin into our main instance in `src/index.ts`
+然后我们可以将此 `instrumentaiton` 插件应用于 `src/index.ts` 中的主实例
 
 ```ts [src/index.ts]
 import { Elysia } from 'elysia'
@@ -108,13 +108,50 @@ import { instrumentation } from './instrumentation.ts'
 new Elysia().use(instrumentation).listen(3000)
 ```
 
-Then create a `bunfig.toml` with the following:
+然后创建一个 `bunfig.toml`，内容如下：
 
 ```toml [bunfig.toml]
 preload = ["./src/instrumentation.ts"]
 ```
 
-This will tell Bun to load and setup `instrumentation` before running the `src/index.ts` allowing OpenTelemetry to do its setup as needed.
+这将告诉 Bun 在运行 `src/index.ts` 之前加载并设置 `instrumentation`，以允许 OpenTelemetry 按需设置。
+
+### 部署到生产环境
+如果您使用 `bun build` 或其他打包工具。
+
+由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了确保仪器化正常工作，我们需要指定要被仪器化的库作为外部模块，以将其排除在打包之外。
+
+例如，如果您使用 `@opentelemetry/instrumentation-pg` 来对 `pg` 库进行仪器化。我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
+
+要使其正常工作，我们可以通过 `--external pg` 将 `pg` 指定为外部模块
+```bash
+bun build --compile --external pg --outfile server src/index.ts
+```
+
+这告诉 bun 不要将 `pg` 打包到最终输出文件中，并将在运行时从 **node_modules** 目录导入。所以在生产服务器上，您还必须保留 **node_modules** 目录。
+
+建议在 **package.json** 中将应在生产服务器上可用的包指定为 **dependencies**，并使用 `bun install --production` 仅安装生产依赖项。
+
+```json
+{
+	"dependencies": {
+		"pg": "^8.15.6"
+	},
+	"devDependencies": {
+		"@elysiajs/opentelemetry": "^1.2.0",
+		"@opentelemetry/instrumentation-pg": "^0.52.0",
+		"@types/pg": "^8.11.14",
+		"elysia": "^1.2.25"
+	}
+}
+```
+
+然后在运行构建命令后，在生产服务器上
+```bash
+bun install --production
+```
+
+如果 node_modules 目录仍包含开发依赖项，您可以删除 node_modules 目录并再次安装生产依赖项。
 
 ## OpenTelemetry SDK
 

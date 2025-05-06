@@ -88,7 +88,7 @@ Eden 条约将 Elysia 服务器转换为可以在 JavaScript 前端访问的树�
 
 | 路径         | 条约       |
 | ------------ | ------------ |
-| /            | .index       |
+| /            |              |
 | /hi          | .hi          |
 | /deep/nested | .deep.nested |
 
@@ -96,7 +96,7 @@ Eden 条约将 Elysia 服务器转换为可以在 JavaScript 前端访问的树�
 
 | 路径         | 方法 | 条约              |
 | ------------ | ------ | ------------------- |
-| /            | GET    | .index.get()        |
+| /            | GET    | .get()              |
 | /hi          | GET    | .hi.get()           |
 | /deep/nested | GET    | .deep.nested.get()  |
 | /deep/nested | POST   | .deep.nested.post() |

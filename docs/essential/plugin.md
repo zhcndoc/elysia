@@ -597,7 +597,7 @@ const plugin = new Elysia()
         return { hi: 'ok' }
     })
     .get('/child', ({ hi }) => hi)
-    .as('plugin') // [!code ++]
+    .as('scoped') // [!code ++]
 
 const main = new Elysia()
     .use(plugin)
@@ -609,7 +609,7 @@ const main = new Elysia()
 
 要将其应用于父实例，我们需要 **提升作用域到父实例"**，而 `as` 是实现这一点的完美方法。
 
-这意味着如果你有 `local` 范围，想要将其应用于父实例，你可以使用 `as('plugin')` 来提升它。
+这意味着如果你有 `local` 范围，想要将其应用于父实例，你可以使用 `as('scoped')` 来提升它。
 ```typescript twoslash
 // @errors: 2304 2345
 import { Elysia, t } from 'elysia'
@@ -621,12 +621,12 @@ const plugin = new Elysia()
 	.onBeforeHandle(() => { console.log('called') })
 	.get('/ok', () => 'ok')
 	.get('/not-ok', () => 1)
-	.as('plugin') // [!code ++]
+	.as('scoped') // [!code ++]
 
 const instance = new Elysia()
 	.use(plugin)
 	.get('/no-ok-parent', () => 2)
-	.as('plugin') // [!code ++]
+	.as('scoped') // [!code ++]
 
 const parent = new Elysia()
 	.use(instance)
@@ -663,7 +663,7 @@ const plugin = new Elysia()
         return 'hi'
     })
     .get('/child', 'child')
-    .as('plugin')
+    .as('scoped')
 
 const main = new Elysia()
     .use(plugin)

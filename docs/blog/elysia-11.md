@@ -218,8 +218,7 @@ Elysia 1.1 现在在处理数据之前先进行规范化。
 为了确保数据一致且安全，Elysia 将努力将数据强制转换为模式中定义的确切数据结构，移除额外字段，并将数据规范化为一致的格式。
 
 例如，如果你有这样的模式：
-```typescript twoslash
-// @errors: 2353
+```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -335,8 +334,7 @@ const plugin2 = new Elysia()
 
 但是，它也允许我们应用 `schema`，以确保所有路由的类型安全。
 
-```typescript twoslash
-// @errors: 2304 2345
+```typescript
 import { Elysia, t } from 'elysia'
 
 const plugin = new Elysia()
@@ -364,8 +362,7 @@ const parent = new Elysia()
 
 我们可以通过将其强制转换为 `**as('plugin')**` 来实现。
 
-```typescript twoslash
-// @errors: 2304 2345
+```typescript
 import { Elysia, t } from 'elysia'
 
 const plugin = new Elysia()
@@ -392,8 +389,7 @@ const parent = new Elysia()
 其工作原理是，它读取所有钩子和 schema 的作用域，并将其提升到父实例。
 
 这意味着如果你有 `local` 作用域，并希望将其应用于父实例，你可以使用 `as('plugin')` 提升它。
-```typescript twoslash
-// @errors: 2304 2345
+```typescript
 import { Elysia, t } from 'elysia'
 
 const plugin = new Elysia()
@@ -422,8 +418,7 @@ const parent = new Elysia()
 - `plugin` 将事件转换为 **scoped**
 - `global` 将事件转换为 **global**
 
-```typescript twoslash
-// @errors: 2304 2345
+```typescript
 import { Elysia, t } from 'elysia'
 
 const plugin = new Elysia()
@@ -476,8 +471,7 @@ const to = new Elysia()
 
 然而，在 Elysia 1.1 中，Elysia 将尝试协调来自每个状态码的所有作用域的响应 schema，并将它们合并在一起。
 
-```typescript twoslash
-// @errors: 2304 2345
+```typescript
 import { Elysia, t } from 'elysia'
 
 const plugin = new Elysia()

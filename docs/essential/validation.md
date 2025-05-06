@@ -191,6 +191,35 @@ new Elysia()
 
 如果为同一属性定义了多个全局模式，则最后一个将优先。如果同时定义了本地和全局模式，则本地模式将优先。
 
+### Guard Schema 类型
+Guard 支持 2 种类型来定义验证。
+
+### **覆盖（默认）**
+
+如果模式相互冲突，则覆盖模式。
+
+![Elysia 运行默认覆盖保护，显示模式被覆盖](/blog/elysia-13/schema-override.webp)
+
+### **独立**
+
+
+分别处理碰撞的模式，并独立运行，从而使两者都得到验证。
+
+![Elysia 独立运行多个守护合并在一起](/blog/elysia-13/schema-standalone.webp)
+
+使用 `schema` 定义守护的模式类型：
+```ts
+import { Elysia } from 'elysia'
+
+new Elysia()
+	.guard({
+		schema: 'standalone', // [!code ++]
+		response: t.Object({
+			title: t.String()
+		})
+	})
+```
+
 ## 主体
 传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送到服务器的数据。它可以是 JSON、表单数据或任何其他格式。
 

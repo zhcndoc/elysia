@@ -186,11 +186,11 @@ Elysia 使用路径和方法来查找正确的资源。
 
 | URL                             | 路径         |
 | ------------------------------- | ------------ |
-| http://site.com/                | /            |
-| http://site.com/hello           | /hello       |
-| http://site.com/hello/world     | /hello/world |
-| http://site.com/hello?name=salt | /hello       |
-| http://site.com/hello#title     | /hello       |
+| http://example.com/                | /            |
+| http://example.com/hello           | /hello       |
+| http://example.com/hello/world     | /hello/world |
+| http://example.com/hello?name=salt | /hello       |
+| http://example.com/hello#title     | /hello       |
 
 ::: tip
 如果路径未指定，浏览器和 web 服务器将将路径视为 '/' 作为默认值。

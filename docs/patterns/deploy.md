@@ -1,9 +1,9 @@
 ---
-title: 生产部署 - ElysiaJS
+title: 部署到生产环境 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: 生产部署 - ElysiaJS
+      content: 部署到生产环境 - ElysiaJS
 
   - - meta
     - name: 'description'
@@ -55,7 +55,7 @@ bun build \
 ### 为什么不使用 --minify
 Bun 确实有 `--minify` 标志，用于压缩二进制文件。
 
-然而，如果我们使用了 [OpenTelemetry](/plugin/opentelemetry)，它将把函数名缩减为一个单一字符。
+然而，如果我们正在使用 [OpenTelemetry](/plugins/opentelemetry)，它会将函数名缩减为单个字符。
 
 这使得跟踪变得比应该的更加困难，因为 OpenTelemetry 依赖于函数名。
 
@@ -87,7 +87,7 @@ chmod +x ./server
 据我们所知没有替代方案。
 
 ## 编译为 JavaScript
-如果您无法编译为二进制文件或在 Windows 服务器上部署。
+如果您无法编译为二进制文件或您正在 Windows 服务器上进行部署。
 
 您可以将服务器打包为一个 JavaScript 文件。
 
@@ -145,6 +145,43 @@ CMD ["./server"]
 
 EXPOSE 3000
 ```
+
+### OpenTelemetry
+如果您使用 [OpenTelemetry](/integrations/opentelemetry) 来部署生产服务器。
+
+由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了确保仪器正确工作，我们需要指定供仪器使用的库是外部模块，以将其排除在打包之外。
+
+例如，如果您使用 `@opentelemetry/instrumentation-pg` 来仪器 `pg` 库。我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
+
+为使这一切正常工作，我们可以使用 `--external pg` 将 `pg` 指定为外部模块
+```bash
+bun build --compile --external pg --outfile server src/index.ts
+```
+
+这告诉 bun 不将 `pg` 打包到最终输出文件中，并将在运行时从 `node_modules` 目录导入。因此在生产服务器上，您还必须保留 `node_modules` 目录。
+
+建议在 `package.json` 中将应在生产服务器上可用的包指定为 `dependencies`，并使用 `bun install --production` 仅安装生产依赖项。
+
+```json
+{
+	"dependencies": {
+		"pg": "^8.15.6"
+	},
+	"devDependencies": {
+		"@elysiajs/opentelemetry": "^1.2.0",
+		"@opentelemetry/instrumentation-pg": "^0.52.0",
+		"@types/pg": "^8.11.14",
+		"elysia": "^1.2.25"
+	}
+}
+```
+
+然后，在生产服务器上运行构建命令后
+```bash
+bun install --production
+```
+
+如果 `node_modules` 目录仍包含开发依赖项，您可以删除 `node_modules` 目录并重新安装生产依赖项。
 
 ### Monorepo
 如果您在 Monorepo 中使用 Elysia，您可能需要包括依赖的 `packages`。

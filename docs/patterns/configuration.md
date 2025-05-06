@@ -87,9 +87,26 @@ new Elysia({
 })
 ```
 
-## 名称
+## encodeSchema
 
-定义实例的名称，用于调试和[插件去重](/essential/plugin.html#plugin-deduplication)
+处理自定义 `t.Transform` 模式的自定义 `Encode`，在将响应返回给客户端之前进行处理。
+
+这允许我们在发送响应到客户端之前为数据创建自定义编码函数。
+
+```ts
+import { Elysia, t } from 'elysia'
+
+new Elysia({ encodeSchema: true })
+```
+
+#### 选项 - @default `true`
+
+- `true` - 在将响应发送给客户端之前运行 `Encode`
+- `false` - 完全跳过 `Encode`
+
+## name
+
+定义实例名称，用于调试和 [插件去重](/essential/plugin.html#plugin-deduplication)
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -150,7 +167,9 @@ new Elysia({
 
 选项 - @default `true`
 
-- `true`: Elysia 将字段强制转换为指定的模式。
+- `true`: Elysia 将使用 [exact mirror](/blog/elysia-13.html#exact-mirror) 将字段强制转换为指定模式
+
+- `typebox`: Elysia 将使用 [TypeBox's Value.Clean](https://github.com/sinclairzx81/typebox) 将字段强制转换为指定模式
 
 - `false`: 如果请求或响应包含不在各自处理程序的模式中明确允许的字段，Elysia 将引发错误。
 
@@ -195,7 +214,21 @@ new Elysia({
 ```ts twoslash
 import { Elysia, t } from 'elysia'
 
-new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // 路径为 /v1/name
+new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // Path is /v1/name
+```
+
+## santize
+
+一个函数或一个函数数组，在每个 `t.String` 验证时调用并拦截。
+
+允许我们读取并将字符串转换为新值。
+
+```ts
+import { Elysia, t } from 'elysia'
+
+new Elysia({
+	santize: (value) => Bun.escapeHTML(value)
+})
 ```
 
 ## 种子
@@ -434,13 +467,19 @@ new Elysia({
 })
 ```
 
-## WebSocket
+### systemRouter
 
-覆盖 WebSocket 配置。
+在可能的情况下使用运行时/框架提供的路由器。
 
-建议将其保持为默认设置，因为 Elysia 将自动生成适合处理 WebSocket 的配置。
+在 Bun 上，Elysia 将使用 [Bun.serve.routes](https://bun.sh/docs/api/http#routing) 并回退到 Elysia 自己的路由器。
 
-该配置扩展了[Bun 的 WebSocket API](https://bun.sh/docs/api/websockets)。
+## websocket
+
+覆盖 websocket 配置
+
+建议将其保持为默认值，因为 Elysia 将自动生成适合处理 WebSocket 的配置
+
+该配置扩展了 [Bun's WebSocket API](https://bun.sh/docs/api/websockets)
 
 #### 示例
 ```ts
@@ -456,25 +495,8 @@ new Elysia({
 
 ---
 
-<br />
+<!-- <br />
 
 # 试验性
 
-试用可能在未来版本的 Elysia 中可用的实验性功能。
-
-## experimental.encodeSchema
-
-处理自定义 `t.Transform` 方案，并在将响应返回给客户端之前自定义 `Encode`。
-
-这允许我们在发送响应给客户端之前为数据创建自定义编码函数。
-
-```ts twoslash
-import { Elysia, t } from 'elysia'
-
-new Elysia({ experimental: { encodeSchema: true } })
-```
-
-#### 选项 - @default `false`
-
-- `true` - 在将响应发送到客户端之前运行 `Encode`
-- `false` - 完全跳过 `Encode`
+尝试一个实验性功能，可能会在未来版本的 Elysia 中可用。 -->

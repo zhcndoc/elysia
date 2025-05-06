@@ -59,6 +59,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Vite Plugin SSR](https://github.com/timnghg/elysia-vite-plugin-ssr) - 使用 Elysia 服务器的 Vite SSR 插件
 -   [OAuth 2.0](https://github.com/kravetsone/elysia-oauth2) - 一个用于 [OAuth 2.0](https://en.wikipedia.org/wiki/OAuth) 授权流程的插件，支持超过 **42** 个提供商，并且具备 **类型安全**！
 -   [OAuth2](https://github.com/bogeychan/elysia-oauth2) - 处理 OAuth 2.0 授权码流程
+-   [OAuth2 Resource Server](https://github.com/ap-1/elysia-oauth2-resource-server) - 一个用于验证来自 OAuth2 提供者的 JWT 令牌与 JWKS 端点的插件，支持发行者、受众和范围验证。
 -   [Elysia OpenID Client](https://github.com/macropygia/elysia-openid-client) - 一个基于 [openid-client](https://github.com/panva/node-openid-client) 的 OpenID 客户端
 -   [Rate Limit](https://github.com/rayriffy/elysia-rate-limit) - 简单、轻量级的速率限制器
 -   [Logysia](https://github.com/tristanisham/logysia) - 经典的日志中间件
@@ -113,6 +114,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Decorators for Elysia.js](https://github.com/Ateeb-Khan-97/better-elysia) - 通过这个小型库无缝开发和集成 API、Websocket 和流媒体 API。
 -   [Elysia Protobuf](https://github.com/ilyhalight/elysia-protobuf) - 支持 Elysia 的 protobuf。
 -   [Elysia Prometheus](https://github.com/m1handr/elysia-prometheus) - Elysia 插件，用于暴露 Prometheus 的 HTTP 指标。
+-   [Elysia Remote DTS](https://github.com/rayriffy/elysia-remote-dts) - 一个为 Eden Treaty 提供远程 .d.ts 类型的插件。
 
 ## 相关项目：
 -   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 模式的生成器，适用于 elysia

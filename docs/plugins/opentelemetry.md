@@ -16,6 +16,10 @@ head:
 
 # OpenTelemetry
 
+::: tip
+此页面是 **OpenTelemetry** 的 **配置参考**，如果您想要设置和集成 OpenTelemetry，我们建议您查看 [与 OpenTelemetry 集成](/integrations/opentelemetry)。
+:::
+
 要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任意实例。
 
 ```typescript twoslash
