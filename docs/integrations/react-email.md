@@ -127,7 +127,7 @@ const transporter = nodemailer.createTransport({ // [!code ++]
 }) // [!code ++]
 
 new Elysia()
-	.get('/otp', async ({ body }) => {
+	.get('/otp', async async ({ body }) => {
 		// 随机生成 100,000 到 999,999 之间的数字
   		const otp = ~~(Math.random() * (900_000 - 1)) + 100_000
 
