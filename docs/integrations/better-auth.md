@@ -68,11 +68,14 @@ import { passkey } from 'better-auth/plugins/passkey'
 import { Pool } from 'pg'
 
 export const auth = betterAuth({
-	basePath: '/' // [!代码 ++]
+	basePath: '/api' // [!代码 ++]
 })
 ```
 
-然后我们可以通过 `http://localhost:3000/auth` 访问更好的身份验证。
+然后我们可以通过 `http://localhost:3000/auth/api` 访问 Better Auth。
+
+不幸的是，我们无法将 Better Auth 实例的 `basePath` 设置为空或 `/`。
+
 
 ## Swagger / OpenAPI
 

@@ -4,7 +4,6 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
 import tailwindcss from '@tailwindcss/vite'
-
 import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
 
@@ -76,7 +75,12 @@ export default defineConfig({
 		},
 		plugins: [
 			tailwindcss() as any,
-			process.env.NODE_ENV === 'production' ? llmstxt() : [],
+			process.env.NODE_ENV === 'production' ? llmstxt({
+				description: '人体工程学框架',
+				details:
+					"Elysia 是一个为人类设计的符合人体工学的框架。具有端到端的类型安全和极佳的开发者体验。Elysia 熟悉、快速，并提供一流的 TypeScript 支持，在 tRPC、Swagger 或 WebSocket 之间具有经过深思熟虑的服务集成。",
+				ignoreFiles: ['index.md', 'table-of-content.md']
+			}) : [],
 			process.env.ANALYZE === 'true' ? analyzer() : [],
 			// GitChangelog({
 			// 	repoURL: () => 'https://github.com/elysiajs/documentation',
