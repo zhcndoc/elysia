@@ -59,7 +59,7 @@ new Elysia()
 
 如果形状不匹配，将抛出错误到 [错误生命周期](/essential/life-cycle.html#on-error)。
 
-![Elysia 生命周期](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle-chart.svg)
 
 ### 基本类型
 

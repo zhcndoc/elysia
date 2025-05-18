@@ -16,11 +16,13 @@ head:
 
 # 关键概念
 
-### 我们 __强烈建议__ 您在开始使用 Elysia 之前阅读此页面。
-
 尽管 Elysia 是一个简单的库，但它有一些关键概念，您需要理解以有效地使用它。
 
-此页面涵盖大部分您应该了解的 Elysia 的重要概念。
+此页面涵盖了您应该了解的 Elysia 的最重要概念。
+
+::: tip
+我们 __强烈推荐__ 您在深入学习 Elysia 之前阅读此页面。
+:::
 
 ## 一切都是组件
 
@@ -48,7 +50,45 @@ const app = new Elysia()
 
 这迫使您将应用程序分解为小块，使您能够轻松添加或删除功能。
 
-在 [插件](/essential/plugin.html) 中了解更多内容。
+在 [插件](/essential/plugin.html) 中了解更多关于此的内容。
+
+## 方法链
+Elysia 代码应始终使用 **方法链**。
+
+由于 Elysia 的类型系统复杂，Elysia 中的每个方法返回一个新的类型引用。
+
+**这很重要**，以确保类型的完整性和推断。
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+new Elysia()
+    .state('build', 1)
+    // 存储是严格类型 // [!code ++]
+    .get('/', ({ store: { build } }) => build)
+                        // ^?
+    .listen(3000)
+```
+
+在上面的代码中，**state** 返回一个新的 **ElysiaInstance** 类型，添加了一个类型化的 `build` 属性。
+
+### 不要在没有方法链的情况下使用 Elysia
+如果不使用方法链，Elysia 不会保存这些新类型，导致没有类型推断。
+
+```typescript twoslash
+// @errors: 2339
+import { Elysia } from 'elysia'
+
+const app = new Elysia()
+
+app.state('build', 1)
+
+app.get('/', ({ store: { build } }) => build)
+
+app.listen(3000)
+```
+
+我们建议您 <u>**始终使用方法链**</u> 来提供准确的类型推断。
 
 ## 作用域
 默认情况下，每个实例中的事件/生命周期是相互隔离的。
@@ -95,45 +135,7 @@ const server = new Elysia()
 
 这迫使您考虑每个属性的作用域，防止您意外地在实例之间共享属性。
 
-在 [作用域](/essential/plugin.html#scope) 中了解更多内容。
-
-## 方法链
-Elysia 的代码应始终使用 **方法链**。
-
-由于 Elysia 的类型系统复杂，Elysia 中的每个方法都会返回一个新的类型引用。
-
-**这很重要**，以确保类型完整性和推断。
-
-```typescript twoslash
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .state('build', 1)
-    // 存储是严格类型的 // [!code ++]
-    .get('/', ({ store: { build } }) => build)
-                        // ^?
-    .listen(3000)
-```
-
-在上面的代码中，**state** 返回一个新的 **ElysiaInstance** 类型，添加了一个类型化的 `build` 属性。
-
-### ❌ 不要：在没有方法链的情况下使用 Elysia
-如果不使用方法链，Elysia 不会保存这些新类型，从而导致没有类型推断。
-
-```typescript twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
-
-const app = new Elysia()
-
-app.state('build', 1)
-
-app.get('/', ({ store: { build } }) => build)
-
-app.listen(3000)
-```
-
-我们建议 <u>**始终使用方法链**</u> 以提供准确的类型推断。
+在 [作用域](/essential/plugin.html#scope) 中了解更多关于此的内容。
 
 ## 依赖性
 默认情况下，每个实例在应用于另一个实例时会被重新执行。
@@ -145,7 +147,7 @@ app.listen(3000)
 ```ts twoslash
 import { Elysia } from 'elysia'
 
-const ip = new Elysia({ name: 'ip' })
+const ip = new Elysia({ name: 'ip' }) // [!code ++]
 	.derive(
 		{ as: 'global' },
 		({ server, request }) => ({
@@ -169,13 +171,51 @@ const server = new Elysia()
 
 这将通过使用唯一名称进行去重，防止 `ip` 属性被多次调用。
 
-一旦提供了 `name`，该实例将成为 **单例**，允许 Elysia 应用插件去重。
+这使我们能够在没有性能损失的情况下多次重用相同的实例。迫使您考虑每个实例的依赖性。
 
-这使我们可以多次重用相同的实例而不产生性能损失。
+在 [插件去重](/essential/plugin.html#plugin-deduplication) 中了解更多关于此的内容。
 
-这迫使您思考每个实例的依赖性，方便进行迁移或重构。
+### 服务定位器
+当您将带状态/装饰器的插件应用于实例时，实例将获得类型安全。
 
-在 [插件去重](/essential/plugin.html#plugin-deduplication) 中了解更多内容。
+但如果您不将插件应用于另一个实例，它将无法推断类型。
+
+```typescript twoslash
+// @errors: 2339
+import { Elysia } from 'elysia'
+
+const child = new Elysia()
+    // ❌ 'a' 缺失
+    .get('/', ({ a }) => a)
+
+const main = new Elysia()
+    .decorate('a', 'a')
+    .use(child)
+```
+
+Elysia 引入了 **服务定位器** 设计模式来解决这个问题。
+
+我们简单地提供插件引用，以便 Elysia 找到服务以添加类型安全。
+
+```typescript twoslash
+// @errors: 2339
+import { Elysia } from 'elysia'
+
+const setup = new Elysia({ name: 'setup' })
+    .decorate('a', 'a')
+
+// 没有 'setup'，类型将缺失
+const error = new Elysia()
+    .get('/', ({ a }) => a)
+
+const main = new Elysia()
+	// 有了 `setup`，类型将被推断
+    .use(setup) // [!code ++]
+    .get('/', ({ a }) => a)
+    //           ^?
+```
+
+正如在 [依赖性](#dependencies) 中提到的，我们可以使用 `name` 属性来去重实例，因此不会有任何性能损失或生命周期重复。
 
 ## 类型推断
 Elysia 具有复杂的类型系统，允许您从实例推断类型。
@@ -186,9 +226,6 @@ import { Elysia, t } from 'elysia'
 const app = new Elysia()
 	.post('/', ({ body }) => body, {
                 // ^?
-
-
-
 
 		body: t.Object({
 			name: t.String()
@@ -217,4 +254,32 @@ const app = new Elysia()
 	})
 ```
 
-在 [最佳实践：MVC 控制器](/essential/best-practice.html#controller) 中了解更多内容。
+### TypeScript
+我们可以通过以下方式访问 `static` 属性获取每个 Elysia/TypeBox 类型的类型定义：
+
+```ts twoslash
+import { t } from 'elysia'
+
+const MyType = t.Object({
+	hello: t.Literal('Elysia')
+})
+
+type MyType = typeof MyType.static
+//    ^?
+```
+
+<br>
+<br>
+<br>
+
+这使 Elysia 能够自动推断并提供类型，减少了声明重复架构的需要
+
+单个 Elysia/TypeBox 架构可以用于：
+- 运行时验证
+- 数据强制转换
+- TypeScript 类型
+- OpenAPI 架构
+
+这使我们能够将架构作为 **单一事实来源**。
+
+在 [最佳实践：MVC 控制器](/essential/best-practice.html#controller) 中了解更多关于此的内容。

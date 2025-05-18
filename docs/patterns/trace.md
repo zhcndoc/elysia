@@ -48,7 +48,7 @@ const app = new Elysia()
 
 有关更多信息，请参见 [生命周期事件](/essential/life-cycle#events)：
 
-![Elysia 生命周期](/assets/lifecycle.webp)
+![Elysia 生命周期](/assets/lifecycle-chart.svg)
 
 ## 子事件
 每个事件除了 `handle` 之外都有一个子事件，这是在每个生命周期事件内部执行的事件数组。

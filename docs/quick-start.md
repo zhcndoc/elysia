@@ -382,15 +382,19 @@ yarn add elysia
    		Elysia 作为 Expo 应用路由 API。
     </Card>
 	<Card title="Astro" href="/integrations/astro">
-		Elysia 作为 Astro API 路由。
+			Elysia 作为 Astro API 路由。
 	</Card>
+	<Card title="Nuxt" href="/integrations/nuxt">
+   		Elysia 作为 Nuxt API 路由。
+    </Card>
 	<Card title="SvelteKit" href="/integrations/sveltekit">
-		Elysia 作为 SvelteKit API 路由。
+			Elysia 作为 SvelteKit API 路由。
 	</Card>
 </Deck>
 
-### 不在列表中？
-如果你正在使用自定义运行时，你可以访问 `app.fetch` 手动处理请求和响应。
+### 没在列表上？
+
+如果您使用自定义运行时，您可以访问 `app.fetch` 手动处理请求和响应。
 
 ```typescript
 import { Elysia } from 'elysia'

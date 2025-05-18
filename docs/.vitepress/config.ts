@@ -3,6 +3,8 @@ import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
+import lightbox from "vitepress-plugin-lightbox"
+
 import tailwindcss from '@tailwindcss/vite'
 import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
@@ -53,6 +55,7 @@ export default defineConfig({
 		],
 		config: (md) => {
 			md.use(InlineLinkPreviewElementTransform)
+			md.use(lightbox, {})
 			// md.use(UnlazyImages(), {
 			// 	imgElementTag: 'NolebaseUnlazyImg'
 			// })
@@ -147,21 +150,21 @@ export default defineConfig({
 			'meta',
 			{
 				property: 'og:image',
-				content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
+				content: 'https://elysia.zhcndoc.com/assets/cover_2k.jpg'
 			}
 		],
 		[
 			'meta',
 			{
 				property: 'og:image:width',
-				content: '1920'
+				content: '2560'
 			}
 		],
 		[
 			'meta',
 			{
 				property: 'og:image:height',
-				content: '1080'
+				content: '1440'
 			}
 		],
 		[
@@ -175,7 +178,7 @@ export default defineConfig({
 			'meta',
 			{
 				property: 'twitter:image',
-				content: 'https://elysia.zhcndoc.com/assets/cover.jpg'
+				content: 'https://elysia.zhcndoc.com/assets/cover_2k.jpg'
 			}
 		],
 		[
@@ -475,6 +478,10 @@ export default defineConfig({
 					{
 						text: 'Nextjs',
 						link: '/integrations/nextjs'
+					},
+					{
+						text: 'Nuxt',
+						link: '/integrations/nuxt'
 					},
 					{
 						text: 'OpenAPI',

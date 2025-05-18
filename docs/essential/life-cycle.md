@@ -29,9 +29,9 @@ const demo = new Elysia()
 		// This will be caught by onError
 		throw error(418)
 	})
-	.get('/return', ({ error }) => {
+	.get('/return', ({ status }) => {
 		// 这将不会被 onError 捕获
-		return error(418)
+		return status(418)
 	})
 </script>
 
@@ -40,7 +40,8 @@ const demo = new Elysia()
 生命周期允许我们在预定义的点上拦截一个重要事件，从而根据需要自定义我们的服务器行为。
 
 Elysia 的生命周期事件可以表示如下。
-![Elysia 生命周期图](/assets/lifecycle.webp)
+![Elysia 生命周期图](/assets/lifecycle-chart.svg)
+> 点击图片放大
 
 以下是 Elysia 中可用的请求生命周期：
 
@@ -218,8 +219,8 @@ import { Elysia } from 'elysia'
 
 new Elysia()
     .use(rateLimiter)
-    .onRequest(({ rateLimiter, ip, set, error }) => {
-        if (rateLimiter.check(ip)) return error(420, '保持冷静')
+    .onRequest(({ rateLimiter, ip, set, status }) => {
+        if (rateLimiter.check(ip)) return status(420, '保持冷静')
     })
     .get('/', () => 'hi')
     .listen(3000)
@@ -456,8 +457,8 @@ import { validateSession } from './user'
 
 new Elysia()
     .get('/', () => 'hi', {
-        beforeHandle({ set, cookie: { session }, error }) {
-            if (!validateSession(session.value)) return error(401)
+        beforeHandle({ set, cookie: { session }, status }) {
+            if (!validateSession(session.value)) return status(401)
         }
     })
     .listen(3000)
@@ -481,8 +482,8 @@ import { signUp, signIn, validateSession, isUserExists } from './user'
 new Elysia()
     .guard(
         {
-            beforeHandle({ set, cookie: { session }, error }) {
-                if (!validateSession(session.value)) return error(401)
+            beforeHandle({ set, cookie: { session }, status }) {
+                if (!validateSession(session.value)) return status(401)
             }
         },
         (app) =>
@@ -729,8 +730,8 @@ new Elysia()
 import { Elysia, NotFoundError } from 'elysia'
 
 new Elysia()
-    .onError(({ code, error, set }) => {
-        if (code === 'NOT_FOUND') return error(404, '未找到 :(')
+    .onError(({ code, status, set }) => {
+        if (code === 'NOT_FOUND') return status(404, '未找到 :(')
     })
     .post('/', () => {
         throw new NotFoundError()
@@ -780,13 +781,13 @@ new Elysia()
     .onError(({ code, error, path }) => {
         if (code === 418) return '捕获'
     })
-    .get('/throw', ({ error }) => {
+    .get('/throw', ({ status }) => {
         // This will be caught by onError
-        throw error(418)
+        throw status(418)
     })
-    .get('/return', () => {
+    .get('/return', ({ status }) => {
         // 这将不会被 onError 捕获
-        return error(418)
+        return status(418)
     })
 ```
 

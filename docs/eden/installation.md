@@ -19,9 +19,6 @@ head:
 ```bash
 bun add @elysiajs/eden
 bun add -d elysia
-
-# `@types/bun` must be installed even if you aren't using bun in the client
-bun add -d @types/bun
 ```
 
 ::: tip
@@ -176,7 +173,8 @@ app.listen(3000)
 ```
 
 ### 类型定义
-有时，如果您使用的是 Bun 特定功能，如 `Bun.file` 或类似的 API，您可能还需要将 Bun 类型定义安装到客户端。
+
+如果您使用像 `Bun.file` 或类似 API 的 Bun 特定功能并从处理程序返回它，您可能需要将 Bun 类型定义安装到客户端。
 
 ```bash
 bun add -d @types/bun
@@ -184,6 +182,10 @@ bun add -d @types/bun
 
 ### 路径别名（单一代码库）
 如果您在单一代码库中使用路径别名，请确保前端能够与后端相同地解析路径。
+
+::: tip
+在单体库中设置路径别名有点棘手，您可以分叉我们的示例模板：[Kozeki 模板](https://github.com/SaltyAom/kozeki-template)并根据您的需要进行修改。
+:::
 
 例如，如果您在 **tsconfig.json** 中为后端设置了以下路径别名：
 ```json
@@ -265,4 +267,4 @@ import { a, b } from '@backend/controllers'
 
 我们建议创建一个 **single tsconfig.json**，将 `baseUrl` 定义为您仓库的根目录，根据模块位置提供路径，并为每个模块创建一个继承根 **tsconfig.json** 的 **tsconfig.json**，该文件具有路径别名。
 
-您可以在这个 [路径别名示例仓库](https://github.com/SaltyAom/elysia-monorepo-path-alias) 中找到一个有效的示例。
+您可以在这个 [路径别名示例库](https://github.com/SaltyAom/elysia-monorepo-path-alias) 或 [Kozeki 模板](https://github.com/SaltyAom/kozeki-template) 中找到一个工作示例。

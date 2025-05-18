@@ -81,9 +81,9 @@ new Elysia()
 import { Elysia, t } from 'elysia'
 
 new Elysia()
-	.get('/profile', ({ error }) => {
+	.get('/profile', ({ status }) => {
 		if(Math.random() > .5)
-			return error(418, 'Mika')
+			return status(418, 'Mika')
 
 		return 'ok'
 	}, {
@@ -106,9 +106,9 @@ import { Elysia, t } from 'elysia'
 const role = new Elysia({ name: 'macro' })
 	.macro(({ onBeforeHandle }) => ({
 		role(type: 'user' | 'staff' | 'admin') {
-			onBeforeHandle(({ headers, error }) => {
+			onBeforeHandle(({ headers, status }) => {
 				if(headers.authorization !== type)
-					return error(401)
+					return status(401)
 			})
 		}
 	}))
@@ -171,9 +171,9 @@ import { Elysia, t } from 'elysia'
 const app = new Elysia()
     .patch(
         '/profile',
-        ({ body, error }) => {
+        ({ body, status }) => {
             if(body.age < 18)
-                return error(400, "哎呀")
+                return status(400, "哎呀")
 
             return body
         },
@@ -212,9 +212,9 @@ import { Elysia, t } from 'elysia'
 export const app = new Elysia()
     .put(
         '/user',
-        ({ body, error }) => {
+        ({ body, status }) => {
         	if(body.username === 'mika')
-				return error(400, {
+				return status(400, {
 					success: false,
 					message: '用户名已被占用'
 				} as const)

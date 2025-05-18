@@ -88,7 +88,37 @@ new Elysia()
 
 TypeBox 是一个非常快速、轻量且类型安全的 TypeScript 运行时验证库。Elysia 扩展并定制了 TypeBox 的默认行为，以适应服务器端验证。
 
-我们相信，这样的集成应该默认处理框架，而不是依赖用户在每个项目中设置自定义类型。
+我们认为验证应该由框架原生处理，而不是依赖用户为每个项目设置自定义类型。
+
+### TypeScript
+
+我们可以通过访问 `static` 属性来获取每个 Elysia/TypeBox 类型的类型定义，如下所示：
+
+```ts twoslash
+import { t } from 'elysia'
+
+const MyType = t.Object({
+	hello: t.Literal('Elysia')
+})
+
+type MyType = typeof MyType.static
+//    ^?
+```
+
+<br>
+<br>
+<br>
+
+这使得 Elysia 能够自动推断和提供类型，减少了声明重复模式的需要。
+
+一个单一的 Elysia/TypeBox 模式可以用于：
+
+- 运行时验证
+- 数据强制转换
+- TypeScript 类型
+- OpenAPI 模式
+
+这使我们能够将模式作为 **单一真相来源**。
 
 ## 模式类型
 Elysia 支持具有以下类型的声明式模式：
@@ -592,9 +622,9 @@ new Elysia()
 import { Elysia, t } from 'elysia'
 
 new Elysia()
-	.get('/response', ({ error }) => {
+	.get('/response', ({ status }) => {
 		if (Math.random() > 0.5)
-			return error(400, {
+			return status(400, {
 				error: '出了点问题'
 			})
 

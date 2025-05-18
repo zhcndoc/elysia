@@ -1,5 +1,5 @@
 ---
-title: 更好的身份验证 - ElysiaJS
+title: Better Authentication - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
@@ -20,7 +20,18 @@ head:
 
 它提供了一整套全面的功能，并包括一个插件生态系统，可以简化添加高级功能。
 
-我们建议在浏览本页面之前，先阅读 [更好的身份验证基本设置](https://www.better-auth.com/docs/installation)。
+我们建议在访问此页面之前先查看 [Better Auth 基本设置](https://www.better-auth.com/docs/installation)。
+
+我们基本的设置看起来如下：
+
+```ts [auth.ts]
+import { betterAuth } from 'better-auth'
+import { Pool } from 'pg'
+
+export const auth = betterAuth({
+    database: new Pool()
+})
+```
 
 ## 处理程序
 
@@ -28,14 +39,16 @@ head:
 
 我们需要将处理程序挂载到 Elysia 端点。
 
-```ts
+```ts [index.ts]
 import { Elysia } from 'elysia'
 import { auth } from './auth'
 
-const app = new Elysia().mount(auth.handler).listen(3000)
+const app = new Elysia()
+	.mount(auth.handler) // [!code ++]
+	.listen(3000)
 
 console.log(
-	`🦊 Elysia 正在 ${app.server?.hostname}:${app.server?.port} 运行`
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
@@ -45,14 +58,15 @@ console.log(
 
 我们建议在使用 [mount](/patterns/mount.html) 时设置一个前缀路径。
 
-```ts
+```ts [index.ts]
 import { Elysia } from 'elysia'
-import { auth } from './auth'
 
-const app = new Elysia().mount('/auth', auth.handler).listen(3000) // ![代码 ++]
+const app = new Elysia()
+	.mount('/auth', auth.handler) // [!code ++]
+	.listen(3000)
 
 console.log(
-	`🦊 Elysia 正在 ${app.server?.hostname}:${app.server?.port} 运行`
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
@@ -68,14 +82,13 @@ import { passkey } from 'better-auth/plugins/passkey'
 import { Pool } from 'pg'
 
 export const auth = betterAuth({
-	basePath: '/api' // [!代码 ++]
+    basePath: '/api' // [!code ++]
 })
 ```
 
 然后我们可以通过 `http://localhost:3000/auth/api` 访问 Better Auth。
 
-不幸的是，我们无法将 Better Auth 实例的 `basePath` 设置为空或 `/`。
-
+不幸的是，我们不能将更好的身份验证实例的 `basePath` 设置为为空或 `/`。
 
 ## Swagger / OpenAPI
 
@@ -92,24 +105,24 @@ let _schema: ReturnType<typeof auth.api.generateOpenAPISchema>
 const getSchema = async () => (_schema ??= auth.api.generateOpenAPISchema())
 
 export const OpenAPI = {
-	getPaths: (prefix = '/auth/api') =>
-		getSchema().then(({ paths }) => {
-			const reference: typeof paths = Object.create(null)
+    getPaths: (prefix = '/auth/api') =>
+        getSchema().then(({ paths }) => {
+            const reference: typeof paths = Object.create(null)
 
-			for (const path of Object.keys(paths)) {
-				const key = prefix + path
-				reference[key] = paths[path]
+            for (const path of Object.keys(paths)) {
+                const key = prefix + path
+                reference[key] = paths[path]
 
-				for (const method of Object.keys(paths[path])) {
-					const operation = (reference[key] as any)[method]
+                for (const method of Object.keys(paths[path])) {
+                    const operation = (reference[key] as any)[method]
 
-					operation.tags = ['更好的身份验证']
-				}
-			}
+                    operation.tags = ['Better Auth']
+                }
+            }
 
-			return reference
-		}) as Promise<any>,
-	components: getSchema().then(({ components }) => components) as Promise<any>
+            return reference
+        }) as Promise<any>,
+    components: getSchema().then(({ components }) => components) as Promise<any>
 } as const
 ```
 
@@ -122,12 +135,12 @@ import { swagger } from '@elysiajs/swagger'
 import { OpenAPI } from './auth'
 
 const app = new Elysia().use(
-	swagger({
-		documentation: {
-			components: await OpenAPI.components,
-			paths: await OpenAPI.getPaths()
-		}
-	})
+    swagger({
+        documentation: {
+            components: await OpenAPI.components,
+            paths: await OpenAPI.getPaths()
+        }
+    })
 )
 ```
 
@@ -142,19 +155,19 @@ import { cors } from '@elysiajs/cors'
 import { auth } from './auth'
 
 const app = new Elysia()
-	.use(
-		cors({
-			origin: 'http://localhost:3001',
-			methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-			credentials: true,
-			allowedHeaders: ['Content-Type', 'Authorization']
-		})
-	)
-	.mount(auth.handler)
-	.listen(3000)
+    .use(
+        cors({
+            origin: 'http://localhost:3001',
+            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+            credentials: true,
+            allowedHeaders: ['Content-Type', 'Authorization']
+        })
+    )
+    .mount(auth.handler)
+    .listen(3000)
 
 console.log(
-	`🦊 Elysia 正在 ${app.server?.hostname}:${app.server?.port} 运行`
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
@@ -168,33 +181,33 @@ import { auth } from './auth'
 
 // 用户中间件（计算用户和会话并传递给路由）
 const betterAuth = new Elysia({ name: 'better-auth' })
-	.mount(auth.handler)
-	.macro({
-		auth: {
-			async resolve({ error, request: { headers } }) {
-				const session = await auth.api.getSession({
-					headers
-				})
+    .mount(auth.handler)
+    .macro({
+        auth: {
+            async resolve({ status, request: { headers } }) {
+                const session = await auth.api.getSession({
+                    headers
+                })
 
-				if (!session) return error(401)
+                if (!session) return status(401)
 
-				return {
-					user: session.user,
-					session: session.session
-				}
-			}
-		}
-	})
+                return {
+                    user: session.user,
+                    session: session.session
+                }
+            }
+        }
+    })
 
 const app = new Elysia()
-	.use(betterAuth)
-	.get('/user', ({ user }) => user, {
-		auth: true
-	})
-	.listen(3000)
+    .use(betterAuth)
+    .get('/user', ({ user }) => user, {
+        auth: true
+    })
+    .listen(3000)
 
 console.log(
-	`🦊 Elysia 正在 ${app.server?.hostname}:${app.server?.port} 运行`
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 

@@ -165,10 +165,10 @@ new Elysia()
 import { Elysia } from 'elysia'
 
 new Elysia()
-	.get('/', ({ set, error }) => {
+	.get('/', ({ set, status }) => {
 		set.headers = { 'X-Teapot': 'true' }
 
-		return error(418, 'I am a teapot')
+		return status(418, 'I am a teapot')
 	})
 	.listen(3000)
 ```
@@ -176,7 +176,7 @@ new Elysia()
 ### 状态
 通过以下方法返回自定义状态码：
 
-- **error** 函数（推荐）
+- **status** 函数（推荐）
 - **set.status**（遗留）
 
 ```typescript
@@ -191,14 +191,14 @@ new Elysia()
 	.listen(3000)
 ```
 
-### set.error
-专门的 `error` 函数用于返回带有响应的状态码。
+### 状态函数
+专门的 `status` 函数用于返回带有响应的状态码。
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .get('/', ({ error }) => error(418, "Kirifuji Nagisa"))
+    .get('/', ({ status }) => status(418, "Kirifuji Nagisa"))
     .listen(3000)
 ```
 
@@ -658,10 +658,10 @@ new Elysia()
 import { Elysia } from 'elysia'
 
 new Elysia()
-    .derive(({ headers, error }) => {
+    .derive(({ headers, status }) => {
         const auth = headers['authorization']
 
-        if(!auth) return error(400)
+        if(!auth) return status(400)
 
         return {
             bearer: auth?.startsWith('Bearer ') ? auth.slice(7) : null

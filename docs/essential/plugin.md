@@ -273,9 +273,10 @@ const app = new Elysia()
 :::
 
 ### 服务定位器
-当你将多个状态和装饰器插件应用于一个实例时，该实例将获得类型安全。
 
-但是，你可能会注意到当你尝试在没有装饰器的另一个实例中使用装饰的值时，类型是缺失的。
+当您将带有状态/装饰器的插件应用于一个实例时，该实例将获得类型安全性。
+
+但如果您不将插件应用于另一个实例，它将无法推断类型。
 
 ```typescript twoslash
 // @errors: 2339
@@ -290,28 +291,26 @@ const main = new Elysia()
     .use(child)
 ```
 
-这是 TypeScript 的一个限制；Elysia 只能引用当前实例。
-
 Elysia 引入了 **服务定位器** 模式来抵消这一点。
 
-简单来说，Elysia 将查找插件校验和并获取值或注册一个新的。推断来自插件的类型。
+Elysia 将查找插件的校验和并获取值或注册一个新的。根据插件推断类型。
 
-简单来说，我们需要提供插件引用以便 Elysia 找到服务。
+因此，我们必须提供插件引用，以便 Elysia 找到服务以添加类型安全。
 
 ```typescript twoslash
 // @errors: 2339
 import { Elysia } from 'elysia'
 
-// setup.ts
 const setup = new Elysia({ name: 'setup' })
     .decorate('a', 'a')
 
-// index.ts
+// Without 'setup', type will be missing
 const error = new Elysia()
     .get('/', ({ a }) => a)
 
 const main = new Elysia()
-    .use(setup)
+	// With `setup`, type will be inferred
+    .use(setup) // [!code ++]
     .get('/', ({ a }) => a)
     //           ^?
 ```
