@@ -649,7 +649,7 @@ new Elysia()
 
 当验证失败时，有两种方式提供自定义错误消息：
 
-1. 内联 `error` 属性
+1. 内联 `status` 属性
 2. 使用 [onError](/essential/life-cycle.html#on-error) 事件
 
 ### 错误属性

@@ -44,14 +44,14 @@
                         : 'text-5xl md:text-6xl md:text-center'
                 "
             >
-                Ergonomic Framework <br v-if="kawaii" />
-                for
+                人体工程学 <br v-if="kawaii" />
+                <!-- for -->
                 <button
                     type="button"
                     class="appearance-none rounded-lg interact:bg-violet-500/7.5 px-0.5 transition-colors duration-100 text-left"
                     @click="toggleKawaii"
                 >
-                    {{ kawaii ? 'Humans & Fox Girls' : 'Humans' }}
+                    {{ kawaii ? '框架' : '框架' }}
                 </button>
                 <span
                     class="absolute w-10 md:w-12 h-10 md:h-12 bottom-0 mb-4 ml-2 md:ml-0 md:mb-10 text-indigo-400 transition-all"

@@ -24,6 +24,22 @@ head:
 
 ---
 
+### 来自其他框架？
+
+如果您使用过其他流行框架，如 Express、Fastify 或 Hono，您会发现 Elysia 非常熟悉，只是有一些小差异。
+
+<Deck>
+	<Card title="From Express" href="/migrate/from-express">
+  		从 Express 迁移到 Elysia 的指南
+	</Card>
+    <Card title="From Fastify" href="/migrate/from-fastify">
+  		从 Fastify 迁移到 Elysia 的指南
+    </Card>
+    <Card title="From Hono" href="/migrate/from-hono">
+  		从 Hono 迁移到 Elysia 的指南
+    </Card>
+</Deck>
+
 ### 不喜欢教程？
 
 如果您更倾向于自己动手的方式，可以跳过这个教程，直接访问 [关键概念](/key-concept) 页面，深入了解 Elysia 的工作原理。
@@ -42,6 +58,16 @@ import Deck from './components/nearl/card-deck.vue'
 ### llms.txt
 
 或者，您可以下载 <a href="/llms.txt" download>llms.txt</a> 或 <a href="/llms-full.txt" download>llms-full.txt</a>，并将其输入您最喜欢的 LLM，如 ChatGPT、Claude 或 Gemini，以获得更互动的体验。
+
+<Deck>
+    <Card title="llms.txt" href="/llms.txt" download>
+   		下载带有参考的 Elysia 文档摘要，格式为 Markdown，以便提示 LLM。
+    </Card>
+    <Card title="llms-full.txt" href="/llms-full.txt" download>
+  		下载完整的 Elysia 文档，以 Markdown 格式在一个文件中供 LLM 提示使用。
+    </Card>
+</Deck>
+
 
 ## 设置
 

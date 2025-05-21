@@ -246,6 +246,7 @@ export default defineConfig({
 		sidebar: [
 			{
 				text: '入门',
+				collapsed: true,
 				items: [
 					{
 						text: '概览',
@@ -257,7 +258,22 @@ export default defineConfig({
 					},
 					{
 						text: '教程',
-						link: '/tutorial'
+						link: '/tutorial',
+						collapsed: true,
+						items: [
+							{
+								text: '从 Express 迁移',
+								link: '/migrate/from-express'
+							},
+							{
+								text: '从 Fastify 迁移',
+								link: '/migrate/from-fastify'
+							},
+							{
+								text: '从 Hono 迁移',
+								link: '/migrate/from-hono'
+							}
+						]
 					},
 					{
 						text: '关键概念',
@@ -308,28 +324,16 @@ export default defineConfig({
 						link: '/patterns/configuration'
 					},
 					{
-						text: "生产环境部署",
-						link: "/patterns/deploy",
-					},
-					{
-						text: '类型',
-						link: '/patterns/type'
-					},
-					{
-						text: '宏指令',
-						link: '/patterns/macro'
-					},
-					{
 						text: 'Cookie',
 						link: '/patterns/cookie'
 					},
 					{
-						text: 'Web Socket',
-						link: '/patterns/websocket'
+						text: "生产环境部署",
+						link: "/patterns/deploy",
 					},
 					{
-						text: '单元测试',
-						link: '/patterns/unit-test'
+						text: '宏指令',
+						link: '/patterns/macro'
 					},
 					{
 						text: '挂载',
@@ -338,6 +342,18 @@ export default defineConfig({
 					{
 						text: '跟踪',
 						link: '/patterns/trace'
+					},
+					{
+						text: '类型',
+						link: '/patterns/type'
+					},
+					{
+						text: '单元测试',
+						link: '/patterns/unit-test'
+					},
+					{
+						text: 'Web Socket',
+						link: '/patterns/websocket'
 					}
 				]
 			},

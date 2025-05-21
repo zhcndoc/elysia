@@ -217,6 +217,38 @@ const main = new Elysia()
 
 正如在 [依赖性](#dependencies) 中提到的，我们可以使用 `name` 属性来去重实例，因此不会有任何性能损失或生命周期重复。
 
+## 代码顺序
+
+Elysia 的生命周期代码顺序非常重要。
+
+因为事件只会在注册后应用于路由。
+
+如果你把 onError 放在插件之前，插件将不会继承 onError 事件。
+
+```typescript
+import { Elysia } from 'elysia'
+
+new Elysia()
+ 	.onBeforeHandle(() => {
+        console.log('1')
+    })
+	.get('/', () => 'hi')
+    .onBeforeHandle(() => {
+        console.log('2')
+    })
+    .listen(3000)
+```
+
+控制台应记录以下内容：
+
+```bash
+1
+```
+
+注意到它没有记录 **3**，因为事件是在路由之后注册的，所以它不适用于该路由。
+
+在 [代码顺序](/essential/life-cycle.html#order-of-code) 中了解更多信息。
+
 ## 类型推断
 Elysia 具有复杂的类型系统，允许您从实例推断类型。
 
