@@ -297,20 +297,23 @@ app.patch(
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
-    .patch('/user/:id', ({ params, body }) => ({
+	.patch('/user/:id', ({ params, body }) => ({
 //                           ^?
-        params,
-        body
+		params,
+		body
 //   ^?
-    }),
-    {
-        params: t.Object({
-            id: t.Number()
-        }),
-        body: t.Object({
-            name: t.String()
-        })
-    })
+	}),
+
+
+
+	{
+		params: t.Object({
+			id: t.Number()
+		}),
+		body: t.Object({
+			name: t.String()
+		})
+	})
 ```
 
 :::
@@ -758,49 +761,52 @@ app.get('/error', (req, res) => {
 import { Elysia } from 'elysia'
 
 class CustomError extends Error {
-    // 可选：自定义 HTTP 状态代码
-    status = 500
+	// Optional: custom HTTP status code
+	status = 500
 
-    constructor(message: string) {
-        super(message)
-        this.name = 'CustomError'
-    }
+	constructor(message: string) {
+		super(message)
+		this.name = 'CustomError'
+	}
 
-    // 可选：发送给客户端的内容
-    toResponse() {
-        return {
-            message: "如果您看到这个，那么我们的开发者忘记处理该错误",
-            error: this
-        }
-    }
+	// Optional: what should be sent to the client
+	toResponse() {
+		return {
+			message: "If you're seeing this, our dev forgot to handle this error",
+			error: this
+		}
+	}
 }
 
 const app = new Elysia()
-    // 可选：注册自定义错误类
-    .error({
-        CUSTOM: CustomError,
-    })
-    // 全局错误处理程序
-    .onError(({ error, code }) => {
-        if (code === 'CUSTOM')
-        // ^?
+	// Optional: register custom error class
+	.error({
+		CUSTOM: CustomError,
+	})
+	// Global error handler
+	.onError(({ error, code }) => {
+		if(code === 'CUSTOM')
+		// ^?
 
-            return {
-                message: '出了一些问题！',
-                error
-            }
-    })
-    .get('/error', () => {
-        throw new CustomError('哦，出错了')
-    }, {
-        // 可选：路由特定错误处理程序
-        error({ error }) {
-            return {
-                message: '仅限此路由！',
-                error
-            }
-        }
-    })
+
+
+
+			return {
+				message: 'Something went wrong!',
+				error
+			}
+	})
+	.get('/error', () => {
+		throw new CustomError('oh uh')
+	}, {
+		// Optional: route specific error handler
+		error({ error }) {
+			return {
+				message: 'Only for this route!',
+				error
+			}
+		}
+	})
 ```
 
 :::
