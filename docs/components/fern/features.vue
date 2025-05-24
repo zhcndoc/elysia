@@ -1,60 +1,83 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useInView, motion } from 'motion-v'
+import { useFlyIn } from './animate'
+
+const scope = ref(null)
+const isInView = useInView(scope, {
+    once: true,
+    margin: '0px 0px -35% 0px'
+})
+const flyIn = useFlyIn(isInView)
+</script>
+
 <template>
-    <article id="features" class="fern-gap">
+    <article id="features" class="fern-gap" ref="scope">
         <div
             class="flex flex-col md:flex-row md:justify-between items-start md:items-end gap-4 w-full mb-6 sm:mb-12"
         >
-            <h2
+            <motion.h2
                 class="text-5xl sm:text-6xl text-left text-gray-700 dark:text-gray-300 font-medium leading-[3.5rem] sm:leading-[4.5rem]"
+                v-bind="flyIn()"
             >
                 <span
                     class="text-gray-500 dark:text-gray-400 font-medium text-xl"
-                    >总结一下</span
-                ><br />
+                >
+                    总结一下
+                </span>
+                <br />
                 提供
                 <span
                     class="text-gradient font-semibold from-purple-500 to-sky-400"
-                    >最好的</span
                 >
+                    最好的
+                </span>
                 <br />
                 给予勇敢的人
-            </h2>
+            </motion.h2>
             <p
                 class="w-full sm:w-1/2 lg:max-w-lg lg:w-full lg:pr-24 dark:text-gray-400 dark:font-medium"
+                v-bind="flyIn(0.1)"
             >
-                <span class="inline-block mb-2"
-                    >对于建设者、发明家和有远见的人来说</span
-                >
+                <motion.span class="inline-block mb-2" v-bind="flyIn(0.2)">
+                    对于建设者、发明家和有远见的人来说
+                </motion.span>
                 <br />
-                我们花费了数年时间研究 JavaScript 框架的优点和缺点，所有这一切都是为了提供一次非凡的体验。
+                <motion.span class="inline-block" v-bind="flyIn(0.3)">
+                    我们花费了数年时间研究 JavaScript 框架的优点和缺点，所有这一切都是为了提供一次非凡的体验。
+                </motion.span>
             </p>
         </div>
         <div class="list">
-            <section>
+            <motion.section v-bind="flyIn(0.2)">
                 <h3>光速</h3>
                 <h4 class="text-purple-400">比 Express 快 21 倍。</h4>
                 <p>由 Bun 超级加速，</p>
                 <p>Elysia 是表现最佳的 JavaScript 框架之一。</p>
-            </section>
-            <section>
+            </motion.section>
+            <motion.section v-bind="flyIn(0.3)">
                 <h3>安全</h3>
                 <h4 class="text-blue-400">动态的类型安全</h4>
                 <p>从类型到运行时构建</p>
                 <p>
                     Elysia 学习你的代码库，适应，用你的类型强制执行
                 </p>
-            </section>
-            <section>
+            </motion.section>
+            <motion.section v-bind="flyIn(0.4)">
                 <h3>生产</h3>
                 <h4 class="text-teal-400">今天最好的体验</h4>
                 <p>
                     人体工程学设计，以开发者体验为优先。没有任何技术废话。
                 </p>
-            </section>
+            </motion.section>
         </div>
-        <h5 class="text-right text-base mt-6 text-gray-400/75">
+        <motion.h5
+            class="text-right text-base mt-6 text-gray-400/75"
+            v-bind="flyIn(0.5)"
+        >
             这些是我们建立 Elysia 的基础，<br />
             为了提供最好的体验。
-        </h5>
+        </motion.h5>
     </article>
 </template>
 

@@ -1,36 +1,56 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useInView, motion } from 'motion-v'
+import { useFlyIn } from './animate'
+
+const scope = ref(null)
+const isInView = useInView(scope, {
+    once: true,
+    margin: '0px 0px -35% 0px'
+})
+const flyIn = useFlyIn(isInView)
+</script>
+
 <template>
-    <article id="made-for-human" class="fern-gap">
+    <article id="made-for-human" class="fern-gap" ref="scope">
         <div class="body">
             <header class="flex flex-col flex-1 text-xl gap-6">
                 <div class="flex flex-col gap-3 mb-2">
-                    <h3 class="text-2xl font-medium text-700">我们的原则</h3>
-                    <h2
+                    <motion.h3
+                        class="text-2xl font-medium text-700"
+                        v-bind="flyIn()"
+                    >
+                        我们的原则
+                    </motion.h3>
+                    <motion.h2
                         class="text-6xl font-semibold text-gradient from-sky-500 to-violet-500 leading-[4.25rem]"
+                        v-bind="flyIn(0.1)"
                     >
                         设计以人为本
-                    </h2>
+                    </motion.h2>
                 </div>
-                <p class="max-w-md leading-normal">
+                <motion.p class="max-w-md leading-normal" v-bind="flyIn(0.2)">
                     我们的目标是设计一个符合人体工程学、合理且高效的工作框架，即使是初学者也能轻松使用。
-                </p>
-                <p class="max-w-md leading-normal">
+                </motion.p>
+                <motion.p class="max-w-md leading-normal" v-bind="flyIn(0.3)">
                     设计以避免不必要的复杂性，并为您简化类型复杂性，以便您专注于构建。
-                </p>
-                <p class="leading-normal">
+                </motion.p>
+                <motion.p class="leading-normal" v-bind="flyIn(0.4)">
                     一个感觉就像
                     <span
                         class="text-gradient from-violet-500 to-sky-500 font-semibold"
-                        >JavaScript 的框架</span
                     >
-                </p>
+                        JavaScript 的框架
+                    </span>
+                </motion.p>
             </header>
-            <section class="showcase">
+            <motion.section class="showcase" v-bind="flyIn(0.3)">
                 <slot />
-            </section>
+            </motion.section>
         </div>
 
         <footer class="summary">
-            <article>
+            <motion.article v-bind="flyIn(0.6)">
                 <h4>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +76,8 @@
                 </h4>
                 <p>一个字符串、数字或复杂的 JSON</p>
                 <p>我们所需要做的就是返回。</p>
-            </article>
-            <article>
+            </motion.article>
+            <motion.article v-bind="flyIn(0.7)">
                 <h4>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +106,8 @@
                 </h4>
                 <p>要发送文件或图像，只需返回</p>
                 <p>没有什么更多或更少</p>
-            </article>
-            <article>
+            </motion.article>
+            <motion.article v-bind="flyIn(0.8)">
                 <h4>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -121,8 +141,8 @@
                     流响应
                 </p>
                 <p>我们所需要做的就是返回</p>
-            </article>
-            <article>
+            </motion.article>
+            <motion.article v-bind="flyIn(0.9)">
                 <h4>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +164,7 @@
                 </h4>
                 <p>内置 µWebSocket</p>
                 <p>发送实时数据只需 3 行代码</p>
-            </article>
+            </motion.article>
         </footer>
     </article>
 </template>

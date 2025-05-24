@@ -1,15 +1,23 @@
 <template>
-    <article id="people-tweets" class="fern-gap">
-        <h2 class="sm:text-center text-4xl font-semibold text-gray-700 dark:text-gray-300 leading-[3rem]">
+    <article id="people-tweets" class="fern-gap" ref="scope">
+        <motion.h2
+            class="sm:text-center text-4xl font-semibold text-gray-700 dark:text-gray-300 leading-[3rem]"
+            v-bind="flyIn()"
+        >
             <!-- Powered by -->
-            <span class="text-gradient from-rose-400 to-orange-400">由社区的爱所驱动</span
-            ><br />
-            <!-- <span class="text-gradient from-rose-400 to-amber-400"
-                >community</span
-            > -->
-        </h2>
+            <span class="text-gradient from-rose-400 to-orange-400">
+                由社区的爱所驱动
+            </span>
+            <br />
+            <!-- <span class="text-gradient from-rose-400 to-amber-400">
+                community
+            </span> -->
+        </motion.h2>
         <section class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-12 pb-8">
-            <div class="flex flex-col gap-3 lg:mt-12">
+            <motion.div
+                class="flex flex-col gap-3 lg:mt-12"
+                v-bind="flyIn(0.1)"
+            >
                 <Tweet
                     id="AqueelMiq"
                     user="Aqueel"
@@ -38,8 +46,8 @@
                     content="我们自豪地赞助了数十个项目，并且帮助维护仓库，以惊人的速度为开源项目做出贡献。"
                     href="https://x.com/MarcLaventure/status/1773751085792174246"
                 />
-            </div>
-            <div class="flex flex-col gap-3">
+            </motion.div>
+            <motion.div class="flex flex-col gap-3" v-bind="flyIn(0.1)">
                 <Tweet
                     id="jarredsumner"
                     user="Jarred Sumner"
@@ -68,8 +76,8 @@
                     content="非常兴奋能成为令人惊叹的 @elysiaJS 社区的一员！"
                     href="https://x.com/scalar/status/1744024831014920403"
                 />
-            </div>
-            <div class="flex flex-col gap-3 lg:mt-6">
+            </motion.div>
+            <motion.div class="flex flex-col gap-3 lg:mt-6" v-bind="flyIn(0.3)">
                 <Tweet
                     id="josedonato__"
                     user="José Donato 🦋"
@@ -91,13 +99,24 @@
                     content="我一直在尝试使用 @bunjavascript 和 @elysiaJS，在发布之前还需要做一些调整，但是下一个版本在与 bun 的 TS 支持检测方面应该会更加原生，例如 CLI 在不安装 ts-node 的情况下也能工作。"
                     href="https://x.com/MikroORM/status/1821993062114967711"
                 />
-            </div>
+            </motion.div>
         </section>
     </article>
 </template>
 
 <script setup lang="ts">
 import Tweet from './tweet.vue'
+
+import { ref } from 'vue'
+import { useInView, motion } from 'motion-v'
+import { useFlyIn } from './animate'
+
+const scope = ref(null)
+const isInView = useInView(scope, {
+    once: true,
+    margin: '0px 0px -35% 0px'
+})
+const flyIn = useFlyIn(isInView)
 </script>
 
 <style>

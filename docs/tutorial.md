@@ -1,5 +1,8 @@
 ---
 title: 教程 - ElysiaJS
+next:
+  text: '关键概念'
+  link: '/key-concept'
 head:
     - - meta
       - property: 'og:title'

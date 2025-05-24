@@ -1,18 +1,36 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useInView, motion } from 'motion-v'
+import { useFlyIn } from './animate'
+
+const scope = ref(null)
+const isInView = useInView(scope, {
+    once: true,
+    margin: '0px 0px -35% 0px'
+})
+const flyIn = useFlyIn(isInView)
+</script>
+
 <template>
-    <article id="test-with-confidence" class="fern-gap">
+    <article id="test-with-confidence" class="fern-gap" ref="scope">
         <div class="body">
             <header class="flex flex-col w-full lg:w-5/12 text-xl gap-6">
                 <div class="flex flex-col gap-3">
                     <h2
                         class="text-6xl text-gray-700 font-medium leading-[4.5rem] dark:text-gray-400"
                     >
-                        充满信心地
-                        <span
+                        <motion.span v-bind="flyIn()">充满信心地</motion.span>
+                        <motion.span
                             class="text-gradient font-semibold from-violet-500 to-sky-400"
-                            >进行测试</span
+                            v-bind="flyIn(0.1)"
                         >
+                            进行测试
+                        </motion.span>
                     </h2>
-                    <h3 class="sm:flex items-center text-2xl">
+                    <motion.h3
+                        class="sm:flex items-center text-2xl"
+                        v-bind="flyIn(0.2)"
+                    >
                         类型安全带有
                         <span
                             class="text-gradient font-semibold from-violet-500 to-sky-400 ml-1 sm:ml-2 mr-1"
@@ -55,19 +73,25 @@
                                 </radialGradient>
                             </defs>
                         </svg>
-                    </h3>
+                    </motion.h3>
                 </div>
-                <p class="lg:max-w-md leading-normal">
-                    Elysia 提供了一种类型安全的层，用于从路由到参数地交互和测试您的服务器。
-                </p>
-                <p class="lg:max-w-md leading-normal">
-                    使用自动补全功能，您可以轻松地为服务器编写测试，而无需任何麻烦。
-                </p>
+                <motion.p
+                    class="lg:max-w-md leading-normal"
+                    v-bind="flyIn(0.3)"
+                >
+                    Elysia 提供了一个类型安全层，用于与您的服务器进行交互和测试，涵盖从路由到参数的各个环节。
+                </motion.p>
+                <motion.p
+                    class="lg:max-w-md leading-normal"
+                    v-bind="flyIn(0.4)"
+                >
+                    借助自动补全功能，您可以轻松为服务器编写测试，无需任何繁琐操作。
+                </motion.p>
                 <!-- <slot name="test-script" /> -->
             </header>
-            <section class="showcase">
+            <motion.section class="showcase" v-bind="flyIn(0.5)">
                 <slot name="test-code" />
-            </section>
+            </motion.section>
         </div>
     </article>
 </template>
