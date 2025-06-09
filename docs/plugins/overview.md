@@ -78,6 +78,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Group Router](https://github.com/itsyoboieltr/elysia-group-router) - 基于文件系统和文件夹的分组路由器
 -   [Basic Auth](https://github.com/itsyoboieltr/elysia-basic-auth) - 基本 HTTP 身份验证
 -   [ETag](https://github.com/bogeychan/elysia-etag) - 自动生成 HTTP [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
+-   [CDN Cache](https://github.com/johnny-woodtke/elysiajs-cdn-cache) - Elysia 的 Cache-Control 插件 - 不再手动设置 HTTP 头部
 -   [Basic Auth](https://github.com/eelkevdbos/elysia-basic-auth) - 基本 HTTP 身份验证（使用 `request` 事件）
 -   [i18n](https://github.com/eelkevdbos/elysia-i18next) - 基于 [i18next](https://www.i18next.com/) 的 [i18n](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n) 包装
 -   [Elysia Request ID](https://github.com/gtramontina/elysia-requestid) - 添加/转发请求 ID（`X-Request-ID` 或自定义）
@@ -117,6 +118,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysia Remote DTS](https://github.com/rayriffy/elysia-remote-dts) - 一个为 Eden Treaty 提供远程 .d.ts 类型的插件。
 
 ## 相关项目：
+
 -   [prismabox](https://github.com/m1212e/prismabox) - 基于您的数据库模型生成 typebox 模式的生成器，适用于 elysia
 
 ---

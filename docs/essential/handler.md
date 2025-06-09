@@ -135,7 +135,7 @@ new Elysia()
             // ^ 这是上下文
 ```
 
-**上下文**只能在路由处理程序中检索，包括：
+**上下文**只能在路由处理程序中检索。它包括：
 
 -   **path** - 请求的路径名
 -   **body** - [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)，表单或文件上传。

@@ -210,7 +210,7 @@ const app = new Elysia()
 
 <Playground :elysia="demo2" />
 
-一旦传递给 `Elysia.use`，功能回调的行为就像一个普通的插件，只是属性直接分配到了
+一旦传递给 `Elysia.use`，函数式回调的行为类似于普通插件，只不过其属性会直接赋值给主实例。
 
 ::: tip
 你不必担心功能回调和创建实例之间的性能差异。
