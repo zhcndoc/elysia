@@ -1,0 +1,1 @@
+import{_ as t,c as n,o as c,j as o,r as s}from"./framework.BJjhli0h.js";const l={},r={class:"code-compare"};function a(e,i){return c(),n("section",r,[o("article",null,[o("section",null,[s(e.$slots,"left")]),s(e.$slots,"left-content")]),o("article",null,[o("section",null,[s(e.$slots,"right")]),s(e.$slots,"right-content")])])}const _=t(l,[["render",a]]);export{_ as C};
