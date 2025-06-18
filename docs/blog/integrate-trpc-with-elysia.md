@@ -152,7 +152,7 @@ export type Router = typeof router
 ```typescript
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
-import '@elysiajs/trpc'
+import { trpc } '@elysiajs/trpc'
 
 import { router, createContext } from './trpc' // [!code ++]
 

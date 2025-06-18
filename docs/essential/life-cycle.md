@@ -351,17 +351,40 @@ type ContentType = |
     | 'json'
     // 'multipart/form-data' 的简写
     | 'formdata'
-    // 'application/x-www-form-urlencoded' 的简写
+    // Shorthand for 'application/x-www-form-urlencoded'
     | 'urlencoded'
+    // Skip body parsing entirely
+    | 'none'
     | 'text/plain'
     | 'application/json'
     | 'multipart/form-data'
     | 'application/x-www-form-urlencoded'
 ```
 
+### 跳过主体解析
+
+当您需要与第三方 HTTP 处理库集成，如 `trpc`、`orpc`，并且抛出 `Body is already used` 错误时。
+
+这是因为 Web 标准的 Request 只能被解析一次。
+
+Elysia 和第三方库都拥有自己的 body 解析器，因此可通过指定 `parse: 'none'` 跳过 Elysia 端的 body 解析。
+
+```typescript
+import { Elysia } from 'elysia'
+
+new Elysia()
+	.post(
+		'/',
+		({ request }) => library.handle(request),
+		{
+			parse: 'none'
+		}
+	)
+```
+
 ### 自定义解析器
 
-您可以使用 `parser` 注册自定义解析器：
+可以通过 `parser` 注册自定义解析器：
 
 ```typescript
 import { Elysia } from 'elysia'

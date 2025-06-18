@@ -90,7 +90,7 @@ client.
 ```
 
 ## 注意事项
-有时候 Eden 可能无法准确推断 Elysia 的类型，以下是一些常见的解决方法来修复 Eden 的类型推断。
+有时，Eden 可能无法正确从 Elysia 推断类型，以下是解决 Eden 类型推断问题的最常见方法。
 
 ### 类型严格
 确保在 **tsconfig.json** 中启用严格模式
@@ -105,7 +105,7 @@ client.
 ### Elysia 版本不匹配
 Eden 依赖 Elysia 类来导入 Elysia 实例并正确推断类型。
 
-确保客户端和服务器使用匹配的 Elysia 版本。
+确保客户端和服务器端使用匹配的 Elysia 版本。
 
 您可以使用 [`npm why`](https://docs.npmjs.com/cli/v10/commands/npm-explain) 命令检查它：
 
@@ -135,14 +135,14 @@ node_modules/elysia
 
 
 ### TypeScript 版本
-Elysia 使用 TypeScript 的新特性和语法以最有效的方式推断类型。像 Const Generic 和 Template Literal 的特性被广泛使用。
+Elysia 使用了较新的 TypeScript 功能和语法来实现高效的类型推断。像 Const Generic 和 Template Literal 这样的特性被广泛使用。
 
-确保你的客户端有 **最低 TypeScript 版本 >= 5.0**
+确保你的客户端使用的 TypeScript 版本最低为 **5.0** 或更高。
 
-### 方法链
-为了让 Eden 正常工作，Elysia 必须使用 **方法链**
+### 方法链调用
+为了使 Eden 正确工作，Elysia 必须使用 **方法链调用**
 
-Elysia 的类型系统很复杂，方法通常会为实例引入新类型。
+Elysia 的类型系统非常复杂，方法通常会为实例引入新的类型。
 
 使用方法链可以帮助保存这个新的类型引用。
 
@@ -156,9 +156,9 @@ new Elysia()
     .get('/', ({ store: { build } }) => build)
     .listen(3000)
 ```
-这样，**state** 现在返回一个新的 **ElysiaInstance** 类型，将 **build** 引入 store 并替换当前类型。
+这样，**state** 会返回一个新的 **ElysiaInstance** 类型，在 store 中引入 **build**，替代当前的类型。
 
-不使用方法链时，Elysia 在引入新类型时不会保存，导致没有类型推断。
+如果不使用方法链调用，Elysia 不会保存新引入的类型，导致类型无法推断。
 ```typescript twoslash
 // @errors: 2339
 import { Elysia } from 'elysia'
@@ -173,21 +173,20 @@ app.listen(3000)
 ```
 
 ### 类型定义
-
-如果您使用像 `Bun.file` 或类似 API 的 Bun 特定功能并从处理程序返回它，您可能需要将 Bun 类型定义安装到客户端。
+如果你使用了 Bun 特有的功能，比如 `Bun.file` 或类似的 API，并且从处理器函数中返回它，你可能需要为客户端安装 Bun 的类型定义。
 
 ```bash
 bun add -d @types/bun
 ```
 
-### 路径别名（单一代码库）
-如果您在单一代码库中使用路径别名，请确保前端能够与后端相同地解析路径。
+### 路径别名（monorepo）
+如果你在 monorepo 中使用了路径别名，确保前端能够像后端一样解析这些路径。
 
 ::: tip
-在单体库中设置路径别名有点棘手，您可以分叉我们的示例模板：[Kozeki 模板](https://github.com/SaltyAom/kozeki-template)并根据您的需要进行修改。
+在 monorepo 中设置路径别名有些棘手，您可以分叉我们的示例模板：[Kozeki 模板](https://github.com/SaltyAom/kozeki-template)并根据您的需要进行修改。
 :::
 
-例如，如果您在 **tsconfig.json** 中为后端设置了以下路径别名：
+例如，你在 **tsconfig.json** 中为后端设置了如下路径别名：
 ```json
 {
   "compilerOptions": {
@@ -212,7 +211,7 @@ const app = new Elysia()
 export type app = typeof app
 ```
 
-您**必须**确保您的前端代码能够解析相同的路径别名，否则类型推断将被解析为任何类型。
+你**必须**确保前端代码也能解析相同的路径别名，否则类型推断就会变成 any。
 
 ```typescript
 import { treaty } from '@elysiajs/eden'
@@ -224,9 +223,9 @@ const client = treaty<app>('localhost:3000')
 import { a, b } from '@/controllers'
 ```
 
-要解决此问题，您必须确保路径别名在前端和后端解析为相同的文件。
+要解决此问题，你必须确保路径别名在前端和后端解析为相同的文件。
 
-因此，您必须将 **tsconfig.json** 中的路径别名更改为：
+因此，你必须将 **tsconfig.json** 中的路径别名改为：
 ```json
 {
   "compilerOptions": {
@@ -238,14 +237,14 @@ import { a, b } from '@/controllers'
 }
 ```
 
-如果配置正确，您应该能够在前端和后端解析相同的模块。
+如果配置正确，你应该能够在前端和后端解析相同的模块。
 ```typescript
 // 这应该能够在前端和后端解析相同的模块，而不是 `any`。
 import { a, b } from '@/controllers'
 ```
 
-#### Scope
-我们建议在您的单体仓库中的每个模块前添加一个 **scope** 前缀，以避免可能发生的任何混淆和冲突。
+#### 范围（Scope）
+我们建议在你的 monorepo 中为每个模块添加一个 **范围** 前缀，以避免任何混淆和冲突。
 
 ```json
 {
@@ -259,12 +258,12 @@ import { a, b } from '@/controllers'
 }
 ```
 
-然后你可以像这样导入模块：
+然后，你可以这样导入模块：
 ```typescript
-// Should work in both frontend and backend and not return `any`
+// 应该能在前端和后端都正常使用，且不会返回 `any`
 import { a, b } from '@backend/controllers'
 ```
 
-我们建议创建一个 **single tsconfig.json**，将 `baseUrl` 定义为您仓库的根目录，根据模块位置提供路径，并为每个模块创建一个继承根 **tsconfig.json** 的 **tsconfig.json**，该文件具有路径别名。
+我们建议创建一个 **单一的 tsconfig.json**，将 `baseUrl` 指向项目根目录，根据模块位置提供路径别名，并为每个模块创建继承自根 tsconfig.json 的 **tsconfig.json**，以使用路径别名。
 
-您可以在这个 [路径别名示例库](https://github.com/SaltyAom/elysia-monorepo-path-alias) 或 [Kozeki 模板](https://github.com/SaltyAom/kozeki-template) 中找到一个工作示例。
+你可以在这个 [路径别名示例仓库](https://github.com/SaltyAom/elysia-monorepo-path-alias) 或者 [Kozeki 模板](https://github.com/SaltyAom/kozeki-template) 中查看一个工作示例。

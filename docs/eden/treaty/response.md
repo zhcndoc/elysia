@@ -15,14 +15,14 @@ head:
 ---
 
 # 响应
-调用 fetch 方法后，Eden Treaty 返回一个 Promise，其中包含以下属性：
-- data - 响应的返回值（2xx）
-- error - 响应的返回值（>= 3xx）
-- response `Response` - Web 标准响应类
+一旦调用 fetch 方法，Eden Treaty 会返回一个包含以下属性的对象的 `Promise`：
+- data - 响应返回的值（2xx）
+- error - 响应返回的错误值（>= 3xx）
+- response `Response` - Web 标准的 Response 类
 - status `number` - HTTP 状态码
-- headers `FetchRequestInit['headers']` - 响应头
+- headers `FetchRequestInit['headers']` - 响应头信息
 
-返回后，您必须提供错误处理，以确保响应数据值被解包，否则该值将为可空。Elysia 提供了一个 `error()` 辅助函数来处理错误，Eden 将提供错误值的类型收窄。
+返回后，您必须进行错误处理以确保响应数据值被解包，否则该值将为可空。Elysia 提供了 `error()` 辅助函数来处理错误，Eden 会为错误值提供类型收窄。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -48,7 +48,7 @@ const submit = async (name: string) => {
         name
     })
 
-    // type: string | null
+    // 类型: string | null
     console.log(data)
 
     if (error)
@@ -62,22 +62,21 @@ const submit = async (name: string) => {
         }
 
     // 一旦错误被处理，类型将被解包
-    // type: string
+    // 类型: string
     return data
 }
 ```
 
-默认情况下，Elysia 会自动推断 `error` 和 `response` 的类型为 TypeScript，而 Eden 将提供自动完成和类型收窄以确保准确的行为。
+默认情况下，Elysia 会自动推断 `error` 和 `response` 的类型到 TypeScript，Eden 将提供自动补全和类型收窄以实现准确的行为。
 
 ::: tip
-如果服务器的响应 HTTP 状态 >= 300，则值将始终为 null，而 `error` 将有一个返回值。
+如果服务器响应的 HTTP 状态码 >= 300，则值始终为 `null`，而 `error` 会包含返回的值。
 
-否则，响应将传递给 data。
+否则，响应值将传递给 `data`。
 :::
 
 ## 流响应
-Eden 将视流响应为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
-
+Eden 会将流响应视为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'

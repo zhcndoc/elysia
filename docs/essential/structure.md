@@ -158,9 +158,12 @@ class AuthService {
 
 由于 Elysia 类型复杂且严重依赖插件和多级链式调用，手动进行类型化可能会很具挑战性，因为它高度动态。
 
-### ✅ 要：将 Elysia 实例作为服务使用
+### ✅ 建议做法：将依赖服务请求抽象为Elysia实例
 
-我们建议使用 Elysia 实例作为服务以确保类型的完整性和推断：
+我们推荐将服务类与Elysia解耦设计。
+
+但**若该服务属于请求级依赖服务**或需要处理HTTP请求时，建议将其抽象为Elysia实例，以确保类型完整性和自动推断：
+
 ```typescript
 import { Elysia } from 'elysia'
 

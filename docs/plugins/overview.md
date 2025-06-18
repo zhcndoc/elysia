@@ -116,6 +116,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysia Protobuf](https://github.com/ilyhalight/elysia-protobuf) - 支持 Elysia 的 protobuf。
 -   [Elysia Prometheus](https://github.com/m1handr/elysia-prometheus) - Elysia 插件，用于暴露 Prometheus 的 HTTP 指标。
 -   [Elysia Remote DTS](https://github.com/rayriffy/elysia-remote-dts) - 一个为 Eden Treaty 提供远程 .d.ts 类型的插件。
+-   [Elysia Background](https://github.com/staciax/elysia-background) - Elysia.js 的后台任务处理插件。
 
 ## 相关项目：
 
