@@ -255,8 +255,6 @@ export const spread = <
     return newSchema as any
 }
 
-const a = spread(table.user, 'insert')
-
 /**
  * 将 Drizzle 表展开为一个普通对象
  *

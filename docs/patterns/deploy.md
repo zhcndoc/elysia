@@ -244,9 +244,9 @@ EXPOSE 3000
 ## Railway
 [Railway](https://railway.app) 是一个流行的部署平台。
 
-Railway 为每个部署分配 **随机端口**，可以通过 `PORT` 环境变量访问。
+Railway 为每个部署分配一个 **随机端口**，可以通过 `PORT` 环境变量访问。
 
-我们需要修改我们的 Elysia 服务器以接受 `PORT` 环境变量，以兼容 Railway 的端口。
+我们需要修改我们的 Elysia 服务器，以接受 `PORT` 环境变量，以符合 Railway 端口。
 
 我们可以使用 `process.env.PORT`，并在开发期间提供一个后备端口：
 ```ts

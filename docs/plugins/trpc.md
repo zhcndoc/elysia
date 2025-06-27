@@ -53,14 +53,14 @@ const app = new Elysia().use(trpc(router)).listen(3000)
 
 接受 tRPC 路由器并注册到 Elysia 的处理程序。
 
-````ts
+```typescript
 trpc(
 	router: Router,
 	option?: {
 	    endpoint?: string
 	}
 ): this
-````
+```
 
 `Router` 是 TRPC 路由器实例。
 
