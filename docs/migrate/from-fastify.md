@@ -550,7 +550,7 @@ const app = new Elysia()
 ## 良好的类型安全
 Elysia 确保良好的类型安全。
 
-例如，您可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以 **安全的类型** 方式自定义上下文，而 Fastify 则无法做到这一点。
+例如，您可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以 **类型安全** 的方式自定义上下文，而 Fastify 则不能。
 
 <Compare>
 

@@ -486,7 +486,7 @@ const app = new Elysia()
 ## 健全的类型安全
 Elysia 被设计为具有健全的类型安全。
 
-例如，您可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以 **类型安全** 的方式自定义上下文，而 Express 不支持这种方式。
+例如，您可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以 **类型安全** 的方式自定义上下文，而 Express 则无法做到。
 
 <Compare>
 

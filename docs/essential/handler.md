@@ -565,7 +565,7 @@ Elysia 会自动将状态值注册到商店中，无需显式类型或额外的 
 import { Elysia } from 'elysia'
 
 class Logger {
-    log(value: string) {
+    static log(value: string) {
         console.log(value)
     }
 }

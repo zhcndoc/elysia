@@ -160,9 +160,9 @@ class AuthService {
 
 ### ✅ 建议做法：将依赖服务请求抽象为Elysia实例
 
-我们推荐将服务类与Elysia解耦设计。
+我们建议将服务类抽象化，远离 Elysia。
 
-但**若该服务属于请求级依赖服务**或需要处理HTTP请求时，建议将其抽象为Elysia实例，以确保类型完整性和自动推断：
+然而，**如果服务是请求依赖服务**或需要处理 HTTP 请求，我们建议将其抽象为 Elysia 实例，以确保类型的完整性和推断：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -197,7 +197,7 @@ Elysia 默认处理 [插件去重](/essential/plugin.html#plugin-deduplication)�
 
 ### ⚠️ 从 Elysia 实例中推断 Context
 
-在 **绝对必要的情况下**，您可以从 Elysia 实例本身推断 `Context` 类型：
+如果**绝对必要**，您可以从 Elysia 实例本身推断 `Context` 类型：
 ```typescript
 import { Elysia, type InferContext } from 'elysia'
 
@@ -216,9 +216,9 @@ class AuthService {
 }
 ```
 
-然而，我们建议尽可能避免这样做，而是使用 [Elysia 作为服务](✅-要-将-elysia-实例作为服务使用) 。
+然而，我们建议尽可能避免这样做，而是使用 [Elysia 作为服务](✅-do-use-elysia-instance-as-a-service)。
 
-您可以在 [Essential: Handler](/essential/handler) 中找到有关 [InferContext](/essential/handler#infercontext) 的更多信息。
+您可以在 [Essential: Handler](/essential/handler) 中了解更多关于 [InferContext](/essential/handler#infercontext) 的信息。
 
 ## 模型
 模型或 [DTO (数据传输对象)](https://en.wikipedia.org/wiki/Data_transfer_object) 通过 [Elysia.t (验证)](/validation/overview.html#data-validation) 来处理。

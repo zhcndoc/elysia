@@ -20,7 +20,7 @@ head:
 
 1. 创建 **src/routes/[...slugs]/+server.ts**。
 2. 在 **+server.ts** 中创建或导入一个现有的 Elysia 服务器
-3. 导出您想要公开的方法的处理程序
+3. 导出您想要公开的方法的处理程序，您也可以使用 `fallback` 让 Elysia 处理所有方法。
 
 ```typescript
 // src/routes/[...slugs]/+server.ts
@@ -38,6 +38,8 @@ type RequestHandler = (v: { request: Request }) => Response | Promise<Response>
 
 export const GET: RequestHandler = ({ request }) => app.handle(request)
 export const POST: RequestHandler = ({ request }) => app.handle(request)
+// or simply
+export const fallback: RequestHandler = ({ request }) => app.handle(request)
 ```
 
 您可以将 Elysia 服务器视为普通的 SvelteKit 服务器路由。
@@ -65,8 +67,7 @@ const app = new Elysia({ prefix: '/api' }) // [!code ++]
 
 type RequestHandler = (v: { request: Request }) => Response | Promise<Response>
 
-export const GET: RequestHandler = ({ request }) => app.handle(request)
-export const POST: RequestHandler = ({ request }) => app.handle(request)
+export const fallback: RequestHandler = ({ request }) => app.handle(request)
 ```
 
 这样可以确保 Elysia 路由在您放置它的任何位置都能正常工作。
