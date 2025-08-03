@@ -341,9 +341,32 @@ new Elysia({
 })
 ```
 
-Elysia 扩展了支持 TLS 的 Bun 配置，使用 BoringSSL 作为支持。
+### 示例：增加超时
 
-查看[serve.tls](#serve-tls)以获取可用配置。
+我们可以通过在 `serve` 配置中设置 [`serve.idleTimeout`](#serve-idletimeout) 来增加空闲超时。
+
+```ts
+import { Elysia } from 'elysia'
+
+new Elysia({
+	serve: {
+		// Increase idle timeout to 30 seconds
+		idleTimeout: 30
+	}
+})
+```
+
+默认情况下，空闲超时时间为 10 秒（在 Bun 上）。
+
+---
+
+## serve
+
+HTTP 服务器配置。
+
+Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
+
+有关可用配置，请参见 [serve.tls](#serve-tls)。
 
 ### serve.hostname
 @default `0.0.0.0`
@@ -351,9 +374,14 @@ Elysia 扩展了支持 TLS 的 Bun 配置，使用 BoringSSL 作为支持。
 服务器应监听的主机名。
 
 ### serve.id
-使用 ID 唯一标识服务器实例。
+Uniquely identify a server instance with an ID
 
-此字符串将用于热重载服务器，而不会中断待处理的请求或网页套接字。如果未提供，将生成一个值。要禁用热重载，请将此值设置为 `null`。
+This string will be used to hot reload the server without interrupting pending requests or websockets. If not provided, a value will be generated. To disable hot reloading, set this value to `null`.
+
+### serve.idleTimeout
+@default `10` (10 seconds)
+
+By default, Bun set idle timeout to 10 seconds, which means that if a request is not completed within 10 seconds, it will be aborted.
 
 ### serve.maxRequestBodySize
 @default `1024 * 1024 * 128` (128MB)

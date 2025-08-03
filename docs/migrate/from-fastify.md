@@ -524,7 +524,7 @@ import { Elysia } from 'elysia'
 
 const app = new Elysia()
 	// 全局中间件
-	.onRequest('/user', ({ method, path }) => {
+	.onRequest(({ method, path }) => {
 		console.log(`${method} ${path}`)
 	})
 	// 路由特定中间件

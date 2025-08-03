@@ -85,9 +85,9 @@ import { status } from 'elysia'
 
 import type { AuthModel } from './model'
 
-// 如果类不需要存储属性,
-// 你可以使用 `abstract class` 避免创建类实例
-abstract class Auth {
+// If the class doesn't need to store a property,
+// you may use `abstract class` to avoid class allocation
+export abstract class Auth {
 	static async signIn({ username, password }: AuthModel.signInBody) {
 		const user = await sql`
 			SELECT password
@@ -122,7 +122,7 @@ export namespace AuthModel {
 	})
 
 	// 以 TypeScript 类型定义
-	export type signInBody = typeof signInBody.static
+	export type signInBody = typeof signInBodyBody.static
 
 	// 其它模型同理
 	export const signInResponse = t.Object({

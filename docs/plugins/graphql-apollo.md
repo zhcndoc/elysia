@@ -26,7 +26,7 @@ bun add graphql @elysiajs/apollo @apollo/server
 
 然后使用它：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { apollo, gql } from '@elysiajs/apollo'
 

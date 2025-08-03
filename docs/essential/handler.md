@@ -415,6 +415,28 @@ const app = new Elysia()
 
 在这个例子中，我们可以通过使用 `yield` 关键字流式传输响应。
 
+## 服务器发送事件 (SSE)
+
+Elysia 通过提供一个 `sse` 工具函数来支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)。
+
+```typescript twoslash
+import { Elysia, sse } from 'elysia'
+
+new Elysia()
+	.get('/sse', function* () {
+		yield sse('hello world')
+		yield sse({
+			event: 'message',
+			data: {
+				message: 'This is a message',
+				timestamp: new Date().toISOString()
+			},
+		})
+	})
+```
+
+当一个值被包装在 `sse` 中时，Elysia 会自动将响应头设置为 `text/event-stream` 并将数据格式化为 SSE 事件。
+
 ### 设置头部
 Elysia 将在第一个块被输出之前延迟返回响应头。
 
@@ -565,7 +587,7 @@ Elysia 会自动将状态值注册到商店中，无需显式类型或额外的 
 import { Elysia } from 'elysia'
 
 class Logger {
-    static log(value: string) {
+    log(value: string) {
         console.log(value)
     }
 }

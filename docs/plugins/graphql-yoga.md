@@ -26,7 +26,7 @@ bun add @elysiajs/graphql-yoga
 
 然后使用它：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 import { yoga } from '@elysiajs/graphql-yoga'
 

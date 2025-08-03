@@ -9,12 +9,6 @@ import tailwindcss from '@tailwindcss/vite'
 import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
 
-// import {
-// 	GitChangelog,
-// 	GitChangelogMarkdownSection
-// } from '@nolebase/vitepress-plugin-git-changelog/vite'
-import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
-
 const description =
     '适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
 
@@ -45,6 +39,7 @@ export default defineConfig({
             light: 'github-light',
             dark: 'github-dark'
         },
+        languages: ['js', 'ts'],
         codeTransformers: [
             // @ts-ignore
             transformerTwoslash({
@@ -54,73 +49,35 @@ export default defineConfig({
             })
         ],
         config: (md) => {
-            md.use(InlineLinkPreviewElementTransform)
             md.use(lightbox, {})
-            // md.use(UnlazyImages(), {
-            // 	imgElementTag: 'NolebaseUnlazyImg'
-            // })
         }
     },
-    // vue: {
-    // 	template: {
-    // 		transformAssetUrls: {
-    // 			NolebaseUnlazyImg: ['src']
-    // 		}
-    // 	}
-    // },
-
-    // ![INFO] uncomment for support hot reload on WSL - https://github.com/vitejs/vite/issues/1153#issuecomment-785467271
     vite: {
         server: {
             watch: {
                 usePolling: true
             }
         },
+        experimental: {
+            enableNativePlugin: true
+        },
         plugins: [
-            tailwindcss() as any,
+            tailwindcss(),
             process.env.NODE_ENV === 'production'
                 ? llmstxt({
                       description: '人体工程学框架',
                       details:
                           "Elysia 是一个为人类设计的人体工程学框架。具有端到端的类型安全和出色的开发者体验。Elysia 具有熟悉、快速和一流的 TypeScript 支持，并且在服务之间有良好的集成，无论是 tRPC、Swagger 还是 WebSocket。",
-                      ignoreFiles: ['index.md', 'table-of-content.md']
+                      ignoreFiles: [
+                          'index.md',
+                          'table-of-content.md',
+                          'blog/*',
+                          'public/*'
+                      ],
+                      domain: 'https://elysiajs.com'
                   })
-                : [],
-            process.env.ANALYZE === 'true' ? analyzer() : []
-            // GitChangelog({
-            // 	repoURL: () => 'https://github.com/elysiajs/documentation',
-            // 	mapAuthors: [
-            // 		{
-            // 			mapByEmailAliases: ['saltyaom@gmail.com'],
-            // 			avatar: '/blog/authors/aris.webp',
-            // 			links: [
-            // 				{
-            // 					type: 'GitHub',
-            // 					link: 'https://github.com/SaltyAom'
-            // 				}
-            // 			]
-            // 		},
-            // 		{
-            // 			mapByNameAliases: ['bogeychan'],
-            // 			links: [
-            // 				{
-            // 					type: 'GitHub',
-            // 					link: 'http://github.com/bogeychan'
-            // 				}
-            // 			]
-            // 		},
-            // 		{
-            // 			mapByNameAliases: ['Fecony'],
-            // 			links: [
-            // 				{
-            // 					type: 'GitHub',
-            // 					link: 'https://github.com/fecony'
-            // 				}
-            // 			]
-            // 		}
-            // 	]
-            // }),
-            // GitChangelogMarkdownSection()
+                : undefined,
+            process.env.ANALYZE === 'true' ? analyzer() : undefined
         ],
         optimizeDeps: {
             exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client']
@@ -128,7 +85,6 @@ export default defineConfig({
         ssr: {
             noExternal: [
                 '@nolebase/vitepress-plugin-inline-link-preview',
-                '@unlazy/vue',
                 '@nolebase/ui'
             ]
         }
