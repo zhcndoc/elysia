@@ -221,15 +221,17 @@ function utility() {
 
 这在处理程序外部通过从 `AsyncLocalStorage` 获取当前 span 而工作。
 
-## setAttribute
+## setAttributes
 
 `setAttribute` 是一个用于将属性设置为当前 span 的实用工具。
 
 ```typescript
-import { setAttribute } from '@elysiajs/opentelemetry'
+import { setAttributes } from '@elysiajs/opentelemetry'
 
 function utility() {
-	setAttribute('custom.attribute', 'value')
+	span.setAttributes({
+		'custom.attribute': 'value'
+	})
 }
 ```
 

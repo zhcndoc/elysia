@@ -26,7 +26,7 @@ head:
 	<Card title="备忘单" href="/integrations/cheat-sheet">
 	    Elysia 的快速概览
 	</Card>
-    <Card title="结构" href="/essential/structure">
+    <Card title="最佳实践" href="/essential/best-practice">
         了解如何构建您的代码
     </Card>
     <Card title="验证" href="/essential/validation">
