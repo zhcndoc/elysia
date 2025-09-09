@@ -65,9 +65,8 @@ export default defineConfig({
             tailwindcss(),
             process.env.NODE_ENV === 'production'
                 ? llmstxt({
-                      description: '人体工程学框架',
-                      details:
-                          "Elysia 是一个为人类设计的人体工程学框架。具有端到端的类型安全和出色的开发者体验。Elysia 具有熟悉、快速和一流的 TypeScript 支持，并且在服务之间有良好的集成，无论是 tRPC、Swagger 还是 WebSocket。",
+                      description: 'Ergonomic Framework for Humans',
+                      details: 'gger',
                       ignoreFiles: [
                           'index.md',
                           'table-of-content.md',
@@ -224,6 +223,10 @@ export default defineConfig({
                         link: '/plugins/jwt'
                     },
                     {
+                        text: 'OpenAPI',
+                        link: '/plugins/openapi'
+                    },
+                    {
                         text: 'OpenTelemetry',
                         link: '/plugins/opentelemetry'
                     },
@@ -238,10 +241,6 @@ export default defineConfig({
                     {
                         text: 'Stream',
                         link: '/plugins/stream'
-                    },
-                    {
-                        text: 'Swagger',
-                        link: '/plugins/swagger'
                     }
                 ]
             },
@@ -339,7 +338,11 @@ export default defineConfig({
                         link: '/patterns/deploy'
                     },
                     {
-						text: '宏指令',
+                        text: '错误处理',
+                        link: '/patterns/error-handling'
+                    },
+                    {
+                        text: 'Macro',
                         link: '/patterns/macro'
                     },
                     {
@@ -347,7 +350,11 @@ export default defineConfig({
                         link: '/patterns/mount'
                     },
                     {
-						text: '跟踪',
+                        text: 'OpenAPI',
+                        link: '/patterns/openapi'
+                    },
+                    {
+                        text: 'Trace',
                         link: '/patterns/trace'
                     },
                     {
@@ -453,6 +460,10 @@ export default defineConfig({
                         link: '/plugins/jwt'
                     },
                     {
+                        text: 'OpenAPI',
+                        link: '/plugins/openapi'
+                    },
+                    {
                         text: 'OpenTelemetry',
                         link: '/plugins/opentelemetry'
                     },
@@ -468,16 +479,16 @@ export default defineConfig({
                         text: 'Stream',
                         link: '/plugins/stream'
                     },
-                    {
-                        text: 'Swagger',
-                        link: '/plugins/swagger'
-                    }
                 ]
             },
             {
 				text: '集成',
                 collapsed: true,
                 items: [
+                    {
+                        text: 'AI SDK',
+                        link: '/integrations/ai-sdk'
+                    },
                     {
                         text: 'Astro',
                         link: '/integrations/astro'
@@ -503,10 +514,6 @@ export default defineConfig({
                         link: '/integrations/nuxt'
                     },
                     {
-                        text: 'OpenAPI',
-                        link: '/integrations/openapi'
-                    },
-                    {
                         text: 'OpenTelemetry',
                         link: '/integrations/opentelemetry'
                     },
@@ -521,6 +528,10 @@ export default defineConfig({
                     {
                         text: 'SvelteKit',
                         link: '/integrations/sveltekit'
+                    },
+                    {
+                        text: 'Vercel',
+                        link: '/integrations/vercel'
                     }
                 ]
             }

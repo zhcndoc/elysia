@@ -90,11 +90,11 @@ export const auth = betterAuth({
 
 不幸的是，我们不能将更好的身份验证实例的 `basePath` 设置为为空或 `/`。
 
-## Swagger / OpenAPI
+## OpenAPI
 
 更好的身份验证支持使用 `better-auth/plugins` 的 `openapi`。
 
-然而，如果我们使用 [@elysiajs/swagger](/plugins/swagger)，您可能希望从更好的身份验证实例中提取文档。
+然而，如果我们使用 [@elysiajs/openapi](/plugins/openapi)，您可能希望从更好的身份验证实例中提取文档。
 
 我们可以通过以下代码实现：
 
@@ -130,12 +130,12 @@ export const OpenAPI = {
 
 ```ts
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { OpenAPI } from './auth'
 
 const app = new Elysia().use(
-    swagger({
+    openapi({
         documentation: {
             components: await OpenAPI.components,
             paths: await OpenAPI.getPaths()

@@ -27,7 +27,13 @@ head:
 <Blogs
   :blogs="[
       {
-        title: 'Elysia 1.3 和科学女巫术',
+        title: '引入 Elysia 的 OpenAPI 类型生成',
+		href: '/blog/openapi-type-gen',
+		cover: 'cover.webp',
+		detail: 'Elysia 现在支持 OpenAPI 类型生成，这是一种强大的工具，可以自动从您的 Elysia 路由和类型生成 OpenAPI 文档，无需任何手动注释。'
+      },
+      {
+        title: 'Elysia 1.3 与科学魔法',
         href: '/blog/elysia-13',
         cover: 'elysia-13.webp',
         detail: '接近零开销的标准化，使用精确镜像、Bun 系统路由器、独立验证器、类型实例化减少一半，以及显著的内存使用减少和更快的启动时间。'

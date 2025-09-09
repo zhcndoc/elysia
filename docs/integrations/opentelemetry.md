@@ -229,7 +229,7 @@ function utility() {
 import { setAttributes } from '@elysiajs/opentelemetry'
 
 function utility() {
-	span.setAttributes({
+	setAttributes({
 		'custom.attribute': 'value'
 	})
 }

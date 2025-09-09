@@ -26,47 +26,69 @@ bun build \
 	--compile \
 	--minify-whitespace \
 	--minify-syntax \
-	--target bun \
 	--outfile server \
-	./src/index.ts
+	src/index.ts
 ```
 
 这将生成一个可移植的二进制文件 `server`，我们可以运行它来启动我们的服务器。
 
-将服务器编译为二进制文件通常会将内存使用量显著减少 2-3 倍，相较于开发环境。
+将服务器编译为二进制文件通常相比于开发环境显著降低 2-3 倍的内存使用。
 
-这个命令有点长，所以让我们分解一下：
-1. `--compile` - 将 TypeScript 编译为二进制
-2. `--minify-whitespace` - 删除不必要的空白
-3. `--minify-syntax` - 压缩 JavaScript 语法以减少文件大小
-4. `--target bun` - 针对 `bun` 平台，可以为目标平台优化二进制文件
-5. `--outfile server` - 输出二进制文件为 `server`
-6. `./src/index.ts` - 我们服务器的入口文件（代码库）
+这个命令有点长，我们来拆解一下：
+1. **--compile** 将 TypeScript 编译为二进制
+2. **--minify-whitespace** 移除不必要的空白
+3. **--minify-syntax** 压缩 JavaScript 语法以减小文件大小
+4. **--outfile server** 输出二进制文件为 `server`
+5. **src/index.ts** 我们服务器的入口文件（代码库）
 
-要启动我们的服务器，只需运行二进制文件。
+要启动服务器，只需运行该二进制文件。
 ```bash
 ./server
 ```
 
-一旦二进制文件编译完成，您就不需要在机器上安装 `Bun` 以运行服务器。
+一旦二进制文件编译完成，您就不需要在机器上安装 `Bun` 运行服务器。
 
-这很好，因为部署服务器不需要安装额外的运行时，使得二进制文件便于移植。
+这非常好，因为部署服务器无需安装额外的运行时即可运行，使二进制文件具有可移植性。
+
+### 目标平台
+您也可以添加 `--target` 标志来针对目标平台优化二进制文件。
+
+```bash
+bun build \
+	--compile \
+	--minify-whitespace \
+	--minify-syntax \
+	--target bun-linux-x64 \
+	--outfile server \
+	src/index.ts
+```
+
+以下是可用的目标列表：
+| Target                  | 操作系统         | 架构          | Modern | Baseline | Libc  |
+|--------------------------|------------------|--------------|--------|----------|-------|
+| bun-linux-x64           | Linux            | x64          | ✅      | ✅        | glibc |
+| bun-linux-arm64         | Linux            | arm64        | ✅      | N/A      | glibc |
+| bun-windows-x64         | Windows          | x64          | ✅      | ✅        | -     |
+| bun-windows-arm64       | Windows          | arm64        | ❌      | ❌        | -     |
+| bun-darwin-x64          | macOS            | x64          | ✅      | ✅        | -     |
+| bun-darwin-arm64        | macOS            | arm64        | ✅      | N/A      | -     |
+| bun-linux-x64-musl      | Linux            | x64          | ✅      | ✅        | musl  |
+| bun-linux-arm64-musl    | Linux            | arm64        | ✅      | N/A      | musl  |
 
 ### 为什么不使用 --minify
 Bun 确实有 `--minify` 标志，用于压缩二进制文件。
 
 然而，如果我们正在使用 [OpenTelemetry](/plugins/opentelemetry)，它会将函数名缩减为单个字符。
 
-这使得跟踪变得比应该的更加困难，因为 OpenTelemetry 依赖于函数名。
+这使得跟踪比预期更困难，因为 OpenTelemetry 依赖于函数名。
 
-但是，如果您不使用 OpenTelemetry，您可以选择使用 `--minify`：
+但是，如果您不使用 OpenTelemetry，则可以选择使用 `--minify`：
 ```bash
 bun build \
 	--compile \
 	--minify \
-	--target bun \
 	--outfile server \
-	./src/index.ts
+	src/index.ts
 ```
 
 ### 权限
@@ -78,13 +100,11 @@ chmod +x ./server
 ```
 
 ### 未知的随机中文错误
-如果您尝试将二进制文件部署到服务器但无法运行，并出现随机中文字符错误。
+如果您尝试将二进制文件部署到服务器但无法运行，并出现随机中文字符错误，这意味着您运行的机器 **不支持 AVX2**。
 
-这意味着您运行的机器 **不支持 AVX2**。
+不幸的是，Bun 要求机器必须具备 `AVX2` 硬件支持。
 
-不幸的是，Bun 要求机器具有 `AVX2` 硬件支持。
-
-据我们所知没有替代方案。
+据我们所知目前无替代方案。
 
 ## 编译为 JavaScript
 如果您无法编译为二进制文件或您正在 Windows 服务器上进行部署。
@@ -93,12 +113,10 @@ chmod +x ./server
 
 ```bash
 bun build \
-	--compile \ // [!code --]
 	--minify-whitespace \
 	--minify-syntax \
-	--target bun \
 	--outfile ./dist/index.js \
-	./src/index.ts
+	src/index.ts
 ```
 
 这将生成一个可以在服务器上部署的单个可移植 JavaScript 文件。
@@ -129,9 +147,8 @@ RUN bun build \
 	--compile \
 	--minify-whitespace \
 	--minify-syntax \
-	--target bun \
 	--outfile server \
-	./src/index.ts
+	src/index.ts
 
 FROM gcr.io/distroless/base
 
@@ -149,11 +166,11 @@ EXPOSE 3000
 ### OpenTelemetry
 如果您使用 [OpenTelemetry](/integrations/opentelemetry) 来部署生产服务器。
 
-由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了确保仪器正确工作，我们需要指定供仪器使用的库是外部模块，以将其排除在打包之外。
+由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了确保仪器正常工作，我们需要指定供仪器使用的库是外部模块，以将其排除在打包之外。
 
-例如，如果您使用 `@opentelemetry/instrumentation-pg` 来仪器 `pg` 库。我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
+例如，如果您使用 `@opentelemetry/instrumentation-pg` 以对 `pg` 库进行仪表化，我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
 
-为使这一切正常工作，我们可以使用 `--external pg` 将 `pg` 指定为外部模块
+为使这一切正常工作，我们可以使用 `--external pg` 将 `pg` 指定为外部模块：
 ```bash
 bun build --compile --external pg --outfile server src/index.ts
 ```
@@ -224,9 +241,8 @@ RUN bun build \
 	--compile \
 	--minify-whitespace \
 	--minify-syntax \
-	--target bun \
 	--outfile server \
-	./src/index.ts
+	src/index.ts
 
 FROM gcr.io/distroless/base
 

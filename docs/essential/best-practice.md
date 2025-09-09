@@ -551,7 +551,7 @@ const UserController = new Elysia({ prefix: '/auth' })
 这种方法带来若干优势：
 1. 允许模型命名并获得自动补全。
 2. 可以修改架构用于后续用途，或执行 [重映射](/essential/handler.html#remap)。
-3. 在 OpenAPI 兼容客户端中作为“模型”，例如 Swagger。
+3. 在 OpenAPI 兼容客户端中作为“模型”，例如 OpenAPI。
 4. 加快 TypeScript 推断速度，因为模型类型注册时已缓存。
 
 ## 重用插件

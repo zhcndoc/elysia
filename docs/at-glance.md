@@ -161,16 +161,16 @@ new Elysia()
 
 ## 标准
 
-Elysia 默认采用许多标准，如 OpenAPI 和 WinterCG 合规，允许你与大多数行业标准工具集成，或至少与你熟悉的工具轻松集成。
+Elysia 默认采用了许多标准，如 OpenAPI 和 WinterTC 合规，使你能够与大多数行业标准工具集成，或者至少轻松地与熟悉的工具集成。
 
-例如，因为 Elysia 默认采用 OpenAPI，生成 Swagger 文档就像添加一行代码一样简单：
+例如，由于 Elysia 默认采用 OpenAPI，生成 API 文档只需添加一行代码：
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 new Elysia()
-    .use(swagger())
+    .use(openapi())
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({
             id: t.Number()
@@ -179,7 +179,30 @@ new Elysia()
     .listen(3000)
 ```
 
-使用 Swagger 插件，你可以轻松生成一个 Swagger 页面，而无需额外代码或特定配置，并轻松与团队分享。
+使用 OpenAPI 插件，你可以无缝生成 API 文档页面，无需额外代码或特定配置，并轻松与团队共享。
+
+## 从类型生成 OpenAPI
+
+Elysia 对 OpenAPI 提供出色的支持，使用我们的架构既可用于数据验证、类型推断，也可作为 OpenAPI 注解的唯一真实来源。
+
+Elysia 还支持通过 **一行代码从类型直接生成 OpenAPI 架构**，让你拥有完整、准确的 API 文档，无需任何人工注释。
+
+```typescript
+import { Elysia, t } from 'elysia'
+import { openapi } from '@elysiajs/oepnapi'
+import { fromTypes } from '@elysiajs/openapi/gen'
+
+export const app = new Elysia()
+    .use(openapi({
+    	references: fromTypes('src/index.ts')
+    }))
+    .get('/user/:id', ({ params: { id } }) => id, {
+        params: t.Object({
+            id: t.Number()
+        })
+    })
+    .listen(3000)
+```
 
 ## 端到端类型安全
 
@@ -189,10 +212,13 @@ new Elysia()
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
+import { fromTypes } from '@elysiajs/openapi/gen'
 
-const app = new Elysia()
-    .use(swagger())
+export const app = new Elysia()
+    .use(openapi({
+    	references: fromTypes('src/index.ts')
+    }))
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({
             id: t.Number()
@@ -240,7 +266,7 @@ Elysia 不仅仅是帮助你创建一个可靠的后端，还关乎这个世界�
 
 ## 平台无关性
 
-Elysia 最初是为 Bun 设计的，但 **不限于 Bun**。因为 Elysia 符合 [WinterCG](https://wintercg.org/)，你可以将 Elysia 服务器部署在 Cloudflare Workers、Vercel Edge Functions 和其他支持 Web 标准请求的运行时上。
+Elysia 是为 Bun 设计的，但**不限于 Bun**。遵循 [WinterTC 规范](https://wintertc.org/) 允许你将 Elysia 服务器部署在 Cloudflare Workers、Vercel Edge Functions 以及支持 Web 标准请求的大多数其他运行时环境中。
 
 ## 我们的社区
 

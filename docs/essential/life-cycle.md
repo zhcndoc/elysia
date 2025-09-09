@@ -791,9 +791,7 @@ new Elysia()
 
 ### 错误代码
 
-Elysia错误代码包括：
-
-"UNKNOWN" | "VALIDATION" | "NOT_FOUND" | "PARSE" | "INTERNAL_SERVER_ERROR" | "INVALID_COOKIE_SIGNATURE" | "INVALID_FILE_TYPE"
+Elysia error code consists of:
 
 - **NOT_FOUND**
 - **PARSE**
@@ -809,71 +807,6 @@ Elysia错误代码包括：
 ::: tip
 如果没有返回错误响应，则错误将使用`error.name`返回。
 :::
-
-### 抛出或返回
-
-`Elysia.error` 是返回具有特定HTTP状态代码的错误的简写。
-
-根据您的具体需求，它可以是 **返回** 或 **抛出**。
-
-- 如果 `status` **为抛出**，它将被 `onError` 中间件捕获。
-- 如果 `status` **为返回**，它将 **不会** 被 `onError` 中间件捕获。
-
-请看以下代码：
-
-```typescript
-import { Elysia, file } from 'elysia'
-
-new Elysia()
-    .onError(({ code, error, path }) => {
-        if (code === 418) return '捕获'
-    })
-    .get('/throw', ({ status }) => {
-        // 这将被 onError 捕获
-        throw status(418)
-    })
-    .get('/return', ({ status }) => {
-        // 这将 **不会** 被 onError 捕获
-        return status(418)
-    })
-```
-
-<Playground
-    :elysia="demo"
-/>
-
-### 自定义错误
-
-Elysia支持在类型级别和实现级别的自定义错误。
-
-要提供自定义错误代码，我们可以使用 `Elysia.error` 添加自定义错误代码，帮助我们轻松分类并缩小错误类型，以实现完整的类型安全和自动补全，如下所示：
-
-```typescript twoslash
-import { Elysia } from 'elysia'
-
-class MyError extends Error {
-    constructor(public message: string) {
-        super(message)
-    }
-}
-
-new Elysia()
-    .error({
-        MyError
-    })
-    .onError(({ code, error }) => {
-        switch (code) {
-            // 具有自动补全
-            case 'MyError':
-                // 具有类型缩小
-                // 悬停以查看错误的类型为`CustomError`
-                return error
-        }
-    })
-    .get('/', () => {
-        throw new MyError('你好，错误')
-    })
-```
 
 ### 本地错误
 

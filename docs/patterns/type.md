@@ -488,11 +488,23 @@ t.Partial(
     <Card title="允许空值" href="#maybeempty">
         接受空字符串或 null 值
     </Card>
-    <Card title="表单" href="#form">
-    	验证用于 FormData 的返回值的类型
+    <Card title="Form" href="#form">
+    	为 FormData body 的返回值强制执行和验证类型
     </Card>
-    <Card title="数字" href="#numeric-legacy">
-        接受数字字符串或数字，然后将值转换为数字
+	<Card title="UInt8Array" href="#uint8array">
+		接受可以被解析为 `Uint8Array` 的缓冲区
+	</Card>
+	<Card title="ArrayBuffer" href="#arraybuffer">
+		接受可以被解析为 `ArrayBuffer` 的缓冲区
+	</Card>
+    <Card title="ObjectString" href="#object-string">
+    	接受可以被解析为对象的字符串
+    </Card>
+    <Card title="BooleanString" href="#boolean-string">
+    	接受可以被解析为布尔值的字符串
+    </Card>
+    <Card title="Numeric" href="#numeric">
+        接受数字字符串或数字，然后转换为数字
     </Card>
 </Deck>
 
@@ -503,8 +515,6 @@ t.Partial(
 ```typescript
 t.UnionEnum(['rapi', 'anis', 1, true, false])
 ```
-
-默认情况下，这些值不会自动
 
 ### 文件
 
@@ -614,21 +624,52 @@ t.FormData({
 })
 ```
 
-### 数字（遗留）
+### UInt8Array
+接受可以被解析为 `Uint8Array` 的缓冲区。
 
-::: warning
-这不需要，因为 Elysia 类型自 1.0 起已自动将 Number 转换为 Numeric
-:::
+```typescript
+t.UInt8Array()
+```
 
-数字接受数字字符串或数字，然后将值转换为数字。
+当你想接受可以被解析为 `Uint8Array` 的缓冲区时非常有用，例如二进制文件上传。它设计用于配合 `arrayBuffer` 解析器验证请求体，以强制请求体类型。
+
+### ArrayBuffer
+接受可以被解析为 `ArrayBuffer` 的缓冲区。
+
+```typescript
+t.ArrayBuffer()
+```
+
+当你想接受可以被解析为 `Uint8Array` 的缓冲区时非常有用，例如二进制文件上传。它设计用于配合 `arrayBuffer` 解析器验证请求体，以强制请求体类型。
+
+### ObjectString
+接受可以被解析为对象的字符串。
+
+```typescript
+t.ObjectString()
+```
+
+当你想接受可以被解析为对象的字符串但环境不支持显式传递时非常有用，比如查询字符串、请求头或 FormData 请求体。
+
+### BooleanString
+接受可以被解析为布尔值的字符串。
+
+类似于 [ObjectString](#objectstring)，当你想接受可以被解析为布尔值的字符串但环境不支持显式传递时非常有用。
+
+```typescript
+t.BooleanString()
+```
+
+### Numeric
+Numeric 接受数字字符串或数字，然后将值转换为数字。
 
 ```typescript
 t.Numeric()
 ```
 
-当传入值是数字字符串时，这非常有用，例如路径参数或查询字符串。
+当传入值是数字字符串时非常有用，例如路径参数或查询字符串。
 
-数字接受与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
+Numeric 支持与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-schema-validation#name-validation-keywords-for-num) 相同的属性。
 
 ## Elysia 行为
 
@@ -661,12 +702,12 @@ new Elysia()
 	})
 ```
 
-## 数字到数字类型
-默认情况下，Elysia 将 `t.Number` 转换为 [t.Numeric](#numeric-legacy) 当作为路由模式提供时。
+## Number to Numeric
+默认情况下，当作为路由模式提供时，Elysia 会将 `t.Number` 转换为 [t.Numeric](#numeric)。
 
 因为解析的 HTTP 头、查询、URL 参数总是字符串。这意味着即使值是数字，它也会被视为字符串。
 
-Elysia 通过检查字符串值是否看起来像数字来覆盖此行为，然后即使适当也进行转换。
+Elysia 通过检查字符串值是否看起来像数字来覆盖此行为，然后在适当时进行转换。
 
 这仅在作为路由模式使用时应用，而不在嵌套的 `t.Object` 中。
 
@@ -680,12 +721,12 @@ new Elysia()
 			id: t.Number()
 		}),
 		body: t.Object({
-			// NOT 转换为 t.Numeric()
+			// 不 转换为 t.Numeric()
 			id: t.Number()
 		})
 	})
 
-// NOT 转换为 t.Numeric()
+// 不 转换为 t.Numeric()
 t.Number()
 ```
 
@@ -700,15 +741,15 @@ import { Elysia, t } from 'elysia'
 new Elysia()
 	.get('/:id', ({ id }) => id, {
 		params: t.Object({
-			// 转换为 t.Boolean()
+			// 转换为 t.BooleanString()
 			id: t.Boolean()
 		}),
 		body: t.Object({
-			// NOT 转换为 t.Boolean()
+			// 不 转换为 t.BooleanString()
 			id: t.Boolean()
 		})
 	})
 
-// NOT 转换为 t.BooleanString()
+// 不 转换为 t.BooleanString()
 t.Boolean()
 ```

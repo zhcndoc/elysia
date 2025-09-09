@@ -30,8 +30,7 @@ import { treaty } from '@elysiajs/eden'
 
 const app = new Elysia()
     .post('/user', ({ body: { name }, status }) => {
-        if(name === 'Otto')
-            return status(400, '错误请求')
+        if(name === 'Otto') return status(400)
 
         return name
     }, {
@@ -76,9 +75,11 @@ const submit = async (name: string) => {
 :::
 
 ## 流响应
-Eden 会将流响应视为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费流。
+Eden 会将流响应或 [服务器发送事件 (Server-Sent Events)](/essential/handler.html#server-sent-events-sse) 解释为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费该流。
 
-```typescript twoslash
+::: code-group
+
+```typescript twoslash [流]
 import { Elysia } from 'elysia'
 import { treaty } from '@elysiajs/eden'
 
@@ -95,4 +96,96 @@ if (error) throw error
 for await (const chunk of data)
 	console.log(chunk)
                // ^?
+```
+
+```typescript twoslash [服务器发送事件]
+import { Elysia, sse } from 'elysia'
+import { treaty } from '@elysiajs/eden'
+
+const app = new Elysia()
+	.get('/ok', function* () {
+		yield sse({
+			event: 'message',
+			data: 1
+		})
+		yield sse({
+			event: 'message',
+			data: 2
+		})
+		yield sse({
+			event: 'end'
+		})
+	})
+
+const { data, error } = await treaty(app).ok.get()
+if (error) throw error
+
+for await (const chunk of data)
+	console.log(chunk)
+               // ^?
+
+
+
+
+
+
+
+//
+```
+
+:::
+
+
+## 工具类型
+Eden Treaty 提供了工具类型 `Treaty.Data<T>` 和 `Treaty.Error<T>` 来提取响应中的 `data` 和 `error` 类型。
+
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+
+import { treaty, Treaty } from '@elysiajs/eden'
+
+const app = new Elysia()
+	.post('/user', ({ body: { name }, status }) => {
+		if(name === 'Otto') return status(400)
+
+		return name
+	}, {
+		body: t.Object({
+			name: t.String()
+		})
+	})
+	.listen(3000)
+
+const api =
+	treaty<typeof app>('localhost:3000')
+
+type UserData = Treaty.Data<typeof api.user.post>
+//     ^?
+
+
+// 或者你也可以传入一个响应对象
+const response = await api.user.post({
+	name: 'Saltyaom'
+})
+
+type UserDataFromResponse = Treaty.Data<typeof response>
+//     ^?
+
+
+
+type UserError = Treaty.Error<typeof api.user.post>
+//     ^?
+
+
+
+
+
+
+
+
+
+
+
+
+//
 ```

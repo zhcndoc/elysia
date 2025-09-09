@@ -217,7 +217,7 @@ import { Elysia, t } from 'elysia'
 new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // Path is /v1/name
 ```
 
-## santize
+## sanitize
 
 一个函数或一个函数数组，在每个 `t.String` 验证时调用并拦截。
 
@@ -227,7 +227,7 @@ new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // Path is /v1/name
 import { Elysia, t } from 'elysia'
 
 new Elysia({
-	santize: (value) => Bun.escapeHTML(value)
+	sanitize: (value) => Bun.escapeHTML(value)
 })
 ```
 

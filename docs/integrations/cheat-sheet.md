@@ -288,17 +288,17 @@ new Elysia()
 ## OpenAPI 文档
 使用 Scalar (或可选的 Swagger) 创建交互式文档
 
-参见 [swagger](/plugins/swagger.html)
+参见 [openapi](/plugins/openapi.html)
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .listen(3000)
 
-console.log(`在浏览器中访问 "${app.server!.url}swagger" 查看文档`);
+console.log(`在浏览器中访问 "${app.server!.url}openapi" 查看文档`);
 ```
 
 ## 单元测试

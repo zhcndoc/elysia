@@ -20,22 +20,19 @@ head:
 
 1. 在应用路由中创建 **api/[[...slugs]]/route.ts**
 2. 在 **route.ts** 中创建或导入一个现有的 Elysia 服务器
-3. 导出您想要暴露的方法的处理程序
+3. 将 Elysia 服务器作为默认导出进行导出
 
 ```typescript
 // app/api/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia({ prefix: '/api' })
+export default new Elysia({ prefix: '/api' })
     .get('/', () => 'hello Next')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
         })
     })
-
-export const GET = app.handle // [!code ++]
-export const POST = app.handle // [!code ++]
 ```
 
 由于符合 WinterCG，Elysia 将正常工作，但如果您在 Node 上运行 Nextjs，某些插件（如 **Elysia Static**）可能不会正常工作。
@@ -56,16 +53,13 @@ export const POST = app.handle // [!code ++]
 // app/user/[[...slugs]]/route.ts
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia({ prefix: '/user' }) // [!code ++]
+export default new Elysia({ prefix: '/user' }) // [!code ++]
     .get('/', () => 'hi')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
         })
     })
-
-export const GET = app.handle
-export const POST = app.handle
 ```
 
 这将确保 Elysia 路由能够在您放置它的任何位置正常工作。

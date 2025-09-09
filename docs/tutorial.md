@@ -168,32 +168,32 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-## Swagger
+## OpenAPI
 
 在浏览器中输入 URL 只能与 GET 方法进行交互。要与其他方法进行交互，我们需要像 Postman 或 Insomnia 这样的 REST 客户端。
 
 幸运的是，Elysia 配备了一个 **OpenAPI Schema** 和 [Scalar](https://scalar.com)，以与我们的 API 进行交互。
 
 ```bash
-# 安装 Swagger 插件
-bun add @elysiajs/swagger
+# 安装 OpenAPI 插件
+bun add @elysiajs/openapi
 ```
 
 然后将插件应用于 Elysia 实例。
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 const app = new Elysia()
-    // 应用 Swagger 插件
-    .use(swagger()) // [!code ++]
+    // Apply the openapi plugin
+    .use(openapi()) // [!code ++]
     .get('/', ({ path }) => path)
     .post('/hello', 'Do you miss me?')
     .listen(3000)
 ```
 
-导航到 **http://localhost:3000/swagger**，你应该看到如下文档：
+导航到 **http://localhost:3000/openapi**，你应该看到如下文档：
 ![Scalar Documentation landing](/tutorial/scalar-landing.webp)
 
 现在我们可以与所有已创建的路由进行交互。
@@ -211,7 +211,7 @@ const app = new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 class Note {
     // [!code ++]
@@ -219,7 +219,7 @@ class Note {
 } // [!code ++]
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .decorate('note', new Note()) // [!code ++]
     .get('/note', ({ note }) => note.data) // [!code ++]
     .listen(3000)
@@ -241,14 +241,14 @@ const app = new Elysia()
 ```typescript twoslash
 // @errors: 7015
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 class Note {
     constructor(public data: string[] = ['Moonhalo']) {}
 }
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .decorate('note', new Note())
     .get('/note', ({ note }) => note.data)
     .get('/note/:index', ({ note, params: { index } }) => {
@@ -274,14 +274,14 @@ const app = new Elysia()
 
 ```typescript
 import { Elysia, t } from 'elysia' // [!code ++]
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 class Note {
     constructor(public data: string[] = ['Moonhalo']) {}
 }
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .decorate('note', new Note())
     .get('/note', ({ note }) => note.data)
     .get(
@@ -333,14 +333,14 @@ Elysia 提供以下属性的验证：
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 class Note {
     constructor(public data: string[] = ['Moonhalo']) {}
 }
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .decorate('note', new Note())
     .get('/note', ({ note }) => note.data)
     .get(
@@ -364,14 +364,14 @@ const app = new Elysia()
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 class Note {
     constructor(public data: string[] = ['Moonhalo']) {}
 }
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .decorate('note', new Note())
     .get('/note', ({ note }) => note.data)
     .get(
@@ -426,7 +426,7 @@ export const note = new Elysia()
 
 ```typescript [index.ts]
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { note } from './note' // [!code ++]
 
@@ -436,7 +436,7 @@ class Note {
 } // [!code --]
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .use(note) // [!code ++]
     .decorate('note', new Note()) // [!code --]
     .get('/note', ({ note }) => note.data) // [!code --]
@@ -559,7 +559,7 @@ export const note = new Elysia()
 
 :::
 
-现在让我们打开 **http://localhost:3000/swagger** 并尝试进行 CRUD 操作。
+现在让我们打开 **http://localhost:3000/openapi** 并尝试进行 CRUD 操作。
 
 ## 分组
 
@@ -1444,13 +1444,13 @@ export const user = new Elysia({ prefix: '/user' })
 
 ```typescript [index.ts]
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { note } from './note'
 import { user } from './user' // [!code ++]
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .use(user) // [!code ++]
     .use(note)
     .listen(3000)
@@ -1675,13 +1675,13 @@ API 最重要的一个方面是确保没有问题，如果发生了，我们需�
 
 ```typescript [index.ts]
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { note } from './note'
 import { user } from './user'
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .onError(({ error, code }) => {
         // [!code ++]
         if (code === 'NOT_FOUND') return // [!code ++]
@@ -1709,12 +1709,12 @@ const app = new Elysia()
 
 ```typescript [index.ts]
 import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { note } from './note'
 
 const app = new Elysia()
-    .use(swagger())
+    .use(openapi())
     .onError(({ error, code }) => {
         // [!code ++]
         if (code === 'NOT_FOUND') return 'Not Found :(' // [!code ++]
@@ -1762,14 +1762,14 @@ docker run --name jaeger \
 ```typescript [index.ts]
 import { Elysia, t } from 'elysia'
 import { opentelemetry } from '@elysiajs/opentelemetry' // [!code ++]
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 
 import { note } from './note'
 import { user } from './user'
 
 const app = new Elysia()
     .use(opentelemetry()) // [!code ++]
-    .use(swagger())
+    .use(openapi())
     .onError(({ error, code }) => {
         if (code === 'NOT_FOUND') return 'Not Found :('
 
@@ -2044,7 +2044,7 @@ export const note = new Elysia({ prefix: '/note' })
 // @filename: index.ts
 // ---cut---
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { openapi } from '@elysiajs/openapi'
 import { opentelemetry } from '@elysiajs/opentelemetry'
 
 import { note } from './note'
@@ -2052,7 +2052,7 @@ import { user } from './user'
 
 const app = new Elysia()
     .use(opentelemetry())
-    .use(swagger())
+    .use(openapi())
     .onError(({ error, code }) => {
         if (code === 'NOT_FOUND') return 'Not Found :('
 
@@ -2411,7 +2411,7 @@ bun build \
 ./server
 ```
 
-打开浏览器并导航到 `http://localhost:3000/swagger`，你应该看到与使用开发命令相同的结果。
+打开浏览器并导航到 `http://localhost:3000/openapi`，你应该看到与使用开发命令相同的结果。
 
 通过压缩二进制文件，我们不仅使服务器变得小巧且可移植，而且还显著减少了内存使用。
 
