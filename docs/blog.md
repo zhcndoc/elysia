@@ -27,7 +27,13 @@ head:
 <Blogs
   :blogs="[
       {
-        title: '引入 Elysia 的 OpenAPI 类型生成',
+        title: '介绍 Elysia 的 OpenAPI 类型生成',
+		href: '/blog/elysia-14',
+		cover: 'elysia-14.webp',
+		detail: '支持标准验证器。宏使用 schema、扩展和 OpenAPI 细节。生命周期类型健全性。将类型推断性能提升 10%。'
+      },
+      {
+        title: '介绍 Elysia 的 OpenAPI 类型生成',
 		href: '/blog/openapi-type-gen',
 		cover: 'cover.webp',
 		detail: 'Elysia 现在支持 OpenAPI 类型生成，这是一种强大的工具，可以自动从您的 Elysia 路由和类型生成 OpenAPI 文档，无需任何手动注释。'

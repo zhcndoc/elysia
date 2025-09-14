@@ -88,7 +88,39 @@ new Elysia()
 
 TypeBox 是一个极快、轻量且类型安全的 TypeScript 运行时验证库。Elysia 对 TypeBox 的默认行为进行了扩展和定制，以适应服务器端的验证需求。
 
-我们认为验证应该由框架原生支持，而不是依赖用户为每个项目编写自定义类型。
+我们相信验证至少应由框架原生处理，而不是依赖用户为每个项目设置自定义类型。
+
+### 标准 Schema
+Elysia 也支持 [Standard Schema](https://github.com/standard-schema/standard-schema)，允许您使用喜欢的验证库：
+- Zod
+- Valibot
+- ArkType
+- Effect Schema
+- Yup
+- Joi
+- [以及更多](https://github.com/standard-schema/standard-schema)
+
+使用 Standard Schema，只需导入相应的 schema 并传递给路由处理器。
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+import { z } from 'zod'
+import * as v from 'valibot'
+
+new Elysia()
+	.get('/id/:id', ({ params: { id }, query: { name } }) => id, {
+	//                           ^?
+		params: z.object({
+			id: z.coerce.number()
+		}),
+		query: v.object({
+			name: v.literal('Lilith')
+		})
+	})
+	.listen(3000)
+```
+
+您可以在同一处理器内无缝使用多种验证器。
 
 ### TypeScript
 
@@ -316,7 +348,26 @@ new Elysia()
 	.listen(3000)
 ```
 
-通过提供文件类型，Elysia 会自动将请求内容类型判断为 `multipart/form-data`。
+通过提供文件类型，Elysia 会自动假设内容类型为 `multipart/form-data`。
+
+### File（标准 Schema）
+如果您使用标准 Schema，需注意 Elysia 无法像 `t.File` 那样自动验证内容类型。
+
+但 Elysia 导出了一个 `fileType` 函数，可用来通过魔数（magic number）验证文件类型。
+
+```typescript twoslash
+import { Elysia, fileType } from 'elysia'
+import { z } from 'zod'
+
+new Elysia()
+	.post('/body', ({ body }) => body, {
+		body: z.object({
+			file: z.file().refine((file) => fileType(file, 'image/jpeg')) // [!code ++]
+		})
+	})
+```
+
+非常重要的是您**应当使用** `fileType` 来验证文件类型，因为大多数验证器并不能正确验证文件，比如仅检查内容类型的值，这可能导致安全漏洞。
 
 ## 查询
 查询是通过 URL 发送的数据，形式为 `?key=value`。
@@ -965,13 +1016,13 @@ new Elysia()
 
 **ValidationError** 暴露名为 **validator** 的属性，类型为 [TypeCheck](https://github.com/sinclairzx81/typebox#typecheck)，允许与 TypeBox 功能直接交互。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
     .onError(({ code, error }) => {
         if (code === 'VALIDATION')
-            return error.validator.Errors(error.value).First().message
+            return error.all[0].message
     })
     .listen(3000)
 ```
@@ -980,7 +1031,7 @@ new Elysia()
 
 **ValidationError** 提供方法 `ValidatorError.all`，允许列出所有错误原因。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()

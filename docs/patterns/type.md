@@ -21,7 +21,7 @@ import Deck from '../components/nearl/card-deck.vue'
 
 # 类型
 
-这是在 Elysia 中编写验证类型的常见模式。
+以下是使用 `Elysia.t` 编写验证类型的常见模式。
 
 <Deck>
     <Card title="基本类型" href="#primitive-type">

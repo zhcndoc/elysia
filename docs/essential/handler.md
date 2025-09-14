@@ -871,7 +871,7 @@ new Elysia()
 
 <Playground :elysia="demo7" />
 
-## TypeScript
+<!--## TypeScript
 Elysia 根据商店、装饰器、模式等各种因素自动类型上下文。
 
 建议让 Elysia 自动类型上下文，而不是手动定义一个。
@@ -925,4 +925,4 @@ const app = new Elysia()
 	.get('/', handler)
 ```
 
-与 `InferContext` 不同，`InferHandler` 需要路径和模式来定义处理程序类型，并可以安全地确保返回值的类型安全。
+Unlike `InferContext`, `InferHandler` requires a path and schema to define a handler type and can safely ensure type safety of a return type.-->

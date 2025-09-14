@@ -31,12 +31,14 @@ const demo2 = new Elysia()
     .get('/user/abc', () => 'abc')
 </script>
 
-# 简介
-Elysia 是一个用于构建后端服务器的符合人体工学的 Web 框架，旨在与 Bun 配合使用。
 
-Elysia 以简单性和类型安全为设计理念，拥有熟悉的 API，并广泛支持 TypeScript，针对 Bun 进行了优化。
+# 一览
 
-以下是在 Elysia 中的简单 hello world 示例。
+Elysia 是一个符合人体工学的 Web 框架，用于使用 Bun 构建后端服务器。
+
+Elysia 设计简洁且类型安全，提供了一个熟悉的 API，广泛支持 TypeScript，并针对 Bun 进行了优化。
+
+下面是在 Elysia 中的简单 hello world 示例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -48,7 +50,7 @@ new Elysia()
     .listen(3000)
 ```
 
-打开 [localhost:3000](http://localhost:3000/)，结果应该显示 '你好 Elysia'。
+打开 [localhost:3000](http://localhost:3000/) ，你应该会看到结果是“Hello Elysia”。
 
 <Playground
     :elysia="demo1"
@@ -68,18 +70,18 @@ new Elysia()
 />
 
 ::: tip
-将鼠标悬停在代码片段上以查看类型定义。
+将鼠标悬停在代码片段上查看类型定义。
 
-在 mock 浏览器中，点击蓝色路径以更改路径并预览响应。
+在模拟浏览器中，点击蓝色高亮的路径可以切换路径并预览响应。
 
-Elysia 可以在浏览器中运行，您看到的结果实际上是使用 Elysia 运行的。
+Elysia 可在浏览器中运行，所看到的结果实际上是使用 Elysia 执行的。
 :::
 
 ## 性能
 
-基于 Bun 及诸多优化（如静态代码分析），Elysia 能够动态生成优化后的代码。
+基于 Bun 及静态代码分析等广泛优化，使 Elysia 能够动态生成优化代码。
 
-Elysia 的性能优于当今大多数 Web 框架<a href="#ref-1"><sup>[1]</sup></a>，甚至可以与 Golang 和 Rust 框架的性能相匹配<a href="#ref-2"><sup>[2]</sup></a>。
+Elysia 的性能优于当前大多数 Web 框架<a href="#ref-1"><sup>[1]</sup></a>，甚至能匹配 Golang 和 Rust 框架的表现<a href="#ref-2"><sup>[2]</sup></a>。
 
 | 框架         | 运行时 | 平均       | 普通文本   | 动态参数       | JSON 数据   |
 | ------------ | ------ | ---------- | ---------- | --------------- | ----------- |
@@ -97,11 +99,11 @@ Elysia 的性能优于当今大多数 Web 框架<a href="#ref-1"><sup>[1]</sup><
 
 ## TypeScript
 
-Elysia 旨在帮助你编写更少的 TypeScript。
+Elysia 致力于帮助你编写更少的 TypeScript。
 
-Elysia 的类型系统经过微调，可以自动推断你的代码类型，而无需编写显式的 TypeScript，同时提供运行时和编译时的类型安全，以提供最佳的开发者体验。
+Elysia 的类型系统经过细致调校，实现自动从代码中推断类型，而无需显式编写 TypeScript，同时在运行时和编译时都提供类型安全，确保开发体验的人性化。
 
-看这个例子：
+看看这个例子：
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -114,7 +116,7 @@ new Elysia()
 
 <br>
 
-上述代码创建了一个路径参数 "id"，替换 `:id` 的值将被作为 `params.id` 传递，在运行时和类型中无需手动声明类型。
+上面代码创建了路径参数 "id"。替代 `:id` 的值会在运行时和类型中传递给 `params.id`，无需手动声明类型。
 
 <Playground
     :elysia="demo2"
@@ -128,15 +130,15 @@ new Elysia()
     }"
 />
 
-Elysia 的目标是帮助你编写更少的 TypeScript，并更多地关注业务逻辑。让复杂的类型处理交给框架。
+Elysia 的目标是帮助你写更少的 TypeScript，更多关注业务逻辑。让框架帮你处理复杂的类型。
 
-使用 Elysia 并不需要 TypeScript，但建议使用 TypeScript。
+使用 Elysia 不强制要求 TypeScript，但推荐使用。
 
 ## 类型完整性
 
-为了更进一步，Elysia 提供 **Elysia.t**，一个架构构建器，用于在运行时和编译时验证类型和值，以创建数据类型的单一真实来源。
+更进一步，Elysia 提供了 **Elysia.t** —— 一个模式构建器，可以在运行时和编译时对类型和数值进行校验，形成数据类型的唯一可信来源。
 
-让我们修改之前的代码，使其只接受数字值而不是字符串。
+我们来修改之前的代码，使其只接受数字值而非字符串。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -151,26 +153,58 @@ new Elysia()
     .listen(3000)
 ```
 
-这段代码确保我们的路径参数 **id** 在运行时和编译时（类型级别）始终是一个数字。
+这段代码确保路径参数 **id** 在运行时和编译时（类型层面）始终是数字。
 
 ::: tip
 将鼠标悬停在上述代码片段中的 "id" 以查看类型定义。
 :::
 
-使用 Elysia 架构构建器，我们可以确保类型安全，如同强类型语言，且具有单一真实来源。
+借助 Elysia 的模式构建器，我们能像强类型语言一样，使用唯一数据来源确保类型安全。
 
-## 标准
+## 标准 Schema
 
-Elysia 默认采用了许多标准，如 OpenAPI 和 WinterTC 合规，使你能够与大多数行业标准工具集成，或者至少轻松地与熟悉的工具集成。
+Elysia 支持 [Standard Schema](https://github.com/standard-schema/standard-schema)，允许你使用喜爱的验证库：
 
-例如，由于 Elysia 默认采用 OpenAPI，生成 API 文档只需添加一行代码：
+- Zod
+- Valibot
+- ArkType
+- Effect Schema
+- Yup
+- Joi
+- [及更多](https://github.com/standard-schema/standard-schema)
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+import { z } from 'zod'
+import * as v from 'valibot'
+
+new Elysia()
+	.get('/id/:id', ({ params: { id }, query: { name } }) => id, {
+	//                           ^?
+		params: z.object({
+			id: z.coerce.number()
+		}),
+		query: v.object({
+			name: v.literal('Lilith')
+		})
+	})
+	.listen(3000)
+```
+
+Elysia 会自动从模式推断类型，允许你同时使用熟悉的验证库和保持类型安全。
+
+## OpenAPI
+
+Elysia 默认采纳多种标准，如 OpenAPI、WinterTC 兼容性和 Standard Schema，方便你集成绝大多数行业标准工具，或轻松集成已有熟悉工具。
+
+例如，因 Elysia 默认支持 OpenAPI，只需添加一行代码即可生成 API 文档：
 
 ```typescript
 import { Elysia, t } from 'elysia'
 import { openapi } from '@elysiajs/openapi'
 
 new Elysia()
-    .use(openapi())
+    .use(openapi()) // [!code ++]
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({
             id: t.Number()
@@ -179,13 +213,13 @@ new Elysia()
     .listen(3000)
 ```
 
-使用 OpenAPI 插件，你可以无缝生成 API 文档页面，无需额外代码或特定配置，并轻松与团队共享。
+通过 OpenAPI 插件，你无需额外代码或特殊配置即可无缝生成 API 文档页面，并轻松与团队共享。
 
 ## 从类型生成 OpenAPI
 
-Elysia 对 OpenAPI 提供出色的支持，使用我们的架构既可用于数据验证、类型推断，也可作为 OpenAPI 注解的唯一真实来源。
+Elysia 对 OpenAPI 提供了极佳支持，模式可用于数据验证、类型推断和 OpenAPI 注解，源于唯一数据来源。
 
-Elysia 还支持通过 **一行代码从类型直接生成 OpenAPI 架构**，让你拥有完整、准确的 API 文档，无需任何人工注释。
+Elysia 也支持用 **一行代码直接从类型生成 OpenAPI Schema**，实现完整准确的 API 文档，无需手动注解。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -194,7 +228,7 @@ import { fromTypes } from '@elysiajs/openapi/gen'
 
 export const app = new Elysia()
     .use(openapi({
-    	references: fromTypes('src/index.ts')
+    	references: fromTypes('src/index.ts') // [!code ++]
     }))
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({
@@ -206,9 +240,9 @@ export const app = new Elysia()
 
 ## 端到端类型安全
 
-使用 Elysia，类型安全不仅限于服务器端。
+利用 Elysia，类型安全不限于服务端。
 
-使用 Elysia，你可以像 tRPC 一样自动与前端团队同步你的类型，使用 Elysia 的客户端库 "Eden"。
+借助 Elysia 和其客户端库 “Eden”，你可以像 tRPC 一样自动同步类型给前端团队。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -260,32 +294,32 @@ const { data } = await app.user({ id: 617 }).get()
 console.log(data)
 ```
 
-使用 Eden，你可以使用现有的 Elysia 类型来查询 Elysia 服务器 **无需代码生成**，并自动同步前后端的类型。
+使用 Eden，你可以使用已有的 Elysia 类型查询 Elysia 服务器，**无需代码生成**，并自动同步前后端类型。
 
-Elysia 不仅仅是帮助你创建一个可靠的后端，还关乎这个世界上美好的事物。
+Elysia 不仅帮助你构建可靠后端，也致力于这个世界上美好的事物。
 
-## 平台无关性
+## 跨平台性
 
-Elysia 是为 Bun 设计的，但**不限于 Bun**。遵循 [WinterTC 规范](https://wintertc.org/) 允许你将 Elysia 服务器部署在 Cloudflare Workers、Vercel Edge Functions 以及支持 Web 标准请求的大多数其他运行时环境中。
+Elysia 为 Bun 设计，但**不限于 Bun**。遵循 [WinterTC 标准](https://wintertc.org/) 让你能将 Elysia 部署到 Cloudflare Workers、Vercel Edge Functions 等支持 Web 标准请求的运行时。
 
 ## 我们的社区
 
-如果你有关于 Elysia 的问题或遇到困难，请随时在我们的 GitHub Discussions、Discord 和 Twitter 上提问。
+如果你对 Elysia 有疑问或遇到困难，欢迎通过 GitHub 讨论区、Discord 或 Twitter 向社区提问。
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
         官方 ElysiaJS Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        追踪 Elysia 的更新和状态
+        跟踪 Elysia 的更新和状态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
-        源代码和开发
+        源代码与开发
     </Card>
 </Deck>
 
 ---
 
-<small id="ref-1">1. 测量请求/秒。基于在 Debian 11 上进行的查询、路径参数解析和设置响应头的基准测试，Intel i7-13700K 测试于 2023 年 8 月 6 日，基于 Bun 0.7.2。有关基准测试条件，请参见 [此处](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)。</small>
+<small id="ref-1">1. 请求/秒的测量。基于 Debian 11 上的基准测试，涉及查询、路径参数解析和响应头设置，使用 Intel i7-13700K，测试时间为 2023 年 8 月 6 日，基于 Bun 0.7.2。详细基准测试条件见 [此处](https://github.com/SaltyAom/bun-http-framework-benchmark/tree/c7e26fe3f1bfee7ffbd721dbade10ad72a0a14ab#results)。</small>
 
-<small id="ref-2">2. 基于 [TechEmpower Benchmark round 22](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>
+<small id="ref-2">2. 基于 [TechEmpower 基准测试第 22 轮](https://www.techempower.com/benchmarks/#section=data-r22&hw=ph&test=composite)。</small>

@@ -435,4 +435,20 @@ export const addressController = new Elysia({
 })
 ```
 
-这将确保 `/address` 前缀下的所有端点都需要有效的 JWT 令牌才能访问。
+这确保了所有 `/address` 前缀下的端点都需要有效的 JWT 令牌才能访问。
+
+## 使用 OpenAPI 的标准 Schema
+Elysia 会尝试使用每个 schema 提供的本地方法转换为 OpenAPI schema。
+
+但是，如果 schema 没有提供本地方法，你可以通过提供 `mapJsonSchema` 向 OpenAPI 提供自定义 schema，如下所示：
+
+```typescript
+import { openapi } from '@elysiajs/openapi'
+import { toJsonSchema } from '@valibot/to-json-schema'
+
+openapi({
+	mapJsonSchema: {
+	  	valibot: toJsonSchema
+  	}
+})
+```

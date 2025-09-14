@@ -241,8 +241,8 @@ const app = new Elysia()
 
 虽然 Hono 需要前缀来分隔子路由器，但 Elysia 不需要前缀。
 
-## 验证
-尽管 Hono 支持 **zod**，但 Elysia 专注于与 **TypeBox** 的深度集成，以便在幕后提供无缝集成 OpenAPI、验证和高级功能。
+## Validation
+虽然 Hono 通过外部包支持各种验证器，Elysia 内置了基于 **TypeBox** 的验证，并开箱即用支持标准模式（Standard Schema），允许您直接使用喜欢的库，如 Zod、Valibot、ArkType、Effect Schema 等，无需额外库。Elysia 还提供与 OpenAPI 的无缝集成及幕后类型推断。
 
 <Compare>
 
@@ -293,7 +293,7 @@ app.patch(
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts twoslash [Elysia TypeBox]
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -316,12 +316,60 @@ const app = new Elysia()
 	})
 ```
 
+```ts twoslash [Elysia Zod]
+import { Elysia } from 'elysia'
+import { z } from 'zod'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: z.object({
+			id: z.number()
+		}),
+		body: z.object({
+			name: z.string()
+		})
+	})
+```
+
+```ts twoslash [Elysia Valibot]
+import { Elysia } from 'elysia'
+import * as v from 'zod'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: v.object({
+			id: v.number()
+		}),
+		body: v.object({
+			name: v.string()
+		})
+	})
+```
+
 :::
 </template>
 
 <template v-slot:right-content>
 
-> Elysia 使用 TypeBox 进行验证，并自动强制转换类型
+> Elysia 使用 TypeBox 进行验证，并自动转换类型。同时也支持如 Zod、Valibot 的各种验证库，且语法一致。
 
 </template>
 
@@ -1148,23 +1196,26 @@ import { Elysia, t } from 'elysia'
 import { openapi } from '@elysiajs/openapi' // [!code ++]
 
 const app = new Elysia()
-    .use(openapi()) // [!code ++]
-    .model({
-        user: t.Object({
-            name: t.String(),
-            age: t.Number()
-        })
-    })
-    .post('/users', ({ body }) => body, {
-    //                  ^?
-        body: 'user[]',
-        response: {
-            201: 'user[]'
-        },
-        detail: {
-            summary: '创建用户'
-        }
-    })
+	.use(openapi()) // [!code ++]
+	.model({
+		user: t.Array(
+			t.Object({
+				name: t.String(),
+				age: t.Number()
+			})
+		)
+	})
+	.post('/users', ({ body }) => body, {
+	//                  ^?
+		body: 'user',
+		response: {
+			201: 'user'
+		},
+		detail: {
+			summary: 'Create user'
+		}
+	})
+
 ```
 
 :::
@@ -1172,7 +1223,7 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia Seamlessly integrate the specification into the schema
+> Elysia 无缝地将规范集成到模式中
 
 </template>
 

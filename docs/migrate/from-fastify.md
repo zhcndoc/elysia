@@ -297,7 +297,7 @@ app.patch(
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts twoslash [Elysia TypeBox]
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -320,12 +320,60 @@ const app = new Elysia()
 	})
 ```
 
+```ts twoslash [Elysia Zod]
+import { Elysia } from 'elysia'
+import { z } from 'zod'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: z.object({
+			id: z.number()
+		}),
+		body: z.object({
+			name: z.string()
+		})
+	})
+```
+
+```ts twoslash [Elysia Valibot]
+import { Elysia } from 'elysia'
+import * as v from 'zod'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: v.object({
+			id: v.number()
+		}),
+		body: v.object({
+			name: v.string()
+		})
+	})
+```
+
 :::
 </template>
 
 <template v-slot:right-content>
 
-> Elysia 使用 TypeBox 进行验证，并自动强制转化类型
+> Elysia 使用 TypeBox 进行验证，并自动强制类型转换。同时也支持像 Zod、Valibot 等各种验证库，并使用相同的语法。
 
 </template>
 
@@ -333,7 +381,7 @@ const app = new Elysia()
 
 此外，Fastify 还可以使用 **TypeBox** 或 **Zod** 进行验证，使用 `@fastify/type-provider-typebox` 自动推导类型。
 
-而 Elysia **更倾向于使用 TypeBox** 进行验证，Elysia 还支持通过 [TypeMap](https://github.com/sinclairzx81/typemap) 的 **Zod** 和 **Valibot**。
+而 Elysia **偏好使用 TypeBox** 进行验证，同时也支持标准 Schema，允许您开箱即用地使用 Zod、Valibot、ArkType、Effect Schema 等库。
 
 ## 文件上传
 Fastify 使用 `fastify-multipart` 处理文件上传，底层使用 `Busboy`，而 Elysia 使用 Web 标准 API 处理表单数据，使用声明性 API 进行 mimetype 验证。
@@ -389,7 +437,7 @@ app.post(
 
 <template v-slot:left-content>
 
-> Fastify 使用 `fastify-multipart` 处理文件上传，假装 `type: object` 以允许 Buffer
+> Fastify 使用 `fastify-multipart` 处理文件上传，伪装 `type: object` 以允许 Buffer
 
 </template>
 
@@ -1222,16 +1270,18 @@ import { openapi } from '@elysiajs/openapi' // [!code ++]
 const app = new Elysia()
 	.use(openapi()) // [!code ++]
 	.model({
-		user: t.Object({
-			name: t.String(),
-			age: t.Number()
-		})
+		user: t.Array(
+			t.Object({
+				name: t.String(),
+				age: t.Number()
+			})
+		)
 	})
 	.post('/users', ({ body }) => body, {
 	//                  ^?
-		body: 'user[]',
+		body: 'user',
 		response: {
-			201: 'user[]'
+			201: 'user'
 		},
 		detail: {
 			summary: '创建用户'

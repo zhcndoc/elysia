@@ -231,7 +231,7 @@ const app = new Elysia()
 </Compare>
 
 ## 验证
-Elysia 内置支持请求验证，具有健全的类型安全，而 Express 不提供内置验证，需要根据每个验证库手动声明类型。
+Elysia 内置支持使用 TypeBox 进行请求验证，提供类型安全，并开箱即用支持标准 Schema，使您可以使用喜欢的库如 Zod、Valibot、ArkType、Effect Schema 等。而 Express 不提供内置验证，需要基于各验证库手动声明类型。
 
 <Compare>
 
@@ -284,7 +284,7 @@ app.patch('/user/:id', (req, res) => {
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts twoslash [Elysia TypeBox]
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -307,12 +307,60 @@ const app = new Elysia()
 	})
 ```
 
+```ts twoslash [Elysia Zod]
+import { Elysia } from 'elysia'
+import { z } from 'zod'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: z.object({
+			id: z.number()
+		}),
+		body: z.object({
+			name: z.string()
+		})
+	})
+```
+
+```ts twoslash [Elysia Valibot]
+import { Elysia } from 'elysia'
+import * as v from 'valibot'
+
+const app = new Elysia()
+	.patch('/user/:id', ({ params, body }) => ({
+//                          ^?
+		params,
+		body
+//   ^?
+	}),
+
+
+
+	{
+		params: v.object({
+			id: v.number()
+		}),
+		body: v.object({
+			name: v.string()
+		})
+	})
+```
+
 :::
 </template>
 
 <template v-slot:right-content>
 
-> Elysia 使用 TypeBox 进行验证，并自动强制转换类型
+> Elysia 使用 TypeBox 进行验证，并自动类型转换，同时支持 Zod、Valibot 等多种验证库，且语法一致。
 
 </template>
 
@@ -1078,22 +1126,23 @@ import { openapi } from '@elysiajs/openapi' // [!code ++]
 const app = new Elysia()
 	.use(openapi()) // [!code ++]
 	.model({
-		user: t.Object({
-			name: t.String(),
-			age: t.Number()
-		})
+		user: t.Array(
+			t.Object({
+				name: t.String(),
+				age: t.Number()
+			})
+		)
 	})
 	.post('/users', ({ body }) => body, {
 	//                  ^?
-		body: 'user[]',
+		body: 'user',
 		response: {
-			201: 'user[]'
+			201: 'user'
 		},
 		detail: {
 			summary: '创建用户'
 		}
 	})
-
 ```
 
 :::

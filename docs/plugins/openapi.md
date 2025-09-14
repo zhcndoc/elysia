@@ -127,6 +127,21 @@ OpenAPI 文档信息
 
 排除文档的标签列表
 
+## mapJsonSchema
+A custom mapping function from Standard schema to OpenAPI schema
+
+### Example
+```typescript
+import { openapi } from '@elysiajs/openapi'
+import { toJsonSchema } from '@valibot/to-json-schema'
+
+openapi({
+	mapJsonSchema: {
+	  	valibot: toJsonSchema
+  	}
+})
+```
+
 ## path
 
 @default '/openapi'

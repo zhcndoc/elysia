@@ -18,15 +18,15 @@ head:
 
 Elysia 是一个与模式无关的框架，选择何种编码模式由您和您的团队决定。
 
-然而，在尝试将 MVC 模式 [(Model-View-Controller)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) 适配到 Elysia 时，我们发现很难解耦和处理类型。
+然而，在尝试在 Elysia 中适应 MVC 模式 [(模型-视图-控制器)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) 时存在一些问题，我们发现解耦和处理类型很困难。
 
-本页面是关于如何结合 MVC 模式遵循 Elysia 结构最佳实践的指南，但也可以适用于任何您喜欢的编码模式。
+本页面是关于如何遵循 Elysia 结构最佳实践并结合 MVC 模式的指南，但可以适配您喜欢的任何编码模式。
 
 ## 文件夹结构
 
 Elysia 对文件夹结构没有固定看法，留给您 **自行决定** 如何组织代码。
 
-然而，**如果您没有具体结构的想法**，我们推荐基于功能的文件夹结构。每个功能模块拥有自己的文件夹，里面包含控制器、服务和模型。
+然而，**如果您没有具体的结构想法**，我们建议使用基于功能的文件夹结构，每个功能有自己的文件夹，包含控制器、服务和模型。
 
 ```
 | src
@@ -46,7 +46,7 @@ Elysia 对文件夹结构没有固定看法，留给您 **自行决定** 如何�
 	  | index.ts
 ```
 
-这种结构使您更容易找到和管理代码，并将相关代码集中在一起。
+此结构使您能够轻松查找和管理代码，并将相关代码聚集在一起。
 
 下面是一个如何将代码分布到基于功能文件夹结构的示例：
 
@@ -85,8 +85,7 @@ import { status } from 'elysia'
 
 import type { AuthModel } from './model'
 
-// If the class doesn't need to store a property,
-// you may use `abstract class` to avoid class allocation
+// 如果类不需要存储属性，可以使用 `abstract class` 避免类实例分配
 export abstract class Auth {
 	static async signIn({ username, password }: AuthModel.signInBody) {
 		const user = await sql`
@@ -122,7 +121,7 @@ export namespace AuthModel {
 	})
 
 	// 以 TypeScript 类型定义
-	export type signInBody = typeof signInBodyBody.static
+	export type signInBody = typeof signInBody.static
 
 	// 其它模型同理
 	export const signInResponse = t.Object({
@@ -140,19 +139,19 @@ export namespace AuthModel {
 :::
 
 每个文件的职责如下：
-- **控制器（Controller）**：处理 HTTP 路由、请求验证和 Cookie。
-- **服务（Service）**：处理业务逻辑，尽可能解耦于 Elysia 控制器。
-- **模型（Model）**：定义请求和响应的数据结构及验证。
+- **控制器**：处理 HTTP 路由、请求验证和 Cookie。
+- **服务**：处理业务逻辑，尽可能与 Elysia 控制器解耦。
+- **模型**：定义请求和响应的数据结构和校验。
 
-您可以随意调整此结构以满足自己的需求，使用任何您喜欢的编码模式。
+您可以根据需要调整此结构，并使用任何您喜欢的编码模式。
 
-## 方法链
+## 方法链 (Method Chaining)
 
 Elysia 代码应始终使用 **方法链**。
 
-由于 Elysia 的类型系统较复杂，Elysia 的每个方法都会返回一个新的类型引用。
+由于 Elysia 的类型系统很复杂，Elysia 中的每个方法都会返回一个新的类型引用。
 
-**这非常重要**，以确保类型的完整性和推断。
+**这非常重要**，以确保类型完整性和类型推断。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -183,22 +182,22 @@ app.get('/', ({ store: { build } }) => build)
 app.listen(3000)
 ```
 
-我们建议 <u>**始终使用方法链**</u> 以确保准确的类型推断。
+我们建议<u>**始终使用方法链**</u>以提供准确的类型推断。
 
-## 控制器
+## 控制器 (Controller)
 
 > 1 个 Elysia 实例 = 1 个控制器
 
-Elysia 在多个方面确保类型完整性，如果您直接把整个 `Context` 类型传递给控制器，可能会遇到以下问题：
+Elysia 做了大量工作以确保类型完整性，如果将整个 `Context` 类型传给控制器，可能会出现以下问题：
 
-1. Elysia 类型复杂，严重依赖插件和多级链。
-2. 类型难以准确化，且可能因装饰器和状态变化而随时改变。
-3. 类型转换容易导致类型完整性丢失，无法确保类型与运行时代码匹配。
-4. 这会使得 [Sucrose](/blog/elysia-10#sucrose) *(Elysia 的“编译器”)* 更难对代码做静态分析。
+1. Elysia 的类型复杂，严重依赖插件和多层链式调用。
+2. 类型难以准确编写，Elysia 类型尤其在装饰器和 store 中会随时变化。
+3. 类型转换可能导致类型完整性丢失，或无法确保类型和运行时代码的一致性。
+4. 这让 [Sucrose](/blog/elysia-10#sucrose) （Elysia 的“某种程度上的”编译器）静态分析代码变得更困难。
 
-### ❌ 不要：创建一个单独的控制器类
+### ❌ 不要：创建单独的控制器
 
-不要创建单独的控制器类，而是直接使用 Elysia 实例作为控制器：
+不要创建单独的控制器，而应直接将 Elysia 用作控制器：
 
 ```typescript
 import { Elysia, t, type Context } from 'elysia'
@@ -214,11 +213,11 @@ new Elysia()
     .get('/', Controller.root)
 ```
 
-将整个 `Controller.method` 传给 Elysia 等同于传递了两层控制器，这违背框架设计原则和 MVC 模式本质。
+将整个 `Controller.method` 传给 Elysia 相当于传递了两层控制器，这违背了框架设计原则和 MVC 模式的本质。
 
 ### ✅ 做法：将 Elysia 本身作为控制器使用
 
-代替上面做法，直接将 Elysia 实例本身视为控制器。
+替代上面的做法，直接将 Elysia 实例视为控制器。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -258,23 +257,23 @@ describe('控制器', () => {
 })
 ```
 
-您可以在 [单元测试](/patterns/unit-test.html) 中了解更多相关信息。
+您可以在 [单元测试](/patterns/unit-test.html) 中找到更多关于测试的信息。
 
-## 服务
+## 服务 (Service)
 
-服务是独立的工具/辅助函数集合，作为业务逻辑被解耦出来，供模块或控制器使用，在此处即 Elysia 实例。
+服务是一组实用工具/辅助函数，作为业务逻辑解耦出来以在模块/控制器中使用，在我们的用例中即 Elysia 实例。
 
-任何可以从控制器中解耦的技术逻辑都可以放在 **服务** 中。
+任何可以与控制器解耦的技术逻辑都可以放入 **服务** 中。
 
-Elysia 中有两种类型的服务：
-1. 不依赖请求的服务
-2. 依赖请求的服务
+Elysia 中有两种服务：
+1. 非请求依赖的服务
+2. 请求依赖的服务
 
-### ✅ 做：抽象不依赖请求的服务
+### ✅ 做：抽象非请求依赖服务
 
-建议将服务类或函数与 Elysia 解耦。
+我们推荐将服务类/函数从 Elysia 中抽象出来。
 
-如果服务或函数不依赖 HTTP 请求或 `Context`，推荐将其抽象为静态类或函数。
+如果服务或函数不依赖 HTTP 请求或不访问 `Context`，建议实现为静态类或函数。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -298,9 +297,9 @@ new Elysia()
 
 如果服务不需要存储属性，可以使用 `abstract class` 和 `static`，避免创建类实例。
 
-### ✅ 做：请求依赖的服务作为 Elysia 实例
+### ✅ 做法：请求依赖的服务作为 Elysia 实例
 
-**如果服务依赖请求**或需要处理 HTTP 请求，建议将其抽象为 Elysia 实例，以确保类型完整性和推断：
+**如果服务是请求依赖的服务** 或需要处理 HTTP 请求，建议将其抽象为 Elysia 实例，以确保类型完整性和推断：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -327,14 +326,14 @@ const UserController = new Elysia()
 ```
 
 ::: tip
-Elysia 默认自动处理[插件去重](/essential/plugin.html#plugin-deduplication)，所以您无需担心性能问题，只要指定了 **"name"** 属性，它就会是单例。
+Elysia 默认支持[插件去重](/essential/plugin.html#plugin-deduplication)，所以您不必担心性能，只要指定 **"name"** 属性插件就会变成单例。
 :::
 
 ### ✅ 做：只装饰请求依赖属性
 
-建议 `decorate`（装饰） 仅针对请求依赖的属性，如 `requestIP`、`requestTime` 或 `session`。
+建议仅 `decorate` 请求依赖的属性，如 `requestIP`、`requestTime` 或 `session`。
 
-过度使用装饰器可能导致代码与 Elysia 紧耦合，增加测试和重用难度。
+过度使用装饰器可能会使代码强绑定于 Elysia，从而难以测试和复用。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -352,7 +351,7 @@ new Elysia()
 
 **Context 是一个高度动态的类型**，可以从 Elysia 实例推断得到。
 
-不要直接将整个 `Context` 传递给服务，而应对象解构只提取所需字段再传入服务：
+不要直接将整个 `Context` 传递给服务，而应通过对象解构只提取所需字段再传入服务：
 
 ```typescript
 import type { Context } from 'elysia'
@@ -360,7 +359,7 @@ import type { Context } from 'elysia'
 class AuthService {
 	constructor() {}
 
-	// ❌ 不建议这样写
+	// ❌ 不推荐这样写
 	isSignIn({ status, cookie: { session } }: Context) {
 		if (session.value)
 			return status(401)
@@ -368,7 +367,7 @@ class AuthService {
 }
 ```
 
-由于 Elysia 类型复杂，且强依赖插件和多层链式调用，手动准确类型化很有挑战。
+由于 Elysia 类型复杂，且强依赖插件和多层链式调用，手动准确类型化非常有挑战。
 
 ### ⚠️ 从 Elysia 实例推断 Context
 
@@ -398,16 +397,16 @@ class AuthService {
 
 ## 模型
 
-模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 使用 [Elysia.t（验证系统）](/essential/validation.html#elysia-type) 处理。
+模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 使用 [Elysia.t（验证系统）](/essential/validation.html#elysia-type) 进行处理。
 
-Elysia 内置验证系统能从代码推断类型并进行运行时校验。
+Elysia 内置验证系统能够从代码推断类型并进行运行时校验。
 
 ### ❌ 不要：将类实例作为模型声明
 
 不要将类实例用于模型声明：
 
 ```typescript
-// ❌ 不建议
+// ❌ 不推荐
 class CustomBody {
 	username: string
 	password: string
@@ -418,7 +417,7 @@ class CustomBody {
 	}
 }
 
-// ❌ 不建议
+// ❌ 不推荐
 interface ICustomBody {
 	username: string
 	password: string
@@ -427,7 +426,7 @@ interface ICustomBody {
 
 ### ✅ 做：使用 Elysia 验证系统定义模型
 
-使用 Elysia 验证系统而非类或接口声明模型：
+应使用 Elysia 验证系统而非类或接口声明模型：
 
 ```typescript twoslash
 // ✅ 推荐做法
@@ -439,7 +438,7 @@ const customBody = t.Object({
 })
 
 // 可选：获取模型对应类型
-// 通常无须专门使用该类型，因为 Elysia 已推断
+// 通常无须单独使用该类型，因为 Elysia 已推断
 type CustomBody = typeof customBody.static
     // ^?
 
@@ -450,7 +449,7 @@ export { customBody }
 
 我们可以用 `typeof` 和 `.static` 来获取类型。
 
-这样可以通过 `CustomBody` 类型正确推断请求体。
+这样可以让请求体正确推断为 `CustomBody` 类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -472,7 +471,7 @@ new Elysia()
 
 ### ❌ 不要：把类型和模型分开声明
 
-不要把模型和类型分开声明，应通过模型的 `typeof` 和 `.static` 获取类型。
+不要将模型和类型分开声明，应通过模型的 `typeof` 和 `.static` 获取类型。
 
 ```typescript
 // ❌ 不推荐
@@ -516,7 +515,7 @@ const models = AuthModel.models
 
 ### 模型注入
 
-虽然可选，但如严格遵循 MVC 模式，您可能希望像使用服务一样，将模型注入控制器中。
+虽然可选，但如果严格遵循 MVC 模式，您可能希望像使用服务一样，将模型注入控制器中。
 
 推荐使用 [Elysia 引用模型](/essential/validation#reference-model)。
 
@@ -548,9 +547,9 @@ const UserController = new Elysia({ prefix: '/auth' })
     })
 ```
 
-这种方法带来若干优势：
+这种方法带来以下优势：
 1. 允许模型命名并获得自动补全。
-2. 可以修改架构用于后续用途，或执行 [重映射](/essential/handler.html#remap)。
+2. 可以修改架构用于后续用途，或执行[重映射](/essential/handler.html#remap)。
 3. 在 OpenAPI 兼容客户端中作为“模型”，例如 OpenAPI。
 4. 加快 TypeScript 推断速度，因为模型类型注册时已缓存。
 

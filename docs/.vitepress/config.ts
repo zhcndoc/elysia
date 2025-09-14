@@ -41,7 +41,6 @@ export default defineConfig({
         },
         languages: ['js', 'ts'],
         codeTransformers: [
-            // @ts-ignore
             transformerTwoslash({
                 typesCache: createFileSystemTypesCache({
                     dir: './docs/.vitepress/cache/twoslash'
@@ -53,6 +52,7 @@ export default defineConfig({
         }
     },
     vite: {
+    	clearScreen: false,
         server: {
             watch: {
                 usePolling: true
@@ -66,7 +66,7 @@ export default defineConfig({
             process.env.NODE_ENV === 'production'
                 ? llmstxt({
                       description: 'Ergonomic Framework for Humans',
-                      details: 'gger',
+                      details: description,
                       ignoreFiles: [
                           'index.md',
                           'table-of-content.md',

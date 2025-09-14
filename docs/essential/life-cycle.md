@@ -705,12 +705,12 @@ import { Elysia } from 'elysia'
 const encoder = new TextEncoder()
 
 new Elysia()
-    .mapResponse(({ response, set }) => {
+    .mapResponse(({ responseValue, set }) => {
         const isJson = typeof response === 'object'
 
         const text = isJson
-            ? JSON.stringify(response)
-            : (response?.toString() ?? '')
+            ? JSON.stringify(responseValue)
+            : (responseValue?.toString() ?? '')
 
         set.headers['Content-Encoding'] = 'gzip'
 
@@ -727,23 +727,23 @@ new Elysia()
     .listen(3000)
 ```
 
-与 **parse** 和 **beforeHandle** 一样，在返回一个值后，下一个**mapResponse** 的迭代将被跳过。
+与 **parse** 和 **beforeHandle** 类似，一旦返回一个值，后续的 **mapResponse** 迭代将被跳过。
 
-Elysia将自动处理**mapResponse**中**set.headers**的合并过程。我们无需担心手动将**set.headers**附加到响应中。
+Elysia 会自动处理 **mapResponse** 中 **set.headers** 的合并过程。我们无需担心手动将 **set.headers** 附加到 Response 中。
 
-## 错误处理（On Error）
+## On Error (Error Handling)
 
-旨在进行错误处理。当在任何生命周期中抛出错误时，它将执行。
+设计用于错误处理。当生命周期中的任何阶段抛出错误时都会执行。
 
-建议在以下情况下使用错误处理：
+建议在以下情况下使用 `onError`：
 
 - 提供自定义错误消息
-- 作为容错或错误处理程序或重试请求
-- 日志记录和分析
+- 容错处理，错误处理程序或重试请求
+- 记录和分析
 
 #### 示例
 
-Elysia捕获所有在处理程序中抛出的错误，分类错误代码并将其传递到`onError`中间件。
+Elysia 捕获处理程序中抛出的所有错误，根据错误代码进行分类，并传递到 `onError` 中间件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -791,7 +791,7 @@ new Elysia()
 
 ### 错误代码
 
-Elysia error code consists of:
+Elysia 的错误代码包括：
 
 - **NOT_FOUND**
 - **PARSE**
@@ -800,7 +800,7 @@ Elysia error code consists of:
 - **INVALID_COOKIE_SIGNATURE**
 - **INVALID_FILE_TYPE**
 - **UNKNOWN**
-- **number**（基于HTTP状态）
+- **number**（基于HTTP状态码）
 
 默认情况下，抛出的错误代码为 `UNKNOWN`。
 
@@ -858,16 +858,16 @@ new Elysia()
 响应 0.0002
 ```
 
-### 响应
+### Response
 
-类似于 [映射响应](#map-resonse)，`afterResponse` 也接受一个 `response` 值。
+类似于 [映射响应](#map-response)，`afterResponse` 同样接受一个 `responseValue`。
 
 ```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
-	.onAfterResponse(({ response }) => {
-		console.log(response)
+	.onAfterResponse(({ responseValue }) => {
+		console.log(responseValue)
 	})
 	.get('/', () => '你好')
 	.listen(3000)

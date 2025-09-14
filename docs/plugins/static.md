@@ -94,7 +94,7 @@ new Elysia()
 
 ## 单个文件
 假设你只想返回一个单独的文件，可以使用 `file` 而不是使用静态插件
-```typescript twoslash
+```typescript
 import { Elysia, file } from 'elysia'
 
 new Elysia()
