@@ -208,11 +208,14 @@ const setup = new Elysia({ name: 'setup' })
 const error = new Elysia()
     .get('/', ({ a }) => a)
 
-const main = new Elysia()
-	// 有了 `setup`，类型将被推断
+// 有了 `setup`，类型将被推断
+const child = new Elysia()
     .use(setup) // [!code ++]
     .get('/', ({ a }) => a)
     //           ^?
+
+const main = new Elysia()
+    .use(child)
 ```
 
 正如在 [依赖性](#dependencies) 中提到的，我们可以使用 `name` 属性来去重实例，因此不会有任何性能损失或生命周期重复。

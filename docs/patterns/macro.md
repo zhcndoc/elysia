@@ -157,15 +157,39 @@ new Elysia()
 	})
 ```
 
-上例中，我们通过返回一个包含 **resolve** 函数的对象，向上下文添加了一个新属性 **user**。
+在上面的示例中，我们通过返回一个带有 **resolve** 函数的对象向上下文添加了一个新属性 **user**。
 
-下面是宏解析可能派上用场的示例：
-- 执行认证并向上下文添加用户信息
+以下是一个宏解析可能有用的示例：
+
+- 执行身份验证并将用户添加到上下文
 - 运行额外的数据库查询并将数据添加到上下文
 - 向上下文添加新属性
 
-## 模式 (Schema)
-您可以为您的宏定义自定义模式，以确保使用宏的路由传递正确的类型。
+### 带有解析的宏扩展
+
+由于 TypeScript 的限制，扩展其他宏的宏无法推断 **resolve** 函数的类型。
+
+我们提供了一个命名的单一宏作为解决此限制的变通方法。
+
+```typescript twoslash
+import { Elysia, t } from 'elysia'
+new Elysia()
+	.macro('user', {
+		resolve: () => ({
+			user: 'lilith' as const
+		})
+	})
+	.macro('user2', {
+		user: true,
+		resolve: ({ user }) => {
+		//           ^?
+		}
+	})
+```
+
+## 架构
+
+您可以为您的宏定义一个自定义架构，以确保使用该宏的路由传递正确的类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -192,8 +216,10 @@ new Elysia()
 
 您也可以堆叠来自不同宏的多个模式，甚至与标准验证器配合使用，它们将无缝协作。
 
-### 同一宏中的模式和生命周期
-宏的模式还支持对**同一宏内的生命周期**进行类型推断，但由于 TypeScript 的限制，只支持带名称的单一宏。
+### Schema with lifecycle in the same macro
+Similar to [Macro extension with resolve](#macro-extension-with-resolve),
+
+Macro schema also support type inference for **lifecycle within the same macro** **BUT** only with named single macro due to TypeScript limitation.
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

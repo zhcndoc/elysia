@@ -20,8 +20,19 @@ export interface Sponsor {
     duration: string
 }
 
+export interface GoldSponsorDetail {
+    url: string
+    caption: string
+}
+
 declare const data: Sponsor[]
 export { data }
+
+// Key is sponsorEntity.login
+export const goldSponsorDetail: Record<
+    string,
+    Sponsor['sponsorEntity']['login']
+> = {}
 
 export default defineLoader({
     async load(): Promise<Sponsor[]> {
@@ -38,9 +49,9 @@ export default defineLoader({
                     query: `query {
 	                  user(login: "saltyaom") {
 	                    sponsorshipsAsMaintainer(
-	                        first: 100
+	                        first: 100,
+							activeOnly: true
 	                    ) {
-	                      totalRecurringMonthlyPriceInDollars
 	                      nodes {
 	                        sponsorEntity {
 	                          ... on User {

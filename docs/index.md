@@ -56,9 +56,10 @@ new Elysia()
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
+import { z } from 'zod'
 
 new Elysia()
-	.patch('/profile', ({ body }) => body.profile, {
+	.patch('/profile', ({ body, query }) => body.profile, {
 	                    // ^?
 
 
@@ -67,7 +68,10 @@ new Elysia()
 		body: t.Object({
 			id: t.Number(),
 			profile: t.File({ type: 'image' })
-		})
+		}),
+		query: z.object({
+			name: z.literal('Lilith')
+		}),
 	})
 	.listen(3000)
 ```
@@ -79,6 +83,7 @@ new Elysia()
 ```typescript twoslash
 // @errors: 2345
 import { Elysia, t } from 'elysia'
+import { z } from 'zod'
 
 new Elysia()
 	.get('/profile', ({ status }) => {
@@ -89,7 +94,7 @@ new Elysia()
 	}, {
 		response: {
 			200: t.Literal('ok'),
-			418: t.Literal('Nagisa')
+			418: z.literal('Nagisa')
 		}
 	})
 	.listen(3000)
@@ -104,14 +109,14 @@ new Elysia()
 import { Elysia, t } from 'elysia'
 
 const role = new Elysia({ name: 'macro' })
-	.macro(({ onBeforeHandle }) => ({
-		role(type: 'user' | 'staff' | 'admin') {
-			onBeforeHandle(({ headers, status }) => {
+	.macro({
+		role: (type: 'user' | 'staff' | 'admin') => ({
+			beforeHandle({ headers, status }) {
 				if(headers.authorization !== type)
 					return status(401)
-			})
-		}
-	}))
+			}
+		})
+	})
 
 new Elysia()
 	.use(role)

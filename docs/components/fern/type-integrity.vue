@@ -16,7 +16,7 @@
             </h1>
         </div>
         <motion.section class="showcase" v-bind="flyIn(0.2)">
-            <motion.div
+            <div
                 layout
                 class="window"
                 v-bind="flyIn(0.3)"
@@ -27,19 +27,19 @@
                     <div />
                     <div />
                 </div>
-                <motion.div class="body" v-if="form === 1" layoutId="code">
+                <div class="body" v-if="form === 1" layoutId="code">
                     <slot name="type-1" />
-                </motion.div>
-                <motion.div class="body" v-else-if="form === 2" layoutId="code">
+                </div>
+                <div class="body" v-else-if="form === 2" layoutId="code">
                     <slot name="type-2" />
-                </motion.div>
-                <motion.div class="body" v-else-if="form === 3" layoutId="code">
+                </div>
+                <div class="body" v-else-if="form === 3" layoutId="code">
                     <slot name="type-3" />
-                </motion.div>
-                <motion.div class="body" v-else-if="form === 4" layoutId="code">
+                </div>
+                <div class="body" v-else-if="form === 4" layoutId="code">
                     <slot name="type-4" />
-                </motion.div>
-            </motion.div>
+                </div>
+            </div>
         </motion.section>
         <section class="selector">
             <form>
@@ -88,7 +88,7 @@ const labels = [
     '类型推断',
     '强制类型',
     '返回类型',
-    '代码提示'
+    '让它成为你自己的'
 ]
 
 watch(isInView, () => {
