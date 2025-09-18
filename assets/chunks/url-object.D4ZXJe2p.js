@@ -1,0 +1,1 @@
+var e=`/essential/url-object.svg`;export{e as t};

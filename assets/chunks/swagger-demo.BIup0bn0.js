@@ -1,0 +1,1 @@
+var e=`/assets/swagger-demo.webp`;export{e as t};
