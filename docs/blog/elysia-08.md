@@ -3,6 +3,7 @@ title: Elysia 0.8 - 施坦纳之门
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'

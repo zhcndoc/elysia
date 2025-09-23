@@ -3,6 +3,7 @@ title: 用 Elysia 加速你的下一个 Prisma 服务器
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'
@@ -188,7 +189,7 @@ const db = new PrismaClient()
 
 const app = new Elysia()
     .post(
-        '/sign-up', 
+        '/sign-up',
         async ({ body }) => db.user.create({
             data: body
         }),

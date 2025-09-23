@@ -220,7 +220,7 @@ import type { app } from '@/index'
 const client = treaty<app>('localhost:3000')
 
 // 这应该能够在前端和后端解析相同的模块，而不是 `any`。
-import { a, b } from '@/controllers'
+import { a, b } from '@/controllers' // [!code ++]
 ```
 
 要解决此问题，你必须确保路径别名在前端和后端解析为相同的文件。
@@ -243,8 +243,9 @@ import { a, b } from '@/controllers'
 import { a, b } from '@/controllers'
 ```
 
-#### 范围（Scope）
-我们建议在你的 monorepo 中为每个模块添加一个 **范围** 前缀，以避免任何混淆和冲突。
+#### 命名空间
+
+我们建议为您单体仓库中的每个模块添加一个 **命名空间** 前缀，以避免可能发生的任何混淆和冲突。
 
 ```json
 {

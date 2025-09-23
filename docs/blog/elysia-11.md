@@ -3,6 +3,7 @@ title: Elysia 1.1 - 大人的乐园
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'

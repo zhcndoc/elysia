@@ -3,6 +3,7 @@ title: Elysia 1.0 - 倒下者的哀歌
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'
@@ -322,9 +323,9 @@ const main = new Elysia()
 
 | type       | child | current | parent | main |
 | ---------- | ----- | ------- | ------ | ---- |
-| 'local'    | ✅    | ✅       | ❌     | ❌   | 
-| 'scope'    | ✅    | ✅       | ✅     | ❌   | 
-| 'global'   | ✅    | ✅       | ✅     | ✅   | 
+| 'local'    | ✅    | ✅       | ❌     | ❌   |
+| 'scope'    | ✅    | ✅       | ✅     | ❌   |
+| 'global'   | ✅    | ✅       | ✅     | ✅   |
 
 从 Elysia 0.8 迁移，如果你希望使 Hook 为全局的，你需要指定该 Hook 是全局的。
 

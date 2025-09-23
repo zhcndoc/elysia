@@ -116,7 +116,7 @@ new Elysia()
 
 <br>
 
-上面代码创建了路径参数 "id"。替代 `:id` 的值会在运行时和类型中传递给 `params.id`，无需手动声明类型。
+上面代码创建了路径参数 **"id"**。替代 `:id` 的值会在运行时和类型中传递给 `params.id`，无需手动声明类型。
 
 <Playground
     :elysia="demo2"
@@ -223,12 +223,11 @@ Elysia 也支持用 **一行代码直接从类型生成 OpenAPI Schema**，实�
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/oepnapi'
-import { fromTypes } from '@elysiajs/openapi/gen'
+import { openapi, fromTypes } from '@elysiajs/openapi'
 
 export const app = new Elysia()
     .use(openapi({
-    	references: fromTypes('src/index.ts') // [!code ++]
+    	references: fromTypes() // [!code ++]
     }))
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({
@@ -246,12 +245,11 @@ export const app = new Elysia()
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
-import { fromTypes } from '@elysiajs/openapi/gen'
+import { openapi, fromTypes } from '@elysiajs/openapi'
 
 export const app = new Elysia()
     .use(openapi({
-    	references: fromTypes('src/index.ts')
+    	references: fromTypes()
     }))
     .get('/user/:id', ({ params: { id } }) => id, {
         params: t.Object({

@@ -15,7 +15,7 @@ head:
 ---
 
 # Cookie
-要使用 Cookie，您可以提取 Cookie 属性并直接访问其名称和值。
+Elysia 提供了一个可变信号，用于与 Cookie 进行交互。
 
 没有 get/set，您可以直接提取 Cookie 名称并检索或更新其值。
 ```ts

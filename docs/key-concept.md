@@ -14,17 +14,93 @@ head:
         content: 尽管 Elysia 是一个简单的库，但它有一些关键概念，您需要理解以有效地使用它。此页面将指导您了解 ElysiaJS 的关键概念。
 ---
 
-# 关键概念
+<script setup>
+import { Elysia } from 'elysia'
+import Playground from './components/nearl/playground.vue'
 
-尽管 Elysia 是一个简单的库，但它有一些关键概念，您需要理解以有效地使用它。
+const profile1 = new Elysia()
+	.onBeforeHandle(({ status }) => status(401))
+	.get('/profile', ({ status }) => status(401))
 
-此页面涵盖了您应该了解的 Elysia 的最重要概念。
+const demo1 = new Elysia()
+	.use(profile1)
+	// This will NOT have sign in check
+	.patch('/rename', () => 'Updated!')
 
-::: tip
-我们 __强烈推荐__ 您在深入学习 Elysia 之前阅读此页面。
-:::
+const profile2 = new Elysia()
+	.onBeforeHandle({ as: 'global' }, ({ status }) => status(401))
+	.get('/profile', ({ status }) => status(401))
 
-## 一切都是组件
+const demo2 = new Elysia()
+	.use(profile2)
+	// This will NOT have sign in check
+	.patch('/rename', ({ status }) => status(401))
+</script>
+
+# 关键概念 <Badge type="danger" text="必须阅读" />
+
+Elysia 拥有一些非常重要的概念，您需要理解它们才能使用。
+
+本页面涵盖了在开始使用之前您应该了解的大多数概念。
+
+## 封装 <Badge type="danger" text="必须阅读" />
+Elysia 的生命周期方法仅**封装**在其自身实例内。
+
+这意味着如果您创建了一个新的实例，它不会与其他实例共享生命周期方法。
+
+```ts
+import { Elysia } from 'elysia'
+
+const profile = new Elysia()
+	.onBeforeHandle(({ cookie }) => {
+		throwIfNotSignIn(cookie)
+	})
+	.get('/profile', () => 'Hi there!')
+
+const app = new Elysia()
+	.use(profile)
+	// ⚠️ 这里将不会有登录检查
+	.patch('/rename', ({ body }) => updateProfile(body))
+```
+
+<!-- 在这里不要在 "profile" 和 "app" 前加 "the" - @Saltyaom -->
+在这个例子中，`isSignIn` 检查仅应用在 `profile`，而不会应用在 `app`。
+
+<Playground :elysia="demo1" />
+
+> 试着在地址栏中改为访问 **/rename** 并查看结果
+
+<br>
+
+**Elysia 默认会隔离生命周期**，除非明确说明。这类似于 JavaScript 中的 **export**，你需要导出函数才能让它在模块外可用。
+
+若要将生命周期“导出”到其他实例，您必须指定作用域。
+
+```ts
+import { Elysia } from 'elysia'
+
+const profile = new Elysia()
+	.onBeforeHandle(
+		{ as: 'global' }, // [!code ++]
+		({ cookie }) => {
+			throwIfNotSignIn(cookie)
+		}
+	)
+	.get('/profile', () => 'Hi there!')
+
+const app = new Elysia()
+	.use(profile)
+	// 这里将有登录检查
+	.patch('/rename', ({ body }) => updateProfile(body))
+```
+
+<Playground :elysia="demo2" />
+
+将生命周期作用域设置为 **"global"** 将其导出到 **所有实例**。
+
+更多内容请见 [scope](/essential/plugin.html#scope-level)。
+
+<!--## 一切皆组件
 
 每个 Elysia 实例都是一个组件。
 
@@ -48,32 +124,32 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-这迫使您将应用程序分解为小块，使您能够轻松添加或删除功能。
+这促使您将应用拆分为小部分，使添加或删除功能变得容易。
 
-在 [插件](/essential/plugin.html) 中了解更多关于此的内容。
+了解更多请见 [plugin](/essential/plugin.html)。-->
 
-## 方法链
-Elysia 代码应始终使用 **方法链**。
+## 方法链 <Badge type="warning" text="重要" />
+Elysia 代码应**始终**使用方法链。
 
-由于 Elysia 类型系统复杂，Elysia 中的每个方法都返回一个新的类型引用。
-
-**这很重要**，以确保类型的完整性和推断。
+这对**确保类型安全**非常重要。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
 
 new Elysia()
     .state('build', 1)
-    // 存储是严格类型 // [!code ++]
+    // store 是严格类型 // [!code ++]
     .get('/', ({ store: { build } }) => build)
                         // ^?
     .listen(3000)
 ```
 
-在上面的代码中，**state** 返回一个新的 **ElysiaInstance** 类型，添加了一个类型化的 `build` 属性。
+在上述代码中，**state** 返回一个新的 **ElysiaInstance** 类型，附带了类型化的 `build` 属性。
 
-### 不要在没有方法链的情况下使用 Elysia
-如果不使用方法链，Elysia 不会保存这些新类型，导致没有类型推断。
+### 不使用方法链
+因为 Elysia 的类型系统很复杂，Elysia 中的每个方法都会返回一个新的类型引用。
+
+如果不使用方法链，Elysia 不会保存这些新类型，导致无法进行类型推断。
 
 ```typescript twoslash
 // @errors: 2339
@@ -88,65 +164,21 @@ app.get('/', ({ store: { build } }) => build)
 app.listen(3000)
 ```
 
-我们建议您 <u>**始终使用方法链**</u> 来提供准确的类型推断。
+我们建议您<u>**始终使用方法链**</u>以便获得准确的类型推断。
 
-## 作用域
-默认情况下，每个实例中的事件/生命周期是相互隔离的。
+## 依赖 <Badge type="danger" text="必须阅读" />
+每个插件在应用到另一个实例时都会**每次执行**。
 
-```ts twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
+如果插件应用多次，会导致不必要的重复。
 
-const ip = new Elysia()
-	.derive(({ server, request }) => ({
-		ip: server?.requestIP(request)
-	}))
-	.get('/ip', ({ ip }) => ip)
+某些方法，比如**生命周期**或**路由**，只能被调用一次，这点很重要。
 
-const server = new Elysia()
-	.use(ip)
-	.get('/ip', ({ ip }) => ip)
-	.listen(3000)
-```
-
-在此示例中，`ip` 属性仅在其自身实例中共享，而不在 `server` 实例中共享。
-
-要共享生命周期，在我们的例子中，与 `server` 实例共享 `ip` 属性，我们需要 **明确指定** 它可以被共享。
+为避免此问题，Elysia 可以通过**唯一标识符**来去重生命周期。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
 
-const ip = new Elysia()
-	.derive(
-		{ as: 'global' }, // [!code ++]
-		({ server, request }) => ({
-			ip: server?.requestIP(request)
-		})
-	)
-	.get('/ip', ({ ip }) => ip)
-
-const server = new Elysia()
-	.use(ip)
-	.get('/ip', ({ ip }) => ip)
-	.listen(3000)
-```
-
-在这个例子中，`ip` 属性在 `ip` 和 `server` 实例之间共享，因为我们将其定义为 `global`。
-
-这迫使您考虑每个属性的作用域，防止您意外地在实例之间共享属性。
-
-在 [作用域](/essential/plugin.html#scope) 中了解更多关于此的内容。
-
-## 依赖性
-默认情况下，每个实例在应用于另一个实例时会被重新执行。
-
-这可能导致相同方法被多次应用，而某些方法，如 **生命周期** 或 **路由**，应该只调用一次。
-
-为了防止生命周期方法重复调用，我们可以为实例添加 **一个唯一标识符**。
-
-```ts twoslash
-import { Elysia } from 'elysia'
-
+// `name` 是唯一标识符
 const ip = new Elysia({ name: 'ip' }) // [!code ++]
 	.derive(
 		{ as: 'global' },
@@ -169,23 +201,21 @@ const server = new Elysia()
 	.use(router2)
 ```
 
-这将通过使用唯一名称进行去重，防止 `ip` 属性被多次调用。
+为实例添加 `name` 属性会让它成为唯一标识符，从而防止重复调用。
 
-这使我们能够在没有性能损失的情况下多次重用相同的实例。迫使您考虑每个实例的依赖性。
+更多内容请见 [插件去重](/essential/plugin.html#plugin-deduplication)。
 
-在 [插件去重](/essential/plugin.html#plugin-deduplication) 中了解更多关于此的内容。
+### 服务定位器 <Badge type="warning" text="重要" />
+当您将插件应用到实例时，该实例将获得类型安全。
 
-### 服务定位器
-当您将带状态/装饰器的插件应用于实例时，实例将获得类型安全。
-
-但如果您不将插件应用于另一个实例，它将无法推断类型。
+但是如果您没有将插件应用于另一个实例，类型将无法推断。
 
 ```typescript twoslash
 // @errors: 2339
 import { Elysia } from 'elysia'
 
 const child = new Elysia()
-    // ❌ 'a' 缺失
+    // ❌ 缺少 'a'
     .get('/', ({ a }) => a)
 
 const main = new Elysia()
@@ -193,9 +223,9 @@ const main = new Elysia()
     .use(child)
 ```
 
-Elysia 引入了 **服务定位器** 设计模式来解决这个问题。
+Elysia 引入了**服务定位器**设计模式来解决这个问题。
 
-我们简单地提供插件引用，以便 Elysia 找到服务以添加类型安全。
+只需提供插件引用，Elysia 就能找到该服务以增强类型安全。
 
 ```typescript twoslash
 // @errors: 2339
@@ -204,29 +234,33 @@ import { Elysia } from 'elysia'
 const setup = new Elysia({ name: 'setup' })
     .decorate('a', 'a')
 
-// 没有 'setup'，类型将缺失
+// 没有 'setup' 时，类型会缺失
 const error = new Elysia()
     .get('/', ({ a }) => a)
 
-// 有了 `setup`，类型将被推断
+// 通过 `setup`，会正确推断类型
 const child = new Elysia()
     .use(setup) // [!code ++]
     .get('/', ({ a }) => a)
     //           ^?
 
-const main = new Elysia()
-    .use(child)
+
+
+// ---cut-after---
+console.log()
 ```
 
-正如在 [依赖性](#dependencies) 中提到的，我们可以使用 `name` 属性来去重实例，因此不会有任何性能损失或生命周期重复。
+这相当于 TypeScript 的**类型导入**，这里导入类型而不实际引入运行时代码。
 
-## 代码顺序
+如前所述，Elysia 已经处理了去重，因此这不会带来性能开销或生命周期重复。
+
+## 代码顺序 <Badge type="warning" text="重要" />
 
 Elysia 的生命周期代码顺序非常重要。
 
-因为事件只会在注册后应用于路由。
+事件只会对注册之后的路由生效。
 
-如果你把 onError 放在插件之前，插件将不会继承 onError 事件。
+如果把 onError 放在插件之前，插件将不会继承该 onError 事件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -242,18 +276,18 @@ new Elysia()
     .listen(3000)
 ```
 
-控制台应记录以下内容：
+控制台应打印：
 
 ```bash
 1
 ```
 
-注意到它没有记录 **2**，因为事件是在路由之后注册的，所以它不适用于该路由。
+注意未打印 **2**，因为事件是在路由之后注册的，所以不会对该路由生效。
 
-在 [代码顺序](/essential/life-cycle.html#order-of-code) 中了解更多信息。
+更多内容请见 [代码顺序](/essential/life-cycle.html#order-of-code)。
 
 ## 类型推断
-Elysia 具有复杂的类型系统，允许您从实例推断类型。
+Elysia 拥有复杂的类型系统，允许您从实例推断类型。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -268,9 +302,9 @@ const app = new Elysia()
 	})
 ```
 
-如果可能，**始终使用内联函数**以提供准确的类型推断。
+您应**始终使用内联函数**以获得准确的类型推断。
 
-如果您需要应用单独的函数，例如 MVC 的控制器模式，建议从内联函数中解构属性，以防止不必要的类型推断。
+如果您需要使用独立函数，比如 MVC 控制器模式，建议从内联函数中解构所需属性，以避免不必要的类型推断，如下所示：
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -289,8 +323,10 @@ const app = new Elysia()
 	})
 ```
 
+详见 [最佳实践：MVC 控制器](/essential/best-practice.html#controller)。
+
 ### TypeScript
-我们可以通过以下方式访问 `static` 属性获取每个 Elysia/TypeBox 类型的类型定义：
+我们可以通过访问 `static` 属性来获取每个 Elysia/TypeBox 类型的类型定义：
 
 ```ts twoslash
 import { t } from 'elysia'
@@ -307,14 +343,12 @@ type MyType = typeof MyType.static
 <br>
 <br>
 
-这使 Elysia 能够自动推断并提供类型，减少了声明重复架构的需要
+这使得 Elysia 能够自动推断并提供类型，减少了重复声明 schema 的需求。
 
-单个 Elysia/TypeBox 架构可以用于：
+单个 Elysia/TypeBox schema 可用于：
 - 运行时验证
 - 数据强制转换
 - TypeScript 类型
-- OpenAPI 架构
+- OpenAPI schema
 
-这使我们能够将架构作为 **单一事实来源**。
-
-在 [最佳实践：MVC 控制器](/essential/best-practice.html#controller) 中了解更多关于此的内容。
+这使我们能够将 schema 作为**单一可信源**。

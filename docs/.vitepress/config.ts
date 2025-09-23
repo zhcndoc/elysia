@@ -52,7 +52,7 @@ export default defineConfig({
         }
     },
     vite: {
-    	clearScreen: false,
+        clearScreen: false,
         server: {
             watch: {
                 usePolling: true
@@ -265,21 +265,7 @@ export default defineConfig({
                     {
 						text: '教程',
                         link: '/tutorial',
-                        collapsed: true,
-                        items: [
-                            {
-								text: '从 Express 迁移',
-                                link: '/migrate/from-express'
-                            },
-                            {
-								text: '从 Fastify 迁移',
-                                link: '/migrate/from-fastify'
-                            },
-                            {
-								text: '从 Hono 迁移',
-                                link: '/migrate/from-hono'
-                            }
-                        ]
+                        collapsed: true
                     },
                     {
 						text: '关键概念',
@@ -288,7 +274,7 @@ export default defineConfig({
                     {
 						text: '目录',
                         link: '/table-of-content'
-                    }
+                    },
                 ]
             },
             {
@@ -304,12 +290,12 @@ export default defineConfig({
                         link: '/essential/handler'
                     },
                     {
-						text: '生命周期',
-                        link: '/essential/life-cycle'
+                        text: '验证',
+                        link: '/essential/validation'
                     },
                     {
-						text: '验证',
-                        link: '/essential/validation'
+                        text: '生命周期',
+                        link: '/essential/life-cycle'
                     },
                     {
 						text: '插件',
@@ -478,11 +464,33 @@ export default defineConfig({
                     {
                         text: 'Stream',
                         link: '/plugins/stream'
-                    },
+                    }
                 ]
             },
             {
-				text: '集成',
+                text: 'Comparison',
+                collapsed: true,
+                items: [
+                    {
+                        text: 'Express',
+                        link: '/migrate/from-express'
+                    },
+                    {
+                        text: 'Fastify',
+                        link: '/migrate/from-fastify'
+                    },
+                    {
+                        text: 'Hono',
+                        link: '/migrate/from-hono'
+                    },
+                    {
+                        text: 'tRPC',
+                        link: '/migrate/from-trpc'
+                    }
+                ]
+            },
+            {
+                text: 'Integration',
                 collapsed: true,
                 items: [
                     {
@@ -496,6 +504,10 @@ export default defineConfig({
                     {
                         text: 'Better Auth',
                         link: '/integrations/better-auth'
+                    },
+                    {
+                        text: 'Cloudflare Worker',
+                        link: '/integrations/cloudflare-worker'
                     },
                     {
                         text: 'Drizzle',

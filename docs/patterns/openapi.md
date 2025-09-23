@@ -14,6 +14,10 @@ head:
         content: Elysia 默认支持并遵循 OpenAPI 规范。只需一行代码即可让任何 Elysia 服务器自动生成并提供 API 文档页面。
 ---
 
+<script setup>
+import Tab from '../components/fern/tab.vue'
+</script>
+
 # OpenAPI
 
 Elysia 默认支持并遵循 OpenAPI 规范。
@@ -42,22 +46,23 @@ new Elysia()
 
 ## 从类型生成 OpenAPI
 
+> 这是可选的，但我们强烈推荐这样做，以获得更好的文档体验。
+
 默认情况下，Elysia 依赖运行时的 schema 来生成 OpenAPI 文档。
 
 但是，你也可以通过使用 OpenAPI 插件中的生成器根据类型生成 OpenAPI 文档，方法如下：
 
-1. 指定项目的根文件（通常是 `src/index.ts`），并导出一个实例
+1. 指定你的 Elysia 根文件（如果未指定，Elysia 将使用 `src/index.ts`），并导出一个实例
 
 2. 导入生成器并向类型生成器提供**相对于项目根的文件路径**
 ```ts
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
-import { fromTypes } from '@elysiajs/openapi/gen' // [!code ++]
+import { openapi, fromTypes } from '@elysiajs/openapi' // [!code ++]
 
 export const app = new Elysia() // [!code ++]
     .use(
         openapi({
-            references: fromTypes('src/index.ts') // [!code ++]
+            references: fromTypes() // [!code ++]
         })
     )
     .get('/', { test: 'hello' as const })
@@ -80,8 +85,7 @@ Elysia 会尝试通过读取导出实例的类型来生成 OpenAPI 文档。
 
 ```ts
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
-import { fromTypes } from '@elysiajs/openapi/gen'
+import { openapi, fromTypes } from '@elysiajs/openapi'
 
 const app = new Elysia()
     .use(
@@ -104,8 +108,7 @@ const app = new Elysia()
 
 ```ts
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
-import { fromTypes } from '@elysiajs/openapi/gen'
+import { openapi, fromTypes } from '@elysiajs/openapi'
 
 export const app = new Elysia()
     .use(
@@ -129,8 +132,7 @@ export const app = new Elysia()
 
 ```ts
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
-import { fromTypes } from '@elysiajs/openapi/gen'
+import { openapi, fromTypes } from '@elysiajs/openapi'
 
 export const app = new Elysia()
     .use(
@@ -152,11 +154,94 @@ export const app = new Elysia()
 
 </details>
 
+## 使用标准 Schema 生成 OpenAPI
+Elysia 会尝试使用每个 schema 自带的方法来转换为 OpenAPI schema。
+
+如果 schema 没有提供原生方法，你可以通过给 OpenAPI 提供 `mapJsonSchema` 自定义转换函数，例如：
+
+<Tab
+	id="schema-openapi"
+	noTitle
+	:names="['Zod', 'Valibot', 'Effect']"
+	:tabs="['zod', 'valibot', 'effect']"
+>
+
+<template v-slot:zod>
+
+### Zod OpenAPI
+由于 Zod 的 schema 上没有 `toJSONSchema` 方法，我们需要提供自定义映射函数，将 Zod schema 转换为 OpenAPI schema。
+
+::: code-group
+
+```typescript [Zod 4]
+import openapi from '@elysiajs/openapi'
+import * as z from 'zod'
+
+openapi({
+	mapJsonSchema: {
+		zod: z.toJSONSchema
+	}
+})
+```
+
+```typescript [Zod 3]
+import openapi from '@elysiajs/openapi'
+import { zodToJsonSchema } from 'zod-to-json-schema'
+
+openapi({
+	mapJsonSchema: {
+		zod: zodToJsonSchema
+	}
+})
+```
+
+:::
+
+</template>
+
+<template v-slot:valibot>
+
+### Valibot OpenAPI
+Valibot 使用独立包（`@valibot/to-json-schema`）来转换 Valibot schema 为 JSON Schema。
+
+```typescript
+import openapi from '@elysiajs/openapi'
+import { toJsonSchema } from '@valibot/to-json-schema'
+
+openapi({
+	mapJsonSchema: {
+		valibot: toJsonSchema
+	}
+})
+```
+
+</template>
+
+<template v-slot:effect>
+
+### Effect OpenAPI
+由于 Effect 的 schema 上没有 `toJSONSchema` 方法，我们需要提供自定义映射函数，将 Effect schema 转换为 OpenAPI schema。
+
+```typescript
+import openapi from '@elysiajs/openapi'
+import { JSONSchema } from 'effect'
+
+openapi({
+ 	mapJsonSchema: {
+   		effect: JSONSchema.make
+ 	}
+})
+```
+
+</template>
+
+</Tab>
+
 ## 描述路由
 
 我们可以通过提供 schema 类型来添加路由信息。
 
-但是，有时仅定义类型并不能清晰表明路由的作用。你可以使用[detail](/plugins/openapi#detail) 字段显式描述路由。
+但有时仅定义类型并不清晰路由具体功能。你可以使用 [detail](/plugins/openapi#detail) 字段明确描述路由。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -188,7 +273,7 @@ new Elysia()
 
 detail 字段遵循 OpenAPI V3 定义，默认具备自动补全和类型安全。
 
-detail 会传递给 OpenAPI，以为路由添加描述。
+detail 会传递给 OpenAPI，为路由添加描述。
 
 ## 响应头
 我们可以通过使用 `withHeader` 包装 schema 来添加响应头：
@@ -435,20 +520,4 @@ export const addressController = new Elysia({
 })
 ```
 
-这确保了所有 `/address` 前缀下的端点都需要有效的 JWT 令牌才能访问。
-
-## 使用 OpenAPI 的标准 Schema
-Elysia 会尝试使用每个 schema 提供的本地方法转换为 OpenAPI schema。
-
-但是，如果 schema 没有提供本地方法，你可以通过提供 `mapJsonSchema` 向 OpenAPI 提供自定义 schema，如下所示：
-
-```typescript
-import { openapi } from '@elysiajs/openapi'
-import { toJsonSchema } from '@valibot/to-json-schema'
-
-openapi({
-	mapJsonSchema: {
-	  	valibot: toJsonSchema
-  	}
-})
-```
+这将确保 `/address` 前缀下的所有端点都需要有效的 JWT 令牌才能访问。

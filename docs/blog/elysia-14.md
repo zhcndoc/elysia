@@ -3,6 +3,7 @@ title: Elysia 1.4 - 超对称
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'
@@ -10,11 +11,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 支持标准验证器。带有 schema、扩展和 OpenAPI 细节的宏。生命周期类型健全性。提升类型推断性能 10%。
+        content: 支持标准 Schema。带有 schema、扩展和 OpenAPI 详情的宏。生命周期类型健全性。提升类型推断性能 10%。
 
     - - meta
       - property: 'og:description'
-        content: 支持标准验证器。带有 schema、扩展和 OpenAPI 细节的宏。生命周期类型健全性。提升类型推断性能 10%。
+        content: 支持标准 Schema。带有 schema、扩展和 OpenAPI 详情的宏。生命周期类型健全性。提升类型推断性能 10%。
 
     - - meta
       - property: 'og:image'
@@ -40,7 +41,7 @@ head:
 
 本版本以 Sta 的歌曲 [Supersymmetry](https://youtu.be/NYyjQjtbteA)（Tone Sphere 的结尾主题曲）命名。
 
-Elysia 1.4 的重点是标准 Schema 和 **“类型健全性”**。
+Elysia 1.4 的亮点是引入了标准 Schema 和 **“类型健全性”**。
 
 - [标准 Schema](#standard-schema)
 - [宏](#macro)
@@ -48,15 +49,17 @@ Elysia 1.4 的重点是标准 Schema 和 **“类型健全性”**。
 - [分组独立 Schema](#group-standalone-schema)
 
 ## 标准 Schema
-三年来，Elysia 一直使用 TypeBox 作为唯一的验证器，这也是 Elysia 备受喜爱的特性之一，因其性能优异且支持类型推断。
 
-但从很早开始，社区中最常被请求的功能之一就是支持除 TypeBox 以外的更多验证器（参见 [elysia#20](https://github.com/elysiajs/elysia/issues/20)）。
+过去三年，Elysia 一直使用 TypeBox 作为唯一的验证器。凭借其性能和类型推断，这成为 Elysia 最受喜爱的功能之一。
 
-由于 Elysia 与 TypeBox 关系密切，单独为每个验证器添加支持需要付出大量努力，且维护起来也很繁重。
+然而，从一开始 ([elysia#20](https://github.com/elysiajs/elysia/issues/20)) 社区就非常希望支持除 TypeBox 以外的验证器。
 
-幸运的是，现在有一个名为 [Standard Schema](https://github.com/standard-schema/standard-schema) 的新提案，用以定义一种标准方式以相同 API 使用不同的 Schema，使我们能在无需为每个验证器编写定制集成的情况下支持多个验证器。
+由于 Elysia 深度绑定于 TypeBox，为每个验证器单独添加支持需要大量工作和持续维护以适应变化。
 
-Elysia 现已支持标准 Schema，允许你使用你喜欢的验证器，比如：
+幸运的是，一个名为 [Standard Schema](https://github.com/standard-schema/standard-schema) 的新提案定义了一种使用统一 API 支持不同 Schema 的标准方式。这使得我们无需为每个验证器编写定制集成就能支持多种验证器。
+
+Elysia 现在支持标准 Schema，允许你使用你喜欢的验证器，例如：
+
 - Zod
 - Valibot
 - Effect Schema
@@ -64,7 +67,8 @@ Elysia 现已支持标准 Schema，允许你使用你喜欢的验证器，比如
 - Joi
 - 以及更多！
 
-你可以提供类似 TypeBox 的 Schema，开箱即用：
+你可以以类似 TypeBox 的方式提供 schema ，它即可开箱即用：
+
 ```ts twoslash
 import { Elysia, t } from 'elysia'
 import { z } from 'zod'
@@ -95,31 +99,33 @@ const app = new Elysia()
       	})
 ```
 
-你可以在同一路由中使用多个验证器，它们会无缝协作，并且类型推断也会正确。
+你可以在单个路由中使用多个验证器，它们会无缝协同工作并且类型推断正确。
 
 ### OpenAPI
-有需求希望支持标准 Schema 的 JSON Schema 以生成 OpenAPI，但目前尚未实现。
+
+社区请求支持通过标准 Schema 生成 OpenAPI 的 JSON Schema，但尚未实现。
 
 不过我们提供了自定义的 `mapJsonSchema` 给 `openapi`，允许你提供一个自定义函数将 Schema 映射为 JSON Schema，作为权宜之计。
 
-这让你能用自己喜欢的验证器生成精美的 OpenAPI 文档。
+这让你能够用喜欢的验证器生成漂亮的 OpenAPI 文档。
 
-![Zod 支持 OpenAPI](/blog/elysia-14/openapi-zod.webp)
-> 使用 Zod 原生 OpenAPI Schema 支持，配合 **describe** 添加 Schema 描述
+![Zod with OpenAPI support](/blog/elysia-14/openapi-zod.webp)
+> 利用 Zod 的原生 OpenAPI schema 支持，通过 **describe** 添加描述信息
 
-若你的验证器不支持 JSON Schema，我们提供了独特的 [OpenAPI 类型生成](/blog/openapi-type-gen.html)，直接从验证器的 TypeScript 类型生成 OpenAPI Schema。
+如果你的验证器不支持 JSON Schema，我们提供了 [OpenAPI 类型生成](/blog/openapi-type-gen.html)，可以直接从验证器的 TypeScript 类型生成 OpenAPI schema。
 
-这意味着 Elysia 可以支持所有实现标准 Schema 的验证器的 OpenAPI 生成，即便它们不直接支持 JSON Schema。
+这意味着 Elysia 支持所有符合标准 Schema 的验证器的 OpenAPI 生成，即使它们不直接支持 JSON Schema。
 
-![Valibot 支持 OpenAPI](/blog/elysia-14/openapi-valibot.webp)
-> Valibot 不直接支持 JSON Schema，但我们用 OpenAPI 类型生成来处理
+![Valibot with OpenAPI support](/blog/elysia-14/openapi-valibot.webp)
+> Valibot 不直接支持 JSON Schema，但我们使用 OpenAPI 类型生成来支持
 
-不仅输入类型正确，OpenAPI 类型生成还能生成所有可能的输出类型，包括错误响应。
+不仅能生成正确的输入类型，OpenAPI 类型生成还会生成所有可能的输出类型，包括错误响应。
 
-这是 Elysia 独有的功能，我们为此感到自豪。
+这确实是 Elysia 的独特功能，我们非常自豪地提供这一点。
 
 ### 独立验证器
-你也可以使用多个 Schema 来验证单个输入，使用独立验证器：
+
+你还可以使用多个 schema 共同验证单个输入，使用独立验证器：
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -133,144 +139,153 @@ const app = new Elysia()
 			id: z.coerce.number()
 		})
 	})
-  	.post(
-   		'/user/:id',
-     	({ body }) => body,
-//          ^?
+	.post(
+		'/user/:id',
+		({ body }) => body,
+		//  ^?
 
 
 
-      	{
-         	body: v.object({
-		 		name: v.literal('lilith')
-		 	})
-      	})
+
+		{
+			body: v.object({
+				name: v.literal('lilith')
+			})
+		}
+	)
 ```
-> 该示例使用了 Zod 和 Valibot 来验证请求体体，允许你在代码库中同时使用不同验证器已有的 Schema。
+> 这个示例同时用了 Zod 和 Valibot 来验证请求体，允许你混用代码库中不同验证器的现有 schema。
 
-这种方式让各验证器分别解析输入的不同部分，然后将每个结果快照合并，确保类型完整性。
+它的工作原理是用各个验证器验证输入的不同部分，然后将每个结果存为快照并合并，形成单一输出，保证类型完整性。
 
-![使用多个验证器验证请求体的不同部分](/blog/elysia-14/standard-schema.webp)
-> 使用 TypeBox、Zod、Valibot、Joi、Yup、ArkType、Effect Schema、TypeMap、Rescript Schema 来验证请求体的不同部分
+![Using multiple validators to validate part of a body](/blog/elysia-14/standard-schema.webp)
+> 同时使用 TypeBox、Zod、Valibot、Joi、Yup、ArkType、Effect Schema、TypeMap 和 ReScript Schema 验证请求体不同部分
 
-我们同时测试了 8 个验证器，对输入的各部分进行验证，效果完美无瑕。
+我们同时测试了 8 个验证器对输入的不同部分进行验证，效果完美无误。
 
-我们很自豪能开箱即用地支持标准 Schema，这对 Elysia 来说是跳脱单一验证器的大步前进，期待看到你用它构建出怎样的作品。
+我们很自豪开箱支持标准 Schema。这是 Elysia 破解单一验证器束缚的重要一步，期待你用它构建出精彩作品。
 
 ## 宏
-宏是 Elysia 中最强大且灵活的特性之一。
 
-它允许你定义自定义属性，修改和扩展 Elysia 的功能，打造你喜爱的 “子框架”。
+宏是 Elysia 最强大且灵活的功能之一。
 
-宏的多样性非常惊人，能轻松实现其他框架难以实现的功能。
+它允许你定义自定义属性，修改和扩展 Elysia 的功能，使你能打造属于自己的“子框架”。
 
-在 Elysia 1.4 中，我们带来了多项改进，使宏更加强大。
+宏的多功能性令人惊叹，它能让你轻松做出其他框架几乎无法实现的事情。
+
+在 Elysia 1.4 中，我们带来若干改进，让宏变得更强大。
 
 ### 宏 Schema
-现在你可以为宏定义 Schema，直接在宏中定义自定义验证。
+
+你现在可以为宏定义 schema，允许你直接从宏中添加自定义验证。
 
 ![带有 schema 的宏](/blog/elysia-14/macro-schema.webp)
 > 带有 schema 支持的宏
 
-带有 Schema 的宏会自动验证并推断类型，确保类型安全，还能与现有的 Schema 并存。
+带 schema 的宏会自动进行验证并推断类型，保证类型安全，同时可以和现有 schema 共存。
 
-你也可以叠加来自不同宏或甚至标准验证器的多个 Schema，协同运作无阻。
+你还可以叠加来自不同宏，甚至标准 Schema 的多重 schema，它们能无缝配合。
 
-宏 Schema 还支持 **同一宏内的生命周期类型推断**，**不过** 由于 TypeScript 限制，仅限命名的单一宏。
+宏 schema 也支持在同一宏内推断 **生命周期的类型**，**但由于 TypeScript 限制，仅限于具名的单一宏**。
 
 ![带扩展的宏](/blog/elysia-14/macro-schema-lifecycle.webp)
-> 使用命名的单一宏，在宏内部推断生命周期的类型
+> 使用具名单一宏，在宏内部推断生命周期类型
 
-若要在同一宏内使用生命周期类型推断，可能需要使用命名的单一宏，而非多个叠加宏。
+如果要在同一宏内使用生命周期类型推断，请使用具名单一宏而非多个叠加宏。
 
-> 不要将此与使用宏 Schema 去推断路由的生命周期事件混淆，后者不受此限制，能够正常工作。
+> 这不影响从宏 schema 推断类型到路由生命周期事件，这种用法完全支持——该限制只针对同一宏内的生命周期。
 
 ### 宏扩展
-现在你可以扩展已有宏，在原有基础上构建更多功能。
+
+你现在可以扩展已有宏，基于现有功能构建。
 
 ![带扩展的宏](/blog/elysia-14/macro-extension.webp)
 > 支持扩展的宏
 
-这让你能在已有宏上追加功能。
+这允许你在已有宏基础上添加更多功能。
 
-扩展支持递归且自动去重，能无碍地扩展已扩展其他宏的宏。
+扩展支持递归且自动去重，你可以扩展已扩展其他宏的宏，无需担心冲突。
 
-不过如果不慎造成循环依赖，Elysia 在运行时和类型推断时均设置了栈深度上限为 16，以防无限循环。
+不过若不慎形成循环依赖，Elysia 在运行时和类型推断时都有最大调用栈深度 16 的限制，防止无限循环。
 
 ### 宏细节
-你现在可以为宏定义 OpenAPI 细节，直接从宏中为 OpenAPI 文档添加更多内容。
 
-若路由已有 OpenAPI 细节，则会合并两者，但优先采用路由的细节覆盖宏的。
+你可以为宏定义 OpenAPI 细节，直接从宏中为 OpenAPI 文档增加更多信息。
+
+若路由已有 OpenAPI 细节，则两者合并，但路由细节优先覆盖宏的。
 
 ## 生命周期类型健全性
-自引入从类型直接生成 OpenAPI Schema 的 [OpenAPI 类型生成](/blog/openapi-type-gen) 后，我们发现为每个生命周期事件实现类型健全性十分有意义。
 
-这样我们能准确记录每个生命周期事件的返回类型，宏也能详尽反映单一路由可能返回的所有情况。
+自从引入了 [OpenAPI 类型生成](/blog/openapi-type-gen)，能直接从类型生成 OpenAPI schema 后，我们意识到为每个生命周期事件实现类型健全性非常重要。
 
-为此，我们重构了超过 3,000 行纯类型代码，包含响应状态类型调和、为所有生命周期 API 编写类型级单元测试以确保类型完整性、进行大量类型性能优化，确保类型推断速度不降。
+这样，我们就能精确地记录每个生命周期事件和宏的返回类型，完整呈现单一路由所有可能的返回结果。
 
-所有这些复杂工作让我们能够详尽记录单一路由可能的全部返回情况。
+通过重构了 3,000+ 行纯类型代码，统一响应状态类型，添加了所有生命周期 API 的类型层单元测试确保类型一致性，并优化性能，我们保证了类型推断不会变慢。
 
-![类型健全性](/blog/elysia-14/type-soundness.webp)
-> 记录单一路由可能返回的全部情况
+这些复杂的成就让我们能够记录单一路由所有可能的返回。
 
+![Type Soundness](/blog/elysia-14/type-soundness.webp)
+> 记录单一路由所有可能的返回
 
-这不仅提升了开发者体验，还通过确保 API 文档和 Eden Treaty 客户端均覆盖所有可能性，提高代码库的可靠性。
+这不仅改善了开发者体验，也提升了代码库的可靠性，确保 API 文档和客户端中涵盖所有可能情况，结合 Eden Treaty 功能完美配合。
 
-> 类型健全性涵盖所有生命周期事件和宏，确保你拥有完整的 API 文档。唯一例外是内联生命周期事件，因性能较差未覆盖。
+> 类型健全覆盖所有生命周期和宏，实现完全的 API 文档，唯一例外是出于性能考虑的行内生命周期事件。
 
-我们还成功提升了约 9-11% 的类型推断性能，尽管类型复杂度大幅提升，类型实例化却降低了 11.5%。
+我们还把类型推断性能提升了约 9-11%，类型实例化减少了 11.5%，尽管类型复杂度大幅提升。
 
-![类型推断](/blog/elysia-14/type-inference.webp)
-> 根据内部基准测试，类型实例化减少了 11.57%
+![Type inference](/blog/elysia-14/type-inference.webp)
+> 类型实例化减少 11.57%，基于我们的内部基准测试
 
 ## 分组独立 Schema
-之前，带 schema 的 `group` 会采用覆盖策略，也就是说如果在 `group` 中定义了 Schema，会覆盖路由已有的 Schema。
 
-想定义新的 Schema 时，必须手动包含已有 Schema，体验不佳且易出错。
+之前，`group` 搭配 schema 时采用覆盖策略，意味着你在 `group` 定义的 schema 会覆盖路由已有 schema。
 
-从 1.4 起，带 Schema 的 `group` 采用独立策略，即在 `group` 中定义的 Schema 不会覆盖，而是与路由 Schema 共存。
+如果你想定义新 schema，就得手动包含已有 schema，体验不便且易错。
 
-![分组独立](/blog/elysia-14/group-standalone.webp)
-> 带 Schema 的 `group` 会与路由 Schema 共存
+从 1.4 起，`group` 搭配 schema 改用独立策略，定义的新 schema 不再覆盖，而是与路由 schema 并存。
 
-这允许你在 `group` 中定义新的 Schema，无需手动包含已有 Schema。
+![group standalone](/blog/elysia-14/group-standalone.webp)
+> `group` 搭配 schema 和路由 schema 并存
+
+这样你就可以在 `group` 中定义新 schema，而无须手动包含已有 schema。
 
 ## 重要变更
-我们在 1.3.9 中关闭了约 300 个问题，1.4 版本中几乎没有什么较大的 bug 修复，已解决已知大部分问题。
+
+在 1.3.9 关闭了约 300 个 issue，1.4 中无太多 bug 修复——大多数已处理。
 
 ### 改进
+
 - [#861](https://github.com/elysiajs/elysia/issues/861) 定义 GET 路由时自动添加 HEAD 方法
-- [#1389](https://github.com/elysiajs/elysia/pull/1389) 参考模型中新增 NoValidate 功能
+- [#1389](https://github.com/elysiajs/elysia/pull/1389) 参考模型支持 NoValidate
 
 ### 变更
-- 出于安全考虑，ObjectString/ArrayString 默认不再生成默认值
-- Cookie 在格式可能为 JSON 时动态解析
-- 导出 `fileType` 用于外部文件类型验证，确保响应准确
-- （重复变更）ObjectString/ArrayString 默认不再生成默认值出于安全考虑
--（重复变更）Cookie 在格式可能为 JSON 时动态解析
+
+- 出于安全原因 ObjectString/ArrayString 不再生成默认值
+- Cookie 现在在格式很可能是 JSON 时动态解析
+- 导出 `fileType` 用于外部文件类型验证以精确响应
 
 ### 破坏性变更
-- 移除不具备类型健全性的宏 v1
-- 移除 `error` 函数，改用 `status`
-- 弃用 `mapResponse`、`afterResponse` 中的 `response`，改用 `responseValue`
+
+- 移除宏 v1，因缺乏类型健全性
+- 移除 `error` 函数；改用 `status`
+- `mapResponse` 和 `afterResponse` 中 `response` 参数弃用，改用 `responseValue`
 
 ## 后记
 
-这是我们第一次在发布说明封面中以主角身份推出吉祥物 Elysia 酱！这将成为后续发布说明的传统！
+这是我们首次将吉祥物 Elysia 酱作为发布说明封面！未来发布说明也会延续这一传统！
 
-我们的封面艺术呼应了《Supersymmetry》音乐封面主题，其中 ElysiaJS 酱与 Weirs 以相似姿势镜像。
+封面画作呼应了 Supersymmetry（音乐）封面，ElysiaJS 酱模仿 Weirs 做相似姿势。
 
-![Elysia 酱镜像 Supersymmetry](/blog/elysia-14/elysia-supersymmetry.webp)
-> Elysia 酱镜像 Supersymmetry 封面中 Weirs 的同样姿势 [(pixiv)](https://www.pixiv.net/en/artworks/134997229)
+![Elysia chan mirroring Supersymmetry](/blog/elysia-14/elysia-supersymmetry.webp)
+> Elysia 酱模仿 Supersymmetry 封面中 Weirs 的同一姿势 [(pixiv)](https://www.pixiv.net/en/artworks/134997229)
 
-她是不是很可爱？我非常喜欢她的形象！我个人努力提升绘画技巧，只为能画出她，希望你喜欢！
+她是不是超可爱？我个人很喜欢画她！为了能画好她，我也努力提升了绘画技艺。希望你也喜欢！
 
-总之，祝你喜欢本次发布！我们期待看到你用它创造的精彩作品！
+总之，希望你喜欢这次更新！期待看到你用它打造出更多精彩作品！
 
 祝你有美好的一天！
 
-> 我倾尽全力
+> 我全都拥有
 >
 > 在这个微小的微型宇宙里
 >
@@ -282,7 +297,7 @@ const app = new Elysia()
 >
 > 你知道
 >
-> 这人生的游戏是我们的 “riverrun”，
+> 这人生的游戏是我们的“riverrun”，
 >
 > 你是这段旅途中的幸运好友
 >

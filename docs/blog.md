@@ -4,7 +4,7 @@ layout: page
 sidebar: false
 editLink: false
 search: false
-gitChangelog: false
+comments: false
 authors: []
 head:
     - - meta
@@ -27,7 +27,7 @@ head:
 <Blogs
   :blogs="[
       {
-        title: '介绍 Elysia 的 OpenAPI 类型生成',
+        title: 'Elysia 1.4 - 超对称',
 		href: '/blog/elysia-14',
 		cover: 'elysia-14.webp',
 		detail: '支持标准验证器。宏使用 schema、扩展和 OpenAPI 细节。生命周期类型健全性。将类型推断性能提升 10%。'

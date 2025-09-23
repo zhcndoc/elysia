@@ -155,7 +155,7 @@ openapi({
 OpenAPI 文档前端实现选项：
 
 - [Scalar](https://github.com/scalar/scalar)
-- [SwaggerUI](https://github.com/openapi-api/openapi-ui)
+- [SwaggerUI](https://github.com/swagger-api/swagger-ui)
 - null：禁用前端页面
 
 ## references

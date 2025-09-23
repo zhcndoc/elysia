@@ -851,17 +851,19 @@ const app = new Elysia()
 
 </Compare>
 
-虽然 Express 使用中间件提供错误处理，但 Elysia 提供：
+尽管 Express 使用中间件进行错误处理，Elysia 提供：
 
-1. 全局和特定路由的错误处理程序
-2. 快捷方式用于映射 HTTP 状态和 `toResponse` 用于将错误映射到响应
-3. 为每个错误提供自定义错误代码
+1. 全局和路由特定的错误处理器
+2. 用于映射 HTTP 状态码和 `toResponse` 方法简写，将错误映射为响应
+3. 为每种错误提供自定义错误代码
 
-错误代码对于日志记录和调试非常有用，并且在区分扩展相同类的不同错误类型时至关重要。
+错误代码对日志记录和调试非常有用，并且在区分继承自同一类的不同类型错误时非常重要。
+
+Elysia 在提供以上功能的同时确保类型安全，而 Express 则没有。
 
 ## 封装
 
-Express 中间件是全局注册的，而 Elysia 通过显式作用域机制和代码顺序控制插件的副作用。
+Express 中间件注册为全局，而 Elysia 通过显式作用域机制和代码顺序，控制插件的副作用。
 
 <Compare>
 
@@ -1316,10 +1318,13 @@ Elysia 提供了更人性化和开发者友好的体验，专注于性能、类�
 另外，如果您来自其他框架，可以查看：
 
 <Deck>
-    <Card title="从 Fastify 迁移" href="/migrate/from-fastify">
-  		从 Fastify 到 Elysia 的迁移指南
+    <Card title="From Fastify" href="/migrate/from-fastify">
+  		Comparison between Fastify and Elysia
     </Card>
-	<Card title="从 Hono 迁移" href="/migrate/from-hono">
-  		从 Hono 到 Elysia 的迁移指南
+	<Card title="From Hono" href="/migrate/from-hono">
+		Comparison between tRPC and Elysia
 	</Card>
+	<Card title="From tRPC" href="/migrate/from-trpc">
+  		Comparison between tRPC and Elysia
+    </Card>
 </Deck>

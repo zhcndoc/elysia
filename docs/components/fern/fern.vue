@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Hero from './hero.vue'
 import Note from './note.vue'
+import Validator from './validator.vue'
 import TrustedBy from './trusted-by.vue'
-import Features from './features.vue'
 import Benchmark from './benchmark.vue'
 import TypeIntegrity from './type-integrity.vue'
 import Easy from './easy.vue'
@@ -11,7 +11,7 @@ import Beyond from './beyond.vue'
 import Test from './test.vue'
 import Tweets from './tweets.vue'
 import Sponsors from './sponsor.vue'
-import Future from './future.vue'
+import Banner from './banner.vue'
 import BuiltWithLove from './built-with-love.vue'
 </script>
 
@@ -40,6 +40,11 @@ import BuiltWithLove from './built-with-love.vue'
                     <slot name="type-4" />
                 </template>
             </TypeIntegrity>
+            <Validator>
+	            <template v-slot:validator>
+	                <slot name="validator" />
+	            </template>
+            </Validator>
             <Doc>
                 <slot name="doc" />
             </Doc>
@@ -57,8 +62,9 @@ import BuiltWithLove from './built-with-love.vue'
             </Test>
             <Tweets />
             <Sponsors />
-            <Features />
-            <Future />
+            <!-- <Features /> -->
+            <!-- <Future /> -->
+            <Banner class="mt-10" />
             <BuiltWithLove />
         </article>
     </div>

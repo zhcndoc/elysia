@@ -98,6 +98,7 @@ pre.vp-code > code,
     --vp-custom-block-tip-text: var(--vp-c-text-1);
     --vp-nav-bg-color: color-mix(in srgb, var(--vp-c-bg) 95%, transparent);
     --vp-custom-block-tip-bg: #ecfdf5;
+    --vp-custom-block-tip-code-bg: #cdf7dc;
     --vp-custom-block-tip-border: #dcfce7;
     --vp-custom-block-tip-text: #15803d;
     --vp-c-brand-nav-active: color-mix(
@@ -205,10 +206,14 @@ button.copy::after {
 }
 
 #VPSidebarNav > .group:nth-child(6) > .VPSidebarItem > .item > .text::before {
-    background-image: url(/assets/plugin.svg);
+    background-image: url(/assets/blocks.svg);
 }
 
 #VPSidebarNav > .group:nth-child(7) > .VPSidebarItem > .item > .text::before {
+    background-image: url(/assets/search.svg);
+}
+
+#VPSidebarNav > .group:nth-child(8) > .VPSidebarItem > .item > .text::before {
     background-image: url(/assets/book.svg);
 }
 
@@ -791,7 +796,7 @@ button.copy::after {
 	will-change: opacity;
 
 	& > .VPMenu {
-		@apply !bg-white/60 dark:!bg-gray-700/60 p-1 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-2xl shadow-black/5;
+		@apply !bg-white/80 dark:!bg-gray-700/80 p-1 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-2xl shadow-black/5;
 
 		& > .items {
 			& > .VPMenuLink > .VPLink {
@@ -806,7 +811,7 @@ button.copy::after {
 	will-change: opacity;
 
 	& > .VPMenu {
-		@apply !bg-white/60 dark:!bg-gray-700/60 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-2xl shadow-black/5;
+		@apply !bg-white/80 dark:!bg-gray-700/80 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-2xl shadow-black/5;
 	}
 }
 

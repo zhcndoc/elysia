@@ -3,6 +3,7 @@ title: Elysia 0.7 - Stellar Stellar
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'

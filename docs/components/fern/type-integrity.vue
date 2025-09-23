@@ -4,11 +4,14 @@
             class="relative z-10 flex justify-between items-end w-full mb-7 fern-gap"
         >
             <h1
-                class="flex flex-col flex-1 text-3xl sm:text-4xl sm:text-center text-gray-600 dark:text-gray-400 font-medium leading-[3rem] sm:leading-[4rem]"
+                class="flex flex-col flex-1 text-2xl sm:text-3xl sm:text-center font-medium leading-[3rem] sm:leading-[4rem]"
             >
-                <motion.span v-bind="flyIn()">更加先进的</motion.span>
+                <motion.span class="inline-flex justify-center items-center gap-2" v-bind="flyIn()">
+                	<BadgeCheck class="text-cyan-500" />
+                	<span class="inline text-gradient from-cyan-400 to-indigo-400">更加先进的</span>
+                </motion.span>
                 <motion.span
-                    class="leading-[5rem] sm:leading-[5.5rem] text-6xl sm:text-7xl font-semibold text-gradient from-cyan-400 to-indigo-400 -translate-y-1"
+                    class="leading-[5rem] sm:leading-[5.5rem] text-center text-6xl sm:text-7xl font-semibold text-gradient from-cyan-400 to-indigo-400 -translate-y-2"
                     v-bind="flyIn(0.1)"
                 >
                     类型安全
@@ -70,6 +73,8 @@
 <script setup lang="ts">
 import { ref, useTemplateRef, watch } from 'vue'
 
+import { BadgeCheck } from 'lucide-vue-next'
+
 import { useInView, motion, cubicBezier } from 'motion-v'
 import { useFlyIn } from './animate'
 
@@ -85,10 +90,10 @@ const clipPath = ref('inset(0px 75.233645% 0px 0.623053% round 25px)')
 
 const activeElements = useTemplateRef<HTMLElement[]>('active')
 const labels = [
-    '类型推断',
-    '强制类型',
-    '返回类型',
-    '让它成为你自己的'
+    '类型安全',
+    '强制输入',
+    '重新检查输出',
+    '元编程'
 ]
 
 watch(isInView, () => {
@@ -125,13 +130,17 @@ watch(form, (index) => {
     @apply relative max-w-5xl w-full mx-auto mt-8 mb-12;
 
     & > .showcase {
-        @apply flex flex-col justify-center relative mx-auto w-full h-[38rem] lg:rounded-xl my-4 px-4 bg-center bg-no-repeat;
+        @apply flex flex-col justify-center relative mx-auto w-full h-[38rem] lg:rounded-3xl my-4 px-4 bg-center bg-no-repeat;
 
-        background-image: url(/assets/sequoia.webp);
+        background-image: url(/assets/tahoe-day.webp);
         background-size: cover;
 
+        html.dark & {
+			background-image: url(/assets/tahoe-dusk.webp);
+		}
+
         & > .window {
-            @apply lg:max-w-3xl w-full mx-auto !bg-white/80 dark:!bg-gray-800/80 border-2 dark:border-gray-700 rounded-xl overflow-auto backdrop-blur-lg shadow-xl;
+            @apply max-w-3xl w-full mx-auto !bg-white/75 dark:!bg-gray-800/75 border-2 border-white/20  dark:border-gray-700 rounded-2xl overflow-auto backdrop-blur-sm shadow-xl;
 
             & > .control {
                 @apply flex gap-2 pt-3 px-3;

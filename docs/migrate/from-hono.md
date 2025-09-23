@@ -241,7 +241,7 @@ const app = new Elysia()
 
 虽然 Hono 需要前缀来分隔子路由器，但 Elysia 不需要前缀。
 
-## Validation
+## 验证
 虽然 Hono 通过外部包支持各种验证器，Elysia 内置了基于 **TypeBox** 的验证，并开箱即用支持标准模式（Standard Schema），允许您直接使用喜欢的库，如 Zod、Valibot、ArkType、Effect Schema 等，无需额外库。Elysia 还提供与 OpenAPI 的无缝集成及幕后类型推断。
 
 <Compare>
@@ -868,17 +868,19 @@ const app = new Elysia()
 
 </Compare>
 
-虽然 Hono 提供了中间件式的错误处理，但 Elysia 提供：
+虽然 Hono 提供类似中间件的错误处理，Elysia 提供：
 
-1. 全局和路由特定的错误处理器
-2. 将 HTTP 状态与 `toResponse` 映射的简写
-3. 为每个错误提供自定义错误代码
+1. 全局和路由特定的错误处理
+2. 用于映射 HTTP 状态码的简写方式及将错误映射为响应的 `toResponse`
+3. 为每个错误提供自定义错误码
 
-错误代码对于日志和调试非常有用，并且在区分扩展相同类的不同错误类型时非常重要。
+错误码对于日志和调试非常有用，对于区分扩展相同类的不同错误类型也很重要。
+
+Elysia 在以上方面都具备类型安全，而 Hono 则没有。
 
 ## 封装
 
-Hono 封装插件副作用，而 Elysia 通过显式的作用域机制和代码顺序让您控制插件的副作用。
+Hono 封装插件副作用，而 Elysia 通过显式的作用域机制和代码顺序，赋予您控制插件副作用的能力。
 
 <Compare>
 
@@ -1470,10 +1472,13 @@ Elysia 旨在符合人体工程学且对开发者友好，关注 **强类型安�
 如果您是来自其他框架的用户，可以查看：
 
 <Deck>
-    <Card title="从 Express 迁移" href="/migrate/from-express">
-        一份从 Express 迁移到 Elysia 的指南
+	<Card title="From Express" href="/migrate/from-express">
+		Comparison between tRPC and Elysia
+	</Card>
+    <Card title="From Fastify" href="/migrate/from-fastify">
+  		Comparison between Fastify and Elysia
     </Card>
-    <Card title="从 Fastify 迁移" href="/migrate/from-fastify">
-        一份从 Fastify 迁移到 Elysia 的指南
+    <Card title="From tRPC" href="/migrate/from-trpc">
+  		Comparison between tRPC and Elysia
     </Card>
 </Deck>

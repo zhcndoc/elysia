@@ -3,6 +3,7 @@ title: Elysia 与 Supabase：您下一个以超音速构建的后端
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'

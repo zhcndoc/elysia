@@ -943,6 +943,8 @@ const app = new Elysia()
 
 错误代码对日志记录和调试非常有用，并且在区分扩展相同类的不同错误类型时很重要。
 
+Elysia 提供了所有这些类型安全，而 Fastify 则没有。
+
 ## 封装
 
 Fastify 封装插件的副作用，而 Elysia 通过显式作用域机制和代码顺序控制插件的副作用。
@@ -1467,10 +1469,13 @@ Elysia 提供了更符合人体工程学和开发人员友好的体验，专注�
 另外，如果您来自其他框架，您可以查看：
 
 <Deck>
-    <Card title="从 Express 迁移" href="/migrate/from-express">
-  		从 Express 迁移到 Elysia 的指南
+    <Card title="From Express" href="/migrate/from-express">
+  		tRPC 与 Elysia 的比较
     </Card>
-	<Card title="从 Hono 迁移" href="/migrate/from-hono">
-	  	从 Hono 迁移到 Elysia 的指南
+	<Card title="From Hono" href="/migrate/from-hono">
+ 		  Hono 与 Elysia 的比较
 	</Card>
+	<Card title="From tRPC" href="/migrate/from-trpc">
+  		tRPC 与 Elysia 的比较
+    </Card>
 </Deck>

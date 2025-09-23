@@ -3,6 +3,7 @@ title: Elysia 0.6 - 这个游戏
 sidebar: false
 editLink: false
 search: false
+comment: false
 head:
     - - meta
       - property: 'og:title'

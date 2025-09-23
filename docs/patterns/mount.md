@@ -15,43 +15,44 @@ head:
 ---
 
 # Mount
-WinterCG 是一个用于网页互操作运行时的标准。它得到了 Cloudflare、Deno、Vercel Edge Runtime、Netlify Function 和其他多种支持，允许网页服务器在使用 Web 标准定义（如 `Fetch`、`Request` 和 `Response`）的运行时之间互操作。
+[WinterTC](https://wintertc.org/) 是一个用于在 Cloudflare、Deno、Vercel 等平台背后构建 HTTP 服务的标准。
 
-Elysia 遵循 WinterCG 标准。我们经过优化以在 Bun 上运行，但也开放支持其他运行时。
+它允许 Web 服务器通过使用 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 实现跨运行时的互操作运行。
 
-理论上，这允许任何符合 WinterCG 标准的框架或代码一起运行，使得像 Elysia、Hono、Remix、Itty Router 等框架可以简单地在一个函数中共同运行。
+Elysia 兼容 WinterTC。已针对 Bun 进行了优化，但在可能的情况下也支持其他运行时。
 
-遵循这一点，我们为 Elysia 引入了 `.mount` 方法，以便与任何符合 WinterCG 标准的框架或代码一起运行。
+这允许任何符合 WinterCG 标准的框架或代码共同运行，从而使 Elysia、Hono、Remix、Itty Router 等框架可以一起在一个简单的函数内运行。
 
 ## Mount
-要使用 **.mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176):
+要使用 **.mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
 ```ts
 import { Elysia } from 'elysia'
+import { Hono } from 'hono'
+
+const hono = new Hono()
+	.get('/', (c) => c.text('Hello from Hono!'))
 
 const app = new Elysia()
     .get('/', () => 'Hello from Elysia')
     .mount('/hono', hono.fetch)
 ```
 
-一个 **fetch** 函数是一个接受 Web 标准请求并返回 Web 标准响应的函数，其定义为：
-```ts
-// Web 标准请求类对象
-// Web 标准响应
-type fetch = (request: RequestLike) => Response
-```
+任何使用 `Request` 和 `Response` 的框架都可以与 Elysia 实现互操作，例如：
+- Hono
+- Nitro
+- H3
+- [Nextjs API 路由](/integrations/nextjs)
+- [Nuxt API 路由](/integrations/nuxt)
+- [SvelteKit API 路由](/integrations/sveltekit)
 
-默认情况下，以下声明被使用：
+这些框架也能在多种运行时环境中使用：
 - Bun
 - Deno
 - Vercel Edge Runtime
 - Cloudflare Worker
 - Netlify Edge Function
-- Remix Function Handler
-- 等等。
 
-这使您可以在单个服务器环境中执行上述所有代码，并使与 Elysia 的无缝交互成为可能。您还可以在单个部署中重用现有功能，从而消除管理多个服务器所需的反向代理。
-
-如果框架也支持 **.mount** 函数，您可以深层嵌套一个支持该功能的框架。
+如果框架支持 **.mount** 函数，你也可以在另一个框架内部挂载 Elysia：
 ```ts
 import { Elysia } from 'elysia'
 import { Hono } from 'hono'

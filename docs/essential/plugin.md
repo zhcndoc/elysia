@@ -111,13 +111,31 @@ const _mock3 = {
         'GET': 'outer'
     }
 }
+
+const profile1 = new Elysia()
+	.onBeforeHandle(({ status }) => status(401))
+	.get('/profile', ({ status }) => status(401))
+
+const scope1 = new Elysia()
+	.use(profile1)
+	// This will NOT have sign in check
+	.patch('/rename', () => 'Updated!')
+
+const profile2 = new Elysia()
+	.onBeforeHandle({ as: 'global' }, ({ status }) => status(401))
+	.get('/profile', ({ status }) => status(401))
+
+const scope2 = new Elysia()
+	.use(profile2)
+	// This will NOT have sign in check
+	.patch('/rename', ({ status }) => status(401))
 </script>
 
 # 插件
 
 插件是一种将功能解耦成更小部分的模式。为我们的 Web 服务器创建可重用的组件。
 
-定义一个插件就是定义一个单独的实例。
+要创建一个插件，就是创建一个单独的实例。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -137,21 +155,17 @@ const app = new Elysia()
 
 <Playground :elysia="demo1" />
 
-插件将继承插件实例的所有属性，包括 **state**, **decorate**, **derive**, **route**, **lifecycle** 等。
+插件将继承插件实例的所有属性，比如 `state`、`decorate`，但**不会继承插件生命周期**，因为它默认是[隔离的](#scope)。
 
-Elysia 还将自动处理类型推断，因此你可以想象就像你在主实例上调用所有其他实例。
-
-::: tip
-请注意插件不包含 **.listen**，因为 **.listen** 将为使用分配一个端口，而我们只希望主实例分配端口。
-:::
+Elysia 也会自动处理类型推断。
 
 ## 插件
 
 每一个 Elysia 实例都可以成为一个插件。
 
-我们可以将逻辑解耦成一个新的单独的 Elysia 实例并将其用作插件。
+我们将逻辑拆分成一个单独的 Elysia 实例，并在多个实例中重用它。
 
-首先，我们在不同的文件中定义一个实例:
+创建插件，只需在单独的文件中定义一个实例：
 ```typescript twoslash
 // plugin.ts
 import { Elysia } from 'elysia'
@@ -160,21 +174,157 @@ export const plugin = new Elysia()
     .get('/plugin', () => 'hi')
 ```
 
-然后我们将实例导入到主文件中：
+然后在主文件中导入该实例：
 ```typescript
 import { Elysia } from 'elysia'
-import { plugin } from './plugin'
+import { plugin } from './plugin' // [!code ++]
 
 const app = new Elysia()
-    .use(plugin)
+    .use(plugin) // [!code ++]
     .listen(3000)
 ```
 
-### 配置
 
-为了使插件更加有用，建议通过配置允许自定义。
+## 作用域
 
-你可以创建一个接受参数的函数，这些参数可以改变插件的行为，使其更具可重用性。
+Elysia 的生命周期方法**只对其自身实例封装**。
+
+这意味着如果你创建一个新的实例，它不会与其他实例共享生命周期方法。
+
+```ts
+import { Elysia } from 'elysia'
+
+const profile = new Elysia()
+	.onBeforeHandle(({ cookie }) => {
+		throwIfNotSignIn(cookie)
+	})
+	.get('/profile', () => 'Hi there!')
+
+const app = new Elysia()
+	.use(profile)
+	// ⚠️ 此处不会有登录检查
+	.patch('/rename', ({ body }) => updateProfile(body))
+```
+
+<!-- 此处不要加“the”修饰符于 profile 和 app - @Saltyaom -->
+在此示例中，`isSignIn` 检查只会应用于 `profile`，而不会应用于 `app`。
+
+<Playground :elysia="scope1" />
+
+> 尝试在 URL 输入框中切换到 **/rename** 查看结果
+
+<br>
+
+**Elysia 默认隔离生命周期**，除非显式声明。这类似于JavaScript中的**export**，你需要导出函数才能让其在模块外部可用。
+
+要将生命周期**“导出”**到其他实例，必须指定作用域。
+
+```ts
+import { Elysia } from 'elysia'
+
+const profile = new Elysia()
+	.onBeforeHandle(
+		{ as: 'global' }, // [!code ++]
+		({ cookie }) => {
+			throwIfNotSignIn(cookie)
+		}
+	)
+	.get('/profile', () => 'Hi there!')
+
+const app = new Elysia()
+	.use(profile)
+	// 这将进行登录检查
+	.patch('/rename', ({ body }) => updateProfile(body))
+```
+
+<Playground :elysia="scope2" />
+
+将生命周期作用域设置为**"global"**将把生命周期导出至**所有实例**。
+
+### 作用域级别
+Elysia 有三种作用域级别：
+
+作用域类型如下：
+1. **local**（默认） - 仅应用于当前实例及其子实例
+2. **scoped** - 应用于父实例、当前实例及子实例
+3. **global** - 应用于所有使用此插件的实例（所有父级、当前实例及子实例）
+
+通过以下示例查看每种作用域类型的行为：
+```typescript
+import { Elysia } from 'elysia'
+
+
+const child = new Elysia()
+    .get('/child', 'hi')
+
+const current = new Elysia()
+	// ? 类型值基于下表
+    .onBeforeHandle({ as: 'local' }, () => { // [!code ++]
+        console.log('hi')
+    })
+    .use(child)
+    .get('/current', 'hi')
+
+const parent = new Elysia()
+    .use(current)
+    .get('/parent', 'hi')
+
+const main = new Elysia()
+    .use(parent)
+    .get('/main', 'hi')
+```
+
+根据 `type` 值的不同，结果应如下所示：
+
+| type       | child | current | parent | main |
+| ---------- | ----- | ------- | ------ | ---- |
+| local      | ✅    | ✅      | ❌      | ❌   |
+| scoped     | ✅    | ✅      | ✅      | ❌   |
+| global     | ✅    | ✅      | ✅      | ✅   |
+
+### 子实例
+
+默认情况下，插件只会**将钩子应用于自身及其子实例**。
+
+如果钩子注册在一个插件中，继承该插件的实例**不会**继承该钩子和模式。
+
+```typescript
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .onBeforeHandle(() => {
+        console.log('hi')
+    })
+    .get('/child', 'log hi')
+
+const main = new Elysia()
+    .use(plugin)
+    .get('/parent', 'not log hi')
+```
+
+要将钩子应用到全局，需指定钩子作用域为 global。
+```typescript
+import { Elysia } from 'elysia'
+
+const plugin = new Elysia()
+    .onBeforeHandle(() => {
+        return 'hi'
+    })
+    .get('/child', 'child')
+    .as('scoped')
+
+const main = new Elysia()
+    .use(plugin)
+    .get('/parent', 'parent')
+```
+
+<Playground :elysia="_demo2" :mock="_mock2" />
+
+## 配置
+
+为了让插件更有用，建议通过配置支持自定义。
+
+你可以创建一个接受参数的函数，这些参数能够影响插件行为，从而提升复用性。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -189,11 +339,11 @@ const app = new Elysia()
 
 ### 功能回调
 
-建议定义一个新的插件实例，而不是使用功能回调。
+推荐定义一个新的插件实例，而非使用功能回调。
 
-功能回调允许我们访问主实例的现有属性。例如，检查特定的路由或存储是否存在。
+函数式回调允许我们访问主实例已有属性，例如检测某些路由或状态是否存在，但正确处理封装和作用域较困难。
 
-要定义功能回调，创建一个接受 Elysia 作为参数的函数。
+函数式回调是指创建一个接受 Elysia 实例作为参数的函数。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -210,21 +360,21 @@ const app = new Elysia()
 
 <Playground :elysia="demo2" />
 
-一旦传递给 `Elysia.use`，函数式回调的行为类似于普通插件，只不过其属性会直接赋值给主实例。
+一旦传递给 `Elysia.use`，函数式回调的行为类似于普通插件，只不过其属性直接赋值给主实例。
 
 ::: tip
-你不必担心功能回调和创建实例之间的性能差异。
+你无需担心函数回调与新建实例间的性能差异。
 
-Elysia 可以在几毫秒内创建 10k 个实例，新 Elysia 实例的类型推断性能甚至优于功能回调。
+Elysia 能在几毫秒内创建 1 万个实例，且新实例的类型推断性能优于函数回调。
 :::
 
 ## 插件去重
 
-默认情况下，Elysia 会注册任何插件并处理类型定义。
+默认情况下，Elysia 会注册任意插件并处理类型定义。
 
-某些插件可能会多次使用以提供类型推断，导致初始值或路由的重复设置。
+某些插件可能因需要多次使用以实现类型推断，导致初始化值或路由重复设置。
 
-Elysia 通过使用 **name** 和 **optional seeds** 区分实例来避免这一点，从而帮助 Elysia 识别实例重复：
+Elysia 通过使用 **name** 和 **可选种子(seed)** 来区分实例，避免重复注册：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -247,9 +397,9 @@ const app = new Elysia()
 
 <Playground :elysia="demo4" />
 
-Elysia 将使用 **name** 和 **seed** 创建校验和来识别实例是否已注册，如果是，则 Elysia 将跳过插件的注册。
+Elysia 使用 **name** 和 **seed** 生成校验和用以判断实例是否已注册，若已注册则跳过插件注册。
 
-如果未提供种子，Elysia 只会使用 **name** 来区分实例。这意味着即使你多次注册插件，它也只会注册一次。
+若未提供种子，Elysia 只判断 **name**。这意味着即使多次注册插件，也只会注册一次。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -264,26 +414,26 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-这允许 Elysia 通过重用已注册的插件而不是一次又一次地处理插件来提高性能。
+这让 Elysia 通过复用已注册的插件而不是重复处理插件，从而提升性能。
 
 ::: tip
-种子可以是任何东西，从字符串到复杂对象或类。
+种子可以是任何类型，从字符串到复杂对象或类。
 
-如果提供的值是类，Elysia 将尝试使用 `.toString` 方法生成校验和。
+若种子为类，Elysia 会尝试调用其 `.toString` 方法生成校验和。
 :::
 
 ### 服务定位器
 
-当您将带有状态/装饰器的插件应用于一个实例时，该实例将获得类型安全性。
+当你将带状态或装饰器的插件应用于实例时，该实例将获得类型安全。
 
-但如果您不将插件应用于另一个实例，它将无法推断类型。
+但若不将插件应用于另一个实例，则无法推断类型。
 
 ```typescript twoslash
 // @errors: 2339
 import { Elysia } from 'elysia'
 
 const child = new Elysia()
-    // ❌ 'a' 缺失
+    // ❌ 缺少 'a'
     .get('/', ({ a }) => a)
 
 const main = new Elysia()
@@ -291,11 +441,11 @@ const main = new Elysia()
     .use(child)
 ```
 
-Elysia 引入了 **服务定位器** 模式来抵消这一点。
+为解决该问题，Elysia 引入了 **服务定位器** 模式。
 
-Elysia 将查找插件的校验和并获取值或注册一个新的。根据插件推断类型。
+Elysia 会寻找插件的校验和以获取值，或者注册新的值，并根据插件推断类型。
 
-因此，我们必须提供插件引用，以便 Elysia 找到服务以添加类型安全。
+因此，我们必须提供插件引用，以便 Elysia 找到服务，从而添加类型安全。
 
 ```typescript twoslash
 // @errors: 2339
@@ -304,11 +454,11 @@ import { Elysia } from 'elysia'
 const setup = new Elysia({ name: 'setup' })
     .decorate('a', 'a')
 
-// Without 'setup', type will be missing
+// 没有使用 'setup'，类型会缺失
 const error = new Elysia()
     .get('/', ({ a }) => a)
 
-// With `setup`, type will be inferred
+// 使用 `setup`，类型可以推断
 const child = new Elysia()
     .use(setup) // [!code ++]
     .get('/', ({ a }) => a)
@@ -322,7 +472,7 @@ const main = new Elysia()
 
 ## 防护
 
-防护允许我们将钩子和模式应用于多个路由一次性。
+防护允许我们将钩子和模式一次性应用于多个路由。
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -351,18 +501,18 @@ new Elysia()
     .listen(3000)
 ```
 
-这段代码为 `/sign-in` 和 `/sign-up` 应用 `body` 的验证，而不是逐个内联模式，但不适用于 `/`。
+此代码为 `/sign-in` 和 `/sign-up` 应用了 `body` 验证，而 `/` 则没有。
 
-我们可以将路由验证总结如下：
+路由验证总结如下：
 | 路径 | 有验证 |
 | ------- | ------------- |
 | /sign-up | ✅ |
 | /sign-in | ✅ |
 | / | ❌ |
 
-防护接受与内联钩子相同的参数，唯一的区别在于你可以将钩子应用于作用域中的多个路由。
+防护接受与内联钩子相同的参数，唯一不同的是你可以在作用域内将钩子应用于多个路由。
 
-这意味着上面的代码被翻译为：
+这意味着上述代码可等同于：
 
 ```typescript twoslash
 const signUp = <T>(a: T) => a
@@ -391,15 +541,16 @@ new Elysia()
 
 ### 分组防护
 
-我们可以通过提供 3 个参数给分组来使用前缀。
+通过提供三个参数给 group 可以使用前缀：
 
 1. 前缀 - 路由前缀
 2. 防护 - 模式
 3. 范围 - Elysia 应用回调
 
-与防护应用相同的 API 应用到第二个参数，而不是将分组和防护嵌套在一起。
+防护应用的 API 和内联用法相同，只是作用于第二个参数，而不是将分组和防护嵌套。
 
-考虑以下示例：
+示例：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -417,7 +568,8 @@ new Elysia()
 ```
 
 
-从嵌套的分组防护中，我们可以通过在 `group` 的第二个参数中提供防护范围将组和防护合并在一起：
+防护和分组合并写法：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -434,7 +586,8 @@ new Elysia()
     .listen(3000)
 ```
 
-这将导致以下语法：
+等价于如下语法：
+
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
@@ -452,99 +605,15 @@ new Elysia()
 
 <Playground :elysia="_demo1" />
 
-## 范围
+## 作用域转换 <Badge type="warning">高级概念</Badge>
+若要将钩子应用于父实例，可以使用以下方式之一：
+1. [内联 as](#inline-as) 仅应用于单个钩子
+2. [防护 as](#guard-as) 应用于防护中的所有钩子
+3. [实例 as](#instance-as) 应用于实例中的所有钩子
 
-默认情况下，钩子和模式将仅适用于 **当前实例**。
+### 内联钩子
 
-Elysia 具有封装范围，以防止意外的副作用。
-
-范围类型用于指定钩子的作用域，是否应该被封装或全局。
-
-```typescript twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia()
-    .derive(() => {
-        return { hi: 'ok' }
-    })
-    .get('/child', ({ hi }) => hi)
-
-const main = new Elysia()
-    .use(plugin)
-    // ⚠️ Hi 缺失
-    .get('/parent', ({ hi }) => hi)
-```
-
-从上面的代码，我们可以看到 `hi` 在父实例中缺失，因为默认情况下，如果未指定，作用域是局部的，并且不会应用于父级。
-
-要将钩子应用于父实例，我们可以使用 `as` 来指定钩子的作用域。
-
-```typescript twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia()
-    .derive({ as: 'scoped' }, () => { // [!code ++]
-        return { hi: 'ok' }
-    })
-    .get('/child', ({ hi }) => hi)
-
-const main = new Elysia()
-    .use(plugin)
-    // ✅ Hi 现在可用
-    .get('/parent', ({ hi }) => hi)
-```
-
-### 范围等级
-Elysia 有 3 种范围类型，如下所示：
-范围类型如下：
-- **local** (默认) - 仅适用于当前实例及其后代
-- **scoped** - 适用于父级、当前实例及其后代
-- **global** - 适用于所有应用插件的实例（所有父级、当前及后代）
-
-我们通过使用以下示例回顾每种范围类型的作用：
-```typescript
-import { Elysia } from 'elysia'
-
-// ? 基于下表提供的值
-const type = 'local'
-
-const child = new Elysia()
-    .get('/child', 'hi')
-
-const current = new Elysia()
-    .onBeforeHandle({ as: type }, () => { // [!code ++]
-        console.log('hi')
-    })
-    .use(child)
-    .get('/current', 'hi')
-
-const parent = new Elysia()
-    .use(current)
-    .get('/parent', 'hi')
-
-const main = new Elysia()
-    .use(parent)
-    .get('/main', 'hi')
-```
-
-通过更改 `type` 值，结果应如下所示：
-
-| 类型       | child | current | parent | main |
-| ---------- | ----- | ------- | ------ | ---- |
-| 'local'    | ✅    | ✅       | ❌     | ❌   |
-| 'scoped'    | ✅    | ✅       | ✅     | ❌   |
-| 'global'   | ✅    | ✅       | ✅     | ✅   |
-
-### 范围提升
-要将钩子应用于父级，可以使用以下一种：
-1. `inline as` 仅适用于单个钩子
-2. `guard as` 适用于防护中的所有钩子
-3. `instance as` 适用于实例中的所有钩子
-
-### 1. 内联提升
-每个事件监听器将接受 `as` 参数来指定钩子的作用域。
+每个事件监听器都接受 `as` 参数，用以指定钩子的作用域。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -557,14 +626,15 @@ const plugin = new Elysia()
 
 const main = new Elysia()
     .use(plugin)
-    // ✅ Hi 现在可用
+    // ✅ 可以访问 hi
     .get('/parent', ({ hi }) => hi)
 ```
 
-但是，这种方法仅适用于单个钩子，并且可能不适合多个钩子。
+但此方法只适用于单个钩子，且可能不适合多个钩子。
 
-### 2. 防护提升
-每个事件监听器将接受 `as` 参数来指定钩子的作用域。
+### 防护 as
+
+每个事件监听器接受 `as` 参数，指定钩子作用域。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -584,12 +654,13 @@ const main = new Elysia()
     .get('/parent', 'hello')
 ```
 
-防护允许我们将 `schema` 和 `hook` 应用于多个路由一次性，并且可以指定作用域。
+防护允许我们一次性将 `schema` 和 `hook` 应用于多个路由，并且可以指定作用域。
 
-然而，它不支持 `derive` 和 `resolve` 方法。
+但它不支持 `derive` 和 `resolve` 方法。
 
-### 3. 实例提升
-`as` 将读取当前实例的所有钩子和模式范围，并进行修改。
+### 实例 as
+
+`as` 会读取当前实例所有钩子和模式的作用域，并对其进行修改。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -603,15 +674,16 @@ const plugin = new Elysia()
 
 const main = new Elysia()
     .use(plugin)
-    // ✅ Hi 现在可用
+    // ✅ 可以访问 hi
     .get('/parent', ({ hi }) => hi)
 ```
 
-有时我们希望将插件重新应用于父实例，但是由于 `scoped` 机制的限制，它限于 1 个父级。
+有时我们希望将插件重新应用于父实例，但受限于 `scoped` 机制仅限一个父级。
 
-要将其应用于父实例，我们需要 **提升作用域到父实例"**，而 `as` 是实现这一点的完美方法。
+要将其应用到父实例，我们需要**提升作用域到父实例**，而 `as` 是实现此目的的绝佳方式。
 
-这意味着如果你有 `local` 范围，想要将其应用于父实例，你可以使用 `as('scoped')` 来提升它。
+这意味着如果你有一个 `local` 范围，想要应用到父实例，你可以用 `as('scoped')` 来提升它。
+
 ```typescript twoslash
 // @errors: 2304 2345
 import { Elysia, t } from 'elysia'
@@ -632,65 +704,21 @@ const instance = new Elysia()
 
 const parent = new Elysia()
 	.use(instance)
-	// 这现在会报错，因为 `scoped` 被提升到父级
+	// 这里将报错，因为 `scoped` 被提升到父级
 	.get('/ok', () => 3)
 ```
-
-### 后代
-
-默认情况下，插件将仅 **应用钩子到自身及其后代**。
-
-如果钩子在插件中注册，继承该插件的实例将 **不会** 继承钩子和模式。
-
-```typescript
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia()
-    .onBeforeHandle(() => {
-        console.log('hi')
-    })
-    .get('/child', 'log hi')
-
-const main = new Elysia()
-    .use(plugin)
-    .get('/parent', 'not log hi')
-```
-
-要全局应用钩子，我们需要将钩子指定为全局。
-```typescript
-import { Elysia } from 'elysia'
-
-const plugin = new Elysia()
-    .onBeforeHandle(() => {
-        return 'hi'
-    })
-    .get('/child', 'child')
-    .as('scoped')
-
-const main = new Elysia()
-    .use(plugin)
-    .get('/parent', 'parent')
-```
-
-<Playground :elysia="_demo2" :mock="_mock2" />
 
 ## 延迟加载
 模块默认是立即加载的。
 
-Elysia 在启动服务器之前加载所有模块，然后注册和索引所有模块。这确保所有模块在开始接受请求之前都已加载。
+Elysia 会确保所有模块在服务器启动之前被注册。
 
-虽然对于大多数应用程序来说，这很好，但对于运行在无服务器环境或边缘函数的服务器，它可能成为瓶颈，因为启动时间至关重要。
+然而，有些模块计算开销大或阻塞，导致服务器启动变慢。
 
-延迟加载可以通过在服务器启动后逐步索引模块来帮助减少启动时间。
-
-对于某些模块很重，并且在启动时导入时间至关重要，使用延迟加载模块是一个不错的选择。
-
-默认情况下，任何异步插件都不会被等待，视为延迟模块，导入语句被视为延迟加载模块。
-
-这两个模块将在服务器启动后注册。
+为了解决这个问题，Elysia 允许你提供异步插件，以免阻塞服务器启动。
 
 ### 延迟模块
-延迟模块是一个异步插件，可以在服务器启动后注册。
+延迟模块是一个异步插件，服务器启动后才注册。
 
 ```typescript
 // plugin.ts
@@ -717,12 +745,10 @@ const app = new Elysia()
     .use(loadStatic)
 ```
 
-Elysia 静态插件也是一个延迟模块，因为它以异步方式加载文件并注册文件路径。
-
 ### 延迟加载模块
-与异步插件相同，延迟加载模块将在服务器启动后注册。
+与异步插件类似，延迟加载模块会在服务器启动后注册。
 
-延迟加载模块可以是同步或异步函数，只要该模块与 `import` 一起使用，该模块将延迟加载。
+延迟加载模块可以是同步或异步函数，只要通过 `import` 使用，模块就会延迟加载。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -731,12 +757,12 @@ const app = new Elysia()
     .use(import('./plugin'))
 ```
 
-在模块计算量较大和/或阻塞时，建议使用模块延迟加载。
+对计算量大和/或阻塞的模块，推荐使用延迟加载。
 
-要确保在服务器启动之前注册模块，我们可以对延迟模块使用 `await`。
+若需确保模块在服务器启动前加载，请 `await` 延迟模块。
 
 ### 测试
-在测试环境中，我们可以使用 `await app.modules` 等待延迟加载和懒加载模块。
+测试环境中，我们可以通过 `await app.modules` 等待延迟加载和懒加载模块完成。
 
 ```typescript
 import { describe, expect, it } from 'bun:test'
