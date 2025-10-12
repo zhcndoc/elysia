@@ -35,10 +35,10 @@ new Elysia().get('/', () => {
     })
 
     // 直接返回一个 ReadableStream
-    return result.textStream // [!code ++]
+    return stream.textStream // [!code ++]
 
     // 也支持 UI 消息流
-    return result.toUIMessageStream() // [!code ++]
+    return stream.toUIMessageStream() // [!code ++]
 })
 ```
 
@@ -61,10 +61,10 @@ new Elysia().get('/', () => {
     })
 
     // 每个数据块都会作为服务器发送事件发送
-    return sse(result.textStream) // [!code ++]
+    return sse(stream.textStream) // [!code ++]
 
     // 也支持 UI 消息流
-    return sse(result.toUIMessageStream()) // [!code ++]
+    return sse(stream.toUIMessageStream()) // [!code ++]
 })
 ```
 
@@ -84,10 +84,10 @@ new Elysia().get('/', () => {
         prompt: '嗨！你近来怎么样？'
     })
 
-    return result.toTextStreamResponse() // [!code ++]
+    return stream.toTextStreamResponse() // [!code ++]
 
     // UI 消息流响应将使用 SSE
-    return result.toUIMessageStreamResponse() // [!code ++]
+    return stream.toUIMessageStreamResponse() // [!code ++]
 })
 ```
 
@@ -107,7 +107,7 @@ new Elysia().get('/', async function* () {
         prompt: '嗨！你近来怎么样？'
     })
 
-    for await (const data of result.textStream) // [!code ++]
+    for await (const data of stream.textStream) // [!code ++]
         yield sse({ // [!code ++]
             data, // [!code ++]
             event: 'message' // [!code ++]

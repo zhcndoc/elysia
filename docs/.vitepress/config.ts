@@ -8,6 +8,7 @@ import lightbox from 'vitepress-plugin-lightbox'
 import tailwindcss from '@tailwindcss/vite'
 import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 const description =
     '适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
@@ -31,7 +32,7 @@ export default defineConfig({
 			link: 'https://elysiajs.com/'
 		}
 	},
-    // description,
+    description,
     ignoreDeadLinks: true,
     lastUpdated: true,
     markdown: {
@@ -42,9 +43,7 @@ export default defineConfig({
         languages: ['js', 'ts'],
         codeTransformers: [
             transformerTwoslash({
-                typesCache: createFileSystemTypesCache({
-                    dir: './docs/.vitepress/cache/twoslash'
-                })
+                typesCache: createFileSystemTypesCache()
             })
         ],
         config: (md) => {
@@ -59,9 +58,12 @@ export default defineConfig({
             }
         },
         experimental: {
-            enableNativePlugin: true
+            // enableNativePlugin: true
         },
         plugins: [
+            nodePolyfills({
+                include: ['path', 'crypto']
+            }),
             tailwindcss(),
             process.env.NODE_ENV === 'production'
                 ? llmstxt({
@@ -79,7 +81,7 @@ export default defineConfig({
             process.env.ANALYZE === 'true' ? analyzer() : undefined
         ],
         optimizeDeps: {
-            exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client']
+            exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client', '.vitepress/cache', '@rollup/browser']
         },
         ssr: {
             noExternal: [
@@ -237,10 +239,6 @@ export default defineConfig({
                     {
                         text: 'Static',
                         link: '/plugins/static'
-                    },
-                    {
-                        text: 'Stream',
-                        link: '/plugins/stream'
                     }
                 ]
             },
@@ -263,18 +261,13 @@ export default defineConfig({
                         link: '/quick-start'
                     },
                     {
-						text: '教程',
-                        link: '/tutorial',
-                        collapsed: true
+                        text: '目录',
+                        link: '/table-of-content'
                     },
                     {
 						text: '关键概念',
                         link: '/key-concept'
-                    },
-                    {
-						text: '目录',
-                        link: '/table-of-content'
-                    },
+                    }
                 ]
             },
             {
@@ -326,6 +319,10 @@ export default defineConfig({
                     {
                         text: '错误处理',
                         link: '/patterns/error-handling'
+                    },
+                    {
+                        text: '扩展上下文',
+                        link: '/patterns/extends-context'
                     },
                     {
                         text: 'Macro',
@@ -460,10 +457,6 @@ export default defineConfig({
                     {
 						text: '静态',
                         link: '/plugins/static'
-                    },
-                    {
-                        text: 'Stream',
-                        link: '/plugins/stream'
                     }
                 ]
             },
@@ -550,7 +543,7 @@ export default defineConfig({
         ],
         outline: {
             level: 2,
-            label: '页面导航'
+            label: '目录'
         },
         socialLinks: [
             { icon: 'github', link: 'https://github.com/elysiajs/elysia' },

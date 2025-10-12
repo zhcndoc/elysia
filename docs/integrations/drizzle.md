@@ -75,7 +75,6 @@ grep "@sinclair/typebox" node_modules/elysia/package.json
 ::: code-group
 
 ```ts [src/database/schema.ts]
-import { relations } from 'drizzle-orm'
 import {
     pgTable,
     varchar,
@@ -113,6 +112,7 @@ export type Table = typeof table
 ::: code-group
 
 ```ts [src/index.ts]
+import { t } from 'elysia'
 import { createInsertSchema } from 'drizzle-typebox'
 import { table } from './database/schema'
 
@@ -328,7 +328,7 @@ export const db = {
 ::: code-group
 
 ```ts [src/index.ts]
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 import { db } from './database/model'
 
 const { user } = db.insert

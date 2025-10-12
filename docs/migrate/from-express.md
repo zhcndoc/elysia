@@ -529,7 +529,7 @@ const app = new Elysia()
 
 </Compare>
 
-虽然 Hono 具有调用下一个中间件的 `next` 函数，但 Elysia 并没有。
+虽然 Express 具有调用下一个中间件的 `next` 函数，但 Elysia 并没有。
 
 ## 健全的类型安全
 Elysia 被设计为具有健全的类型安全。

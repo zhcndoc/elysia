@@ -126,7 +126,7 @@ export const OpenAPI = {
 } as const
 ```
 
-然后在我们使用 `@elysiajs/swagger` 的 Elysia 实例中。
+然后在我们使用 `@elysiajs/openapi` 的 Elysia 实例中。
 
 ```ts
 import { Elysia } from 'elysia'

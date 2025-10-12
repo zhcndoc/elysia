@@ -32,7 +32,7 @@ import Benchmark from '../components/fern/benchmark-hono.vue'
 
 本指南适用于希望了解 Elysia 与 Hono 之间的差异，包括语法，以及如何通过示例将应用程序从 Hono 迁移到 Elysia 的 Hono 用户。
 
-**Hono** 是一个快速而轻量的框架，基于 Web 标准构建。它与 Deno、Bun、Cloudflare Workers 和 Node.js 等多个运行时具有广泛的兼容性。
+**Hono** 是一个快速且轻量的网络框架，基于 Web 标准构建。它与多种运行时具有广泛的兼容性，如 Deno、Bun、Cloudflare Workers 和 Node.js。
 
 **Elysia** 是一个符合人体工程学的 Web 框架，旨在提供良好的开发者体验，重点关注 **强类型安全** 和性能。
 
@@ -342,7 +342,7 @@ const app = new Elysia()
 
 ```ts twoslash [Elysia Valibot]
 import { Elysia } from 'elysia'
-import * as v from 'zod'
+import * as v from 'valibot'
 
 const app = new Elysia()
 	.patch('/user/:id', ({ params, body }) => ({

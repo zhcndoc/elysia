@@ -413,18 +413,3 @@ console.log(
 </template>
 
 </Tab>
-
-## 下一步
-
-我们建议你查看以下之一：
-
-<Deck>
-    <Card title="关键概念 (5 分钟)" href="/key-concept">
-    	Elysia 的核心概念及其使用方法。
-    </Card>
-    <Card title="教程 (15 分钟)" href="/tutorial">
-    	逐步指南，讲解 Elysia 的功能。
-    </Card>
-</Deck>
-
-如果你有任何问题，欢迎在我们的 [Discord](https://discord.gg/eaFJ2KDJck) 社区询问。

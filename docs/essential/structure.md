@@ -162,7 +162,7 @@ class AuthService {
 
 我们建议将服务类抽象化，远离 Elysia。
 
-然而，**如果服务是请求依赖服务**或需要处理 HTTP 请求，我们建议将其抽象为 Elysia 实例，以确保类型的完整性和推断：
+然而，**如果服务是请求依赖服务**或需要处理 HTTP 请求，我们建议将其抽象为 Elysia 实例，以确保类型完整性和推断：
 
 ```typescript
 import { Elysia } from 'elysia'
