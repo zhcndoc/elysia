@@ -1,6 +1,7 @@
 ---
 title: 下一步 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta
@@ -80,13 +81,13 @@ import { code } from './data'
 
 <Deck>
 	<Card title="从 Express" href="/migrate/from-express">
-		tRPC 与 Elysia 之间的比较
+		Express 与 Elysia 之间的比较
 	</Card>
     <Card title="从 Fastify" href="/migrate/from-fastify">
   		Fastify 与 Elysia 之间的比较
     </Card>
     <Card title="从 Hono" href="/migrate/from-hono">
-  		tRPC 与 Elysia 之间的比较
+  		Hono 与 Elysia 之间的比较
     </Card>
     <Card title="从 tRPC" href="/migrate/from-trpc">
   		tRPC 与 Elysia 之间的比较

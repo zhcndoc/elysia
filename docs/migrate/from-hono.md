@@ -298,14 +298,9 @@ import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
 	.patch('/user/:id', ({ params, body }) => ({
-//                           ^?
 		params,
 		body
-//   ^?
 	}),
-
-
-
 	{
 		params: t.Object({
 			id: t.Number()
@@ -322,14 +317,9 @@ import { z } from 'zod'
 
 const app = new Elysia()
 	.patch('/user/:id', ({ params, body }) => ({
-//                          ^?
 		params,
 		body
-//   ^?
 	}),
-
-
-
 	{
 		params: z.object({
 			id: z.number()
@@ -346,14 +336,9 @@ import * as v from 'valibot'
 
 const app = new Elysia()
 	.patch('/user/:id', ({ params, body }) => ({
-//                          ^?
 		params,
 		body
-//   ^?
 	}),
-
-
-
 	{
 		params: v.object({
 			id: v.number()
@@ -944,7 +929,7 @@ const app = new Elysia()
 
 两者都有插件的封装机制以防止副作用。
 
-然而，Elysia 可以通过声明作用域来明确声明哪些插件应该具有副作用，而 Fastify 总是封装副作用。
+然而，Elysia 可通过声明作用域明确指定哪些插件应具有副作用，而 Hono 始终封装副作用。
 
 ```ts [Elysia]
 import { Elysia } from 'elysia'

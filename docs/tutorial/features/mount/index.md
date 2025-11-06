@@ -1,6 +1,7 @@
 ---
 title: Mount - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

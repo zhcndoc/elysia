@@ -9,10 +9,12 @@ import Easy from './easy.vue'
 import Doc from './doc.vue'
 import Beyond from './beyond.vue'
 import Test from './test.vue'
+import Deploy from './deploy.vue'
 import Tweets from './tweets.vue'
 import Sponsors from './sponsor.vue'
 import Banner from './banner.vue'
 import BuiltWithLove from './built-with-love.vue'
+import AskElysia from './ask-elysia.vue'
 </script>
 
 <template>
@@ -26,6 +28,8 @@ import BuiltWithLove from './built-with-love.vue'
             <Easy>
                 <slot name="easy" />
             </Easy>
+            <Benchmark />
+            <Deploy />
             <TypeIntegrity>
                 <template v-slot:type-1>
                     <slot name="type-1" />
@@ -51,7 +55,6 @@ import BuiltWithLove from './built-with-love.vue'
             <Beyond>
                 <slot name="e2e-type-safety" />
             </Beyond>
-            <Benchmark />
             <Test>
                 <template v-slot:test-code>
                     <slot name="test-code" />
@@ -64,6 +67,8 @@ import BuiltWithLove from './built-with-love.vue'
             <Sponsors />
             <!-- <Features /> -->
             <!-- <Future /> -->
+
+            <AskElysia />
             <Banner class="mt-10" />
             <BuiltWithLove />
         </article>

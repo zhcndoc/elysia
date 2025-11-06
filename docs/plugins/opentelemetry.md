@@ -17,7 +17,7 @@ head:
 # OpenTelemetry
 
 ::: tip
-此页面是 **OpenTelemetry** 的 **配置参考**，如果您想要设置和集成 OpenTelemetry，我们建议您查看 [与 OpenTelemetry 集成](/integrations/opentelemetry)。
+此页面是 **OpenTelemetry** 的 **配置参考**，如果您想要设置和集成 OpenTelemetry，我们建议您查看 [与 OpenTelemetry 集成](/patterns/opentelemetry)。
 :::
 
 要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任意实例。
@@ -46,7 +46,7 @@ new Elysia()
 Elysia OpenTelemetry 将 **收集任何与 OpenTelemetry 标准兼容的库的跨度**，并将自动应用父子跨度。
 
 ## 使用
-请参见 [opentelemetry](/integrations/opentelemetry) 以获取用法和实用工具
+请参见 [opentelemetry](/patterns/opentelemetry) 以获取用法和实用工具
 
 ## 配置
 此插件扩展 OpenTelemetry SDK 参数选项。

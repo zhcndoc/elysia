@@ -25,7 +25,7 @@ head:
 
 Elysia 提供了端到端类型安全 **无代码生成** 开箱即用，与 RPC 类似的连接器 **Eden**
 
-<video mute controls>
+<video mute controls style="aspect-ratio: 16/9;">
   <source src="/eden/eden-treaty.mp4" type="video/mp4" />
   加载视频时出错
 </video>
@@ -57,7 +57,7 @@ Eden 是一个类似于 RPC 的客户端，旨在仅使用 TypeScript 的类型�
 使你能够轻松同步客户端和服务器类型，体积不到 2KB。
 
 Eden 由两个模块组成：
-1. Eden Treaty **（推荐）**: Eden Treaty 的改进版本 RFC
+1. Eden Treaty **（推荐）**: Eden Treaty 的改进版本 RPC
 2. Eden Fetch: 具有类型安全的 Fetch 类客户端。
 
 下面是每个模块的概述、用例和比较。

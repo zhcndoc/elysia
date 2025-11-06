@@ -77,9 +77,9 @@ const plugin = new Elysia({ name: 'plugin' }).macro(({ beforeHandle }) => {
             beforeHandle(
                 { insert: 'before' },
                 async ({ cookie: { session } }) => {
-                  const user = await validateSession(session.value)
-                  await validateRole('admin', user)
-}
+                    const user = await validateSession(session.value)
+                    await validateRole('admin', user)
+                }
             )
         }
     }
@@ -156,9 +156,9 @@ new Elysia()
 
 这就是为什么我们引入了一个新的生命周期，在 **afterHandle** 之后运行，专门用于提供自定义响应映射，而不是将响应映射和原始值变更混合在同一个队列中。
 
-
 ## 错误函数
 我们可以通过使用 **set.status** 或返回一个新的响应来设置状态代码。
+
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -173,7 +173,7 @@ new Elysia()
 
 这与我们的目标是一致的，即直接将字面值返回给客户端，而无须担心服务器应如何行为。
 
-然而，这在与 Eden 集成时 proved 有挑战性。由于我们返回一个字面值，我们无法从响应中推断出状态代码，从而使得 Eden 无法区分响应和状态代码。
+然而，这在与 Eden 集成时证明有挑战性。由于我们返回一个字面值，我们无法从响应中推断出状态代码，从而使得 Eden 无法区分响应和状态代码。
 
 这导致 Eden 无法充分发挥其潜力，特别是在错误处理时，因为它无法推断类型，而不必为每个状态声明显式响应类型。
 
@@ -190,6 +190,7 @@ new Elysia()
 ```
 
 这相当于：
+
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -272,6 +273,7 @@ new Elysia()
 堆叠函数以变更对象可能比在每个请求中直接设置所需值（比如 CORS 或缓存头）要慢。
 
 这就是我们现在支持从一开始设置默认头，而不是为每个新请求创建一个空对象的原因。
+
 ```typescript
 new Elysia()
     .headers({
@@ -301,7 +303,7 @@ Elysia 不会在状态代码被设置为 206、304、412、416 时发送 **conte
 
 建议使用 [ETag 插件](https://github.com/bogeychan/elysia-etag) 来正确处理状态代码，以避免来自缓存的 **content-range** 冲突。
 
-这是 **content-range** 头的初步支持，我们已创建关于在未来基于 [RPC-7233](https://datatracker.ietf.org/doc/html/rfc7233#section-4.2) 实施更准确行为的讨论。欢迎在 [讨论 371](https://github.com/elysiajs/elysia/discussions/371) 中加入讨论，提出有关 Elysia 的 **content-range** 和 **etag 生成** 的新行为建议。
+这是 **content-range** 头的初步支持，我们已创建关于在未来基于 [RFC 7233](https://datatracker.ietf.org/doc/html/rfc7233#section-4.2) 实施更准确行为的讨论。欢迎在 [讨论 371](https://github.com/elysiajs/elysia/discussions/371) 中加入讨论，提出有关 Elysia 的 **content-range** 和 **etag 生成** 的新行为建议。
 
 ### 运行时内存改进
 Elysia 现在重用生命周期事件的返回值，而不是声明一个新的专用值。

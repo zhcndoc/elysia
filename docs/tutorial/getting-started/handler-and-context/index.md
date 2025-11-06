@@ -1,6 +1,7 @@
 ---
 title: 处理器与上下文 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta
@@ -47,7 +48,7 @@ new Elysia()
 import { Elysia } from 'elysia'
 
 new Elysia()
-    // `() => 'hello world'` 是一个处理器
+    // `'hello world'` 是一个处理器
     .get('/', 'hello world')
     .listen(3000)
 ```

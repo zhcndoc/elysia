@@ -1,6 +1,7 @@
 ---
 title: 插件 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

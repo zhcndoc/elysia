@@ -1,6 +1,7 @@
 ---
 title: 验证错误 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative w-full h-full border-gray-200 dark:border-gray-700 rounded-2xl overflow-y-scroll bg-white dark:bg-gray-900"
+        class="relative w-full h-full border-gray-200 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-900"
         :class="{ border: store.tab.aside !== null }"
     >
         <div
@@ -21,7 +21,7 @@
             :class="{ hidden: store.tab.aside !== 'docs' }"
             :src="store.doc"
         />
-        <article class="relative w-full overflow-hidden">
+        <article class="relative w-full h-full overflow-x-hidden overflow-y-auto">
             <Ray
                 class="top-0 h-42 opacity-40 dark:opacity-100 pointer-events-none"
             />
@@ -196,7 +196,6 @@ import { ref } from 'vue'
 import { watchDebounced } from '@vueuse/core'
 import { useRouter } from 'vitepress'
 
-import { SplitterPanel } from 'reka-ui'
 import { Circle, CircleCheckBig } from 'lucide-vue-next'
 
 import { vConfetti } from '@neoconfetti/vue'
@@ -369,26 +368,36 @@ watchDebounced(
         }
 
         & > .copy {
-            @apply absolute z-20 top-2 right-2 size-10 rounded-xl !bg-gray-50 dark:!bg-gray-700 interact:!bg-white dark:interact:!bg-gray-800 transition-opacity opacity-0;
+            @apply absolute z-20 top-2 right-2 size-10 rounded-xl !bg-gray-50 dark:!bg-gray-800 interact:!bg-white dark:interact:!bg-gray-700 transition-opacity opacity-0;
             border: 1px solid var(--vp-code-copy-code-border-color);
 
             &::before {
-                @apply flex justify-center items-center translate-y-0.25 size-10 text-gray-400 dark:text-gray-500;
+                @apply absolute flex justify-center items-center translate-y-0.25 size-10 text-gray-400 dark:text-gray-500 !pr-1 !rounded-l-xl;
 
-                content: url('data:image/svg+xml;utf,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(55.1% 0.027 264.364)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-icon lucide-clipboard"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>');
+                content: "";
+                top: -2.5px;
+                left: -4.5px;
+                background-size: 21px;
+                background-image: var(--vp-icon-copy);
+                background-repeat: no-repeat;
+                background-position: center;
             }
 
             &::after {
-                @apply absolute flex justify-center items-center right-11 w-auto h-10 px-2 text-xs font-medium rounded-xl text-gray-500 dark:text-gray-400 !bg-white dark:!bg-gray-800 opacity-0 transition-opacity pointer-events-none;
+                @apply absolute flex justify-center items-center right-11 w-auto h-10 px-2 text-xs font-medium rounded-l-xl -translate-y-0.25 translate-x-4 text-gray-500 !bg-white !border-r-0 opacity-0 transition-opacity pointer-events-none;
                 border: inherit;
                 content: 'Copied';
             }
 
+            .dark &::after {
+            	@apply text-gray-400 !bg-gray-700
+            }
+
             &.copied {
-                @apply !bg-white dark:!bg-gray-800;
+                @apply !bg-white dark:!bg-gray-700 !pr-1;
 
                 &::before {
-                    content: url('data:image/svg+xml;utf,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(55.1% 0.027 264.364)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-copy-icon lucide-clipboard-copy"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></svg>');
+                	background-image: var(--vp-icon-copied);
                 }
 
                 &::after {
@@ -398,10 +407,8 @@ watchDebounced(
         }
 
         & > .shiki {
-            @apply py-4 overflow-y-hidden overflow-x-auto;
-
             & > code {
-                @apply flex flex-col w-full;
+                @apply flex flex-col w-full py-4 overflow-y-hidden overflow-x-auto;
 
                 & > .line {
                     @apply block w-full px-4;

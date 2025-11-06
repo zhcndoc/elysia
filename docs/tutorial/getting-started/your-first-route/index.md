@@ -1,6 +1,7 @@
 ---
 title: 你的第一条路由 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

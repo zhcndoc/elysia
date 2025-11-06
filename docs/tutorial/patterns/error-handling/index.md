@@ -1,6 +1,7 @@
 ---
 title: 错误处理 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta
@@ -40,7 +41,7 @@ import { code, testcases } from './data'
 import { Elysia } from 'elysia'
 
 new Elysia()
-	.onError(({ error, code }) => {
+	.onError(({ code, status }) => {
 		if(code === "NOT_FOUND")
 			return '呃~ 你迷路了吗？'
 
@@ -78,7 +79,7 @@ new Elysia()
 		}
 	})
 	.get('/', () => {
-		throw new CustomError('自定义错误消息')
+		throw new NicheError('自定义错误消息')
 	})
 	.listen(3000)
 ```

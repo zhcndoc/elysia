@@ -18,31 +18,28 @@ head:
 
 从 Expo SDK 50 和 App Router v3 开始，Expo 允许我们直接在 Expo 应用中创建 API 路由。
 
-1. 如果尚不存在，请创建一个 Expo 应用：
-```typescript
-bun create expo-app --template tabs
-```
+1. 创建 **app/[...slugs]+api.ts**
+2. 定义一个 Elysia 服务器
+3. 导出您想要使用的 HTTP 方法名的 **Elysia.fetch**
 
-2. 创建 **app/[...slugs]+api.ts**
-3. 在 **[...slugs]+api.ts** 中创建或导入一个现有的 Elysia 服务器
-4. 以您想要暴露的方法名称导出处理器
+::: code-group
 
-```typescript
-// app/[...slugs]+api.ts
+```typescript [app/[...slugs]+api.ts]
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
-    .get('/', () => 'hello Next')
+    .get('/', 'hello Expo')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
         })
     })
 
-export const GET = app.handle // [!code ++]
-export const POST = app.handle // [!code ++]
+export const GET = app.fetch // [!code ++]
+export const POST = app.fetch // [!code ++]
 ```
 
+:::
 Elysia 将正常运行，因为得益于 WinterCG 的兼容性，然而，某些插件如 **Elysia Static** 可能在您在 Node 上运行 Expo 时无法正常工作。
 
 您可以像对待普通的 Expo API 路由那样对待 Elysia 服务器。
@@ -56,23 +53,84 @@ Elysia 将正常运行，因为得益于 WinterCG 的兼容性，然而，某些
 
 例如，如果您将 Elysia 服务器放在 **app/api/[...slugs]+api.ts** 中，您需要将前缀注释为 **/api**。
 
-```typescript
-// app/api/[...slugs]+api.ts
+::: code-group
+
+```typescript [app/api/[...slugs]+api.ts]
 import { Elysia, t } from 'elysia'
 
-const app = new Elysia({ prefix: '/api' })
-    .get('/', () => 'hi')
+const app = new Elysia({ prefix: '/api' }) // [!code ++]
+    .get('/', 'Hello Expo')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
         })
     })
 
-export const GET = app.handle
-export const POST = app.handle
+export const GET = app.fetch
+export const POST = app.fetch
 ```
 
 这样可以确保无论您将其放置在何处，Elysia 路由都会正常工作。
+
+## Eden
+
+我们可以添加 [Eden](/eden/overview) 实现类似 tRPC 的**端到端类型安全**。
+
+1. 从 Elysia 服务器导出 `type`
+
+::: code-group
+
+```typescript [app/[...slugs]+api.ts]
+import { Elysia } from 'elysia'
+
+const app = new Elysia()
+	.get('/', 'Hello Nextjs')
+	.post(
+		'/user',
+		({ body }) => body,
+		{
+			body: treaty.schema('User', {
+				name: 'string'
+			})
+		}
+	)
+
+export type app = typeof app // [!code ++]
+
+export const GET = app.fetch
+export const POST = app.fetch
+```
+
+:::
+
+2. 创建 Treaty 客户端
+
+::: code-group
+
+```typescript [lib/eden.ts]
+import { treaty } from '@elysiajs/eden'
+import type { app } from '../app/[...slugs]+api'
+
+export const api = treaty<app>('localhost:3000/api')
+```
+
+:::
+
+3. 在服务端和客户端组件中使用该客户端
+
+::: code-group
+
+```tsx [app/page.tsx]
+import { api } from '../lib/eden'
+
+export default async function Page() {
+	const message = await api.get()
+
+	return <h1>Hello, {message}</h1>
+}
+```
+
+:::
 
 ## 部署
 您可以直接使用 Elysia 的 API 路由，根据需要部署为正常的 Elysia 应用，或使用 [实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。

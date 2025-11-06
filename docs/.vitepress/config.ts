@@ -9,6 +9,8 @@ import tailwindcss from '@tailwindcss/vite'
 import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { comlink } from 'vite-plugin-comlink'
+import { fileURLToPath } from 'url'
 
 const description =
     '适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。'
@@ -60,11 +62,22 @@ export default defineConfig({
         experimental: {
             // enableNativePlugin: true
         },
+        resolve: {
+            alias: [
+                {
+                    find: /^.*\/VPNavBarSearch\.vue$/,
+                    replacement: fileURLToPath(
+                        new URL('./theme/navbar-search.vue', import.meta.url)
+                    )
+                }
+            ]
+        },
         plugins: [
             nodePolyfills({
                 include: ['path', 'crypto']
             }),
             tailwindcss(),
+            comlink(),
             process.env.NODE_ENV === 'production'
                 ? llmstxt({
                       description: 'Ergonomic Framework for Humans',
@@ -80,8 +93,15 @@ export default defineConfig({
                 : undefined,
             process.env.ANALYZE === 'true' ? analyzer() : undefined
         ],
+        worker: {
+            plugins: () => [comlink()]
+        },
         optimizeDeps: {
-            exclude: ['@nolebase/vitepress-plugin-inline-link-preview/client', '.vitepress/cache', '@rollup/browser']
+            exclude: [
+                '@nolebase/vitepress-plugin-inline-link-preview/client',
+                '.vitepress/cache',
+                '@rollup/browser'
+            ]
         },
         ssr: {
             noExternal: [
@@ -190,57 +210,8 @@ export default defineConfig({
         logo: '/assets/elysia.svg',
         nav: [
             {
-                text: '插件',
-                items: [
-                    {
-                        text: '概述',
-                        link: '/plugins/overview'
-                    },
-                    {
-                        text: 'Bearer',
-                        link: '/plugins/bearer'
-                    },
-                    {
-                        text: 'CORS',
-                        link: '/plugins/cors'
-                    },
-                    {
-                        text: 'Cron',
-                        link: '/plugins/cron'
-                    },
-                    {
-                        text: 'GraphQL Apollo',
-                        link: '/plugins/graphql-apollo'
-                    },
-                    {
-                        text: 'GraphQL Yoga',
-                        link: '/plugins/graphql-yoga'
-                    },
-                    {
-                        text: 'HTML',
-                        link: '/plugins/html'
-                    },
-                    {
-                        text: 'JWT',
-                        link: '/plugins/jwt'
-                    },
-                    {
-                        text: 'OpenAPI',
-                        link: '/plugins/openapi'
-                    },
-                    {
-                        text: 'OpenTelemetry',
-                        link: '/plugins/opentelemetry'
-                    },
-                    {
-                        text: 'Server Timing',
-                        link: '/plugins/server-timing'
-                    },
-                    {
-                        text: 'Static',
-                        link: '/plugins/static'
-                    }
-                ]
+                text: '文档',
+                link: '/table-of-content'
             },
             {
                 text: '博客',
@@ -325,6 +296,10 @@ export default defineConfig({
                         link: '/patterns/extends-context'
                     },
                     {
+                        text: 'Fullstack Dev Server',
+                        link: '/patterns/fullstack-dev-server'
+                    },
+                    {
                         text: 'Macro',
                         link: '/patterns/macro'
                     },
@@ -337,12 +312,20 @@ export default defineConfig({
                         link: '/patterns/openapi'
                     },
                     {
+                        text: 'OpenTelemetry',
+                        link: '/patterns/opentelemetry'
+                    },
+                    {
                         text: 'Trace',
                         link: '/patterns/trace'
                     },
                     {
-						text: '类型',
-                        link: '/patterns/type'
+                        text: 'TypeBox (Elysia.t)',
+                        link: '/patterns/typebox'
+                    },
+                    {
+                        text: 'TypeScript',
+                        link: '/patterns/typescript'
                     },
                     {
 						text: '单元测试',
@@ -503,6 +486,10 @@ export default defineConfig({
                         link: '/integrations/cloudflare-worker'
                     },
                     {
+                        text: 'Deno',
+                        link: '/integrations/deno'
+                    },
+                    {
                         text: 'Drizzle',
                         link: '/integrations/drizzle'
                     },
@@ -511,16 +498,20 @@ export default defineConfig({
                         link: '/integrations/expo'
                     },
                     {
+                        text: 'Netlify',
+                        link: '/integrations/netlify'
+                    },
+                    {
                         text: 'Nextjs',
                         link: '/integrations/nextjs'
                     },
                     {
-                        text: 'Nuxt',
-                        link: '/integrations/nuxt'
+                        text: 'Node.js',
+                        link: '/integrations/node'
                     },
                     {
-                        text: 'OpenTelemetry',
-                        link: '/integrations/opentelemetry'
+                        text: 'Nuxt',
+                        link: '/integrations/nuxt'
                     },
                     {
                         text: 'Prisma',
@@ -535,6 +526,10 @@ export default defineConfig({
                         link: '/integrations/sveltekit'
                     },
                     {
+                        text: 'Tanstack Start',
+                        link: '/integrations/tanstack-start'
+                    },
+                    {
                         text: 'Vercel',
                         link: '/integrations/vercel'
                     }
@@ -542,7 +537,7 @@ export default defineConfig({
             }
         ],
         outline: {
-            level: 2,
+            level: [2, 3],
             label: '目录'
         },
         socialLinks: [

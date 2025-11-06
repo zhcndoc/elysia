@@ -243,7 +243,7 @@
         </p>
 
         <p class="inline-block text-center">
-            We can only develop Elysia full-time thanks to your supports.
+            We can only develop Elysia full-time thanks to your support.
         </p>
 
         <div class="flex sm:justify-center my-8">

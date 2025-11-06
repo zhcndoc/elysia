@@ -1,6 +1,7 @@
 ---
 title: 端到端类型安全 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

@@ -448,6 +448,12 @@ new Elysia()
 
 不同于 **state** 和 **decorate**，由 **derive** 分配的属性是唯一的，不会与其它请求共享。
 
+::: tip
+你可能大多数情况下更想使用 [resolve](#resolve)。
+
+Resolve 类似 derive 但在验证之后执行。这使得 resolve 更安全，因为我们可以先验证传入数据，再用它派生新属性。
+:::
+
 ### 队列
 
 `derive` 和 `transform` 存储在同一个队列。

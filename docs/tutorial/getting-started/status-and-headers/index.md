@@ -1,6 +1,7 @@
 ---
 title: 状态码与响应头 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta

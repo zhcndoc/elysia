@@ -63,7 +63,7 @@ bun build \
 	--compile \
 	--minify-whitespace \
 	--minify-syntax \
-	--target bun
+	--target bun \
 	--outfile server \
 	src/index.ts
 ```
@@ -203,7 +203,7 @@ EXPOSE 3000
 ```
 
 ### OpenTelemetry
-如果您使用 [OpenTelemetry](/integrations/opentelemetry) 来部署生产服务器。
+如果您使用 [OpenTelemetry](/patterns/opentelemetry) 来部署生产服务器。
 
 由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`，为了确保相关工具正常工作，我们需要指定供其使用的库为外部模块，以将其排除在打包之外。
 

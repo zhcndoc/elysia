@@ -1,6 +1,7 @@
 ---
 title: 扩展上下文 - Elysia 教程
 layout: false
+search: false
 authors: []
 head:
     - - meta
@@ -69,10 +70,10 @@ import { Elysia } from 'elysia'
 
 new Elysia()
 	.state('count', 0)
-	.get('/', ({ count }) => {
-		count++
+	.get('/', ({ store }) => {
+		store.count++
 
-		return count
+		return store.count
 	})
 ```
 
