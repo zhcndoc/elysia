@@ -1,0 +1,1 @@
+var e=`/assets/elysia.svg`;export{e as t};

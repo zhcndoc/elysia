@@ -1,0 +1,1 @@
+var e=`/assets/lifecycle-chart.svg`;export{e as t};

@@ -1,0 +1,1 @@
+import{Ct as e,E as t,I as n,b as r,q as i}from"./vue.runtime.esm-bundler._dpBHKfl.js";var a=t({__name:`client-only`,setup(t){let a=e(typeof window<`u`);return a.value||n(()=>{a.value=window!==`undefined`}),(e,t)=>a.value?i(e.$slots,`default`,{key:0}):r(``,!0)}});export{a as t};

@@ -1,0 +1,1 @@
+import{y as e}from"./baseUniq.Cyom-6e3.js";var t=4;function n(n){return e(n,t)}var r=n;export{r as t};

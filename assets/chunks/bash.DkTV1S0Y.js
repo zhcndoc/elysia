@@ -1,0 +1,1 @@
+import{t as e}from"./shellscript.Dg2xmFSO.js";export{e as default};
