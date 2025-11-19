@@ -180,6 +180,7 @@ new Elysia()
 替代上面做法，直接将 Elysia 实例当作控制器使用。
 
 ```typescript
+// ✅ 推荐写法
 import { Elysia } from 'elysia'
 import { Service } from './service'
 
@@ -366,9 +367,7 @@ class AuthService {
 }
 ```
 
-但建议尽量避免此做法，优先使用 [Elysia 作为服务实例](#✅-做-请求依赖的服务作为-elysia-实例)。
-
-更多关于 [InferContext](/essential/handler#infercontext) 的内容，请参考 [基础：处理程序](/essential/handler)。
+但建议尽量避免此做法，优先使用 [Elysia 作为服务实例](#✅-推荐做法请求依赖服务作为-elysia-实例)。
 
 ## 模型（Model）
 
@@ -504,19 +503,20 @@ const customBody = t.Object({
 
 const AuthModel = new Elysia()
     .model({
-        'auth.sign': customBody
+        sign: customBody
     })
 
 const models = AuthModel.models
 
 const UserController = new Elysia({ prefix: '/auth' })
     .use(AuthModel)
+    .prefix('model', 'auth.')
     .post('/sign-in', async ({ body, cookie: { session } }) => {
                              // ^?
 
         return true
     }, {
-        body: 'auth.sign'
+        body: 'auth.Sign'
     })
 ```
 

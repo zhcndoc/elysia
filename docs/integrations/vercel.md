@@ -1,9 +1,9 @@
 ---
-title: 与 Vercel Function 集成 - ElysiaJS
+title: 在 Vercel 上部署 Elysia - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 与 Vercel Function 集成 - ElysiaJS
+        content: 在 Vercel 上部署 Elysia - ElysiaJS
 
     - - meta
       - name: 'description'
@@ -14,24 +14,19 @@ head:
         content: Vercel Function 默认支持 Web 标准框架，因此您可以在 Vercel Function 上运行 Elysia，无需任何额外配置。
 ---
 
-<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSaltyAom%2Fvercel-function-elysia-demo">
-	<img src="https://vercel.com/button" alt="Deploy with Vercel"/>
-</a>
-
 <br>
 
-# 与 Vercel Function 集成
+# 在 Vercel 上部署 Elysia
 
-Vercel Function 默认支持 Web 标准框架，因此您可以在 Vercel Function 上运行 Elysia，无需任何额外配置。
+Elysia 可以使用 Bun 或 Node 运行时在 Vercel 上零配置部署。
 
-1. 在 **src/index.ts** 中创建文件
-2. 在 **src/index.ts** 文件中创建或导入一个已有的 Elysia 服务器
-3. 将 Elysia 服务器作为默认导出导出
+1. 在 **src/index.ts** 中，创建或导入现有的 Elysia 服务器
+2. 将 Elysia 服务器作为默认导出
 
 ```typescript
 import { Elysia, t } from 'elysia'
 
-export default new Elysia()
+export default new Elysia() // [!code ++]
     .get('/', () => 'Hello Vercel Function')
     .post('/', ({ body }) => body, {
         body: t.Object({
@@ -40,38 +35,50 @@ export default new Elysia()
     })
 ```
 
-4. 添加一个构建脚本，使用 `tsdown` 或类似工具将代码打包成一个单一文件。
+3. 使用 Vercel CLI 在本地开发
 
-```json
+```bash
+vc dev
+```
+
+4. 部署到 Vercel
+
+```bash
+vc deploy
+```
+
+就是这么简单。您的 Elysia 应用现在已运行在 Vercel 上。
+
+### 使用 Node.js
+
+使用 Node.js 部署时，请确保在您的 `package.json` 中设置 `type: module`
+
+::: code-group
+
+```ts [package.json]
 {
-	"scripts": {
-		"build": "tsdown src/index.ts -d api --dts"
-	}
+  "name": "elysia-app",
+  "type": "module" // [!code ++]
 }
 ```
 
-5. 创建 **vercel.json** 以重写所有端点到 Elysia 服务器
+:::
 
-```json
+### 使用 Bun
+
+使用 Bun 部署时，请确保在 `vercel.json` 中将运行时设置为 Bun
+
+::: code-group
+
+```ts [vercel.json]
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "rewrites": [
-		{
-			"source": "/(.*)",
-			"destination": "/api"
-		}
-    ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "bunVersion": "1.x" // [!code ++]
 }
 ```
 
-此配置将把所有请求重写到 `/api` 路由，该路由即定义了 Elysia 服务器。
+## 如果此方法不起作用
 
-Elysia 可无须任何额外配置即可与 Vercel Function 配合使用，因为它默认支持 Web 标准框架。
-
-## 如果这不起作用
-
-确保将 Elysia 服务器导出为默认导出，并且构建输出是一个位于`/api/index.js`的单个文件。
-
-您还可以像在其他环境中一样使用 Elysia 内置的功能，如验证、错误处理、[OpenAPI](/plugins/openapi.html) 等。
+Vercel 对 Elysia 提供零配置支持，若需额外配置，请参考 [Vercel 文档](https://vercel.com/docs/frameworks/backend/elysia)
 
 更多信息，请参考 [Vercel Function 文档](https://vercel.com/docs/functions?framework=other)。

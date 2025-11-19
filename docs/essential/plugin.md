@@ -16,6 +16,8 @@ head:
 
 <script setup>
 import Playground from '../components/nearl/playground.vue'
+import TutorialBadge from '../components/arona/badge.vue'
+
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia()
@@ -131,7 +133,7 @@ const scope2 = new Elysia()
 	.patch('/rename', ({ status }) => status(401))
 </script>
 
-# 插件
+# 插件 <TutorialBadge href="/tutorial/getting-started/plugin" />
 
 插件是一种将功能解耦成更小部分的模式。为我们的 Web 服务器创建可重用的组件。
 
@@ -155,37 +157,11 @@ const app = new Elysia()
 
 <Playground :elysia="demo1" />
 
-插件将继承插件实例的所有属性，比如 `state`、`decorate`，但**不会继承插件生命周期**，因为它默认是[隔离的](#scope)。
+插件将继承插件实例的所有属性，如 `state`、`decorate`，但**不会继承插件生命周期**，因为它默认是[隔离的](#scope)（将在下一节中提到 ↓）。
 
 Elysia 也会自动处理类型推断。
 
-## 插件
-
-每一个 Elysia 实例都可以成为一个插件。
-
-我们将逻辑拆分成一个单独的 Elysia 实例，并在多个实例中重用它。
-
-创建插件，只需在单独的文件中定义一个实例：
-```typescript twoslash
-// plugin.ts
-import { Elysia } from 'elysia'
-
-export const plugin = new Elysia()
-    .get('/plugin', () => 'hi')
-```
-
-然后在主文件中导入该实例：
-```typescript
-import { Elysia } from 'elysia'
-import { plugin } from './plugin' // [!code ++]
-
-const app = new Elysia()
-    .use(plugin) // [!code ++]
-    .listen(3000)
-```
-
-
-## 作用域
+## 作用域 <TutorialBadge href="/tutorial/getting-started/encapsulation" />
 
 Elysia 的生命周期方法**只对其自身实例封装**。
 
@@ -470,7 +446,7 @@ const main = new Elysia()
 
 <Playground :elysia="demo5" />
 
-## 防护
+## 防护 <TutorialBadge href="/tutorial/getting-started/guard" />
 
 防护允许我们将钩子和模式一次性应用于多个路由。
 

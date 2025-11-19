@@ -16,6 +16,8 @@ head:
 
 <script setup>
 import Playground from '../components/nearl/playground.vue'
+import TutorialBadge from '../components/arona/badge.vue'
+
 import { Elysia } from 'elysia'
 
 const demo1 = new Elysia()
@@ -92,7 +94,7 @@ const demo13 = new Elysia()
     .use(users)
 </script>
 
-# 路由
+# 路由 <TutorialBadge href="/tutorial/getting-started/your-first-route" />
 
 Web 服务器使用请求的**路径和方法**来查找正确的资源，这一过程称为**“路由”**。
 

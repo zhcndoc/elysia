@@ -17,6 +17,8 @@ head:
 <script setup>
 import Playground from '../components/nearl/playground.vue'
 import Tab from '../components/fern/tab.vue'
+import TutorialBadge from '../components/arona/badge.vue'
+
 import { Elysia } from 'elysia'
 
 const handler1 = new Elysia()
@@ -81,7 +83,7 @@ const demo6 = new Elysia()
     .get('/error', ({ store: { counter } }) => counter)
 </script>
 
-# 扩展上下文 <Badge type="warning">高级概念</Badge>
+# 扩展上下文 <TutorialBadge href="/tutorial/patterns/extends-context" />
 
 Elysia默认提供了一个最小的上下文，允许我们使用状态、装饰、派生和解析根据我们的具体需求扩展上下文。
 

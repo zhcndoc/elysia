@@ -27,6 +27,13 @@ head:
 <Blogs
   :blogs="[
       {
+        title: '比 Encore 快 2 倍 - 一年后',
+		href: '/blog/elysia-v-encore',
+		cover: 'elysia-v-encore.webp',
+		detail: '经过 1.5 年的开发，Elysia 现在比 Encore 快 2 倍。更新了原始基准测试，并深入探讨了我们如何实现这一性能。',
+		date: '2025年11月14日'
+      },
+      {
         title: 'Elysia 1.4 - 超对称',
 		href: '/blog/elysia-14',
 		cover: 'elysia-14.webp',

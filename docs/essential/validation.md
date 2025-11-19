@@ -20,6 +20,7 @@ import { Elysia, t, ValidationError } from 'elysia'
 import Playground from '../components/nearl/playground.vue'
 import Card from '../components/nearl/card.vue'
 import Deck from '../components/nearl/card-deck.vue'
+import TutorialBadge from '../components/arona/badge.vue'
 
 const demo1 = new Elysia()
     .get('/none', () => 'hi')
@@ -64,7 +65,7 @@ const demo4 = new Elysia()
     .get('/query?name=rapi&name=anis&name=neon&squad=counter', ({ query: { id } }) => id)
 </script>
 
-# 验证
+# 验证 <TutorialBadge href="/tutorial/getting-started/validation" />
 
 创建 API 服务器的目的在于接收输入并对其进行处理。
 
@@ -230,7 +231,7 @@ Guard 支持两种验证模式定义类型。
 
 ![Elysia 默认覆盖模式运行示意](/blog/elysia-13/schema-override.webp)
 
-### **独立**
+### **独立** <TutorialBadge href="/tutorial/patterns/standalone-schema" />
 
 分别处理冲突的模式并独立运行，确保两个模式都被验证。
 

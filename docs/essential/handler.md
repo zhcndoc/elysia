@@ -17,6 +17,7 @@ head:
 <script setup>
 import Playground from '../components/nearl/playground.vue'
 import Tab from '../components/fern/tab.vue'
+import TutorialBadge from '../components/arona/badge.vue'
 import { Elysia } from 'elysia'
 
 const handler1 = new Elysia()
@@ -26,7 +27,7 @@ const handler2 = new Elysia()
     .get('/', ({ status }) => status(418, "Kirifuji Nagisa"))
 </script>
 
-# 处理程序
+# 处理程序 <TutorialBadge href="/tutorial/getting-started/handler-and-context" />
 
 **Handler** - 接受 HTTP 请求并返回响应的函数。
 
@@ -93,7 +94,7 @@ new Elysia()
 -   [**server**](#server-bun-only) - Bun 服务器实例
 -   **path** - 请求的路径名
 
-## status
+## status <TutorialBadge href="/tutorial/getting-started/status-and-headers" />
 返回自定义状态码的函数，并支持类型缩小。
 
 ```typescript

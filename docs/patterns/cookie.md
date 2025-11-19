@@ -14,7 +14,11 @@ head:
       content: 响应式 Cookie 采用更现代化的方法，类似信号，使用人性化的 API 来处理 Cookie。没有 'getCookie' 和 'setCookie'，一切都是一个 Cookie 对象。当你想使用 Cookie 时，可以直接提取名称和值。
 ---
 
-# Cookie
+<script setup lang="ts">
+import TutorialBadge from '../components/arona/badge.vue'
+</script>
+
+# Cookie <TutorialBadge href="/tutorial/patterns/cookie" />
 Elysia 提供了一个可变信号，用于与 Cookie 进行交互。
 
 没有 get/set，您可以直接提取 Cookie 名称并检索或更新其值。

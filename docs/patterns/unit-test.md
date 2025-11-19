@@ -14,7 +14,11 @@ head:
         content: 您可以使用 `bun:test` 创建与 Elysia 的单元测试。Elysia 实例具有一个 `handle` 方法，它接受 `Request` 并返回 `Response`，与创建 HTTP 请求相同。
 ---
 
-# 单元测试
+<script setup lang="ts">
+import TutorialBadge from '../components/arona/badge.vue'
+</script>
+
+# 单元测试 <TutorialBadge href="/tutorial/features/openapi" />
 
 作为 WinterCG 的合规实现，我们可以使用 Request/Response 类来测试 Elysia 服务器。
 

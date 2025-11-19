@@ -14,11 +14,13 @@ head:
       content: 宏 允许我们为钩子定义一个自定义字段。
 ---
 
-# 宏
-
 <script setup>
 import Tab from '../components/fern/tab.vue'
+import TutorialBadge from '../components/arona/badge.vue'
+
 </script>
+
+# 宏 <TutorialBadge href="/tutorial/patterns/macro" />
 
 宏类似于一个函数，能够对生命周期事件、模式、上下文进行控制，并具备完全的类型安全。
 

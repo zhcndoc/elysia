@@ -14,7 +14,11 @@ head:
         content: 适用于 Elysia 的插件，添加支持为 Elysia 服务器生成 Swagger API 文档。开始使用前请先通过 "bun add @elysiajs/swagger" 安装该插件。
 ---
 
-# OpenAPI 插件
+<script setup lang="ts">
+import TutorialBadge from '../components/arona/badge.vue'
+</script>
+
+# OpenAPI 插件 <TutorialBadge href="/tutorial/features/openapi" />
 
 为 [elysia](https://github.com/elysiajs/elysia) 提供自动生成 API 文档页面的插件。
 

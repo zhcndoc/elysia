@@ -16,6 +16,7 @@ head:
 
 <script setup>
 import { Elysia, t, ValidationError, validationDetail } from 'elysia'
+import TutorialBadge from '../components/arona/badge.vue'
 
 import Card from '../components/nearl/card.vue'
 import Deck from '../components/nearl/card-deck.vue'
@@ -66,7 +67,7 @@ const demo3 = new Elysia()
     })
 </script>
 
-# 错误处理
+# 错误处理 <TutorialBadge href="/tutorial/patterns/error-handling" />
 
 本页提供了一个更高级的指南，用于在 Elysia 中有效处理错误。
 
@@ -105,7 +106,7 @@ new Elysia().get('/:id', ({ params: { id } }) => id, {
 	:elysia="demo2"
 />
 
-### 验证详情
+### 验证详情 <TutorialBadge href="/tutorial/patterns/validation-error" />
 
 从 `schema.error` 返回一个值将原样返回验证消息，但有时你也希望返回验证细节，比如字段名和期望类型。
 

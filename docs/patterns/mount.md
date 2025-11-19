@@ -14,7 +14,11 @@ head:
       content: 应用 WinterCG 互操作代码与 Elysia 运行或反之亦然。
 ---
 
-# Mount
+<script setup lang="ts">
+import TutorialBadge from '../components/arona/badge.vue'
+</script>
+
+# Mount <TutorialBadge href="/tutorial/features/openapi" />
 [WinterTC](https://wintertc.org/) 是一个用于在 Cloudflare、Deno、Vercel 等平台背后构建 HTTP 服务的标准。
 
 它允许 Web 服务器通过使用 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 实现跨运行时的互操作运行。

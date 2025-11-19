@@ -216,6 +216,10 @@ export default defineConfig({
             {
                 text: '博客',
                 link: '/blog'
+            },
+            {
+                text: '4koma',
+                link: '/4koma'
             }
         ],
         sidebar: [

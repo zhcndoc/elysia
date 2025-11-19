@@ -18,6 +18,7 @@ head:
 import Card from '../components/nearl/card.vue'
 import Deck from '../components/nearl/card-deck.vue'
 import Playground from '../components/nearl/playground.vue'
+import TutorialBadge from '../components/arona/badge.vue'
 
 import { Elysia } from 'elysia'
 
@@ -35,7 +36,7 @@ const demo = new Elysia()
 	})
 </script>
 
-# 生命周期
+# 生命周期 <TutorialBadge href="/tutorial/getting-started/life-cycle" />
 
 生命周期允许我们在预定义的点拦截一个重要事件，从而根据需要自定义服务器的行为。
 

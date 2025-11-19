@@ -47,7 +47,7 @@
                 人体工程学 <br v-if="kawaii" />
                 <!-- for -->
                 <a
-                	href="#"
+                    href="#"
                     role="button"
                     class="appearance-none rounded-lg interact:bg-violet-500/7.5 px-0.5 transition-colors duration-100 text-left"
                     @click="toggleKawaii"
@@ -126,11 +126,17 @@
                 class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 !leading-normal text-left w-full max-w-2xl"
                 :class="kawaii ? '' : 'md:text-center'"
             >
-                具有 TypeScript
+                带有
                 <span
                     class="text-transparent font-semibold bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
-                    >端到端的类型安全</span
-                >，统一的类型系统和出色的开发人员体验。由 Bun 提供加速支持。
+                    >端到端类型安全</span
+                >的后端 TypeScript 框架，强大的速度，以及卓越的开发者体验。
+                <br />
+                <span
+                    class="text-transparent font-semibold bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400"
+                >
+                    由 Bun 提供强大动力
+                </span>
             </h3>
             <section
                 class="flex flex-col sm:flex-row items-start sm:items-center w-full md:w-auto gap-4 mt-8 mb-12"
@@ -184,9 +190,7 @@
                     </p>
                 </div>
             </section>
-            <p
-                class="flex gap-2 text-gray-400 mr-auto sm:mx-auto"
-            >
+            <p class="flex gap-2 text-gray-400 mr-auto sm:mx-auto">
                 了解为什么开发人员喜欢 Elysia
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
