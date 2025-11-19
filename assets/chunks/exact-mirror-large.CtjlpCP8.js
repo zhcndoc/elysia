@@ -1,0 +1,1 @@
+var e=`/blog/elysia-13/exact-mirror-large.webp`;export{e as t};
