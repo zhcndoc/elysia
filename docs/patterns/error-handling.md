@@ -171,6 +171,8 @@ Elysia 只会返回验证失败的信息，而不包含任何详情。
 
 `message` 属性是可选的，默认省略，除非你在模式中提供了自定义错误消息。
 
+可以通过将 `Elysia.allowUnsafeValidationDetails` 设置为 `true` 来覆盖此设置，更多详情请参见 [Elysia 配置](/patterns/configuration#allow-unsafe-validation-details)。
+
 ## 自定义错误
 
 Elysia 支持类型层级和实现层级的自定义错误。

@@ -35,9 +35,15 @@ import { Elysia } from 'elysia'
 import { staticPlugin } from '@elysiajs/static'
 
 new Elysia()
-	.use(staticPlugin())
+	.use(await staticPlugin()) // [!code ++]
 	.listen(3000)
 ```
+
+:::tip
+注意，我们需要在 `staticPlugin()` 前加上 `await`，以启用全栈开发服务器。
+
+这是设置必要的 HMR 钩子所必需的。
+:::
 
 2. 创建 **public/index.html** 和 **index.tsx**
 
@@ -83,7 +89,17 @@ root.render(<App />)
 
 :::
 
-3. 访问 `http://localhost:3000/public` 查看效果。
+3. 在 tsconfig.json 中启用 JSX
+
+```json
+{
+  "compilerOptions": {
+	"jsx": "react-jsx" // [!code ++]
+  }
+}
+```
+
+4. 访问 `http://localhost:3000/public` 查看效果。
 
 这允许我们在一个项目中开发前端和后端，无需任何打包工具。
 
@@ -99,7 +115,7 @@ import { staticPlugin } from '@elysiajs/static'
 
 new Elysia()
   	.use(
-  		staticPlugin({
+  		await staticPlugin({
   			prefix: '/' // [!code ++]
    		})
    )
@@ -194,10 +210,10 @@ root.render(<App />)
 ```json
 {
   "compilerOptions": {
-	"baseUrl": ".", // [!code +=]
-	"paths": { // [!code +=]
-	  "@public/*": ["public/*"] // [!code +=]
-	} // [!code +=]
+	"baseUrl": ".", // [!code ++]
+	"paths": { // [!code ++]
+	  "@public/*": ["public/*"] // [!code ++]
+	} // [!code ++]
   }
 }
 ```

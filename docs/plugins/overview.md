@@ -64,6 +64,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Logysia](https://github.com/tristanisham/logysia) - 经典的日志中间件
 -   [Logestic](https://github.com/cybercoder-naj/logestic) - 为 ElysiaJS 提供的高级可定制日志库
 -   [Logger](https://github.com/bogeychan/elysia-logger) - 基于 [pino](https://github.com/pinojs/pino) 的日志中间件
+-   [Elysia Line](https://github.com/KrataiB/elysia-line) - Elysia 的 LINE Messaging API 和 LINE 登录集成（基于官方 [@line/bot-sdk](https://github.com/line/line-bot-sdk-nodejs) 的封装）
 -   [Elylog](https://github.com/eajr/elylog) - 简单的 stdout 日志库，具备一些自定义功能
 -   [Logify for Elysia.js](https://github.com/0xrasla/logify) - 一款优雅、快速且类型安全的 Elysia.js 应用日志中间件
 -   [Nice Logger](https://github.com/tanishqmanuja/nice-logger) - 可能不是最好的，但对于 Elysia 来说是一个相当不错且甜美的日志器。
@@ -80,6 +81,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [CDN Cache](https://github.com/johnny-woodtke/elysiajs-cdn-cache) - Elysia 的 Cache-Control 插件 - 不再手动设置 HTTP 头
 -   [Basic Auth](https://github.com/eelkevdbos/elysia-basic-auth) - 基本 HTTP 身份验证（使用 `request` 事件）
 -   [i18n](https://github.com/eelkevdbos/elysia-i18next) - 基于 [i18next](https://www.i18next.com/) 的 [i18n](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n) 封装
+-   [Intlify](https://github.com/intlify/srvmid/blob/main/packages/elysia/README.md) - Internationalization server middleware & utilities
 -   [Elysia Request ID](https://github.com/gtramontina/elysia-requestid) - 添加/转发请求 ID（`X-Request-ID` 或自定义）
 -   [Elysia HTMX](https://github.com/gtramontina/elysia-htmx) - [HTMX](https://htmx.org/) 的上下文助手
 -   [Elysia HMR HTML](https://github.com/gtrabanco/elysia-hmr-html) - 在更改目录中的任何文件时重新加载 HTML 文件
@@ -119,6 +121,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysia Background](https://github.com/staciax/elysia-background) - 用于 Elysia.js 的后台任务处理插件
 -   [@fedify/elysia](https://github.com/fedify-dev/fedify/tree/main/packages/elysia) - 与 [Fedify](https://fedify.dev/) 平台无缝集成的插件，兼容 ActivityPub 服务器框架。
 -   [elysia-healthcheck](https://github.com/iam-medvedev/elysia-healthcheck) - 用于 Elysia.js 的健康检查插件
+-   [elysia-local-https](https://github.com/mrtcmn/elysia-local-https) - Automatic local HTTPS for Elysia — certs generated, managed, and refreshed in one line.
 
 ## 相关项目：
 

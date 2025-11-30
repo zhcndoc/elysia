@@ -46,6 +46,30 @@ new Elysia({
 })
 ```
 
+## allowUnsafeValidationDetails
+
+###### 自 1.4.13 起
+
+是否允许 Elysia 在生产环境的错误响应中包含不安全的验证详情。
+
+```ts twoslash
+import { Elysia, t } from 'elysia'
+
+new Elysia({
+	allowUnsafeValidationDetails: true
+})
+```
+
+默认情况下，Elysia 会在生产环境中省略所有验证细节。
+
+这样做是为了防止泄露有关验证模式的敏感信息，例如字段名称和预期类型，这些信息可能会被攻击者利用。
+
+理想情况下，这只应在公共 API 上启用，因为它可能会泄露有关服务器实现的敏感信息。
+
+#### 选项 - @default `false`
+- `true` - 在生产环境的错误响应中包含不安全的验证详情
+- `false` - 在生产环境的错误响应中排除不安全的验证详情
+
 ## AOT
 
 ###### 自 0.4.0 起
@@ -495,7 +519,7 @@ new Elysia({
 })
 ```
 
-### systemRouter
+## systemRouter
 
 在可能的情况下使用运行时/框架提供的路由器。
 
