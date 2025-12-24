@@ -45,7 +45,12 @@ export const fallback = ({ request }: WithRequest) => app.handle(request) // [!c
 
 通过这种方法，您可以在单个代码库中共同定位前端和后端，并且可以实现 [Eden 的端到端类型安全](https://elysiajs.com/eden/overview.html)，支持客户端和服务器的操作。
 
-有关更多信息，请参考 [SvelteKit 路由](https://kit.svelte.dev/docs/routing#server)。
+### pnpm
+如果您使用 pnpm，[pnpm 默认不自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这需要您手动安装额外的依赖。
+
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
 
 ## 前缀
 

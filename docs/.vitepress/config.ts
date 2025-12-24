@@ -52,6 +52,9 @@ export default defineConfig({
             md.use(lightbox, {})
         }
     },
+    buildEnd() {
+        process.exit(0)
+    },
     vite: {
         clearScreen: false,
         server: {
@@ -129,7 +132,7 @@ export default defineConfig({
             'meta',
             {
                 property: 'og:image',
-				content: 'https://elysia.zhcndoc.com/assets/cover_2k.jpg'
+				content: 'https://elysia.zhcndoc.com/assets/cover.webp'
             }
         ],
         [
@@ -157,7 +160,7 @@ export default defineConfig({
             'meta',
             {
                 property: 'twitter:image',
-				content: 'https://elysia.zhcndoc.com/assets/cover_2k.jpg'
+				content: 'https://elysia.zhcndoc.com/assets/cover.webp'
             }
         ],
         [

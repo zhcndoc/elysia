@@ -77,7 +77,7 @@ new Elysia()
 ```typescript
 import { Elysia } from 'elysia'
 
-new Elysia()
+const user = new Elysia()
 	.get('/profile', '用户资料')
 	.get('/settings', '用户设置')
 

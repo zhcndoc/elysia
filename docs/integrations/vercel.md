@@ -49,6 +49,13 @@ vc deploy
 
 就是这么简单。您的 Elysia 应用现在已运行在 Vercel 上。
 
+### pnpm
+如果您使用 pnpm，[pnpm 默认不自动安装 peer dependencies](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，因此需要您手动安装额外的依赖。
+
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
+
 ### 使用 Node.js
 
 使用 Node.js 部署时，请确保在您的 `package.json` 中设置 `type: module`

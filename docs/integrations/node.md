@@ -111,3 +111,9 @@ tsc --init
 ```
 
 这将为你提供热重载和 JSX 支持，使你以类似于 `bun dev` 的体验运行 Elysia。
+
+### pnpm
+如果你使用 pnpm，[pnpm 默认不会自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这就需要你手动安装额外的依赖。
+```bash
+pnpm add @sinclair/typebox openapi-types
+```

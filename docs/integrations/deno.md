@@ -43,3 +43,10 @@ deno serve --watch src/index.ts
 Deno.serve(app.fetch) // [!code --]
 Deno.serve({ port:8787 }, app.fetch) // [!code ++]
 ```
+
+### pnpm
+如果你使用 pnpm，[pnpm 默认不自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这就要求你手动安装额外的依赖。
+
+```bash
+pnpm add @sinclair/typebox openapi-types
+```

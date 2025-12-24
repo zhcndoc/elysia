@@ -64,7 +64,12 @@ Elysia 能够正常工作，因为遵循了 WinterCG。
 
 通过这种方式，您可以在单个代码库中共同拥有前端和后端，并且与 Eden 实现端到端的类型安全。
 
-有关更多信息，请参阅 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)。
+### pnpm
+如果您使用 pnpm，[pnpm 默认不会自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这会要求您手动安装额外的依赖。
+
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
 
 ## 前缀
 
@@ -91,3 +96,5 @@ export const POST = handle // [!code ++]
 ```
 
 这将确保 Elysia 路由在您放置的位置上能够正常工作。
+
+有关更多信息，请参阅 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)。

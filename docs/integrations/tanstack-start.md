@@ -52,6 +52,12 @@ export const Route = createFileRoute('/api/$')({
 
 我们可以根据需要向 **server.handlers** 添加其他 HTTP 方法支持。
 
+### pnpm
+If you use pnpm, [pnpm doesn't auto install peer dependencies by default](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230) forcing you to install additional dependencies manually.
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
+
 ## Eden
 
 我们可以添加 [Eden](/eden/overview.html) 实现类似 tRPC 的**端到端类型安全**。

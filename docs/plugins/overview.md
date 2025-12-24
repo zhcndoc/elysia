@@ -122,6 +122,8 @@ Elysia 旨在实现模块化和轻量化。
 -   [@fedify/elysia](https://github.com/fedify-dev/fedify/tree/main/packages/elysia) - 与 [Fedify](https://fedify.dev/) 平台无缝集成的插件，兼容 ActivityPub 服务器框架。
 -   [elysia-healthcheck](https://github.com/iam-medvedev/elysia-healthcheck) - 用于 Elysia.js 的健康检查插件
 -   [elysia-local-https](https://github.com/mrtcmn/elysia-local-https) - Automatic local HTTPS for Elysia — certs generated, managed, and refreshed in one line.
+-   [Eden TanStack Query](https://github.com/xkelxmc/eden-tanstack-query) - type-safe TanStack Query integration for Eden, like
+  @trpc/react-query but for Elysia
 
 ## 相关项目：
 

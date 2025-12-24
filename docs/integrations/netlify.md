@@ -48,3 +48,9 @@ netlify dev
 ```
 
 更多信息，请参考 [Netlify Edge Function 文档](https://docs.netlify.com/build/edge-functions)。
+
+### pnpm
+如果你使用 pnpm，[pnpm 默认不自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，需要你手动安装额外的依赖。
+```bash
+pnpm add @sinclair/typebox openapi-types
+```

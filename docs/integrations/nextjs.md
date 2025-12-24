@@ -49,6 +49,12 @@ Elysia 将正常工作，因为它符合 WinterCG 规范，但如果您在 Node 
 
 有关更多信息，请参阅 [Nextjs 路由处理程序](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers)。
 
+### pnpm
+如果您使用 pnpm，[pnpm 默认不会自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，需要您手动安装额外依赖。
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
+
 ## 前缀
 
 因为我们的 Elysia 服务器不在应用路由的根目录下，所以您需要为 Elysia 服务器注释前缀。
@@ -60,7 +66,7 @@ Elysia 将正常工作，因为它符合 WinterCG 规范，但如果您在 Node 
 ```typescript [app/user/[[...slugs]]/route.ts]
 import { Elysia, t } from 'elysia'
 
-export default new Elysia({ prefix: '/user' }) // [!code ++]
+const app = new Elysia({ prefix: '/user' }) // [!code ++]
 	.get('/', 'Hello Nextjs')
     .post('/', ({ body }) => body, {
         body: t.Object({
@@ -87,7 +93,7 @@ export const POST = app.fetch
 ```typescript [app/api/[[...slugs]]/route.ts]
 import { Elysia } from 'elysia'
 
-const app = new Elysia({ prefix: '/api' })
+export const app = new Elysia({ prefix: '/api' }) // [!code ++]
 	.get('/', 'Hello Nextjs')
 	.post(
 		'/user',
@@ -98,8 +104,6 @@ const app = new Elysia({ prefix: '/api' })
 			})
 		}
 	)
-
-export type app = typeof app // [!code ++]
 
 export const GET = app.fetch
 export const POST = app.fetch
@@ -115,8 +119,11 @@ export const POST = app.fetch
 import { treaty } from '@elysiajs/eden'
 import type { app } from '../app/api/[[...slugs]]/route'
 
-// this require .api to enter /api prefix
-export const api = treaty<app>('localhost:3000').api
+// .api 用以进入 /api 前缀
+export const api =
+  typeof process !== 'undefined'
+    ? treaty(app).api
+    : treaty<typeof app>('localhost:3000').api
 ```
 
 :::
@@ -136,5 +143,7 @@ export default async function Page() {
 ```
 
 :::
+
+这使您能够以最少的工作量从前端到后端实现类型安全，并且同时支持服务器组件、客户端组件以及增量静态再生（ISR）。
 
 有关更多信息，请参阅 [Next.js 路由处理程序](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers)。
