@@ -76,6 +76,12 @@ Elysia的生命周期事件可以如下所示。
     </Card>
 </Deck>
 
+---
+
+Elysia的生命周期可以用如下图示表示。
+![Elysia 生命周期图](/assets/lifecycle-chart.svg)
+> 点击图片放大
+
 ## 为什么
 
 假设我们想返回一些 HTML。
@@ -760,7 +766,7 @@ new Elysia()
     })
 ```
 
-通过 `onError` 我们可以捕获并将错误转换为自定义消息。
+通过 `onError`我们可以捕获并将错误转换为自定义消息。
 
 ::: tip
 重要的是，`onError` 必须在对应处理程序之前注册。

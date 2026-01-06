@@ -42,6 +42,8 @@ new Elysia()
 
 默认情况下，Elysia 使用 OpenAPI V3 规范和 [Scalar UI](http://scalar.com)
 
+通过访问 `/openapi`，你将看到由 Elysia 服务器生成的端点文档的 Scalar UI 界面。
+
 有关 OpenAPI 插件配置，请参见[OpenAPI 插件页面](/plugins/openapi)。
 
 ## 从类型生成 OpenAPI
@@ -55,6 +57,7 @@ new Elysia()
 1. 指定你的 Elysia 根文件（如果未指定，Elysia 将使用 `src/index.ts`），并导出一个实例
 
 2. 导入生成器并向类型生成器提供**相对于项目根的文件路径**
+
 ```ts
 import { Elysia, t } from 'elysia'
 import { openapi, fromTypes } from '@elysiajs/openapi' // [!code ++]

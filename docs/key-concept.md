@@ -24,7 +24,7 @@ const profile1 = new Elysia()
 
 const demo1 = new Elysia()
 	.use(profile1)
-	// This will NOT have sign in check
+	// 这里不会进行登录检查
 	.patch('/rename', () => 'Updated!')
 
 const profile2 = new Elysia()
@@ -33,7 +33,7 @@ const profile2 = new Elysia()
 
 const demo2 = new Elysia()
 	.use(profile2)
-	// This will NOT have sign in check
+	// 这里会进行登录检查
 	.patch('/rename', ({ status }) => status(401))
 </script>
 
@@ -167,13 +167,58 @@ app.listen(3000)
 我们建议您<u>**始终使用方法链**</u>以便获得准确的类型推断。
 
 ## 依赖 <Badge type="danger" text="必须阅读" />
-每个插件在应用到另一个实例时都会**每次执行**。
+Elysia 天然由多个微型的 Elysia 应用组成，这些实例可以像微服务一样**独立运行**并相互通信。
 
-如果插件应用多次，会导致不必要的重复。
+每个 Elysia 实例都是独立的，**并且可以作为独立服务器运行**。
 
-某些方法，比如**生命周期**或**路由**，只能被调用一次，这点很重要。
+当一个实例需要使用另一个实例的服务时，您**必须显式声明依赖**。
 
-为避免此问题，Elysia 可以通过**唯一标识符**来去重生命周期。
+```ts twoslash
+// @errors: 2339
+import { t } from 'elysia'
+
+abstract class Auth {
+	static getProfile() {
+		return {
+			name: 'Elysia User'
+		}
+	}
+
+	static models = {
+		user: t.Object({
+			name: t.String()
+		})
+	} as const
+}
+// ---cut---
+import { Elysia } from 'elysia'
+
+const auth = new Elysia()
+	.decorate('Auth', Auth)
+	.model(Auth.models)
+
+const main = new Elysia()
+ 	// ❌ 缺少 'auth'
+	.get('/', ({ Auth }) => Auth.getProfile())
+	// 需要使用 auth 来调用 Auth 的服务
+	.use(auth) // [!code ++]
+	.get('/profile', ({ Auth }) => Auth.getProfile())
+//                                        ^?
+
+
+
+// ---cut-after---
+```
+
+这类似于**依赖注入**，每个实例必须声明它自身的依赖。
+
+这种方式强制您显式声明依赖，利于依赖跟踪和模块化。
+
+### 去重 <Badge type="warning" text="重要" />
+
+默认情况下，每个插件在应用到另一个实例时都会**每次执行**。
+
+为防止重复执行，Elysia 可以通过为实例添加**唯一标识符**，使用 `name` 以及可选的 `seed` 属性，来实现生命周期的去重。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -205,54 +250,32 @@ const server = new Elysia()
 
 更多内容请见 [插件去重](/essential/plugin.html#plugin-deduplication)。
 
-### 服务定位器 <Badge type="warning" text="重要" />
-当您将插件应用到实例时，该实例将获得类型安全。
+### 全局依赖 vs 显式依赖
 
-但是如果您没有将插件应用于另一个实例，类型将无法推断。
+有些情况下使用全局依赖比显式依赖更合适。
 
-```typescript twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
+**全局** 插件示例：
+- **不添加类型的插件** —— 如 cors、compress、helmet
+- 添加全局生命周期且无实例应控制的插件 —— 如 tracing, logging
 
-const child = new Elysia()
-    // ❌ 缺少 'a'
-    .get('/', ({ a }) => a)
+示例用例：
+- OpenAPI/Open - 全局文档
+- OpenTelemetry - 全局追踪器
+- Logging - 全局日志器
 
-const main = new Elysia()
-    .decorate('a', 'a')
-    .use(child)
-```
+这种情况下，创建为全局依赖更有意义，而不是将它应用到每个实例。
 
-Elysia 引入了**服务定位器**设计模式来解决这个问题。
+然而，如果您的依赖不符合上述类别，则建议使用**显式依赖**。
 
-只需提供插件引用，Elysia 就能找到该服务以增强类型安全。
+**显式依赖** 示例：
+- **添加类型的插件** —— 如 macro、state、model
+- 添加业务逻辑且实例可交互的插件 —— 如 Auth、Database
 
-```typescript twoslash
-// @errors: 2339
-import { Elysia } from 'elysia'
-
-const setup = new Elysia({ name: 'setup' })
-    .decorate('a', 'a')
-
-// 没有 'setup' 时，类型会缺失
-const error = new Elysia()
-    .get('/', ({ a }) => a)
-
-// 通过 `setup`，会正确推断类型
-const child = new Elysia()
-    .use(setup) // [!code ++]
-    .get('/', ({ a }) => a)
-    //           ^?
-
-
-
-// ---cut-after---
-console.log()
-```
-
-这相当于 TypeScript 的**类型导入**，这里导入类型而不实际引入运行时代码。
-
-如前所述，Elysia 已经处理了去重，因此这不会带来性能开销或生命周期重复。
+示例用例：
+- 状态管理 —— 如 Store、Session
+- 数据建模 —— 如 ORM、ODM
+- 业务逻辑 —— 如 Auth、Database
+- 功能模块 —— 如 Chat、Notification
 
 ## 代码顺序 <Badge type="warning" text="重要" />
 

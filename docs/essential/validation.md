@@ -67,9 +67,7 @@ const demo4 = new Elysia()
 
 # 验证 <TutorialBadge href="/tutorial/getting-started/validation" />
 
-创建 API 服务器的目的在于接收输入并对其进行处理。
-
-JavaScript 允许任何数据成为任何类型。Elysia 提供了一个工具，可以对数据进行验证，以确保数据的格式正确。
+Elysia 提供了一个内置模式，用于验证数据，确保数据格式正确。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

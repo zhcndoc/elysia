@@ -237,6 +237,8 @@ export const app = new Elysia()
     .listen(3000)
 ```
 
+这是 Elysia 的一个 **独特功能**，使你能够直接从代码中获得完整且准确的 API 文档，无需任何手动注解。
+
 ## 端到端类型安全
 
 利用 Elysia，类型安全不限于服务端。
@@ -258,7 +260,7 @@ export const app = new Elysia()
     })
     .listen(3000)
 
-export type App = typeof app
+export type App = typeof app // [!code ++]
 ```
 
 在你的客户端代码中：
@@ -296,13 +298,131 @@ console.log(data)
 
 Elysia 不仅帮助你构建可靠后端，也致力于这个世界上美好的事物。
 
+## 类型严谨性
+
+大多数具有端到端类型安全的框架通常只涵盖“理想情况”，将错误处理和边缘情况排除在类型系统之外。
+
+然而，Elysia 可以推断 API 的所有可能结果，包括生命周期事件和代码库中任何部分的宏。
+
+::: code-group
+
+```typescript twoslash [client.ts]
+// @filename: server.ts
+import { Elysia, t } from 'elysia'
+
+const plugin = new Elysia()
+	.macro({
+		auth: {
+			cookie: t.Object({
+				session: t.String()
+			}),
+			beforeHandle({ cookie: { session }, status }) {
+				if(session.value !== 'valid')
+					return status(401)
+			}
+		}
+	})
+
+const app = new Elysia()
+	.use(plugin)
+    .get('/user/:id', ({ params: { id }, status }) => {
+    	if(Math.random() > 0.1)
+     		return status(420)
+       
+       return id
+    }, {
+    	auth: true,
+        params: t.Object({
+            id: t.Number()
+        })
+    })
+    .listen(3000)
+
+export type App = typeof app
+
+// @filename: client.ts
+// ---cut---
+// client.ts
+import { treaty } from '@elysiajs/eden'
+import type { App } from './server'
+
+const app = treaty<App>('localhost:3000')
+
+// 从 /user/617 获取数据
+const { data, error } = await app.user({ id: 617 }).get()
+            // ^?
+
+console.log(data)
+```
+
+```typescript twoslash [server.ts]
+import { Elysia, t } from 'elysia'
+
+const plugin = new Elysia()
+	.macro({
+		auth: {
+			cookie: t.Object({
+				session: t.String()
+			}),
+			beforeHandle({ cookie: { session }, status }) {
+				if(session.value !== 'valid')
+					return status(401)
+			}
+		}
+	})
+
+const app = new Elysia()
+	.use(plugin)
+    .get('/user/:id', ({ params: { id }, status }) => {
+    	if(Math.random() > 0.1)
+     		return status(420)
+       
+       return id
+    }, {
+    	auth: true,
+        params: t.Object({
+            id: t.Number()
+        })
+    })
+    .listen(3000)
+    
+export type App = typeof app
+```
+
+:::
+
+这是 Elysia 多年来在类型系统投资带来的 **独特优势** 之一。
+
 ## 跨平台性
 
-Elysia 为 Bun 设计，但**不限于 Bun**。遵循 [WinterTC 标准](https://wintertc.org/) 让你能将 Elysia 部署到 Cloudflare Workers、Vercel Edge Functions 等支持 Web 标准请求的运行时。
+Elysia 为 Bun 设计并优化了原生功能，但**不限于 Bun**。
+
+遵循 [WinterTC 标准](https://wintertc.org/) 允许你将 Elysia 部署到：
+
+- Bun
+- [Node.js](/integrations/node)
+- [Deno](/integrations/deno)
+- [Cloudflare Worker](/integrations/cloudflare-worker)
+- [Vercel](/integrations/vercel)
+- 通过 API 路由的 [Expo](/integrations/expo)
+- 通过 API 路由的 [Nextjs](/integrations/nextjs)
+- 通过 API 路由的 [Astro](/integrations/astro)
+
+以及更多！请查看侧边栏中的 `integration` 部分，了解更多支持的运行时环境。
 
 ## 我们的社区
 
-如果你对 Elysia 有疑问或遇到困难，欢迎通过 GitHub 讨论区、Discord 或 Twitter 向社区提问。
+我们希望为每个人创建一个友好且欢迎的社区，采用可爱且富有活力的设计，包括我们的动漫吉祥物 Elysia 酱。
+
+我们相信技术可以既可爱又有趣，而非一成不变的严肃，这能为人们的生活带来乐趣。
+
+即使如此，我们仍然非常认真对待 Elysia，确保它是一个可靠的、高性能的生产级框架，可以信赖于你的下一个项目。
+
+Elysia 已被全球众多公司和项目**投入生产使用**，包括 [X](https://x.com/shlomiatar/status/1822381556142362734)、[农业与农业合作银行](https://github.com/elysiajs/elysia/discussions/1312#discussioncomment-13924470)、[Cluely](https://github.com/elysiajs/elysia/discussions/1312#discussioncomment-14420139)、[CS.Money](https://github.com/elysiajs/elysia/discussions/1312#discussioncomment-13913513)、[Abacate Pay](https://github.com/elysiajs/elysia/discussions/1312#discussioncomment-13922081)，并被 GitHub 上超过 10,000 个（开源）项目使用。自 2022 年以来持续活跃开发和维护，拥有来自社区的众多常驻贡献者。
+
+Elysia 是构建你的下一个后端服务器的可靠且生产就绪的选择。
+
+以下是社区资源，助你快速入门：
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
