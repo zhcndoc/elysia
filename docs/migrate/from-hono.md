@@ -34,9 +34,35 @@ import Benchmark from '../components/fern/benchmark-hono.vue'
 
 **Hono** 是一个快速且轻量的网络框架，基于 Web 标准构建。它与多种运行时具有广泛的兼容性，如 Deno、Bun、Cloudflare Workers 和 Node.js。
 
-**Elysia** 是一个符合人体工程学的 Web 框架，旨在提供良好的开发者体验，重点关注 **强类型安全** 和性能。
+**Elysia** 是一个符合人体工学的 Web 框架。专为开发者体验设计，注重**严格类型安全**和性能。不仅限于 Bun，Elysia 还支持多种运行时，如 Node.js 和 Cloudflare Workers。
 
-这两个框架均建立在 Web 标准 API 之上，语法略有不同。Hono 提供对多个运行时的更广泛兼容，而 Elysia 则专注于特定的运行时集。
+## 适用场景
+
+以下是 Hono 和 Elysia 的简要对比，帮助你做出选择：
+
+**Hono**
+
+- **最初为 Cloudflare Workers 构建**，与 Cloudflare 生态系统集成度更高
+- 支持多种基于 Web 标准的运行时，包括 **Node.js** 和 **Bun**
+- 轻量且极简，适合边缘环境
+- 支持 OpenAPI，但需要额外工作来描述规范
+- 倾向于简单、线性的中间件方式
+- 类型安全性优于大多数框架，但在某些方面并不完全可靠
+- 在中间件和插件风格上与 Express、Koa 有些相似
+
+**Elysia**
+
+- **最初为原生 Bun 构建**，最大限度地利用 Bun 的大部分功能
+- 支持多种运行时和 Web 标准，包括 **Node.sjs** 和 **Cloudflare Worker**
+- **更好的性能**。通过 JIT 倾向于长时间运行的服务器。
+- **更好的 OpenAPI 支持**，带来无缝体验，特别是与 [OpenAPI Type Gen](/patterns/openapi#openapi-from-types) 配合使用时
+- 更倾向于基于事件的生命周期方法，以便更好地控制请求管道
+- 全面实现类型安全，包括中间件和错误处理
+- 在中间件、封装和插件风格方面与 Fastify 有些相似
+
+在“兼容某物”和“专为某物构建”之间有很大的区别。
+
+如果你决定在 Cloudflare Workers 上使用 Elysia，你可能会错过 Hono 提供的一些 Cloudflare 特定功能。同样地，如果你在 Bun 上使用 Hono，与你使用 Elysia 相比，可能无法获得最佳性能。
 
 ## 性能
 由于静态代码分析，Elysia 在性能上相较 Hono 有显著提升。

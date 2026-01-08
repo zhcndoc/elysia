@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 宏 允许我们为钩子定义一个自定义字段。
+      content: 宏类似于函数，能够在生命周期事件、模式和上下文中进行控制，并且具有完整的类型安全性。
 
   - - meta
     - property: 'og:description'
-      content: 宏 允许我们为钩子定义一个自定义字段。
+      content: 宏类似于函数，能够在生命周期事件、模式和上下文中进行控制，并且具有完整的类型安全性。
 ---
 
 <script setup>
@@ -56,28 +56,29 @@ import { Elysia } from 'elysia'
 
 export const auth = new Elysia()
     .macro({
-    	// 这个属性的简写形式
-    	isAuth: {
-      		resolve: () => ({
-      			user: 'saltyaom'
-      		})
-        },
-        // 等价于
-        isAuth(enabled: boolean) {
-        	if(!enabled) return
+    	// This property shorthand
+    	isAuth: { // [!code ++]
+      		resolve: () => ({ // [!code ++]
+      			user: 'saltyaom' // [!code ++]
+      		}) // [!code ++]
+        }, // [!code ++]
+        // is equivalent to
+        isAuth(enabled: boolean) { // [!code --]
+        	if(!enabled) return // [!code --]
+// [!code --]
 
-        	return {
-				resolve() {
-					return {
-						user
-					}
-				}
-         	}
-        }
+        	return { // [!code --]
+				resolve() { // [!code --]
+					return { // [!code --]
+						user // [!code --]
+					} // [!code --]
+				} // [!code --]
+         	} // [!code --]
+        } // [!code --]
     })
 ```
 
-## API
+<!--## API
 
 **macro** 拥有与钩子相同的 API。
 
@@ -136,7 +137,41 @@ const app = new Elysia()
 
 该字段可以接受从字符串到函数的任何内容，使我们能够创建自定义的生命周期事件。
 
-**macro** 会根据钩子的定义从上到下顺序执行，以确保堆栈按正确顺序处理。
+::: note
+**macro** will execute in order from top-to-bottom according to definition in hook, ensure that the stack is handled in the correct order.
+:::-->
+
+## 错误处理
+
+你可以通过返回一个 `status` 来返回错误的 HTTP 状态。
+
+```ts
+import { Elysia, status } from 'elysia' // [!code ++]
+
+new Elysia()
+	.macro({
+		auth: {
+			resolve({ headers }) {
+				if(!headers.authorization)
+					return status(401, 'Unauthorized') // [!code ++]
+		
+				return {
+					user: 'SaltyAom'
+				}
+			}
+		}
+	})
+	.get('/', ({ user }) => `Hello ${user}`, {
+	            // ^?
+		auth: true
+	})
+```
+
+建议您使用 `return status` 而不是 `throw new Error()` 来标注正确的 HTTP 状态码。
+
+如果您抛出错误，Elysia 默认会将其转换为 `500 Internal Server Error`。
+
+同样建议使用 `return status` 而不是 `throw status`，以确保 [Eden](/eden/overview) 和 [OpenAPI Type Gen](/patterns/openapi#openapi-from-types) 都能进行类型推断。
 
 ## 解析 (Resolve)
 

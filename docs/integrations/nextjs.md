@@ -121,10 +121,13 @@ import type { app } from '../app/api/[[...slugs]]/route'
 
 // .api 用以进入 /api 前缀
 export const api =
+  // process is defined on server side and build time
   typeof process !== 'undefined'
     ? treaty(app).api
     : treaty<typeof app>('localhost:3000').api
 ```
+
+你应该使用 `typeof process` 而不是 `typeof window`，因为在构建时 `window` 未被定义，会导致水合错误。
 
 :::
 
@@ -145,5 +148,37 @@ export default async function Page() {
 :::
 
 这使您能够以最少的工作量从前端到后端实现类型安全，并且同时支持服务器组件、客户端组件以及增量静态再生（ISR）。
+
+## React Query
+
+我们也可以使用 React Query 在客户端与 Elysia 服务器进行交互。
+
+::: code-group
+
+```tsx [src/routes/index.tsx]
+import { createFileRoute } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
+
+import { getTreaty } from './api.$' // [!code ++]
+
+export const Route = createFileRoute('/a')({
+	component: App
+})
+
+function App() {
+	const { data: response } = useQuery({ // [!code ++]
+		queryKey: ['get'], // [!code ++]
+		queryFn: () => getTreaty().get() // [!code ++]
+	}) // [!code ++]
+
+	return response?.data
+}
+```
+
+::: code-group
+
+这可以与任何 React Query 功能一起使用，比如缓存、分页、无限查询等。
+
+---
 
 有关更多信息，请参阅 [Next.js 路由处理程序](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#static-route-handlers)。

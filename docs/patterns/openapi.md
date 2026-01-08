@@ -18,7 +18,7 @@ head:
 import Tab from '../components/fern/tab.vue'
 </script>
 
-# OpenAPI
+# OpenAPI <TutorialBadge href="/tutorial/features/openapi" />
 
 Elysia 默认支持并遵循 OpenAPI 规范。
 
