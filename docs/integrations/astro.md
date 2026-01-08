@@ -16,7 +16,7 @@ head:
 
 # 与 Astro 的集成
 
-使用 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)，我们可以直接在 Astro 上运行 Elysia。
+使用 [Astro Endpoint](https://astro.zhcndoc.com/zh-cn/core-concepts/endpoints/)，我们可以直接在 Astro 上运行 Elysia。
 
 1. 在 **astro.config.mjs** 中将 **output** 设置为 **server**
 
@@ -54,7 +54,7 @@ export const POST = handle // [!code ++]
 
 Elysia 能够正常工作，因为遵循了 WinterCG。
 
-我们推荐在 [Bun 上运行 Astro](https://docs.astro.build/en/recipes/bun)，因为 Elysia 设计是为了在 Bun 上运行。
+我们推荐在 [Bun 上运行 Astro](https://astro.zhcndoc.com/zh-cn/recipes/bun)，因为 Elysia 设计是为了在 Bun 上运行。
 
 ::: tip
 您可以在不使用 Bun 运行 Astro 的情况下运行 Elysia 服务器，这得益于 WinterCG 的支持。
@@ -97,4 +97,4 @@ export const POST = handle // [!code ++]
 
 这将确保 Elysia 路由在您放置的位置上能够正常工作。
 
-有关更多信息，请参阅 [Astro Endpoint](https://docs.astro.build/en/core-concepts/endpoints/)。
+有关更多信息，请参阅 [Astro Endpoint](https://astro.zhcndoc.com/zh-cn/core-concepts/endpoints/)。

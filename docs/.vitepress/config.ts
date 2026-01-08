@@ -496,7 +496,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'Comparison',
+                text: '比较',
                 collapsed: true,
                 items: [
                     {
@@ -518,7 +518,7 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'Integration',
+                text: '集成',
                 collapsed: true,
                 items: [
                     {

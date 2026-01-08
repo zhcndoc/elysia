@@ -1,6 +1,6 @@
 <template>
     <h3 class="text-center text-gray-400 mx-auto mt-16">
-        Trusted by team at
+        受到团队的信任
     </h3>
     <section
         class="flex flex-wrap justify-center gap-3 max-w-5xl **:h-9.5 mx-auto mt-4 mb-12 px-4"

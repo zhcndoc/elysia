@@ -43,7 +43,7 @@ const roundness = useTransform(() => 48 - scrollYProgress.get() * 48 + 'px')
             <motion.div class="flex sm:justify-center items-center md:gap-4 w-full" v-bind="flyIn()">
                 <div class="hidden md:flex flex-1 h-0.25 bg-gray-300 dark:bg-gray-500" />
                 <h3 class="text-lg sm:text-xl text-gray-400">
-                    Introducing our most powerful feature yet
+                    介绍我们迄今为止最强大的功能
                 </h3>
                 <div class="hidden md:flex flex-1 h-0.25 bg-gray-300 dark:bg-gray-500" />
             </motion.div>
@@ -51,24 +51,23 @@ const roundness = useTransform(() => 48 - scrollYProgress.get() * 48 + 'px')
                 class="text-5xl md:text-7xl font-semibold text-gradient from-teal-300 to-indigo-400 leading-tight"
                 v-bind="flyIn(0.1)"
             >
-                TypeScript to OpenAPI
+                TypeScript 转 OpenAPI
             </motion.h2>
         </div>
         <motion.p class="leading-normal max-w-2xl text-xl mt-2" v-bind="flyIn(0.2)">
-            Elysia can generate OpenAPI specifications directly from your
-            TypeScript code
+            Elysia 可以直接从您的 TypeScript 代码生成 OpenAPI 规范
             <span
                 class="font-bold text-gradient from-teal-400 to-violet-400 leading-tight"
-                >without any annotations</span
-            >, without any configuration and CLI running.
+                >无需任何注释</span
+            >，无需任何配置和 CLI 运行。
         </motion.p>
         <motion.p class="leading-normal max-w-2xl text-xl mt-4" v-bind="flyIn(0.3)">
-            Allowing you to turn your actual code from
+            允许您将实际代码从
             <span
                 class="font-bold text-gradient from-blue-400 to-emerald-400 leading-tight"
-                >any library</span
+                >任何库</span
             >
-            like Prisma, Drizzle and every TypeScript library into your own API documentation.
+            如 Prisma、Drizzle 以及所有 TypeScript 库转换为您自己的 API 文档。
         </motion.p>
         <motion.div class="showcase text-left mt-8 max-w-full" v-bind="flyIn(0.4)">
         	<slot name="oai-type-gen" />

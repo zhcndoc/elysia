@@ -10,105 +10,105 @@ interface TableOfContentGroup {
 
 export const tableOfContents: TableOfContentGroup[] = [
     {
-        title: 'Getting Started',
+        title: '入门指南',
         contents: [
             {
-                title: 'Introduction',
+                title: '介绍',
                 href: '/tutorial/'
             },
             {
-                title: 'Your First Route',
+                title: '你的第一个路由',
                 href: '/tutorial/getting-started/your-first-route/'
             },
             {
-                title: 'Handler and Context',
+                title: '处理程序和上下文',
                 href: '/tutorial/getting-started/handler-and-context/'
             },
             {
-                title: 'Status and Headers',
+                title: '状态和头部',
                 href: '/tutorial/getting-started/status-and-headers/'
             },
             {
-                title: 'Validation',
+                title: '验证',
                 href: '/tutorial/getting-started/validation/'
             },
             {
-                title: 'Lifecycle',
+                title: '生命周期',
                 href: '/tutorial/getting-started/life-cycle/'
             },
             {
-                title: 'Guard',
+                title: '守卫',
                 href: '/tutorial/getting-started/guard/'
             },
             {
-                title: 'Plugin',
+                title: '插件',
                 href: '/tutorial/getting-started/plugin/'
             },
             {
-                title: 'Encapsulation',
+                title: '封装',
                 href: '/tutorial/getting-started/encapsulation/'
             }
         ]
     },
     {
-        title: 'Patterns',
+        title: '模式',
         contents: [
             {
                 title: 'Cookie',
                 href: '/tutorial/patterns/cookie/'
             },
             {
-                title: 'Error Handling',
+                title: '错误处理',
                 href: '/tutorial/patterns/error-handling/'
             },
             {
-                title: 'Validation Error',
+                title: '验证错误',
                 href: '/tutorial/patterns/validation-error/'
             },
             {
-                title: 'Extends Context',
+                title: '扩展上下文',
                 href: '/tutorial/patterns/extends-context/'
             },
             {
-                title: 'Standalone Schema',
+                title: '独立模式',
                 href: '/tutorial/patterns/standalone-schema/'
             },
             {
-                title: 'Macro',
+                title: '宏',
                 href: '/tutorial/patterns/macro/'
             }
         ]
     },
     {
-        title: 'Features',
+        title: '功能',
         contents: [
             {
                 title: 'OpenAPI',
                 href: '/tutorial/features/openapi/'
             },
             {
-                title: 'Mount',
+                title: '挂载',
                 href: '/tutorial/features/mount/'
             },
             {
-                title: 'Unit Test',
+                title: '单元测试',
                 href: '/tutorial/features/unit-test/'
             },
             {
-                title: 'End-to-End Type Safety',
+                title: '端到端类型安全',
                 href: '/tutorial/features/end-to-end-type-safety/'
             }
         ]
     },
     {
-        title: 'Conclusion',
+        title: '结论',
         contents: [
             {
-                title: "What's Next?",
+                title: "接下来是什么？",
                 href: '/tutorial/whats-next'
             },
             {
-            	title: 'Documentation',
+            	title: '文档',
 				href: '/table-of-content'
             }
         ]

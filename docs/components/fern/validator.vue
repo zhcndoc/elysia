@@ -20,24 +20,24 @@ const flyIn = useFlyIn(isInView)
                         class="text-5xl md:text-6xl text-gray-600 dark:text-gray-100 font-medium leading-[3.75rem] md:leading-[4.5rem]"
                     >
                         <motion.span class="mr-2" v-bind="flyIn()"
-                            >Bring your own</motion.span
+                            >带上你自己的</motion.span
                         >
                         <motion.span
                             class="text-gradient font-semibold from-fuchsia-400 to-sky-400"
                             v-bind="flyIn(0.1)"
                         >
-                            Validator
+                            验证器
                         </motion.span>
                     </h2>
                     <motion.h3
                         class="sm:flex items-center mt-2"
                         v-bind="flyIn(0.2)"
                     >
-                        With support for
+                        支持
                         <span
                             class="text-gradient font-bold from-blue-400 to-pink-400 ml-1 sm:ml-2 mr-1"
                         >
-                            Standard Schema
+                            标准模式
                         </span>
                     </motion.h3>
                 </div>
@@ -45,18 +45,17 @@ const flyIn = useFlyIn(isInView)
                     class="lg:max-w-md leading-normal"
                     v-bind="flyIn(0.3)"
                 >
-                    Elysia offers a robust built-in validation, but you can also
-                    bring your favorite validator, like
+                    Elysia 提供了强大的内置验证，但您也可以
+                    带上您喜欢的验证器，如
                     <span class="text-gray-700 dark:text-gray-200 font-medium"
                         >Zod, Valibot, ArkType, Effect</span
-                    > and more
+                    > 等等
                 </motion.p>
                 <motion.p
                     class="lg:max-w-md leading-normal"
                     v-bind="flyIn(0.4)"
                 >
-                    With seamless support for type inference, and OpenAPI. You
-                    will feel right at home .
+                    无缝支持类型推断和 OpenAPI。您会感到宾至如归。
                 </motion.p>
                 <!-- <slot name="test-script" /> -->
             </header>

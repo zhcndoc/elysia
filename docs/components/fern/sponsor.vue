@@ -239,11 +239,11 @@
         </section>
 
         <p class="inline-block text-center mt-12 mb-4">
-            Thank you for making Elysia possible
+            感谢您让 Elysia 成为可能
         </p>
 
         <p class="inline-block text-center">
-            We can only develop Elysia full-time thanks to your support.
+            我们只能全职开发 Elysia，感谢您的支持。
         </p>
 
         <div class="flex sm:justify-center my-8">
@@ -253,7 +253,7 @@
                 href="https://github.com/sponsors/saltyaom"
                 target="_blank"
             >
-                Become a sponsor
+                成为赞助商
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -276,7 +276,7 @@
         <p
             class="mx-auto sm:text-center text-gradient from-pink-400 to-fuchsia-400 font-semibold text-base"
         >
-            With love from our community
+            来自我们社区的爱
         </p>
     </section>
 </template>

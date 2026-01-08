@@ -1,63 +1,63 @@
 ---
-title: Integration with Prisma - ElysiaJS
+title: 与 Prisma 集成 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Integration with Prisma - ElysiaJS
+      content: 与 Prisma 集成 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: We may use Prisma to create end-to-end type safety from database to validation to frontend with prismabox
+      content: 我们可以使用 Prisma 通过 prismabox 实现从数据库到验证再到前端的端到端类型安全
 
   - - meta
     - name: 'og:description'
-      content: We may use Prisma to create end-to-end type safety from database to validation to frontend with prismabox
+      content: 我们可以使用 Prisma 通过 prismabox 实现从数据库到验证再到前端的端到端类型安全
 ---
 
 # Prisma
-[Prisma](https://prisma.io) is an ORM that allows us to interact with databases in a type-safe manner.
+[Prisma](https://prisma.io) 是一个 ORM，使我们能够以类型安全的方式与数据库交互。
 
-It provides a way to define your database schema using a Prisma schema file, and then generates TypeScript types based on that schema.
+它提供了一种使用 Prisma 架构文件定义数据库模式的方法，然后基于该模式生成 TypeScript 类型。
 
 ### Prismabox
-[Prismabox](https://github.com/m1212e/prismabox) is a library that generate TypeBox or Elysia validation models from Prisma schema.
+[Prismabox](https://github.com/m1212e/prismabox) 是一个库，可从 Prisma 模式生成 TypeBox 或 Elysia 验证模型。
 
-We can use Prismabox to convert Prisma schema into Elysia validation models, which can then be used to ensure type validation in Elysia.
+我们可以使用 Prismabox 将 Prisma 模式转换为 Elysia 验证模型，然后用来确保 Elysia 中的类型验证。
 
-### How it works:
-1. Define your database schema in Prisma Schema.
-2. Add `prismabox` generator to generate Elysia schema.
-3. Use the converted Elysia validation models to ensure type validation.
-4. OpenAPI schema is generated from Elysia validation models.
-5. Add [Eden Treaty](/eden/overview) to add type-safety to your frontend.
+### 工作原理：
+1. 在 Prisma 模式中定义数据库架构。
+2. 添加 `prismabox` 生成器以生成 Elysia 模式。
+3. 使用转换后的 Elysia 验证模型确保类型验证。
+4. 从 Elysia 验证模型生成 OpenAPI 模式。
+5. 添加 [Eden Treaty](/eden/overview) 以为前端添加类型安全。
 
 ```
                                                     * ——————————————— *
                                                     |                 |
-                                               | -> |  Documentation  |
+                                               | -> |  文档          |
 * ————————— *             * ———————— * OpenAPI |    |                 |
 |           |  prismabox  |          | ——————— |    * ——————————————— *
 |  Prisma   | —————————-> |  Elysia  |
 |           |             |          | ——————— |    * ——————————————— *
 * ————————— *             * ———————— *   Eden  |    |                 |
-                                               | -> |  Frontend Code  |
+                                               | -> |  前端代码      |
 												    |                 |
 												    * ——————————————— *
 
 ```
 
-## Installation
-To install Prisma, run the following command:
+## 安装
+安装 Prisma，请运行以下命令：
 
 ```bash
 bun add @prisma/client prismabox && \
 bun add -d prisma
 ```
 
-## Prisma schema
-Assuming you already have a `prisma/schema.prisma`.
+## Prisma 模式
+假设你已经有一个 `prisma/schema.prisma` 文件。
 
-We can add a `prismabox` generator to the Prisma schema file as follows:
+我们可以在 Prisma 模式文件中添加一个 `prismabox` 生成器，如下所示：
 
 ::: code-group
 
@@ -99,16 +99,16 @@ model Post {
 
 :::
 
-This will generate Elysia validation models in the `generated/prismabox` directory.
+这将在 `generated/prismabox` 目录生成 Elysia 验证模型。
 
-Each model will have its own file, and the models will be named based on the Prisma model names.
+每个模型会有自己的文件，且模型名称基于 Prisma 的模型名称。
 
-For example:
-- `User` model will be generated to `generated/prismabox/User.ts`
-- `Post` model will be generated to `generated/prismabox/Post.ts`
+例如：
+- `User` 模型将生成到 `generated/prismabox/User.ts`
+- `Post` 模型将生成到 `generated/prismabox/Post.ts`
 
-## Using generated models
-Then we can import the generated models in our Elysia application:
+## 使用生成的模型
+然后我们可以在 Elysia 应用中导入生成的模型：
 
 ::: code-group
 
@@ -139,7 +139,7 @@ const app = new Elysia()
                 where: { id }
             })
 
-            if (!user) return status(404, 'User not found')
+            if (!user) return status(404, '用户未找到')
 
             return user
         },
@@ -153,14 +153,14 @@ const app = new Elysia()
     .listen(3000)
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
 :::
 
-This allows us to reuse the database schema in Elysia validation models.
+这使我们可以在 Elysia 验证模型中复用数据库架构。
 
 ---
 
-For more information, please refer to the [Prisma](https://prisma.io), and [Prismabox](https://github.com/m1212e/prismabox) documentation.
+更多信息，请参阅 [Prisma](https://prisma.io) 和 [Prismabox](https://github.com/m1212e/prismabox) 文档。

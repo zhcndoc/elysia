@@ -1,10 +1,9 @@
 ---
-title: Integration with Drizzle - ElysiaJS
+title: 与 Drizzle 集成 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Integration with Drizzle - ElysiaJS
-
+      content: 与 Drizzle 集成 - ElysiaJS
   - - meta
     - name: 'description'
       content: 我们可以使用 Drizzle 创建从数据库到验证再到前端的端到端类型安全，使用 drizzle-typebox。

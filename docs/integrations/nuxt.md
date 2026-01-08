@@ -1,31 +1,31 @@
 ---
-title: Integration with Nuxt - ElysiaJS
+title: 与 Nuxt 集成 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Integration with Nuxt - ElysiaJS
+        content: 与 Nuxt 集成 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: With community plugin 'nuxt-elysia', we can run Elysia on Nuxt API route with Eden Treaty setup automatically.
+        content: 通过社区插件 'nuxt-elysia'，我们可以自动使用 Eden Treaty 配置在 Nuxt API 路由上运行 Elysia。
 
     - - meta
       - property: 'og:description'
-        content: With community plugin 'nuxt-elysia', we can run Elysia on Nuxt API route with Eden Treaty setup automatically.
+        content: 通过社区插件 'nuxt-elysia'，我们可以自动使用 Eden Treaty 配置在 Nuxt API 路由上运行 Elysia。
 ---
 
-# Integration with Nuxt
+# 与 Nuxt 集成
 
-We can use [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia), a community plugin for Nuxt, to setup Elysia on Nuxt API route with Eden Treaty.
+我们可以使用 Nuxt 的社区插件 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)，利用 Eden Treaty 在 Nuxt API 路由上配置 Elysia。
 
-1. Install the plugin with the following command:
+1. 通过以下命令安装插件：
 
 ```bash
 bun add elysia @elysiajs/eden
 bun add -d nuxt-elysia
 ```
 
-2. Add `nuxt-elysia` to your Nuxt config:
+2. 在你的 Nuxt 配置中添加 `nuxt-elysia`：
 
 ```ts
 export default defineNuxtConfig({
@@ -35,14 +35,14 @@ export default defineNuxtConfig({
 })
 ```
 
-3. Create `api.ts` in the project root:
+3. 在项目根目录创建 `api.ts`：
 
 ```typescript [api.ts]
 export default () => new Elysia() // [!code ++]
   .get('/hello', () => ({ message: 'Hello world!' })) // [!code ++]
 ```
 
-4. Use Eden Treaty in your Nuxt app:
+4. 在你的 Nuxt 应用中使用 Eden Treaty：
 
 ```vue
 <template>
@@ -57,24 +57,24 @@ const { data } = await useAsyncData(async () => {
     const { data, error } = await $api.hello.get()
 
     if (error)
-        throw new Error('Failed to call API')
+        throw new Error('调用 API 失败')
 
     return data
 })
 </script>
 ```
 
-This will automatically setup Elysia to run on Nuxt API route automatically.
+这将自动在 Nuxt API 路由上配置并运行 Elysia。
 
 ### pnpm
-If you use pnpm, [pnpm doesn't auto install peer dependencies by default](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230) forcing you to install additional dependencies manually.
+如果你使用 pnpm，[pnpm 默认不自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，你需要手动安装额外依赖。
 ```bash
 pnpm add @sinclair/typebox openapi-types
 ```
 
-## Prefix
+## 前缀
 
-By default, Elysia will be mounted on **/_api** but we can customize it with `nuxt-elysia` config.
+默认情况下，Elysia 将挂载在 **/_api**，但我们可以通过 `nuxt-elysia` 配置进行自定义。
 ```ts
 export default defineNuxtConfig({
 	nuxtElysia: {
@@ -83,6 +83,6 @@ export default defineNuxtConfig({
 })
 ```
 
-This will mount Elysia on **/api** instead of **/_api**.
+这会将 Elysia 挂载到 **/api**，而非 **/_api**。
 
-For more configuration, please refer to [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)
+更多配置请参考 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)

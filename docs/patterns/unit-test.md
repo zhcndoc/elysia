@@ -24,7 +24,7 @@ import TutorialBadge from '../components/arona/badge.vue'
 
 Elysia 提供了 **Elysia.handle** 方法，该方法接受 Web 标准 [Request](https://developer.mozilla.org/zh-CN/docs/Web/API/Request) 并返回 [Response](https://developer.mozilla.org/zh-CN/docs/Web/API/Response)，模拟 HTTP 请求。
 
-Bun 包含一个内置的 [测试运行器](https://bun.sh/docs/cli/test)，通过 `bun:test` 模块提供类似 Jest 的 API，便于创建单元测试。
+Bun 包含一个内置的 [测试运行器](https://bun.zhcndoc.com/cli/test)，通过 `bun:test` 模块提供类似 Jest 的 API，便于创建单元测试。
 
 在项目根目录下创建 **test/index.test.ts**，内容如下：
 

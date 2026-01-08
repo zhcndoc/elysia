@@ -105,7 +105,7 @@ const sponsors = Object.values(data).filter(
 
 const prompt = computed(() =>
     encodeURI(
-        `I'm looking at https://elysiajs.com${router.route.path}.\n\nWould you kindly explain, summarize the concept, and answer any questions I have about it?`
+        `我正在查看 https://elysia.zhcndoc.com${router.route.path}。\n\n请您解释一下这个概念，总结一下，并回答我关于它的任何问题好吗？`
     )
 )
 
@@ -142,13 +142,13 @@ function toggleAIForCurrentPage() {
                     class="flex items-center gap-1 clicky pl-2 pr-1 py-1 -translate-x-2 rounded-full interact:text-sky-500 interact:bg-sky-300/15 transition duration-500 ease-out-expo"
                 >
                     <Sparkles :size="16" stroke-width="1.25" />
-                    Ask about this page
+                    询问此页面
                 </button>
 
                 <div
                     class="relative z-10 flex justify-center items-center gap-2.5 *:z-20 [&>a>svg]:size-4.5 sm:[&>a>svg]:size-5 [&>a>svg]:opacity-50 [&>a>svg]:interact:opacity-100 [&>a>svg]:transition-opacity"
                 >
-                    Open in
+                    在 AI 工具中打开
                     <a
                         :href="`https://chatgpt.com/?prompt=${prompt}`"
                         class="clicky"
@@ -187,7 +187,7 @@ function toggleAIForCurrentPage() {
                     </a>
 
                     <a
-                        :href="`https://elysiajs.com${router.route.path.replace(/.html$/g, '')}.md`"
+                        :href="`https://elysia.zhcndoc.com${router.route.path.replace(/.html$/g, '')}.md`"
                         class="clicky"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -199,8 +199,8 @@ function toggleAIForCurrentPage() {
             </div>
         </template>
 
-        <template #aside-outline-after>
-            <h6
+        <template #aside-outline-before>
+            <!-- <h6
                 class="flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-300 mt-4"
             >
                 <Heart :size="16" />
@@ -229,7 +229,32 @@ function toggleAIForCurrentPage() {
                         style="object-position: 0 6.25%"
                     />
                 </a>
-            </aside>
+            </aside> -->
+            <div className="relative mb-4 w-full rounded-md border border-gray-950/5 p-2 dark:border-white/10">
+                <a
+                    href="https://www.rainyun.com/mm_?s=zhcndoc"
+                    target="_blank"
+                    className="absolute inset-0 z-10"
+                    data-umami-event="ads-rainyun"
+                />
+                <div className="flex w-full justify-center">
+                    <img src="/ads/rainyun_1.png" className="w-full rounded-sm" />
+                </div>
+            </div>
+        </template>
+
+        <template #doc-after>
+            <div className="relative mt-4 w-full rounded-md border border-gray-950/5 p-2 dark:border-white/10">
+                <a
+                    href="https://www.rainyun.com/mm_?s=zhcndoc"
+                    target="_blank"
+                    className="absolute inset-0 z-10"
+                    data-umami-event="ads-rainyun"
+                />
+                <div className="flex w-full justify-center">
+                    <img src="/ads/rainyun_2.png" className="w-full rounded-sm" />
+                </div>
+            </div>
         </template>
 
         <template #nav-bar-content-before>
@@ -284,7 +309,7 @@ function toggleAIForCurrentPage() {
                 >
                     <Terminal :size="21" class="text-pink-400" />
 
-                    Interactive Tutorial
+                    互动教程
                 </div>
             </a>
         </template>

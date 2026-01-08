@@ -320,7 +320,7 @@ new Elysia({
 })
 ```
 
-该配置扩展了[Bun Serve API](https://bun.sh/docs/api/http)和[Bun TLS](https://bun.sh/docs/api/http#tls)
+该配置扩展了[Bun Serve API](https://bun.zhcndoc.com/api/http)和[Bun TLS](https://bun.zhcndoc.com/api/http#tls)
 
 ### 示例: 最大主体大小
 我们可以通过在 `serve` 配置中设置[`serve.maxRequestBodySize`](#serve-maxrequestbodysize)来设置最大主体大小。
@@ -523,7 +523,7 @@ new Elysia({
 
 在可能的情况下使用运行时/框架提供的路由器。
 
-在 Bun 上，Elysia 将使用 [Bun.serve.routes](https://bun.sh/docs/api/http#routing) 并回退到 Elysia 自己的路由器。
+在 Bun 上，Elysia 将使用 [Bun.serve.routes](https://bun.zhcndoc.com/api/http#routing) 并回退到 Elysia 自己的路由器。
 
 ## websocket
 
@@ -531,7 +531,7 @@ new Elysia({
 
 建议将其保持为默认值，因为 Elysia 将自动生成适合处理 WebSocket 的配置
 
-该配置扩展了 [Bun's WebSocket API](https://bun.sh/docs/api/websockets)
+该配置扩展了 [Bun's WebSocket API](https://bun.zhcndoc.com/api/websockets)
 
 #### 示例
 ```ts

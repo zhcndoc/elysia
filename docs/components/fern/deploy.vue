@@ -56,32 +56,32 @@
         <div class="my-auto text-xl">
             <h2 class="flex flex-col font-medium leading-loose mb-6">
                 <motion.span class="mr-2" v-bind="flyIn()">
-                    Your code,
+                    你的代码，
                 </motion.span>
                 <motion.span
                     class="text-6xl text-gradient font-semibold from-fuchsia-400 to-sky-400"
                     v-bind="flyIn(0.1)"
                 >
-                    Your Runtime
+                    你的运行时
                 </motion.span>
             </h2>
             <motion.h3 class="mt-2" v-bind="flyIn(0.2)">
-                Elysia is optimized for Bun,
+                Elysia 针对 Bun 进行了优化，
             </motion.h3>
             <motion.h3 class="mt-1" v-bind="flyIn(0.3)">
-                but
+                但
                 <span
                     class="text-gradient font-semibold from-blue-400 to-pink-400"
                 >
-                    not vendor lock-in
+                    不锁定于
                 </span>
-                to Bun
+                Bun
             </motion.h3>
             <motion.h3 class="mt-6" v-bind="flyIn(0.4)">
-                Elysia is built on Web-Standard
+                Elysia 构建于 Web 标准之上
             </motion.h3>
             <motion.h3 class="mt-1" v-bind="flyIn(0.5)">
-                allowing you to run Elysia anywhere
+                允许您在任何地方运行 Elysia
             </motion.h3>
         </div>
     </section>

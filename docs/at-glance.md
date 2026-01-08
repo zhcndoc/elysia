@@ -408,7 +408,7 @@ Elysia 为 Bun 设计并优化了原生功能，但**不限于 Bun**。
 - 通过 API 路由的 [Nextjs](/integrations/nextjs)
 - 通过 API 路由的 [Astro](/integrations/astro)
 
-以及更多！请查看侧边栏中的 `integration` 部分，了解更多支持的运行时环境。
+以及更多！请查看侧边栏中的 `集成` 部分，了解更多支持的运行时环境。
 
 ## 我们的社区
 

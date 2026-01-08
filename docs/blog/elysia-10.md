@@ -395,7 +395,7 @@ new Elysia()
 
 Bun 在运行时、包管理和他们提供的所有工具中表现出色，我们相信 Bun 将成为 JavaScript 的未来。
 
-我们相信，通过将 Elysia 开放给更多的运行时，并提供有趣的 Bun 特定功能（或至少易于配置，例如 [Bun Loaders API](https://bun.sh/docs/bundler/loaders)），最终将使人们尝试使用 Bun，而不是选择仅支持 Elysia。
+我们相信，通过将 Elysia 开放给更多的运行时，并提供有趣的 Bun 特定功能（或至少易于配置，例如 [Bun Loaders API](https://bun.zhcndoc.com/bundler/loaders)），最终将使人们尝试使用 Bun，而不是选择仅支持 Elysia。
 
 <blockquote class="twitter-tweet">
     <p lang="en" dir="ltr">Bun 是正确的，从 Node 迁移的最佳方式是提供兼容层和更好的开发者体验，以及在 Bun 上的性能</p>

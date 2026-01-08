@@ -90,9 +90,9 @@ new Elysia({
 })
 ```
 
-Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，更多信息请参见 [Bun 的 WebSocket 文档](https://bun.sh/docs/api/websockets)。
+Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，更多信息请参见 [Bun 的 WebSocket 文档](https://bun.zhcndoc.com/api/websockets)。
 
-以下是 [Bun WebSocket](https://bun.sh/docs/api/websockets#create-a-websocket-server) 的简要配置：
+以下是 [Bun WebSocket](https://bun.zhcndoc.com/api/websockets#create-a-websocket-server) 的简要配置：
 
 ### perMessageDeflate
 
