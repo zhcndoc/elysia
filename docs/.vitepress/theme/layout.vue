@@ -266,8 +266,7 @@ function toggleAIForCurrentPage() {
             </button>
 
             <ClientOnly>
-            	<div />
-                <!-- <Arona v-model="showArona" /> -->
+                <Arona v-model="showArona" />
             </ClientOnly>
         </template>
 
