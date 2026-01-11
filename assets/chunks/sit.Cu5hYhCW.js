@@ -1,0 +1,1 @@
+var e=`/elysia/sprite/sit.webp`;export{e as t};

@@ -1,0 +1,1 @@
+var e=`/blog/openapi-type-gen/drizzle-typegen.webp`;export{e as t};

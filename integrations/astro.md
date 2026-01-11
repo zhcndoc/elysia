@@ -1,0 +1,89 @@
+---
+url: 'https://elysiajs.com/integrations/astro.md'
+---
+
+# 与 Astro 的集成
+
+使用 [Astro Endpoint](https://astro.zhcndoc.com/zh-cn/core-concepts/endpoints/)，我们可以直接在 Astro 上运行 Elysia。
+
+1. 在 **astro.config.mjs** 中将 **output** 设置为 **server**
+
+```javascript
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+
+// https://astro.build/config
+export default defineConfig({
+    output: 'server' // [!code ++]
+})
+```
+
+2. 创建 **pages/\[...slugs].ts**
+3. 在 **\[...slugs].ts** 中创建或导入一个现有的 Elysia 服务器
+4. 用您想要公开的方法名称导出处理器
+
+```typescript
+// pages/[...slugs].ts
+import { Elysia, t } from 'elysia'
+
+const app = new Elysia()
+    .get('/api', () => 'hi')
+    .post('/api', ({ body }) => body, {
+        body: t.Object({
+            name: t.String()
+        })
+    })
+
+const handle = ({ request }: { request: Request }) => app.handle(request) // [!code ++]
+
+export const GET = handle // [!code ++]
+export const POST = handle // [!code ++]
+```
+
+Elysia 能够正常工作，因为遵循了 WinterCG。
+
+我们推荐在 [Bun 上运行 Astro](https://astro.zhcndoc.com/zh-cn/recipes/bun)，因为 Elysia 设计是为了在 Bun 上运行。
+
+::: tip
+您可以在不使用 Bun 运行 Astro 的情况下运行 Elysia 服务器，这得益于 WinterCG 的支持。
+
+但是如果您在 Node 上运行 Astro，某些插件如 **Elysia Static** 可能无法正常工作。
+:::
+
+通过这种方式，您可以在单个代码库中共同拥有前端和后端，并且与 Eden 实现端到端的类型安全。
+
+### pnpm
+
+如果您使用 pnpm，[pnpm 默认不会自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这会要求您手动安装额外的依赖。
+
+```bash
+pnpm add @sinclair/typebox openapi-types
+```
+
+## 前缀
+
+如果您将 Elysia 服务器放在应用路由的根目录之外，您需要为 Elysia 服务器注释前缀。
+
+例如，如果您将 Elysia 服务器放在 **pages/api/\[...slugs].ts**，则需要将前缀注释为 **/api**。
+
+```typescript
+// pages/api/[...slugs].ts
+import { Elysia, t } from 'elysia'
+
+const app = new Elysia({ prefix: '/api' }) // [!code ++]
+    .get('/', () => 'hi')
+    .post('/', ({ body }) => body, {
+        body: t.Object({
+            name: t.String()
+        })
+    })
+
+const handle = ({ request }: { request: Request }) => app.handle(request) // [!code ++]
+
+export const GET = handle // [!code ++]
+export const POST = handle // [!code ++]
+```
+
+这将确保 Elysia 路由在您放置的位置上能够正常工作。
+
+有关更多信息，请参阅 [Astro Endpoint](https://astro.zhcndoc.com/zh-cn/core-concepts/endpoints/)。

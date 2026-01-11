@@ -1,0 +1,1 @@
+const e=JSON.parse(`[]`);export{e as t};

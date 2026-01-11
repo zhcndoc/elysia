@@ -1,0 +1,1 @@
+import{t as e}from"./tab.CsWBb3eB.js";export{e as default};

@@ -1,0 +1,127 @@
+# Elysia 中文文档
+
+> Ergonomic Framework for Humans
+
+适合人体工程学的框架，由 Bun 强化的 TypeScript 框架，具有端到端的类型安全、统一的类型系统和卓越的开发者体验。
+
+## Table of Contents
+
+### 入门
+
+- [简介 - ElysiaJS](https://elysiajs.com/at-glance.md)
+- [快速入门 - ElysiaJS](https://elysiajs.com/quick-start.md)
+- [关键概念 - ElysiaJS](https://elysiajs.com/key-concept.md)
+
+### 基础
+
+- [路由 - ElysiaJS](https://elysiajs.com/essential/route.md)
+- [处理程序 - ElysiaJS](https://elysiajs.com/essential/handler.md)
+- [插件 - ElysiaJS](https://elysiajs.com/essential/plugin.md)
+- [生命周期 - ElysiaJS](https://elysiajs.com/essential/life-cycle.md)
+- [验证 - ElysiaJS](https://elysiajs.com/essential/validation.md)
+- [最佳实践 - ElysiaJS](https://elysiajs.com/essential/best-practice.md)
+
+### 模式
+
+- [配置 - ElysiaJS](https://elysiajs.com/patterns/configuration.md)
+- [响应式 Cookie - ElysiaJS](https://elysiajs.com/patterns/cookie.md)
+- [部署到生产环境 - ElysiaJS](https://elysiajs.com/patterns/deploy.md)
+- [错误处理 - ElysiaJS](https://elysiajs.com/patterns/error-handling.md)
+- [扩展上下文 - ElysiaJS](https://elysiajs.com/patterns/extends-context.md)
+- [全栈开发服务器 - ElysiaJS](https://elysiajs.com/patterns/fullstack-dev-server.md)
+- [宏 - ElysiaJS](https://elysiajs.com/patterns/macro.md)
+- [Mount - ElysiaJS](https://elysiajs.com/patterns/mount.md)
+- [OpenAPI - ElysiaJS](https://elysiajs.com/patterns/openapi.md)
+- [OpenTelemetry 插件 - ElysiaJS](https://elysiajs.com/patterns/opentelemetry.md)
+- [Trace - ElysiaJS](https://elysiajs.com/patterns/trace.md)
+- [TypeBox (Elysia.t) - ElysiaJS](https://elysiajs.com/patterns/typebox.md)
+- [TypeScript - ElysiaJS](https://elysiajs.com/patterns/typescript.md)
+- [测试 - ElysiaJS](https://elysiajs.com/patterns/unit-test.md)
+- [WebSocket - ElysiaJS](https://elysiajs.com/patterns/websocket.md)
+
+### Eden
+
+- [端到端类型安全 - ElysiaJS](https://elysiajs.com/eden/overview.md)
+- [Eden 安装 - ElysiaJS](https://elysiajs.com/eden/installation.md)
+- [Eden Fetch - ElysiaJS](https://elysiajs.com/eden/fetch.md)
+
+#### Eden 协议
+
+- [概述 - ElysiaJS](https://elysiajs.com/eden/treaty/overview.md)
+- [Eden Treaty 参数 - ElysiaJS](https://elysiajs.com/eden/treaty/parameters.md)
+- [Eden Treaty 响应 - ElysiaJS](https://elysiajs.com/eden/treaty/response.md)
+- [天堂条约 Web Socket - ElysiaJS](https://elysiajs.com/eden/treaty/websocket.md)
+- [Eden Treaty 配置 - ElysiaJS](https://elysiajs.com/eden/treaty/config.md)
+- [伊甸条约单元测试 - ElysiaJS](https://elysiajs.com/eden/treaty/unit-test.md)
+- [伊甸条约遗产 - ElysiaJS](https://elysiajs.com/eden/treaty/legacy.md)
+
+### 插件
+
+- [插件概述 - ElysiaJS](https://elysiajs.com/plugins/overview.md)
+- [Bearer 插件 - ElysiaJS](https://elysiajs.com/plugins/bearer.md)
+- [CORS 插件 - ElysiaJS](https://elysiajs.com/plugins/cors.md)
+- [Cron 插件 - ElysiaJS](https://elysiajs.com/plugins/cron.md)
+- [Apollo GraphQL 插件 - ElysiaJS](https://elysiajs.com/plugins/graphql-apollo.md)
+- [GraphQL Yoga 插件 - ElysiaJS](https://elysiajs.com/plugins/graphql-yoga.md)
+- [HTML 插件 - ElysiaJS](https://elysiajs.com/plugins/html.md)
+- [JWT 插件 - ElysiaJS](https://elysiajs.com/plugins/jwt.md)
+- [OpenAPI 插件 - ElysiaJS](https://elysiajs.com/plugins/openapi.md)
+- [OpenTelemetry 插件 - ElysiaJS](https://elysiajs.com/plugins/opentelemetry.md)
+- [服务器计时插件 - ElysiaJS](https://elysiajs.com/plugins/server-timing.md)
+- [静态插件 - ElysiaJS](https://elysiajs.com/plugins/static.md)
+
+### 比较
+
+- [从 Express 迁移 - ElysiaJS](https://elysiajs.com/migrate/from-express.md)
+- [从 Fastify 迁移 - ElysiaJS](https://elysiajs.com/migrate/from-fastify.md)
+- [从 Hono 迁移 - ElysiaJS](https://elysiajs.com/migrate/from-hono.md)
+- [Migrate from tRPC - ElysiaJS](https://elysiajs.com/migrate/from-trpc.md)
+
+### 集成
+
+- [与 AI SDK 集成 - ElysiaJS](https://elysiajs.com/integrations/ai-sdk.md)
+- [与 Astro 的集成 - ElysiaJS](https://elysiajs.com/integrations/astro.md)
+- [Better Authentication - ElysiaJS](https://elysiajs.com/integrations/better-auth.md)
+- [与 Cloudflare Worker 集成 - ElysiaJS](https://elysiajs.com/integrations/cloudflare-worker.md)
+- [与 Deno 集成 - ElysiaJS](https://elysiajs.com/integrations/deno.md)
+- [与 Drizzle 集成 - ElysiaJS](https://elysiajs.com/integrations/drizzle.md)
+- [与 Expo 集成 - ElysiaJS](https://elysiajs.com/integrations/expo.md)
+- [与 Netlify Edge Function 集成 - ElysiaJS](https://elysiajs.com/integrations/netlify.md)
+- [与 Nextjs 集成 - ElysiaJS](https://elysiajs.com/integrations/nextjs.md)
+- [与 Node.js 集成 - ElysiaJS](https://elysiajs.com/integrations/node.md)
+- [与 Nuxt 集成 - ElysiaJS](https://elysiajs.com/integrations/nuxt.md)
+- [与 Prisma 集成 - ElysiaJS](https://elysiajs.com/integrations/prisma.md)
+- [React Email - ElysiaJS](https://elysiajs.com/integrations/react-email.md)
+- [与 SvelteKit 的集成 - ElysiaJS](https://elysiajs.com/integrations/sveltekit.md)
+- [与 Tanstack Start 集成 - ElysiaJS](https://elysiajs.com/integrations/tanstack-start.md)
+- [在 Vercel 上部署 Elysia - ElysiaJS](https://elysiajs.com/integrations/vercel.md)
+
+### Other
+
+- [Comparison with Other Frameworks](https://elysiajs.com/migrate.md)
+- [Cookie - Elysia 教程](https://elysiajs.com/tutorial/patterns/cookie.md)
+- [Eden 测试 - ElysiaJS](https://elysiajs.com/eden/test.md)
+- [Elysia 博客](https://elysiajs.com/illust.md)
+- [Guard - Elysia 教程](https://elysiajs.com/tutorial/getting-started/guard.md)
+- [Mount - Elysia 教程](https://elysiajs.com/tutorial/features/mount.md)
+- [OpenAPI - Elysia 教程](https://elysiajs.com/tutorial/features/openapi.md)
+- [Swagger 插件 - ElysiaJS](https://elysiajs.com/plugins/swagger.md)
+- [下一步 - Elysia 教程](https://elysiajs.com/tutorial/whats-next.md)
+- [介绍 - Elysia 教程](https://elysiajs.com/tutorial.md)
+- [你的第一条路由 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/your-first-route.md)
+- [单元测试 - Elysia 教程](https://elysiajs.com/tutorial/features/unit-test.md)
+- [处理器与上下文 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/handler-and-context.md)
+- [宏 - Elysia 教程](https://elysiajs.com/tutorial/patterns/macro.md)
+- [封装 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/encapsulation.md)
+- [扩展上下文 - Elysia 教程](https://elysiajs.com/tutorial/patterns/extends-context.md)
+- [插件 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/plugin.md)
+- [演示区](https://elysiajs.com/playground.md)
+- [状态码与响应头 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/status-and-headers.md)
+- [独立模式 - Elysia 教程](https://elysiajs.com/tutorial/patterns/standalone-schema.md)
+- [生命周期 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/life-cycle.md)
+- [端到端类型安全 - Elysia 教程](https://elysiajs.com/tutorial/features/end-to-end-type-safety.md)
+- [速查表 (通过示例了解 Elysia) - ElysiaJS](https://elysiajs.com/integrations/cheat-sheet.md)
+- [错误处理 - Elysia 教程](https://elysiajs.com/tutorial/patterns/error-handling.md)
+- [预览](https://elysiajs.com/playground/preview.md)
+- [验证 - Elysia 教程](https://elysiajs.com/tutorial/getting-started/validation.md)
+- [验证错误 - Elysia 教程](https://elysiajs.com/tutorial/patterns/validation-error.md)
