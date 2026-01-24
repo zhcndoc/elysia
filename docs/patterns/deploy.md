@@ -253,7 +253,7 @@ bun install --production
 
 然后我们可以在 monorepo 根目录（而非应用目录）构建我们的 Dockerfile：
 ```bash
-docker build -t elysia-mono .
+docker build -f apps/server/Dockerfile -t elysia-mono .
 ```
 
 Dockerfile 如下：

@@ -175,7 +175,7 @@ function App() {
 }
 ```
 
-::: code-group
+:::
 
 这可以与任何 React Query 功能一起使用，比如缓存、分页、无限查询等。
 

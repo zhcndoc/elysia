@@ -31,9 +31,16 @@ bun add -d nuxt-elysia
 export default defineNuxtConfig({
     modules: [ // [!code ++]
         'nuxt-elysia' // [!code ++]
-    ] // [!code ++]
+    ], // [!code ++]
+    nitro: { // [!code ++]
+        preset: 'Bun' // [!code ++]
+    } // [!code ++]
 })
 ```
+
+::: tip
+`nitro.preset: 'Bun'` 配置是必需的，因为 Elysia 运行在 Bun 运行时。这告诉 Nuxt 的 Nitro 使用 Bun 作为服务器运行时，而非默认的 Node.js 运行时。
+:::
 
 3. 在项目根目录创建 `api.ts`：
 

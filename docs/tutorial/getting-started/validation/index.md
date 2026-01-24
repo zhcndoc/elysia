@@ -128,15 +128,18 @@ new Elysia()
 我们可以通过使用 `t.Object` 来定义一个模式，提供给 `body` 属性。
 
 ```typescript
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 
 new Elysia()
-	.get('/', ({ status, set }) => {
-		set.headers['x-powered-by'] = 'Elysia'
-
-		return status(418, '你好 Elysia!')
-	})
-	.get('/docs', ({ redirect }) => redirect('https://elysiajs.com'))
+	.post(
+		'/user',
+		({ body: { name } }) => `Hello ${name}!`,
+		{
+			body: t.Object({
+				name: t.String()
+			})
+		}
+	)
 	.listen(3000)
 ```
 

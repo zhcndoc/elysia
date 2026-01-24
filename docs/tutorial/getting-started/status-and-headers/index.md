@@ -49,7 +49,7 @@ import { code, testcases } from './data'
 import { Elysia } from 'elysia'
 
 new Elysia()
-	.get('/', ({ status }) => status(418, "我是一壶茶'"))
+	.get('/', ({ status }) => status(418, "我是一壶茶"))
 	.listen(3000)
 ```
 

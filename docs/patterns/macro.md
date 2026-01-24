@@ -51,6 +51,7 @@ const app = new Elysia()
 从 Elysia 1.2.10 开始，宏对象中的每个属性都可以是一个函数或一个对象。
 
 如果属性是对象，它将被转换为一个接受布尔参数的函数，并且在参数为 true 时执行。
+
 ```typescript
 import { Elysia } from 'elysia'
 
@@ -138,7 +139,7 @@ const app = new Elysia()
 该字段可以接受从字符串到函数的任何内容，使我们能够创建自定义的生命周期事件。
 
 ::: note
-**macro** will execute in order from top-to-bottom according to definition in hook, ensure that the stack is handled in the correct order.
+**macro** will be executed in order from top-to-bottom according to the definition in the hook, ensuring that the stack is handled in the correct order.
 :::-->
 
 ## 错误处理
@@ -197,13 +198,11 @@ new Elysia()
 在上面的示例中，我们通过返回一个带有 **resolve** 函数的对象向上下文添加了一个新属性 **user**。
 
 以下是一个宏解析可能有用的示例：
-
 - 执行身份验证并将用户添加到上下文
 - 运行额外的数据库查询并将数据添加到上下文
 - 向上下文添加新属性
 
 ### 带有解析的宏扩展
-
 由于 TypeScript 的限制，扩展其他宏的宏无法推断 **resolve** 函数的类型。
 
 我们提供了一个命名的单一宏作为解决此限制的变通方法。
@@ -253,10 +252,10 @@ new Elysia()
 
 您也可以堆叠来自不同宏的多个模式，甚至与标准验证器配合使用，它们将无缝协作。
 
-### Schema with lifecycle in the same macro
-Similar to [Macro extension with resolve](#macro-extension-with-resolve),
+### 同一宏内带生命周期的模式
+类似于 [带有解析的宏扩展](#带有解析的宏扩展)，
 
-Macro schema also support type inference for **lifecycle within the same macro** **BUT** only with named single macro due to TypeScript limitation.
+宏模式也支持**在同一宏内的生命周期中进行类型推断**，**但仅限于命名的单一宏**，这是由于 TypeScript 的限制。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'

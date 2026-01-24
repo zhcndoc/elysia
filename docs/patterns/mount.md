@@ -1,33 +1,33 @@
 ---
-title: Mount - ElysiaJS
+title: 挂载 - ElysiaJS
 head:
   - - meta
     - property: 'og:title'
-      content: Mount - ElysiaJS
+      content: 挂载 - ElysiaJS
 
   - - meta
     - name: 'description'
-      content: 应用 WinterCG 互操作代码与 Elysia 运行或反之亦然。
+      content: 应用 WinterTC 互操作代码与 Elysia 运行或反之亦然。
 
   - - meta
     - property: 'og:description'
-      content: 应用 WinterCG 互操作代码与 Elysia 运行或反之亦然。
+      content: 应用 WinterTC 互操作代码与 Elysia 运行或反之亦然。
 ---
 
 <script setup lang="ts">
 import TutorialBadge from '../components/arona/badge.vue'
 </script>
 
-# Mount <TutorialBadge href="/tutorial/features/openapi" />
+# 挂载 <TutorialBadge href="/tutorial/features/openapi" />
 [WinterTC](https://wintertc.org/) 是一个用于在 Cloudflare、Deno、Vercel 等平台背后构建 HTTP 服务的标准。
 
 它允许 Web 服务器通过使用 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 实现跨运行时的互操作运行。
 
 Elysia 兼容 WinterTC。已针对 Bun 进行了优化，但在可能的情况下也支持其他运行时。
 
-这允许任何符合 WinterCG 标准的框架或代码共同运行，从而使 Elysia、Hono、Remix、Itty Router 等框架可以一起在一个简单的函数内运行。
+这允许任何符合 WinterTC 标准的框架或代码共同运行，从而使 Elysia、Hono、Remix、Itty Router 等框架可以一起在一个简单的函数内运行。
 
-## Mount
+## 挂载
 要使用 **.mount**，[只需传递一个 `fetch` 函数](https://twitter.com/saltyAom/status/1684786233594290176)：
 ```ts
 import { Elysia } from 'elysia'

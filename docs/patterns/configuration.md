@@ -238,7 +238,7 @@ new Elysia({
 ```ts twoslash
 import { Elysia, t } from 'elysia'
 
-new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // Path is /v1/name
+new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // 路径为 /v1/name
 ```
 
 ## sanitize
@@ -259,7 +259,7 @@ new Elysia({
 
 定义一个值，用于生成实例的校验和，用于[插件去重](/essential/plugin.html#plugin-deduplication)
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 new Elysia({
@@ -374,7 +374,7 @@ import { Elysia } from 'elysia'
 
 new Elysia({
 	serve: {
-		// Increase idle timeout to 30 seconds
+		// 将空闲超时增加到 30 秒
 		idleTimeout: 30
 	}
 })
@@ -398,14 +398,14 @@ Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
 服务器应监听的主机名。
 
 ### serve.id
-Uniquely identify a server instance with an ID
+唯一标识服务器实例的 ID
 
-This string will be used to hot reload the server without interrupting pending requests or websockets. If not provided, a value will be generated. To disable hot reloading, set this value to `null`.
+该字符串将用于在不打断未完成请求或 WebSocket 的情况下热重载服务器。如果未提供，则会生成一个值。要禁用热重载，请将此值设置为 `null`。
 
 ### serve.idleTimeout
-@default `10` (10 seconds)
+@default `10`（10 秒）
 
-By default, Bun set idle timeout to 10 seconds, which means that if a request is not completed within 10 seconds, it will be aborted.
+默认情况下，Bun 将空闲超时设置为 10 秒，这意味着如果请求在 10 秒内未完成，将被中止。
 
 ### serve.maxRequestBodySize
 @default `1024 * 1024 * 128` (128MB)

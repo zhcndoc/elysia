@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 您可以在 Astro 上运行 Elysia。由于遵循 WinterCG，Elysia 能够正常工作。
+        content: 您可以在 Astro 上运行 Elysia。由于遵循 WinterTC，Elysia 能够正常工作。
 
     - - meta
       - property: 'og:description'
-        content: 您可以在 Astro 上运行 Elysia。由于遵循 WinterCG，Elysia 能够正常工作。
+        content: 您可以在 Astro 上运行 Elysia。由于遵循 WinterTC，Elysia 能够正常工作。
 ---
 
 # 与 Astro 的集成
@@ -52,12 +52,12 @@ export const GET = handle // [!code ++]
 export const POST = handle // [!code ++]
 ```
 
-Elysia 能够正常工作，因为遵循了 WinterCG。
+Elysia 能够正常工作，因为遵循了 WinterTC。
 
 我们推荐在 [Bun 上运行 Astro](https://astro.zhcndoc.com/zh-cn/recipes/bun)，因为 Elysia 设计是为了在 Bun 上运行。
 
 ::: tip
-您可以在不使用 Bun 运行 Astro 的情况下运行 Elysia 服务器，这得益于 WinterCG 的支持。
+您可以在不使用 Bun 运行 Astro 的情况下运行 Elysia 服务器，这得益于 WinterTC 的支持。
 
 但是如果您在 Node 上运行 Astro，某些插件如 **Elysia Static** 可能无法正常工作。
 :::

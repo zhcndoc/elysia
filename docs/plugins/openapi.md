@@ -170,6 +170,21 @@ OpenAPI 文档前端实现选项：
 
 Scalar 配置，参考 [Scalar config](https://github.com/scalar/scalar/blob/main/documentation/configuration.md)
 
+### Self-hosted Scalar bundle
+
+Self-host the Scalar bundle and disable CDN Fonts.
+
+Note: `cdn` is an Elysia OpenAPI plugin option (not part of Scalar’s own config); it overrides the URI to the Scalar bundle.
+
+```typescript
+    openapi({ 
+      scalar: {
+        cdn: "/public/scalar-standalone.min.js", // plugin override for Scalar bundle URI (self-hosted)
+        withDefaultFonts: false, // disable Scalar’s default font CDN
+      },
+    })
+```
+
 ## specPath
 
 @default '/${path}/json'

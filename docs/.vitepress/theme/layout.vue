@@ -230,31 +230,11 @@ function toggleAIForCurrentPage() {
                     />
                 </a>
             </aside> -->
-            <div className="relative mb-4 w-full rounded-md border border-gray-950/5 p-2 dark:border-white/10">
-                <a
-                    href="https://www.rainyun.com/mm_?s=zhcndoc"
-                    target="_blank"
-                    className="absolute inset-0 z-10"
-                    data-umami-event="ads-rainyun"
-                />
-                <div className="flex w-full justify-center">
-                    <img src="/ads/rainyun_1.png" className="w-full rounded-sm" />
-                </div>
-            </div>
+            <div class="wwads-cn wwads-vertical w-full my-4" data-id="354"></div>
         </template>
 
         <template #doc-after>
-            <div className="relative mt-4 w-full rounded-md border border-gray-950/5 p-2 dark:border-white/10">
-                <a
-                    href="https://www.rainyun.com/mm_?s=zhcndoc"
-                    target="_blank"
-                    className="absolute inset-0 z-10"
-                    data-umami-event="ads-rainyun"
-                />
-                <div className="flex w-full justify-center">
-                    <img src="/ads/rainyun_2.png" className="w-full rounded-sm" />
-                </div>
-            </div>
+            <div class="wwads-cn wwads-horizontal w-full my-4" data-id="354"></div>
         </template>
 
         <template #nav-bar-content-before>

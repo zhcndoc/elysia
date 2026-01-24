@@ -62,6 +62,8 @@ new Elysia()
 	.get('/2', () => '你好，Elysia！')
 ```
 
+这里我们使用 `status(418)`，它是 “我是茶壶” 的状态码。你也可以直接使用字符串名称：`status("I'm a teapot")`。更多关于状态码的使用，请参见 <DocLink href="/tutorial/getting-started/status-and-headers#status">状态</DocLink>。
+
 当 `beforeHandle` 返回一个值时，它将跳过处理器并返回该值。
 
 这对于像身份验证这样的事情非常有用，当用户未进行身份验证时，你想返回 `401 Unauthorized` 响应。

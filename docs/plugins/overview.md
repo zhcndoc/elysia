@@ -61,6 +61,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [OAuth2 Resource Server](https://github.com/ap-1/elysia-oauth2-resource-server) - 插件，用于验证来自 OAuth2 提供者的 JWT 令牌与 JWKS 端点，支持发行者、受众和范围验证
 -   [Elysia OpenID Client](https://github.com/macropygia/elysia-openid-client) - 基于 [openid-client](https://github.com/panva/node-openid-client) 的 OpenID 客户端
 -   [Rate Limit](https://github.com/rayriffy/elysia-rate-limit) - 简单轻量的速率限制器
+-   [LLMs.txt](https://github.com/opuu/elysia-llms-txt) - 从 OpenAPI/Swagger 生成适合 LLM 的 `/llms.txt` 文档
 -   [Logysia](https://github.com/tristanisham/logysia) - 经典的日志中间件
 -   [Logestic](https://github.com/cybercoder-naj/logestic) - 为 ElysiaJS 提供的高级可定制日志库
 -   [Logger](https://github.com/bogeychan/elysia-logger) - 基于 [pino](https://github.com/pinojs/pino) 的日志中间件
@@ -68,10 +69,11 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elylog](https://github.com/eajr/elylog) - 简单的 stdout 日志库，具备一些自定义功能
 -   [Logify for Elysia.js](https://github.com/0xrasla/logify) - 一款优雅、快速且类型安全的 Elysia.js 应用日志中间件
 -   [Nice Logger](https://github.com/tanishqmanuja/nice-logger) - 可能不是最好的，但对于 Elysia 来说是一个相当不错且甜美的日志器。
+-   [LogTape for Elysia](https://logtape.org/manual/integrations#elysia) - 支持多种目的地（传输）的结构化日志中间件，基于 [LogTape](https://logtape.org/)
 -   [Sentry](https://github.com/johnny-woodtke/elysiajs-sentry) - 使用此 [Sentry](https://docs.sentry.io/) 插件捕获追踪和错误
 -   [Elysia Lambda](https://github.com/TotalTechGeek/elysia-lambda) - 部署在 AWS Lambda 上
 -   [Decorators](https://github.com/gaurishhs/elysia-decorators) - 使用 TypeScript 装饰器
--   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由，支持生成 [Eden](https://elysiajs.com/eden/overview.html) 的类型，并支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
+-   [Autoload](https://github.com/kravetsone/elysia-autoload) - 基于目录结构的文件系统路由，支持生成 [Eden](/eden/overview) 的类型，并支持 [`Bun.build`](https://github.com/kravetsone/elysia-autoload?tab=readme-ov-file#bun-build-usage)
 -   [Msgpack](https://github.com/kravetsone/elysia-msgpack) - 允许您与 [MessagePack](https://msgpack.org) 一起工作
 -   [XML](https://github.com/kravetsone/elysia-xml) - 允许您与 XML 一起工作
 -   [Autoroutes](https://github.com/wobsoriano/elysia-autoroutes) - 文件系统路由
@@ -81,7 +83,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [CDN Cache](https://github.com/johnny-woodtke/elysiajs-cdn-cache) - Elysia 的 Cache-Control 插件 - 不再手动设置 HTTP 头
 -   [Basic Auth](https://github.com/eelkevdbos/elysia-basic-auth) - 基本 HTTP 身份验证（使用 `request` 事件）
 -   [i18n](https://github.com/eelkevdbos/elysia-i18next) - 基于 [i18next](https://www.i18next.com/) 的 [i18n](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n) 封装
--   [Intlify](https://github.com/intlify/srvmid/blob/main/packages/elysia/README.md) - Internationalization server middleware & utilities
+-   [Intlify](https://github.com/intlify/srvmid/blob/main/packages/elysia/README.md) - 国际化服务器中间件及工具
 -   [Elysia Request ID](https://github.com/gtramontina/elysia-requestid) - 添加/转发请求 ID（`X-Request-ID` 或自定义）
 -   [Elysia HTMX](https://github.com/gtramontina/elysia-htmx) - [HTMX](https://htmx.org/) 的上下文助手
 -   [Elysia HMR HTML](https://github.com/gtrabanco/elysia-hmr-html) - 在更改目录中的任何文件时重新加载 HTML 文件
@@ -119,11 +121,17 @@ Elysia 旨在实现模块化和轻量化。
 -   [Elysia Remote DTS](https://github.com/rayriffy/elysia-remote-dts) - 为 Eden Treaty 提供可远程消费的 .d.ts 类型的插件。
 -   [Cap Checkpoint plugin for Elysia](https://capjs.js.org/guide/middleware/elysia.html) - 类 Cloudflare 的中间件，用于 Cap，一个轻量级、现代的开源 CAPTCHA 替代方案，使用 SHA-256 PoW 设计。
 -   [Elysia Background](https://github.com/staciax/elysia-background) - 用于 Elysia.js 的后台任务处理插件
+-   [Elysia External Session - 仅 TypeScript GitHub 包](https://github.com/extend-therapy/elysia-external-session) - 一个支持 redis 和 SQLite 的会话包，可扩展且使用当前的 Elysia 架构。
 -   [@fedify/elysia](https://github.com/fedify-dev/fedify/tree/main/packages/elysia) - 与 [Fedify](https://fedify.dev/) 平台无缝集成的插件，兼容 ActivityPub 服务器框架。
 -   [elysia-healthcheck](https://github.com/iam-medvedev/elysia-healthcheck) - 用于 Elysia.js 的健康检查插件
--   [elysia-local-https](https://github.com/mrtcmn/elysia-local-https) - Automatic local HTTPS for Elysia — certs generated, managed, and refreshed in one line.
--   [Eden TanStack Query](https://github.com/xkelxmc/eden-tanstack-query) - type-safe TanStack Query integration for Eden, like
-  @trpc/react-query but for Elysia
+-   [elysia-csrf](https://github.com/lauhon/elysia-csrf) - CSRF 插件，移植自 [express-csrf](https://github.com/expressjs/csurf)
+-   [elysia-local-https](https://github.com/mrtcmn/elysia-local-https) - Elysia 的自动本地 HTTPS —— 证书一行代码生成、管理和更新。
+-   [elysia-circuit-breaker](https://github.com/camargo-leonardo/elysia-circuit-breaker) - 为 Elysia.js 带来容错能力的断路器插件。
+-   [Eden TanStack Query](https://github.com/xkelxmc/eden-tanstack-query) - 为 Eden 提供类型安全的 TanStack Query 集成，类似 @trpc/react-query，但面向 Elysia。
+-   [Socket.IO Proxy](https://www.npmjs.com/package/@synchjs/elysocket) - Elysia 的 Socket.IO 代理。
+-   [ModernCSRF](https://github.com/auto-medica-labs/modern-csrf) - 轻量级、无令牌的 ElysiaJS CSRF 防护中间件
+-   [elysia-wide-event](https://github.com/choiexe1/elysia-wide-event) - 用于结构化请求级别可观察性的广域事件日志插件。
+-   [elysia-beta-headers](https://github.com/P0u4a/elysia-beta-headers) - Elysia 插件，基于类型安全 API 头管理应用的测试/实验性功能
 
 ## 相关项目：
 

@@ -21,6 +21,7 @@ import TutorialBadge from '../components/arona/badge.vue'
 import Card from '../components/nearl/card.vue'
 import Deck from '../components/nearl/card-deck.vue'
 import Playground from '../components/nearl/playground.vue'
+import DocLink from '../components/xiao/doc-link/doc-link.vue'
 
 const demo = new Elysia()
 	.onError(({ code }) => {
@@ -308,6 +309,8 @@ new Elysia()
         return status(418)
     })
 ```
+
+这里我们使用了 `status(418)`，也就是 “I'm a teapot”（我是茶壶）状态码。你也可以直接使用字符串名称：`status("I'm a teapot")`。更多关于状态码的使用，请参见 <DocLink href="/tutorial/getting-started/status-and-headers#status">状态码</DocLink>。
 
 <Playground
     :elysia="demo"

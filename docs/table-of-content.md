@@ -79,13 +79,13 @@ head:
 
 <Deck>
     <Card title="来自 Express" href="/migrate/from-express">
-        tRPC 与 Elysia 之间的比较
+        Express 与 Elysia 之间的比较
     </Card>
     <Card title="来自 Fastify" href="/migrate/from-fastify">
         Fastify 与 Elysia 之间的比较
     </Card>
     <Card title="来自 Hono" href="/migrate/from-hono">
-        tRPC 与 Elysia 之间的比较
+        Hono 与 Elysia 之间的比较
     </Card>
     <Card title="来自 tRPC" href="/migrate/from-trpc">
         tRPC 与 Elysia 之间的比较

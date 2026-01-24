@@ -53,7 +53,7 @@ export const Route = createFileRoute('/api/$')({
 我们可以根据需要向 **server.handlers** 添加其他 HTTP 方法支持。
 
 ### pnpm
-If you use pnpm, [pnpm doesn't auto install peer dependencies by default](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230) forcing you to install additional dependencies manually.
+如果你使用 pnpm，[pnpm 默认不会自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，需要你手动安装额外依赖。
 ```bash
 pnpm add @sinclair/typebox openapi-types
 ```
@@ -124,6 +124,7 @@ function App() {
 :::
 
 作为加载器调用 Elysia，会在 SSR 期间于服务器端执行，无需 HTTP 开销。
+当从一个页面导航到另一个页面时，加载器会在客户端运行，通过 HTTP 请求调用接口。
 
 Eden Treaty 会保证服务器和客户端的类型安全。
 
@@ -152,7 +153,7 @@ function App() {
 }
 ```
 
-::: code-group
+:::
 
 这可以与 React Query 的任何特性配合使用，如缓存、分页、无限查询等。
 

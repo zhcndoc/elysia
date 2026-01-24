@@ -191,7 +191,7 @@ bun add -d tsx @types/node typescript
 ```
 
 ```bash [pnpm]
-# pnpm doesn't install peer dependencies
+# pnpm 不会安装 peer 依赖
 pnpm add elysia @elysiajs/node @sinclair/typebox openapi-types && \
 pnpm add -D tsx @types/node typescript
 ```
@@ -277,7 +277,7 @@ bun add elysia @elysiajs/node
 ```
 
 ```bash [pnpm]
-# pnpm doesn't install peer dependencies
+# pnpm 不会安装 peer 依赖
 pnpm add elysia @elysiajs/node @sinclair/typebox openapi-types
 ```
 
@@ -291,7 +291,7 @@ yarn add elysia @elysiajs/node
 
 :::
 
-这将安装 Elysia 和 TypeScript。
+这将安装 Elysia 和相关包。
 
 创建一个新文件 `src/index.ts` 并添加以下代码：
 
@@ -359,7 +359,7 @@ bun install elysia
 ```
 
 ```bash [pnpm]
-# pnpm doesn't install peer depepdencies
+# pnpm 不会安装 peer 依赖
 pnpm install elysia @sinclair/typebox openapi-types
 ```
 

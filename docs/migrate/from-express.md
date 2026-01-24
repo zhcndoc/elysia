@@ -614,7 +614,7 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 为请求管道中的每个点使用特定的事件拦截器
+> Elysia 使用为请求管道中的每个点使用特定的事件拦截器
 
 </template>
 

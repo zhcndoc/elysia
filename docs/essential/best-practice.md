@@ -95,8 +95,8 @@ export abstract class Auth {
 			WHERE username = ${username}
 			LIMIT 1`
 
-		if (await Bun.password.verify(password, user.password))
-			// 可以直接抛出 HTTP 错误
+		if (!await Bun.password.verify(password, user.password))
+			// 你可以直接抛出 HTTP 错误
 			throw status(
 				400,
 				'Invalid username or password' satisfies AuthModel.signInInvalid
