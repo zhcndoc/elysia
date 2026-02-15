@@ -228,6 +228,25 @@ new Elysia({
 })
 ```
 
+### 未签名 Cookie 过渡
+Elysia 支持从未签名到签名 Cookie 的平滑过渡。
+
+通过在 `cookie.secrets` 数组中设置 `null`，Elysia 将允许未签名的 Cookie 通过，同时在有可用时检查无效的 Cookie 签名。
+
+```ts
+import { Elysia } from 'elysia'
+
+new Elysia({
+    cookie: {
+        secrets: ['复仇将属于我', 'Fischl von Luftschloss Narfidort', null]
+    }
+})
+```
+
+Elysia 将使用第一个 `secrets` 来签名新的 Cookie，从而实现平滑过渡。
+
+建议只在过渡期允许未签名的 Cookie，以防止出现不安全的 Cookie。
+
 ## 配置
 以下是 Elysia 接受的 Cookie 配置。
 

@@ -157,7 +157,7 @@
                         >
                             <AnimatePresence>
                                 <motion.div
-                                    v-if="!history.length"
+                                    v-if="!history.length && !requestSubmit"
                                     :initial="{ opacity: 0, y: 8, scale: 0.95 }"
                                     :animate="{
                                         opacity: 1,
@@ -207,7 +207,16 @@
                             <template
                                 v-for="(
                                     { id, role, content }, index
-                                ) in history"
+                                ) in requestSubmit
+                                    ? [
+                                          {
+                                              id: '',
+                                              role: 'user',
+                                              content: question
+                                          },
+                                          ...history
+                                      ]
+                                    : history"
                                 :key="index"
                             >
                                 <motion.p
@@ -381,8 +390,9 @@
 
                             <Typing
                                 v-if="
-                                    isStreaming &&
-                                    history.at(-1)?.role !== 'assistant'
+                                    requestSubmit ||
+                                    (isStreaming &&
+                                        history.at(-1)?.role !== 'assistant')
                                 "
                             />
                         </article>
@@ -407,6 +417,7 @@
                             @submit.prevent="ask()"
                         >
                             <textarea
+                                v-if="!requestSubmit"
                                 id="elysia-chan-question"
                                 ref="textarea"
                                 v-model="question"
@@ -414,6 +425,16 @@
                                 class="w-full h-inherit px-4 pt-3 resize-none focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
                                 autofocus
                                 @keydown="handleShortcut"
+                                data-gramm="false"
+                            />
+                            <textarea
+                                v-else
+                                id="elysia-chan-question"
+                                ref="textarea"
+                                disabled
+                                value=""
+                                placeholder="What's on your mind"
+                                class="w-full h-inherit px-4 pt-3 resize-none focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
                                 data-gramm="false"
                             />
                             <div
@@ -544,7 +565,6 @@ import {
     RefreshCw,
     Copy,
     Check,
-    Loader,
     ThumbsUp,
     ThumbsDown,
     ArrowUp,
@@ -581,14 +601,14 @@ interface History {
     content: string
 }
 
-const questions = ref<string[]>([
+const questions = [
     'What is Eden',
     'Explain lifecycle events',
     'How to add OpenAPI',
     'Can I use Zod with Elysia?',
     'What is OpenAPI type gen',
     'Elysia compare to Hono'
-])
+] as const
 
 const includeCurrentPage = ref(false)
 const thinkHarder = ref(false)
@@ -632,6 +652,8 @@ watch(
                 Pow.request(url)
                     .then((x) => {
                         powToken.value = x
+
+                        if (requestSubmit.value) ask()
                     })
                     .catch(() => {
                         powToken.value = null
@@ -648,29 +670,42 @@ const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
 function handleShortcut(event: KeyboardEvent) {
-    const metaKey = event.ctrlKey || event.metaKey
-
-    if (metaKey && event.key === 'Enter') return ask()
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault()
+        return ask()
+    }
 }
+
+let requestSubmit = ref(false)
 
 if (typeof window !== 'undefined')
     // @ts-ignore
     window.toggleAI = ({
         shouldIncludeCurrentPage,
         value,
-        defaultValue
+        defaultValue,
+        submit
     }: {
         shouldIncludeCurrentPage?: boolean
         value?: string
         defaultValue?: string
+        submit?: boolean
     } = {}) => {
         model.value = !model.value
+
+        if (requestSubmit.value) return
 
         if (shouldIncludeCurrentPage !== undefined)
             includeCurrentPage.value = shouldIncludeCurrentPage
 
         if (!question.value) question.value = defaultValue || ''
         if (value) question.value = value
+
+        if (submit) {
+            history.value = []
+            requestSubmit.value = true
+            ask()
+        }
     }
 
 function cancelRequest() {
@@ -841,6 +876,7 @@ async function ask(input?: string, seed?: number) {
     if (isStreaming.value || !token.value || !powToken.value) return
 
     isStreaming.value = true
+    requestSubmit.value = false
 
     if (latest?.role === 'user')
         question.value = question.value.trim() ? question.value : latest.content
@@ -965,15 +1001,15 @@ async function ask(input?: string, seed?: number) {
         history.value[index].content += text
     }
 
-    const getId = /- id:([A-Z|0-9]+)$/g
-    const id = getId.exec(history.value[index].content)
-    if (id) {
-        history.value[index].id = id[1]
-        history.value[index].content = history.value[index].content.replace(
-            getId,
-            ''
-        )
-    }
+    // const getId = /- id:([A-Z|0-9]+)$/g
+    // const id = getId.exec(history.value[index].content)
+    // if (id) {
+    //     history.value[index].id = id[1]
+    //     history.value[index].content = history.value[index].content.replace(
+    //         getId,
+    //         ''
+    //     )
+    // }
 
     // Convert 【text】 to [text](text)
     history.value[index].content = history.value[index].content.replace(
@@ -1014,6 +1050,8 @@ function turnstileCallback(turnstileToken: string) {
     if (!turnstileToken) token.value = null
 
     token.value = turnstileToken
+
+    if (requestSubmit.value) ask()
 }
 
 if (typeof window !== 'undefined')

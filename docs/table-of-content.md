@@ -44,9 +44,13 @@ head:
     </Card>
 </Deck>
 
-### llms.txt
+### AI 技能 / 面向大型语言模型（LLMs）
 
-或者，您可以下载 <a href="/llms.txt" download>llms.txt</a> 或 <a href="/llms-full.txt" download>llms-full.txt</a>，并将其提供给您最喜欢的 LLM（如 ChatGPT、Claude 或 Gemini），以获得更互动的体验。
+Elysia 提供了 `llms.txt` 和 `skills`，供像 **Claude Code** 和 **OpenCode** 这样的 AI 代理使用，帮助您的代理更好地理解 Elysia。
+
+```bash
+bunx skills add elysiajs/skills
+```
 
 <Deck>
     <Card title="llms.txt" href="/llms.txt" download>
@@ -54,22 +58,6 @@ head:
     </Card>
     <Card title="llms-full.txt" href="/llms-full.txt" download>
         下载完整的 Elysia 文档，Markdown 格式，单文件供 LLM 使用
-    </Card>
-</Deck>
-
-### 如果您遇到困难
-
-请随时在 GitHub Discussions、Discord 和 Twitter 上询问我们的社区。
-
-<Deck>
-    <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        官方 ElysiaJS Discord 社区服务器
-    </Card>
-    <Card title="Twitter" href="https://twitter.com/elysiajs">
-        跟踪 Elysia 的更新和状态
-    </Card>
-    <Card title="GitHub" href="https://github.com/elysiajs">
-        源代码和开发
     </Card>
 </Deck>
 
@@ -179,6 +167,23 @@ head:
         我们可以使用 JSX 创建电子邮件模板
     </Card>
 </Deck>
+
+## 社区与支持
+
+如果您遇到困难，欢迎随时在 GitHub Discussions、Discord 和 Twitter 上向我们的社区提问。
+
+<Deck>
+    <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
+        官方 ElysiaJS Discord 社区服务器
+    </Card>
+    <Card title="Twitter" href="https://twitter.com/elysiajs">
+        跟踪 Elysia 的更新和状态
+    </Card>
+    <Card title="GitHub" href="https://github.com/elysiajs">
+        源代码和开发
+    </Card>
+</Deck>
+
 
 ---
 

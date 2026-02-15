@@ -28,7 +28,7 @@ Elysia 是一个支持多种运行环境的 TypeScript 后端框架，但已针�
 
 <Tab
 	id="quickstart"
-	:names="['Bun', 'Node.js', 'Web Standard']"
+	:names="['Bun', 'Node.js', 'Web 标准']"
 	:tabs="['bun', 'node', 'web-standard']"
 >
 
@@ -378,6 +378,9 @@ yarn add elysia
 我们有一些推荐：
 
 <Deck>
+	<Card title="Cloudflare Worker" href="/integrations/cloudflare-worker">
+		在 Cloudflare Worker 上运行 Elysia
+    </Card>
     <Card title="Next.js" href="/integrations/nextjs">
    		Elysia 作为 Next.js API 路由。
     </Card>
@@ -392,6 +395,9 @@ yarn add elysia
     </Card>
 	<Card title="SvelteKit" href="/integrations/sveltekit">
 			Elysia 作为 SvelteKit API 路由。
+	</Card>
+	<Card title="Tanstack Start" href="/integrations/tanstack-start">
+		Elysia 作为 Tanstack Start API 路由。
 	</Card>
 </Deck>
 

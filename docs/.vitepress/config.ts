@@ -45,11 +45,11 @@ export default defineConfig({
             light: 'github-light',
             dark: 'github-dark'
         },
-        codeTransformers: [
-            transformerTwoslash({
-                typesCache: createFileSystemTypesCache()
-            })
-        ],
+        // codeTransformers: [
+        //     transformerTwoslash({
+        //         typesCache: createFileSystemTypesCache()
+        //     })
+        // ],
         languages: [
             'js',
             'ts',
@@ -283,7 +283,7 @@ export default defineConfig({
         sidebar: [
             {
 				text: '入门',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
 						text: '概览',
@@ -305,7 +305,7 @@ export default defineConfig({
             },
             {
 				text: '基础',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
 						text: '路由',
@@ -335,7 +335,7 @@ export default defineConfig({
             },
             {
 				text: '模式',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
 						text: '配置',
@@ -401,7 +401,7 @@ export default defineConfig({
             },
             {
                 text: 'Eden',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
 						text: '概述',
@@ -453,7 +453,7 @@ export default defineConfig({
             },
             {
 				text: '插件',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
 						text: '概述',
@@ -507,7 +507,7 @@ export default defineConfig({
             },
             {
                 text: '比较',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'Express',
@@ -529,7 +529,7 @@ export default defineConfig({
             },
             {
                 text: '集成',
-                collapsed: true,
+                collapsed: false,
                 items: [
                     {
                         text: 'AI SDK',
@@ -596,7 +596,17 @@ export default defineConfig({
                         link: '/integrations/vercel'
                     }
                 ]
-            }
+			},
+			{
+                text: 'Internal',
+                collapsed: false,
+                items: [
+                    {
+                        text: 'JIT Compiler',
+                        link: '/internal/jit-compiler'
+                    }
+				]
+			}
         ],
         outline: {
             level: [2, 3],

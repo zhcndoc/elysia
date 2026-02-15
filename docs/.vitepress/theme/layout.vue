@@ -230,7 +230,7 @@ function toggleAIForCurrentPage() {
                     />
                 </a>
             </aside> -->
-            <div class="wwads-cn wwads-vertical w-full my-4" data-id="354"></div>
+            <div class="wwads-cn wwads-vertical max-w-[200px] !mt-0 mb-4" data-id="354"></div>
         </template>
 
         <template #doc-after>
@@ -253,17 +253,19 @@ function toggleAIForCurrentPage() {
         <template #sidebar-nav-before>
             <button
                 href="/tutorial/"
-                class="clicky font-semibold text-gradient from-25% to-65% from-sky-400 to-teal-400 -translate-x-3"
+                class="clicky font-semibold text-gradient from-25% to-65% from-sky-400 to-teal-400 -mx-3"
                 @click="toggleAIDesktop"
             >
                 <div
-                    class="flex items-center gap-1.5 px-3 py-2 rounded-xl interact:bg-cyan-400/7.5 interact:dark:bg-cyan-300/10 transition-colors"
+                    class="flex items-center gap-2 px-3 py-2 rounded-xl interact:bg-cyan-400/7.5 interact:dark:bg-cyan-300/10 transition-colors"
                 >
-                    <Sparkles
-                        :size="21"
-                        class="text-sky-400"
-                        stroke-width="1.5"
-                    />
+                    <div class="bg-linear-to-br from-sky-400 to-teal-400 p-1.5 rounded-lg">
+                        <Sparkles
+                            :size="15"
+                            class="text-white fill-white"
+                            stroke-width="0.5"
+                        />
+                    </div>
 
                     Ask Elysia
                     <span
@@ -281,12 +283,14 @@ function toggleAIForCurrentPage() {
 
             <a
                 href="/tutorial/"
-                class="clicky font-semibold text-gradient from-fuchsia-400 to-orange-400 dark:from-fuchsia-500 dark:to-orange-500 -translate-x-3"
+                class="clicky font-semibold text-gradient from-fuchsia-400 to-orange-400 dark:from-fuchsia-500 dark:to-orange-500 -mx-3"
             >
                 <div
-                    class="flex items-center gap-1.5 px-3 py-2 rounded-xl interact:bg-pink-400/7.5 interact:dark:bg-pink-300/10 transition-colors"
+                    class="flex items-center gap-2 px-3 py-2 rounded-xl interact:bg-pink-400/7.5 interact:dark:bg-pink-300/10 transition-colors"
                 >
-                    <Terminal :size="21" class="text-pink-400" />
+                    <div class="bg-linear-to-br from-fuchsia-400 to-orange-400 dark:from-fuchsia-500 dark:to-orange-500 p-1.5 rounded-lg">
+                        <Terminal :size="15" class="text-white" />
+                    </div>
 
                     互动教程
                 </div>
