@@ -53,7 +53,7 @@ import Benchmark from '../components/fern/benchmark-hono.vue'
 **Elysia**
 
 - **最初为原生 Bun 构建**，最大限度地利用 Bun 的大部分功能
-- 支持多种运行时和 Web 标准，包括 **Node.sjs** 和 **Cloudflare Worker**
+- 支持多种运行时和 Web 标准，包括 **Node.js** 和 **Cloudflare Worker**
 - **更好的性能**。通过 JIT 倾向于长时间运行的服务器。
 - **更好的 OpenAPI 支持**，带来无缝体验，特别是与 [OpenAPI Type Gen](/patterns/openapi#openapi-from-types) 配合使用时
 - 更倾向于基于事件的生命周期方法，以便更好地控制请求管道
@@ -1413,16 +1413,6 @@ const { data, error } = await api.mirror.post({
 if (error)
     throw error
     //     ^?
-
-
-
-
-
-
-
-
-
-
 
 
 

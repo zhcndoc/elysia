@@ -18,7 +18,8 @@ head:
     import Card from './components/nearl/card.vue'
     import Deck from './components/nearl/card-deck.vue'
 
-    import TutorialLink from './components/xiao/tutorial-link.vue'
+	import TutorialLink from './components/xiao/tutorial-link.vue'
+	import AronaBanner from './components/arona/arona-banner.vue'
 </script>
 
 # 目录
@@ -26,6 +27,7 @@ head:
 学习 Elysia 没有正确的方法，但我们**强烈建议**您首先查看一个 **交互式教程** 以熟悉 Elysia：
 
 <TutorialLink />
+<AronaBanner />
 
 <!--### 前提知识
 虽然 Elysia 的文档设计得很友好，但我们需要建立一个基础，以便文档能集中在 Elysia 的功能上。每当我们介绍一个新概念时，会提供相关文档的链接。

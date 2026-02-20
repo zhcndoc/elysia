@@ -86,13 +86,13 @@
                         >
                             <button
                                 class="clicky flex justify-center items-center size-10 text-gray-400/60 interact:text-gray-500 interact:bg-gray-200/80 dark:interact:bg-gray-700/50 rounded-full !outline-none focus:ring-1 ring-offset-2 transition-all ring-gray-300 duration-300 ease-out-expo"
-                                @click="history = []"
+                                @click="startNewChat"
                                 :class="{
                                     '!w-0 pointer-events-none mr-0':
                                         isStreaming || !history.length
                                 }"
                                 :disabled="isStreaming || !history.length"
-                                title="Clear chat history"
+                                title="Start new chat"
                             >
                                 <RotateCcw stroke-width="1.25" />
                             </button>
@@ -277,7 +277,7 @@
                                 >
                                     <Tooltip
                                         :tip="
-                                            token === undefined ||
+                                            turnstileToken === undefined ||
                                             powToken === undefined
                                                 ? 'Verifying that you are a human...'
                                                 : 'Regenerate'
@@ -293,7 +293,7 @@
 
                                     <Tooltip
                                         :tip="
-                                            token === undefined ||
+                                            turnstileToken === undefined ||
                                             powToken === undefined
                                                 ? 'Verifying that you are a human...'
                                                 : copied
@@ -352,7 +352,7 @@
 
                                     <Tooltip
                                         :tip="
-                                            token === undefined ||
+                                            turnstileToken === undefined ||
                                             powToken === undefined
                                                 ? 'Verifying that you are a human...'
                                                 : 'Regenerate'
@@ -361,7 +361,7 @@
                                         <button
                                             @click="regenerate(index)"
                                             :disabled="
-                                                token === undefined ||
+                                                turnstileToken === undefined ||
                                                 powToken === undefined
                                             "
                                         >
@@ -404,11 +404,14 @@
                         />
                         <ErrorMessage
                             message="Failed to verify that you're a human."
-                            v-else-if="token === null || powToken === null"
+                            v-else-if="
+                                turnstileToken === null || powToken === null
+                            "
                         />
                         <Verifying
                             v-else-if="
-                                token === undefined || powToken === undefined
+                                turnstileToken === undefined ||
+                                powToken === undefined
                             "
                         />
 
@@ -488,14 +491,14 @@
 
                                 <button
                                     class="clicky flex justify-center items-center min-w-10 size-10 disabled:opacity-50 disabled:interact:bg-transparent disabled:interact:scale-100 disabled:cursor-progress rounded-full text-gray-400 dark:text-gray-400/70 interact:bg-pink-300/15 dark:interact:bg-pink-200/15 not-disabled:interact:text-pink-500 not-disabled:dark:interact:text-pink-300 focus:ring ring-offset-2 ring-pink-500 !outline-none transition-all ml-auto"
-                                    :disabled="!token || !powToken"
+                                    :disabled="!turnstileToken || !powToken"
                                     :title="
                                         isStreaming
                                             ? 'Elysia chan is thinking...'
-                                            : token === null ||
+                                            : turnstileToken === null ||
                                                 powToken === null
                                               ? 'Verification failed, please refresh the page.'
-                                              : token === undefined ||
+                                              : turnstileToken === undefined ||
                                                   powToken === undefined
                                                 ? 'Verifying that you are a human...'
                                                 : 'Send message (Cmd/Ctrl + Enter)'
@@ -560,7 +563,6 @@ import {
     Maximize2,
     Minimize2,
     RotateCcw,
-    File,
     Book,
     RefreshCw,
     Copy,
@@ -599,11 +601,12 @@ interface History {
     id?: string
     role: 'user' | 'assistant'
     content: string
+    checksum: string
 }
 
 const questions = [
     'What is Eden',
-    'Explain lifecycle events',
+    'Elysia with Node.js',
     'How to add OpenAPI',
     'Can I use Zod with Elysia?',
     'What is OpenAPI type gen',
@@ -663,7 +666,7 @@ watch(
     }
 )
 
-const token = ref<string | undefined | null>()
+const turnstileToken = ref<string | undefined | null>()
 const powToken = ref<string | undefined | null>()
 
 const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
@@ -684,14 +687,21 @@ if (typeof window !== 'undefined')
         shouldIncludeCurrentPage,
         value,
         defaultValue,
-        submit
+        submit,
+        clearHistory
     }: {
         shouldIncludeCurrentPage?: boolean
         value?: string
         defaultValue?: string
         submit?: boolean
+        clearHistory?: boolean
     } = {}) => {
         model.value = !model.value
+
+        if (clearHistory) {
+            history.value = []
+            includeCurrentPage.value = false
+        }
 
         if (requestSubmit.value) return
 
@@ -713,10 +723,17 @@ function cancelRequest() {
 
     if (!controller) return
 
-    token.value = undefined
+    turnstileToken.value = undefined
     controller.abort()
     controller = undefined
     feedback.value = null
+}
+
+function startNewChat() {
+    cancelRequest()
+    history.value = []
+    error.value = undefined
+    includeCurrentPage.value = false
 }
 
 watch(
@@ -788,7 +805,7 @@ function auth() {
 function resetState() {
     isStreaming.value = false
     controller = undefined
-    token.value = undefined
+    turnstileToken.value = undefined
     powToken.value = undefined
     feedback.value = null
 }
@@ -873,7 +890,7 @@ async function ask(input?: string, seed?: number) {
     const latest = history.value.at(-1)
 
     if (!question.value.trim() && latest?.role !== 'user') return
-    if (isStreaming.value || !token.value || !powToken.value) return
+    if (isStreaming.value || !turnstileToken.value || !powToken.value) return
 
     isStreaming.value = true
     requestSubmit.value = false
@@ -883,7 +900,8 @@ async function ask(input?: string, seed?: number) {
     else
         history.value.push({
             role: 'user',
-            content: question.value
+            content: question.value,
+            checksum: ''
         })
 
     const message = question.value
@@ -892,6 +910,7 @@ async function ask(input?: string, seed?: number) {
     controller = new AbortController()
 
     error.value = undefined
+    includeCurrentPage.value = false
 
     requestAnimationFrame(() => {
         const box = chatbox.value
@@ -902,7 +921,7 @@ async function ask(input?: string, seed?: number) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'x-turnstile-token': token.value!
+            'x-turnstile-token': turnstileToken.value!
         },
         credentials: 'include',
         body: JSON.stringify(
@@ -911,18 +930,14 @@ async function ask(input?: string, seed?: number) {
                     pow: {
                         suffix: powToken.value
                     },
-                    message,
+                    message:
+                        message.length > 4096
+                            ? message.slice(0, 4096)
+                            : message,
                     history: history.value
                         .slice(-9)
                         .slice(0, -1)
-                        .map(({ id, ...x }) =>
-                            x.content.length < 4096
-                                ? x
-                                : {
-                                      ...x,
-                                      content: x.content.slice(-4096)
-                                  }
-                        )
+                        .map(({ id, ...x }) => x)
                 },
                 thinkHarder.value ? { think: true } : {},
                 seed !== undefined ? { seed } : {},
@@ -970,11 +985,14 @@ async function ask(input?: string, seed?: number) {
     const index = history.value.length
     history.value.push({
         role: 'assistant',
-        content: ''
+        content: '',
+        checksum: ''
     })
 
     const decoder = new TextDecoder()
     const reader = response.body.getReader()
+
+    let content = ''
 
     let scroll = false
     while (true) {
@@ -998,24 +1016,30 @@ async function ask(input?: string, seed?: number) {
         }
 
         const text = decoder.decode(value)
-        history.value[index].content += text
+        content = history.value[index].content += text
     }
 
-    // const getId = /- id:([A-Z|0-9]+)$/g
-    // const id = getId.exec(history.value[index].content)
-    // if (id) {
-    //     history.value[index].id = id[1]
-    //     history.value[index].content = history.value[index].content.replace(
-    //         getId,
-    //         ''
-    //     )
-    // }
+    const separator = '---Elysia-Metadata---'
+    const separatorIndex = content.indexOf(separator)
+
+    if (separatorIndex !== -1) {
+        const metadata = content
+            .slice(separatorIndex + separator.length)
+            .trimStart()
+
+        content = history.value[index].content = content
+            .slice(0, separatorIndex)
+            .trimEnd()
+
+        const id = /id:(\w+)/g.exec(metadata)?.[1]?.trim()
+        if (id) history.value[index].id = id
+
+        const checksum = /checksum:(\w+)/g.exec(metadata)?.[1]?.trim()
+        if (checksum) history.value[index].checksum = checksum
+    }
 
     // Convert 【text】 to [text](text)
-    history.value[index].content = history.value[index].content.replace(
-        /【([^】]+)】/g,
-        '[$1]($1)'
-    )
+    history.value[index].content = content.replace(/【([^】]+)】/g, '[$1]($1)')
 
     resetState()
     auth()
@@ -1046,10 +1070,10 @@ function reRouteLink(link: HTMLAnchorElement) {
     })
 }
 
-function turnstileCallback(turnstileToken: string) {
-    if (!turnstileToken) token.value = null
+function turnstileCallback(token: string) {
+    if (!token) turnstileToken.value = null
 
-    token.value = turnstileToken
+    turnstileToken.value = token
 
     if (requestSubmit.value) ask()
 }

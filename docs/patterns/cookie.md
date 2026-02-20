@@ -37,6 +37,14 @@ new Elysia()
 
 默认情况下，响应式 Cookie 可以自动编码/解码对象类型，使我们能够将 Cookie 视为对象，而无需担心编码/解码。**它就是这样工作的**。
 
+::: warning
+当使用 cookie.name 时，你可能会收到警告，提示其可能为 `undefined`
+
+Elysia 的 cookie 永远不会是 `undefined`，因为它是一个 Proxy 对象。`cookie` 总是被定义的，只有它的值（通过 cookie.value）可能为 undefined。
+
+你可以通过使用 [cookie schema] 或在 `tsconfig.json` 中禁用 [strictNullChecks](https://www.typescriptlang.org/tsconfig/#strictNullChecks) 来解决这个问题。
+:::
+
 ## 响应性
 Elysia 的 Cookie 是响应式的。这意味着当您更改 Cookie 值时，Cookie 会根据类似信号的方式自动更新。
 

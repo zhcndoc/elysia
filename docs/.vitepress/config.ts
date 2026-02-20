@@ -45,11 +45,11 @@ export default defineConfig({
             light: 'github-light',
             dark: 'github-dark'
         },
-        // codeTransformers: [
-        //     transformerTwoslash({
-        //         typesCache: createFileSystemTypesCache()
-        //     })
-        // ],
+        codeTransformers: [
+            transformerTwoslash({
+                typesCache: createFileSystemTypesCache()
+            })
+        ],
         languages: [
             'js',
             'ts',

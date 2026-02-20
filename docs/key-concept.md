@@ -17,6 +17,7 @@ head:
 <script setup>
 import { Elysia } from 'elysia'
 import Playground from './components/nearl/playground.vue'
+import AronaBanner from './components/arona/arona-banner.vue'
 
 const profile1 = new Elysia()
 	.onBeforeHandle(({ status }) => status(401))
@@ -42,6 +43,8 @@ const demo2 = new Elysia()
 Elysia 拥有一些非常重要的概念，您需要理解它们才能使用。
 
 本页面涵盖了在开始使用之前您应该了解的大多数概念。
+
+<AronaBanner />
 
 ## 封装 <Badge type="danger" text="必须阅读" />
 Elysia 的生命周期方法仅**封装**在其自身实例内。
