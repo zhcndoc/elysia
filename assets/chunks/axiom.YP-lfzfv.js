@@ -1,0 +1,1 @@
+var e=`/blog/elysia-11/axiom.webp`;export{e as t};

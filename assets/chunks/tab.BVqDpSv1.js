@@ -1,0 +1,1 @@
+import{t as e}from"./tab.h4fFJaX4.js";export{e as default};

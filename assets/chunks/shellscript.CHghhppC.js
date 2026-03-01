@@ -1,0 +1,1 @@
+import{t as e}from"./shellscript.CZwX4REZ.js";export{e as default};
