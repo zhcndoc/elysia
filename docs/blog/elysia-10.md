@@ -514,7 +514,7 @@ Elysia 核心本身部分与 WinterCG 兼容，但并不是所有的官方插件
 
 我最喜欢的部分是 [动画短片中的一句话](https://youtu.be/v1sd5CzR504?t=128)，其中芽衣反对琪亚娜牺牲自己拯救世界的想法，而芽衣回应：
 
-<div class="font-mono text-gray-500 dark:text-gray-400 text-base">
+<div class="font-mono text-mauve-500 dark:text-mauve-400 text-base">
 
 \> 然而你独自扛下所有，付出了生命的代价。
 

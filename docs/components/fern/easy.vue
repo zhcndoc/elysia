@@ -179,7 +179,7 @@ const flyIn = useFlyIn(isInView)
         @apply flex flex-col md:flex-row justify-between items-center gap-8 w-full mb-4;
 
         & > .showcase {
-            @apply flex flex-col flex-1 max-w-full sm:max-w-[30rem] rounded-2xl overflow-hidden border dark:border-gray-700 bg-white dark:bg-gray-800;
+            @apply flex flex-col flex-1 max-w-full sm:max-w-[30rem] rounded-2xl overflow-hidden border dark:border-mauve-700 bg-white dark:bg-mauve-800;
 
             box-shadow: 0 16px 40px rgba(0, 123, 255, 0.075);
 
@@ -230,11 +230,11 @@ const flyIn = useFlyIn(isInView)
                 );
 
             html.dark & {
-                box-shadow: 0 16px 40px rgba(0, 123, 255, 0.15);
+                box-shadow: 0 16px 40px oklch(36.4% 0.029 323.89 / .5);
 
                 background-image: radial-gradient(
                         closest-side at center,
-                        var(--color-gray-800) 35%,
+                        var(--color-mauve-800) 35%,
                         transparent 140%
                     ),
                     radial-gradient(

@@ -1,5 +1,5 @@
 <template>
-    <h3 class="text-center text-gray-400 mx-auto mt-16">
+    <h3 class="text-center text-mauve-400 mx-auto mt-16">
         受到团队的信任
     </h3>
     <section
