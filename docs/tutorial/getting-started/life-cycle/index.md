@@ -30,17 +30,17 @@ import { code, testcases } from './data'
 
 # 生命周期
 
-生命周期 **钩子** 是在请求-响应周期中的特定事件上执行的函数。
+生命周期 **钩子** 是在请求-响应周期中特定事件上执行的函数。
 
-它们允许你在特定的时刻运行自定义逻辑
-- <DocLink href="/essential/life-cycle#request">request</DocLink> - 当收到请求时
+它们允许你在某个点运行自定义逻辑
+- <DocLink href="/essential/life-cycle#request">request</DocLink> - 当接收到请求时
 - <DocLink href="/essential/life-cycle#before-handle">beforeHandle</DocLink> - 在执行处理器之前
-- <DocLink href="/essential/life-cycle#after-response">afterResponse</DocLink> - 在发送响应之后，等等。
+- <DocLink href="/essential/life-cycle#after-response">afterResponse</DocLink> - 在发送响应之后等
 - <DocLink href="/essential/life-cycle#on-error-error-handling">error</DocLink> - 当发生错误时
 
 这对于日志记录、身份验证等任务非常有用。
 
-要注册生命周期钩子，你可以将其传递给路由方法的第三个参数：
+要注册生命周期钩子，你可以将其作为路由方法的第三个参数传入：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -62,7 +62,7 @@ new Elysia()
 	.get('/2', () => '你好，Elysia！')
 ```
 
-这里我们使用 `status(418)`，它是 “我是茶壶” 的状态码。你也可以直接使用字符串名称：`status("I'm a teapot")`。更多关于状态码的使用，请参见 <DocLink href="/tutorial/getting-started/status-and-headers#status">状态</DocLink>。
+这里我们使用了 `status(418)`，它是“我是茶壶”的状态码。你也可以直接使用字符串名称：`status("I'm a teapot")`。更多关于状态码的使用，请参见 <DocLink href="/tutorial/getting-started/status-and-headers#status">状态</DocLink>。
 
 当 `beforeHandle` 返回一个值时，它将跳过处理器并返回该值。
 

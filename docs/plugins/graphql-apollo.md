@@ -60,7 +60,7 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-访问 `/graphql` 应该会显示 Apollo GraphQL playground 工作情况。
+访问 `/graphql` 应该会显示 Apollo GraphQL playground 以供使用。
 
 ## 背景
 
@@ -102,4 +102,4 @@ const app = new Elysia()
 
 @default `process.env.ENV !== 'production'`
 
-确定 Apollo 是否应提供 Apollo Playground。
+决定 Apollo 是否应提供 Apollo Playground。

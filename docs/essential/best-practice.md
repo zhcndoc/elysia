@@ -74,7 +74,7 @@ export const AuthModel = {
 	signInInvalid: t.Literal('Invalid username or password')
 } as const
 
-// Optional, cast all model to TypeScript type
+// 可选，将所有模型转换为 TypeScript 类型
 export type AuthModel = {
 	[k in keyof typeof AuthModel]: UnwrapSchema<typeof AuthModel[k]>
 }
@@ -100,8 +100,8 @@ export abstract class Auth {
 
 // @filename: index.ts
 // ---cut---
-// Controller (HTTP adapter) eg. routing, request validation
-// You can define another Controller that is not tied with Elysia
+// 控制器（HTTP 适配器），如路由，请求验证
+// 你也可以定义不绑定 Elysia 的其他控制器
 import { Elysia } from 'elysia'
 
 import { Auth } from './service'
@@ -113,14 +113,14 @@ export const auth = new Elysia({ prefix: '/auth' })
 		async ({ body, cookie: { session } }) => {
 			const response = await Auth.signIn(body)
 
-			// Set session cookie
-			// (Elysia cookie is proxy, it can never be null/undefined)
+			// 设置 session cookie
+			// （Elysia 的 cookie 是代理，它永远不会是 null/undefined）
 			session!.value = response.token
 
 			return response
 		}, {
 			body: AuthModel.signInBody,
-			// response is optional, use to enforce return type
+			// response 是可选的，用于验证返回类型
 			response: {
 				200: AuthModel.signInResponse,
 				400: AuthModel.signInInvalid
@@ -135,8 +135,8 @@ import { status } from 'elysia'
 
 import type { AuthModel } from './model'
 
-// If a class doesn't need to store a property,
-// you may use `abstract class` to avoid class allocation
+// 如果类不需要存储属性，
+// 你可以使用 `abstract class` 避免类实例化开销
 export abstract class Auth {
 	static async signIn({ username, password }: AuthModel.signInBody) {
 		const user = await sql`
@@ -161,7 +161,7 @@ export abstract class Auth {
 ```
 
 ```typescript [auth/model.ts] twoslash
-// Model define the data structure and validation for the request and response
+// 模型定义请求和响应的数据结构及验证
 import { t, type UnwrapSchema } from 'elysia'
 
 const AuthModel = {
@@ -176,7 +176,7 @@ const AuthModel = {
 	signInInvalid: t.Literal('Invalid username or password')
 } as const
 
-// Optional, cast all model to TypeScript type
+// 可选，将所有模型转换为 TypeScript 类型
 export type AuthModel = {
 	[k in keyof typeof AuthModel]: UnwrapSchema<typeof AuthModel[k]>
 }
@@ -184,33 +184,33 @@ export type AuthModel = {
 
 :::
 
-每个文件的职责如下：
+每个文件有自己的职责：
 - **控制器**：处理 HTTP 路由、请求验证和 Cookie。
-- **服务**：处理业务逻辑，尽量与 Elysia 控制器解耦。
+- **服务**：处理业务逻辑，尽可能与 Elysia 控制器解耦。
 - **模型**：定义请求和响应的数据结构及验证。
 
-可以根据你的需求调整此结构，并使用你喜欢的任何编码模式。
+你可以根据需求调整此结构，并使用你喜欢的任何编码模式。
 
 ## 控制器
 
 ::: note
-你可能在使用 `cookie.name` 时收到警告，取决于你的 TypeScript 配置。
+当你使用 `cookie.name` 时，可能会出现警告，因为根据你的 TypeScript 配置，它可能是 `undefined`。
 
-Elysia 的 cookie 永远不会是 `undefined`，因为它是一个 Proxy 对象。`cookie` 总是定义的，只有它的值（通过 cookie.value）可能是 undefined。
+Elysia 的 cookie 永远不会是 `undefined`，因为它是一个代理对象。`cookie` 总是定义的，只有它的值（通过 cookie.value）可能是 undefined。
 
 你可以通过使用 [cookie schema] 或在 `tsconfig.json` 中禁用 [strictNullChecks](https://www.typescriptlang.org/tsconfig/#strictNullChecks) 来修复这个问题。
 :::
 
-鉴于 Elysia 的类型系统健壮，我们不推荐使用传统的紧耦合 Elysia `Context` 的控制器类，因为：
+## Controller
+由于 Elysia 的类型安全机制，不推荐使用与 Elysia 的 `Context` 紧密绑定的传统控制器类，原因如下：
 
-1. **Elysia 类型复杂**，且强依赖插件及多层链式调用。
-2. **难以准确类型化**，特别是使用装饰器和存储时，Elysia 类型可能随时变化。
-3. **类型完整性丢失**，代码的类型和运行时不一致。
+1. **Elysia 类型较复杂**，且高度依赖插件和多层链式调用。
+2. **难以正确类型化**；Elysia 类型可能随时变化，特别是使用装饰器和 store 时。
+3. **类型完整性丧失**，类型与运行时代码不一致。
 
-推荐以下两种方式实现 Elysia 控制器：
-
-1. 使用 Elysia 实例本身作为控制器  
-2. 创建不依赖于 HTTP 请求或 Elysia 的控制器
+我们推荐以下两种方式之一来实现 Elysia 中的控制器。
+1. 使用 Elysia 实例本身作为控制器
+2. 创建与 HTTP 请求或 Elysia 无关的控制器。
 
 ---
 
@@ -231,7 +231,7 @@ new Elysia()
     })
 ```
 
-该方式允许 Elysia 自动推断 `Context` 类型，保证类型完整性和运行时与类型的一致性。
+这种方式允许 Elysia 自动推断 `Context` 类型，保证类型完整性和运行时与类型的一致性。
 
 ```typescript
 // ❌ 不推荐
@@ -247,13 +247,11 @@ new Elysia()
     .get('/', Controller.root)
 ```
 
-该方式难以正确类型化 `Context`，可能导致类型完整性丢失。
+这种方式难以正确类型化 `Context`，可能导致类型完整性丢失。
 
 ### 2. 不依赖 HTTP 请求的控制器
 
-若要创建控制器类，建议创建与 HTTP 请求或 Elysia 完全无关的类。
-
-这样允许你解耦控制器和 Elysia，使测试、复用，甚至替换框架更为简单，同时保持 MVC 模式。
+这种方式允许你将控制器与 Elysia 解耦，更容易测试、复用，甚至可以在遵循 MVC 模式的同时更换框架。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -268,13 +266,12 @@ new Elysia()
 	.get('/', ({ stuff }) => Controller.doStuff(stuff))
 ```
 
-绑定控制器到 Elysia Context 可能导致：
+将控制器与 Elysia Context 紧密绑定可能导致：
+1. 类型完整性丢失
+2. 测试和复用难度增加
+3. 依赖供应商锁定
 
-1. 类型完整性丢失  
-2. 不易测试和复用  
-3. 产生厂商锁定
-
-推荐尽量让控制器与 Elysia 解耦。
+我们推荐尽量让控制器与 Elysia 解耦。
 
 ### ❌ 不推荐：传递整个 `Context` 给控制器
 
@@ -327,16 +324,14 @@ describe('Controller', () => {
 
 更多测试信息可查看 [单元测试](/patterns/unit-test.html)。
 
-## 服务
-
+## Service
 服务是一组解耦的工具/辅助函数，用于模块/控制器中的业务逻辑。
 
 所有可以与控制器解耦的技术逻辑，都可以放在 **服务** 中。
 
 Elysia 中有两种服务类型：
 
-1. 非请求依赖的服务  
-2. 请求依赖的服务
+We recommend abstracting service classes/functions away from Elysia.
 
 ### 1. 抽象非请求依赖服务
 
@@ -364,7 +359,7 @@ new Elysia()
     })
 ```
 
-如果服务不需存储属性，可以使用 `abstract class` 和 `static` 避免实例化。
+如果你的服务不需要存储属性，可以使用 `abstract class` 和 `static` 方法避免实例化类。
 
 ### 2. 请求依赖服务作为 Elysia 实例
 
@@ -396,14 +391,14 @@ const UserController = new Elysia()
 ```
 
 ::: tip
-Elysia 默认支持[插件去重](/essential/plugin.html#plugin-deduplication)，你无需担心性能问题，只要指定 **"name"** 属性，即保证为单例。
+Elysia 默认处理 [插件去重](/essential/plugin.html#plugin-deduplication)，因此你不必担心性能问题，指定 **"name"** 属性时它将作为单例存在
 :::
 
 ### ✅ 推荐：只装饰请求依赖属性
 
-建议 `decorate` 仅用于请求依赖属性，如 `requestIP`、`requestTime` 或 `session`。
+建议只为请求依赖的属性装饰，如 `requestIP`、`requestTime` 或 `session`。
 
-过度使用装饰器会使代码紧耦合 Elysia，影响测试和复用。
+过度使用装饰器会将你的代码绑死在 Elysia 上，难以测试和复用。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -419,9 +414,9 @@ new Elysia()
 
 ## 模型
 
-模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 由 [Elysia.t (验证)](/essential/validation.html#elysia-type) 处理。
+模型或 [DTO（数据传输对象）](https://en.wikipedia.org/wiki/Data_transfer_object) 由 [Elysia.t（验证）](/essential/validation.html#elysia-type) 处理。
 
-Elysia 内置验证系统，可自动推断类型并在运行时验证。
+Elysia 内置验证系统，可自动根据代码推断类型并在运行时验证。
 
 ### ✅ 推荐使用 Elysia 验证系统
 
@@ -440,11 +435,11 @@ export const models = {
 	})
 }
 
-// Optional if you want to get the type of the model
+// 可选：如果你想抽取模型的类型
 type CustomBody = UnwrapSchema<typeof models.customBody>
 //    ^?
 
-// Or make the entire object as type
+// 或者将整个对象转换为类型
 type Models = {
 	[k in keyof typeof models]: UnwrapSchema<typeof models[k]>
 }
@@ -577,9 +572,8 @@ const UserController = new Elysia({ prefix: '/auth' })
     })
 ```
 
-该方式带来多个好处：
-
-1. 允许模型命名并支持自动补全。  
-2. 便于后续修改 Schema 或执行 [重映射](/essential/handler.html#remap)。  
-3. 在 OpenAPI 合规客户端（如 OpenAPI）中显示为“models”。  
-4. 提高 TypeScript 类型推断速度，因为模型类型注册时会被缓存。
+这种方法带来若干好处：
+1. 允许你为模型命名并提供自动补全。
+2. 修改模式以便后续使用，或执行 [重映射](/essential/handler.html#remap)。
+3. 在遵循 OpenAPI 的客户端（例如 OpenAPI）中显示为“models”。
+4. 提升 TypeScript 推断速度，因为模型类型会在注册期间缓存。

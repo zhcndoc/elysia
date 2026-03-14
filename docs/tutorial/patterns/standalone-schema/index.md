@@ -31,7 +31,7 @@ import { code, testcases } from './data'
 
 # 独立模式
 
-当我们使用 <DocLink href="/essential/validation.html#guard">保护器</DocLink> 定义一个模式时，模式将被添加到一个路由。但如果该路由提供了一个模式，它将被 **覆盖**：
+当我们使用 <DocLink href="/essential/validation.html#guard">Guard</DocLink> 定义模式时，模式将被添加到路由中。但如果路由提供了模式，该模式将被**覆盖**：
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -55,7 +55,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-如果我们想要一个模式与路由模式 **共存**，我们可以将其定义为 **独立模式**：
+如果我们想要一个模式与路由模式**共存**，我们可以将其定义为**独立模式**：
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -88,7 +88,7 @@ new Elysia()
 
 ## 任务
 
-通过使用独立模式来使请求体中的 `age` 和 `name` 属性变为必需。
+让我们通过使用独立模式使请求体中的 `age` 和 `name` 属性都成为必需的。
 
 <template #answer>
 

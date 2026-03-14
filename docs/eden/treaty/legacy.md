@@ -17,19 +17,19 @@ head:
 
 # 伊甸条约遗产
 
-::: tip 注意
-这是针对伊甸条约 1 或 (edenTreaty) 的文档。
+::: tip NOTE
+这是 Eden Treaty 1 (edenTreaty) 的文档。
 
-对于新项目，建议使用伊甸条约 2 (treaty) 而不是。
+对于新项目，我们建议改用 Eden Treaty 2 (treaty)。
 :::
 
 伊甸条约是 Elysia 服务器的对象类似表示。
 
-提供类似普通对象的访问器，直接从服务器获取类型，帮助我们更快地工作，并确保不会发生错误。
+它提供类似普通对象的访问器，类型直接来自服务器，帮助我们更快地开发并确保不会出错。
 
 ---
 
-要使用伊甸条约，首先导出您现有的 Elysia 服务器类型：
+要使用伊甸条约，首先导出你已有的 Elysia 服务器的类型：
 ```typescript
 // server.ts
 import { Elysia, t } from 'elysia'
@@ -73,8 +73,8 @@ const { data: nendoroid, error } = app.mirror.post({
 伊甸条约具有完全的类型安全和自动补全支持。
 :::
 
-## 构造
-伊甸条约会将所有现有路径转换为对象类似表示，可以描述为：
+## 构成
+伊甸条约会将所有已有路径转换为一种可描述为以下形式的对象类似表示：
 ```typescript
 EdenTreaty.<1>.<2>.<n>.<method>({
     ...body,
@@ -84,7 +84,7 @@ EdenTreaty.<1>.<2>.<n>.<method>({
 ```
 
 ### 路径
-伊甸会将 `/` 转换为 `.`，可以用已注册的 `method` 调用，例如：
+伊甸会将 `/` 转换为 `.`，可以使用已注册的 `method` 调用，示例：
 - **/path** -> .path
 - **/nested/path** -> .nested.path
 
@@ -123,7 +123,7 @@ app.post({
 ```
 
 ## 错误处理
-伊甸条约将返回一个 `data` 和 `error` 的值作为结果，均为完全类型。
+伊甸条约将返回一个包含 `data` 和 `error` 的结果值，均具备完整类型。
 ```typescript
 // 响应类型: { id: 1895, name: 'Skadi' }
 const { data: nendoroid, error } = app.mirror.post({
@@ -154,16 +154,16 @@ if(error) {
 const { id, name } = nendoroid
 ```
 
-**data** 和 **error** 的类型在您确认其状态之前都是可为空的。
+**data** 和 **error** 直到你通过类型守卫确认其状态之前，都会被视为可空类型。
 
-简单来说，如果获取成功，data 将有值而 error 将为 null，反之亦然。
+简单说，如果请求成功，data 会有值且 error 为 null，反之亦然。
 
 ::: tip
-错误被包装在一个 `Error` 中，其值从服务器返回，可以从 `Error.value` 中检索
+错误封装在 `Error` 中，从服务器返回的值可通过 `Error.value` 获取。
 :::
 
 ### 基于状态的错误类型
-如果您在 Elysia 服务器中明确提供了错误类型，伊甸条约和伊甸获取可以根据状态码缩小错误类型。
+如果你在 Elysia 服务器中显式提供错误类型，伊甸条约和 Eden Fetch 能根据状态码缩小错误类型。
 
 ```typescript
 // server.ts
@@ -194,7 +194,7 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-在客户端：
+客户端示例：
 ```typescript
 const { data: nendoroid, error } = app.mirror.post({
     id: 1895,
@@ -220,7 +220,7 @@ if(error) {
 ```
 
 ## WebSocket
-伊甸支持 WebSocket，使用与普通路由相同的 API。
+伊甸支持 WebSocket，使用的 API 与普通路由相同。
 ```typescript
 // 服务器
 import { Elysia, t } from 'elysia'
@@ -253,23 +253,23 @@ chat.subscribe((message) => {
 chat.send('客户端发送的你好')
 ```
 
-我们可以使用 [schema](/integrations/cheat-sheet#schema) 来强制 WebSocket 的类型安全，正如普通路由一样。
+我们可以使用 [schema](/integrations/cheat-sheet#schema) 来强制 WebSocket 的类型安全，就像普通路由一样。
 
 ---
 
-**Eden.subscribe** 返回 **EdenWebSocket**，它扩展了 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) 类，具备类型安全。语法与 WebSocket 相同。
+**Eden.subscribe** 返回的是继承自 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) 类且带类型安全的 **EdenWebSocket**。语法与 WebSocket 完全一致。
 
-如果需要更多控制，可以访问 **EdenWebSocket.raw** 与原生 WebSocket API 交互。
+如果需要更多控制，可以通过 **EdenWebSocket.raw** 访问原生 WebSocket API。
 
 ## 文件上传
-您可以将以下之一传递到字段中以附加文件：
+你可以传入以下任意一个类型到字段以附加文件：
 - **File**
 - **FileList**
 - **Blob**
 
-附加文件将导致 **content-type** 为 **multipart/form-data**。
+附加文件时会导致 **content-type** 为 **multipart/form-data**
 
-假设我们有如下服务器：
+假设服务器如下：
 ```typescript
 // server.ts
 import { Elysia } from 'elysia'
@@ -286,7 +286,7 @@ const app = new Elysia()
 export type App = typeof app
 ```
 
-我们可以如下使用客户端：
+我们可以这样使用客户端：
 ```typescript
 // client.ts
 import { edenTreaty } from '@elysia/eden'

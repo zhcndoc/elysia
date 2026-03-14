@@ -53,7 +53,7 @@ new Elysia()
     .listen(3000)
 ```
 
-使用内联值对于静态资源如 **文件** 是有用的。
+Using an inline value can be useful for static resources like **files**.
 
 ## 上下文
 
@@ -91,7 +91,7 @@ new Elysia()
 
 <template #answer>
 
-1. 我们可以从回调函数的第一个值中提取 `body`、`query` 和 `headers`。
+1. 我们可以从回调函数的第一个参数中提取 `body`、`query` 和 `headers`。
 2. 然后我们可以像 `{ body, query, headers }` 这样返回它们。
 
 ```typescript

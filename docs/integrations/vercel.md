@@ -18,7 +18,7 @@ head:
 
 # 在 Vercel 上部署 Elysia
 
-Elysia 可以使用 Bun 或 Node 运行时在 Vercel 上零配置部署。
+Elysia 可以使用 Bun 或 Node 运行时，在 Vercel 上零配置部署。
 
 1. 在 **src/index.ts** 中，创建或导入现有的 Elysia 服务器
 2. 将 Elysia 服务器作为默认导出
@@ -84,8 +84,5 @@ pnpm add @sinclair/typebox openapi-types
 }
 ```
 
-## 如果此方法不起作用
-
-Vercel 对 Elysia 提供零配置支持，若需额外配置，请参考 [Vercel 文档](https://vercel.com/docs/frameworks/backend/elysia)
-
-更多信息，请参考 [Vercel Function 文档](https://vercel.com/docs/functions?framework=other)。
+## 如果这不起作用
+Vercel 提供对 Elysia 的零配置支持。更多配置请参考 [Vercel 文档](https://vercel.com/docs/frameworks/backend/elysia)

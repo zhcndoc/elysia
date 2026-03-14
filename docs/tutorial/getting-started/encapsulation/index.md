@@ -10,11 +10,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 钩子仅封装到其自己的实例中。如果您创建一个新实例，则不会与其他实例共享钩子。
+        content: Elysia 钩子仅封装到它自己的实例中。如果创建新实例，它不会与其他实例共享钩子。
 
     - - meta
       - property: 'og:description'
-        content: Elysia 钩子仅封装到其自己的实例中。如果您创建一个新实例，则不会与其他实例共享钩子。
+        content: Elysia 钩子仅封装到它自己的实例中。如果创建新实例，它不会与其他实例共享钩子。
 ---
 
 <script setup lang="ts">
@@ -61,7 +61,7 @@ const demo2 = new Elysia()
 
 Elysia 钩子仅**封装**到其自己的实例中。
 
-如果您创建一个新实例，则不会与其他实例共享钩子。
+如果你创建一个新实例，它不会与其他实例共享钩子。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -87,11 +87,11 @@ new Elysia()
 
 <br>
 
-**Elysia 隔离生命周期**，除非明确说明。
+**Elysia 隔离生命周期**，除非明确声明。
 
 这类似于 JavaScript 中的 **export**，您需要导出函数才能使其可用于模块外部。
 
-要**“导出”**生命周期到其他实例，您必须指定范围。
+要将生命周期**“导出”**到其他实例，必须指定范围。
 
 ### 范围
 
@@ -161,7 +161,7 @@ const user = new Elysia()
 <template #answer>
 
 我们可以按如下方式修改范围：
-1. 将 `nameCheck` 的范围修改为 **scope**
+1. 将 `nameCheck` 的范围修改为 **scoped**
 2. 将 `ageCheck` 的范围修改为 **global**
 
 ```typescript

@@ -18,9 +18,9 @@ head:
 
 使用 Nextjs 应用路由，我们可以在 Nextjs 路由上运行 Elysia。
 
-1. 在应用路由中创建 **api/[[...slugs]]/route.ts**  
-2. 在 **route.ts** 中创建或导入一个现有的 Elysia 服务器  
-3. 导出您想要与 `Elysia.fetch` 一起使用的 HTTP 方法  
+1. 创建 **app/api/[[...slugs]]/route.ts**
+2. 定义一个 Elysia 服务器
+3. 导出带有所需 HTTP 方法名称的 **Elysia.fetch**
 
 ::: code-group
 
@@ -57,9 +57,9 @@ pnpm add @sinclair/typebox openapi-types
 
 ## 前缀
 
-因为我们的 Elysia 服务器不在应用路由的根目录下，所以您需要为 Elysia 服务器注释前缀。
+由于我们的 Elysia 服务器不在应用路由的根目录下，因此需要在 Elysia 服务器上标注前缀。
 
-例如，如果您将 Elysia 服务器放在 **app/user/[[...slugs]]/route.ts** 中，则需要将前缀注释为 **/user**。
+例如，如果您将 Elysia 服务器放在 **app/user/[[...slugs]]/route.ts**，需要在 Elysia 服务器上将前缀标注为 **/user**。
 
 ::: code-group
 
@@ -80,13 +80,19 @@ export const POST = app.fetch
 
 :::
 
-这将确保 Elysia 路由能够在您放置它的任何位置正常工作。
+这样可以确保无论您将其放在哪里，Elysia 路由都能正常工作。
 
 ## Eden
 
 我们可以添加 [Eden](/eden/overview) 来实现类似 tRPC 的**端到端类型安全**。
 
-1. 从 Elysia 服务器导出 `type`
+在这种方式中，我们将使用同构 fetch 模式让 Elysia 实现：
+1. 在服务端：直接调用 Elysia，无需经过网络层
+2. 在客户端：通过网络层调用 Elysia
+
+首先需要完成以下步骤：
+
+1. 导出 Elysia 实例
 
 ::: code-group
 
@@ -121,7 +127,7 @@ import type { app } from '../app/api/[[...slugs]]/route'
 
 // .api 用以进入 /api 前缀
 export const api =
-  // process is defined on server side and build time
+  // process 在服务端和构建时定义
   typeof process !== 'undefined'
     ? treaty(app).api
     : treaty<typeof app>('localhost:3000').api
@@ -147,11 +153,10 @@ export default async function Page() {
 
 :::
 
-这使您能够以最少的工作量从前端到后端实现类型安全，并且同时支持服务器组件、客户端组件以及增量静态再生（ISR）。
+这允许你以最小的代价实现从前端到后端的类型安全，并且适用于服务端和客户端组件，以及增量静态再生 (ISR)。
 
 ## React Query
-
-我们也可以使用 React Query 在客户端与 Elysia 服务器进行交互。
+我们也可以使用 React Query 在客户端与 Elysia 服务器交互。
 
 ::: code-group
 
@@ -177,7 +182,7 @@ function App() {
 
 :::
 
-这可以与任何 React Query 功能一起使用，比如缓存、分页、无限查询等。
+这可以配合 React Query 的各种功能使用，如缓存、分页、无限查询等。
 
 ---
 

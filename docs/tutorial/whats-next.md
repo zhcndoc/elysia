@@ -10,11 +10,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 恭喜！您已完成教程。现在您准备好使用 Elysia 构建自己的应用程序了！我们强烈建议您在开始使用 Elysia 之前先查看这两页内容：关键概念和最佳实践。或者，您可以下载 llms.txt 或 llms-full.txt，并将其提供给您最喜欢的 LLM，例如 ChatGPT、Claude 或 Gemini，以获得更互动的体验。如果您遇到困难，请随时在 GitHub Discussions、Discord 和 Twitter 上向我们的社区提问。如果您使用过其他流行框架，如 Express、Fastify 或 Hono，您会发现 Elysia 也很上手，仅有一些小差别。我们还有必要的章节、更多模式、与 Meta 框架以及您最喜欢的工具的集成。
+        content: 恭喜！您已完成教程。现在您准备好使用 Elysia 构建自己的应用程序了！我们强烈建议您在开始使用 Elysia 之前，先查看这两个页面：关键概念和最佳实践。或者，您也可以下载 llms.txt 或 llms-full.txt，并将其提供给您喜欢的大型语言模型，如 ChatGPT、Claude 或 Gemini，以获得更互动的体验。如果遇到困难，欢迎在 GitHub Discussions、Discord 和 Twitter 上向我们的社区提问。如果您用过其他流行框架如 Express、Fastify 或 Hono，您会发现 Elysia 上手很快，只有一些小区别。我们还提供了重要章节、更多模式、与 Meta 框架和您喜欢的工具的集成。
 
     - - meta
       - property: 'og:description'
-        content: 恭喜！您已完成教程。现在您准备好使用 Elysia 构建自己的应用程序了！我们强烈建议您在开始使用 Elysia 之前先查看这两页内容：关键概念和最佳实践。或者，您可以下载 llms.txt 或 llms-full.txt，并将其提供给您最喜欢的 LLM，例如 ChatGPT、Claude 或 Gemini，以获得更互动的体验。如果您遇到困难，请随时在 GitHub Discussions、Discord 和 Twitter 上向我们的社区提问。如果您使用过其他流行框架，如 Express、Fastify 或 Hono，您会发现 Elysia 也很上手，仅有一些小差别。我们还有必要的章节、更多模式、与 Meta 框架以及您最喜欢的工具的集成。
+        content: 恭喜！您已完成教程。现在您准备好使用 Elysia 构建自己的应用程序了！我们强烈建议您在开始使用 Elysia 之前，先查看这两个页面：关键概念和最佳实践。或者，您也可以下载 llms.txt 或 llms-full.txt，并将其提供给您喜欢的大型语言模型，如 ChatGPT、Claude 或 Gemini，以获得更互动的体验。如果遇到困难，欢迎在 GitHub Discussions、Discord 和 Twitter 上向我们的社区提问。如果您用过其他流行框架如 Express、Fastify 或 Hono，您会发现 Elysia 上手很快，只有一些小区别。我们还提供了重要章节、更多模式、与 Meta 框架和您喜欢的工具的集成。
 ---
 
 <script setup lang="ts">
@@ -34,15 +34,15 @@ import { code } from './data'
 
 现在您准备好使用 Elysia 构建自己的应用程序了！
 
-## 首先
-我们强烈建议您在开始使用 Elysia 之前先查看这两页内容：
+## First up
+我们强烈建议您在开始使用 Elysia 之前，先查看这两个页面：
 
 <Deck>
 	<Card title="关键概念" href="/key-concept">
-		Elysia 的核心概念以及如何有效运用
+		Elysia 的核心概念以及如何有效使用它们
     </Card>
     <Card title="最佳实践" href="/essential/best-practice">
-        理解编写 Elysia 代码的最佳实践
+        了解编写 Elysia 代码的最佳实践
     </Card>
 </Deck>
 
@@ -52,10 +52,10 @@ import { code } from './data'
 
 <Deck>
     <Card title="llms.txt" href="/llms.txt" download>
-   		下载以 Markdown 格式总结的 Elysia 文档，包含提示 LLM 的参考
+   		下载汇总的 Elysia 文档（Markdown 格式），用于提示大型语言模型
     </Card>
     <Card title="llms-full.txt" href="/llms-full.txt" download>
-  		下载以 Markdown 格式的完整 Elysia 文档，便于为 LLM 提供提示
+  		下载完整的 Elysia 文档（Markdown 格式，单个文件），用于提示大型语言模型
     </Card>
 </Deck>
 
@@ -68,35 +68,35 @@ import { code } from './data'
         官方 ElysiaJS Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
-        跟踪 Elysia 的更新和状态
+        跟踪 Elysia 的更新和动态
     </Card>
     <Card title="GitHub" href="https://github.com/elysiajs">
         源代码和开发
     </Card>
 </Deck>
 
-## 来自其他框架？
+## From another Framework?
 
-如果您使用过其他流行框架，如 Express、Fastify 或 Hono，您会发现 Elysia 也很上手，仅有一些小差别。
+如果您使用过其他流行框架，如 Express、Fastify 或 Hono，您会发现 Elysia 也很上手，只有些许差异。
 
 <Deck>
 	<Card title="从 Express" href="/migrate/from-express">
-		Express 与 Elysia 之间的比较
+		Express 与 Elysia 的比较
 	</Card>
     <Card title="从 Fastify" href="/migrate/from-fastify">
-  		Fastify 与 Elysia 之间的比较
+  		Fastify 与 Elysia 的比较
     </Card>
     <Card title="从 Hono" href="/migrate/from-hono">
-  		Hono 与 Elysia 之间的比较
+  		Hono 与 Elysia 的比较
     </Card>
     <Card title="从 tRPC" href="/migrate/from-trpc">
-  		tRPC 与 Elysia 之间的比较
+  		tRPC 与 Elysia 的比较
     </Card>
 </Deck>
 
 ## 重要章节
 
-以下是 Elysia 的基础知识，我们强烈建议您在跳转到其他主题之前先浏览这些页面：
+以下是 Elysia 的基础内容，我们强烈建议您在跳转到其他主题之前，先通读这些页面：
 
 <Deck>
 	<Card title="路由" href="/essential/route">
@@ -106,7 +106,7 @@ import { code } from './data'
   		了解如何处理请求
 	</Card>
 	<Card title="验证" href="/essential/plugin">
-		如何在 Elysia 中执行类型安全
+		如何在 Elysia 中实现类型安全
 	</Card>
 	<Card title="生命周期" href="/essential/plugin">
 		学习不同类型的生命周期
@@ -118,20 +118,20 @@ import { code } from './data'
 
 ## 更多模式
 
-如果您想探索更多 Elysia 特性，请查看：
+如果您想探索更多 Elysia 功能，可以查看：
 
 <Deck>
     <Card title="处理程序" href="/eden/overview">
-    	如何发送文件、服务器发送事件等的更多模式
+    	更多发送文件、服务器发送事件等的模式
     </Card>
     <Card title="Web Socket" href="/patterns/websocket">
-   		查看如何使用 Elysia 创建实时应用程序
+   		了解如何使用 Elysia 创建实时应用
     </Card>
     <Card title="Eden" href="/eden/overview">
-    	了解更多关于 Eden 的信息，以及如何有效使用它
+    	了解更多关于 Eden 以及如何高效使用它的信息
     </Card>
     <Card title="开放遥测" href="/eden/opentelemetry">
-   		学习如何使用开放遥测监控您的应用程序
+   		学习如何使用开放遥测监控您的应用
     </Card>
     <Card title="部署到生产" href="/patterns/deploys">
     	学习如何将 Elysia 部署到生产环境
@@ -172,7 +172,7 @@ import { code } from './data'
    		学习如何将 Better Auth 与 Elysia 一起使用
     </Card>
     <Card title="Drizzle" href="/integrations/drizzle">
-  		Elysia 提供了一个与 Drizzle 一起使用的类型安全工具
+  		Elysia 提供了一个与 Drizzle 配合使用的类型安全工具
     </Card>
     <Card title="Prisma" href="/integrations/prisma">
   		学习如何将 Prisma 与 Elysia 一起使用

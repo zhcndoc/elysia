@@ -85,10 +85,10 @@ new Elysia()
 
 **Elysia.t** 是基于 [TypeBox](https://github.com/sinclairzx81/typebox) 的模式构建器，提供运行时、编译时的类型安全以及从单一数据源生成 OpenAPI 模式。
 
-Elysia 为服务器端验证定制了 TypeBox，以提供无缝体验。
+Elysia 为服务器端验证定制了 TypeBox，使其体验无缝衔接。
 
 ### 标准 Schema
-Elysia 也支持 [Standard Schema](https://github.com/standard-schema/standard-schema)，允许您使用喜欢的验证库：
+Elysia 也支持 [Standard Schema](https://github.com/standard-schema/standard-schema)，允许你使用你喜欢的验证库：
 - Zod
 - Valibot
 - ArkType
@@ -173,9 +173,9 @@ new Elysia()
 | /id/a?name=Elysia | ✅ | ❌ |
 | /id/a?alias=Elysia | ❌ | ❌ |
 
-当提供模式时，类型会自动从模式推断，并生成用于 API 文档的 OpenAPI 类型，消除了手动提供类型的重复工作。
+当提供 schema 时，类型将自动从 schema 推断，并为 API 文档生成 OpenAPI 类型，无需重复手动提供类型。
 
-## Guard
+## 守护（Guard）
 
 Guard 可用于将模式应用于多个处理器。
 
@@ -225,13 +225,13 @@ Guard 支持两种验证模式定义类型。
 
 ### **覆盖（默认）**
 
-模式冲突时，后者覆盖前者。
+如果模式发生冲突，则覆盖之前的模式。
 
 ![Elysia 默认覆盖模式运行示意](/blog/elysia-13/schema-override.webp)
 
 ### **独立** <TutorialBadge href="/tutorial/patterns/standalone-schema" />
 
-分别处理冲突的模式并独立运行，确保两个模式都被验证。
+将冲突的模式分开，独立运行，两个模式都会被验证。
 
 ![Elysia 独立运行多个守护合并示意](/blog/elysia-13/schema-standalone.webp)
 
@@ -249,8 +249,8 @@ new Elysia()
 	})
 ```
 
-## 主体
-传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送到服务器的数据，可以是 JSON、表单数据或其他任意格式。
+## 主体（Body）
+[HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages) 是发送给服务器的数据。它可以是 JSON、form-data 或其他任何格式。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -283,7 +283,7 @@ Elysia 默认禁用 **GET** 和 **HEAD** 请求的 body 解析，遵循 HTTP/1.1
 #### 规范
 验证传入的 [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)（也即主体）。
 
-这些消息是供 Web 服务器处理的附加信息。
+这些是供 Web 服务器处理的附加消息。
 
 主体对应于 `fetch` API 中的 `body`。内容类型应根据定义的主体类型适当设置。
 
@@ -317,10 +317,10 @@ new Elysia()
 
 通过指定文件类型，Elysia 会自动假设内容类型为 `multipart/form-data`。
 
-### File（标准 Schema）
-如果您使用标准 Schema，需要注意 Elysia 无法像 `t.File` 那样自动验证内容类型。
+### 文件（Standard Schema）
+如果你使用 Standard Schema，需要注意 Elysia 无法像 `t.File` 一样自动验证内容类型。
 
-但 Elysia 导出了一个 `fileType` 函数，可通过魔数（magic number）验证文件类型。
+但 Elysia 导出了一个 `fileType` 函数，可通过文件魔数（magic number）验证文件类型。
 
 ```typescript twoslash
 import { Elysia, fileType } from 'elysia'
@@ -334,7 +334,7 @@ new Elysia()
 	})
 ```
 
-强烈建议您**使用** `fileType` 验证文件类型，因为大多数验证器无法正确验证文件，仅检查内容类型字段可能引发安全漏洞。
+务必**使用 `fileType` 工具验证文件类型**，因为大多数验证器实际上并不正确验证文件，比如仅检查内容类型值，这可能导致安全漏洞。
 
 ## 查询
 查询是通过 URL 传递的数据，形式为 `?key=value`。
@@ -366,7 +366,7 @@ new Elysia()
 
 #### 规范
 
-查询字符串是 URL 的一部分，以 **?** 开头，由一个或多个键值对组成，用于向服务器传递附加信息，常用于定制行为如过滤或搜索。
+查询字符串是 URL 的一部分，以 **?** 开头，可以包含一个或多个查询参数，查询参数是键值对，用于向服务器传递附加信息，通常用于自定义行为如过滤或搜索。
 
 ![URL 对象](/essential/url-object.svg)
 
@@ -376,7 +376,7 @@ new Elysia()
 fetch('https://elysiajs.com/?name=Elysia')
 ```
 
-指定查询参数时，所有参数值必须表示为字符串，因其被编码并附加到 URL。
+在指定查询参数时，需理解所有查询参数值均以字符串形式表示。这是由于它们如何被编码并附加到 URL 的方式决定的。
 
 ### 强制转换
 Elysia 会自动将查询中的值强制转换为模式所需的类型。
@@ -410,9 +410,9 @@ new Elysia()
 />
 
 ### 数组
-默认情况下，Elysia 将查询参数视为单个字符串，即使同一个键被多次指定。
+默认情况下，即使查询参数多次出现，Elysia 也会将其视为单个字符串。
 
-若要使用数组，必须明确声明为数组类型。
+要使用数组，需要显式声明其为数组。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -464,7 +464,7 @@ http://localhost?name=rapi,anis,neon&squad=counter
 ```
 
 #### HTML 表单格式
-当同一键多次出现时，该键被视为数组。
+如果一个键多次赋值，则该键会被视为数组。
 
 这与 HTML 表单格式相同，当相同名称的输入多次出现时。
 
@@ -500,9 +500,9 @@ new Elysia()
 | /id/a | ❌ |
 
 #### 规范
-路径参数 <small>（区别于查询字符串或查询参数）</small>。
+路径参数 <small>（不要与查询字符串或查询参数混淆）</small>。
 
-**通常无需额外声明，Elysia 会自动推断路径参数类型**，除非需要特定的值模式，如数字或模板字面量。
+**这通常不需要，因为 Elysia 可以自动从路径参数中推断类型**，除非需要特定的值模式，如数字值或模板字面量模式。
 
 ```typescript
 fetch('https://elysiajs.com/id/1')
@@ -582,7 +582,7 @@ Cookie 必须由 `t.Cookie` 或 `t.Object` 形式定义。
 
 #### 规范
 
-HTTP Cookie 是服务器发送给客户端的小型数据块，每次访问同一网页服务器时都会自动发送，使服务器能记住客户端信息。
+HTTP Cookie 是服务器发送给客户端的一小段数据。每次访问同一网页服务器时都会随请求发送，让服务器记住客户端信息。
 
 简单来说，Cookie 是每个请求中携带的字符串化状态。
 
@@ -996,7 +996,7 @@ new Elysia()
 
 ### 错误列表
 
-**ValidationError** 提供了方法 `ValidationError.all`，用于列出所有错误原因。
+**ValidationError** 提供一个方法 `ValidationError.all`，允许我们列出所有错误原因。
 
 ```typescript
 import { Elysia, t } from 'elysia'

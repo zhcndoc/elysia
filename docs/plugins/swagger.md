@@ -16,7 +16,7 @@ head:
 ---
 
 ::: warning
-Swagger 插件已弃用且不再维护。请使用 [OpenAPI 插件](/plugins/openapi) 替代。
+Swagger 插件已废弃且不再维护。请改用 [OpenAPI 插件](/plugins/openapi)。
 :::
 
 # Swagger 插件
@@ -52,7 +52,7 @@ new Elysia()
 
 @default `scalar`
 
-文档 UI 的提供者，默认是 Scalar。
+文档的 UI 提供者。默认使用 Scalar。
 
 ### scalar
 
@@ -131,9 +131,9 @@ new Elysia()
 
 ## 使用标签
 
-Elysia 可以利用 Swagger 的标签系统对端点进行分组。
+Elysia 可以通过 Swagger 的标签系统将端点分组
 
-首先，在 Swagger 配置对象中定义可用标签：
+首先，在 Swagger 配置对象中定义可用标签
 
 ```typescript
 app.use(
@@ -148,7 +148,7 @@ app.use(
 )
 ```
 
-然后在端点配置的 `detail` 属性中为该端点分配标签组：
+然后在端点配置的 detail 属性中为该端点分配标签组
 
 ```typescript
 app.get('/', () => 'Hello Elysia', {
@@ -177,7 +177,7 @@ app.group('/auth', (app) =>
 )
 ```
 
-这样将生成类似如下的 Swagger 页面
+这将生成如下的 Swagger 页面
 <img width="1446" alt="image" src="/assets/swagger-demo.webp">
 
 ## 安全配置

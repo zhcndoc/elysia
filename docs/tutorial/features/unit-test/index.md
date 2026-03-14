@@ -112,6 +112,6 @@ describe('Elysia', () => {
 
 ## 任务
 
-让我们点击预览中的 <Code size="18" class="inline -translate-y-0.5" /> 图标，看看请求是如何被记录的。
+让我们点击预览中的 <Code size="18" class="inline -translate-y-0.5" /> 图标，查看请求是如何被记录的。
 
 </Editor>

@@ -52,12 +52,12 @@ const { data, error } = await client.get()
 console.log(data) // Hello World
 ```
 
-这通过从 Elysia 实例推导类型来工作，并使用类型提示提供客户端的类型安全。
+This works by inferring the types from the Elysia instance, and uses type hints to provide type safety for the client.
 
 请参见 <DocLink href="/eden/treaty/overview">Eden Treaty</DocLink>。
 
 ## 任务
 
-让我们在预览中点击 <Code size="18" class="inline -translate-y-0.5" /> 图标，看看请求是如何被记录的。
+让我们点击预览中的 <Code size="18" class="inline -translate-y-0.5" /> 图标，查看请求是如何被记录的。
 
 </Editor>

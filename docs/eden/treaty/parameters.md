@@ -16,11 +16,11 @@ head:
 
 # 参数
 
-我们最终需要向服务器发送一个有效载荷。
+我们最终需要向服务器发送一个负载。
 
-为此，Eden Treaty 的方法接受 2 个参数来发送数据到服务器。
+为此，Eden Treaty 的方法接受 2 个参数来向服务器发送数据。
 
-这两个参数都是类型安全的，并将由 TypeScript 自动指导：
+两个参数都是类型安全的，并且会由 TypeScript 自动引导：
 
 1. body
 2. 其他参数
@@ -51,7 +51,7 @@ api.user.post({
 api.user.post({
     name: 'Elysia'
 }, {
-    // 在模式中未指定，这是可选的
+    // 未在模式中指定，这是可选的
     headers: {
         authorization: 'Bearer 12345'
     },
@@ -61,9 +61,9 @@ api.user.post({
 })
 ```
 
-除非方法不接受 body，否则将省略 body，仅保留一个参数。
+除非该方法不接受 body，那么 body 会被省略，仅有一个参数。
 
-如果方法为 **"GET"** 或 **"HEAD"**：
+如果方法是 **"GET"** 或 **"HEAD"**：
 
 1. 其他参数
     -   query
@@ -82,15 +82,15 @@ const api = treaty<typeof app>('localhost:3000')
 
 // ✅ 有效
 api.hello.get({
-    // 在模式中未指定，这是可选的
+    // 未在模式中指定，这是可选的
     headers: {
         hello: 'world'
     }
 })
 ```
 
-## 空的 body
-如果 body 可选或不需要，但 query 或 headers 是必需的，则可以将 body 传递为 `null` 或 `undefined`。
+## 空 body
+如果 body 是可选的或不需要，但 query 或 headers 是必需的，则可以将 body 传递为 `null` 或 `undefined`。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -115,7 +115,7 @@ api.user.post(null, {
 
 ## Fetch 参数
 
-Eden Treaty 是一个 fetch 封装，我们可以通过将有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数传递给 `$fetch` 来添加到 Eden 中：
+Eden Treaty 是 fetch 的包装器；我们可以通过传递参数给 `$fetch` 来添加任何有效的 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 参数：
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -143,15 +143,15 @@ clearTimeout(cancelRequest)
 ```
 
 ## 文件上传
-我们可以传递以下任一项来附加文件：
+我们可以传递以下任意一种来附加文件：
 - **File**
 - **File[]**
 - **FileList**
 - **Blob**
 
-附加文件将使 **content-type** 变为 **multipart/form-data**
+附加文件时，**content-type** 将为 **multipart/form-data**
 
-假设我们有如下的服务器：
+假设我们的服务器如下：
 ```typescript
 import { Elysia, t } from 'elysia'
 import { treaty } from '@elysiajs/eden'

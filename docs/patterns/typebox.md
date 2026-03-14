@@ -616,7 +616,7 @@ t.MaybeEmpty(t.String())
 
 ### 表单
 
-对我们的 `t.Object` 进行语法糖处理，支持验证 [表单](/essential/handler.html#formdata)（FormData） 的返回值。
+我们的 `t.Object` 的语法糖，支持验证 [form](/essential/handler.html#formdata) (FormData) 的返回值。
 
 ```typescript
 t.Form({
@@ -675,14 +675,14 @@ Numeric 支持与 [Numeric 实例](https://json-schema.org/draft/2020-12/json-sc
 
 Elysia 默认使用 TypeBox。
 
-然而，为了更方便地处理 HTTP，Elysia 有一些专用类型，并且与 TypeBox 有一些行为上的不同。
+然而，为了帮助简化 HTTP 处理。Elysia 有一些专用类型，并且行为上与 TypeBox 有一些不同。
 
 ## 可选类型
 要使字段可选，请使用 `t.Optional`。
 
 这将允许客户端可选地提供查询参数。此行为也适用于 `body`、`headers`。
 
-这与 TypeBox 不同，其中可选用于标记对象字段为可选。
+这与 TypeBox 中的行为不同，TypeBox 中可选是用来标记对象字段为可选。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -705,11 +705,11 @@ new Elysia()
 ## 数字到 Numeric
 默认情况下，当作为路由模式提供时，Elysia 会将 `t.Number` 转换为 [t.Numeric](#numeric)。
 
-因为解析的 HTTP 头、查询、URL 参数总是字符串。这意味着即使值是数字，它也会被视为字符串。
+因为解析过的 HTTP 头、查询和 URL 参数总是字符串。这意味着即使值是数字，也会被当作字符串处理。
 
-Elysia 通过检查字符串值是否看起来像数字来覆盖此行为，然后在适当时进行转换。
+Elysia 通过检查字符串值是否看起来像数字，然后适当地转换来覆盖此行为。
 
-这仅在作为路由模式使用时应用，而不在嵌套的 `t.Object` 中。
+这只在作为路由模式使用时应用，而不会作用于嵌套的 `t.Object` 中。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -721,19 +721,19 @@ new Elysia()
 			id: t.Number()
 		}),
 		body: t.Object({
-			// 不 转换为 t.Numeric()
+			// 不转换为 t.Numeric()
 			id: t.Number()
 		})
 	})
 
-// 不 转换为 t.Numeric()
+// 不转换为 t.Numeric()
 t.Number()
 ```
 
 ## 布尔值到布尔字符串
-类似于 [数字到数字类型](#数值到-numeric)
+类似于 [数字到 Numeric](#数字到-numeric)
 
-任何 `t.Boolean` 将转换为 `t.BooleanString`。
+任何 `t.Boolean` 都将被转换为 `t.BooleanString`。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -745,11 +745,11 @@ new Elysia()
 			id: t.Boolean()
 		}),
 		body: t.Object({
-			// 不 转换为 t.BooleanString()
+			// 不转换为 t.BooleanString()
 			id: t.Boolean()
 		})
 	})
 
-// 不 转换为 t.BooleanString()
+// 不转换为 t.BooleanString()
 t.Boolean()
 ```

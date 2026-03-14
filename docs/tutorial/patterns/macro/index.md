@@ -10,11 +10,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 宏是可重用的路由选项。了解如何在 Elysia 中创建和使用宏，以增强您的应用程序。
+        content: 宏是可重用的路由选项。学习如何在 Elysia 中创建和使用宏来增强你的应用程序。
 
     - - meta
       - property: 'og:description'
-        content: 宏是可重用的路由选项。了解如何在 Elysia 中创建和使用宏，以增强您的应用程序。
+        content: 宏是可重用的路由选项。学习如何在 Elysia 中创建和使用宏来增强你的应用程序。
 ---
 
 <script setup lang="ts">
@@ -75,11 +75,11 @@ new Elysia()
 
 **auth** 将内联 **cookie** 和 **beforeHandle** 到路由中。
 
-简而言之，<DocLink href="/patterns/macro">宏</DocLink> **是可重用的路由选项**，类似于函数，但作为具有 **类型安全性** 的路由选项。
+简单来说，<DocLink href="/patterns/macro">宏</DocLink> **是一个可重用的路由选项**，类似函数，但作为带有**类型安全**的路由选项。
 
 ## 任务
 
-让我们定义一个宏来检查一个数字是否是斐波那契数：
+让我们定义一个宏来检查一个数是否是斐波那契数列中的数字：
 
 ```typescript
 function isFibonacci(n: number) {
@@ -92,7 +92,7 @@ function isFibonacci(n: number) {
 <template #answer>
 
 1. 为了强制类型，我们可以在宏中定义一个 `body` 属性。
-2. 为了短路请求，我们可以使用 `status` 函数提前返回。
+2. 为了提前终止请求，我们可以使用 `status` 函数提前返回。
 
 ```typescript
 import { Elysia, t } from 'elysia'

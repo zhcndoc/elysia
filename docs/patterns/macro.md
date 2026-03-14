@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 宏类似于函数，能够在生命周期事件、模式和上下文中进行控制，并且具有完整的类型安全性。
+      content: 宏类似于一个函数，能够对生命周期事件、模式、上下文进行控制，并具备完全的类型安全。
 
   - - meta
     - property: 'og:description'
-      content: 宏类似于函数，能够在生命周期事件、模式和上下文中进行控制，并且具有完整的类型安全性。
+      content: 宏类似于一个函数，能够对生命周期事件、模式、上下文进行控制，并具备完全的类型安全。
 ---
 
 <script setup>
@@ -45,7 +45,7 @@ const app = new Elysia()
     })
 ```
 
-访问该路径时，应会在控制台输出 **"Elysia"**。
+访问该路径时应记录 **"Elysia"**。
 
 ## 属性简写
 从 Elysia 1.2.10 开始，宏对象中的每个属性都可以是一个函数或一个对象。
@@ -57,13 +57,13 @@ import { Elysia } from 'elysia'
 
 export const auth = new Elysia()
     .macro({
-    	// This property shorthand
+    	// 这个属性简写
     	isAuth: { // [!code ++]
       		resolve: () => ({ // [!code ++]
       			user: 'saltyaom' // [!code ++]
       		}) // [!code ++]
         }, // [!code ++]
-        // is equivalent to
+        // 等价于
         isAuth(enabled: boolean) { // [!code --]
         	if(!enabled) return // [!code --]
 // [!code --]
@@ -139,7 +139,7 @@ const app = new Elysia()
 该字段可以接受从字符串到函数的任何内容，使我们能够创建自定义的生命周期事件。
 
 ::: note
-**macro** will be executed in order from top-to-bottom according to the definition in the hook, ensuring that the stack is handled in the correct order.
+**macro** 会根据钩子中定义的顺序从上到下执行，确保栈按正确的顺序处理。
 :::-->
 
 ## 错误处理
@@ -168,15 +168,15 @@ new Elysia()
 	})
 ```
 
-建议您使用 `return status` 而不是 `throw new Error()` 来标注正确的 HTTP 状态码。
+建议使用 `return status` 来标注正确的 HTTP 状态码，而不是 `throw new Error()`。
 
-如果您抛出错误，Elysia 默认会将其转换为 `500 Internal Server Error`。
+如果你抛出错误，Elysia 默认会将其转换为 `500 Internal Server Error`。
 
-同样建议使用 `return status` 而不是 `throw status`，以确保 [Eden](/eden/overview) 和 [OpenAPI Type Gen](/patterns/openapi#openapi-from-types) 都能进行类型推断。
+同样建议使用 `return status` 替代 `throw status`，以确保 [Eden](/eden/overview) 和 [OpenAPI Type Gen](/patterns/openapi#openapi-from-types) 的类型推断正确。
 
 ## 解析 (Resolve)
 
-通过返回一个带有 [**resolve**](/essential/life-cycle.html#resolve) 函数的对象，您可以将属性添加到上下文中。
+你可以通过返回一个带有 [**resolve**](/essential/life-cycle.html#resolve) 函数的对象来为上下文添加属性。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -197,7 +197,7 @@ new Elysia()
 
 在上面的示例中，我们通过返回一个带有 **resolve** 函数的对象向上下文添加了一个新属性 **user**。
 
-以下是一个宏解析可能有用的示例：
+以下是宏解析可能有用的几个示例：
 - 执行身份验证并将用户添加到上下文
 - 运行额外的数据库查询并将数据添加到上下文
 - 向上下文添加新属性
@@ -223,9 +223,8 @@ new Elysia()
 	})
 ```
 
-## 架构
-
-您可以为您的宏定义一个自定义架构，以确保使用该宏的路由传递正确的类型。
+## 模式 Schema
+你可以为你的宏定义自定义模式，以确保使用宏的路由传递正确的类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -248,9 +247,9 @@ new Elysia()
 	})
 ```
 
-带有模式的宏将自动进行校验并推断类型，确保类型安全，并且可以与现有的模式共存。
+带有模式的宏将自动进行验证和类型推断，确保类型安全，并且可以与现有模式共存。
 
-您也可以堆叠来自不同宏的多个模式，甚至与标准验证器配合使用，它们将无缝协作。
+你也可以堆叠来自不同宏的多个模式，甚至与标准验证器配合使用，它们将无缝协作。
 
 ### 同一宏内带生命周期的模式
 类似于 [带有解析的宏扩展](#带有解析的宏扩展)，
@@ -271,12 +270,12 @@ new Elysia()
 	})
 ```
 
-如果您想在同一宏内使用生命周期类型推断，建议使用命名的单一宏，而非多个叠加宏。
+如果你想在同一宏内使用生命周期类型推断，建议使用命名的单一宏，而非多个叠加宏。
 
 > 不要将此与使用宏模式推断路由生命周期事件中的类型混淆。后者运行良好，此限制仅针对在同一宏中使用生命周期。
 
-## 扩展
-宏可以扩展其他宏，允许您基于已有宏进行构建。
+## 扩展 Extension
+宏可以扩展其他宏，允许你基于已有宏进行构建。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -312,12 +311,12 @@ new Elysia()
 //
 ```
 
-这允许您基于已有宏构建，并为其添加更多功能。
+这允许你基于已有宏构建并为其添加更多功能。
 
 ## 去重
 宏会自动去重生命周期事件，确保每个生命周期事件只执行一次。
 
-默认情况下，Elysia 会使用属性值作为种子，但您也可以通过提供自定义种子来覆盖它。
+默认情况下，Elysia 会使用属性值作为种子，但你也可以通过提供自定义种子来覆盖它。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -333,6 +332,6 @@ new Elysia()
 	})
 ```
 
-不过，如果您不慎创建了循环依赖，Elysia 会有一个16层的限制堆栈，以防止运行时和类型推断中出现无限循环。
+不过，如果你不慎创建了循环依赖，Elysia 会有一个16层的限制堆栈，以防止运行时和类型推断中出现无限循环。
 
-如果路由已经有 OpenAPI 详情，它将合并该详情，但优先保留路由的详情，而非宏的详情。
+如果该路由已包含 OpenAPI 细节，它将合并细节，但更优先使用路由的细节而非宏的细节。

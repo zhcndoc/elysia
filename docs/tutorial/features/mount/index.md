@@ -10,11 +10,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 提供了一个 Elysia.mount 用于在基于 Web 标准（如 Hono、H3 等）构建的后端框架之间互操作。
+        content: Elysia 提供了 Elysia.mount 用于在基于 Web 标准构建的后端框架之间进行互操作，如 Hono、H3 等。
 
     - - meta
       - property: 'og:description'
-        content: Elysia 提供了一个 Elysia.mount 用于在基于 Web 标准（如 Hono、H3 等）构建的后端框架之间互操作。
+        content: Elysia 提供了 Elysia.mount 用于在基于 Web 标准构建的后端框架之间进行互操作，如 Hono、H3 等。
 ---
 
 <script setup lang="ts">
@@ -31,7 +31,7 @@ import { code, testcases } from './data'
 
 # Mount
 
-Elysia 提供了一个 <DocLink href="/patterns/mount">Elysia.mount</DocLink> 用于在基于 Web 标准（如 Hono、H3 等）构建的后端框架之间互操作。
+Elysia 提供了一个 <DocLink href="/patterns/mount">Elysia.mount</DocLink> 用于在基于 Web 标准构建的后端框架之间进行互操作，如 Hono、H3 等。
 
 ```typescript
 import { Elysia, t } from 'elysia'

@@ -31,8 +31,8 @@ export default defineConfig({
 ```
 
 2. 创建 **pages/[...slugs].ts**
-3. 在 **[...slugs].ts** 中创建或导入一个现有的 Elysia 服务器
-4. 用您想要公开的方法名称导出处理器
+3. 在 **[...slugs].ts** 中创建或导入一个已存在的 Elysia 服务器
+4. 导出你想暴露的方法名的处理程序
 
 ```typescript
 // pages/[...slugs].ts
@@ -73,9 +73,9 @@ pnpm add @sinclair/typebox openapi-types
 
 ## 前缀
 
-如果您将 Elysia 服务器放在应用路由的根目录之外，您需要为 Elysia 服务器注释前缀。
+如果您将 Elysia 服务器放置在应用路由器的根目录之外，需要在 Elysia 服务器上标注前缀。
 
-例如，如果您将 Elysia 服务器放在 **pages/api/[...slugs].ts**，则需要将前缀注释为 **/api**。
+例如，如果您将 Elysia 服务器放置在 **pages/api/[...slugs].ts**，则需要在 Elysia 服务器上标注前缀为 **/api**。
 
 ```typescript
 // pages/api/[...slugs].ts
@@ -95,6 +95,6 @@ export const GET = handle // [!code ++]
 export const POST = handle // [!code ++]
 ```
 
-这将确保 Elysia 路由在您放置的位置上能够正常工作。
+这将确保无论您将其放置在哪里，Elysia 的路由都能正常工作。
 
-有关更多信息，请参阅 [Astro Endpoint](https://astro.zhcndoc.com/zh-cn/core-concepts/endpoints/)。
+更多信息请参考 [Astro Endpoints](https://docs.astro.build/en/core-concepts/endpoints/)。

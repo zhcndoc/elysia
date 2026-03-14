@@ -26,7 +26,7 @@ Elysia 提供了 **Elysia.handle** 方法，该方法接受 Web 标准 [Request]
 
 Bun 包含一个内置的 [测试运行器](https://bun.zhcndoc.com/cli/test)，通过 `bun:test` 模块提供类似 Jest 的 API，便于创建单元测试。
 
-在项目根目录下创建 **test/index.test.ts**，内容如下：
+Create **test/index.test.ts** in the root of the project directory with the following:
 
 ```typescript
 // test/index.test.ts
@@ -54,7 +54,7 @@ bun test
 
 对 Elysia 服务器的新请求必须是一个完全有效的 URL，**不能**是 URL 的一部分。
 
-请求必须提供如下格式的 URL：
+The request must provide the URL as follows:
 
 | URL                   | 有效 |
 | --------------------- | ----- |

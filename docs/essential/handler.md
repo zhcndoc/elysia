@@ -40,7 +40,7 @@ new Elysia()
     .listen(3000)
 ```
 
-处理程序可以是文字值，也可以是内联值。
+处理程序可以是文本值，也可以是内联值。
 
 ```typescript
 import { Elysia, file } from 'elysia'
@@ -77,10 +77,10 @@ new Elysia()
 
 #### 属性
 -   [**body**](/essential/validation.html#body) - [HTTP 消息](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)，表单或文件上传。
--   [**query**](/essential/validation.html#query) - [查询字符串](https://en.wikipedia.org/wiki/Query_string)，包含额外搜索参数的 JavaScript 对象。（查询从路径名后“?”号开始提取）
+-   [**query**](/essential/validation.html#query) - [查询字符串](https://en.wikipedia.org/wiki/Query_string)，包含额外的搜索参数，作为 JavaScript 对象。（查询从路径名后的问号 `?` 开始提取）
 -   [**params**](/essential/validation.html#params) - Elysia 的路径参数，解析为 JavaScript 对象
--   [**headers**](/essential/validation.html#headers) - [HTTP 头部](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)，请求的附加信息，如 User-Agent、Content-Type、缓存提示等。
--   [**cookie**](#cookie) - 一个全局可变信号存储，用于交互 Cookie（包括获取和设置）
+-   [**headers**](/essential/validation.html#headers) - [HTTP 头](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)，关于请求的附加信息，比如 User-Agent、Content-Type、Cache Hint。
+-   [**cookie**](#cookie) - 用于与 Cookie 交互的全局可变信号存储（包括读/写）
 -   [**store**](#state) - Elysia 实例的全局可变存储
 
 #### 工具函数
@@ -107,10 +107,10 @@ new Elysia()
 
 <Playground :elysia="handler2" />
 
-建议使用**永不抛出**（never-throw）方式返回**status**，而非抛出错误，因为它：
-- 允许 TypeScript 检查返回值是否符合响应模式的类型
-- 基于状态码支持自动补全的类型缩小
-- 支持端到端类型安全的错误处理的类型缩小（参考 [Eden](/eden/overview)）
+建议使用**永不抛出**的方式返回 **status**，而不是抛出异常，因为它：
+- 允许 TypeScript 检查返回值是否正确匹配响应模式
+- 基于状态码提供类型缩小的自动补全
+- 使用端到端类型安全 ([Eden](/eden/overview)) 进行错误处理的类型缩小
 
 <!--### status
 我们可以通过以下两种方式返回自定义状态码：
@@ -133,7 +133,7 @@ new Elysia()
 
 ## Set
 
-**set** 是一个可变属性，代表通过 `Context.set` 访问的响应。
+**set** 是一个可变的属性，构成响应，可通过 `Context.set` 访问。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -148,7 +148,7 @@ new Elysia()
 ```
 
 ### set.headers
-允许我们附加或删除响应头，以对象形式表示。
+允许我们以对象形式追加或删除响应头。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -163,7 +163,7 @@ new Elysia()
 ```
 
 ::: tip
-Elysia 为区分大小写提供了小写自动补全以保持一致性，例如使用 `set-cookie` 而非 `Set-Cookie`。
+Elysia 提供小写字母的自动补全以保持大小写一致性，例如使用 `set-cookie` 而非 `Set-Cookie`。
 :::
 
 <details>
@@ -215,7 +215,7 @@ new Elysia()
     .listen(3000)
 ```
 
-与 `status` 函数不同，`set.status` 无法推断返回值类型，因此无法检查返回值是否符合响应模式。
+与 `status` 函数不同，`set.status` 无法推断返回值类型，因此无法检查返回值是否正确匹配响应模式。
 
 ::: tip
 HTTP 状态码指示响应类型。如果路由处理程序成功执行且无错误，Elysia 将返回状态码 200。
@@ -239,9 +239,9 @@ new Elysia()
 </details>
 
 ## Cookie
-Elysia 提供一个可变信号用以交互 Cookie。
+Elysia 提供了一个可变存储，用于与 Cookie 交互。
 
-无需显式的 get/set，你可以直接访问 cookie 名称并读取或更新其值。
+无需显式调用 get/set；你可以直接提取 Cookie 名称，读取或更新其值。
 
 ```typescript twoslash
 import { Elysia } from 'elysia'
@@ -277,8 +277,8 @@ new Elysia()
 
 使用重定向时，返回值不是必须且会被忽略，因为响应来自其他资源。
 
-## 表单数据
-可以通过直接从处理程序返回 `form` 工具来返回 `FormData`。
+## Formdata
+我们可以通过直接从处理程序返回 `form` 工具来返回 `FormData`。
 
 ```typescript
 import { Elysia, form, file } from 'elysia'
@@ -291,7 +291,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-这种模式非常有用，即使需要返回文件或多部分表单数据。
+这种模式在需要返回文件或多部分表单数据时非常有用。
 
 ### 返回单个文件
 或者，你也可以直接返回单个文件，不用包裹在 `form`。
@@ -304,8 +304,8 @@ new Elysia()
 	.listen(3000)
 ```
 
-## 流
-通过使用带 `yield` 关键字的生成器函数返回响应流。
+## Stream
+若要返回流式响应，可使用带有 `yield` 关键字的生成器函数。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -318,7 +318,7 @@ const app = new Elysia()
 	})
 ```
 
-在此示例中，我们使用 `yield` 关键字实现响应的流式传输。
+在此示例中，我们通过使用 `yield` 关键字流式传输响应。
 
 ## 服务器发送事件 (SSE)
 
@@ -365,7 +365,7 @@ const app = new Elysia()
 一旦第一个数据块被 `yield`，Elysia 会将头部发送给客户端，因此之后更改头部没有效果。
 
 ### 条件流
-如果响应返回而没有 `yield`，Elysia 将自动把流转换为普通响应。
+如果响应返回时没有 `yield`，Elysia 将自动把流转换为普通响应。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -419,7 +419,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-允许你在必要时访问底层请求信息。
+这样可以在必要时访问底层请求信息。
 
 ## Server <Badge type="warning">仅 Bun 支持</Badge>
 服务器实例为 Bun 服务器实例，允许访问服务器信息，如端口号或请求 IP。
@@ -451,6 +451,6 @@ new Elysia()
 
 ## 扩展上下文 <Badge type="warning">高级概念</Badge>
 
-Elysia 默认提供一个最小的上下文，允许我们使用状态、装饰、派生和解析来扩展上下文以满足我们的特定需求。
+Elysia 默认提供了最小化的 Context，允许你使用 state、decorate、derive 和 resolve 来根据具体需求扩展 Context。
 
 有关如何扩展上下文的更多信息，请参见 [扩展上下文](/patterns/extends-context)。

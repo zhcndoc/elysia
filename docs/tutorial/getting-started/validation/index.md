@@ -90,7 +90,7 @@ new Elysia()
 - `cookie`
 - `response`
 
-一旦定义了模式，Elysia 会为您推断类型，因此您无需在 TypeScript 中定义单独的模式。
+一旦定义了模式，Elysia 会为您推断类型，这样您就不必在 TypeScript 中定义单独的模式。
 
 请参见 <DocLink href="/essential/validation#schema-type">模式类型</DocLink> 以了解每种类型。
 
@@ -125,7 +125,7 @@ new Elysia()
 
 <template #answer>
 
-我们可以通过使用 `t.Object` 来定义一个模式，提供给 `body` 属性。
+我们可以通过使用提供给 `body` 属性的 `t.Object` 来定义模式。
 
 ```typescript
 import { Elysia, t } from 'elysia'

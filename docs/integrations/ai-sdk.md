@@ -7,20 +7,20 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 提供了对响应流的支持，使您能够轻松集成 Vercel AI SDK。
+        content: Elysia 轻松支持响应流，允许您无缝集成 Vercel AI SDK。
 
     - - meta
       - property: 'og:description'
-        content: Elysia 提供了对响应流的支持，使您能够轻松集成 Vercel AI SDK。
+        content: Elysia 轻松支持响应流，允许您无缝集成 Vercel AI SDK。
 ---
 
 # 与 AI SDK 集成
 
-Elysia 提供了对响应流的支持，使您能够无缝集成 [Vercel AI SDKs](https://vercel.com/docs/ai)。
+Elysia 轻松支持响应流，允许您无缝集成 [Vercel AI SDKs](https://vercel.com/docs/ai)。
 
 ## 响应流
 
-Elysia 支持对 `ReadableStream` 和 `Response` 的持续流式处理，允许您直接从 AI SDK 返回流。
+Elysia 支持持续流式传输 `ReadableStream` 和 `Response`，允许您直接从 AI SDK 返回流。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -44,9 +44,9 @@ new Elysia().get('/', () => {
 
 Elysia 会自动处理流，允许您以多种方式使用它。
 
-## 服务器发送事件（Server Sent Event）
+## 服务器发送事件（Server-Sent Events）
 
-Elysia 还支持通过简单地将 `ReadableStream` 包裹在 `sse` 函数中，实现流式响应的服务器发送事件。
+Elysia 还支持通过简单地使用 `sse` 函数包装 `ReadableStream` 来实现流式响应。
 
 ```ts
 import { Elysia, sse } from 'elysia' // [!code ++]
@@ -70,7 +70,7 @@ new Elysia().get('/', () => {
 
 ## 作为响应
 
-如果您不需要后续使用 [Eden](/eden/overview) 的流类型安全，可以直接将流作为响应返回。
+如果您不需要流的类型安全以供后续与 [Eden](/eden/overview) 使用，可以直接将流作为响应返回。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -121,7 +121,7 @@ new Elysia().get('/', async function* () {
 
 ## 使用 Fetch
 
-如果 AI SDK 不支持您使用的模型，您仍然可以使用 `fetch` 函数向 AI SDK 发起请求并直接流式传输响应。
+如果 AI SDK 不支持您所用的模型，您仍然可以使用 `fetch` 函数向 AI SDK 发送请求，并直接流式传输响应。
 
 ```ts
 import { Elysia, fetch } from 'elysia'
@@ -152,4 +152,4 @@ Elysia 会自动代理带有流支持的 fetch 响应。
 
 ---
 
-更多信息请参考 [AI SDK 文档](https://ai-sdk.dev/docs/introduction)
+如需更多信息，请参阅 [AI SDK 文档](https://ai-sdk.dev/docs/introduction)

@@ -36,7 +36,7 @@ const app = new Elysia()
                     'WWW-Authenticate'
                 ] = `Bearer realm='sign', error="invalid_request"`
 
-                return status(400, 'Unauthorized')
+                return status(400, 'Unauthorized') // 未授权
             }
         }
     })
@@ -45,4 +45,4 @@ const app = new Elysia()
 
 该插件用于获取在 [RFC6750](https://www.rfc-editor.org/rfc/rfc6750#section-2) 中指定的 Bearer 令牌。
 
-该插件不处理您的服务器的身份验证验证。相反，该插件将决定权留给开发人员，以便他们自己应用验证检查的逻辑。
+This plugin DOES NOT handle authentication validation for your server. Instead, the plugin leaves the decision to developers to apply the logic for handling validation checks themselves.

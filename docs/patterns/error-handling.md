@@ -28,11 +28,11 @@ const demo = new Elysia()
 		if (code === 418) return 'caught'
 	})
     .get('/throw', ({ error }) => {
-		// 这会被 onError 捕获
+		// This will be caught by onError
 		throw error(418)
 	})
 	.get('/return', ({ status }) => {
-		// 这不会被 onError 捕获
+		// This will not be caught by onError
 		return status(418)
 	})
 
@@ -70,7 +70,7 @@ const demo3 = new Elysia()
 
 # 错误处理 <TutorialBadge href="/tutorial/patterns/error-handling" />
 
-本页提供了一个更高级的指南，用于在 Elysia 中有效处理错误。
+This page provides a more advanced guide for effectively handling errors with Elysia.
 
 如果你还没有阅读 **“生命周期 (onError)”**，建议先阅读它。
 
@@ -101,7 +101,7 @@ new Elysia().get('/:id', ({ params: { id } }) => id, {
 })
 ```
 
-如果 `id` 字段验证失败，响应将返回 `id 必须是数字`。
+If the validation fails on the `id` field, the response will be returned as `id must be a number`.
 
 <Playground
 	:elysia="demo2"
@@ -109,7 +109,7 @@ new Elysia().get('/:id', ({ params: { id } }) => id, {
 
 ### 验证详情 <TutorialBadge href="/tutorial/patterns/validation-error" />
 
-从 `schema.error` 返回一个值将原样返回验证消息，但有时你也希望返回验证细节，比如字段名和期望类型。
+Returning a value from `schema.error` will return the validation as-is, but sometimes you may also want to return the validation details, such as the field name and the expected type
 
 你可以通过使用 `validationDetail` 来实现这一点。
 
@@ -131,7 +131,7 @@ new Elysia().get('/:id', ({ params: { id } }) => id, {
 	:elysia="demo3"
 />
 
-但是如果你计划在每个字段都使用 `validationDetail`，手动添加会很麻烦。
+But if you plan to use `validationDetail` in every field, adding it manually can be annoying.
 
 你可以在 `onError` 钩子中自动处理验证详情。
 
@@ -154,7 +154,7 @@ new Elysia()
 
 ## 生产环境中的验证详情
 
-默认情况下，如果 `NODE_ENV` 是 `production`，Elysia 会省略所有验证详情。
+By default, Elysia will omit all validation detail if `NODE_ENV` is `production`.
 
 这样做是为了防止泄露验证模式的敏感信息，比如字段名和期望类型，这可能被攻击者利用。
 
@@ -176,9 +176,9 @@ Elysia 只会返回验证失败的信息，而不包含任何详情。
 
 ## 自定义错误
 
-Elysia 支持类型层级和实现层级的自定义错误。
+Elysia supports custom errors both in the type-level and implementation level.
 
-默认情况下，Elysia 有一组内置错误类型，如 `VALIDATION`、`NOT_FOUND`，会自动缩小类型。
+By default, Elysia has a set of built-in error types like `VALIDATION`, `NOT_FOUND` which will narrow down the type automatically.
 
 如果 Elysia 不认识该错误，错误代码将是 `UNKNOWN`，默认状态码为 `500`。
 
@@ -282,7 +282,7 @@ class MyError extends Error {
 
 ## 抛出或返回
 
-大多数错误处理可以通过抛出错误并在 `onError` 中处理完成。
+Most error handling in Elysia can be done by throwing an error and will be handled in `onError`.
 
 但 `status` 可能会让人困惑，因为它既可以作为返回值也可以抛出错误。
 
@@ -301,11 +301,11 @@ new Elysia()
         if (code === 418) return 'caught'
     })
     .get('/throw', ({ status }) => {
-        // 这会被 onError 捕获
+        // This will be caught by onError
         throw status(418)
     })
     .get('/return', ({ status }) => {
-        // 这不会被 onError 捕获
+        // This will not be caught by onError
         return status(418)
     })
 ```

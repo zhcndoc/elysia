@@ -16,7 +16,7 @@ head:
 
 # Elysia 与 Bun 全栈开发服务器
 
-Bun 1.3 引入了一个[全栈开发服务器](https://bun.com/docs/bundler/fullstack)，支持 HMR。
+Bun 1.3 引入了一个支持 HMR 的[全栈开发服务器](https://bun.com/docs/bundler/fullstack)。
 
 这允许我们直接使用 React，无需任何打包工具如 Vite 或 Webpack。
 
@@ -101,7 +101,7 @@ root.render(<App />)
 
 4. 访问 `http://localhost:3000/public` 查看效果。
 
-这允许我们在一个项目中开发前端和后端，无需任何打包工具。
+这允许我们在单一项目中同时开发前端和后端，无需任何打包工具。
 
 我们已验证全栈开发服务器支持 HMR、[Tailwind](#tailwind)、Tanstack Query、[Eden Treaty](/eden/overview) 以及路径别名。
 
@@ -244,7 +244,7 @@ const root = createRoot(document.getElementById('root')!)
 root.render(<App />)
 ```
 
-这会开箱即用，无需额外配置。
+这将在无任何额外配置的情况下开箱即用。
 
 ## 生产环境构建
 

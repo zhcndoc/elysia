@@ -14,9 +14,9 @@ head:
         content: Elysia 可以运行在 Tanstack Start API 服务器路由内，且两者均可在 Data Loader 或 Tanstack React Query 中结合 Eden 实现类型安全。
 ---
 
-# 与 Tanstack Start 集成
+# 与 TanStack Start 集成
 
-Elysia 可以运行在 Tanstack Start 服务器路由内。
+Elysia 可以运行在 TanStack Start 服务器路由中。
 
 1. 创建 **src/routes/api.$.ts**
 2. 定义一个 Elysia 服务器
@@ -93,9 +93,9 @@ export const getTreaty = createIsomorphicFn() // [!code ++]
 
 :::
 
-注意我们使用 **createIsomorphicFn** 分别为服务器和客户端创建不同的 Eden Treaty 实例。
-1. 服务器端直接调用 Elysia，无需 HTTP 开销。
-2. 客户端通过 HTTP 调用 Elysia 服务器。
+注意我们使用 **createIsomorphicFn** 为服务器和客户端分别创建一个独立的 Eden Treaty 实例：
+1. 在服务器端，直接调用 Elysia，避免 HTTP 开销。
+2. 在客户端，通过 HTTP 调用 Elysia 服务器。
 
 在 React 组件中，可以使用 `getTreaty` 以类型安全的方式调用 Elysia 服务器。
 
@@ -159,4 +159,4 @@ function App() {
 
 ---
 
-如需了解更多关于 Tanstack Start 的信息，请访问 [Tanstack Start 文档](https://tanstack.com/start)。
+请访问 [TanStack Start Documentation](https://tanstack.com/start) 获取更多关于 TanStack Start 的信息。

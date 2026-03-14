@@ -74,12 +74,12 @@ pnpm add @sinclair/typebox openapi-types
 ```
 
 ## 限制
-以下是在 Cloudflare Worker 上使用 Elysia 的一些已知限制：
+以下是使用 Elysia 在 Cloudflare Workers 上的一些已知限制：
 
-1. `Elysia.file` 和 [静态插件](/plugins/static) 不可用，[因为缺少 `fs` 模块支持](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#supported-nodejs-apis)，详见[静态文件](#static-file)部分的替代方案
-2. [OpenAPI 类型生成](/blog/openapi-type-gen) 不可用，[因为缺少 `fs` 模块支持](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#supported-nodejs-apis)
-3. 你不能在服务器启动前定义[**Response**](https://x.com/saltyAom/status/1966602691754553832)，也不能使用会这样做的插件
-4. 由于第 3 点，你不能内联一个值。
+1. `Elysia.file` 和 [Static Plugin](/plugins/static) 不支持 [因为缺少 `fs` 模块](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#supported-nodejs-apis)；请参阅 [静态文件](#static-file) 部分的替代方案
+2. [OpenAPI Type Gen](/blog/openapi-type-gen) 不支持 [因为缺少 `fs` 模块](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#supported-nodejs-apis)
+3. 你不能在服务器启动前定义 [**Response**](https://x.com/saltyAom/status/1966602691754553832) 或使用这样做的插件
+4. 你不能内联一个值，原因见第3条。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -91,7 +91,7 @@ new Elysia()
 ```
 
 ## 静态文件
-[静态插件](/plugins/static) 不可用，但你仍然可以使用 [Cloudflare 内置的静态文件服务](https://developers.cloudflare.com/workers/static-assets/) 来提供静态文件。
+[Static Plugin](/plugins/static) 不支持，但你仍然可以使用 [Cloudflare 内置的静态文件服务](https://developers.cloudflare.com/workers/static-assets/) 来提供静态文件。
 
 在你的 wrangler 配置中添加以下内容：
 
@@ -130,12 +130,12 @@ assets = { directory = "public" } # [!code ++]
 └─ wrangler.toml
 ```
 
-那么你应该能通过以下路径访问静态文件：
+然后你应该能够通过以下路径访问你的静态文件：
 - **http://localhost:8787/kyuukurarin.mp4**
 - **http://localhost:8787/static/mika.webp**
 
-## 绑定
-通过从 `cloudflare:workers` 导入 env，你可以使用 Cloudflare Workers 绑定。
+## Bindings
+你可以通过从 `cloudflare:workers` 导入 env 来使用 Cloudflare Workers 的绑定。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -149,7 +149,7 @@ export default new Elysia({
 	.compile()
 ```
 
-更多绑定信息请参阅 [Cloudflare Workers: Binding](https://developers.cloudflare.com/workers/runtime-apis/bindings/#importing-env-as-a-global)。
+有关绑定的更多信息，请参见 [Cloudflare Workers: Bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/#importing-env-as-a-global)。
 
 ## 预编译（AoT）编译
 此前，在 Cloudflare Worker 上使用 Elysia 时，你需要给 Elysia 构造函数传入 `aot: false`。
@@ -168,4 +168,4 @@ export default new Elysia({
 })
 ```
 
-当然，如果你不想使用预编译，仍然可以使用 `aot: false`，但我们推荐启用以获得更好的性能和更准确的插件封装。
+否则，如果你不想使用预编译，仍然可以使用 `aot: false`，但我们建议使用它以获得更好的性能和准确的插件封装。

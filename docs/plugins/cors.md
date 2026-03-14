@@ -37,7 +37,7 @@ new Elysia().use(cors()).listen(3000)
 
 ## 配置
 
-以下是该插件接受的配置
+下面是该插件接受的配置
 
 ### origin
 

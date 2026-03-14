@@ -4,28 +4,28 @@ import Deck from '../components/nearl/card-deck.vue'
 </script>
 
 <Deck>
-    <Card title="Key Concept (5 minutes)" href="/key-concept">
-    	The core concept of Elysia and how to use it.
+    <Card title="关键概念（5分钟）" href="/key-concept">
+    	Elysia的核心概念以及如何使用它。
     </Card>
 </Deck>
 
-# Comparison with Other Frameworks
+# 与其他框架的比较
 
-Elysia is designed to be intuitive and easy to use, especially for those familiar with other web frameworks.
+Elysia设计得直观且易于使用，尤其适合熟悉其他Web框架的用户。
 
-If you have used other popular frameworks like Express, Fastify, or Hono, you will find Elysia right at home with just a few differences.
+如果你使用过Express、Fastify或Hono等流行框架，你会发现Elysia也很容易上手，仅有少许差异。
 
 <Deck>
-	<Card title="From Express" href="/migrate/from-express">
-		Comparison between tRPC and Elysia
+	<Card title="来自Express" href="/migrate/from-express">
+		Express与Elysia的对比
 	</Card>
-    <Card title="From Fastify" href="/migrate/from-fastify">
-  		Comparison between Fastify and Elysia
+    <Card title="来自Fastify" href="/migrate/from-fastify">
+  		Fastify与Elysia的对比
     </Card>
-    <Card title="From Hono" href="/migrate/from-hono">
-  		Comparison between tRPC and Elysia
+    <Card title="来自Hono" href="/migrate/from-hono">
+  		Hono与Elysia的对比
     </Card>
-    <Card title="From tRPC" href="/migrate/from-trpc">
-  		Comparison between tRPC and Elysia
+    <Card title="来自tRPC" href="/migrate/from-trpc">
+  		tRPC与Elysia的对比
     </Card>
 </Deck>

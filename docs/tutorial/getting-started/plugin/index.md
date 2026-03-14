@@ -30,7 +30,7 @@ import { code, testcases } from './data'
 
 # 插件
 
-每个 Elysia 实例都可以通过 `use` 方法与其他实例进行即插即用。
+每个 Elysia 实例都可以使用 `use` 方法与其他实例即插即用。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -48,7 +48,7 @@ new Elysia()
 一旦应用，来自 `user` 实例的所有路由将在 `app` 实例中可用。
 
 ### 插件配置
-您还可以创建一个接受参数的插件，并返回一个 Elysia 实例，以制作一个更动态的插件。
+您也可以创建一个插件，该插件接受参数并返回一个 Elysia 实例，以制作更动态的插件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -66,7 +66,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-It's also recommended that you should also read about [Key Concept: Dependency](/key-concept#dependency) to understand how Elysia handles dependencies between plugins.
+同时建议您阅读[关键概念：依赖](/key-concept#dependency)，以了解 Elysia 如何处理插件之间的依赖关系。
 
 ## 练习
 

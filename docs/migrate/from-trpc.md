@@ -1,23 +1,23 @@
 ---
-title: Migrate from tRPC - ElysiaJS
+title: 从 tRPC 迁移 - ElysiaJS
 prev:
-  text: 'Quick Start'
+  text: '快速开始'
   link: '/quick-start'
 next:
-  text: 'Tutorial'
+  text: '教程'
   link: '/tutorial'
 head:
     - - meta
       - property: 'og:title'
-        content: Migrate from tRPC - ElysiaJS
+        content: 从 tRPC 迁移 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: This guide is for tRPC users who want to see a differences from Elysia including syntax, and how to migrate your application from tRPC to Elysia by example.
+        content: 本指南适用于想了解 Elysia 与 tRPC 语法差异，并通过示例了解如何将应用从 tRPC 迁移到 Elysia 的用户。
 
     - - meta
       - property: 'og:description'
-        content: This guide is for tRPC users who want to see a differences from Elysia including syntax, and how to migrate your application from tRPC to Elysia by example.
+        content: 本指南适用于想了解 Elysia 与 tRPC 语法差异，并通过示例了解如何将应用从 tRPC 迁移到 Elysia 的用户。
 ---
 
 <script setup>
@@ -28,26 +28,26 @@ import Deck from '../components/nearl/card-deck.vue'
 import Benchmark from '../components/fern/benchmark-hono.vue'
 </script>
 
-# From tRPC to Elysia
+# 从 tRPC 到 Elysia
 
-This guide is for tRPC users who want to see a differences from Elysia including syntax, and how to migrate your application from tRPC to Elysia by example.
+本指南适用于想了解 Elysia 与 tRPC 语法差异，并通过示例了解如何将应用从 tRPC 迁移到 Elysia 的用户。
 
-**tRPC** is a typesafe RPC framework for building APIs using TypeScript. It provides a way to create end-to-end type-safe APIs with type-safe contract between frontend and backend.
+**tRPC** 是一个使用 TypeScript 构建 API 的类型安全 RPC 框架。它提供了创建端到端类型安全 API 的方式，实现前后端之间的类型安全契约。
 
-**Elysia** is an ergonomic web framework. Designed to be ergonomic and developer-friendly with a focus on **sound type safety** and performance.
+**Elysia** 是一个符合人体工学的 Web 框架。设计旨在符合人体工学且对开发者友好，重点关注**可靠的类型安全**和性能。
 
-## Overview
-tRPC is primarily designed as RPC communication with proprietary abstraction over RESTful API, while Elysia is focused on RESTful API.
+## 概述
+tRPC 主要设计为基于 RPC 通信，采用对 RESTful API 的专有抽象，而 Elysia 则专注于 RESTful API。
 
-Main feature of tRPC is end-to-end type safety contract between frontend and backend which Elysia also offers via [Eden](/eden/overview).
+tRPC 的主要特点是提供前后端之间的端到端类型安全契约，Elysia 也通过 [Eden](/eden/overview) 提供了类似功能。
 
-Making Elysia a better fit for building a universal API with RESTful standard that developers already know instead of learning a new proprietary abstraction while having the end-to-end type safety that tRPC offers.
+这使得 Elysia 更适合构建使用开发者已经熟悉的 RESTful 标准的通用 API，而无需学习新的专有抽象，同时享有 tRPC 提供的端到端类型安全。
 
-## Routing
+## 路由
 
-Elysia use a syntax similar to Express, and Hono like `app.get()` and `app.post()` methods to define routes and similar path parameters syntax.
+Elysia 使用类似 Express 和 Hono 的语法，比如 `app.get()` 和 `app.post()` 方法定义路由及路径参数语法。
 
-While tRPC use a nested router approach to define routes.
+而 tRPC 使用嵌套路由器的方式定义路由。
 
 <Compare>
 
@@ -84,7 +84,7 @@ server.listen(3000)
 
 <template v-slot:left-content>
 
-> tRPC use nested router and procedure to define routes
+> tRPC 使用嵌套路由器和 procedure 来定义路由
 
 </template>
 
@@ -111,19 +111,19 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use HTTP method, and path parameters to define routes
+> Elysia 使用 HTTP 方法和路径参数来定义路由
 
 </template>
 
 </Compare>
 
-While tRPC use proprietary abstraction over RESTful API with procedure and router, Elysia use a syntax similar to Express, and Hono like `app.get()` and `app.post()` methods to define routes and similar path parameters syntax.
+虽然 tRPC 使用专有的 procedure 和 router 抽象 RESTful API，但 Elysia 采用类似 Express 和 Hono 的 `app.get()`，`app.post()` 方法及路径参数语法来定义路由。
 
-## Handler
+## 处理器
 
-tRPC handler is called `procedure` which can be either `query` or `mutation`, while Elysia use HTTP method like `get`, `post`, `put`, `delete` and so on.
+tRPC 的处理器称为 `procedure`，可以是 `query` 或 `mutation`，而 Elysia 直接使用 HTTP 方法如 `get`、`post`、`put`、`delete` 等。
 
-tRPC is doesn't have a concept of HTTP property like query, headers, status code, and so on, only `input` and `output`.
+tRPC 没有 HTTP 属性的概念，如 query、headers、状态码等，只有 `input` 和 `output`。
 
 <Compare>
 
@@ -154,7 +154,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use single `input` for all properties
+> tRPC 使用单一的 `input` 表示所有属性
 
 </template>
 
@@ -180,19 +180,19 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use specific property for each HTTP property
+> Elysia 为每个 HTTP 属性使用对应的专属属性
 
 </template>
 
 </Compare>
 
-Elysia use **static code analysis** to determine what to parse, and only parse the required properties.
+Elysia 通过**静态代码分析**确定需要解析的内容，仅解析所需属性。
 
-This is useful for performance and type safety.
+这对性能和类型安全很有帮助。
 
-## Subrouter
+## 子路由器
 
-tRPC use nested router to define subrouter, while Elysia use `.use()` method to define a subrouter.
+tRPC 使用嵌套路由器定义子路由器，而 Elysia 使用 `.use()` 方法定义子路由器。
 
 <Compare>
 
@@ -219,7 +219,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use nested router to define subrouter
+> tRPC 使用嵌套路由器定义子路由器
 
 </template>
 
@@ -242,16 +242,16 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use a `.use()` method to define a subrouter
+> Elysia 使用 `.use()` 方法定义子路由器
 
 </template>
 
 </Compare>
 
-While you can inline the subrouter in tRPC, Elysia use `.use()` method to define a subrouter.
+虽然 tRPC 可以内联子路由器，Elysia 使用 `.use()` 方法定义子路由器。
 
-## Validation
-Both support Standard Schema for validation. Allowing you to use various validation library like Zod, Yup, Valibot, and so on.
+## 验证
+两者均支持标准 schema 验证。允许使用各种验证库，如 Zod、Yup、Valibot 等。
 
 <Compare>
 
@@ -283,7 +283,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use `input` to define validation schema
+> tRPC 使用 `input` 定义验证 schema
 
 </template>
 
@@ -352,18 +352,18 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use specific property to define validation schema
+> Elysia 使用对应专门属性定义验证 schema
 
 </template>
 
 </Compare>
 
-Both offers type inference from schema to context automatically.
+两者都能自动根据 schema 推断上下文中的类型。
 
-## File upload
-tRPC doesn't support file upload out-of-the-box and require you to use `base64` string as input which is inefficient, and doesn't support mimetype validation.
+## 文件上传
+tRPC 默认不支持文件上传，需要将文件作为 `base64` 字符串输入，效率低且不支持 mime 类型验证。
 
-While Elysia has built-in support for file upload using Web Standard API.
+而 Elysia 内建支持基于 Web 标准 API 的文件上传。
 
 <Compare>
 
@@ -428,23 +428,23 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia handle file, and mimetype validation declaratively
+> Elysia 以声明式方式处理文件及 mime 类型验证
 
 </template>
 
 </Compare>
 
-As doesn't validate mimetype out-of-the-box, you need to use a third-party library like `file-type` to validate an actual type.
+由于 tRPC 默认不验证 mime 类型，需借助第三方库如 `file-type` 来验证实际文件类型。
 
-## Middleware
+## 中间件
 
-tRPC middleware use a single queue-based order with `next` similar to Express, while Elysia give you a more granular control using an **event-based** lifecycle.
+tRPC 中间件采用基于队列的单序列，使用类似 Express 的 `next` 方法，而 Elysia 则通过**基于事件的**生命周期提供更细粒度的控制。
 
-Elysia's Life Cycle event can be illustrated as the following.
+Elysia 的生命周期事件可用下图说明。
 ![Elysia Life Cycle Graph](/assets/lifecycle-chart.svg)
-> Click on image to enlarge
+> 点击图片放大
 
-While tRPC has a single flow for request pipeline in order, Elysia can intercept each event in a request pipeline.
+tRPC 在请求管道中的流程为单一顺序，而 Elysia 可拦截请求管道中的每个事件。
 
 <Compare>
 
@@ -479,7 +479,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use a single middleware queue defined as a procedure
+> tRPC 使用单个中间件队列定义为 procedure
 
 </template>
 
@@ -491,11 +491,11 @@ const appRouter = t.router({
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
-	// Global middleware
+	// 全局中间件
 	.onRequest(({ method, path }) => {
 		console.log(`${method} ${path}`)
 	})
-	// Route-specific middleware
+	// 路由特定中间件
 	.get('/protected', () => 'protected', {
 		beforeHandle({ status, headers }) {
   			if (!headers.authorizaton)
@@ -509,18 +509,18 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use a specific event interceptor for each point in the request pipeline
+> Elysia 为请求管道中的每个节点使用特定事件拦截器
 
 </template>
 
 </Compare>
 
-While tRPC has a `next` function to call the next middleware in the queue, Elysia use specific event interceptor for each point in the request pipeline.
+虽然 tRPC 使用 `next` 函数调用队列中的下一个中间件，Elysia 则为请求管道中各节点使用特定事件拦截器。
 
-## Sounds type safety
-Elysia is designed to be sounds type safety.
+## 类型安全
+Elysia 设计上提供了类型安全。
 
-For example, you can customize context in a **type safe** manner using [derive](/essential/life-cycle.html#derive) and [resolve](/essential/life-cycle.html#resolve) while tRPC offers one by using `context` by type case which is doesn't ensure 100% type safety, making it unsounds.
+例如，你可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以**类型安全**的方式自定义上下文，而 tRPC 则通过类型转换使用 `context` 来提供上下文，但这无法确保 100% 的类型安全，因此不够严谨。
 
 <Compare>
 
@@ -556,7 +556,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use `context` to extend context but doesn't have sounds type safety
+> tRPC 使用 `context` 来扩展上下文，但没有类型安全保障
 
 </template>
 
@@ -593,14 +593,14 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use a specific event interceptor for each point in the request pipeline
+> Elysia 在请求管道的每个点使用了特定的事件拦截器
 
 </template>
 
 </Compare>
 
-## Middleware parameter
-Both support custom middleware, but Elysia use macro to pass custom argument to custom middleware while tRPC use higher-order-function which is not type safe.
+## 中间件参数
+两者都支持自定义中间件，但 Elysia 使用宏函数来传递自定义参数给中间件，而 tRPC 使用高阶函数传参，缺乏类型安全。
 
 <Compare>
 
@@ -649,7 +649,7 @@ const appRouter = t.router({
 
 
 // ---cut-after---
-// Unused
+// 未使用
 ```
 
 :::
@@ -657,7 +657,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC use higher-order-function to pass custom argument to custom middleware
+> tRPC 使用高阶函数向自定义中间件传递自定义参数
 
 </template>
 
@@ -701,15 +701,15 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia use macro to pass custom argument to custom middleware
+> Elysia 使用宏函数向自定义中间件传递自定义参数
 
 </template>
 
 </Compare>
 
-## Error handling
+## 错误处理
 
-tRPC use middleware-like to handle error, while Elysia provide custom error with type safety, and error interceptor for both global and route specific error handler.
+tRPC 使用类似中间件的方式处理错误，而 Elysia 提供了类型安全的自定义错误类，以及全局和路由特定的错误拦截器。
 
 <Compare>
 
@@ -752,7 +752,7 @@ const appRouter = t.router()
 
 <template v-slot:left-content>
 
-> tRPC use middleware-like to handle error
+> tRPC 使用类似中间件的方式处理错误
 
 </template>
 
@@ -764,7 +764,7 @@ const appRouter = t.router()
 import { Elysia } from 'elysia'
 
 class CustomError extends Error {
-	// Optional: custom HTTP status code
+	// 可选：自定义 HTTP 状态码
 	status = 500
 
 	constructor(message: string) {
@@ -772,21 +772,21 @@ class CustomError extends Error {
 		this.name = 'CustomError'
 	}
 
-	// Optional: what should be sent to the client
+	// 可选：向客户端发送的内容
 	toResponse() {
 		return {
-			message: "If you're seeing this, our dev forgot to handle this error",
+			message: "如果你看到了这个错误，说明我们的开发忘了处理这个错误",
 			error: this
 		}
 	}
 }
 
 const app = new Elysia()
-	// Optional: register custom error class
+	// 可选：注册自定义错误类
 	.error({
 		CUSTOM: CustomError,
 	})
-	// Global error handler
+	// 全局错误处理器
 	.onError(({ error, code }) => {
 		if(code === 'CUSTOM')
 		// ^?
@@ -795,17 +795,17 @@ const app = new Elysia()
 
 
 			return {
-				message: 'Something went wrong!',
+				message: '出了点问题！',
 				error
 			}
 	})
 	.get('/error', () => {
 		throw new CustomError('oh uh')
 	}, {
-		// Optional: route specific error handler
+		// 可选：路由特定错误处理器
 		error({ error }) {
 			return {
-				message: 'Only for this route!',
+				message: '仅该路由生效！',
 				error
 			}
 		}
@@ -817,25 +817,25 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia provide more granular control over error handling, and scoping mechanism
+> Elysia 提供了更细粒度的错误处理控制和作用域机制
 
 </template>
 
 </Compare>
 
-While tRPC offers error handling using middleware-like, Elysia provide:
+虽然 tRPC 提供了类似中间件的错误处理，但 Elysia 额外提供了：
 
-1. Both global and route specific error handler
-2. Shorthand for mapping HTTP status and `toResponse` for mapping error to a response
-3. Provide a custom error code for each error
+1. 全局及路由特定的错误处理器
+2. HTTP 状态码与 `toResponse` 映射的简写用法，用于将错误映射到响应
+3. 为每种错误提供自定义错误码
 
-The error code is useful for logging and debugging, and is important when differentiating between different error types extending the same class.
+错误码对日志记录和调试非常有用，且在区分扩展自同一类的不同错误类型时至关重要。
 
-Elysia provides all of this with type safety while tRPC doesn't.
+Elysia 在这方面均保证类型安全，而 tRPC 则没有。
 
-## Encapsulation
+## 封装
 
-tRPC encapsulate side-effect of a by procedure or router making it always isolated, while Elysia give you a control over side-effect of a plugin via explicit scoping mechanism, and order-of-code.
+tRPC 封装了过程或路由的副作用，保持其始终隔离；而 Elysia 通过显式的作用域机制和代码顺序，让你控制插件的副作用。
 
 <Compare>
 
@@ -860,7 +860,7 @@ const subRouter = t.router()
 	})
 
 const appRouter = t.router({
-	// doesn't have side-effect from subRouter
+	// 不会有 subRouter 的副作用
 	hello: t.procedure.query(() => 'Hello World'),
 	api: subRouter
 		.mutation('side-effect', () => 'hi')
@@ -872,7 +872,7 @@ const appRouter = t.router({
 
 <template v-slot:left-content>
 
-> tRPC encapsulate side-effect of a plugin into the procedure or router
+> tRPC 将插件的副作用封装在过程或路由内
 
 </template>
 
@@ -892,7 +892,7 @@ const subRouter = new Elysia()
 const app = new Elysia()
     .get('/', 'Hello World')
     .use(subRouter)
-    // doesn't have side-effect from subRouter
+    // 不会有 subRouter 的副作用
     .get('/side-effect', () => 'hi')
 ```
 
@@ -901,15 +901,15 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia encapsulate side-effect of a plugin unless explicitly stated
+> Elysia 除非显式声明，否则封装插件的副作用
 
 </template>
 
 </Compare>
 
-Both has a encapsulate mechanism of a plugin to prevent side-effect.
+两者都有插件封装机制以防止副作用。
 
-However, Elysia can explicitly stated which plugin should have side-effect by declaring a scoped while Fastify always encapsulate it.
+但 Elysia 可以通过声明作用域显式指出哪个插件会有副作用，而 tRPC 始终封装副作用。
 
 ```ts [Elysia]
 import { Elysia } from 'elysia'
@@ -919,26 +919,26 @@ const subRouter = new Elysia()
 		if(!authorization?.startsWith('Bearer '))
 			return status(401)
    	})
-	// Scoped to parent instance but not beyond
+	// 作用域限定到父实例，不会传播
 	.as('scoped') // [!code ++]
 
 const app = new Elysia()
     .get('/', 'Hello World')
     .use(subRouter)
     // [!code ++]
-    // now have side-effect from subRouter
+    // 现在有 subRouter 的副作用
     .get('/side-effect', () => 'hi')
 ```
 
-Elysia offers 3 type of scoping mechanism:
-1. **local** - Apply to current instance only, no side-effect (default)
-2. **scoped** - Scoped side-effect to the parent instance but not beyond
-3. **global** - Affects every instances
+Elysia 提供三种作用域机制：
+1. **local** - 只应用于当前实例，无副作用（默认）
+2. **scoped** - 作用域限定到父实例，不会传播
+3. **global** - 影响所有实例
 
 ## OpenAPI
-tRPC doesn't offers OpenAPI first party, and relying on third-party library like `trpc-to-openapi` which is not a streamlined solution.
+tRPC 不提供官方 OpenAPI 支持，依赖第三方库如 `trpc-to-openapi`，这并非一整合解决方案。
 
-While Elysia has built-in support for OpenAPI using [@elysiajs/openapi](/plugins/openapi) from a single line of code.
+而 Elysia 内置了基于 [@elysiajs/openapi](/plugins/openapi) 的 OpenAPI 支持，只需一行代码开启。
 
 <Compare>
 
@@ -995,7 +995,7 @@ export const openApiDocument = generateOpenApiDocument(appRouter, {
 
 <template v-slot:left-content>
 
-> tRPC rely on third-party library to generate OpenAPI spec
+> tRPC 依赖第三方库生成 OpenAPI 规范
 
 </template>
 
@@ -1024,7 +1024,7 @@ const app = new Elysia()
 			201: 'user'
 		},
 		detail: {
-			summary: 'Create user'
+			summary: '创建用户'
 		}
 	})
 
@@ -1035,21 +1035,21 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia seamlessly integrate the specification into the schema
+> Elysia 无缝地将规范集成进 Schema
 
 </template>
 
 </Compare>
 
-tRPC rely on third-party library to generate OpenAPI spec, and **MUST** require you to define a correct path name and HTTP method in the metadata which is force you to be **consistently aware** of how you place a router, and procedure.
+tRPC 依赖第三方库生成 OpenAPI 规范，并且**必须**在元数据中定义正确的路径名和 HTTP 方法，这要求你**持续关注**路由和过程的放置方式。
 
-While Elysia use schema you provide to generate the OpenAPI specification, and validate the request/response, and infer type automatically all from a **single source of truth**.
+而 Elysia 使用你提供的 Schema 生成 OpenAPI 规范，自动验证请求/响应并推断类型，覆盖了**单一可信来源**。
 
-Elysia also appends the schema registered in `model` to the OpenAPI spec, allowing you to reference the model in a dedicated section in Swagger or Scalar UI while this is missing on tRPC inline the schema to the route.
+Elysia 还会把在 `model` 中注册的 Schema 附加到 OpenAPI 规范中，允许你在 Swagger 或 Scalar UI 的专用部分引用模型，而 tRPC 则直接内联 Schema 到路由中，缺少这一功能。
 
-## Testing
+## 测试
 
-Elysia use Web Standard API to handle request and response while tRPC require a lot of ceremony to run the request using `createCallerFactory`.
+Elysia 使用 Web 标准 API 来处理请求和响应，而 tRPC 则需要大量的仪式（ceremony）来使用 `createCallerFactory` 运行请求。
 
 <Compare>
 
@@ -1102,7 +1102,7 @@ describe('GET /', () => {
 
 <template v-slot:left-content>
 
-> tRPC require `createCallerFactory`, and a lot of ceremony to run the request
+> tRPC 需要 `createCallerFactory` 并且运行请求需要大量仪式
 
 </template>
 
@@ -1146,13 +1146,13 @@ describe('GET /', () => {
 
 <template v-slot:right-content>
 
-> Elysia use Web Standard API to handle request and response
+> Elysia 使用 Web 标准 API 来处理请求和响应
 
 </template>
 
 </Compare>
 
-Alternatively, Elysia also offers a helper library called [Eden](/eden/overview) for End-to-end type safety which is similar to `tRPC.createCallerFactory`, allowing us to test with auto-completion, and full type safety like tRPC without the ceremony.
+另外，Elysia 还提供了一个名为 [Eden](/eden/overview) 的辅助库，用于端到端的类型安全，类似于 `tRPC.createCallerFactory`，允许我们带有自动补全和完整类型安全地进行测试，且无需繁琐的仪式。
 
 ```ts twoslash [Elysia]
 import { Elysia } from 'elysia'
@@ -1173,8 +1173,8 @@ describe('GET /', () => {
 })
 ```
 
-## End-to-end type safety
-Both offers end-to-end type safety for client-server communication.
+## 端到端类型安全
+两者都提供了用于客户端与服务器通信的端到端类型安全。
 
 <Compare>
 
@@ -1239,7 +1239,7 @@ console.log('ok')
 
 <template v-slot:left-content>
 
-> tRPC use `createTRPCProxyClient` to create a client with end-to-end type safety
+> tRPC 使用 `createTRPCProxyClient` 创建带有端到端类型安全的客户端
 
 </template>
 
@@ -1296,32 +1296,32 @@ console.log('ok')
 
 <template v-slot:right-content>
 
-> Elysia use `treaty` to run the request, and offers end-to-end type safety
+> Elysia 使用 `treaty` 来运行请求，并提供端到端类型安全
 
 </template>
 
 </Compare>
 
-While both offers end-to-end type safety, tRPC only handle **happy path** where the request is successful, and doesn't have a type soundness of error handling, making it unsound.
+虽然两者都提供端到端类型安全，但 tRPC 只处理请求成功的 **正常路径** ，并不具备错误处理的类型健全性，导致其不健全。
 
-If type soundness is important for you, then Elysia is the right choice.
+如果类型健全性对你来说很重要，那么 Elysia 是正确的选择。
 
 ---
 
-While tRPC is a great framework for building type-safe APIs, it has its limitations in terms of RESTful compliance, and type soundness.
+虽然 tRPC 是构建类型安全 API 的优秀框架，但它在 RESTful 兼容性和类型健全性方面存在局限。
 
-Elysia is designed to be ergonomic and developer-friendly with a focus on developer experience, and **type soundness** complying with RESTful, OpenAPI, and WinterTC Standard making it a better fit for building a universal API.
+Elysia 专注于开发者体验与**类型健全性**，符合 RESTful、OpenAPI 和 WinterCG 标准，设计上更符合构建通用 API 的需求，且使用起来更符合人体工程学和开发者友好性。
 
-Alternatively, if you are coming from a different framework, you can check out:
+另外，如果你来自其他框架，也可以查看：
 
 <Deck>
-	<Card title="From Express" href="/migrate/from-express">
-		Comparison between tRPC and Elysia
+	<Card title="来自 Express" href="/migrate/from-express">
+		Express 与 Elysia 的对比
 	</Card>
-    <Card title="From Fastify" href="/migrate/from-fastify">
-  		Comparison between Fastify and Elysia
+    <Card title="来自 Fastify" href="/migrate/from-fastify">
+  		Fastify 与 Elysia 的对比
     </Card>
-    <Card title="From Hono" href="/migrate/from-hono">
-  		Comparison between tRPC and Elysia
+    <Card title="来自 Hono" href="/migrate/from-hono">
+  		Hono 与 Elysia 的对比
 	</Card>
 </Deck>

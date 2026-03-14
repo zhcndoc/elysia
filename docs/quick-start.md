@@ -76,10 +76,10 @@ cd app
 bun dev
 ```
 
-访问 [localhost:3000](http://localhost:3000) 应该会显示 "Hello Elysia"。
+导航到 [localhost:3000](http://localhost:3000)，你应该会看到 "Hello Elysia" 的欢迎信息。
 
 ::: tip
-Elysia 提供了 `dev` 命令，能够在文件更改时自动重新加载你的服务器。
+Elysia 提供了一个 `dev` 命令，可以在文件更改时自动重新加载服务器。
 :::
 
 </template>
@@ -265,14 +265,14 @@ npx tsc --init
 <template v-slot:js>
 
 ::: warning
-如果您在没有 TypeScript 的情况下使用 Elysia，您可能会错过一些功能，比如自动补全、先进的类型检查和端到端的类型安全，这些都是 Elysia 的核心功能。
+如果你在不使用 TypeScript 的情况下使用 Elysia，可能会错过一些功能，比如自动补全、高级类型检查和端到端的类型安全，这些都是 Elysia 的核心特性。
 :::
 
 要使用 JavaScript 创建一个新的 Elysia 应用，首先安装 Elysia：
 
 ::: code-group
 
-```bash [pnpm]
+```bash [bun]
 bun add elysia @elysiajs/node
 ```
 
@@ -291,9 +291,9 @@ yarn add elysia @elysiajs/node
 
 :::
 
-这将安装 Elysia 和相关包。
+这将安装 Elysia。
 
-创建一个新文件 `src/index.ts` 并添加以下代码：
+创建一个新文件 `src/index.js` 并添加以下代码：
 
 ```javascript
 import { Elysia } from 'elysia'
@@ -314,7 +314,7 @@ const app = new Elysia({ adapter: node() })
 {
 	"type": "module",
    	"scripts": {
-  		"dev": "node src/index.ts",
+  		"dev": "node src/index.js",
   		"start": "NODE_ENV=production node src/index.js"
    	}
 }
@@ -322,23 +322,12 @@ const app = new Elysia({ adapter: node() })
 
 这些脚本适用于应用程序开发的不同阶段：
 
-- **dev** - 在开发模式下启动 Elysia，并在代码更改时自动重新加载。
+- **dev** - 在开发模式下启动 Elysia。
 - **start** - 启动 Elysia 生产服务器。
 
-确保创建 `tsconfig.json`
-
-```bash
-npx tsc --init
-```
-
-不要忘记更新 `tsconfig.json`，将 `compilerOptions.strict` 设置为 `true`：
-```json
-{
-   	"compilerOptions": {
-  		"strict": true
-   	}
-}
-```
+::: warning
+如果你在不使用 TypeScript 的情况下使用 Elysia，可能会错过一些功能，比如自动补全、高级类型检查和端到端的类型安全，这些都是 Elysia 的核心特性。
+:::
 
 </template>
 

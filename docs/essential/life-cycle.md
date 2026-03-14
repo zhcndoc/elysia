@@ -27,7 +27,7 @@ const demo = new Elysia()
 		if (code === 418) return '捕获'
 	})
     .get('/throw', ({ status }) => {
-		// This will be caught by onError
+		// 这将被 onError 捕获
 		throw status(418)
 	})
 	.get('/return', ({ status }) => {
@@ -44,7 +44,7 @@ Elysia的生命周期事件可以如下所示。
 ![Elysia 生命周期图](/assets/lifecycle-chart.svg)
 > 点击图片放大
 
-以下是Elysia中可用的请求生命周期：
+Here are the lifecycle events in order:
 
 <Deck>
     <Card title="请求" href="#request">
@@ -94,7 +94,7 @@ Elysia的生命周期可以用如下图示表示。
 
 ## 钩子
 
-每个拦截 **生命周期事件** 的函数称为 **钩子**。
+Each function that intercepts the **lifecycle event** is called a **"hook"**.
 
 <small>（函数“钩入”(hook) 生命周期事件）</small>
 
@@ -218,12 +218,12 @@ new Elysia()
 
 这个例子中，只会打印 **1**，因为事件是在插件之后注册的。
 
-除了 `onRequest` 事件外，所有事件都遵循此规则。
-<small>因为 onRequest 发生在请求时，不知道应用到哪个路由，所以它是全局事件。</small>
+Every event follows the same rule except `onRequest`.
+<small>Because onRequest happens on request, it doesn't know which route to apply it to, so it's a global event</small>
 
 ## 请求 (Request)
 
-生命周期中第一个执行的事件是在接收到每个新请求时触发。
+The first lifecycle event to be executed for every new request.
 
 由于 `onRequest` 仅提供最重要的上下文以减少额外开销，建议用于以下场景：
 
@@ -252,9 +252,8 @@ new Elysia()
 
 ### 预上下文 (Pre-context)
 
-`onRequest` 的上下文被类型化为 `PreContext`，它是 `Context` 的最小表示，包含以下属性：
-
-请求: `Request`
+The `onRequest` context is typed as `PreContext`, a minimal representation of `Context` with the following attributes:
+request: `Request`
 
 - set: `Set`
 - store
@@ -266,7 +265,7 @@ new Elysia()
 
 解析是 Express 中**主体解析器**的等价物。
 
-一个用于解析请求主体的函数，返回值将赋值给 `Context.body`。如果没有返回，Elysia 会继续尝试下一个由 `onParse` 注册的解析函数，直到主体被赋值或所有解析器都执行完毕。
+A function to parse the body; the return value will be appended to `Context.body`. If not, Elysia will continue iterating through additional parser functions assigned by `onParse` until either body is assigned or all parsers have been executed.
 
 默认情况下，Elysia 解析以下内容类型的请求体：
 
@@ -293,7 +292,7 @@ new Elysia().onParse(({ request, contentType }) => {
 
 ### 上下文
 
-`onParse` 的上下文基于 `Context` 扩展，包含以下新增属性：
+`onParse` context extends from `Context` with the following additional properties:
 
 - contentType: 请求的 Content-Type 头部
 
@@ -318,9 +317,9 @@ new Elysia().post('/', ({ body }) => body, {
 })
 ```
 
-Elysia 读取请求体的架构并发现是对象类型，则猜测请求体是 JSON，便会提前使用 JSON 解析器尝试解析请求体。
+Elysia reads the body schema and finds that the type is entirely an object, so it's likely that the body will be JSON. Elysia then picks the JSON body parser function ahead of time and tries to parse the body.
 
-Elysia 用于选择解析器的规则如下：
+Here are the criteria that Elysia uses to select the body parser type:
 
 - `application/json`：当体类型为 `t.Object`
 - `multipart/form-data`：体类型为一级深度包含 `t.File` 的 `t.Object`
@@ -331,7 +330,7 @@ Elysia 用于选择解析器的规则如下：
 
 ### 显式解析器
 
-在某些情况下，若 Elysia 未能正确选择解析器，可通过显式指定 `parse` 类型指定使用哪个解析器。
+However, in some scenarios if Elysia fails to pick the correct body parser function, we can explicitly tell Elysia to use a certain function by specifying `type`.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -364,7 +363,8 @@ type ContentType = |
     | 'application/x-www-form-urlencoded'
 ```
 
-### 跳过主体解析
+### Skip Body Parsing
+When you need to integrate a third-party library with an HTTP handler like `trpc` or `orpc`, and it throws `Body is already used`.
 
 当你需要集成第三方 HTTP 处理库（如 `trpc`、`orpc`），并遇到抛出 `Body is already used` 错误时，可以跳过 Elysia 的请求体解析。
 
@@ -387,7 +387,7 @@ new Elysia()
 
 ### 自定义解析器
 
-可通过 `parser` 方法注册自定义解析器：
+You can register a custom parser with `parser`:
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -407,8 +407,8 @@ new Elysia()
 
 建议在以下场景使用转换：
 
-- 修改已有上下文以符合验证要求
-- 通过 `derive` 基于 `onTransform` 支持提供类型
+- Mutating the existing context to conform with validation.
+- `derive` is based on `onTransform` with support for providing type.
 
 #### 示例
 
@@ -435,7 +435,7 @@ new Elysia()
 
 在**验证之前**将新值附加到上下文。它与**转换**存在于同一个调用栈。
 
-与**state**和**decorate**不同，后者在服务器启动前分配值。**derive** 在每次请求时分配属性。它允许将部分信息提取到单独的属性中。
+Unlike **state** and **decorate**, which assign values before the server starts, **derive** assigns a property when each request happens. This allows us to extract a piece of information into a property.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -453,12 +453,12 @@ new Elysia()
 
 因为 **derive** 会在每个请求开始时赋值，所以能够访问请求属性，比如 **headers**、**query**、**body**，而 **store** 和 **decorate** 则不能。
 
-不同于 **state** 和 **decorate**，由 **derive** 分配的属性是唯一的，不会与其它请求共享。
+Unlike **state** and **decorate**, properties assigned by **derive** are unique and not shared with other requests.
 
 ::: tip
 你可能大多数情况下更想使用 [resolve](#resolve)。
 
-Resolve 类似 derive 但在验证之后执行。这使得 resolve 更安全，因为我们可以先验证传入数据，再用它派生新属性。
+Resolve is similar to derive but execute after validation. This makes resolve more secure as we can validate the incoming data before using it to derive new properties.
 :::
 
 ### 队列
@@ -488,7 +488,7 @@ new Elysia()
 
 ## 处理前 (Before Handle)
 
-在验证之后，主路由处理程序执行之前调用。
+在验证之后和主路由处理程序之前执行。
 
 目的是提供自定义验证，满足运行主处理程序之前的特殊需求。
 
@@ -518,8 +518,8 @@ new Elysia()
 
 | 是否已登录 | 响应         |
 | ---------- | ------------ |
-| ❌         | 未授权      |
-| ✅         | 你好        |
+| ❌         | 未授权       |
+| ✅         | 你好         |
 
 ### 守卫 (Guard)
 
@@ -602,7 +602,7 @@ new Elysia()
 3
 ```
 
-同 **derive**，由 **resolve** 分配的属性是私有的，不会被其他请求共享。
+与 **derive** 一样，由 **resolve** 分配的属性是唯一的，不会与其他请求共享。
 
 ### 守卫解析
 
@@ -685,7 +685,7 @@ new Elysia()
     .listen(3000)
 ```
 
-与 **beforeHandle** 不同的是，在 **afterHandle** 返回新值后，后续的处理后迭代 **不会被跳过**。
+与**beforeHandle**不同的是，一旦从 **afterHandle** 返回一个值，后续的 **afterHandle** 迭代**不会被跳过**。
 
 ### 上下文
 
@@ -736,17 +736,17 @@ new Elysia()
 
 与 **parse** 和 **beforeHandle** 类似，一旦返回一个值，后续的 **mapResponse** 迭代将被跳过。
 
-Elysia 会自动处理 **set.headers** 和 Response 的合并，我们无需手动拼接头部。
+Elysia 会自动合并 **mapResponse** 中的 **set.headers**，你无需手动将 **set.headers** 附加到 Response 上。
 
 ## 错误处理（On Error）
 
 设计用于处理错误。生命周期中的任何阶段发生异常时都会触发。
 
-建议在以下场景使用 `onError`：
+建议在以下情况下使用 **onError**：
 
-- 自定义错误消息
-- 容错处理、错误处理或请求重试
-- 记录和分析错误
+- 提供自定义错误消息
+- 容错处理、错误处理器或重试请求
+- 日志记录和分析
 
 #### 示例
 
@@ -766,10 +766,10 @@ new Elysia()
     })
 ```
 
-通过 `onError`我们可以捕获并将错误转换为自定义消息。
+通过 `onError` 我们可以捕获并将错误转换为自定义消息。
 
 ::: tip
-重要的是，`onError` 必须在对应处理程序之前注册。
+必须在你想应用的处理程序之前注册 `onError`。
 :::
 
 ### 自定义404消息
@@ -791,7 +791,7 @@ new Elysia()
 
 ### 上下文
 
-`onError` 的上下文继承自 `Context`，包含以下附加属性：
+`onError` 上下文继承自 `Context`，并包含以下额外属性：
 
 - **error**：抛出的错误对象
 - **code**：*错误代码*
@@ -817,7 +817,7 @@ Elysia 的错误代码包括：
 
 ### 本地错误
 
-与其他生命周期类似，可以通过守卫在[作用域](/essential/plugin.html#scope)内提供错误处理：
+和其他生命周期事件一样，我们可以在 [scope](/essential/plugin.html#scope) 中通过守卫提供错误处理：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -867,7 +867,7 @@ new Elysia()
 
 ### Response
 
-与 [映射响应](#map-response) 类似，`onAfterResponse` 接受一个 `responseValue`。
+类似于 [映射响应](#map-resonse)，`afterResponse` 也接受 `responseValue`。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -880,9 +880,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-`onAfterResponse` 的 `response` 并非 Web 标准的 `Response`，而是处理程序返回的值。
+`onAfterResponse` 中的 `response` 不是 Web 标准的 `Response` 对象，而是处理程序返回的值。
 
-要获取返回的头部和状态，可以通过上下文的 `set` 访问：
+要获取处理程序返回的头部和状态码，我们可以访问上下文中的 `set`。
 
 ```typescript
 import { Elysia } from 'elysia'

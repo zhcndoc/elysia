@@ -33,14 +33,14 @@ import { code, testcases } from './data'
 
 Elysia 提供了一个上下文，它配备了小工具，帮助您入门。
 
-您可以通过以下方式扩展 Elysia 的上下文：
-1. <DocLink href="/essential/handler.html#decorate">Decorate</DocLink>
-2. <DocLink href="/essential/handler.html#state">State</DocLink>
-3. <DocLink href="/essential/handler.html#resolve">Resolve</DocLink>
-4. <DocLink href="/essential/handler.html#derive">Derive</DocLink>
+您可以使用以下方式扩展 Elysia 的上下文：
+1. <DocLink href="/essential/handler.html#decorate">装饰（Decorate）</DocLink>
+2. <DocLink href="/essential/handler.html#state">状态（State）</DocLink>
+3. <DocLink href="/essential/handler.html#resolve">解析（Resolve）</DocLink>
+4. <DocLink href="/essential/handler.html#derive">派生（Derive）</DocLink>
 
 ## Decorate
-**单例**，且是**不可变**的，跨所有请求共享。
+**单例**，且**不可变**的属性，所有请求共享。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -60,10 +60,10 @@ new Elysia()
     })
 ```
 
-装饰后的值将在上下文中作为只读属性可用，详见 <DocLink href="/essential/handler.html#decorate">Decorate</DocLink>。
+装饰后的值将在上下文中作为只读属性可用，详见 <DocLink href="/essential/handler.html#decorate">装饰（Decorate）</DocLink>。
 
 ## State
-一个**可变**的引用，跨所有请求共享。
+一个**可变的**引用，所有请求共享。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -77,13 +77,13 @@ new Elysia()
 	})
 ```
 
-状态将在每个请求共享的 **context.store** 中可用，详见 <DocLink href="/essential/handler.html#state">State</DocLink>。
+状态将在每个请求共享的 **context.store** 中可用，详见 <DocLink href="/essential/handler.html#state">状态（State）</DocLink>。
 
 ## Resolve / Derive
 
-<DocLink href="/essential/handler.html#decorate">Decorate</DocLink> 的值注册为单例。
+<DocLink href="/essential/handler.html#decorate">装饰（Decorate）</DocLink> 的值注册为单例。
 
-而 <DocLink href="/essential/handler.html#resolve">Resolve</DocLink> 和 <DocLink href="/essential/handler.html#derive">Derive</DocLink> 允许您每个请求抽象一个上下文值。
+而 <DocLink href="/essential/handler.html#resolve">解析（Resolve）</DocLink> 和 <DocLink href="/essential/handler.html#derive">派生（Derive）</DocLink> 允许您为每个请求抽象一个上下文值。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -95,24 +95,24 @@ new Elysia()
 	.get('/', ({ authorization }) => authorization)
 ```
 
-任何**返回的值都会在上下文中可用**，除了状态，它将直接发送给客户端，并中止后续处理程序。
+任何**返回的值都会在上下文中可用**，除了状态（status），它会直接发送给客户端，并中止后续处理器。
 
-两个 <DocLink href="/essential/handler.html#resolve">resolve</DocLink> 和 <DocLink href="/essential/handler.html#derive">derive</DocLink> 的语法相似，但使用场景不同。
+两个 <DocLink href="/essential/handler.html#resolve">解析（resolve）</DocLink> 和 <DocLink href="/essential/handler.html#derive">派生（derive）</DocLink> 的语法相似，但使用场景不同。
 
-在底层，两者是一个语法糖 <small>(具有类型安全)</small> 的生命周期：
-- <DocLink href="/essential/handler.html#derive">derive</DocLink> 基于 <DocLink href="/essential/life-cycle.html#transform">transform</DocLink>
-- <DocLink href="/essential/handler.html#resolve">resolve</DocLink> 基于 <DocLink href="/essential/life-cycle.html#before-handle">before handle</DocLink>
+在底层，两者是一个语法糖 <small>（具有类型安全）</small> 的生命周期：
+- <DocLink href="/essential/handler.html#derive">派生（derive）</DocLink> 基于 <DocLink href="/essential/life-cycle.html#transform">转换（transform）</DocLink>
+- <DocLink href="/essential/handler.html#resolve">解析（resolve）</DocLink> 基于 <DocLink href="/essential/life-cycle.html#before-handle">处理前（before handle）</DocLink>
 
-由于 <DocLink href="/essential/handler.html#resolve">derive</DocLink> 基于 <DocLink href="/essential/life-cycle.html#transform">transform</DocLink>，这意味着数据尚未验证且未强制/转换。如果您需要经过验证的数据，最好使用 <DocLink href="/essential/handler.html#resolve">resolve</DocLink>。
+由于 <DocLink href="/essential/handler.html#resolve">解析（resolve）</DocLink> 是基于 <DocLink href="/essential/life-cycle.html#transform">转换（transform）</DocLink> 的，这意味着数据尚未验证，也未进行强制转换/转换。如果你需要验证过的数据，建议使用 <DocLink href="/essential/handler.html#resolve">解析（resolve）</DocLink>。
 
 ## 作用域
-<DocLink href="/essential/handler.html#state">State</DocLink> 和 <DocLink href="/essential/handler.html#decorate">Decorate</DocLink> 是跨所有请求和实例共享的。
+<DocLink href="/essential/handler.html#state">状态（State）</DocLink> 和 <DocLink href="/essential/handler.html#decorate">装饰（Decorate）</DocLink> 是跨所有请求和实例共享的。
 
 <br />
 
-<DocLink href="/essential/handler.html#resolve">Resolve</DocLink> 和 <DocLink href="/essential/handler.html#derive">Derive</DocLink> 是每个请求都有的，并具有封装作用域 <small>(因为它们基于生命周期事件)</small>。
+<DocLink href="/essential/handler.html#resolve">解析（Resolve）</DocLink> 和 <DocLink href="/essential/handler.html#derive">派生（Derive）</DocLink> 是每个请求的，且有封装作用域 <small>（因为它们基于生命周期事件）</small>。
 
-如果您想使用来自插件的解析/派生值，您需要声明一个 <DocLink href="/essential/plugin.html#scope">Scope</DocLink>。
+如果您想使用来自插件的解析/派生值，您需要声明一个 <DocLink href="/essential/plugin.html#scope">作用域（Scope）</DocLink>。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -137,7 +137,7 @@ new Elysia()
 
 <template #answer>
 
-我们可以使用 <DocLink href="/essential/handler.html#resolve">resolve</DocLink> 从查询中提取年龄。
+我们可以使用 <DocLink href="/essential/handler.html#resolve">解析（resolve）</DocLink> 从查询中提取年龄。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -151,7 +151,7 @@ class Logger {
 new Elysia()
 	.decorate('logger', new Logger())
 	.onRequest(({ request, logger }) => {
-		logger.log(`Request to ${request.url}`)
+		logger.log(`请求地址 ${request.url}`)
 	})
 	.guard({
 		query: t.Optional(

@@ -28,9 +28,15 @@ new Elysia()
 
 ![jaeger 显示收集到的跟踪信息](/blog/elysia-11/jaeger.webp)
 
-Elysia OpenTelemetry 将 **收集与 OpenTelemetry 标准兼容的任何库的 span**，并会自动应用父子 span。
+为什么在 Elysia 中使用 OpenTelemetry？
+- 一行配置
+- Span 名称为函数名
+- 将相关的生命周期分组在一起
+- 包装代码以记录特定部分
+- 支持服务器发送事件（Server-Sent Event）和响应流
+- 兼容任何 OpenTelemetry 兼容库
 
-在上面的代码中，我们应用 `Prisma` 来跟踪每个查询所花费的时间。
+在上面的代码中，我们应用了 `Prisma` 以跟踪每个查询所花费的时间。
 
 通过应用 OpenTelemetry，Elysia 将：
 
@@ -75,7 +81,7 @@ new Elysia().use(
 
 Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用到 Elysia 服务器。
 
-您可以正常使用 OpenTelemetry SDK，并且 span 在 Elysia 的请求 span 下运行，它将自动出现在 Elysia 的跟踪中。
+您可以正常使用 OpenTelemetry SDK，且 span 会作为 Elysia 请求的子 span 运行，自动出现在 Elysia 跟踪中。
 
 然而，我们也提供 `getTracer` 和 `record` 实用工具，以便从您应用的任何部分收集 span。
 
@@ -92,9 +98,9 @@ export const plugin = new Elysia().get('', () => {
 
 ## Record 实用工具
 
-`record` 相当于 OpenTelemetry 的 `startActiveSpan`，但它将自动处理关闭并捕获异常。
+`record` 等同于 OpenTelemetry 的 `startActiveSpan`，但它会自动关闭并捕获异常。
 
-您可以将 `record` 看作是您的代码的标签，这将在跟踪中显示。
+您可以将 `record` 看作是您代码的标签，这将在跟踪中显示。
 
 ### 为可观察性准备您的代码库
 
@@ -137,7 +143,7 @@ function utility() {
 }
 ```
 
-这在处理程序外部通过从 `AsyncLocalStorage` 获取当前 span 而工作。
+此方法通过从 `AsyncLocalStorage` 检索当前 span 实现在处理程序之外工作。
 
 ## setAttributes
 
@@ -200,9 +206,7 @@ preload = ["./src/instrumentation.ts"]
 
 ### 部署到生产环境 <Badge type="warning">高级概念</Badge>
 
-如果您使用 `bun build` 或其他打包工具。
-
-由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了确保仪器化正常工作，我们需要指定要被仪器化的库作为外部模块，以将其排除在打包之外。
+由于 OpenTelemetry 依赖于对 `node_modules/<library>` 的猴子补丁。为了确保仪器化正常工作，我们需要将要被仪器化的库指定为外部模块，从而将其排除在打包之外。
 
 例如，如果您使用 `@opentelemetry/instrumentation-pg` 来对 `pg` 库进行仪器化。我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
 
@@ -212,7 +216,7 @@ preload = ["./src/instrumentation.ts"]
 bun build --compile --external pg --outfile server src/index.ts
 ```
 
-这告诉 bun 不要将 `pg` 打包到最终输出文件中，并将在运行时从 **node_modules** 目录导入。所以在生产服务器上，您还必须保留 **node_modules** 目录。
+这告诉 bun 不要将 `pg` 打包进最终输出文件，而是在运行时从 **node_modules** 目录导入。因此在生产服务器上，您还必须保留 **node_modules** 目录。
 
 建议在 **package.json** 中将应在生产服务器上可用的包指定为 **dependencies**，并使用 `bun install --production` 仅安装生产依赖项。
 

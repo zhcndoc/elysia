@@ -11,12 +11,12 @@ head:
 
     - - meta
       - name: 'og:description'
-        content: 为 Elysia 添加自定义跨域资源共享行为支持的插件。首先，通过 "bun add @elysiajs/cors" 安装该插件。
+        content: Plugin for Elysia that adds support for running cron jobs in Elysia server. Start by installing the plugin with "bun add @elysiajs/cron".
 ---
 
 # Cron 插件
 
-此插件为 Elysia 服务器添加了运行 cronjob 的支持。
+This plugin adds support for running cron jobs in the Elysia server.
 
 通过以下方式安装：
 
@@ -47,7 +47,7 @@ new Elysia()
 
 ## cron
 
-为 Elysia 服务器创建一个 cronjob。
+Create a cron job for the Elysia server.
 
 类型：
 
@@ -61,7 +61,7 @@ cron(config: CronConfig, callback: (Instance['store']) => void): this
 
 注册到 `store` 的作业名称。
 
-这将以指定的名称将 cron 实例注册到 `store`，可供后续过程引用，例如停止作业。
+这将用指定的名称将 cron 实例注册到 `store`，可以在后续流程中引用，例如停止作业。
 
 ### pattern
 
@@ -84,7 +84,7 @@ cron(config: CronConfig, callback: (Instance['store']) => void): this
 
 此插件通过 [cronner](https://github.com/hexagon/croner) 扩展了 Elysia 的 cron 方法。
 
-以下是 cronner 接受的配置。
+Below is the config accepted by cronner.
 
 ### timezone
 
@@ -114,9 +114,9 @@ cron(config: CronConfig, callback: (Instance['store']) => void): this
 
 下面是使用该插件的常用模式。
 
-## 停止 cronjob
+## Stop cron job
 
-您可以通过访问注册到 `store` 的 cronjob 名称手动停止 cronjob。
+You can stop the cron job manually by accessing the cron job name registered to `store`.
 
 ```typescript
 import { Elysia } from 'elysia'

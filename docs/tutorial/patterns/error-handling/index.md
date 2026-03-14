@@ -33,7 +33,7 @@ import { code, testcases } from './data'
 
 <DocLink href="/essential/life-cycle#on-error-error-handling">onError</DocLink> 在 **抛出错误** 时被调用。
 
-它接受与处理程序类似的 **上下文**，但包含额外的：
+它接受类似于处理程序的 **context**，但包括额外的内容：
 - error - 抛出的错误
 - <DocLink href="/essential/life-cycle#error-code">code</DocLink> - 错误代码
 
@@ -51,7 +51,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-您可以返回一个 <DocLink href="/essential/handler#status">status</DocLink> 以覆盖默认错误状态。
+您可以返回一个 <DocLink href="/essential/handler#status">status</DocLink> 来覆盖默认的错误状态。
 
 ## 自定义错误
 
@@ -84,9 +84,9 @@ new Elysia()
 	.listen(3000)
 ```
 
-Elysia 使用 <DocLink href="/essential/life-cycle#error-code">错误代码</DocLink> 来缩小错误的类型。
+Elysia 使用 <DocLink href="/essential/life-cycle#error-code">错误代码</DocLink> 来缩小错误类型的范围。
 
-建议注册自定义错误，因为 Elysia 可以缩小类型。
+建议注册自定义错误，因为 Elysia 可以缩小类型范围。
 
 ### 错误状态代码
 您还可以通过向类添加 **status** 属性来提供自定义状态代码：
@@ -103,7 +103,7 @@ class NicheError extends Error {
 }
 ```
 
-如果抛出错误，Elysia 将使用此状态代码，请参见 <DocLink href="/error-handling.html#custom-status-code">自定义状态代码</DocLink>。
+如果抛出错误，Elysia 将使用此状态代码，详情请参见 <DocLink href="/error-handling.html#custom-status-code">自定义状态代码</DocLink>。
 
 ### 错误响应
 您还可以通过提供 `toResponse` 方法直接在错误中定义自定义错误响应：
@@ -124,15 +124,15 @@ class NicheError extends Error {
 }
 ```
 
-如果抛出错误，Elysia 将使用此响应，请参见 <DocLink href="/error-handling.html#custom-error-response">自定义错误响应</DocLink>。
+如果抛出错误，Elysia 将使用此响应，详情请参见 <DocLink href="/error-handling.html#custom-error-response">自定义错误响应</DocLink>。
 
 ## 练习
 
-现在让我们尝试扩展 Elysia 的上下文。
+我们尝试扩展 Elysia 的上下文。
 
 <template #answer>
-1. 您可以通过 "NOT_FOUND" 缩小错误以覆盖 404 响应。
-2. 使用带有 418 状态属性的 `.error()` 方法提供您的错误。
+1. 你可以通过 "NOT_FOUND" 来缩小错误范围，以覆盖 404 响应。
+2. 使用带有 status 属性（418）的自定义错误传递给 `.error()` 方法。
 
 ```typescript
 import { Elysia } from 'elysia'

@@ -11,7 +11,7 @@ head:
 
   - - meta
     - property: 'og:description'
-      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
+      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Erysia 的行为。
 ---
 
 # 配置
@@ -35,7 +35,7 @@ new Elysia({
 
 用于在不同环境中使用 Elysia 的运行时适配器。
 
-默认适配器会根据环境选择。
+默认根据环境选择合适的适配器。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -60,11 +60,11 @@ new Elysia({
 })
 ```
 
-默认情况下，Elysia 会在生产环境中省略所有验证细节。
+默认情况下，Elysia 会在生产环境中省略所有验证详情。
 
 这样做是为了防止泄露有关验证模式的敏感信息，例如字段名称和预期类型，这些信息可能会被攻击者利用。
 
-理想情况下，这只应在公共 API 上启用，因为它可能会泄露有关服务器实现的敏感信息。
+理想情况下，这只应在公共 API 上启用，因为它可能泄露有关服务器实现的敏感信息。
 
 #### 选项 - @default `false`
 - `true` - 在生产环境的错误响应中包含不安全的验证详情
@@ -113,9 +113,9 @@ new Elysia({
 
 ## encodeSchema
 
-处理自定义 `t.Transform` 模式的自定义 `Encode`，在将响应返回给客户端之前进行处理。
+在返回响应给客户端之前，使用自定义的 `Encode` 处理自定义的 `t.Transform` 模式。
 
-这允许我们在发送响应到客户端之前为数据创建自定义编码函数。
+这允许我们在向客户端发送响应之前为数据创建自定义编码函数。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -130,7 +130,7 @@ new Elysia({ encodeSchema: true })
 
 ## name
 
-定义实例名称，用于调试和 [插件去重](/essential/plugin.html#plugin-deduplication)
+定义实例的名称，用于调试和[插件去重](/essential/plugin.html#plugin-deduplication)
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -143,7 +143,7 @@ new Elysia({
 ## nativeStaticResponse
 ###### 自 1.1.11 起
 
-为每个相应的运行时使用优化的函数处理内联值。
+为每个运行时使用优化的函数来处理内联值。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -177,7 +177,7 @@ Bun.serve({
 
 ###### 自 1.1.0 起
 
-Elysia 是否应该将字段强制转换为指定的模式。
+是否应该将字段强制转换为指定的模式。
 
 ```ts twoslash
 import { Elysia, t } from 'elysia'
@@ -243,9 +243,9 @@ new Elysia({ prefix: '/v1' }).get('/name', 'elysia') // 路径为 /v1/name
 
 ## sanitize
 
-一个函数或一个函数数组，在每个 `t.String` 验证时调用并拦截。
+一个函数或函数数组，在每次 `t.String` 验证时被调用和拦截。
 
-允许我们读取并将字符串转换为新值。
+允许我们读取并转换字符串为新的值。
 
 ```ts
 import { Elysia, t } from 'elysia'
@@ -257,7 +257,7 @@ new Elysia({
 
 ## 种子
 
-定义一个值，用于生成实例的校验和，用于[插件去重](/essential/plugin.html#plugin-deduplication)
+定义一个用于生成实例校验和的值，用于[插件去重](/essential/plugin.html#plugin-deduplication)
 
 ```ts
 import { Elysia } from 'elysia'
@@ -273,7 +273,7 @@ new Elysia({
 
 ## 严格路径
 
-Elysia 是否应该严格处理路径。
+是否应严格处理路径。
 
 根据[RFC 3986](https://tools.ietf.org/html/rfc3986#section-3.3)，路径应与路由中定义的路径完全相等。
 
@@ -405,12 +405,12 @@ Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
 ### serve.idleTimeout
 @default `10`（10 秒）
 
-默认情况下，Bun 将空闲超时设置为 10 秒，这意味着如果请求在 10 秒内未完成，将被中止。
+默认情况下，Bun 设置空闲超时为 10 秒，这意味着如果请求在 10 秒内未完成，则会中止。
 
 ### serve.maxRequestBodySize
 @default `1024 * 1024 * 128` (128MB)
 
-请求体的最大大小？（以字节为单位）
+请求体的最大大小（以字节为单位）
 
 ### serve.port
 @default `3000`
@@ -509,7 +509,7 @@ PEM 格式的私钥。PEM 允许加密私钥的选项。加密密钥将使用 op
 
 ## 标签
 
-为实例的所有路由定义 OpenAPI 方案的标签，类似于[详细信息](#detail)。
+为实例所有路由的 OpenAPI 方案定义标签，类似于 [detail](#detail)
 
 ```ts twoslash
 import { Elysia } from 'elysia'

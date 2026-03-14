@@ -20,7 +20,7 @@ head:
 
 1. 创建 **app/[...slugs]+api.ts**
 2. 定义一个 Elysia 服务器
-3. 导出您想要使用的 HTTP 方法名的 **Elysia.fetch**
+3. 用你想使用的 HTTP 方法名称导出 **Elysia.fetch**
 
 ::: code-group
 
@@ -42,7 +42,7 @@ export const POST = app.fetch // [!code ++]
 :::
 Elysia 将正常运行，因为得益于 WinterCG 的兼容性，然而，某些插件如 **Elysia Static** 可能在您在 Node 上运行 Expo 时无法正常工作。
 
-您可以像对待普通的 Expo API 路由那样对待 Elysia 服务器。
+您可以将 Elysia 服务器视为普通的 Expo API 路由。
 
 ### pnpm
 如果您使用 pnpm，[pnpm 默认不自动安装 peer dependencies](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，这会迫使您手动安装额外的依赖项。
@@ -51,11 +51,9 @@ pnpm add @sinclair/typebox openapi-types
 ```
 
 ## 前缀
-如果您将 Elysia 服务器放置在应用路由的根目录之外，您需要为 Elysia 服务器注释前缀。
+如果您将 Elysia 服务器放置在 app router 的根目录之外，您需要在 Elysia 服务器上注解前缀。
 
-有关更多信息，请参考 [API 路由](https://docs.expo.dev/router/reference/api-routes/)。
-
-例如，如果您将 Elysia 服务器放在 **app/api/[...slugs]+api.ts** 中，您需要将前缀注释为 **/api**。
+例如，如果您将 Elysia 服务器放置在 **app/api/[...slugs]+api.ts**，则需要在 Elysia 服务器上注解前缀为 **/api**。
 
 ::: code-group
 
@@ -76,7 +74,7 @@ export const POST = app.fetch
 
 :::
 
-这样可以确保无论您将其放置在何处，Elysia 路由都会正常工作。
+这将确保无论您将其放在哪里，Elysia 路由都能正常工作。
 
 ## Eden
 
@@ -139,17 +137,17 @@ export default async function Page() {
 :::
 
 ## 部署
-您可以直接使用 Elysia 的 API 路由，根据需要部署为正常的 Elysia 应用，或使用 [实验性的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
+您可以直接使用带有 Elysia 的 API 路由并根据需要作为普通 Elysia 应用部署，或者使用 [实验性质的 Expo 服务器运行时](https://docs.expo.dev/router/reference/api-routes/#deployment)。
 
-如果您使用 Expo 服务器运行时，可以使用 `expo export` 命令为您的 Expo 应用创建优化构建，这将包括一个使用 Elysia 的 Expo 函数，位于 **dist/server/_expo/functions/[...slugs\]+api.js**
+如果您使用 Expo 服务器运行时，可以使用 `expo export` 命令为您的 Expo 应用创建优化后的构建。这将包括一个在 **dist/server/_expo/functions/[...slugs\]+api.js** 位置使用 Elysia 的 Expo 函数。
 
 ::: tip
-请注意，Expo 函数被视为边缘函数，而不是普通服务器，因此直接运行边缘函数不会分配任何端口。
+请注意，Expo 函数被视为 Edge 函数而非普通服务器，因此直接运行 Edge 函数不会分配任何端口。
 :::
 
 您可以使用 Expo 提供的 Expo 函数适配器来部署您的边缘函数。
 
-目前 Expo 支持以下适配器：
+目前，Expo 支持以下适配器：
 - [Express](https://docs.expo.dev/router/reference/api-routes/#express)
 - [Netlify](https://docs.expo.dev/router/reference/api-routes/#netlify)
 - [Vercel](https://docs.expo.dev/router/reference/api-routes/#vercel)

@@ -57,7 +57,7 @@ Elysia 将用您提供的自定义消息覆盖默认错误消息，请参见 <Do
 
 ## 验证详细信息
 
-默认情况下，Elysia 还提供 <DocLink href="/patterns/error-handling.html#validation-detail">验证详细信息</DocLink> 来解释验证出错的原因，如下所示：
+默认情况下，Elysia 还会提供一个 <DocLink href="/patterns/error-handling.html#validation-detail">验证详细信息</DocLink> 来解释验证错误的原因，如下所示：
 
 ```json
 {
@@ -88,7 +88,7 @@ Elysia 将用您提供的自定义消息覆盖默认错误消息，请参见 <Do
 }
 ```
 
-然而，当您提供自定义错误消息时，它将完全覆盖 <DocLink href="/patterns/error-handling.html#validation-detail">验证详细信息</DocLink>
+然而，当您提供自定义错误消息时，它将完全覆盖 <DocLink href="/patterns/error-handling.html#validation-detail">验证详细信息</DocLink>。
 
 要恢复验证详细信息，您可以将自定义错误消息包装在 <DocLink href="/patterns/error-handling.html#validation-detail">验证详细信息</DocLink> 函数中。
 

@@ -15,12 +15,12 @@ head:
 ---
 
 # 部署到生产环境
-本页面是关于如何将 Elysia 部署到生产环境的指南。
+本页提供了如何将 Elysia 部署到生产环境的指南。
 
 ## 集群模式
-Elysia 默认是单线程的。为了利用多核 CPU，我们可以以集群模式运行 Elysia。
+Elysia 默认是单线程的。为了利用多核 CPU，我们可以在集群模式下运行 Elysia。
 
-让我们创建一个 **index.ts** 文件，从 **server.ts** 导入我们的主服务器，并根据可用的 CPU 核心数量派生多个工作进程。
+让我们创建一个 **index.ts** 文件，从 **server.ts** 导入我们的主服务器，并根据 CPU 核心数派生多个工作进程。
 
 ::: code-group
 
@@ -48,14 +48,14 @@ new Elysia()
 
 :::
 
-这将确保 Elysia 运行于多个 CPU 核心上。
+这将确保 Elysia 在多个 CPU 核心上运行。
 
 ::: tip
-Elysia 在 Bun 上默认使用 SO_REUSEPORT，这允许多个实例监听同一端口。此功能仅在 Linux 上有效。
+Bun 上的 Elysia 默认使用 SO_REUSEPORT，允许多个实例监听同一个端口。该功能仅在 Linux 上有效。
 :::
 
-## 编译为二进制
-我们建议在部署到生产环境之前运行构建命令，因为这可能会显著减少内存使用和文件大小。
+## 编译为二进制文件
+我们推荐在部署到生产环境前运行构建命令，因为这可能显著减少内存使用和文件大小。
 
 我们推荐使用以下命令将 Elysia 编译成单个二进制文件：
 ```bash
@@ -72,7 +72,7 @@ bun build \
 
 将服务器编译为二进制通常会比开发环境显著减少 2-3 倍的内存使用。
 
-这个命令有点长，我们来拆解说明：
+这个命令较长，我们来拆解说明：
 1. **--compile** 编译 TypeScript 为二进制
 2. **--minify-whitespace** 移除不必要的空白
 3. **--minify-syntax** 压缩 JavaScript 语法以减少文件大小
@@ -103,7 +103,7 @@ bun build \
 ```
 
 以下是可用的目标列表：
-| 目标                      | 操作系统         | 架构          | Modern | 基线      | Libc  |
+| 目标                      | 操作系统         | 架构          | 支持现代 | 基线      | Libc  |
 |--------------------------|------------------|--------------|--------|----------|-------|
 | bun-linux-x64           | Linux            | x64          | ✅      | ✅        | glibc |
 | bun-linux-arm64         | Linux            | arm64        | ✅      | N/A      | glibc |
@@ -115,11 +115,11 @@ bun build \
 | bun-linux-arm64-musl    | Linux            | arm64        | ✅      | N/A      | musl  |
 
 ### 为什么不使用 --minify
-Bun 确实有 `--minify` 标志，用于压缩二进制文件。
+Bun 有一个 `--minify` 标志可以压缩二进制文件。
 
-然而，如果我们正在使用 [OpenTelemetry](/plugins/opentelemetry)，它会将函数名缩减为单个字符。
+但是如果我们使用 [OpenTelemetry](/plugins/opentelemetry)，它会把函数名压缩成单个字符。
 
-这使得追踪比预期更困难，因为 OpenTelemetry 依赖于函数名。
+这会让追踪比应有的更困难，因为 OpenTelemetry 依赖函数名。
 
 但是，如果您不使用 OpenTelemetry，则可以选择使用 `--minify`：
 ```bash
@@ -131,7 +131,7 @@ bun build \
 ```
 
 ### 权限
-一些 Linux 发行版可能无法直接运行二进制文件，如果您使用的是 Linux，建议为二进制文件启用可执行权限：
+某些 Linux 发行版可能无法运行该二进制文件，建议在 Linux 上为二进制文件启用执行权限：
 ```bash
 chmod +x ./server
 
@@ -139,16 +139,18 @@ chmod +x ./server
 ```
 
 ### 未知的随机中文错误
-如果您尝试将二进制文件部署到服务器但无法运行，并出现随机中文字符错误，这意味着您运行的机器 **不支持 AVX2**。
+如果您尝试将二进制文件部署到服务器但无法运行，并出现随机的中文字符错误。
 
 不幸的是，Bun 要求机器必须具备 `AVX2` 硬件支持。
 
 据我们所知，当前没有替代方案。
 
-## 编译为 JavaScript
-如果您无法编译为二进制文件或您在 Windows 服务器上进行部署。
+没有已知的解决办法。
 
-您可以将服务器打包为一个 JavaScript 文件。
+## 编译为 JavaScript
+如果您无法编译成二进制，或正在 Windows 服务器上部署。
+
+您可以将服务器打包成单个 JavaScript 文件。
 
 ```bash
 bun build \
@@ -164,9 +166,9 @@ NODE_ENV=production bun ./dist/index.js
 ```
 
 ## Docker
-在 Docker 上，我们建议始终编译为二进制以减少基础镜像的开销。
+在 Docker 上，我们推荐总是编译为二进制以减少基础镜像开销。
 
-以下是使用二进制的 Distroless 镜像的示例。
+下面是一个使用 Distroless 镜像和二进制的示例镜像。
 ```dockerfile [Dockerfile]
 FROM oven/bun AS build
 
@@ -205,18 +207,18 @@ EXPOSE 3000
 ### OpenTelemetry
 如果您使用 [OpenTelemetry](/patterns/opentelemetry) 来部署生产服务器。
 
-由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`，为了确保相关工具正常工作，我们需要指定供其使用的库为外部模块，以将其排除在打包之外。
+由于 OpenTelemetry 依赖于猴子补丁 `node_modules/<library>`。为了使框架正常工作，我们需要将要监控的库指定为外部模块，排除它们被打包。
 
-例如，如果您使用 `@opentelemetry/instrumentation-pg` 来对 `pg` 库进行仪表化，我们需要将 `pg` 排除在打包之外，并确保它从 `node_modules/pg` 导入。
+例如，如果您使用 `@opentelemetry/instrumentation-pg` 来监控 `pg` 库。我们需要排除 `pg` 被打包，并确保它在运行时从 `node_modules/pg` 导入。
 
-为使这一切正常工作，我们可以使用 `--external pg` 将 `pg` 指定为外部模块：
+为此，我们可以使用 `--external pg` 指定 `pg` 作为外部模块：
 ```bash
 bun build --compile --external pg --outfile server src/index.ts
 ```
 
-这告诉 bun 不将 `pg` 打包到最终输出文件中，并将在运行时从 `node_modules` 目录导入。因此，在生产服务器上，您还必须保留 `node_modules` 目录。
+这告诉 bun 不将 `pg` 打包进最终输出文件中，运行时会从 `node_modules` 目录导入它。因此在生产服务器上，您必须保留 `node_modules` 目录。
 
-建议在 `package.json` 中将应在生产服务器上可用的包指定为 `dependencies`，并使用 `bun install --production` 仅安装生产依赖项。
+建议在 `package.json` 中将生产服务器需要的包指定为 `dependencies`，并使用 `bun install --production` 仅安装生产依赖。
 
 ```json
 {
@@ -232,17 +234,17 @@ bun build --compile --external pg --outfile server src/index.ts
 }
 ```
 
-然后，在生产服务器上运行构建命令后
+然后在生产服务器上构建后运行
 ```bash
 bun install --production
 ```
 
-如果 `node_modules` 目录仍然包含开发依赖，您可以删除 `node_modules` 目录并重新安装生产依赖。
+如果 `node_modules` 目录仍然包含开发依赖，可以删除该目录并重新安装生产依赖。
 
 ### Monorepo
 如果您在 Monorepo 中使用 Elysia，您可能需要包含依赖的 `packages`。
 
-如果您使用 Turborepo，您可以在应用程序目录中放置 Dockerfile，比如 **apps/server/Dockerfile**。这也适用于其他 monorepo 管理工具，如 Lerna 等。
+如果您使用 Turborepo，您可以将 Dockerfile 放置在应用目录，如 **apps/server/Dockerfile**。这同样适用于其他 monorepo 管理工具如 Lerna 等。
 
 假设我们的 monorepo 使用 Turborepo，结构如下：
 - apps
@@ -251,7 +253,7 @@ bun install --production
 - packages
 	- config
 
-然后我们可以在 monorepo 根目录（而非应用目录）构建我们的 Dockerfile：
+然后我们可以在 monorepo 根目录（而非应用目录）构建 Docker 镜像：
 ```bash
 docker build -f apps/server/Dockerfile -t elysia-mono .
 ```
@@ -310,8 +312,8 @@ new Elysia()
 	.listen(process.env.PORT ?? 3000) // [!code ++]
 ```
 
-这应允许 Elysia 监听 Railway 提供的端口。
+这将允许 Elysia 获取 Railway 提供的端口。
 
 ::: tip
-Elysia 自动将主机名分配为 `0.0.0.0`，与 Railway 完全兼容。
+Elysia 会自动将主机名指定为 `0.0.0.0`，这可适配 Railway。
 :::

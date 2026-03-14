@@ -30,7 +30,7 @@ import { code, testcases } from './data'
 
 # 状态码
 
-状态码是服务器处理请求的指示器。
+A status code is an indicator of how the server handles the request.
 
 当您访问一个不存在的页面时，您一定听说过臭名昭著的 **404 Not Found**。
 
@@ -43,7 +43,7 @@ import { code, testcases } from './data'
 - 422 Unprocessable Entity
 - 500 Internal Server Error
 
-您还可以通过在 `status` 函数中返回您的响应来返回状态码。
+You can also return a status code by returning your response using the `status` function.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -53,10 +53,20 @@ new Elysia()
 	.listen(3000)
 ```
 
-请参阅 <DocLink href="/essential/handler#status">状态码</DocLink>。
+The status code can be a number or a string status name. These are equivalent:
+
+```typescript
+status(418, "I'm a teapot")
+status("I'm a teapot", "I'm a teapot")
+```
+
+String status names provide TypeScript autocompletion for all valid HTTP statuses.
+
+See <DocLink href="/essential/handler#status">Status</DocLink>.
 
 ## 重定向
-同样，您还可以通过返回 `redirect` 函数将请求重定向到另一个 URL。
+
+类似地，你也可以通过返回 `redirect` 函数将请求重定向到另一个 URL。
 
 ```typescript
 import { Elysia } from 'elysia'

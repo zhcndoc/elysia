@@ -7,15 +7,15 @@ head:
 
   - - meta
     - name: 'description'
-      content: Elysia 的速查表摘要以及与“通过示例了解 Elysia”的工作原理
+      content: Elysia 的速查表摘要及其如何通过“Elysia by example”运行
 
   - - meta
     - property: 'og:description'
-      content: Elysia 的速查表摘要以及与“通过示例了解 Elysia”的工作原理
+      content: Elysia 的速查表摘要及其如何通过“Elysia by example”运行
 ---
 
 # 速查表
-这里是一些常见 Elysia 模式的快速概述
+这里是常见 Elysia 模式的快速概览
 
 ## Hello World
 一个简单的 hello world
@@ -28,7 +28,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## 自定义 HTTP 方法
+## Custom HTTP Method
 使用自定义 HTTP 方法/动词定义路由
 
 参见 [路由](/essential/route.html#custom-method)
@@ -44,7 +44,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## 路径参数
+## Path Parameter
 使用动态路径参数
 
 参见 [路径](/essential/route.html#path-type)
@@ -75,7 +75,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## 返回文件
+## Return a file
 文件可以作为 formdata 响应返回
 
 响应必须是 1 级深度对象
@@ -110,8 +110,8 @@ new Elysia()
     .listen(3000)
 ```
 
-## 组
-为子路由定义一次前缀
+## Group
+为子路由定义一次性前缀
 
 参见 [组](/essential/route.html#group)
 
@@ -129,7 +129,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## 模式
+## Schema
 强制路由的数据类型
 
 参见 [验证](/essential/validation)
@@ -169,7 +169,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-## 生命周期钩子
+## Lifecycle Hook
 按顺序拦截 Elysia 事件
 
 参见 [生命周期](/essential/life-cycle.html)
@@ -196,8 +196,8 @@ new Elysia()
     .listen(3000)
 ```
 
-## 守卫
-强制子路由的数据类型
+## Guard
+对子路由强制数据类型
 
 参见 [范围](/essential/plugin.html#scope)
 
@@ -216,8 +216,8 @@ new Elysia()
     .listen(3000)
 ```
 
-## 自定义上下文
-向路由上下文添加自定义变量
+## Custom context
+为路由上下文添加自定义变量
 
 参见 [上下文](/essential/handler.html#context)
 
@@ -234,7 +234,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## 重定向
+## Redirect
 重定向响应
 
 参见 [处理器](/essential/handler.html#redirect)
@@ -268,8 +268,8 @@ new Elysia()
     .listen(3000)
 ```
 
-## Web Socket
-使用 Web Socket 创建实时连接
+## WebSocket
+使用 WebSocket 创建实时连接
 
 参见 [Web Socket](/patterns/websocket)
 
@@ -286,7 +286,7 @@ new Elysia()
 ```
 
 ## OpenAPI 文档
-使用 Scalar (或可选的 Swagger) 创建交互式文档
+使用 Scalar（或可选的 Swagger）创建交互式文档
 
 参见 [openapi](/plugins/openapi.html)
 
@@ -301,8 +301,8 @@ const app = new Elysia()
 console.log(`在浏览器中访问 "${app.server!.url}openapi" 查看文档`);
 ```
 
-## 单元测试
-编写 Elysia 应用的单元测试
+## Unit Test
+为你的 Elysia 应用编写单元测试
 
 参见 [单元测试](/patterns/unit-test)
 
@@ -324,8 +324,8 @@ describe('Elysia', () => {
 })
 ```
 
-## 自定义主体解析器
-为解析主体创建自定义逻辑
+## Custom body parser
+创建自定义的请求体解析逻辑
 
 参见 [解析](/essential/life-cycle.html#parse)
 

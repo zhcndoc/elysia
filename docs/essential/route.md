@@ -98,7 +98,7 @@ const demo13 = new Elysia()
 
 Web 服务器使用请求的**路径和方法**来查找正确的资源，这一过程称为**“路由”**。
 
-我们可以通过**HTTP 动词方法**、路径和匹配时执行的函数来定义路由。
+We can define a route with **an HTTP verb method**, a path and a function to execute when matched.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -121,11 +121,11 @@ new Elysia()
 
 ## 路径类型
 
-Elysia 中的路径可分为3种类型：
+Paths in Elysia can be grouped into 3 types:
 
--   **静态路径** - 静态字符串用于定位资源
--   **动态路径** - 段可以是任何值
--   **通配符路径** - 路径到某个特定点可以是任何内容
+-   **static paths** - static strings to locate the resource
+-   **dynamic paths** - segments can be any value
+-   **wildcards** - path until a specific point can be anything
 
 你可以将所有这些路径类型组合起来，为你的 web 服务器设计行为。
 
@@ -180,7 +180,9 @@ new Elysia()
     .listen(3000)
 ```
 
-这里通过 `/id/:id` 创建了一个动态路径。Elysia 会捕获 `:id` 段的值，比如 **/id/1**、**/id/123**、**/id/anything**。
+<br>
+
+Here, a dynamic path is created with `/id/:id`, which tells Elysia to capture the value `:id` segment with values like **/id/1**, **/id/123**, **/id/anything**.
 
 <Playground
   :elysia="demo6"
@@ -312,11 +314,14 @@ new Elysia()
 
 Elysia 的路径优先级如下：
 
-1. 静态路径
-2. 动态路径
-3. 通配符
+## Path priority
+Elysia has path priorities as follows:
 
-如果静态路径和动态路径同时匹配，Elysia 将优先解析静态路径。
+1. static paths
+2. dynamic paths
+3. wildcards
+
+If both a static and a dynamic path are present, Elysia will resolve the static path rather than the dynamic path.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -353,7 +358,7 @@ GET 请求仅用于获取数据。
 
 ### POST
 
-向指定资源提交有效负载，通常引起状态变化或副作用。
+提交负载到指定资源，通常导致状态更改或副作用。
 
 ### PUT
 
@@ -382,7 +387,7 @@ new Elysia()
 
 <Playground :elysia="demo2" />
 
-Elysia 的 HTTP 方法接受以下参数：
+The Elysia HTTP method accepts the following parameters:
 
 -   **path**: 路径名
 -   **function**: 响应客户端的函数
@@ -412,6 +417,13 @@ const app = new Elysia()
 -   **path**: 路径名
 -   **function**: 响应客户端的函数
 -   **hook**: 额外元数据
+
+<!--When navigating to each method, you should see the results as the following:
+| Path      | Method   | Result  |
+| --------- | -------- | ------- |
+| /get      | GET      | hello   |
+| /post     | POST     | hi      |
+| /m-search | M-SEARCH | connect |-->
 
 ::: tip
 基于 [RFC 7231](https://www.rfc-editor.org/rfc/rfc7231#section-4.1)，HTTP 动词是区分大小写的。
@@ -444,7 +456,7 @@ new Elysia()
 
 大多数开发者使用 REST 客户端如 Postman、Insomnia 或 Hoppscotch 测试 API。
 
-但 Elysia 也可以通过 `Elysia.handle` 编程地测试。
+However, Elysia can be programmatically tested using `Elysia.handle`.
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -467,7 +479,44 @@ app.handle(new Request('http://localhost/')).then(console.log)
 
 ## 组
 
-在构建 web 服务器时，常常有多个路由共享相同前缀：
+If no path matches the defined routes, Elysia will pass the request to [error](/essential/life-cycle.html#on-error) life cycle before returning a **"NOT_FOUND"** with an HTTP status of 404.
+
+We can handle a custom 404 error by returning a value from `error` life cycle like this:
+
+```typescript twoslash
+import { Elysia } from 'elysia'
+
+new Elysia()
+    .get('/', 'hi')
+    .onError(({ code }) => {
+        if (code === 'NOT_FOUND') {
+            return 'Route not found :('
+        }
+    })
+    .listen(3000)
+```
+
+<Playground :elysia="demo5" />
+
+When navigating to your web server, you should see the result as follows:
+
+| Path | Method | Result              |
+| ---- | ------ | ------------------- |
+| /    | GET    | hi                  |
+| /    | POST   | Route not found :\( |
+| /hi  | GET    | Route not found :\( |
+
+You can learn more about life cycle and error handling in [Life Cycle Events](/essential/life-cycle#events) and [Error Handling](/essential/life-cycle.html#on-error).
+
+::: tip
+HTTP 状态码用于指示响应的类型。默认情况下，如果一切正常，服务器会返回 ‘200 OK’ 状态码（如果路由匹配且无错误，Elysia 默认返回 200）
+
+如果服务器未能找到任何处理该请求的路由，例如本例中，则服务器将返回 ‘404 NOT FOUND’ 状态码。
+:::-->
+
+## 分组
+
+创建 Web 服务器时，通常会有多个路由共享相同的前缀：
 
 ```typescript
 import { Elysia } from 'elysia'

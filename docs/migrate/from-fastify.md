@@ -17,7 +17,7 @@ head:
 
     - - meta
       - property: 'og:description'
-        content: 本指南面向希望看到 Fastify 之间的差异的用户，包括语法，以及如何通过示例将应用程序从 Fastify 迁移到 Elysia。
+        content: This guide is for Fastify users who want to see the differences from Fastify including syntax, and how to migrate your application from Fastify to Elysia by example.
 ---
 
 <script setup>
@@ -43,7 +43,7 @@ import Benchmark from '../components/fern/benchmark-fastify.vue'
 
 ## 路由
 
-Fastify 和 Elysia 具有类似的路由语法，使用 `app.get()` 和 `app.post()` 方法定义路由，并使用类似的路径参数语法。
+Fastify 和 Elysia 拥有类似的路由语法，使用 `app.get()` 和 `app.post()` 方法定义路由，并且路径参数的语法也相似。
 
 <Compare>
 
@@ -57,11 +57,11 @@ import fastify from 'fastify'
 const app = fastify()
 
 app.get('/', (request, reply) => {
-    res.send('Hello World')
+    reply.send('Hello World')
 })
 
 app.post('/id/:id', (request, reply) => {
-    reply.status(201).send(req.params.id)
+    reply.status(201).send(request.params.id)
 })
 
 app.listen({ port: 3000 })
@@ -99,19 +99,19 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 使用单一的 `context` 并直接返回响应
+> Elysia 使用单个 `context` 并直接返回响应
 
 </template>
 
 </Compare>
 
-在风格指南上有一点不同，Elysia 推荐使用方法链和对象解构。
+风格指南上有些许差异，Elysia 推荐使用方法链和对象解构。
 
 如果您不需要使用上下文，Elysia 还支持响应的内联值。
 
 ## 处理程序
 
-两者都具有类似的属性，以访问输入参数，如 `headers`、`query`、`params` 和 `body`，并自动将请求主体解析为 JSON、URL 编码数据和表单数据。
+两者都具有类似的属性来访问输入参数，如 `headers`、`query`、`params` 和 `body`，并自动解析请求体为 JSON、URL 编码数据和表单数据。
 
 <Compare>
 
@@ -138,7 +138,7 @@ app.post('/user', (request, reply) => {
 
 <template v-slot:left-content>
 
-> Fastify 解析数据并将其放入 `request` 对象中
+> Fastify 解析数据并放入 `request` 对象中
 
 </template>
 
@@ -164,7 +164,7 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 解析数据并将其放入 `context` 对象中
+> Elysia 解析数据并放入 `context` 对象中
 
 </template>
 
@@ -233,9 +233,9 @@ const app = new Elysia()
 虽然 Elysia 在构造函数中设置前缀，但 Fastify 要求您在选项中设置前缀。
 
 ## 验证
-Elysia 内置支持请求验证，具有良好的类型安全，默认情况下使用 **TypeBox**，而 Fastify 使用 JSON Schema 声明模式，并使用 **ajv** 进行验证。
+Elysia 内置对请求验证的支持，开箱即用地提供良好的类型安全，使用 **TypeBox**，而 Fastify 使用 JSON Schema 来声明模式，并使用 **ajv** 进行验证。
 
-但是，不能自动推导类型，您需要使用类型提供程序，如 `@fastify/type-provider-json-schema-to-ts` 来推导类型。
+但是，它不会自动推断类型，需要使用像 `@fastify/type-provider-json-schema-to-ts` 这样的类型提供者来推断类型。
 
 <Compare>
 
@@ -358,20 +358,20 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 使用 TypeBox 进行验证，并自动强制类型转换。同时也支持像 Zod、Valibot 等各种验证库，并使用相同的语法。
+> Elysia 使用 TypeBox 进行验证，并自动进行类型转换。同时也支持使用相同语法的 Zod、Valibot 等验证库。
 
 </template>
 
 </Compare>
 
-此外，Fastify 还可以使用 **TypeBox** 或 **Zod** 进行验证，使用 `@fastify/type-provider-typebox` 自动推导类型。
+此外，Fastify 还能使用 **TypeBox** 或 **Zod** 进行验证，通过 `@fastify/type-provider-typebox` 自动推断类型。
 
-而 Elysia **偏好使用 TypeBox** 进行验证，同时也支持标准 Schema，允许您开箱即用地使用 Zod、Valibot、ArkType、Effect Schema 等库。
+虽然 Elysia **偏好 TypeBox** 进行验证，Elysia 也支持标准模式 Schema，让您可以开箱即用地使用 Zod、Valibot、ArkType、Effect Schema 等库。
 
 ## 文件上传
-Fastify 使用 `fastify-multipart` 处理文件上传，底层使用 `Busboy`，而 Elysia 使用 Web 标准 API 处理表单数据，使用声明性 API 进行 mimetype 验证。
+Fastify 使用 `fastify-multipart` 来处理文件上传，该插件底层使用 `Busboy`，而 Elysia 使用 Web 标准 API 来处理表单数据，使用声明式 API 进行 mimetype 验证。
 
-然而，Fastify 并没有提供一种简单的方法进行文件验证，例如，文件大小和 mimetype，需要一些变通方法来验证文件。
+但是，Fastify 没有提供简单的文件验证方式，如文件大小和 mimetype 验证，通常需要自己做一些变通来验证文件。
 
 <Compare>
 
@@ -422,7 +422,7 @@ app.post(
 
 <template v-slot:left-content>
 
-> Fastify 使用 `fastify-multipart` 处理文件上传，伪装 `type: object` 以允许 Buffer
+> Fastify 使用 `fastify-multipart` 处理文件上传，假装 `type: object` 以允许 Buffer
 
 </template>
 
@@ -448,7 +448,7 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 通过 `t.File` 处理文件和 mimetype 验证
+> Elysia 使用 `t.File` 处理文件和 mimetype 验证
 
 </template>
 
@@ -468,40 +468,9 @@ Elysia 的生命周期事件可以如下所示。
 > 点击图片放大
 
 ### Fastify 生命周期
-Fastify 的生命周期事件可以如下所示。
-```
-输入请求
-  │
-  └─▶ 路由
-        │
-        └─▶ 实例记录器
-             │
-   4**/5** ◀─┴─▶ onRequest 钩子
-                  │
-        4**/5** ◀─┴─▶ preParsing 钩子
-                        │
-              4**/5** ◀─┴─▶ 解析
-                             │
-                   4**/5** ◀─┴─▶ preValidation 钩子
-                                  │
-                            400 ◀─┴─▶ 验证
-                                        │
-                              4**/5** ◀─┴─▶ preHandler 钩子
-                                              │
-                                    4**/5** ◀─┴─▶ 用户处理程序
-                                                    │
-                                                    └─▶ 回复
-                                                          │
-                                                4**/5** ◀─┴─▶ preSerialization 钩子
-                                                                │
-                                                                └─▶ onSend 钩子
-                                                                      │
-                                                            4**/5** ◀─┴─▶ 输出响应
-                                                                            │
-                                                                            └─▶ onResponse 钩子
-```
+Fastify 生命周期事件也采用类似 Elysia 的基于事件的方式。
 
-两者在拦截请求和响应生命周期事件的语法上也相似，然而 Elysia 不需要您调用 `done` 来继续生命周期事件。
+两者拦截请求和响应生命周期事件的语法也较为相似，但 Elysia 不需要您调用 `done` 来继续生命周期事件。
 
 <Compare>
 
@@ -544,7 +513,7 @@ app.get(
 
 <template v-slot:left-content>
 
-> Fastify 使用 `addHook` 注册中间件，并要求您调用 `done` 继续生命周期事件
+> Fastify 使用 `addHook` 注册中间件，并需要手动调用 `done` 来继续生命周期事件
 
 </template>
 
@@ -563,7 +532,7 @@ const app = new Elysia()
 	// 路由特定中间件
 	.get('/protected', () => 'protected', {
 		beforeHandle({ status, headers }) {
-  			if (!headers.authorizaton)
+  			if (!headers.authorization)
      			return status(401)
 		}
 	})
@@ -574,14 +543,14 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 自动检测生命周期事件，并不需要您调用 `done` 来继续生命周期事件
+> Elysia 自动检测生命周期事件，无需调用 `done` 来继续生命周期事件
 
 </template>
 
 </Compare>
 
-## 良好的类型安全
-Elysia 确保良好的类型安全。
+## 类型安全性
+Elysia 设计上具备强类型安全性。
 
 例如，您可以使用 [derive](/essential/life-cycle.html#derive) 和 [resolve](/essential/life-cycle.html#resolve) 以 **类型安全** 的方式自定义上下文，而 Fastify 则不能。
 
@@ -637,7 +606,7 @@ app.listen({
 
 <template v-slot:left-content>
 
-> Fastify 使用 `decorateRequest`，但没有提供良好的类型安全
+> Fastify 使用 `decorateRequest`，但不提供强类型安全性
 
 </template>
 
@@ -680,7 +649,7 @@ const app = new Elysia()
 
 </Compare>
 
-虽然 Fastify 可以使用 `declare module` 扩展 `FastifyRequest` 接口，但它是全局可用的，并且没有良好的类型安全，也无法保证该属性在所有请求处理程序中都可用。
+虽然 Fastify 可以使用 `declare module` 来扩展 `FastifyRequest` 接口，但这是全局可用的，并不具备强类型安全，也不能保证该属性在所有请求处理程序中都可用。
 
 ```ts
 declare module 'fastify' {
@@ -690,7 +659,7 @@ declare module 'fastify' {
   	}
 }
 ```
-> 这是以上 Fastify 示例正常工作的必要条件，但并没有提供良好的类型安全
+> 上述 Fastify 示例需要此声明，但它并不提供强类型安全
 
 ## 中间件参数
 Fastify 使用函数返回 Fastify 插件定义命名中间件，而 Elysia 使用 [macro](/patterns/macro) 定义自定义钩子。
@@ -789,7 +758,7 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 使用宏传递自定义参数给自定义中间件
+> Elysia 使用 macro 传递自定义参数给自定义中间件
 
 </template>
 
@@ -850,7 +819,7 @@ app.get(
 
 <template v-slot:left-content>
 
-> Fastify 使用 `setErrorHandler` 作为全局错误处理程序，以及使用 `errorHandler` 作为路由特定错误处理程序
+> Fastify 使用 `setErrorHandler` 作为全局错误处理器，使用 `errorHandler` 作为路由特定错误处理器
 
 </template>
 
@@ -915,24 +884,24 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 提供自定义错误代码，简写 HTTP 状态和 `toResponse` 用于将错误映射到响应。
+> Elysia 提供自定义错误代码，简化状态码设置和 `toResponse` 用于错误映射响应。
 
 </template>
 
 </Compare>
 
-虽然两者都在生命周期事件中提供错误处理，但 Elysia 还提供：
+尽管两者都提供生命周期事件进行错误处理，Elysia 还提供了：
 
 1. 自定义错误代码
-2. 显示映射 HTTP 状态和 `toResponse` 用于将错误映射到响应
+2. 映射 HTTP 状态码和 `toResponse` 用于将错误映射到响应
 
-错误代码对日志记录和调试非常有用，并且在区分扩展相同类的不同错误类型时很重要。
+错误代码非常有助于日志记录和调试，并且在区分扩展同一类的不同类型错误时非常重要。
 
 Elysia 提供了所有这些类型安全，而 Fastify 则没有。
 
 ## 封装
 
-Fastify 封装插件的副作用，而 Elysia 通过显式作用域机制和代码顺序控制插件的副作用。
+Fastify 封装插件的副作用，而 Elysia 通过显式的作用域机制和代码顺序让您控制插件的副作用。
 
 <Compare>
 
@@ -996,15 +965,15 @@ const app = new Elysia()
 
 <template v-slot:right-content>
 
-> Elysia 除非显式声明，否则不会有插件的副作用
+> Elysia 封装插件的副作用，除非显式声明
 
 </template>
 
 </Compare>
 
-两者都有插件的封装机制，以防止副作用。
+两者均有插件封装机制以防止副作用。
 
-然而，Elysia 可以显式声明哪个插件应该有副作用，通过声明一个作用域，而 Fastify 始终对此进行封装。
+然而，Elysia 可以显式声明哪个插件应该有副作用，通过声明作用域，而 Fastify 始终将其封装。
 
 ```ts [Elysia]
 import { Elysia } from 'elysia'
@@ -1025,9 +994,9 @@ const app = new Elysia()
     .get('/side-effect', () => 'hi')
 ```
 
-Elysia 提供 3 种类型的作用域机制：
-1. **local** - 仅适用于当前实例，无副作用（默认）
-2. **scoped** - 将副作用限制到父实例，但不超出
+Elysia 提供三种作用域机制：
+1. **local** - 只应用于当前实例，无副作用（默认）
+2. **scoped** - 将副作用限制在父实例内，但不超出
 3. **global** - 影响所有实例
 
 ---
@@ -1035,9 +1004,9 @@ Elysia 提供 3 种类型的作用域机制：
 由于 Fastify 不提供作用域机制，我们需要：
 
 1. 为每个钩子创建一个函数并手动附加
-2. 使用高阶函数，并将其应用到需要效果的实例
+2. 使用高阶函数，将其应用到需要副作用的实例上
 
-然而，这可能导致在处理不当的情况下产生重复的副作用。
+然而，这可能导致不正确处理时产生重复副作用。
 
 ```ts
 import fastify from 'fastify'
@@ -1081,7 +1050,7 @@ app.listen({
 })
 ```
 
-在这个情况下，Elysia 提供了一个插件去重机制，以防止重复的副作用。
+对应此情况，Elysia 提供插件去重机制，防止重复副作用。
 
 ```ts [Elysia]
 import { Elysia } from 'elysia'
@@ -1103,10 +1072,10 @@ const app = new Elysia()
 	.get('/side-effect', () => 'hi')
 ```
 
-通过使用唯一的 `name`，Elysia 将插件仅应用一次，而不会导致重复的副作用。
+通过使用唯一的 `name`，Elysia 仅会应用该插件一次，避免重复副作用。
 
 ## Cookie
-Fastify 使用 `@fastify/cookie` 来解析 cookies，而 Elysia 则内置支持 cookies，使用基于信号的方法处理 cookies。
+Fastify 使用 `@fastify/cookie` 来解析 cookie，而 Elysia 内置支持 cookie，使用基于信号的方法处理 cookie。
 
 <Compare>
 
@@ -1171,7 +1140,7 @@ const app = new Elysia({
 
 <template v-slot:right-content>
 
-> Elysia 使用基于信号的方法处理 cookies，签名验证自动处理
+> Elysia 使用基于信号的方法处理 cookie，并自动处理签名验证
 
 </template>
 
@@ -1179,7 +1148,7 @@ const app = new Elysia({
 
 
 ## OpenAPI
-两者都提供基于 Swagger 的 OpenAPI 文档，但 Elysia 默认采用 Scalar UI，这是一种更现代且用户友好的 OpenAPI 文档界面。
+两者都使用 Swagger 提供 OpenAPI 文档，但 Elysia 默认使用 Scalar UI，这是一种更现代且用户友好的 OpenAPI 文档界面。
 
 <Compare>
 
@@ -1287,7 +1256,7 @@ const app = new Elysia()
 
 </Compare>
 
-两者都提供使用 `$ref` 的模型引用以生成 OpenAPI 文档，然而 Fastify 不提供类型安全和为模型名称指定时的自动补全，而 Elysia 提供。
+两者都支持 OpenAPI 文档中使用 `$ref` 进行模型引用，但 Fastify 不支持在指定模型名称时的类型安全和自动补全，而 Elysia 支持。
 
 ## 测试
 
@@ -1372,7 +1341,7 @@ describe('GET /', () => {
 
 </Compare>
 
-此外，Elysia 还提供了一个名为 [Eden](/eden/overview) 的帮助库，提供端到端类型安全，允许我们在测试时获得自动补全和完全的类型安全。
+此外，Elysia 还提供了一个名为 [Eden](/eden/overview) 的辅助库，提供端到端类型安全，允许我们在测试时获得自动补全和完全的类型安全。
 
 ```ts twoslash [Elysia]
 import { Elysia } from 'elysia'
@@ -1394,7 +1363,7 @@ describe('GET /', () => {
 ```
 
 ## 端到端类型安全
-Elysia 提供内置支持 **端到端类型安全**，无需代码生成，Fastify 则没有此功能。
+Elysia 内置支持使用 [Eden](/eden/overview) 实现 **端到端类型安全**，无需代码生成，而 Fastify 不支持此功能。
 
 ::: code-group
 
@@ -1447,18 +1416,18 @@ console.log('ok')
 
 ---
 
-Elysia 提供了更符合人体工程学和开发人员友好的体验，专注于性能、类型安全和简单性，而 Fastify 是一个成熟的 Node.js 框架，但没有提供 **良好的类型安全** 和 **端到端类型安全** 。
+Elysia 提供了更符合人体工程学和开发者友好的体验，专注于性能、类型安全和简洁性，而 Fastify 是 Node.js 的成熟框架之一，但没有次世代框架所提供的**健全的类型安全**和**端到端类型安全**。
 
-如果您正在寻找一个易于使用、具有良好开发体验，并建立在 Web 标准 API 之上的框架，Elysia 是您的理想选择。
+如果您正在寻找一个易于使用、具有良好开发体验，并基于 Web 标准 API 的框架，Elysia 是您的理想选择。
 
 另外，如果您来自其他框架，您可以查看：
 
 <Deck>
     <Card title="From Express" href="/migrate/from-express">
-  		tRPC 与 Elysia 的比较
+  		Express 与 Elysia 的比较
     </Card>
 	<Card title="From Hono" href="/migrate/from-hono">
- 		  Hono 与 Elysia 的比较
+ 		Hono 与 Elysia 的比较
 	</Card>
 	<Card title="From tRPC" href="/migrate/from-trpc">
   		tRPC 与 Elysia 的比较

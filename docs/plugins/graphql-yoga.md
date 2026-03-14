@@ -50,7 +50,7 @@ const app = new Elysia()
 
 在浏览器中访问 `/graphql`（GET 请求）将显示一个 GraphiQL 实例，用于支持 GraphQL 的 Elysia 服务器。
 
-可选：您还可以安装自定义版本的可选对等依赖项：
+可选地，您也可以安装自定义版本的可选 peer 依赖：
 
 ```bash
 bun add graphql graphql-yoga
@@ -79,8 +79,8 @@ const app = new Elysia()
 			context: {
 				name: 'Mobius'
 			},
-			// 如果上下文是一个函数，它不出现在这里
-			// 由于某种原因，它不会推断上下文类型
+			// If context is a function, it doesn't appear here
+			// For some reason, it doesn't infer the context type
 			useContext(_) {},
 			resolvers: {
 				Query: {

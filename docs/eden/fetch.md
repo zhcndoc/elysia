@@ -108,13 +108,13 @@ const { id, name } = nendoroid
 ## 何时应该使用 Eden Fetch 而不是 Eden Treaty
 与 Elysia < 1.0 不同，Eden Fetch 现在并不比 Eden Treaty 更快。
 
-选择取决于您和您的团队的协议，然而我们建议使用 [Eden Treaty](/eden/treaty/overview)。
+该选择基于您和您的团队的共识；然而，我们推荐使用 [Eden Treaty](/eden/treaty/overview)。
 
 对于 Elysia < 1.0：
 
-使用 Eden Treaty 需要大量的降级迭代来一次性映射所有可能的类型，而相反，Eden Fetch 可以延迟执行，直到您选择一个路由。
+使用 Eden Treaty 需要较多的迭代工作以一次性映射所有可能的类型，而相比之下，Eden Fetch 可以延迟执行直到您选择具体路由。
 
-对于复杂的类型和大量的服务器路由，在低端开发设备上使用 Eden Treaty 可能导致类型推断和自动补全变慢。
+在类型复杂且服务器路由众多的情况下，在低端开发设备上使用 Eden Treaty 可能导致类型推断和自动补全缓慢。
 
 但随着 Elysia 调整和优化了很多类型和推断，Eden Treaty 在大量路由中表现得非常好。
 

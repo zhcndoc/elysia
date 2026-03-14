@@ -16,7 +16,7 @@ head:
 
 # 与 Nuxt 集成
 
-我们可以使用 Nuxt 的社区插件 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)，利用 Eden Treaty 在 Nuxt API 路由上配置 Elysia。
+我们可以使用 Nuxt 的社区插件 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)，在 Nuxt API 路由上通过 Eden Treaty 设置 Elysia。
 
 1. 通过以下命令安装插件：
 
@@ -71,7 +71,7 @@ const { data } = await useAsyncData(async () => {
 </script>
 ```
 
-这将自动在 Nuxt API 路由上配置并运行 Elysia。
+这将自动将 Elysia 设置为在 Nuxt API 路由上运行。
 
 ### pnpm
 如果你使用 pnpm，[pnpm 默认不自动安装 peer 依赖](https://github.com/orgs/pnpm/discussions/3995#discussioncomment-1893230)，你需要手动安装额外依赖。
@@ -81,7 +81,7 @@ pnpm add @sinclair/typebox openapi-types
 
 ## 前缀
 
-默认情况下，Elysia 将挂载在 **/_api**，但我们可以通过 `nuxt-elysia` 配置进行自定义。
+默认情况下，Elysia 会挂载在 **/_api**，但我们可以通过 `nuxt-elysia` 配置来自定义挂载路径。
 ```ts
 export default defineNuxtConfig({
 	nuxtElysia: {
@@ -92,4 +92,4 @@ export default defineNuxtConfig({
 
 这会将 Elysia 挂载到 **/api**，而非 **/_api**。
 
-更多配置请参考 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia)
+更多配置选项，请参考 [nuxt-elysia](https://github.com/tkesgar/nuxt-elysia) 。

@@ -30,7 +30,7 @@ import { code, testcases } from './data'
 
 # Guard
 
-当你需要将多个钩子应用到你的应用程序时，不用重复多次钩子，可以使用 `guard` 来批量添加钩子到你的应用中。
+当你需要为应用程序应用多个钩子时，不必多次重复钩子，可以使用 `guard` 一次性批量添加钩子到你的应用中。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -122,7 +122,7 @@ new Elysia()
 	.listen(3000)
 ```
 
-这将在同一实例中 `guard` 被调用之后，将钩子和模式应用到每个路由。
+这将在同一个实例中 **调用 .guard 之后** 对每个路由应用钩子和模式。
 
 有关更多信息，请参见 <DocLink href="/essential/plugin#guard">Guard</DocLink>。
 

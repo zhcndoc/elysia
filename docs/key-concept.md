@@ -40,7 +40,7 @@ const demo2 = new Elysia()
 
 # 关键概念 <Badge type="danger" text="必须阅读" />
 
-Elysia 拥有一些非常重要的概念，您需要理解它们才能使用。
+Elysia 拥有您需要理解的所有重要概念。
 
 本页面涵盖了在开始使用之前您应该了解的大多数概念。
 
@@ -75,7 +75,7 @@ const app = new Elysia()
 
 <br>
 
-**Elysia 默认会隔离生命周期**，除非明确说明。这类似于 JavaScript 中的 **export**，你需要导出函数才能让它在模块外可用。
+**Elysia 默认隔离生命周期**，除非明确说明。这类似于 JavaScript 中的 **export**，您需要导出函数以使其在模块外可用。
 
 若要将生命周期“导出”到其他实例，您必须指定作用域。
 
@@ -170,11 +170,11 @@ app.listen(3000)
 我们建议您<u>**始终使用方法链**</u>以便获得准确的类型推断。
 
 ## 依赖 <Badge type="danger" text="必须阅读" />
-Elysia 天然由多个微型的 Elysia 应用组成，这些实例可以像微服务一样**独立运行**并相互通信。
+Elysia 设计由多个小型 Elysia 应用组成，它们可以像微服务一样**独立运行**并相互通信。
 
 每个 Elysia 实例都是独立的，**并且可以作为独立服务器运行**。
 
-当一个实例需要使用另一个实例的服务时，您**必须显式声明依赖**。
+当一个实例需要使用另一个实例的服务时，您**必须显式声明依赖关系**。
 
 ```ts twoslash
 // @errors: 2339
@@ -215,13 +215,13 @@ const main = new Elysia()
 
 这类似于**依赖注入**，每个实例必须声明它自身的依赖。
 
-这种方式强制您显式声明依赖，利于依赖跟踪和模块化。
+这种方式迫使您明确依赖关系，从而实现更好的跟踪和模块化。
 
 ### 去重 <Badge type="warning" text="重要" />
 
 默认情况下，每个插件在应用到另一个实例时都会**每次执行**。
 
-为防止重复执行，Elysia 可以通过为实例添加**唯一标识符**，使用 `name` 以及可选的 `seed` 属性，来实现生命周期的去重。
+为避免这种情况，Elysia 可以通过使用 `name` 和可选的 `seed` 属性为实例赋予**唯一标识符**来去重生命周期。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -249,30 +249,30 @@ const server = new Elysia()
 	.use(router2)
 ```
 
-为实例添加 `name` 属性会让它成为唯一标识符，从而防止重复调用。
+为实例添加 `name` 和可选的 `seed` 将使其成为唯一标识符，防止被多次调用。
 
 更多内容请见 [插件去重](/essential/plugin.html#plugin-deduplication)。
 
 ### 全局依赖 vs 显式依赖
 
-有些情况下使用全局依赖比显式依赖更合适。
+有些情况下，全局依赖比显式依赖更合理。
 
 **全局** 插件示例：
-- **不添加类型的插件** —— 如 cors、compress、helmet
-- 添加全局生命周期且无实例应控制的插件 —— 如 tracing, logging
+- **不添加类型的插件** - 如 cors、compress、helmet
+- 添加全局生命周期，不应由任何实例控制的插件 - 如 tracing、logging
 
 示例用例：
 - OpenAPI/Open - 全局文档
 - OpenTelemetry - 全局追踪器
 - Logging - 全局日志器
 
-这种情况下，创建为全局依赖更有意义，而不是将它应用到每个实例。
+在这些情况下，创建全局依赖比应用到每个实例更合适。
 
-然而，如果您的依赖不符合上述类别，则建议使用**显式依赖**。
+但是，如果您的依赖不符合上述类别，建议使用**显式依赖**。
 
 **显式依赖** 示例：
-- **添加类型的插件** —— 如 macro、state、model
-- 添加业务逻辑且实例可交互的插件 —— 如 Auth、Database
+- **添加类型的插件** - 如 macro、state、model
+- 添加业务逻辑，实例可以交互的插件 - 如 Auth、Database
 
 示例用例：
 - 状态管理 —— 如 Store、Session
@@ -284,9 +284,9 @@ const server = new Elysia()
 
 Elysia 的生命周期代码顺序非常重要。
 
-事件只会对注册之后的路由生效。
+因为事件只会应用于**事件注册之后**的路由。
 
-如果把 onError 放在插件之前，插件将不会继承该 onError 事件。
+如果将 onError 放在插件之前，插件将不会继承该 onError 事件。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -352,7 +352,7 @@ const app = new Elysia()
 详见 [最佳实践：MVC 控制器](/essential/best-practice.html#controller)。
 
 ### TypeScript
-我们可以通过访问 `static` 属性来获取每个 Elysia/TypeBox 类型的类型定义：
+我们可以通过访问 `static` 属性获取每个 Elysia/TypeBox 类型的类型定义，如下所示：
 
 ```ts twoslash
 import { t } from 'elysia'
@@ -369,7 +369,7 @@ type MyType = typeof MyType.static
 <br>
 <br>
 
-这使得 Elysia 能够自动推断并提供类型，减少了重复声明 schema 的需求。
+这使得 Elysia 能够自动推断和提供类型，减少了声明重复模式的需求。
 
 单个 Elysia/TypeBox schema 可用于：
 - 运行时验证

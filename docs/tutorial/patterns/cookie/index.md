@@ -31,7 +31,7 @@ import { code, testcases } from './data'
 
 # Cookie
 
-您可以通过上下文中的 <DocLink href="/patterns/cookie">cookie</DocLink> 与 cookie 进行交互。
+您可以通过使用上下文中的 <DocLink href="/patterns/cookie">cookie</DocLink> 来操作 cookies。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -122,9 +122,9 @@ new Elysia()
 
 ## Cookie 签名
 
-Elysia 可以对 cookie 进行签名以防止篡改：
-1. 向 Elysia 构造函数提供 cookie 秘密。
-2. 使用 `t.Cookie` 为每个 cookie 提供秘密。
+Elysia 可以通过以下方式为 cookies 签名以防篡改：
+1. 向 Elysia 构造函数提供 cookie secret。
+2. 使用 `t.Cookie` 为每个 cookie 提供 secret。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -150,7 +150,7 @@ new Elysia({
 	.listen(3000)
 ```
 
-如果提供了多个秘密，Elysia 将使用第一个秘密对 cookie 进行签名，并尝试用其余的秘密进行验证。
+如果提供了多个 secrets，Elysia 会使用第一个 secret 来签名 cookies，并尝试用其余的进行验证。
 
 请参见 <DocLink href="/patterns/cookie.html#cookie-signature">Cookie 签名</DocLink>，<DocLink href="/patterns/cookie.html#cookie-rotation">Cookie 轮换</DocLink>。
 

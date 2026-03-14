@@ -53,7 +53,7 @@ const demo9 = new Elysia()
 1. **路径**，例如 `/`、`/about` 或 `/contact`
 2. **方法**，例如 `GET`、`POST` 或 `DELETE`
 
-以确定要显示的资源，这被简单称为 **"路由"**。
+用来确定显示哪个资源，通常称为 **"路由"**。
 
 在 Elysia 中，我们可以通过以下方式定义路由：
 1. 调用以 HTTP 方法命名的方法
@@ -106,7 +106,7 @@ new Elysia()
     .listen(3000)
 ```
 
-在这里，动态路径通过 `/id/:id` 创建。这告诉 Elysia 捕获值为 `:id` 的段，例如 **/id/1**、**/id/123**、**/id/anything**。
+这里，创建了一个动态路径 `/id/:id`，它告诉 Elysia 捕获 `:id` 段的值，如 **/id/1**、**/id/123**、**/id/anything**。
 
 <Playground
   :elysia="demo6"
@@ -185,8 +185,8 @@ new Elysia()
 
 <template #answer>
 
-1. 静态路径 `/elysia`，响应为 `"Hello Elysia!"`
-2. 动态路径 `/friends/:name?`，响应为 `"Hello {name}!"`
+1. 静态路径 `/elysia`，响应为 `"你好 Elysia！"`
+2. 动态路径 `/friends/:name?`，响应为 `"你好 {name}！"`
 3. 通配符路径 `/flame-chasers/*`，响应为路径其余部分。
 
 ```typescript

@@ -17,7 +17,7 @@ head:
 # OpenTelemetry
 
 ::: tip
-此页面是 **OpenTelemetry** 的 **配置参考**，如果您想要设置和集成 OpenTelemetry，我们建议您查看 [与 OpenTelemetry 集成](/patterns/opentelemetry)。
+此页面是 **OpenTelemetry** 的 **配置参考**。如果您想要设置和集成 OpenTelemetry，建议您查看 [与 OpenTelemetry 集成](/patterns/opentelemetry)。
 :::
 
 要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任意实例。
@@ -43,7 +43,7 @@ new Elysia()
 
 ![jaeger 显示自动收集的追踪](/blog/elysia-11/jaeger.webp)
 
-Elysia OpenTelemetry 将 **收集任何与 OpenTelemetry 标准兼容的库的跨度**，并将自动应用父子跨度。
+Elysia OpenTelemetry 将 **收集任何与 OpenTelemetry 标准兼容的库产生的跨度**，并自动应用父跨度和子跨度。
 
 ## 使用
 请参见 [opentelemetry](/patterns/opentelemetry) 以获取用法和实用工具
@@ -110,8 +110,8 @@ export OTEL_NODE_RESOURCE_DETECTORS="env,host"
 ### sampler - Sampler
 配置自定义采样器。默认情况下，所有追踪将被采样。
 
-### serviceName - 字符串
-要标识的命名空间。
+### serviceName - string
+命名空间标识名称。
 
 ### spanProcessors - SpanProcessor[]
 要注册到追踪器提供程序的跨度处理器数组。

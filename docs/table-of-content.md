@@ -24,7 +24,7 @@ head:
 
 # 目录
 
-学习 Elysia 没有正确的方法，但我们**强烈建议**您首先查看一个 **交互式教程** 以熟悉 Elysia：
+学习 Elysia 没有正确的方法，但我们**强烈建议**您先查看**互动教程**，以熟悉 Elysia：
 
 <TutorialLink />
 <AronaBanner />
@@ -34,8 +34,8 @@ head:
 
 为了充分利用我们的文档，建议您对 Node.js 和基本的 HTTP 有一个基本的了解。-->
 
-## 首先
-我们强烈建议您在开始使用 Elysia 之前先查看这 2 个页面：
+## 首先推荐
+在开始使用 Elysia 之前，我们强烈建议您先查看这两页内容：
 
 <Deck>
     <Card title="关键概念" href="/key-concept">
@@ -84,7 +84,7 @@ bunx skills add elysiajs/skills
 
 ## 基础章节
 
-以下是 Elysia 的基础，我们强烈建议您在跳转到其他主题之前先浏览这些页面：
+这里是 Elysia 的基础内容。我们强烈建议您先阅读这些页面，再跳转到其他主题：
 
 <Deck>
     <Card title="路由" href="/essential/route">
@@ -106,20 +106,20 @@ bunx skills add elysiajs/skills
 
 ## 更多模式
 
-如果您想探索更多 Elysia 的特性，请查看：
+如果您想探索更多 Elysia 功能，请查看：
 
 <Deck>
-    <Card title="处理器" href="/eden/overview">
-        更多关于如何发送文件、服务器推送事件等的模式
+    <Card title="Handler" href="/eden/overview">
+    	更多关于如何发送文件、使用服务器发送事件等的模式
     </Card>
     <Card title="Web Socket" href="/patterns/websocket">
-        了解如何使用 Elysia 创建实时应用
+   		了解如何用 Elysia 创建实时应用
     </Card>
     <Card title="Eden" href="/eden/overview">
-        了解更多关于 Eden 的信息及其有效使用方式
+    	了解更多关于 Eden 及其有效使用方法
     </Card>
-    <Card title="开放遥测" href="/eden/opentelemetry">
-        学习如何通过开放遥测监控您的应用
+    <Card title="Open Telemetry" href="/patterns/opentelemetry">
+   		了解如何使用 Open Telemetry 监控您的应用
     </Card>
     <Card title="部署到生产" href="/patterns/deploys">
         学习如何将 Elysia 部署到生产环境
@@ -128,7 +128,7 @@ bunx skills add elysiajs/skills
 
 ## 与元框架的集成
 
-我们也可以将 Elysia 与诸如 Nextjs、Nuxt、Astro 等元框架结合使用。
+您也可以将 Elysia 与 Next.js、Nuxt、Astro 等元框架一起使用。
 
 <Deck>
     <Card title="Astro" href="/integrations/astro">
@@ -148,9 +148,9 @@ bunx skills add elysiajs/skills
     </Card>
 </Deck>
 
-## 与您最喜欢的工具的集成
+## 与您喜爱的工具集成
 
-我们与一些流行工具进行了集成：
+我们提供了一些流行工具的集成：
 
 <Deck>
     <Card title="AI SDK" href="/integrations/ai-sdk">
@@ -160,13 +160,13 @@ bunx skills add elysiajs/skills
         学习如何在 Elysia 中使用 Better Auth
     </Card>
     <Card title="Drizzle" href="/integrations/drizzle">
-        Elysia 提供了 Drizzle 的类型安全实用工具
+  		Elysia 提供与 Drizzle 的类型安全工具
     </Card>
     <Card title="Prisma" href="/integrations/prisma">
         学习如何在 Elysia 中使用 Prisma
     </Card>
     <Card title="React Email" href="/integrations/react-email">
-        我们可以使用 JSX 创建电子邮件模板
+  		使用 JSX 创建电子邮件模板
     </Card>
 </Deck>
 
@@ -176,7 +176,7 @@ bunx skills add elysiajs/skills
 
 <Deck>
     <Card title="Discord" href="https://discord.gg/eaFJ2KDJck">
-        官方 ElysiaJS Discord 社区服务器
+        ElysiaJS 官方 Discord 社区服务器
     </Card>
     <Card title="Twitter" href="https://twitter.com/elysiajs">
         跟踪 Elysia 的更新和状态

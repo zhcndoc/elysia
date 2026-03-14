@@ -24,11 +24,9 @@ import TutorialBadge from '../components/arona/badge.vue'
 
 每一段火车轨道都必须完美契合下一段，就像拼图一样。
 
-端到端类型安全就像确保所有轨道的拼接都正确，以免火车脱轨或卡住。
+对于一个框架来说，具备端到端类型安全意味着你可以以类型安全的方式连接客户端和服务器。
 
-对于一个框架来说，具备端到端类型安全的意思是你可以以类型安全的方式连接客户端和服务器。
-
-Elysia 提供了端到端类型安全 **无代码生成** 开箱即用，与 RPC 类似的连接器 **Eden**
+Elysia 提供了开箱即用的端到端类型安全 **无需代码生成**，通过类似 RPC 的连接器 **Eden** 实现。
 
 <video mute controls style="aspect-ratio: 16/9;">
   <source src="/eden/eden-treaty.mp4" type="video/mp4" />
@@ -54,29 +52,19 @@ Elysia 提供了端到端类型安全 **无代码生成** 开箱即用，与 RPC
 悬停在变量和函数上以查看类型定义。
 ::: -->
 
-Elysia 允许你在服务器上更改类型，并会立即反映到客户端，帮助自动完成和类型强制。
+Elysia 允许你在服务器端更改类型，客户端将立即反映这些更改，有助于自动补全和类型强制。
 
 ## Eden
 
-Eden 是一个类似于 RPC 的客户端，旨在仅使用 TypeScript 的类型推断来连接 Elysia **端到端类型安全**，而无需代码生成。
-
-Eden由两个模块组成：
-1. Eden Treaty **（推荐）**：Eden Treaty 1（edenTreaty）的改进版 RPC
-2. Eden Fetch：具有类型安全的 fetch 类客户端
+Eden 是一个类似 RPC 的客户端，旨在仅利用 TypeScript 的类型推断连接 Elysia，实现**端到端类型安全**，无需代码生成。
 
 Eden 由两个模块组成：
-1. Eden Treaty **（推荐）**: Eden Treaty 的改进版本 RPC
-2. Eden Fetch: 具有类型安全的 Fetch 类客户端。
+1. Eden Treaty **（推荐）**：Eden Treaty 1（edenTreaty）的改进版 RPC
+2. Eden Fetch：具有类型安全的类似 fetch 的客户端
 
 下面是每个模块的概述、用例和比较。
 
-## Eden Treaty （推荐）
-
-Eden Treaty 是一个类似对象的表示，提供 Elysia 服务器的端到端类型安全和显著改善的开发体验。
-
-通过 Eden Treaty，我们可以与 Elysia 服务器进行交互，支持完整的类型和自动完成、类型收窄的错误处理，以及创建类型安全的单元测试。
-
-Eden Treaty 的示例用法：
+使用 Eden Treaty，我们能以完整类型支持和自动补全、类型范围缩小的错误处理与类型安全的单元测试方式与 Elysia 服务器交互。
 
 ```typescript twoslash
 // @filename: server.ts
@@ -119,9 +107,7 @@ const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).put({
 ```
 
 ## Eden Fetch
-
-一个类似于 Eden Treaty 的 Fetch 替代方案，适合偏好 fetch 语法的开发者。
-
+为偏好 fetch 语法的开发者提供的类似 fetch 的 Eden Treaty 替代方案。
 ```typescript
 import { edenFetch } from '@elysiajs/eden'
 import type { App } from './server'
@@ -140,6 +126,6 @@ const { data } = await fetch('/name/:name', {
 })
 ```
 
-::: tip 注意
-与 Eden Treaty 不同，Eden Fetch 不提供 Elysia 服务器的 Web Socket 实现
+::: tip NOTE
+与 Eden Treaty 不同，Eden Fetch 不提供 Elysia 服务器的 WebSocket 实现。
 :::

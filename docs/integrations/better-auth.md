@@ -35,9 +35,9 @@ export const auth = betterAuth({
 
 ## 处理程序
 
-在设置了更好的身份验证实例后，我们可以通过 [mount](/patterns/mount.html) 将其挂载到 Elysia。
+设置好 Better Auth 实例后，我们可以通过 [mount](/patterns/mount.html) 将其挂载到 Elysia。
 
-我们需要将处理程序挂载到 Elysia 端点。
+我们需要将处理程序挂载到 Elysia 的一个端点。
 
 ```ts [index.ts]
 import { Elysia } from 'elysia'
@@ -48,11 +48,11 @@ const app = new Elysia()
 	.listen(3000)
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
-然后我们可以通过 `http://localhost:3000/api/auth` 访问更好的身份验证。
+然后我们可以通过 `http://localhost:3000/api/auth` 访问 Better Auth。
 
 ### 自定义端点
 
@@ -66,13 +66,13 @@ const app = new Elysia()
 	.listen(3000)
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
-然后我们可以通过 `http://localhost:3000/auth/api/auth` 访问更好的身份验证。
+然后我们可以通过 `http://localhost:3000/auth/api/auth` 访问 Better Auth。
 
-但是这个 URL 看起来有些冗余，我们可以在更好的身份验证实例中将 `/api/auth` 前缀自定义为其他内容。
+但这个 URL 看起来冗余，因此我们可以在 Better Auth 实例中将 `/api/auth` 前缀自定义为其他内容。
 
 ```ts
 import { betterAuth } from 'better-auth'
@@ -88,13 +88,13 @@ export const auth = betterAuth({
 
 然后我们可以通过 `http://localhost:3000/auth/api` 访问 Better Auth。
 
-不幸的是，我们不能将更好的身份验证实例的 `basePath` 设置为为空或 `/`。
+遗憾的是，我们不能将 Better Auth 实例的 `basePath` 设置为空或 `/`。
 
 ## OpenAPI
 
-更好的身份验证支持使用 `better-auth/plugins` 的 `openapi`。
+Better Auth 支持使用 `better-auth/plugins` 的 `openapi`。
 
-然而，如果我们使用 [@elysiajs/openapi](/plugins/openapi)，您可能希望从更好的身份验证实例中提取文档。
+但是，如果我们正在使用 [@elysiajs/openapi](/plugins/openapi)，你可能想从 Better Auth 实例中提取文档。
 
 我们可以通过以下代码实现：
 
@@ -146,7 +146,7 @@ const app = new Elysia().use(
 
 ## CORS
 
-要配置 CORS，您可以使用 `@elysiajs/cors` 中的 `cors` 插件。
+要配置 CORS，你可以使用来自 `@elysiajs/cors` 的 `cors` 插件。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -167,13 +167,13 @@ const app = new Elysia()
     .listen(3000)
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
 ## 宏
 
-您可以结合使用 [macro](https://elysiajs.com/patterns/macro.html#macro) 和 [resolve](https://elysiajs.com/essential/handler.html#resolve) 来在传递给视图之前提供会话和用户信息。
+你可以使用 [macro](https://elysiajs.com/patterns/macro.html#macro) 配合 [resolve](https://elysiajs.com/essential/handler.html#resolve)，在传递给视图之前提供会话和用户信息。
 
 ```ts
 import { Elysia } from 'elysia'
@@ -207,8 +207,8 @@ const app = new Elysia()
     .listen(3000)
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
 
-这将允许您在所有路由中访问 `user` 和 `session` 对象。
+这将允许你在所有路由中访问 `user` 和 `session` 对象。

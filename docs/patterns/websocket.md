@@ -7,16 +7,16 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 的 WebSocket 实现。通过 "ws" 声明 WebSocket 路由开始。WebSocket 是一种用于客户端与服务器之间通信的实时协议。
+        content: Elysia 的 WebSocket 实现。通过声明 "ws" 路由开始使用 WebSocket。WebSocket 是客户端与服务器之间的实时通信协议。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的 WebSocket 实现。通过 "ws" 声明 WebSocket 路由开始。WebSocket 是一种用于客户端与服务器之间通信的实时协议。
+        content: Elysia 的 WebSocket 实现。通过声明 "ws" 路由开始使用 WebSocket。WebSocket 是客户端与服务器之间的实时通信协议。
 ---
 
 # WebSocket
 
-WebSocket 是一种用于客户端与服务器之间通信的实时协议。
+WebSocket 是一种客户端与服务器之间的实时通信协议。
 
 与 HTTP 不同，客户端一次又一次地询问网站信息并等待每次的回复，WebSocket 建立了一条直接的通道，使我们的客户端和服务器可以直接来回发送消息，从而使对话更快、更流畅，而无需每条消息都重新开始。
 
@@ -92,7 +92,7 @@ new Elysia({
 
 Elysia 的 WebSocket 实现扩展了 Bun 的 WebSocket 配置，更多信息请参见 [Bun 的 WebSocket 文档](https://bun.zhcndoc.com/api/websockets)。
 
-以下是 [Bun WebSocket](https://bun.zhcndoc.com/api/websockets#create-a-websocket-server) 的简要配置：
+以下是 [Bun WebSocket](https://bun.sh/docs/api/websockets#create-a-websocket-server) 的简要配置说明
 
 ### perMessageDeflate
 
@@ -152,7 +152,7 @@ const app = new Elysia()
 .ws(endpoint: path, options: Partial<WebSocketHandler<Context>>): this
 ```
 
-* **endpoint** - 作为 WebSocket 处理程序暴露的路径
+* **endpoint** - 用作 websocket 处理程序的路径
 * **options** - 自定义 WebSocket 处理程序行为
 
 ## WebSocketHandler
@@ -246,4 +246,4 @@ drain(
 
 ## header
 
-在将连接升级到 WebSocket 之前添加的附加头。
+升级连接到 WebSocket 之前要添加的额外头部。

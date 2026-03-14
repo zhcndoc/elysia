@@ -33,7 +33,7 @@ new Elysia()
     .listen(3000)
 ```
 
-然后，服务器计时将附加 'Server-Timing' 头，记录每个生命周期函数的持续时间、函数名称和细节。
+服务器计时随后将会附加 'Server-Timing' 头信息，包含每个生命周期函数的时长、函数名和详细信息。
 
 要检查，请打开浏览器开发者工具 > 网络 > [通过 Elysia 服务器发出的请求] > 时序。
 
@@ -52,7 +52,7 @@ new Elysia()
 ### allow
 @default `undefined`
 
-一个条件，决定是否记录服务器计时
+服务器计时是否应该被记录的条件
 
 ### trace
 @default `undefined`

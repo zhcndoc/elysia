@@ -18,18 +18,22 @@ head:
 
 性能是 Elysia 一个重要的方面。
 
-我们不仅希望在基准测试中快速运行，我们希望您在真实场景中拥有一个真正快速的服务器。
+We don't want to be fast for benchmarking purposes, we want you to have a really fast server in a real-world scenario.
 
 有许多因素可能会减慢我们的应用程序 - 并且很难识别它们，但 **trace** 可以通过在每个生命周期中注入开始和停止代码来帮助解决这个问题。
 
-Trace 允许我们在每个生命周期事件的前后注入代码，从而阻止并与函数的执行进行交互。
+Trace 允许我们在每个生命周期事件之前和之后注入代码，阻止并与函数的执行进行交互。
+
+::: warning
+trace 不支持动态模式 `aot: false`，因为它要求函数在编译时是静态且已知的，否则会对性能产生较大影响。
+:::
 
 ## Trace
-Trace 使用回调监听器以确保回调函数在移动到下一个生命周期事件之前完成。
+Trace 使用回调监听器来确保回调函数执行完成后再继续下一个生命周期事件。
 
-要使用 `trace`，您需要在 Elysia 实例上调用 `trace` 方法，并传递一个将在每个生命周期事件中执行的回调函数。
+要使用 `trace`，您需要在 Elysia 实例上调用 `trace` 方法，并传入一个将在每个生命周期事件中执行的回调函数。
 
-您可以通过在生命周期名称前添加 `on` 前缀来监听每个生命周期，例如 `onHandle` 以监听 `handle` 事件。
+您可以通过在生命周期名称前添加 `on` 前缀来监听每个生命周期，比如 `onHandle` 用于监听 `handle` 事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -53,7 +57,7 @@ const app = new Elysia()
 ## 子事件
 每个事件除了 `handle` 之外都有一个子事件，这是在每个生命周期事件内部执行的事件数组。
 
-您可以使用 `onEvent` 来按顺序监听每个子事件。
+您可以使用 `onEvent` 按顺序监听每个子事件。
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -84,9 +88,9 @@ const app = new Elysia()
     .listen(3000)
 ```
 
-在此示例中，总子事件将为 `2`，因为在 `beforeHandle` 事件中有 2 个子事件。
+在此示例中，总子事件数量为 `2`，因为在 `beforeHandle` 事件中有 2 个子事件。
 
-然后，我们使用 `onEvent` 监听每个子事件，并打印每个子事件的持续时间。
+然后，我们用 `onEvent` 监听每个子事件，并打印每个子事件的持续时间。
 
 ## Trace 参数
 每个生命周期被调用时
@@ -106,10 +110,10 @@ const app = new Elysia()
 `trace` 接受以下参数：
 
 ### id - `number`
-为每个请求随机生成的唯一 id
+为每个请求随机生成的唯一 ID
 
 ### context - `Context`
-Elysia 的 [上下文](/essential/handler.html#context)，例如 `set`、`store`、`query``、`params`
+Elysia 的 [上下文](/essential/handler.html#context)，例如 `set`、`store`、`query`、`params`
 
 ### set - `Context.set`
 `context.set` 的快捷方式，用于设置上下文的头部或状态
@@ -152,22 +156,22 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-每个生命周期监听器接受以下内容
+每个生命周期监听器接受以下参数
 
 ### name - `string`
-函数的名称，如果函数是匿名的，则名称将为 `anonymous`
+函数的名称，如果函数是匿名的，则名称为 `anonymous`
 
 ### begin - `number`
 函数开始执行的时间
 
 ### end - `Promise<number>`
-函数结束时的时间，当函数结束时将解析
+函数结束时的时间，函数结束时解析
 
 ### error - `Promise<Error | null>`
-在生命周期中抛出的错误，将在函数结束时解析
+生命周期中抛出的错误，函数结束时解析
 
 ### onStop - `callback?: (detail: TraceEndDetail) => any`
-在生命周期结束时将执行的回调
+生命周期结束时将执行的回调
 
 ```ts twoslash
 import { Elysia } from 'elysia'
@@ -184,7 +188,7 @@ const app = new Elysia()
 	.listen(3000)
 ```
 
-建议在此函数中修改上下文，因为有一个锁机制以确保上下文在移动到下一个生命周期事件之前成功修改。
+建议在此函数中修改上下文，因为存在锁定机制以确保上下文在进入下一个生命周期事件之前被成功修改。
 
 ## TraceEndDetail
 传递给 `onStop` 回调的参数
@@ -193,7 +197,7 @@ const app = new Elysia()
 函数结束时的时间
 
 ### error - `Error | null`
-在生命周期中抛出的错误
+生命周期中抛出的错误
 
 ### elapsed - `number`
-生命周期的经过时间或 `end - begin`
+生命周期经过的时间，或 `end - begin`

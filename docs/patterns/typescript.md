@@ -22,7 +22,7 @@ import Tab from '../components/fern/tab.vue'
 
 # TypeScript
 
-Elysia 开箱即用支持 TypeScript。
+Elysia 开箱即用地对 TypeScript 提供一流支持。
 
 大多数情况下，你无需手动添加任何 TypeScript 注解。
 
@@ -45,7 +45,7 @@ const app = new Elysia()
    	})
 ```
 
-Elysia 可以自动从诸如 TypeBox 和你喜欢的验证库（参见 [标准 Schema](/essential/validation#standard-schema)）的 Schema 中推导类型，例如：
+Elysia 可以自动从 Schema（如 TypeBox）和你喜爱的验证库（见 [你的喜欢的验证库](/essential/validation#standard-schema)）中推断类型，例如：
 - Zod
 - Valibot
 - ArkType
@@ -55,7 +55,7 @@ Elysia 可以自动从诸如 TypeBox 和你喜欢的验证库（参见 [标准 S
 
 ### Schema 转 Type
 
-Elysia 支持的所有 Schema 库都可以转换成 TypeScript 类型。
+Elysia 支持的所有 Schema 库均可转换为 TypeScript 类型。
 
 <Tab
 	id="quickstart"
@@ -141,22 +141,22 @@ Elysia 的设计考虑了类型推断性能。
 
 大部分使用 Elysia 的时间里，你不会遇到任何类型性能问题。
 
-不过如果遇到了，可以按照以下步骤来排查哪些部分拖慢了类型推断：
+不过如果遇到类型推断缓慢的问题，可以按如下步骤拆解性能瓶颈：
 
-1. 进入项目根目录，运行
+1. 切换到项目根目录并运行
 ```
 tsc --generateTrace trace --noEmit --incremental false
 ```
 
 这会在项目根目录生成一个名为 `trace` 的文件夹。
 
-2. 打开 [Perfetto UI](https://ui.perfetto.dev)，将 `trace/trace.json` 文件拖入页面。
+2. 打开 [Perfetto UI](https://ui.perfetto.dev)，将 `trace/trace.json` 文件拖拽到页面中。
 
 ![Perfetto](/assets/perfetto.webp)
 
 > 界面会显示类似火焰图的内容
 
-找到耗时较长的部分，点击查看它的推断时间、来源的文件和行号。
+找到耗时较长的部分，点击查看它的推断时间、来源的文件及行号。
 
 这样可以帮助定位类型推断的性能瓶颈。
 
@@ -187,6 +187,6 @@ import type { subApp } from 'backend/src'
 const api = treaty<subApp>('localhost:3000') // [!code ++]
 ```
 
-这能让类型推断更快，因为不必推断整个应用。
+这可以加快类型推断速度，因为不需要评估整个应用。
 
 详见 [Eden Treaty](/eden/overview) 了解更多关于 Eden 的内容。

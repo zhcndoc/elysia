@@ -17,7 +17,7 @@ head:
 # React Email
 React Email 是一个库，允许您使用 React 组件创建电子邮件。
 
-由于 Elysia 使用 Bun 作为运行环境，我们可以直接编写一个 React Email 组件，并将 JSX 直接导入到我们的代码中以发送电子邮件。
+由于 Elysia 使用 Bun 作为运行环境，我们可以直接编写 React Email 组件并将 JSX 直接导入我们的代码中发送电子邮件。
 
 ## 安装
 要安装 React Email，请运行以下命令：
@@ -89,7 +89,7 @@ OTPEmail.PreviewProps = {
 
 该库提供了一组与邮件客户端（例如 Gmail、Outlook 等）兼容的组件，包括 **使用 Tailwind 进行样式设置**。
 
-我们还向 `OTPEmail` 函数添加了 `PreviewProps`。这仅在我们在 PLAYGROUND 上预览电子邮件时适用。
+我们还给 `OTPEmail` 函数添加了 `PreviewProps`，这仅在在我们的 playground 中预览邮件时生效。
 
 ## 预览您的电子邮件
 要预览您的电子邮件，请运行以下命令：
@@ -103,7 +103,7 @@ bun email
 ![React Email playground showing an OTP email we have just written](/recipe/react-email/email-preview.webp)
 
 ## 发送电子邮件
-要发送电子邮件，我们可以使用 `react-dom/server` 来渲染电子邮件，然后使用首选提供商进行发送：
+要发送电子邮件，我们可以使用 `react-dom/server` 将邮件渲染成静态标记，然后使用首选的邮件服务提供商发送：
 
 ::: code-group
 
@@ -260,4 +260,4 @@ new Elysia()
 注意，我们可以直接导入电子邮件组件，这要归功于 Bun
 :::
 
-您可以在 [React Email Integration](https://react.email/docs/integrations/overview) 中查看所有可用的 React Email 集成，并在 [React Email documentation](https://react.email/docs) 中了解更多信息。
+您可以在 [React Email Integrations](https://react.email/docs/integrations/overview) 查看所有可用的 React Email 集成，并在 [React Email documentation](https://react.email/docs) 中了解更多关于 React Email 的信息。

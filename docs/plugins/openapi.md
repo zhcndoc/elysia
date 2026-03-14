@@ -46,7 +46,7 @@ new Elysia()
 ::: tip
 此页面为插件配置参考。
 
-如果你在寻找 OpenAPI 的常见模式或高级用法，请查看 [Patterns: OpenAPI](/patterns/openapi)
+如果你正在寻找常见模式或高级用法，请查看 [Patterns: OpenAPI](/patterns/openapi)
 :::
 
 ## 详情
@@ -96,11 +96,11 @@ new Elysia().use(openapi()).post('/sign-in', ({ body }) => body, {
 
 ## 配置
 
-以下是插件接受的配置项
+下面是插件可接受的配置
 
 ## enabled
 
-@default true
+@default true  
 启用/禁用该插件
 
 ## documentation
@@ -132,9 +132,9 @@ OpenAPI 文档信息
 排除文档的标签列表
 
 ## mapJsonSchema
-A custom mapping function from Standard schema to OpenAPI schema
+从标准 schema 到 OpenAPI schema 的自定义映射函数
 
-### Example
+### 示例
 ```typescript
 import { openapi } from '@elysiajs/openapi'
 import { toJsonSchema } from '@valibot/to-json-schema'
@@ -156,7 +156,7 @@ openapi({
 
 @default 'scalar'
 
-OpenAPI 文档前端实现选项：
+OpenAPI 文档前端提供者，支持：
 
 - [Scalar](https://github.com/scalar/scalar)
 - [SwaggerUI](https://github.com/swagger-api/swagger-ui)
@@ -170,17 +170,17 @@ OpenAPI 文档前端实现选项：
 
 Scalar 配置，参考 [Scalar config](https://github.com/scalar/scalar/blob/main/documentation/configuration.md)
 
-### Self-hosted Scalar bundle
+### 自托管 Scalar 包
 
-Self-host the Scalar bundle and disable CDN Fonts.
+自托管 Scalar 包并禁用 CDN 字体。
 
-Note: `cdn` is an Elysia OpenAPI plugin option (not part of Scalar’s own config); it overrides the URI to the Scalar bundle.
+注意： `cdn` 是 Elysia OpenAPI 插件的选项（不是 Scalar 自身配置），它覆盖 Scalar 包的 URI。
 
 ```typescript
     openapi({ 
       scalar: {
-        cdn: "/public/scalar-standalone.min.js", // plugin override for Scalar bundle URI (self-hosted)
-        withDefaultFonts: false, // disable Scalar’s default font CDN
+        cdn: "/public/scalar-standalone.min.js", // 插件覆盖 Scalar 包的 URI（自托管）
+        withDefaultFonts: false, // 禁用 Scalar 的默认字体 CDN
       },
     })
 ```
@@ -189,10 +189,10 @@ Note: `cdn` is an Elysia OpenAPI plugin option (not part of Scalar’s own confi
 
 @default '/${path}/json'
 
-暴露 OpenAPI 规范（JSON 格式）的端点路径
+暴露 OpenAPI 规格（JSON 格式）的端点路径
 
 ## swagger
 
 Swagger 配置，参考 [Swagger config](https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/)
 
-下面你可以找到使用该插件的常见模式。
+下面可以找到使用插件的常见模式。

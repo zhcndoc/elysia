@@ -30,7 +30,7 @@
             <aside
                 id="arona"
                 v-if="model"
-                class="fixed isolate z-31 bottom-0 sm:bottom-2 w-full transition-all duration-700 ease-out-expo rounded-t-4xl sm:rounded-4xl border border-mauve-200/75 dark:border-mauve-700/65"
+                class="fixed isolate z-31 bottom-0 sm:bottom-2 w-full transition-all duration-700 ease-out-expo rounded-t-4xl sm:rounded-4xl"
                 :class="{
                     'z-42 max-w-3xl right-1/2 translate-x-1/2': isExpanded,
                     'max-w-[26rem] right-2': !isExpanded
@@ -52,7 +52,7 @@
                 </div>
 
                 <motion.section
-                    class="h-[calc(100dvh-4rem)] rounded-t-4xl sm:rounded-4xl shadow-2xl shadow-black/10 overflow-hidden backdrop-blur-sm"
+                    class="w-full h-[calc(100dvh-4rem)] rounded-t-4xl sm:rounded-4xl shadow-2xl shadow-black/10 overflow-hidden backdrop-blur-sm border border-mauve-200/75 dark:border-mauve-700/65"
                     :initial="{ opacity: 0, y: 32, scale: 0.95 }"
                     :animate="{
                         opacity: 1,
@@ -196,7 +196,7 @@
                                             ) in questions"
                                             :key="index"
                                             @click="ask(example)"
-                                            class="clicky text-sm px-3 py-1 rounded-full bg-white/85 dark:bg-mauve-700/85 interact:text-pink-500 dark:interact:text-pink-300 interact:bg-pink-400/15 dark:interact:bg-pink-300/15 transition-colors"
+                                            class="clicky text-sm px-3 py-1 rounded-full bg-white/40 dark:bg-mauve-700/40 interact:text-pink-500 dark:interact:text-pink-300 interact:bg-pink-400/15 dark:interact:bg-pink-300/15 transition-colors"
                                             v-text="example"
                                         />
                                     </div>
@@ -228,7 +228,12 @@
                                         ease: easeOutExpo
                                     }"
                                 >
-                                    {{ content }}
+                                    {{
+                                        content.replace(
+                                            /【([^】]+)】/g,
+                                            '[$1]($1)'
+                                        )
+                                    }}
                                 </motion.p>
 
                                 <motion.div
@@ -265,6 +270,18 @@
                                         "
                                     />
                                 </motion.div>
+
+                                <p
+                                    class="flex items-center my-2 px-2 text-xs text-mauve-400/75"
+                                    v-if="
+                                        !isStreaming &&
+                                        !error &&
+                                        index === history.length - 1
+                                    "
+                                >
+                                    *AI can make mistakes, verify with included
+                                    references
+                                </p>
 
                                 <aside
                                     class="elysia-chan-tools"
@@ -490,7 +507,10 @@
 
                                 <button
                                     class="clicky flex justify-center items-center min-w-10 size-10 disabled:opacity-50 disabled:interact:bg-transparent disabled:interact:scale-100 disabled:cursor-progress rounded-full text-mauve-400 dark:text-mauve-400/70 interact:bg-pink-300/15 dark:interact:bg-pink-200/15 not-disabled:interact:text-pink-500 not-disabled:dark:interact:text-pink-300 focus:ring ring-offset-2 ring-pink-500 !outline-none transition-all ml-auto"
-                                    :disabled="!turnstileToken || !powToken"
+                                    :disabled="
+                                        !isStreaming &&
+                                        (!turnstileToken || !powToken)
+                                    "
                                     :title="
                                         isStreaming
                                             ? 'Elysia chan is thinking...'
@@ -502,7 +522,9 @@
                                                 ? 'Verifying that you are a human...'
                                                 : 'Send message (Cmd/Ctrl + Enter)'
                                     "
-                                    @click="cancelRequest()"
+                                    @click="
+                                        isStreaming ? cancelRequest() : ask()
+                                    "
                                 >
                                     <Square
                                         v-if="isStreaming"
@@ -547,13 +569,15 @@ import {
     registerShikiLanguage
 } from 'streamdown-vue'
 import { vConfetti } from '@neoconfetti/vue'
+import { useWebHaptics } from 'web-haptics/vue'
 
 import Tooltip from './tooltip.vue'
-import A from './a.vue'
 import Code from './code.vue'
 import Verifying from './verifying.vue'
 import ErrorMessage from './error-message.vue'
 import Ray from '../fern/ray.vue'
+
+const { trigger } = useWebHaptics()
 
 import {
     X,
@@ -727,6 +751,13 @@ function cancelRequest() {
     controller.abort()
     controller = undefined
     feedback.value = null
+
+    trigger([
+        { duration: 40, intensity: 0.7 },
+        { delay: 40, duration: 40, intensity: 0.7 },
+        { delay: 40, duration: 40, intensity: 0.9 },
+        { delay: 40, duration: 50, intensity: 0.6 }
+    ])
 }
 
 function startNewChat() {
@@ -734,6 +765,11 @@ function startNewChat() {
     history.value = []
     error.value = undefined
     includeCurrentPage.value = false
+
+    trigger([
+        { duration: 80, intensity: 0.8 },
+        { delay: 80, duration: 50, intensity: 0.3 }
+    ])
 }
 
 watch(
@@ -832,6 +868,11 @@ function regenerate(index?: number) {
     const latestQuestion = history.value[index - 1].content
     history.value.splice(index, 2)
 
+    trigger([
+        { duration: 80, intensity: 0.8 },
+        { delay: 80, duration: 50, intensity: 0.3 }
+    ])
+
     ask(latestQuestion, ~~(Math.random() * 2_000_000))
 }
 
@@ -848,11 +889,17 @@ function scrollToMessage(index: number) {
             `.elysia-chan-${index}`
         ) as HTMLElement | null
 
-        if (box && message)
+        if (box && message) {
+            trigger([
+                { duration: 30 },
+                { delay: 60, duration: 40, intensity: 1 }
+            ])
+
             box.scrollTo({
                 top: message.offsetTop - box.clientHeight / 3,
                 behavior: 'smooth'
             })
+        }
     })
 }
 
@@ -865,12 +912,25 @@ function copyContent(index: number) {
 
     navigator.clipboard.writeText(content)
     copied.value = true
+    trigger([{ duration: 30 }, { delay: 60, duration: 40, intensity: 1 }])
+
     setTimeout(() => {
         copied.value = false
     }, 2000)
 }
 
 async function ask(input?: string, seed?: number) {
+    if (isStreaming.value || !turnstileToken.value || !powToken.value) return
+
+    const latest = history.value.at(-1)
+    if (input) question.value = input
+    if (!question.value.trim() && latest?.role !== 'user') return
+
+    trigger([{ duration: 30 }, { delay: 60, duration: 40, intensity: 1 }])
+
+    isStreaming.value = true
+    requestSubmit.value = false
+
     let reference = includeCurrentPage.value
         ? 'docs/' +
           location.pathname
@@ -880,20 +940,11 @@ async function ask(input?: string, seed?: number) {
           '.md'
         : undefined
 
-    if (input) question.value = input
     if (
         !reference &&
         (input?.includes('lifecycle') || input?.includes('middleware'))
     )
         reference = 'docs/essential/life-cycle.md'
-
-    const latest = history.value.at(-1)
-
-    if (!question.value.trim() && latest?.role !== 'user') return
-    if (isStreaming.value || !turnstileToken.value || !powToken.value) return
-
-    isStreaming.value = true
-    requestSubmit.value = false
 
     if (latest?.role === 'user')
         question.value = question.value.trim() ? question.value : latest.content
@@ -995,6 +1046,11 @@ async function ask(input?: string, seed?: number) {
     let content = ''
 
     let scroll = false
+    let allowHaptic = true
+    const hapticInterval = setInterval(() => {
+        allowHaptic = true
+    }, 30)
+
     while (true) {
         const { done, value } = await reader.read()
 
@@ -1017,7 +1073,18 @@ async function ask(input?: string, seed?: number) {
 
         const text = decoder.decode(value)
         content = history.value[index].content += text
+
+        if (allowHaptic) {
+            allowHaptic = false
+            trigger([{ duration: 15 }], { intensity: 0.4 })
+        }
     }
+
+    clearInterval(hapticInterval)
+
+    setTimeout(() => {
+        trigger([{ duration: 30 }, { delay: 60, duration: 40, intensity: 1 }])
+    }, 30)
 
     const separator = '---Elysia-Metadata---'
     const separatorIndex = content.indexOf(separator)
@@ -1027,9 +1094,10 @@ async function ask(input?: string, seed?: number) {
             .slice(separatorIndex + separator.length)
             .trimStart()
 
-        content = history.value[index].content = content
-            .slice(0, separatorIndex)
-            .trimEnd()
+        content = history.value[index].content = content.slice(
+            0,
+            separatorIndex
+        )
 
         const id = /id:(\w+)/g.exec(metadata)?.[1]?.trim()
         if (id) history.value[index].id = id
@@ -1037,9 +1105,6 @@ async function ask(input?: string, seed?: number) {
         const checksum = /checksum:(\w+)/g.exec(metadata)?.[1]?.trim()
         if (checksum) history.value[index].checksum = checksum
     }
-
-    // Convert 【text】 to [text](text)
-    history.value[index].content = content.replace(/【([^】]+)】/g, '[$1]($1)')
 
     resetState()
     auth()
@@ -1154,12 +1219,12 @@ onUnmounted(() => {
     background-image:
         radial-gradient(
             closest-side at center,
-            rgba(255, 255, 255, 0.6) 70%,
+            rgba(255, 255, 255, 0.35) 70%,
             transparent 150%
         ),
         radial-gradient(
             closest-side at center,
-            rgba(255, 255, 255, 0.6) 90%,
+            rgba(255, 255, 255, 0.35) 90%,
             transparent 150%
         ),
         radial-gradient(
@@ -1203,12 +1268,12 @@ onUnmounted(() => {
             radial-gradient(
                 closest-side at center,
                 theme('--color-mauve-800') 10%,
-                transparent 150%
+                transparent 120%
             ),
             radial-gradient(
                 closest-side at center,
                 theme('--color-mauve-800') 10%,
-                transparent 150%
+                transparent 120%
             ),
             radial-gradient(
                 at 9% 67%,
@@ -1217,17 +1282,17 @@ onUnmounted(() => {
             ),
             radial-gradient(
                 at 22% 0%,
-                theme('--color-mauve-600') 0px,
+                theme('--color-mauve-700') 0px,
                 transparent 50%
             ),
             radial-gradient(
                 at 97% 49%,
-                hsla(240, 100%, 87%, 0.35) 0px,
+                hsla(240, 100%, 87%, 0.175) 0px,
                 transparent 50%
             ),
             radial-gradient(
                 at 100% 75%,
-                hsla(280, 100%, 75%, 0.26) 0px,
+                hsla(280, 100%, 75%, 0.2) 0px,
                 transparent 50%
             ),
             radial-gradient(
@@ -1249,6 +1314,10 @@ onUnmounted(() => {
 
     & > .user {
         @apply px-3 py-1.5 bg-mauve-100 dark:bg-mauve-700 rounded-2xl self-end max-w-[80%] whitespace-pre-wrap origin-top-right;
+
+        &:last-child {
+            @apply mb-4;
+        }
     }
 
     & > .elysia-chan {
@@ -1267,6 +1336,7 @@ onUnmounted(() => {
 
             &:is(ul) {
                 @apply flex flex-wrap gap-x-1 gap-y-2.5 list-none -mx-2;
+                font-size: 0px;
 
                 & > li {
                     @apply text-xs my-0 w-auto;
@@ -1276,7 +1346,11 @@ onUnmounted(() => {
                     }
 
                     & > a {
-                        @apply px-2 py-1 text-mauve-400 bg-white/35 dark:bg-mauve-700/35 interact:text-pink-500 dark:interact:text-pink-300 interact:bg-pink-300/15 interact:dark:bg-pink-300/15 no-underline cursor-pointer rounded-full transition-colors;
+                        @apply text-sm px-2 py-1 text-mauve-400 bg-white/35 dark:bg-mauve-700/35 interact:text-pink-500 dark:interact:text-pink-300 interact:bg-pink-300/15 interact:dark:bg-pink-300/15 no-underline cursor-pointer rounded-full transition-colors;
+
+                        & > * {
+                            @apply text-sm font-normal font-sans;
+                        }
                     }
                 }
             }
@@ -1408,7 +1482,7 @@ onUnmounted(() => {
         * > *,
         * > * > * {
             & > div[theme] > .shiki {
-                @apply relative my-4 text-sm -mx-4 bg-[#eff1f590]! dark:bg-mauve-800/50! border-y dark:border-mauve-700/75;
+                @apply relative my-4 text-sm -mx-4 bg-mauve-100/35! dark:bg-mauve-900/50! border-y dark:border-mauve-700/75;
 
                 &:hover {
                     & > .lang {

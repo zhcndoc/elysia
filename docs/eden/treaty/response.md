@@ -22,7 +22,7 @@ head:
 - status `number` - HTTP 状态码
 - headers `FetchRequestInit['headers']` - 响应头信息
 
-返回后，您必须进行错误处理以确保响应数据值被解包，否则该值将为可空。Elysia 提供了 `error()` 辅助函数来处理错误，Eden 会为错误值提供类型收窄。
+一旦返回，您必须提供错误处理以确保响应数据值被解包；否则，该值将可能为 null。Elysia 提供了一个 `error()` 辅助函数来处理错误，而 Eden 会对错误值提供类型收窄。
 
 ```typescript
 import { Elysia, t } from 'elysia'
@@ -66,7 +66,7 @@ const submit = async (name: string) => {
 }
 ```
 
-默认情况下，Elysia 会自动推断 `error` 和 `response` 的类型到 TypeScript，Eden 将提供自动补全和类型收窄以实现准确的行为。
+默认情况下，Elysia 会自动推断 `error` 和 `response` 的类型至 TypeScript，Eden 将提供自动补全和类型收窄以实现准确的行为。
 
 ::: tip
 如果服务器响应的 HTTP 状态码 >= 300，则值始终为 `null`，而 `error` 会包含返回的值。
@@ -75,7 +75,7 @@ const submit = async (name: string) => {
 :::
 
 ## 流响应
-Eden 会将流响应或 [服务器发送事件 (Server-Sent Events)](/essential/handler.html#server-sent-events-sse) 解释为 `AsyncGenerator`，允许我们使用 `for await` 循环来消费该流。
+Eden 会将流响应或 [服务器发送事件](/essential/handler.html#server-sent-events-sse) 解释为一个 `AsyncGenerator`，允许我们使用 `for await` 循环来消费该流。
 
 ::: code-group
 
@@ -136,8 +136,8 @@ for await (const chunk of data)
 :::
 
 
-## 工具类型
-Eden Treaty 提供了工具类型 `Treaty.Data<T>` 和 `Treaty.Error<T>` 来提取响应中的 `data` 和 `error` 类型。
+## 实用类型
+Eden Treaty 提供了实用类型 `Treaty.Data<T>` 和 `Treaty.Error<T>` 用于提取响应中的 `data` 和 `error` 类型。
 
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
@@ -163,7 +163,7 @@ type UserData = Treaty.Data<typeof api.user.post>
 //     ^?
 
 
-// 或者你也可以传入一个响应对象
+// 或者，您也可以传入一个响应对象
 const response = await api.user.post({
 	name: 'Saltyaom'
 })
