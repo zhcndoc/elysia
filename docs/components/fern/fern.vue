@@ -17,6 +17,7 @@ import Sponsors from './sponsor.vue'
 import Banner from './banner.vue'
 import BuiltWithLove from './built-with-love.vue'
 import AskElysia from './ask-elysia.vue'
+// import Teapot from './teapot.vue'
 </script>
 
 <template>
@@ -90,6 +91,7 @@ import AskElysia from './ask-elysia.vue'
             <!-- <Future /> -->
 
             <AskElysia />
+            <!-- <Teapot /> -->
             <Banner class="mt-10" />
             <BuiltWithLove />
         </article>

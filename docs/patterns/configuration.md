@@ -11,7 +11,7 @@ head:
 
   - - meta
     - property: 'og:description'
-      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Erysia 的行为。
+      content: Elysia 可以通过将对象传递给构造函数来进行配置。我们可以通过将对象传递给构造函数来配置 Elysia 的行为。
 ---
 
 # 配置
@@ -374,13 +374,13 @@ import { Elysia } from 'elysia'
 
 new Elysia({
 	serve: {
-		// 将空闲超时增加到 30 秒
-		idleTimeout: 30
+		// 将空闲超时增加到 60 秒
+		idleTimeout: 60
 	}
 })
 ```
 
-默认情况下，空闲超时时间为 10 秒（在 Bun 上）。
+默认情况下，空闲超时为 30 秒。
 
 ---
 
@@ -403,12 +403,12 @@ Elysia 扩展了 Bun 配置，开箱即用地支持 TLS，基于 BoringSSL。
 该字符串将用于在不打断未完成请求或 WebSocket 的情况下热重载服务器。如果未提供，则会生成一个值。要禁用热重载，请将此值设置为 `null`。
 
 ### serve.idleTimeout
-@default `10`（10 秒）
+@default `30`（30 秒）
 
-默认情况下，Bun 设置空闲超时为 10 秒，这意味着如果请求在 10 秒内未完成，则会中止。
+默认情况下，Elysia 将空闲超时设置为 30 秒，这意味着如果请求在 30 秒内未完成，它将被中止。
 
 ### serve.maxRequestBodySize
-@default `1024 * 1024 * 128` (128MB)
+@default `1024 * 1024 * 128`（128MB）
 
 请求体的最大大小（以字节为单位）
 
@@ -478,9 +478,7 @@ PEM 格式的私钥。PEM 允许加密私钥的选项。加密密钥将使用 op
 
 对象形式只能在数组中出现。
 
-**object.passphrase** 是可选的。加密密钥将使用提供的 object.passphrase 解密，
-
-**object.passphrase** 如果提供，或 **options.passphrase** 如果未提供。
+**object.passphrase** 为可选。加密密钥将使用提供的 **object.passphrase**（若已提供）或 **options.passphrase**（若未提供）进行解密。
 
 ### serve.tls.lowMemoryMode
 @default `false`

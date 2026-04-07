@@ -50,7 +50,7 @@ head:
 安装 Prisma，请运行以下命令：
 
 ```bash
-bun add @prisma/client prismabox && \
+bun add @prisma/client prismabox prisma-adapter-bun-sqlite && \
 bun add -d prisma
 ```
 
@@ -69,7 +69,8 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  // 注意：在 Prisma 7+ 中，数据源 URL 在 prisma.config.ts 中配置（用于 Prisma CLI），
+  // 并且在使用驱动适配器时，还需要在适配器设置中传递运行时 URL。
 }
 
 generator prismabox { // [!code ++]
@@ -115,10 +116,12 @@ model Post {
 ```ts [src/index.ts]
 import { Elysia, t } from 'elysia'
 
-import { PrismaClient } from '../generated/prisma' // [!code ++]
+import { PrismaBunSqlite } from 'prisma-adapter-bun-sqlite';
+import { PrismaClient } from '../generated/prisma/client' // [!code ++]
 import { UserPlain, UserPlainInputCreate } from '../generated/prismabox/User' // [!code ++]
 
-const prisma = new PrismaClient()
+const adapter = new PrismaBunSqlite({ url: process.env.DATABASE_URL });
+export const prisma = new PrismaClient({ adapter });
 
 const app = new Elysia()
     .put(

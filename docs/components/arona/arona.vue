@@ -178,11 +178,11 @@
                                 >
                                     <img
                                         class="h-48 mb-3 mt-16"
-                                        src="/elysia/sprite/sit-idle.webp"
+                                        src="/oiia/elysia-hypnosis.webp"
                                         alt="Elysia chan sitting"
                                     />
-                                    <p>Hi~ Did you miss me?</p>
-                                    <p>How's your day?</p>
+                                    <p>Hi~ Did you missed me?</p>
+                                    <p>How can I help you today?</p>
 
                                     <h6 class="text-xs mt-8 mb-2 opacity-75">
                                         Example questions
