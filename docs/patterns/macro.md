@@ -26,7 +26,7 @@ import TutorialBadge from '../components/arona/badge.vue'
 
 一旦定义，它将在钩子中可用，并且可以通过添加该属性来激活。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const plugin = new Elysia({ name: 'plugin' })
@@ -318,7 +318,7 @@ new Elysia()
 
 默认情况下，Elysia 会使用属性值作为种子，但你也可以通过提供自定义种子来覆盖它。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()

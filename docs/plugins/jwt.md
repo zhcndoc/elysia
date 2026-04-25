@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，增加在 Elysia 服务器中使用 JWT (JSON Web Token) 的支持。开始安装插件使用 "bun add @elysiajs/jwt"。
+        content: 为 Elysia 提供插件支持，用于在 Elysia 服务器中使用 JWT（JSON Web Token）。请先通过运行 "bun add @elysia/jwt" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，增加在 Elysia 服务器中使用 JWT (JSON Web Token) 的支持。开始安装插件使用 "bun add @elysiajs/jwt"。
+        content: 为 Elysia 提供插件支持，用于在 Elysia 服务器中使用 JWT（JSON Web Token）。请先通过运行 "bun add @elysia/jwt" 安装该插件。
 ---
 
 # JWT 插件
@@ -19,7 +19,7 @@ head:
 
 安装命令：
 ```bash
-bun add @elysiajs/jwt
+bun add @elysia/jwt
 ```
 
 然后使用它：
@@ -28,7 +28,7 @@ bun add @elysiajs/jwt
 
 ```typescript [cookie]
 import { Elysia } from 'elysia'
-import { jwt } from '@elysiajs/jwt'
+import { jwt } from '@elysia/jwt'
 
 const app = new Elysia()
     .use(
@@ -62,7 +62,7 @@ const app = new Elysia()
 
 ```typescript [headers]
 import { Elysia } from 'elysia'
-import { jwt } from '@elysiajs/jwt'
+import { jwt } from '@elysia/jwt'
 
 const app = new Elysia()
     .use(
@@ -176,7 +176,7 @@ JWT ID 声明提供 JWT 的唯一标识符，根据 [RFC7519](https://www.rfc-ed
 ### kid
 指示用于保护 JWS 的密钥的提示。
 
-该参数允许创建者显式信号向接收方变化密钥，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.4)
+该参数允许创建者显式地向接收方表明密钥变更，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.4)
 
 ### x5t
 (X.509 证书 SHA-1 指纹) 头参数是 X.509 证书的 DER 编码的 base64url 编码 SHA-1 摘要 [RFC5280](https://www.rfc-editor.org/rfc/rfc5280)，与用于数字签名 JWS 的密钥对应，根据 [RFC7515](https://www.rfc-editor.org/rfc/rfc7515#section-4.1.7)

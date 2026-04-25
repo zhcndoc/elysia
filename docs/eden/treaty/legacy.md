@@ -8,11 +8,11 @@ head:
 
   - - meta
     - name: 'og:description'
-      content: 伊甸条约是一个对象类似的 Elysia 服务器表示，提供端到端的类型安全和显著改善的开发者体验。借助伊甸，我们可以从 Elysia 服务器中获取完全类型安全的 API，而不需要代码生成。
+      content: 伊甸条约是一个类似对象的 Elysia 服务器表示，提供端到端的类型安全和显著改善的开发者体验。借助伊甸，我们可以从 Elysia 服务器中获取完全类型安全的 API，而不需要代码生成。
 
   - - meta
     - name: 'og:description'
-      content: 伊甸条约是一个对象类似的 Elysia 服务器表示，提供端到端的类型安全和显著改善的开发者体验。借助伊甸，我们可以从 Elysia 服务器中获取完全类型安全的 API，而不需要代码生成。
+      content: 伊甸条约是一个类似对象的 Elysia 服务器表示，提供端到端的类型安全和显著改善的开发者体验。借助伊甸，我们可以从 Elysia 服务器中获取完全类型安全的 API，而不需要代码生成。
 ---
 
 # 伊甸条约遗产
@@ -23,7 +23,7 @@ head:
 对于新项目，我们建议改用 Eden Treaty 2 (treaty)。
 :::
 
-伊甸条约是 Elysia 服务器的对象类似表示。
+伊甸条约是 Elysia 服务器的类似对象表示。
 
 它提供类似普通对象的访问器，类型直接来自服务器，帮助我们更快地开发并确保不会出错。
 
@@ -51,8 +51,8 @@ export type App = typeof app // [!代码 ++]
 然后导入服务器类型，并在客户端使用 Elysia API：
 ```typescript
 // client.ts
-import { edenTreaty } from '@elysiajs/eden'
-import type { App } from './server' // [!代码 ++]
+import { edenTreaty } from '@elysia/eden'
+import type { App } from './server' // [!code ++]
 
 const app = edenTreaty<App>('http://localhost:')
 
@@ -74,7 +74,7 @@ const { data: nendoroid, error } = app.mirror.post({
 :::
 
 ## 构成
-伊甸条约会将所有已有路径转换为一种可描述为以下形式的对象类似表示：
+伊甸条约会将所有已有路径转换为一种可描述为以下形式的类似对象表示：
 ```typescript
 EdenTreaty.<1>.<2>.<n>.<method>({
     ...body,
@@ -84,7 +84,7 @@ EdenTreaty.<1>.<2>.<n>.<method>({
 ```
 
 ### 路径
-伊甸会将 `/` 转换为 `.`，可以使用已注册的 `method` 调用，示例：
+伊甸会将 `/` 转换为 `.`, 可以使用已注册的 `method` 调用，示例：
 - **/path** -> .path
 - **/nested/path** -> .nested.path
 
@@ -240,8 +240,8 @@ type App = typeof app
 
 要开始监听实时数据，调用 `.subscribe` 方法：
 ```typescript
-// 客户端
-import { edenTreaty } from '@elysiajs/eden'
+// Client
+import { edenTreaty } from '@elysia/eden'
 const app = edenTreaty<App>('http://localhost:')
 
 const chat = app.chat.subscribe()

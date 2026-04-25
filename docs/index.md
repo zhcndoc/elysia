@@ -10,11 +10,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 是一个针对人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具有熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
+        content: Elysia 是一个面向人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具备熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
 
     - - meta
       - property: 'og:description'
-        content: Elysia 是一个针对人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具有熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
+        content: Elysia 是一个面向人类的人体工程学框架。提供端到端的类型安全和良好的开发者体验。Elysia 具备熟悉、快速的一流 TypeScript 支持，并且在服务之间实现了良好的集成，无论是 tRPC、Swagger 还是 WebSocket。Elysia 全面覆盖，今天就开始构建下一代 TypeScript 网络服务器吧。
 ---
 
 <script setup>
@@ -181,7 +181,7 @@ new Elysia()
 	})
 ```
 
-```typescript twoslash [auth.ts]
+```typescript [auth.ts]
 import { Elysia, t } from 'elysia'
 
 export const auth = new Elysia()
@@ -215,7 +215,7 @@ const app = new Elysia()
         '/profile',
         ({ body, status }) => {
             if(body.age < 18)
-                return status(400, "Oh no")
+                return status(400, "哦不")
 
             return body
         },
@@ -231,7 +231,7 @@ export type App = typeof app
 
 // @filename: client.ts
 // ---cut---
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import type { App } from 'server'
 
 const api = treaty<App>('api.elysiajs.com')
@@ -246,9 +246,9 @@ const { data } = await api.profile.patch({
 
 <template v-slot:ssot-4>
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia()
 	.use(openapi())
@@ -260,12 +260,12 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { openapi, fromTypes } from '@elysiajs/openapi'
+import { openapi, fromTypes } from '@elysia/openapi'
 
 export const app = new Elysia()
 	.use(
 		openapi({
-			// ↓ Where magic happens 
+			// ↓ 魔法发生的地方 
 			references: fromTypes()
 		})
 	)
@@ -279,11 +279,11 @@ export const app = new Elysia()
 import { Elysia, file } from 'elysia'
 
 new Elysia()
-	.get('/', 'Hello World')
+	.get('/', '你好，世界')
 	.get('/image', file('mika.webp'))
 	.get('/stream', function* () {
-		yield 'Hello'
-		yield 'World'
+		yield '你好'
+		yield '世界'
 	})
 	.ws('/realtime', {
 		message(ws, message) {
@@ -299,12 +299,12 @@ new Elysia()
 
 ::: code-group
 
-```ts twoslash [TypeBox]
+```ts [TypeBox]
 import { Elysia, t } from 'elysia'
 
 
 new Elysia()
-	// Try hover body  ↓
+	// 尝试悬停 body  ↓
 	.post('/user', ({ body }) => body, {
 		body: t.Object({
 			name: t.Literal('SaltyAom'),
@@ -314,12 +314,12 @@ new Elysia()
 	})
 ```
 
-```ts twoslash [Zod]
+```ts [Zod]
 import { Elysia } from 'elysia'
 import { z } from 'zod'
 
 new Elysia()
-	// Try hover body  ↓
+	// 尝试悬停 body  ↓
 	.post('/user', ({ body }) => body, {
 		body: z.object({
 			name: z.literal('SaltyAom'),
@@ -329,12 +329,12 @@ new Elysia()
 	})
 ```
 
-```ts twoslash [Valibot]
+```ts [Valibot]
 import { Elysia } from 'elysia'
 import * as v from 'valibot'
 
 new Elysia()
-	// Try hover body  ↓
+	// 尝试悬停 body  ↓
 	.post('/user', ({ body }) => body, {
 		body: v.object({
 			name: v.literal('SaltyAom'),
@@ -344,12 +344,12 @@ new Elysia()
 	})
 ```
 
-```ts twoslash [ArkType]
+```ts [ArkType]
 import { Elysia } from 'elysia'
 import { type } from 'arktype'
 
 new Elysia()
-	// Try hover body  ↓
+	// 尝试悬停 body  ↓
 	.post('/user', ({ body }) => body, {
 		body: type({
 			name: '"Elysia"',
@@ -359,12 +359,12 @@ new Elysia()
 	})
 ```
 
-```ts twoslash [Effect]
+```ts [Effect]
 import { Elysia } from 'elysia'
 import { Schema } from 'effect'
 
 new Elysia()
-	// Try hover body  ↓
+	// 尝试悬停 body  ↓
 	.post('/user', ({ body }) => body, {
 		body: Schema.standardSchemaV1(
 			Schema.Struct({
@@ -386,7 +386,7 @@ new Elysia()
 
 ```typescript [OpenAPI]
 import { Elysia } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia()
 	.use(openapi())
@@ -395,7 +395,7 @@ new Elysia()
 
 ```typescript [With Type Gen]
 import { Elysia } from 'elysia'
-import { openapi, fromTypes } from '@elysiajs/openapi'
+import { openapi, fromTypes } from '@elysia/openapi'
 
 export const app = new Elysia()
 	.use(
@@ -437,7 +437,7 @@ export type App = typeof app
 
 // @filename: client.ts
 // ---cut---
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import type { App } from 'server'
 
 const api = treaty<App>('api.elysiajs.com')
@@ -482,7 +482,7 @@ export const app = new Elysia()
 
 // @filename: client.ts
 // ---cut---
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import { app } from './index'
 import { test, expect } from 'bun:test'
 

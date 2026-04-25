@@ -116,7 +116,7 @@ new Elysia()
 ## Cookie Schema
 您可以通过使用带有 `t.Cookie` 的 cookie schema 来严格验证 cookie 类型并为 cookies 提供类型推断。
 
-```ts twoslash
+```ts
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -139,7 +139,7 @@ new Elysia()
 ## 可空 Cookie
 要处理可空 Cookie 值，您可以在您希望可空的 Cookie 名称上使用 `t.Optional`。
 
-```ts twoslash
+```ts
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -169,8 +169,8 @@ Cookie 签名是附加到 Cookie 值的加密哈希，是使用秘密密钥和 C
 这确保 cookie 值未被恶意篡改，帮助验证 cookie 数据的真实性和完整性。
 
 ## 使用 Cookie 签名
-通过提供 cookie secret 和 `sign` 属性来指示哪些 cookie 应进行签名验证。
-```ts twoslash
+通过提供 cookie 密钥和 `sign` 属性来指示哪些 cookie 应进行签名验证。
+```ts
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -197,7 +197,7 @@ Elysia 会自动对 Cookie 值进行签名和验证。
 ## 构造函数
 您可以使用 Elysia 构造函数设置全局 cookie 的 `secret` 和 `sign` 值，以全局应用于所有路由，而无需在每个路由中内联设置。
 
-```ts twoslash
+```ts
 import { Elysia, t } from 'elysia'
 
 new Elysia({

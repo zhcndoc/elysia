@@ -3,15 +3,15 @@ title: Apollo GraphQL 插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: Apollo GraphQL 插件 - ElysiaJS
+      - content: Apollo GraphQL 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，用于在 Elysia 服务器上添加对 GraphQL Apollo 的支持。通过 "bun add graphql @elysiajs/apollo @apollo/server" 安装插件。
+      - content: 为 Elysia 添加支持在 Elysia 服务器上使用 GraphQL Apollo 的插件。首先通过安装插件开始，命令为 "bun add graphql @elysia/apollo @apollo/server"。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，用于在 Elysia 服务器上添加对 GraphQL Apollo 的支持。通过 "bun add graphql @elysiajs/apollo @apollo/server" 安装插件。
+      - content: 为 Elysia 添加支持在 Elysia 服务器上使用 GraphQL Apollo 的插件。首先通过安装插件开始，命令为 "bun add graphql @elysia/apollo @apollo/server"。
 ---
 
 # GraphQL Apollo 插件
@@ -21,14 +21,14 @@ head:
 使用以下命令安装：
 
 ```bash
-bun add graphql @elysiajs/apollo @apollo/server
+bun add graphql @elysia/apollo @apollo/server
 ```
 
 然后使用它：
 
 ```typescript
 import { Elysia } from 'elysia'
-import { apollo, gql } from '@elysiajs/apollo'
+import { apollo, gql } from '@elysia/apollo'
 
 const app = new Elysia()
 	.use(

@@ -69,7 +69,7 @@ const demo4 = new Elysia()
 
 Elysia 提供了一个内置模式，用于验证数据，确保数据格式正确。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -322,7 +322,7 @@ new Elysia()
 
 但 Elysia 导出了一个 `fileType` 函数，可通过文件魔数（magic number）验证文件类型。
 
-```typescript twoslash
+```typescript
 import { Elysia, fileType } from 'elysia'
 import { z } from 'zod'
 
@@ -968,7 +968,7 @@ t.Object(
 
 我们可以通过 [onError](/essential/life-cycle.html#on-error) 事件自定义验证行为，捕获错误代码 "**VALIDATION**"。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -1037,7 +1037,7 @@ new Elysia()
 
 假设用于登录的控制器共享同一模型。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -1053,9 +1053,8 @@ const app = new Elysia()
     })
 ```
 
-我们可以将模型提取成变量并复用。
-
-```typescript twoslash
+我们可以通过将模型提取为变量并引用它来重构代码。
+```typescript
 import { Elysia, t } from 'elysia'
 
 // 假设在不同文件，如 models.ts
@@ -1075,7 +1074,7 @@ const app = new Elysia()
 
 可通过创建“引用模型”解决，命名模型并在 `schema` 直接使用名称引用，同时通过 `model` 注册模型。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()

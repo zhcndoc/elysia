@@ -60,8 +60,8 @@ export type App = typeof app // [!代码 ++]
 // @filename: client.ts
 // ---cut---
 // client.ts
-import { treaty } from '@elysiajs/eden'
-import type { App } from './server' // [!代码 ++]
+import { treaty } from '@elysia/eden'
+import type { App } from './server' // [!code ++]
 
 const app = treaty<App>('localhost:3000')
 

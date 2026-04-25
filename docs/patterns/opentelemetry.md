@@ -7,20 +7,20 @@ head:
 
     - - meta
       - name: 'description'
-        content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+        content: 为 Elysia 提供 OpenTelemetry 支持的插件。请先通过 "bun add @elysia/opentelemetry" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: 为 Elysia 添加 OpenTelemetry 支持的插件。开始时，请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+        content: 为 Elysia 提供 OpenTelemetry 支持的插件。请先通过 "bun add @elysia/opentelemetry" 安装该插件。
 ---
 
 # OpenTelemetry
 
-要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任何实例。
+要开始使用 OpenTelemetry，请安装 `@elysia/opentelemetry` 并将插件应用到任意实例上。
 
 ```typescript
 import { Elysia } from 'elysia'
-import { opentelemetry } from '@elysiajs/opentelemetry'
+import { opentelemetry } from '@elysia/opentelemetry'
 
 new Elysia()
 	.use(opentelemetry())
@@ -54,7 +54,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { opentelemetry } from '@elysiajs/opentelemetry'
+import { opentelemetry } from '@elysia/opentelemetry'
 
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
@@ -87,7 +87,7 @@ Elysia OpenTelemetry 仅用于将 OpenTelemetry 应用到 Elysia 服务器。
 
 ```typescript
 import { Elysia } from 'elysia'
-import { record } from '@elysiajs/opentelemetry'
+import { record } from '@elysia/opentelemetry'
 
 export const plugin = new Elysia().get('', () => {
 	return record('database.query', () => {
@@ -133,7 +133,7 @@ const good = new Elysia()
 `getCurrentSpan` 是一个实用工具，用于在处理程序外部获取当前请求的当前 span。
 
 ```typescript
-import { getCurrentSpan } from '@elysiajs/opentelemetry'
+import { getCurrentSpan } from '@elysia/opentelemetry'
 
 function utility() {
 	const span = getCurrentSpan()
@@ -150,7 +150,7 @@ function utility() {
 `setAttribute` 是一个用于将属性设置为当前 span 的实用工具。
 
 ```typescript
-import { setAttributes } from '@elysiajs/opentelemetry'
+import { setAttributes } from '@elysia/opentelemetry'
 
 function utility() {
 	setAttributes({
@@ -179,7 +179,7 @@ function utility() {
 让我们在 `src/instrumentation.ts` 中创建一个新文件
 
 ```ts [src/instrumentation.ts]
-import { opentelemetry } from '@elysiajs/opentelemetry'
+import { opentelemetry } from '@elysia/opentelemetry'
 import { PgInstrumentation } from '@opentelemetry/instrumentation-pg'
 
 export const instrumentation = opentelemetry({
@@ -226,7 +226,7 @@ bun build --compile --external pg --outfile server src/index.ts
 		"pg": "^8.15.6"
 	},
 	"devDependencies": {
-		"@elysiajs/opentelemetry": "^1.2.0",
+		"@elysia/opentelemetry": "^1.2.0",
 		"@opentelemetry/instrumentation-pg": "^0.52.0",
 		"@types/pg": "^8.11.14",
 		"elysia": "^1.2.25"

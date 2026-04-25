@@ -27,7 +27,7 @@ head:
 import { Elysia, t } from 'elysia';
 
 const app = new Elysia()
-    .get('/', 'hello SvelteKit')
+    .get('/', '你好 SvelteKit')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
@@ -58,7 +58,7 @@ pnpm add @sinclair/typebox openapi-types
 
 例如，如果您将 Elysia 服务器放在 **src/routes/api/[...slugs]/+server.ts** 中，您需要将前缀注释为 **/api**。
 
-```typescript twoslash
+```typescript
 // src/routes/api/[...slugs]/+server.ts
 import { Elysia, t } from 'elysia';
 

@@ -182,7 +182,7 @@ new Elysia()
 
 <br>
 
-Here, a dynamic path is created with `/id/:id`, which tells Elysia to capture the value `:id` segment with values like **/id/1**, **/id/123**, **/id/anything**.
+这里，动态路径 `/id/:id` 会让 Elysia 捕获 `:id` 这个段的值，例如 **/id/1**、**/id/123**、**/id/anything**。
 
 <Playground
   :elysia="demo6"
@@ -532,7 +532,7 @@ new Elysia()
 
 这可以用 `Elysia.group` 优化，将它们分组并统一添加前缀：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -557,7 +557,7 @@ new Elysia()
 
 `.group()` 还可接受可选保护参数，减少同时应用组和保护层的样板代码：
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()

@@ -60,9 +60,9 @@ export const auth = betterAuth({
 然后我们就可以通过 `http://localhost:3000/auth/api` 访问 Better Auth。
 遗憾的是，我们无法将 Better Auth 实例的 `basePath` 设置为空或 `/`。
 ## OpenAPI
-Better Auth 通过 `better-auth/plugins` 支持 `openapi`。
-不过，如果我们使用的是 [@elysiajs/openapi](/plugins/openapi)，你可能希望从 Better Auth 实例中提取文档。
-首先，我们需要将 `openAPI` 插件添加到 Better Auth 实例中：
+Better Auth 支持通过 `better-auth/plugins` 使用 `openapi`。
+然而，如果我们正在使用 [@elysia/openapi](/plugins/openapi)，你可能希望从 Better Auth 实例中提取文档。
+首先，我们需要将 `openAPI` 插件添加到我们的 Better Auth 实例中：
 ```ts [auth.ts]
 import { betterAuth } from 'better-auth'
 import { openAPI } from 'better-auth/plugins' // [!code ++]
@@ -96,10 +96,10 @@ export const OpenAPI = {
     components: getSchema().then(({ components }) => components) as Promise<any>
 } as const
 ```
-接着，在使用了 `@elysiajs/openapi` 的 Elysia 实例中：
+然后在使用 `@elysia/openapi` 的 Elysia 实例中：
 ```ts
 import { Elysia } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 import { OpenAPI } from './auth'
 const app = new Elysia().use(
     openapi({
@@ -111,10 +111,10 @@ const app = new Elysia().use(
 )
 ```
 ## CORS
-要配置 CORS，你可以使用 `@elysiajs/cors` 中的 `cors` 插件。
+要配置 CORS，你可以使用 `@elysia/cors` 中的 `cors` 插件。
 ```ts
 import { Elysia } from 'elysia'
-import { cors } from '@elysiajs/cors'
+import { cors } from '@elysia/cors'
 import { auth } from './auth'
 const app = new Elysia()
     .use(
@@ -131,7 +131,7 @@ console.log(
     `🦊 Elysia 正在运行于 ${app.server?.hostname}:${app.server?.port}`
 )
 ```
-## Macro
+## 宏
 你可以结合使用 [macro](https://elysiajs.com/patterns/macro.html#macro) 与 [resolve](https://elysiajs.com/essential/handler.html#resolve)，在将请求传递给视图之前提供会话和用户信息。
 ```ts
 import { Elysia } from 'elysia'

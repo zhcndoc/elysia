@@ -186,23 +186,23 @@ pacman -S nodejs npm
 ::: code-group
 
 ```bash [bun]
-bun add elysia @elysiajs/node && \
+bun add elysia @elysia/node && \
 bun add -d tsx @types/node typescript
 ```
 
 ```bash [pnpm]
 # pnpm 不会安装 peer 依赖
-pnpm add elysia @elysiajs/node @sinclair/typebox openapi-types && \
+pnpm add elysia @elysia/node @sinclair/typebox openapi-types && \
 pnpm add -D tsx @types/node typescript
 ```
 
 ```bash [npm]
-npm install elysia @elysiajs/node && \
+npm install elysia @elysia/node && \
 npm install --save-dev tsx @types/node typescript
 ```
 
 ```bash [yarn]
-yarn add elysia @elysiajs/node && \
+yarn add elysia @elysia/node && \
 yarn add -D tsx @types/node typescript
 ```
 
@@ -216,7 +216,7 @@ yarn add -D tsx @types/node typescript
 
 ```typescript
 import { Elysia } from 'elysia'
-import { node } from '@elysiajs/node'
+import { node } from '@elysia/node'
 
 const app = new Elysia({ adapter: node() })
 	.get('/', () => 'Hello Elysia')
@@ -273,20 +273,20 @@ npx tsc --init
 ::: code-group
 
 ```bash [bun]
-bun add elysia @elysiajs/node
+bun add elysia @elysia/node
 ```
 
 ```bash [pnpm]
-# pnpm 不会安装 peer 依赖
-pnpm add elysia @elysiajs/node @sinclair/typebox openapi-types
+# pnpm doesn't install peer dependencies
+pnpm add elysia @elysia/node @sinclair/typebox openapi-types
 ```
 
 ```bash [npm]
-npm install elysia @elysiajs/node
+npm install elysia @elysia/node
 ```
 
 ```bash [yarn]
-yarn add elysia @elysiajs/node
+yarn add elysia @elysia/node
 ```
 
 :::
@@ -297,7 +297,7 @@ yarn add elysia @elysiajs/node
 
 ```javascript
 import { Elysia } from 'elysia'
-import { node } from '@elysiajs/node'
+import { node } from '@elysia/node'
 
 const app = new Elysia({ adapter: node() })
 	.get('/', () => 'Hello Elysia')

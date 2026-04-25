@@ -318,7 +318,7 @@ app.patch(
 
 ::: code-group
 
-```ts twoslash [Elysia TypeBox]
+```ts [Elysia TypeBox]
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()
@@ -336,7 +336,7 @@ const app = new Elysia()
 	})
 ```
 
-```ts twoslash [Elysia Zod]
+```ts [Elysia Zod]
 import { Elysia } from 'elysia'
 import { z } from 'zod'
 
@@ -355,7 +355,7 @@ const app = new Elysia()
 	})
 ```
 
-```ts twoslash [Elysia Valibot]
+```ts [Elysia Valibot]
 import { Elysia } from 'elysia'
 import * as v from 'valibot'
 
@@ -567,8 +567,7 @@ Elysia 设计为提供严格的类型安全。
 
 ::: code-group
 
-```ts twoslash [Hono]
-// @errors: 2339, 2769
+```ts [Hono]
 import { Hono } from 'hono'
 import { createMiddleware } from 'hono/factory'
 
@@ -619,7 +618,7 @@ app.post('/user', authenticate, async (c) => {
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts [Elysia]
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
@@ -629,18 +628,14 @@ const app = new Elysia()
         if (!authorization?.startsWith('Bearer '))
             return status(401)
 
-        return {
-            token: authorization.split(' ')[1]
-        }
-    })
-    .get('/token', ({ token, version }) => {
-        version
-        //  ^?
-
-
-        return token
-        //       ^?
-    })
+		return {
+			token: authorization.split(' ')[1]
+		}
+	})
+	// {  token: string, version: number }
+	.get('/token', ({ token, version }) => {
+		return token
+	})
 ```
 
 :::
@@ -675,15 +670,7 @@ Hono 使用回调函数定义可重用的路由特定中间件，而 Elysia 使�
 
 ::: code-group
 
-```ts twoslash [Hono]
-const findUser = (authorization?: string) => {
-    return {
-        name: 'Jane Doe',
-        role: 'admin' as const
-    }
-}
-// ---cut---
-// @errors: 2339 2589 2769
+```ts [Hono]
 import { Hono } from 'hono'
 import { createMiddleware } from 'hono/factory'
 
@@ -703,7 +690,8 @@ const role = (role: 'user' | 'admin') => createMiddleware(async (c, next) => {
 })
 
 app.get('/user/:id', role('admin'), (c) => {
-    return c.json(c.get('user'))
+	// Error: No overload matches this call.
+	return c.json(c.get('user'))
 })
 ```
 
@@ -720,14 +708,7 @@ app.get('/user/:id', role('admin'), (c) => {
 
 ::: code-group
 
-```ts twoslash [Elysia]
-const findUser = (authorization?: string) => {
-    return {
-        name: 'Jane Doe',
-        role: 'admin' as const
-    }
-}
-// ---cut---
+```ts [Elysia]
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
@@ -739,16 +720,16 @@ const app = new Elysia()
                 if (user.role !== role)
                     return status(401)
 
-                return {
-                    user
-                }
-            }
-        })
-    })
-    .get('/token', ({ user }) => user, {
-    //                 ^?
-        role: 'admin'
-    })
+				return {
+					user
+				}
+			}
+		})
+	})
+	// { user: User }
+	.get('/token', ({ user }) => user, {
+		role: 'admin'
+	})
 ```
 
 :::
@@ -815,7 +796,7 @@ app.get('/error', (req, res) => {
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts [Elysia]
 import { Elysia } from 'elysia'
 
 class CustomError extends Error {
@@ -844,11 +825,6 @@ const app = new Elysia()
 	// 全局错误处理器
 	.onError(({ error, code }) => {
 		if(code === 'CUSTOM')
-		// ^?
-
-
-
-
 			return {
 				message: '出了点问题！',
 				error
@@ -1203,9 +1179,9 @@ export default app
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts [Elysia]
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi' // [!code ++]
+import { openapi } from '@elysia/openapi' // [!code ++]
 
 const app = new Elysia()
 	.use(openapi()) // [!code ++]
@@ -1218,7 +1194,6 @@ const app = new Elysia()
 		)
 	})
 	.post('/users', ({ body }) => body, {
-	//                  ^?
 		body: 'user',
 		response: {
 			201: 'user'
@@ -1319,9 +1294,9 @@ describe('GET /', () => {
 
 另外，Elysia 还提供了一个名为 [Eden](/eden/overview) 的辅助库，用于端到端类型安全，允许我们在测试中进行自动补全和完整的类型安全。
 
-```ts twoslash [Elysia]
+```ts [Elysia]
 import { Elysia } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import { describe, expect, it } from 'bun:test'
 
 const app = new Elysia().get('/hello', 'Hello World')
@@ -1331,10 +1306,9 @@ describe('GET /', () => {
     it('should return Hello World', async () => {
         const { data, error, status } = await api.hello.get()
 
-        expect(status).toBe(200)
-        expect(data).toBe('Hello World')
-        //      ^?
-    })
+		expect(status).toBe(200)
+		expect(data).toBe('Hello World')
+	})
 })
 ```
 
@@ -1347,7 +1321,7 @@ describe('GET /', () => {
 
 ::: code-group
 
-```ts twoslash [Hono]
+```ts [Hono]
 import { Hono } from 'hono'
 import { hc } from 'hono/client'
 import { z } from 'zod'
@@ -1373,10 +1347,8 @@ const response = await client.mirror.$post({
     }
 })
 
+// { message: string }
 const data = await response.json()
-//     ^?
-
-console.log(data)
 ```
 
 :::
@@ -1392,9 +1364,9 @@ console.log(data)
 
 ::: code-group
 
-```ts twoslash [Elysia]
+```ts [Elysia]
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .post('/mirror', ({ body }) => body, {
@@ -1410,20 +1382,11 @@ const { data, error } = await api.mirror.post({
 })
 
 if (error)
-    throw error
-    //     ^?
+	// { status: 422, body: { message: 'Invalid request body', details: [...] } }
+	throw error
 
-
-
-
-
+// { message: 'Hello World' }
 console.log(data)
-//          ^?
-
-
-
-// ---cut-after---
-console.log('ok')
 ```
 
 :::

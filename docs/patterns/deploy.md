@@ -226,7 +226,7 @@ bun build --compile --external pg --outfile server src/index.ts
 		"pg": "^8.15.6"
 	},
 	"devDependencies": {
-		"@elysiajs/opentelemetry": "^1.2.0",
+		"@elysia/opentelemetry": "^1.2.0",
 		"@opentelemetry/instrumentation-pg": "^0.52.0",
 		"@types/pg": "^8.11.14",
 		"elysia": "^1.2.25"

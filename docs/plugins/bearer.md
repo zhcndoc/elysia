@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: Elysia 的插件，用于获取根据 RFC6750 指定的 Bearer 令牌。首先通过 "bun add @elysiajs/bearer" 安装该插件。
+      content: Elysia 的插件，用于按 RFC6750 规范获取 Bearer 令牌。请先通过安装插件开始，命令为 "bun add @elysia/bearer"。
 
   - - meta
     - name: 'og:description'
-      content: Elysia 的插件，用于获取根据 RFC6750 指定的 Bearer 令牌。首先通过 "bun add @elysiajs/bearer" 安装该插件。
+      content: Elysia 的插件，用于按 RFC6750 规范获取 Bearer 令牌。请先通过安装插件开始，命令为 "bun add @elysia/bearer"。
 ---
 
 # Bearer 插件
@@ -19,13 +19,13 @@ head:
 
 通过以下命令安装：
 ```bash
-bun add @elysiajs/bearer
+bun add @elysia/bearer
 ```
 
-然后使用它：
-```typescript twoslash
+然后这样使用：
+```typescript
 import { Elysia } from 'elysia'
-import { bearer } from '@elysiajs/bearer'
+import { bearer } from '@elysia/bearer'
 
 const app = new Elysia()
     .use(bearer())
@@ -45,4 +45,4 @@ const app = new Elysia()
 
 该插件用于获取在 [RFC6750](https://www.rfc-editor.org/rfc/rfc6750#section-2) 中指定的 Bearer 令牌。
 
-This plugin DOES NOT handle authentication validation for your server. Instead, the plugin leaves the decision to developers to apply the logic for handling validation checks themselves.
+此插件不会为你的服务器处理身份验证校验。相反，插件将决定权留给开发者，让其自行实现处理验证检查的逻辑。

@@ -37,7 +37,7 @@ Elysia 是基于 OpenAPI 构建的，开箱即支持 OpenAPI 文档。
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi' // [!code ++]
+import { openapi } from '@elysia/openapi' // [!code ++]
 
 new Elysia()
 	.use(openapi()) // [!code ++]
@@ -55,12 +55,12 @@ new Elysia()
 
 添加后，我们可以在 <a href="/playground/preview" target="_blank">**/openapi**</a> 访问我们的 API 文档。
 
-## Detail
+## 详细信息
 我们可以通过 `detail` 字段提供符合 OpenAPI 3.0 规范的 API 文档（带自动补全）：
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia()
 	.use(openapi())
@@ -86,7 +86,7 @@ new Elysia()
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia()
 	.use(openapi())
@@ -131,7 +131,7 @@ new Elysia()
 ```typescript
 import { Elysia } from 'elysia'
 
-import { openapi, fromTypes } from '@elysiajs/openapi' // [!code ++]
+import { openapi, fromTypes } from '@elysia/openapi' // [!code ++]
 
 new Elysia()
 	.use(openapi({

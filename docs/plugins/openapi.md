@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 适用于 Elysia 的插件，添加支持为 Elysia 服务器生成 Swagger API 文档。开始使用前请先通过 "bun add @elysiajs/swagger" 安装该插件。
+        content: 适用于 Elysia 的插件，支持为 Elysia Server 生成 Swagger API 文档。请先通过 "bun add @elysia/swagger" 安装插件。
 
     - - meta
       - name: 'og:description'
-        content: 适用于 Elysia 的插件，添加支持为 Elysia 服务器生成 Swagger API 文档。开始使用前请先通过 "bun add @elysiajs/swagger" 安装该插件。
+        content: 适用于 Elysia 的插件，支持为 Elysia Server 生成 Swagger API 文档。请先通过 "bun add @elysia/swagger" 安装插件。
 ---
 
 <script setup lang="ts">
@@ -25,14 +25,14 @@ import TutorialBadge from '../components/arona/badge.vue'
 安装命令：
 
 ```bash
-bun add @elysiajs/openapi
+bun add @elysia/openapi
 ```
 
 然后使用该插件：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia()
     .use(openapi())
@@ -63,7 +63,7 @@ detail 字段是一个对象，用于描述用于 API 文档的路由信息。
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 new Elysia().use(openapi()).post('/sign-in', ({ body }) => body, {
     body: t.Object(
@@ -136,7 +136,7 @@ OpenAPI 文档信息
 
 ### 示例
 ```typescript
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 import { toJsonSchema } from '@valibot/to-json-schema'
 
 openapi({

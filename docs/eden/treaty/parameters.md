@@ -30,7 +30,7 @@ head:
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .post('/user', ({ body }) => body, {
@@ -72,7 +72,7 @@ api.user.post({
 
 ```typescript
 import { Elysia } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .get('/hello', () => 'hi')
@@ -94,7 +94,7 @@ api.hello.get({
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .post('/user', () => 'hi', {
@@ -119,7 +119,7 @@ Eden Treaty 是 fetch 的包装器；我们可以通过传递参数给 `$fetch` 
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .get('/hello', () => 'hi')
@@ -154,7 +154,7 @@ clearTimeout(cancelRequest)
 假设我们的服务器如下：
 ```typescript
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .post('/image', ({ body: { image, title } }) => title, {

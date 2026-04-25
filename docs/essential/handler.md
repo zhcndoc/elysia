@@ -65,7 +65,7 @@ new Elysia()
 
 **上下文**包含每个请求唯一的请求信息，除了 `store` <small>(全局可变状态)</small>，不被共享。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -135,7 +135,7 @@ new Elysia()
 
 **set** 是一个可变的属性，构成响应，可通过 `Context.set` 访问。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -150,7 +150,7 @@ new Elysia()
 ### set.headers
 允许我们以对象形式追加或删除响应头。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -174,7 +174,7 @@ redirect <Badge type="warning">遗留</Badge>
 
 将请求重定向到其他资源。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -202,7 +202,7 @@ new Elysia()
 
 建议在只需返回特定状态码，但允许用户返回自定义值的插件中使用，例如 HTTP 201/206 或 403/405 等。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -223,14 +223,13 @@ HTTP 状态码指示响应类型。如果路由处理程序成功执行且无错
 
 你也可以使用状态码的常用名字替代数字来设置状态码。
 
-```typescript twoslash
-// @errors 2322
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
     .get('/', ({ set }) => {
-        set.status
-          // ^?
+        set.status = 418
+
         return 'Kirifuji Nagisa'
     })
     .listen(3000)
@@ -243,7 +242,7 @@ Elysia 提供了一个可变存储，用于与 Cookie 交互。
 
 无需显式调用 get/set；你可以直接提取 Cookie 名称，读取或更新其值。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -261,7 +260,7 @@ new Elysia()
 ## Redirect
 将请求重定向到其他资源。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -324,7 +323,7 @@ const app = new Elysia()
 
 Elysia 通过提供 `sse` 工具支持 [服务器发送事件](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)。
 
-```typescript twoslash
+```typescript
 import { Elysia, sse } from 'elysia'
 
 new Elysia()
@@ -346,7 +345,7 @@ new Elysia()
 
 头部只能在第一个数据块（chunk）被 `yield` 之前设置。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 const app = new Elysia()
@@ -388,9 +387,9 @@ const app = new Elysia()
 ### Eden
 [Eden](/eden/overview) 会将流式响应解释为 `AsyncGenerator`，允许我们用 `for await` 循环消费流。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
 	.get('/ok', function* () {

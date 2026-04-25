@@ -26,7 +26,7 @@ head:
 // test/index.test.ts
 import { describe, expect, it } from 'bun:test'
 
-import { edenTreaty } from '@elysiajs/eden'
+import { edenTreaty } from '@elysia/eden'
 
 const app = new Elysia()
     .get('/', () => 'hi')

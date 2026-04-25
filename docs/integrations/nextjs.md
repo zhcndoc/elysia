@@ -28,7 +28,7 @@ head:
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia({ prefix: '/api' })
-    .get('/', 'Hello Nextjs')
+    .get('/', '你好 Nextjs')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
@@ -67,7 +67,7 @@ pnpm add @sinclair/typebox openapi-types
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia({ prefix: '/user' }) // [!code ++]
-	.get('/', 'Hello Nextjs')
+	.get('/', '你好 Nextjs')
     .post('/', ({ body }) => body, {
         body: t.Object({
             name: t.String()
@@ -100,7 +100,7 @@ export const POST = app.fetch
 import { Elysia } from 'elysia'
 
 export const app = new Elysia({ prefix: '/api' }) // [!code ++]
-	.get('/', 'Hello Nextjs')
+	.get('/', '你好 Nextjs')
 	.post(
 		'/user',
 		({ body }) => body,
@@ -122,7 +122,7 @@ export const POST = app.fetch
 ::: code-group
 
 ```typescript [lib/eden.ts]
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import type { app } from '../app/api/[[...slugs]]/route'
 
 // .api 用以进入 /api 前缀
@@ -147,7 +147,7 @@ import { api } from '../lib/eden'
 export default async function Page() {
 	const message = await api.get()
 
-	return <h1>Hello, {message}</h1>
+	return <h1>你好，{message}</h1>
 }
 ```
 

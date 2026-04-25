@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，支持为 Elysia Server 提供静态文件/文件夹的服务。首先通过 "bun add @elysiajs/static" 安装插件。
+        content: Elysia 的插件，为 Elysia Server 添加对提供静态文件/文件夹服务的支持。首先通过执行 "bun add @elysia/static" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，支持为 Elysia Server 提供静态文件/文件夹的服务。首先通过 "bun add @elysiajs/static" 安装插件。
+        content: Elysia 的插件，为 Elysia Server 添加对提供静态文件/文件夹服务的支持。首先通过执行 "bun add @elysia/static" 安装该插件。
 ---
 
 # 静态插件
@@ -19,13 +19,13 @@ head:
 
 安装方法：
 ```bash
-bun add @elysiajs/static
+bun add @elysia/static
 ```
 
 然后使用它：
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { staticPlugin } from '@elysiajs/static'
+import { staticPlugin } from '@elysia/static'
 
 new Elysia()
     .use(staticPlugin())
@@ -69,7 +69,7 @@ new Elysia()
 ### staticLimit
 @default `1024`
 
-默认为，静态插件将以静态名称将路径注册到路由器，如果超过限制，路径将懒惰地添加到路由器以减少内存使用。
+默认情况下，静态插件将以静态名称将路径注册到路由器，如果超过限制，路径将懒惰地添加到路由器以减少内存使用。
 在内存和性能之间权衡。
 
 ### alwaysStatic

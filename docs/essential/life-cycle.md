@@ -44,7 +44,7 @@ Elysia的生命周期事件可以如下所示。
 ![Elysia 生命周期图](/assets/lifecycle-chart.svg)
 > 点击图片放大
 
-Here are the lifecycle events in order:
+以下是按顺序排列的生命周期事件：
 
 <Deck>
     <Card title="请求" href="#request">
@@ -94,7 +94,7 @@ Elysia的生命周期可以用如下图示表示。
 
 ## 钩子
 
-Each function that intercepts the **lifecycle event** is called a **"hook"**.
+每个拦截 **生命周期事件** 的函数都称为 **“钩子”**。
 
 <small>（函数“钩入”(hook) 生命周期事件）</small>
 
@@ -115,7 +115,7 @@ Each function that intercepts the **lifecycle event** is called a **"hook"**.
 
 ```typescript
 import { Elysia } from 'elysia'
-import { isHtml } from '@elysiajs/html'
+import { isHtml } from '@elysia/html'
 
 new Elysia()
     .get('/', () => '<h1>Hello World</h1>', {
@@ -143,7 +143,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { isHtml } from '@elysiajs/html'
+import { isHtml } from '@elysia/html'
 
 new Elysia()
     .get('/none', () => '<h1>Hello World</h1>')
@@ -218,12 +218,12 @@ new Elysia()
 
 这个例子中，只会打印 **1**，因为事件是在插件之后注册的。
 
-Every event follows the same rule except `onRequest`.
-<small>Because onRequest happens on request, it doesn't know which route to apply it to, so it's a global event</small>
+每个事件都遵循相同的规则，`onRequest` 除外。
+<small>因为 onRequest 在请求发生时执行，它不知道应该应用到哪个路由，所以它是一个全局事件</small>
 
 ## 请求 (Request)
 
-The first lifecycle event to be executed for every new request.
+每个新请求执行的第一个生命周期事件。
 
 由于 `onRequest` 仅提供最重要的上下文以减少额外开销，建议用于以下场景：
 
@@ -252,7 +252,7 @@ new Elysia()
 
 ### 预上下文 (Pre-context)
 
-The `onRequest` context is typed as `PreContext`, a minimal representation of `Context` with the following attributes:
+`onRequest` 上下文的类型为 `PreContext`，这是 `Context` 的一个最小表示，具有以下属性：
 request: `Request`
 
 - set: `Set`
@@ -265,7 +265,7 @@ request: `Request`
 
 解析是 Express 中**主体解析器**的等价物。
 
-A function to parse the body; the return value will be appended to `Context.body`. If not, Elysia will continue iterating through additional parser functions assigned by `onParse` until either body is assigned or all parsers have been executed.
+用于解析请求体的函数；其返回值将附加到 `Context.body`。如果没有，Elysia 将继续迭代由 `onParse` 分配的其他解析函数，直到 body 被赋值或所有解析器都已执行完毕。
 
 默认情况下，Elysia 解析以下内容类型的请求体：
 
@@ -292,7 +292,7 @@ new Elysia().onParse(({ request, contentType }) => {
 
 ### 上下文
 
-`onParse` context extends from `Context` with the following additional properties:
+`onParse` 上下文从 `Context` 扩展而来，并附加以下属性：
 
 - contentType: 请求的 Content-Type 头部
 
@@ -317,9 +317,9 @@ new Elysia().post('/', ({ body }) => body, {
 })
 ```
 
-Elysia reads the body schema and finds that the type is entirely an object, so it's likely that the body will be JSON. Elysia then picks the JSON body parser function ahead of time and tries to parse the body.
+Elysia 读取 body schema 并发现类型完全是一个对象，因此 body 很可能是 JSON。Elysia 然后会提前选择 JSON 请求体解析函数并尝试解析 body。
 
-Here are the criteria that Elysia uses to select the body parser type:
+Elysia 用于选择请求体解析器类型的标准如下：
 
 - `application/json`：当体类型为 `t.Object`
 - `multipart/form-data`：体类型为一级深度包含 `t.File` 的 `t.Object`
@@ -330,7 +330,7 @@ Here are the criteria that Elysia uses to select the body parser type:
 
 ### 显式解析器
 
-However, in some scenarios if Elysia fails to pick the correct body parser function, we can explicitly tell Elysia to use a certain function by specifying `type`.
+不过，在某些场景下，如果 Elysia 未能选择正确的请求体解析函数，我们可以通过指定 `type` 显式告诉 Elysia 使用某个函数。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -363,8 +363,8 @@ type ContentType = |
     | 'application/x-www-form-urlencoded'
 ```
 
-### Skip Body Parsing
-When you need to integrate a third-party library with an HTTP handler like `trpc` or `orpc`, and it throws `Body is already used`.
+### 跳过请求体解析
+当你需要将第三方库与诸如 `trpc` 或 `orpc` 这样的 HTTP 处理器集成，并且它抛出 `Body is already used` 时。
 
 当你需要集成第三方 HTTP 处理库（如 `trpc`、`orpc`），并遇到抛出 `Body is already used` 错误时，可以跳过 Elysia 的请求体解析。
 
@@ -387,7 +387,7 @@ new Elysia()
 
 ### 自定义解析器
 
-You can register a custom parser with `parser`:
+你可以使用 `parser` 注册自定义解析器：
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -407,8 +407,8 @@ new Elysia()
 
 建议在以下场景使用转换：
 
-- Mutating the existing context to conform with validation.
-- `derive` is based on `onTransform` with support for providing type.
+- 修改现有上下文以符合验证。
+- `derive` 基于 `onTransform`，并支持提供类型。
 
 #### 示例
 
@@ -435,7 +435,7 @@ new Elysia()
 
 在**验证之前**将新值附加到上下文。它与**转换**存在于同一个调用栈。
 
-Unlike **state** and **decorate**, which assign values before the server starts, **derive** assigns a property when each request happens. This allows us to extract a piece of information into a property.
+与 **state** 和 **decorate** 不同，后两者是在服务器启动前分配值，而 **derive** 会在每次请求发生时分配一个属性。这使我们能够将一部分信息提取到一个属性中。
 
 ```typescript
 import { Elysia } from 'elysia'
@@ -453,12 +453,12 @@ new Elysia()
 
 因为 **derive** 会在每个请求开始时赋值，所以能够访问请求属性，比如 **headers**、**query**、**body**，而 **store** 和 **decorate** 则不能。
 
-Unlike **state** and **decorate**, properties assigned by **derive** are unique and not shared with other requests.
+与 **state** 和 **decorate** 不同，**derive** 分配的属性是独有的，不会与其他请求共享。
 
 ::: tip
 你可能大多数情况下更想使用 [resolve](#resolve)。
 
-Resolve is similar to derive but execute after validation. This makes resolve more secure as we can validate the incoming data before using it to derive new properties.
+Resolve 类似于 derive，但会在验证之后执行。这使得 resolve 更安全，因为我们可以在使用传入数据派生新属性之前先验证它。
 :::
 
 ### 队列
@@ -642,7 +642,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { isHtml } from '@elysiajs/html'
+import { isHtml } from '@elysia/html'
 
 new Elysia()
     .get('/', () => '<h1>你好，世界</h1>', {
@@ -670,7 +670,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { isHtml } from '@elysiajs/html'
+import { isHtml } from '@elysia/html'
 
 new Elysia()
     .get('/', () => '<h1>你好，世界</h1>', {

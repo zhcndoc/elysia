@@ -7,15 +7,15 @@ head:
 
   - - meta
     - name: 'description'
-      content: 一个像 Fetch 的替代品，速度更快的类型推断，与 Eden Treaty 相比。使用 Eden Fetch，您可以以端到端的类型安全性向 Elysia 服务器发起请求，而无需代码生成。
+      content: 一个类似 Fetch 的替代品，与 Eden Treaty 相比具有更快的类型推断。使用 Eden Fetch，您可以以端到端的类型安全性向 Elysia 服务器发起请求，而无需代码生成。
 
   - - meta
     - name: 'og:description'
-      content: 一个像 Fetch 的替代品，速度更快的类型推断，与 Eden Treaty 相比。使用 Eden Fetch，您可以以端到端的类型安全性向 Elysia 服务器发起请求，而无需代码生成。
+      content: 一个类似 Fetch 的替代品，与 Eden Treaty 相比具有更快的类型推断。使用 Eden Fetch，您可以以端到端的类型安全性向 Elysia 服务器发起请求，而无需代码生成。
 ---
 
 # Eden Fetch
-一个像 Fetch 的替代品，与 Eden Treaty 相比。
+一个类似 Fetch 的替代品，与 Eden Treaty 相比。
 
 使用 Eden Fetch，可以使用 Fetch API 以类型安全的方式与 Elysia 服务器交互。
 
@@ -42,7 +42,7 @@ export type App = typeof app
 
 然后导入服务器类型，并在客户端使用 Elysia API：
 ```typescript
-import { edenFetch } from '@elysiajs/eden'
+import { edenFetch } from '@elysia/eden'
 import type { App } from './server'
 
 const fetch = edenFetch<App>('http://localhost:3000')
@@ -70,7 +70,7 @@ const nendoroid = await fetch('/mirror', {
 ## 错误处理
 您可以像处理 Eden Treaty 一样处理错误：
 ```typescript
-import { edenFetch } from '@elysiajs/eden'
+import { edenFetch } from '@elysia/eden'
 import type { App } from './server'
 
 const fetch = edenFetch<App>('http://localhost:3000')

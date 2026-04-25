@@ -3,15 +3,15 @@ title: 服务器计时插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-        content: 服务器计时插件 - ElysiaJS
+      content: 服务器计时插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，通过服务器计时 API 进行性能审计。首先通过 "bun add @elysiajs/server-timing" 安装该插件。
+      content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，通过服务器计时 API 进行性能审计。首先通过 "bun add @elysiajs/server-timing" 安装该插件。
+      content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
 ---
 
 # 服务器计时插件
@@ -19,13 +19,13 @@ head:
 
 安装方法：
 ```bash
-bun add @elysiajs/server-timing
+bun add @elysia/server-timing
 ```
 
 然后使用它：
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { serverTiming } from '@elysiajs/server-timing'
+import { serverTiming } from '@elysia/server-timing'
 
 new Elysia()
     .use(serverTiming())
@@ -76,9 +76,9 @@ Trace 接受以下对象：
 ## 允许条件
 您可以通过 `allow` 属性在特定路由上禁用服务器计时
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
-import { serverTiming } from '@elysiajs/server-timing'
+import { serverTiming } from '@elysia/server-timing'
 
 new Elysia()
     .use(

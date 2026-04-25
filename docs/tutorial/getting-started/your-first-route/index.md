@@ -98,7 +98,7 @@ new Elysia()
 
 要定义动态路径，我们可以使用冒号 `:` 之后跟名称。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -125,7 +125,7 @@ new Elysia()
 ### 可选路径参数
 我们可以通过在参数名称后添加问号 `?` 来使路径参数变为可选。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()
@@ -153,7 +153,7 @@ new Elysia()
 
 要定义通配符，我们可以使用星号 `*`。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()

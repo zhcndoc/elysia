@@ -53,13 +53,13 @@ new Elysia()
     .listen(3000)
 ```
 
-Using an inline value can be useful for static resources like **files**.
+使用内联值对于像 **文件** 这样的静态资源可能很有用。
 
 ## 上下文
 
 包含有关每个请求的信息。它作为处理器的唯一参数传递。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
 
 new Elysia()

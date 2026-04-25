@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: Elysia 的插件，增加对 OpenTelemetry 的支持。开始时请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+      content: Elysia 的插件，用于添加 OpenTelemetry 支持。请先通过 "bun add @elysia/opentelemetry" 安装该插件。
 
   - - meta
     - name: 'og:description'
-      content: Elysia 的插件，增加对 OpenTelemetry 的支持。开始时请使用 "bun add @elysiajs/opentelemetry" 安装插件。
+      content: Elysia 的插件，用于添加 OpenTelemetry 支持。请先通过 "bun add @elysia/opentelemetry" 安装该插件。
 ---
 
 # OpenTelemetry
@@ -20,11 +20,11 @@ head:
 此页面是 **OpenTelemetry** 的 **配置参考**。如果您想要设置和集成 OpenTelemetry，建议您查看 [与 OpenTelemetry 集成](/patterns/opentelemetry)。
 :::
 
-要开始使用 OpenTelemetry，请安装 `@elysiajs/opentelemetry` 并将插件应用于任意实例。
+要开始使用 OpenTelemetry，请安装 `@elysia/opentelemetry` 并将插件应用到任意实例。
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { opentelemetry } from '@elysiajs/opentelemetry'
+import { opentelemetry } from '@elysia/opentelemetry'
 
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'

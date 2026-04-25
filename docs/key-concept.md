@@ -26,7 +26,7 @@ const profile1 = new Elysia()
 const demo1 = new Elysia()
 	.use(profile1)
 	// 这里不会进行登录检查
-	.patch('/rename', () => 'Updated!')
+	.patch('/rename', () => '已更新！')
 
 const profile2 = new Elysia()
 	.onBeforeHandle({ as: 'global' }, ({ status }) => status(401))
@@ -111,7 +111,7 @@ const app = new Elysia()
 
 它可以是路由、存储、服务或其他任何东西。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 const store = new Elysia()
@@ -223,7 +223,7 @@ const main = new Elysia()
 
 为避免这种情况，Elysia 可以通过使用 `name` 和可选的 `seed` 属性为实例赋予**唯一标识符**来去重生命周期。
 
-```ts twoslash
+```ts
 import { Elysia } from 'elysia'
 
 // `name` 是唯一标识符
@@ -332,7 +332,7 @@ const app = new Elysia()
 
 如果您需要使用独立函数，比如 MVC 控制器模式，建议从内联函数中解构所需属性，以避免不必要的类型推断，如下所示：
 
-```ts twoslash
+```ts
 import { Elysia, t } from 'elysia'
 
 abstract class Controller {

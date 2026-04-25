@@ -7,28 +7,28 @@ head:
 
     - - meta
       - name: 'description'
-        content: 为 Elysia 添加运行 cronjob 支持的插件。首先，通过 "bun add @elysiajs/cron" 安装该插件。
+        content: Elysia 的插件，支持在 Elysia 服务器中运行 cronjob。请先通过 "bun add @elysia/cron" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Plugin for Elysia that adds support for running cron jobs in Elysia server. Start by installing the plugin with "bun add @elysiajs/cron".
+        content: Elysia 的插件，支持在 Elysia 服务器中运行 cron 任务。请先通过 "bun add @elysia/cron" 安装该插件。
 ---
 
 # Cron 插件
 
-This plugin adds support for running cron jobs in the Elysia server.
+此插件为 Elysia 服务器添加了运行 cron 任务的支持。
 
 通过以下方式安装：
 
 ```bash
-bun add @elysiajs/cron
+bun add @elysia/cron
 ```
 
 然后使用它：
 
-```typescript twoslash
+```typescript
 import { Elysia } from 'elysia'
-import { cron } from '@elysiajs/cron'
+import { cron } from '@elysia/cron'
 
 new Elysia()
 	.use(
@@ -47,7 +47,7 @@ new Elysia()
 
 ## cron
 
-Create a cron job for the Elysia server.
+为 Elysia 服务器创建一个 cron 任务。
 
 类型：
 
@@ -59,13 +59,13 @@ cron(config: CronConfig, callback: (Instance['store']) => void): this
 
 ### name
 
-注册到 `store` 的作业名称。
+注册到 `store` 的任务名称。
 
-这将用指定的名称将 cron 实例注册到 `store`，可以在后续流程中引用，例如停止作业。
+这将使用指定的名称把 cron 实例注册到 `store`，可在后续流程中引用，例如停止任务。
 
 ### pattern
 
-根据下面的 [cron 语法](https://en.wikipedia.org/wiki/Cron) 指定作业运行时间：
+根据下面的 [cron 语法](https://en.wikipedia.org/wiki/Cron) 指定任务运行时间：
 
 ```
 ┌────────────── 秒（可选）
@@ -92,11 +92,11 @@ Below is the config accepted by cronner.
 
 ### startAt
 
-作业的调度开始时间。
+任务的调度开始时间。
 
 ### stopAt
 
-作业的调度停止时间。
+任务的调度停止时间。
 
 ### maxRuns
 
@@ -116,11 +116,11 @@ Below is the config accepted by cronner.
 
 ## Stop cron job
 
-You can stop the cron job manually by accessing the cron job name registered to `store`.
+你可以通过访问注册到 `store` 的 cron 任务名称来手动停止该 cron 任务。
 
 ```typescript
 import { Elysia } from 'elysia'
-import { cron } from '@elysiajs/cron'
+import { cron } from '@elysia/cron'
 
 const app = new Elysia()
 	.use(
@@ -141,7 +141,7 @@ const app = new Elysia()
 		}) => {
 			heartbeat.stop()
 
-			return 'Stop heartbeat'
+			return '停止 heartbeat'
 		}
 	)
 	.listen(3000)
@@ -149,11 +149,11 @@ const app = new Elysia()
 
 ## 预定义模式
 
-您可以使用 `@elysiajs/cron/schedule` 中的预定义模式。
+你可以使用来自 `@elysia/cron/schedule` 的预定义模式
 
 ```typescript
 import { Elysia } from 'elysia'
-import { cron, Patterns } from '@elysiajs/cron'
+import { cron, Patterns } from '@elysia/cron'
 
 const app = new Elysia()
 	.use(
@@ -174,7 +174,7 @@ const app = new Elysia()
 		}) => {
 			heartbeat.stop()
 
-			return 'Stop heartbeat'
+			return '停止 heartbeat'
 		}
 	)
 	.listen(3000)
@@ -200,7 +200,7 @@ const app = new Elysia()
 | `.everySecond()`  | EVERY_SECOND                   |
 | `.everyMinute()`  | EVERY_MINUTE                   |
 | `.hourly()`       | EVERY_HOUR                     |
-| `.daily()`        | EVERY_DAY_AT_MIDNIGHT          |
+| `.daily()`       | EVERY_DAY_AT_MIDNIGHT          |
 | `.everyWeekday()` | EVERY_WEEKDAY                  |
 | `.everyWeekend()` | EVERY_WEEKEND                  |
 | `.weekly()`       | EVERY_WEEK                     |

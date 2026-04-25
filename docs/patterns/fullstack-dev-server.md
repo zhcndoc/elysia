@@ -32,7 +32,7 @@ Bun 1.3 引入了一个支持 HMR 的[全栈开发服务器](https://bun.com/doc
 1. 安装 Elysia 静态资源插件
 ```ts
 import { Elysia } from 'elysia'
-import { staticPlugin } from '@elysiajs/static'
+import { staticPlugin } from '@elysia/static'
 
 new Elysia()
 	.use(await staticPlugin()) // [!code ++]
@@ -111,7 +111,7 @@ root.render(<App />)
 
 ```ts
 import { Elysia } from 'elysia'
-import { staticPlugin } from '@elysiajs/static'
+import { staticPlugin } from '@elysia/static'
 
 new Elysia()
   	.use(

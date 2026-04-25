@@ -26,7 +26,7 @@ head:
 
 ```typescript
 import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
     .post('/user', ({ body: { name }, status }) => {
@@ -81,7 +81,7 @@ Eden 会将流响应或 [服务器发送事件](/essential/handler.html#server-s
 
 ```typescript twoslash [流]
 import { Elysia } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
 	.get('/ok', function* () {
@@ -100,7 +100,7 @@ for await (const chunk of data)
 
 ```typescript twoslash [服务器发送事件]
 import { Elysia, sse } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 const app = new Elysia()
 	.get('/ok', function* () {
@@ -142,7 +142,7 @@ Eden Treaty 提供了实用类型 `Treaty.Data<T>` 和 `Treaty.Error<T>` 用于�
 ```typescript twoslash
 import { Elysia, t } from 'elysia'
 
-import { treaty, Treaty } from '@elysiajs/eden'
+import { treaty, Treaty } from '@elysia/eden'
 
 const app = new Elysia()
 	.post('/user', ({ body: { name }, status }) => {

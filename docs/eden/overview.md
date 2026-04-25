@@ -7,11 +7,11 @@ head:
 
   - - meta
     - name: 'description'
-      content: 自始至终，Elysia 的 Elysia Eden 支持端到端类型安全。端到端类型安全是指系统中的每个组件都经过类型一致性检查，这意味着数据在组件之间传递时，只有当数据的类型兼容时才会进行传递。
+      content: 从头到尾，Elysia 的 Elysia Eden 支持端到端类型安全。端到端类型安全是指系统中的每个组件都经过类型一致性检查，这意味着数据在组件之间传递时，只有当数据的类型兼容时才会进行传递。
 
   - - meta
     - property: 'og:description'
-      content: 自始至终，Elysia 的 Elysia Eden 支持端到端类型安全。端到端类型安全是指系统中的每个组件都经过类型一致性检查，这意味着数据在组件之间传递时，只有当数据的类型兼容时才会进行传递。
+      content: 从头到尾，Elysia 的 Elysia Eden 支持端到端类型安全。端到端类型安全是指系统中的每个组件都经过类型一致性检查，这意味着数据在组件之间传递时，只有当数据的类型兼容时才会进行传递。
 ---
 
 <script setup lang="ts">
@@ -86,7 +86,7 @@ export type App = typeof app
 
 // @filename: index.ts
 // ---cut---
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import type { App } from './server'
 
 const app = treaty<App>('localhost:3000')
@@ -109,7 +109,7 @@ const { data: nendoroid, error } = await app.nendoroid({ id: 1895 }).put({
 ## Eden Fetch
 为偏好 fetch 语法的开发者提供的类似 fetch 的 Eden Treaty 替代方案。
 ```typescript
-import { edenFetch } from '@elysiajs/eden'
+import { edenFetch } from '@elysia/eden'
 import type { App } from './server'
 
 const fetch = edenFetch<App>('http://localhost:3000')

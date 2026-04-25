@@ -45,7 +45,7 @@ TypeBox API 是围绕 TypeScript 类型设计的，并与之类似。
 
 要创建第一个模式，从 Elysia 导入 **Elysia.t**，并从最基本的类型开始：
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
@@ -229,7 +229,7 @@ t.String({
 <td>
 
 ```typescript
-saltyaom@elysiajs.com
+saltyaom@elysia.com
 ```
 
 </td>
@@ -684,16 +684,11 @@ Elysia 默认使用 TypeBox。
 
 这与 TypeBox 中的行为不同，TypeBox 中可选是用来标记对象字段为可选。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
 	.get('/optional', ({ query }) => query, {
-                       // ^?
-
-
-
-
 		query: t.Optional(
 			t.Object({
 				name: t.String()

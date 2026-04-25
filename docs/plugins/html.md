@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: 为 Elysia 添加 HTML 返回快捷支持的插件。首先通过 "bun add @elysiajs/html" 安装插件。
+        content: Elysia 的插件，为在 Elysia 服务器中返回 HTML 提供快捷支持。请先通过 "bun add @elysia/html" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: 为 Elysia 添加 HTML 返回快捷支持的插件。首先通过 "bun add @elysiajs/html" 安装插件。
+        content: Elysia 的插件，为在 Elysia 服务器中返回 HTML 提供快捷支持。请先通过 "bun add @elysia/html" 安装该插件。
 ---
 
 # HTML 插件
@@ -21,7 +21,7 @@ head:
 安装方法：
 
 ```bash
-bun add @elysiajs/html
+bun add @elysia/html
 ```
 
 然后使用它：
@@ -30,7 +30,7 @@ bun add @elysiajs/html
 import React from 'react'
 // ---cut---
 import { Elysia } from 'elysia'
-import { html, Html } from '@elysiajs/html'
+import { html, Html } from '@elysia/html'
 
 new Elysia()
 	.use(html())
@@ -89,7 +89,7 @@ Elysia HTML 基于 [@kitajs/html](https://github.com/kitajs/html)，允许我们
 import React from 'react'
 // ---cut---
 import { Elysia } from 'elysia'
-import { html, Html } from '@elysiajs/html' // [!code ++]
+import { html, Html } from '@elysia/html' // [!code ++]
 
 new Elysia()
 	.use(html()) // [!code ++]
@@ -109,7 +109,7 @@ new Elysia()
 如果出现错误 `Cannot find name 'Html'. Did you mean 'html'?`，则必须将此导入添加到 JSX 模板中：
 
 ```tsx
-import { Html } from '@elysiajs/html'
+import { Html } from '@elysia/html'
 ```
 
 务必以大写字母书写。
@@ -122,7 +122,7 @@ Elysia HTML 基于 Kita HTML 插件，在编译时检测可能的 XSS 攻击。
 
 ```tsx
 import { Elysia, t } from 'elysia'
-import { html, Html } from '@elysiajs/html'
+import { html, Html } from '@elysia/html'
 
 new Elysia()
 	.use(html())

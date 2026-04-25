@@ -181,7 +181,7 @@ export type subApp = typeof plugin1 // [!code ++]
 在前端，你可以导入子应用而非整个应用。
 
 ```ts [frontend/src/index.ts]
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 import type { subApp } from 'backend/src'
 
 const api = treaty<subApp>('localhost:3000') // [!code ++]

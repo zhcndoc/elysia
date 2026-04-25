@@ -21,7 +21,7 @@ head:
 1. 通过以下命令安装插件：
 
 ```bash
-bun add elysia @elysiajs/eden
+bun add elysia @elysia/eden
 bun add -d nuxt-elysia
 ```
 

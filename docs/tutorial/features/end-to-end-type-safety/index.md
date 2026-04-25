@@ -33,11 +33,11 @@ import { code, testcases } from './data'
 
 # 端到端类型安全
 
-Elysia 提供了后端和前端之间的端到端类型安全 **无需代码生成**，使用 <DocLink href="/eden/overview">Eden</DocLink>，类似于 tRPC。
+Elysia 通过 <DocLink href="/eden/overview">Eden</DocLink> 在后端和前端之间提供端到端类型安全，**无需代码生成**，类似于 tRPC。
 
 ```typescript
 import { Elysia } from 'elysia'
-import { treaty } from '@elysiajs/eden'
+import { treaty } from '@elysia/eden'
 
 // 后端
 export const app = new Elysia()
@@ -52,7 +52,7 @@ const { data, error } = await client.get()
 console.log(data) // Hello World
 ```
 
-This works by inferring the types from the Elysia instance, and uses type hints to provide type safety for the client.
+这通过从 Elysia 实例推断类型来实现，并使用类型提示为客户端提供类型安全。
 
 请参见 <DocLink href="/eden/treaty/overview">Eden Treaty</DocLink>。
 

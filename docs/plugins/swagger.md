@@ -4,15 +4,15 @@ search: false
 head:
     - - meta
       - property: 'og:title'
-        content: Swagger 插件 - ElysiaJS
+      content: Swagger 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-        content: 为 Elysia 添加支持生成 Swagger API 文档的插件。通过 "bun add @elysiajs/swagger" 来安装插件。
+      content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: 这是一个为 Elysia 提供生成 Swagger API 文档支持的插件。首先通过 "bun add @elysiajs/swagger" 安装该插件。
+      content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
 ---
 
 ::: warning
@@ -26,14 +26,14 @@ Swagger 插件已废弃且不再维护。请改用 [OpenAPI 插件](/plugins/ope
 安装命令：
 
 ```bash
-bun add @elysiajs/swagger
+bun add @elysia/swagger
 ```
 
 然后这样使用它：
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { swagger } from '@elysia/swagger'
 
 new Elysia()
     .use(swagger())
@@ -98,7 +98,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { swagger } from '@elysia/swagger'
 
 new Elysia()
     .use(
@@ -113,7 +113,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { swagger } from '@elysia/swagger'
 
 new Elysia()
     .use(

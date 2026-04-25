@@ -7,11 +7,11 @@ head:
 
     - - meta
       - name: 'description'
-        content: Elysia 的插件，添加对在 Elysia 服务器上使用 GraphQL Yoga 的支持。开始可以使用“bun add graphql graphql-yoga @elysiajs/graphql-yoga”安装此插件。
+        content: 为 Elysia 添加支持在 Elysia 服务器上使用 GraphQL Yoga 的插件。首先使用 "bun add graphql graphql-yoga @elysia/graphql-yoga" 安装该插件。
 
     - - meta
       - name: 'og:description'
-        content: Elysia 的插件，添加对在 Elysia 服务器上使用 GraphQL Yoga 的支持。开始可以使用“bun add graphql graphql-yoga @elysiajs/graphql-yoga”安装此插件。
+        content: 为 Elysia 添加支持在 Elysia 服务器上使用 GraphQL Yoga 的插件。首先使用 "bun add graphql graphql-yoga @elysia/graphql-yoga" 安装该插件。
 ---
 
 # GraphQL Yoga 插件
@@ -21,14 +21,14 @@ head:
 安装方法：
 
 ```bash
-bun add @elysiajs/graphql-yoga
+bun add @elysia/graphql-yoga
 ```
 
 然后使用它：
 
 ```typescript
 import { Elysia } from 'elysia'
-import { yoga } from '@elysiajs/graphql-yoga'
+import { yoga } from '@elysia/graphql-yoga'
 
 const app = new Elysia()
 	.use(
@@ -66,7 +66,7 @@ Elysia 使用 [Mobius](https://github.com/saltyaom/mobius) 自动从 **typeDefs*
 
 ```ts
 import { Elysia } from 'elysia'
-import { yoga } from '@elysiajs/graphql-yoga'
+import { yoga } from '@elysia/graphql-yoga'
 
 const app = new Elysia()
 	.use(
@@ -79,8 +79,8 @@ const app = new Elysia()
 			context: {
 				name: 'Mobius'
 			},
-			// If context is a function, it doesn't appear here
-			// For some reason, it doesn't infer the context type
+			// 如果 context 是一个函数，这里不会出现
+			// 由于某种原因，它不会推断出 context 类型
 			useContext(_) {},
 			resolvers: {
 				Query: {

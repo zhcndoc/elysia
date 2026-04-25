@@ -22,19 +22,19 @@ Elysia 提供运行时适配器以在多个运行时环境中运行 Elysia，包
 ::: code-group
 
 ```bash [bun]
-bun add elysia @elysiajs/node
+bun add elysia @elysia/node
 ```
 
 ```bash [pnpm]
-pnpm add elysia @elysiajs/node
+pnpm add elysia @elysia/node
 ```
 
 ```bash [npm]
-npm install elysia @elysiajs/node
+npm install elysia @elysia/node
 ```
 
 ```bash [yarn]
-yarn add elysia @elysiajs/node
+yarn add elysia @elysia/node
 ```
 
 :::
@@ -43,7 +43,7 @@ yarn add elysia @elysiajs/node
 
 ```typescript
 import { Elysia } from 'elysia'
-import { node } from '@elysiajs/node' // [!code ++]
+import { node } from '@elysia/node' // [!code ++]
 
 const app = new Elysia({ adapter: node() }) // [!code ++]
 	.get('/', () => 'Hello Elysia')

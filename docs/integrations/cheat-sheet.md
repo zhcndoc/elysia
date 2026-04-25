@@ -75,7 +75,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## Return a file
+## 返回文件
 文件可以作为 formdata 响应返回
 
 响应必须是 1 级深度对象
@@ -150,17 +150,11 @@ new Elysia()
 ## 文件上传
 请参见 [验证#文件](/essential/validation#file)
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from 'elysia'
 
 new Elysia()
 	.post('/body', ({ body }) => body, {
-                    // ^?
-
-
-
-
-
 		body: t.Object({
 			file: t.File({ format: 'image/*' }),
 			multipleFiles: t.Files()
@@ -179,10 +173,10 @@ import { Elysia, t } from 'elysia'
 
 new Elysia()
     .onRequest(() => {
-        console.log('On request')
+        console.log('请求时')
     })
     .on('beforeHandle', () => {
-        console.log('Before handle')
+        console.log('处理前')
     })
     .post('/mirror', ({ body }) => body, {
         body: t.Object({
@@ -190,7 +184,7 @@ new Elysia()
             password: t.String()
         }),
         afterHandle: () => {
-            console.log("After handle")
+            console.log("处理后")
         }
     })
     .listen(3000)
@@ -216,7 +210,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## Custom context
+## 自定义上下文
 为路由上下文添加自定义变量
 
 参见 [上下文](/essential/handler.html#context)
@@ -234,7 +228,7 @@ new Elysia()
     .listen(3000)
 ```
 
-## Redirect
+## 重定向
 重定向响应
 
 参见 [处理器](/essential/handler.html#redirect)
@@ -292,7 +286,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { openapi } from '@elysiajs/openapi'
+import { openapi } from '@elysia/openapi'
 
 const app = new Elysia()
     .use(openapi())
@@ -301,7 +295,7 @@ const app = new Elysia()
 console.log(`在浏览器中访问 "${app.server!.url}openapi" 查看文档`);
 ```
 
-## Unit Test
+## 单元测试
 为你的 Elysia 应用编写单元测试
 
 参见 [单元测试](/patterns/unit-test)
@@ -324,7 +318,7 @@ describe('Elysia', () => {
 })
 ```
 
-## Custom body parser
+## 自定义 body 解析器
 创建自定义的请求体解析逻辑
 
 参见 [解析](/essential/life-cycle.html#parse)
@@ -346,7 +340,7 @@ new Elysia()
 
 ```typescript
 import { Elysia } from 'elysia'
-import { yoga } from '@elysiajs/graphql-yoga'
+import { yoga } from '@elysia/graphql-yoga'
 
 const app = new Elysia()
     .use(

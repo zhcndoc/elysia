@@ -17,9 +17,9 @@ head:
 # WebSocket
 天堂条约通过 `subscribe` 方法支持 WebSocket。
 
-```typescript twoslash
+```typescript
 import { Elysia, t } from "elysia";
-import { treaty } from "@elysiajs/eden";
+import { treaty } from "@elysia/eden";
 
 const app = new Elysia()
   .ws("/chat", {
