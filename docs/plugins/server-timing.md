@@ -3,15 +3,15 @@ title: 服务器计时插件 - ElysiaJS
 head:
     - - meta
       - property: 'og:title'
-      content: 服务器计时插件 - ElysiaJS
+        content: 服务器计时插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-      content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
+        content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
 
     - - meta
       - name: 'og:description'
-      content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
+        content: 用于通过 Server Timing API 进行性能审计的 Elysia 插件。首先使用 "bun add @elysia/server-timing" 安装该插件。
 ---
 
 # 服务器计时插件

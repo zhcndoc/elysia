@@ -4,15 +4,15 @@ search: false
 head:
     - - meta
       - property: 'og:title'
-      content: Swagger 插件 - ElysiaJS
+        content: Swagger 插件 - ElysiaJS
 
     - - meta
       - name: 'description'
-      content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
+        content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
 
     - - meta
       - name: 'og:description'
-      content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
+        content: Elysia 的插件，用于为 Elysia Server 生成 Swagger API 文档支持。请先通过“bun add @elysia/swagger”安装该插件。
 ---
 
 ::: warning

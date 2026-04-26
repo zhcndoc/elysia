@@ -6,7 +6,7 @@ import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs
 import lightbox from 'vitepress-plugin-lightbox'
 
 import tailwindcss from '@tailwindcss/vite'
-// import llmstxt from 'vitepress-plugin-llms'
+import llmstxt from 'vitepress-plugin-llms'
 import { analyzer } from 'vite-bundle-analyzer'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { comlink } from 'vite-plugin-comlink'
@@ -17,19 +17,8 @@ const description =
 
 export default defineConfig({
 	lang: 'zh-CN',
-  title: 'Elysia 中文文档',
+	title: 'Elysia 中文文档',
 	titleTemplate: ':title - Elysia 中文文档',
-	locales: {
-		root: {
-			label: '简体中文',
-			lang: 'zh'
-		},
-		en: {
-			label: 'English',
-			lang: 'en',
-			link: 'https://elysiajs.com/'
-		}
-	},
 	description,
 	ignoreDeadLinks: true,
 	lastUpdated: true,
@@ -193,20 +182,20 @@ export default defineConfig({
 			}),
 			tailwindcss(),
 			comlink(),
-			process.env.NODE_ENV === 'production'
-				? llmstxt({
-						description: 'Ergonomic Framework for Humans',
-						details: description,
-						ignoreFiles: [
-							'index.md',
-							'table-of-content.md',
-							'blog/*',
-							'public/*'
-						],
-						domain: 'https://elysiajs.com'
-					})
-				: undefined,
-			process.env.ANALYZE === 'true' ? analyzer() : undefined
+			// process.env.NODE_ENV === 'production'
+			// 	? llmstxt({
+			// 			description: 'Ergonomic Framework for Humans',
+			// 			details: description,
+			// 			ignoreFiles: [
+			// 				'index.md',
+			// 				'table-of-content.md',
+			// 				'blog/*',
+			// 				'public/*'
+			// 			],
+			// 			domain: 'https://elysiajs.com'
+			// 		})
+			// 	: undefined,
+			// process.env.ANALYZE === 'true' ? analyzer() : undefined
 		],
 		worker: {
 			plugins: () => [comlink()]
