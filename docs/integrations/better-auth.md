@@ -132,7 +132,7 @@ console.log(
 )
 ```
 ## 宏
-你可以结合使用 [macro](https://elysiajs.com/patterns/macro.html#macro) 与 [resolve](https://elysiajs.com/essential/handler.html#resolve)，在将请求传递给视图之前提供会话和用户信息。
+你可以将 [macro](https://elysiajs.com/patterns/macro.html#macro) 与 [resolve](https://elysiajs.com/patterns/macro#resolve) 结合使用，在传递给视图之前提供会话和用户信息。
 ```ts
 import { Elysia } from 'elysia'
 import { auth } from './auth'
