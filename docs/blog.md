@@ -27,7 +27,14 @@ head:
 <Blogs
   :blogs="[
       {
-        title: '比 Encore 快 2 倍 - 一年后',
+        title: 'Elysia 2 测试版——DayDream',
+		href: '/blog/elysia-20',
+		cover: 'elysia-20.webp',
+		detail: '从头开始彻底重写 Elysia。专注于性能、内存使用、启动时间和包大小。Elysia 2 是 Elysia 的新时代，采用全新架构，并支持 Ahead of Time（AOT）编译。',
+		date: '2026年7月30日'
+      },
+      {
+        title: '比 Encore 快 2 倍——一年后',
 		href: '/blog/elysia-v-encore',
 		cover: 'elysia-v-encore.webp',
 		detail: '经过 1.5 年的开发，Elysia 现在比 Encore 快 2 倍。更新了原始基准测试，并深入探讨了我们如何实现这一性能。',
