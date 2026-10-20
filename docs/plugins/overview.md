@@ -86,6 +86,7 @@ Elysia 旨在实现模块化和轻量化。
 -   [ETag](https://github.com/bogeychan/elysia-etag) - 自动生成 HTTP [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)
 -   [CDN Cache](https://github.com/johnny-woodtke/elysiajs-cdn-cache) - Elysia 的 Cache-Control 插件——不再需要手动设置 HTTP 头
 -   [Basic Auth](https://github.com/eelkevdbos/elysia-basic-auth) - 基本 HTTP 身份验证（使用 `request` 事件）
+-   [Intlayer](https://intlayer.org/doc/environment/elysia) - 用于本地化响应的国际化插件。
 -   [i18n](https://github.com/eelkevdbos/elysia-i18next) - 基于 [i18next](https://www.i18next.com/) 的 [i18n](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/i18n) 封装
 -   [Intlify](https://github.com/intlify/srvmid/blob/main/packages/elysia/README.md) - 国际化服务器中间件和工具
 -   [Elysia Request ID](https://github.com/gtramontina/elysia-requestid) - 添加/转发请求 ID（`X-Request-ID` 或自定义）
