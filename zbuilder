@@ -13,6 +13,7 @@ COPY --exclude=node_modules \
     --exclude=docs/.vitepress/dist \
     --exclude=docs/.vitepress/.temp \
     . .
+
 RUN bun run build
 
 FROM caddy:2-alpine
