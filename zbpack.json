@@ -1,8 +1,0 @@
-{
-  "app_dir": "/",
-  "build_command": "bun run build",
-  "ignore_dockerfile": true,
-  "install_command": "npm install -g bun && bun install",
-  "output_dir": "docs/.vitepress/dist",
-  "start_command": ""
-}

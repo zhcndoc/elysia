@@ -16,7 +16,6 @@ const description =
 	'适合人类的人体工学框架。由 Bun 强化的 TypeScript 框架，具有端到端类型安全、统一的类型系统和出色的开发人员体验'
 
 export default defineConfig({
-	buildConcurrency: 16,
 	lang: 'zh-CN',
 	title: 'Elysia 中文文档',
 	titleTemplate: ':title - Elysia 中文文档',
@@ -183,20 +182,20 @@ export default defineConfig({
 			}),
 			tailwindcss(),
 			comlink(),
-			// process.env.NODE_ENV === 'production'
-			// 	? llmstxt({
-			// 			description: 'Ergonomic Framework for Humans',
-			// 			details: description,
-			// 			ignoreFiles: [
-			// 				'index.md',
-			// 				'table-of-content.md',
-			// 				'blog/*',
-			// 				'public/*'
-			// 			],
-			// 			domain: 'https://elysiajs.com'
-			// 		})
-			// 	: undefined,
-			// process.env.ANALYZE === 'true' ? analyzer() : undefined
+			process.env.NODE_ENV === 'production'
+				? llmstxt({
+						description: 'Ergonomic Framework for Humans',
+						details: description,
+						ignoreFiles: [
+							'index.md',
+							'table-of-content.md',
+							'blog/*',
+							'public/*'
+						],
+						domain: 'https://elysiajs.com'
+					})
+				: undefined,
+			process.env.ANALYZE === 'true' ? analyzer() : undefined
 		],
 		worker: {
 			plugins: () => [comlink()]

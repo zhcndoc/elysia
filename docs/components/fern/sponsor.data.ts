@@ -12,6 +12,7 @@ export interface Sponsor {
         avatarUrl: string
     }
     createdAt: string
+    isOneTimePayment: boolean
     tier: {
         isOneTime: boolean
         isCustomAmount: boolean
@@ -42,13 +43,10 @@ const hidden = ['l2D']
 export default defineLoader({
     async load(): Promise<Sponsor[]> {
         try {
-            if (!process.env.GITHUB_TOKEN)
-                throw new Error('GITHUB_TOKEN is not set')
-
-            const result = await fetch('https://api.github.com/graphql', {
+            const result = await fetch('https://anymeta.top/github/graphql', {
                 method: 'POST',
                 headers: {
-                    Authorization: `bearer ${process.env.GITHUB_TOKEN}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     query: `query {
@@ -71,6 +69,7 @@ export default defineLoader({
 	                          }
 	                        }
 	                        createdAt
+	                        isOneTimePayment
 	                        tier {
 	                          isOneTime
 	                          isCustomAmount
@@ -89,7 +88,7 @@ export default defineLoader({
             return data
                 .filter(
                     (x) =>
-                        !x.tier.isOneTime &&
+                        !x.isOneTimePayment &&
                         !hidden.includes(x.sponsorEntity.login)
                 )
                 .sort(
@@ -101,6 +100,11 @@ export default defineLoader({
                 )
                 .map((sponsor) => ({
                     ...sponsor,
+                    tier: sponsor.tier ?? {
+                        isOneTime: false,
+                        isCustomAmount: false,
+                        monthlyPriceInDollars: 0
+                    },
                     duration: dayjs()
                         .from(dayjs(sponsor.createdAt))
                         .replace('in', 'for')
