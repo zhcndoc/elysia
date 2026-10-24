@@ -1,38 +1,19 @@
 FROM --platform=$BUILDPLATFORM oven/bun:1.4.2 AS bun
 
-FROM --platform=$BUILDPLATFORM node:24-bookworm AS build
+FROM --platform=$BUILDPLATFORM node:24-bookworm AS builder
 
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
+
 WORKDIR /app
 
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+COPY . .
 
-COPY --exclude=node_modules \
-    --exclude=docs/.vitepress/cache \
-    --exclude=docs/.vitepress/dist \
-    --exclude=docs/.vitepress/.temp \
-    . .
+RUN bun install --frozen-lockfile
 
 RUN bun run build
 
-FROM caddy:2-alpine
+FROM ikxin/caddy:latest
 
-COPY --from=build /app/docs/.vitepress/dist /srv
+COPY --from=builder /app/docs/.vitepress/dist /usr/share/caddy
 
-COPY <<'EOF' /etc/caddy/Caddyfile
-:80 {
-    root * /srv
-    encode zstd gzip
-
-    try_files {path} {path}.html
-    file_server
-
-    handle_errors 404 {
-        rewrite * /404.html
-        file_server
-    }
-}
-EOF
-
-EXPOSE 80
+EXPOSE 8080
